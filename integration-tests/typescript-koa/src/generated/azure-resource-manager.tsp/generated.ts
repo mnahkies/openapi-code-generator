@@ -51,28 +51,22 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  r,
+  b,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-const operationsListResponder = {
-  with200: r.with200<t_OperationListResult>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const operationsList = b((r) => ({
+  with200: r.with200<t_OperationListResult>(s_OperationListResult),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type OperationsListResponder = typeof operationsListResponder &
+type OperationsListResponder = (typeof operationsList)["responder"] &
   KoaRuntimeResponder
-
-const operationsListResponseValidator = responseValidationFactory(
-  [["200", s_OperationListResult]],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
 
 export type OperationsList = (
   params: Params<void, t_OperationsListQuerySchema, void, void>,
@@ -84,18 +78,16 @@ export type OperationsList = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesGetResponder = {
-  with200: r.with200<t_Employee>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesGet = b((r) => ({
+  with200: r.with200<t_Employee>(s_Employee),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type EmployeesGetResponder = typeof employeesGetResponder & KoaRuntimeResponder
-
-const employeesGetResponseValidator = responseValidationFactory(
-  [["200", s_Employee]],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
+type EmployeesGetResponder = (typeof employeesGet)["responder"] &
+  KoaRuntimeResponder
 
 export type EmployeesGet = (
   params: Params<
@@ -112,23 +104,17 @@ export type EmployeesGet = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesCreateOrUpdateResponder = {
-  with200: r.with200<t_Employee>,
-  with201: r.with201<t_Employee>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesCreateOrUpdate = b((r) => ({
+  with200: r.with200<t_Employee>(s_Employee),
+  with201: r.with201<t_Employee>(s_Employee),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type EmployeesCreateOrUpdateResponder =
-  typeof employeesCreateOrUpdateResponder & KoaRuntimeResponder
-
-const employeesCreateOrUpdateResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Employee],
-    ["201", s_Employee],
-  ],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
+  (typeof employeesCreateOrUpdate)["responder"] & KoaRuntimeResponder
 
 export type EmployeesCreateOrUpdate = (
   params: Params<
@@ -146,19 +132,16 @@ export type EmployeesCreateOrUpdate = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesUpdateResponder = {
-  with200: r.with200<t_Employee>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesUpdate = b((r) => ({
+  with200: r.with200<t_Employee>(s_Employee),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type EmployeesUpdateResponder = typeof employeesUpdateResponder &
+type EmployeesUpdateResponder = (typeof employeesUpdate)["responder"] &
   KoaRuntimeResponder
-
-const employeesUpdateResponseValidator = responseValidationFactory(
-  [["200", s_Employee]],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
 
 export type EmployeesUpdate = (
   params: Params<
@@ -175,23 +158,17 @@ export type EmployeesUpdate = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesDeleteResponder = {
-  with202: r.with202<void>,
-  with204: r.with204<void>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesDelete = b((r) => ({
+  with202: r.with202<void>(z.undefined()),
+  with204: r.with204<void>(z.undefined()),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type EmployeesDeleteResponder = typeof employeesDeleteResponder &
+type EmployeesDeleteResponder = (typeof employeesDelete)["responder"] &
   KoaRuntimeResponder
-
-const employeesDeleteResponseValidator = responseValidationFactory(
-  [
-    ["202", z.undefined()],
-    ["204", z.undefined()],
-  ],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
 
 export type EmployeesDelete = (
   params: Params<
@@ -209,23 +186,17 @@ export type EmployeesDelete = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesCheckExistenceResponder = {
-  with204: r.with204<void>,
-  with404: r.with404<void>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesCheckExistence = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with404: r.with404<void>(z.undefined()),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type EmployeesCheckExistenceResponder =
-  typeof employeesCheckExistenceResponder & KoaRuntimeResponder
-
-const employeesCheckExistenceResponseValidator = responseValidationFactory(
-  [
-    ["204", z.undefined()],
-    ["404", z.undefined()],
-  ],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
+  (typeof employeesCheckExistence)["responder"] & KoaRuntimeResponder
 
 export type EmployeesCheckExistence = (
   params: Params<
@@ -243,19 +214,16 @@ export type EmployeesCheckExistence = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesListByResourceGroupResponder = {
-  with200: r.with200<t_EmployeeListResult>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesListByResourceGroup = b((r) => ({
+  with200: r.with200<t_EmployeeListResult>(s_EmployeeListResult),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type EmployeesListByResourceGroupResponder =
-  typeof employeesListByResourceGroupResponder & KoaRuntimeResponder
-
-const employeesListByResourceGroupResponseValidator = responseValidationFactory(
-  [["200", s_EmployeeListResult]],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
+  (typeof employeesListByResourceGroup)["responder"] & KoaRuntimeResponder
 
 export type EmployeesListByResourceGroup = (
   params: Params<
@@ -272,19 +240,16 @@ export type EmployeesListByResourceGroup = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesListBySubscriptionResponder = {
-  with200: r.with200<t_EmployeeListResult>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesListBySubscription = b((r) => ({
+  with200: r.with200<t_EmployeeListResult>(s_EmployeeListResult),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type EmployeesListBySubscriptionResponder =
-  typeof employeesListBySubscriptionResponder & KoaRuntimeResponder
-
-const employeesListBySubscriptionResponseValidator = responseValidationFactory(
-  [["200", s_EmployeeListResult]],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
+  (typeof employeesListBySubscription)["responder"] & KoaRuntimeResponder
 
 export type EmployeesListBySubscription = (
   params: Params<
@@ -301,19 +266,16 @@ export type EmployeesListBySubscription = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
-const employeesMoveResponder = {
-  with200: r.with200<t_MoveResponse>,
-  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>,
+const employeesMove = b((r) => ({
+  with200: r.with200<t_MoveResponse>(s_MoveResponse),
+  withDefault: r.withDefault<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type EmployeesMoveResponder = typeof employeesMoveResponder &
+type EmployeesMoveResponder = (typeof employeesMove)["responder"] &
   KoaRuntimeResponder
-
-const employeesMoveResponseValidator = responseValidationFactory(
-  [["200", s_MoveResponse]],
-  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
-)
 
 export type EmployeesMove = (
   params: Params<
@@ -365,7 +327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .operationsList(input, operationsListResponder, ctx)
+        .operationsList(input, operationsList.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -373,7 +335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = operationsListResponseValidator(status, body)
+      ctx.body = operationsList.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -411,7 +373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .employeesGet(input, employeesGetResponder, ctx)
+        .employeesGet(input, employeesGet.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -419,7 +381,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesGetResponseValidator(status, body)
+      ctx.body = employeesGet.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -465,7 +427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .employeesCreateOrUpdate(input, employeesCreateOrUpdateResponder, ctx)
+        .employeesCreateOrUpdate(input, employeesCreateOrUpdate.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -473,7 +435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesCreateOrUpdateResponseValidator(status, body)
+      ctx.body = employeesCreateOrUpdate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -519,7 +481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .employeesUpdate(input, employeesUpdateResponder, ctx)
+        .employeesUpdate(input, employeesUpdate.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -527,7 +489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesUpdateResponseValidator(status, body)
+      ctx.body = employeesUpdate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -567,7 +529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .employeesDelete(input, employeesDeleteResponder, ctx)
+        .employeesDelete(input, employeesDelete.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -575,7 +537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesDeleteResponseValidator(status, body)
+      ctx.body = employeesDelete.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -615,7 +577,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .employeesCheckExistence(input, employeesCheckExistenceResponder, ctx)
+        .employeesCheckExistence(input, employeesCheckExistence.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -623,7 +585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesCheckExistenceResponseValidator(status, body)
+      ctx.body = employeesCheckExistence.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -664,7 +626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .employeesListByResourceGroup(
           input,
-          employeesListByResourceGroupResponder,
+          employeesListByResourceGroup.responder,
           ctx,
         )
         .catch((err) => {
@@ -674,7 +636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesListByResourceGroupResponseValidator(status, body)
+      ctx.body = employeesListByResourceGroup.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -710,7 +672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .employeesListBySubscription(
           input,
-          employeesListBySubscriptionResponder,
+          employeesListBySubscription.responder,
           ctx,
         )
         .catch((err) => {
@@ -720,7 +682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesListBySubscriptionResponseValidator(status, body)
+      ctx.body = employeesListBySubscription.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -766,7 +728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .employeesMove(input, employeesMoveResponder, ctx)
+        .employeesMove(input, employeesMove.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -774,7 +736,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = employeesMoveResponseValidator(status, body)
+      ctx.body = employeesMove.validator(status, body)
       ctx.status = status
       return next()
     },

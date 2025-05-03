@@ -1525,27 +1525,20 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  r,
+  b,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-const getAccountResponder = {
-  with200: r.with200<t_account>,
-  withDefault: r.withDefault<t_error>,
+const getAccount = b((r) => ({
+  with200: r.with200<t_account>(s_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetAccountResponder = typeof getAccountResponder & KoaRuntimeResponder
-
-const getAccountResponseValidator = responseValidationFactory(
-  [["200", s_account]],
-  s_error,
-)
+type GetAccountResponder = (typeof getAccount)["responder"] &
+  KoaRuntimeResponder
 
 export type GetAccount = (
   params: Params<
@@ -1562,19 +1555,14 @@ export type GetAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountLinksResponder = {
-  with200: r.with200<t_account_link>,
-  withDefault: r.withDefault<t_error>,
+const postAccountLinks = b((r) => ({
+  with200: r.with200<t_account_link>(s_account_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostAccountLinksResponder = typeof postAccountLinksResponder &
+type PostAccountLinksResponder = (typeof postAccountLinks)["responder"] &
   KoaRuntimeResponder
-
-const postAccountLinksResponseValidator = responseValidationFactory(
-  [["200", s_account_link]],
-  s_error,
-)
 
 export type PostAccountLinks = (
   params: Params<void, void, t_PostAccountLinksBodySchema, void>,
@@ -1586,19 +1574,14 @@ export type PostAccountLinks = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountSessionsResponder = {
-  with200: r.with200<t_account_session>,
-  withDefault: r.withDefault<t_error>,
+const postAccountSessions = b((r) => ({
+  with200: r.with200<t_account_session>(s_account_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostAccountSessionsResponder = typeof postAccountSessionsResponder &
+type PostAccountSessionsResponder = (typeof postAccountSessions)["responder"] &
   KoaRuntimeResponder
-
-const postAccountSessionsResponseValidator = responseValidationFactory(
-  [["200", s_account_session]],
-  s_error,
-)
 
 export type PostAccountSessions = (
   params: Params<void, void, t_PostAccountSessionsBodySchema, void>,
@@ -1610,33 +1593,26 @@ export type PostAccountSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsResponder = {
+const getAccounts = b((r) => ({
   with200: r.with200<{
     data: t_account[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_account)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/accounts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetAccountsResponder = typeof getAccountsResponder & KoaRuntimeResponder
-
-const getAccountsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_account)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/accounts")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetAccountsResponder = (typeof getAccounts)["responder"] &
+  KoaRuntimeResponder
 
 export type GetAccounts = (
   params: Params<
@@ -1661,18 +1637,14 @@ export type GetAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsResponder = {
-  with200: r.with200<t_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccounts = b((r) => ({
+  with200: r.with200<t_account>(s_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostAccountsResponder = typeof postAccountsResponder & KoaRuntimeResponder
-
-const postAccountsResponseValidator = responseValidationFactory(
-  [["200", s_account]],
-  s_error,
-)
+type PostAccountsResponder = (typeof postAccounts)["responder"] &
+  KoaRuntimeResponder
 
 export type PostAccounts = (
   params: Params<void, void, t_PostAccountsBodySchema | undefined, void>,
@@ -1684,19 +1656,14 @@ export type PostAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const deleteAccountsAccountResponder = {
-  with200: r.with200<t_deleted_account>,
-  withDefault: r.withDefault<t_error>,
+const deleteAccountsAccount = b((r) => ({
+  with200: r.with200<t_deleted_account>(s_deleted_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteAccountsAccountResponder = typeof deleteAccountsAccountResponder &
-  KoaRuntimeResponder
-
-const deleteAccountsAccountResponseValidator = responseValidationFactory(
-  [["200", s_deleted_account]],
-  s_error,
-)
+type DeleteAccountsAccountResponder =
+  (typeof deleteAccountsAccount)["responder"] & KoaRuntimeResponder
 
 export type DeleteAccountsAccount = (
   params: Params<
@@ -1713,19 +1680,14 @@ export type DeleteAccountsAccount = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountResponder = {
-  with200: r.with200<t_account>,
-  withDefault: r.withDefault<t_error>,
+const getAccountsAccount = b((r) => ({
+  with200: r.with200<t_account>(s_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetAccountsAccountResponder = typeof getAccountsAccountResponder &
+type GetAccountsAccountResponder = (typeof getAccountsAccount)["responder"] &
   KoaRuntimeResponder
-
-const getAccountsAccountResponseValidator = responseValidationFactory(
-  [["200", s_account]],
-  s_error,
-)
 
 export type GetAccountsAccount = (
   params: Params<
@@ -1742,19 +1704,14 @@ export type GetAccountsAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountResponder = {
-  with200: r.with200<t_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccount = b((r) => ({
+  with200: r.with200<t_account>(s_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostAccountsAccountResponder = typeof postAccountsAccountResponder &
+type PostAccountsAccountResponder = (typeof postAccountsAccount)["responder"] &
   KoaRuntimeResponder
-
-const postAccountsAccountResponseValidator = responseValidationFactory(
-  [["200", s_account]],
-  s_error,
-)
 
 export type PostAccountsAccount = (
   params: Params<
@@ -1771,17 +1728,14 @@ export type PostAccountsAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountBankAccountsResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountBankAccounts = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountBankAccountsResponder =
-  typeof postAccountsAccountBankAccountsResponder & KoaRuntimeResponder
-
-const postAccountsAccountBankAccountsResponseValidator =
-  responseValidationFactory([["200", s_external_account]], s_error)
+  (typeof postAccountsAccountBankAccounts)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountBankAccounts = (
   params: Params<
@@ -1798,17 +1752,15 @@ export type PostAccountsAccountBankAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const deleteAccountsAccountBankAccountsIdResponder = {
-  with200: r.with200<t_deleted_external_account>,
-  withDefault: r.withDefault<t_error>,
+const deleteAccountsAccountBankAccountsId = b((r) => ({
+  with200: r.with200<t_deleted_external_account>(s_deleted_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteAccountsAccountBankAccountsIdResponder =
-  typeof deleteAccountsAccountBankAccountsIdResponder & KoaRuntimeResponder
-
-const deleteAccountsAccountBankAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_deleted_external_account]], s_error)
+  (typeof deleteAccountsAccountBankAccountsId)["responder"] &
+    KoaRuntimeResponder
 
 export type DeleteAccountsAccountBankAccountsId = (
   params: Params<
@@ -1825,17 +1777,14 @@ export type DeleteAccountsAccountBankAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountBankAccountsIdResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const getAccountsAccountBankAccountsId = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountBankAccountsIdResponder =
-  typeof getAccountsAccountBankAccountsIdResponder & KoaRuntimeResponder
-
-const getAccountsAccountBankAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_external_account]], s_error)
+  (typeof getAccountsAccountBankAccountsId)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountBankAccountsId = (
   params: Params<
@@ -1852,17 +1801,14 @@ export type GetAccountsAccountBankAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountBankAccountsIdResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountBankAccountsId = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountBankAccountsIdResponder =
-  typeof postAccountsAccountBankAccountsIdResponder & KoaRuntimeResponder
-
-const postAccountsAccountBankAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_external_account]], s_error)
+  (typeof postAccountsAccountBankAccountsId)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountBankAccountsId = (
   params: Params<
@@ -1879,35 +1825,26 @@ export type PostAccountsAccountBankAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountCapabilitiesResponder = {
+const getAccountsAccountCapabilities = b((r) => ({
   with200: r.with200<{
     data: t_capability[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_capability)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountCapabilitiesResponder =
-  typeof getAccountsAccountCapabilitiesResponder & KoaRuntimeResponder
-
-const getAccountsAccountCapabilitiesResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_capability)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getAccountsAccountCapabilities)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountCapabilities = (
   params: Params<
@@ -1932,17 +1869,15 @@ export type GetAccountsAccountCapabilities = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountCapabilitiesCapabilityResponder = {
-  with200: r.with200<t_capability>,
-  withDefault: r.withDefault<t_error>,
+const getAccountsAccountCapabilitiesCapability = b((r) => ({
+  with200: r.with200<t_capability>(s_capability),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountCapabilitiesCapabilityResponder =
-  typeof getAccountsAccountCapabilitiesCapabilityResponder & KoaRuntimeResponder
-
-const getAccountsAccountCapabilitiesCapabilityResponseValidator =
-  responseValidationFactory([["200", s_capability]], s_error)
+  (typeof getAccountsAccountCapabilitiesCapability)["responder"] &
+    KoaRuntimeResponder
 
 export type GetAccountsAccountCapabilitiesCapability = (
   params: Params<
@@ -1959,18 +1894,15 @@ export type GetAccountsAccountCapabilitiesCapability = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountCapabilitiesCapabilityResponder = {
-  with200: r.with200<t_capability>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountCapabilitiesCapability = b((r) => ({
+  with200: r.with200<t_capability>(s_capability),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountCapabilitiesCapabilityResponder =
-  typeof postAccountsAccountCapabilitiesCapabilityResponder &
+  (typeof postAccountsAccountCapabilitiesCapability)["responder"] &
     KoaRuntimeResponder
-
-const postAccountsAccountCapabilitiesCapabilityResponseValidator =
-  responseValidationFactory([["200", s_capability]], s_error)
 
 export type PostAccountsAccountCapabilitiesCapability = (
   params: Params<
@@ -1987,37 +1919,28 @@ export type PostAccountsAccountCapabilitiesCapability = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountExternalAccountsResponder = {
+const getAccountsAccountExternalAccounts = b((r) => ({
   with200: r.with200<{
     data: (t_bank_account | t_card)[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(
+        z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
+      ),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountExternalAccountsResponder =
-  typeof getAccountsAccountExternalAccountsResponder & KoaRuntimeResponder
-
-const getAccountsAccountExternalAccountsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(
-            z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card)]),
-          ),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getAccountsAccountExternalAccounts)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountExternalAccounts = (
   params: Params<
@@ -2042,17 +1965,15 @@ export type GetAccountsAccountExternalAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountExternalAccountsResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountExternalAccounts = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountExternalAccountsResponder =
-  typeof postAccountsAccountExternalAccountsResponder & KoaRuntimeResponder
-
-const postAccountsAccountExternalAccountsResponseValidator =
-  responseValidationFactory([["200", s_external_account]], s_error)
+  (typeof postAccountsAccountExternalAccounts)["responder"] &
+    KoaRuntimeResponder
 
 export type PostAccountsAccountExternalAccounts = (
   params: Params<
@@ -2069,17 +1990,15 @@ export type PostAccountsAccountExternalAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const deleteAccountsAccountExternalAccountsIdResponder = {
-  with200: r.with200<t_deleted_external_account>,
-  withDefault: r.withDefault<t_error>,
+const deleteAccountsAccountExternalAccountsId = b((r) => ({
+  with200: r.with200<t_deleted_external_account>(s_deleted_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteAccountsAccountExternalAccountsIdResponder =
-  typeof deleteAccountsAccountExternalAccountsIdResponder & KoaRuntimeResponder
-
-const deleteAccountsAccountExternalAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_deleted_external_account]], s_error)
+  (typeof deleteAccountsAccountExternalAccountsId)["responder"] &
+    KoaRuntimeResponder
 
 export type DeleteAccountsAccountExternalAccountsId = (
   params: Params<
@@ -2096,17 +2015,15 @@ export type DeleteAccountsAccountExternalAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountExternalAccountsIdResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const getAccountsAccountExternalAccountsId = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountExternalAccountsIdResponder =
-  typeof getAccountsAccountExternalAccountsIdResponder & KoaRuntimeResponder
-
-const getAccountsAccountExternalAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_external_account]], s_error)
+  (typeof getAccountsAccountExternalAccountsId)["responder"] &
+    KoaRuntimeResponder
 
 export type GetAccountsAccountExternalAccountsId = (
   params: Params<
@@ -2123,17 +2040,15 @@ export type GetAccountsAccountExternalAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountExternalAccountsIdResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountExternalAccountsId = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountExternalAccountsIdResponder =
-  typeof postAccountsAccountExternalAccountsIdResponder & KoaRuntimeResponder
-
-const postAccountsAccountExternalAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_external_account]], s_error)
+  (typeof postAccountsAccountExternalAccountsId)["responder"] &
+    KoaRuntimeResponder
 
 export type PostAccountsAccountExternalAccountsId = (
   params: Params<
@@ -2150,17 +2065,14 @@ export type PostAccountsAccountExternalAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountLoginLinksResponder = {
-  with200: r.with200<t_login_link>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountLoginLinks = b((r) => ({
+  with200: r.with200<t_login_link>(s_login_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountLoginLinksResponder =
-  typeof postAccountsAccountLoginLinksResponder & KoaRuntimeResponder
-
-const postAccountsAccountLoginLinksResponseValidator =
-  responseValidationFactory([["200", s_login_link]], s_error)
+  (typeof postAccountsAccountLoginLinks)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountLoginLinks = (
   params: Params<
@@ -2177,34 +2089,26 @@ export type PostAccountsAccountLoginLinks = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountPeopleResponder = {
+const getAccountsAccountPeople = b((r) => ({
   with200: r.with200<{
     data: t_person[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_person)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountPeopleResponder =
-  typeof getAccountsAccountPeopleResponder & KoaRuntimeResponder
-
-const getAccountsAccountPeopleResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_person)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getAccountsAccountPeople)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountPeople = (
   params: Params<
@@ -2229,19 +2133,14 @@ export type GetAccountsAccountPeople = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountPeopleResponder = {
-  with200: r.with200<t_person>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountPeople = b((r) => ({
+  with200: r.with200<t_person>(s_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountPeopleResponder =
-  typeof postAccountsAccountPeopleResponder & KoaRuntimeResponder
-
-const postAccountsAccountPeopleResponseValidator = responseValidationFactory(
-  [["200", s_person]],
-  s_error,
-)
+  (typeof postAccountsAccountPeople)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountPeople = (
   params: Params<
@@ -2258,17 +2157,14 @@ export type PostAccountsAccountPeople = (
   | Response<StatusCode, t_error>
 >
 
-const deleteAccountsAccountPeoplePersonResponder = {
-  with200: r.with200<t_deleted_person>,
-  withDefault: r.withDefault<t_error>,
+const deleteAccountsAccountPeoplePerson = b((r) => ({
+  with200: r.with200<t_deleted_person>(s_deleted_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteAccountsAccountPeoplePersonResponder =
-  typeof deleteAccountsAccountPeoplePersonResponder & KoaRuntimeResponder
-
-const deleteAccountsAccountPeoplePersonResponseValidator =
-  responseValidationFactory([["200", s_deleted_person]], s_error)
+  (typeof deleteAccountsAccountPeoplePerson)["responder"] & KoaRuntimeResponder
 
 export type DeleteAccountsAccountPeoplePerson = (
   params: Params<
@@ -2285,17 +2181,14 @@ export type DeleteAccountsAccountPeoplePerson = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountPeoplePersonResponder = {
-  with200: r.with200<t_person>,
-  withDefault: r.withDefault<t_error>,
+const getAccountsAccountPeoplePerson = b((r) => ({
+  with200: r.with200<t_person>(s_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountPeoplePersonResponder =
-  typeof getAccountsAccountPeoplePersonResponder & KoaRuntimeResponder
-
-const getAccountsAccountPeoplePersonResponseValidator =
-  responseValidationFactory([["200", s_person]], s_error)
+  (typeof getAccountsAccountPeoplePerson)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountPeoplePerson = (
   params: Params<
@@ -2312,17 +2205,14 @@ export type GetAccountsAccountPeoplePerson = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountPeoplePersonResponder = {
-  with200: r.with200<t_person>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountPeoplePerson = b((r) => ({
+  with200: r.with200<t_person>(s_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountPeoplePersonResponder =
-  typeof postAccountsAccountPeoplePersonResponder & KoaRuntimeResponder
-
-const postAccountsAccountPeoplePersonResponseValidator =
-  responseValidationFactory([["200", s_person]], s_error)
+  (typeof postAccountsAccountPeoplePerson)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountPeoplePerson = (
   params: Params<
@@ -2339,34 +2229,26 @@ export type PostAccountsAccountPeoplePerson = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountPersonsResponder = {
+const getAccountsAccountPersons = b((r) => ({
   with200: r.with200<{
     data: t_person[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_person)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountPersonsResponder =
-  typeof getAccountsAccountPersonsResponder & KoaRuntimeResponder
-
-const getAccountsAccountPersonsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_person)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getAccountsAccountPersons)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountPersons = (
   params: Params<
@@ -2391,19 +2273,14 @@ export type GetAccountsAccountPersons = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountPersonsResponder = {
-  with200: r.with200<t_person>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountPersons = b((r) => ({
+  with200: r.with200<t_person>(s_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountPersonsResponder =
-  typeof postAccountsAccountPersonsResponder & KoaRuntimeResponder
-
-const postAccountsAccountPersonsResponseValidator = responseValidationFactory(
-  [["200", s_person]],
-  s_error,
-)
+  (typeof postAccountsAccountPersons)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountPersons = (
   params: Params<
@@ -2420,17 +2297,14 @@ export type PostAccountsAccountPersons = (
   | Response<StatusCode, t_error>
 >
 
-const deleteAccountsAccountPersonsPersonResponder = {
-  with200: r.with200<t_deleted_person>,
-  withDefault: r.withDefault<t_error>,
+const deleteAccountsAccountPersonsPerson = b((r) => ({
+  with200: r.with200<t_deleted_person>(s_deleted_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteAccountsAccountPersonsPersonResponder =
-  typeof deleteAccountsAccountPersonsPersonResponder & KoaRuntimeResponder
-
-const deleteAccountsAccountPersonsPersonResponseValidator =
-  responseValidationFactory([["200", s_deleted_person]], s_error)
+  (typeof deleteAccountsAccountPersonsPerson)["responder"] & KoaRuntimeResponder
 
 export type DeleteAccountsAccountPersonsPerson = (
   params: Params<
@@ -2447,17 +2321,14 @@ export type DeleteAccountsAccountPersonsPerson = (
   | Response<StatusCode, t_error>
 >
 
-const getAccountsAccountPersonsPersonResponder = {
-  with200: r.with200<t_person>,
-  withDefault: r.withDefault<t_error>,
+const getAccountsAccountPersonsPerson = b((r) => ({
+  with200: r.with200<t_person>(s_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetAccountsAccountPersonsPersonResponder =
-  typeof getAccountsAccountPersonsPersonResponder & KoaRuntimeResponder
-
-const getAccountsAccountPersonsPersonResponseValidator =
-  responseValidationFactory([["200", s_person]], s_error)
+  (typeof getAccountsAccountPersonsPerson)["responder"] & KoaRuntimeResponder
 
 export type GetAccountsAccountPersonsPerson = (
   params: Params<
@@ -2474,17 +2345,14 @@ export type GetAccountsAccountPersonsPerson = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountPersonsPersonResponder = {
-  with200: r.with200<t_person>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountPersonsPerson = b((r) => ({
+  with200: r.with200<t_person>(s_person),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountPersonsPersonResponder =
-  typeof postAccountsAccountPersonsPersonResponder & KoaRuntimeResponder
-
-const postAccountsAccountPersonsPersonResponseValidator =
-  responseValidationFactory([["200", s_person]], s_error)
+  (typeof postAccountsAccountPersonsPerson)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountPersonsPerson = (
   params: Params<
@@ -2501,19 +2369,14 @@ export type PostAccountsAccountPersonsPerson = (
   | Response<StatusCode, t_error>
 >
 
-const postAccountsAccountRejectResponder = {
-  with200: r.with200<t_account>,
-  withDefault: r.withDefault<t_error>,
+const postAccountsAccountReject = b((r) => ({
+  with200: r.with200<t_account>(s_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostAccountsAccountRejectResponder =
-  typeof postAccountsAccountRejectResponder & KoaRuntimeResponder
-
-const postAccountsAccountRejectResponseValidator = responseValidationFactory(
-  [["200", s_account]],
-  s_error,
-)
+  (typeof postAccountsAccountReject)["responder"] & KoaRuntimeResponder
 
 export type PostAccountsAccountReject = (
   params: Params<
@@ -2530,34 +2393,26 @@ export type PostAccountsAccountReject = (
   | Response<StatusCode, t_error>
 >
 
-const getApplePayDomainsResponder = {
+const getApplePayDomains = b((r) => ({
   with200: r.with200<{
     data: t_apple_pay_domain[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_apple_pay_domain),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/apple_pay/domains")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetApplePayDomainsResponder = typeof getApplePayDomainsResponder &
+type GetApplePayDomainsResponder = (typeof getApplePayDomains)["responder"] &
   KoaRuntimeResponder
-
-const getApplePayDomainsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_apple_pay_domain),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/apple_pay/domains")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetApplePayDomains = (
   params: Params<
@@ -2582,19 +2437,14 @@ export type GetApplePayDomains = (
   | Response<StatusCode, t_error>
 >
 
-const postApplePayDomainsResponder = {
-  with200: r.with200<t_apple_pay_domain>,
-  withDefault: r.withDefault<t_error>,
+const postApplePayDomains = b((r) => ({
+  with200: r.with200<t_apple_pay_domain>(s_apple_pay_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostApplePayDomainsResponder = typeof postApplePayDomainsResponder &
+type PostApplePayDomainsResponder = (typeof postApplePayDomains)["responder"] &
   KoaRuntimeResponder
-
-const postApplePayDomainsResponseValidator = responseValidationFactory(
-  [["200", s_apple_pay_domain]],
-  s_error,
-)
 
 export type PostApplePayDomains = (
   params: Params<void, void, t_PostApplePayDomainsBodySchema, void>,
@@ -2606,19 +2456,14 @@ export type PostApplePayDomains = (
   | Response<StatusCode, t_error>
 >
 
-const deleteApplePayDomainsDomainResponder = {
-  with200: r.with200<t_deleted_apple_pay_domain>,
-  withDefault: r.withDefault<t_error>,
+const deleteApplePayDomainsDomain = b((r) => ({
+  with200: r.with200<t_deleted_apple_pay_domain>(s_deleted_apple_pay_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteApplePayDomainsDomainResponder =
-  typeof deleteApplePayDomainsDomainResponder & KoaRuntimeResponder
-
-const deleteApplePayDomainsDomainResponseValidator = responseValidationFactory(
-  [["200", s_deleted_apple_pay_domain]],
-  s_error,
-)
+  (typeof deleteApplePayDomainsDomain)["responder"] & KoaRuntimeResponder
 
 export type DeleteApplePayDomainsDomain = (
   params: Params<
@@ -2635,19 +2480,14 @@ export type DeleteApplePayDomainsDomain = (
   | Response<StatusCode, t_error>
 >
 
-const getApplePayDomainsDomainResponder = {
-  with200: r.with200<t_apple_pay_domain>,
-  withDefault: r.withDefault<t_error>,
+const getApplePayDomainsDomain = b((r) => ({
+  with200: r.with200<t_apple_pay_domain>(s_apple_pay_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetApplePayDomainsDomainResponder =
-  typeof getApplePayDomainsDomainResponder & KoaRuntimeResponder
-
-const getApplePayDomainsDomainResponseValidator = responseValidationFactory(
-  [["200", s_apple_pay_domain]],
-  s_error,
-)
+  (typeof getApplePayDomainsDomain)["responder"] & KoaRuntimeResponder
 
 export type GetApplePayDomainsDomain = (
   params: Params<
@@ -2664,34 +2504,26 @@ export type GetApplePayDomainsDomain = (
   | Response<StatusCode, t_error>
 >
 
-const getApplicationFeesResponder = {
+const getApplicationFees = b((r) => ({
   with200: r.with200<{
     data: t_application_fee[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_application_fee)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/application_fees")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetApplicationFeesResponder = typeof getApplicationFeesResponder &
+type GetApplicationFeesResponder = (typeof getApplicationFees)["responder"] &
   KoaRuntimeResponder
-
-const getApplicationFeesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_application_fee)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/application_fees")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetApplicationFees = (
   params: Params<
@@ -2716,17 +2548,14 @@ export type GetApplicationFees = (
   | Response<StatusCode, t_error>
 >
 
-const getApplicationFeesFeeRefundsIdResponder = {
-  with200: r.with200<t_fee_refund>,
-  withDefault: r.withDefault<t_error>,
+const getApplicationFeesFeeRefundsId = b((r) => ({
+  with200: r.with200<t_fee_refund>(s_fee_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetApplicationFeesFeeRefundsIdResponder =
-  typeof getApplicationFeesFeeRefundsIdResponder & KoaRuntimeResponder
-
-const getApplicationFeesFeeRefundsIdResponseValidator =
-  responseValidationFactory([["200", s_fee_refund]], s_error)
+  (typeof getApplicationFeesFeeRefundsId)["responder"] & KoaRuntimeResponder
 
 export type GetApplicationFeesFeeRefundsId = (
   params: Params<
@@ -2743,17 +2572,14 @@ export type GetApplicationFeesFeeRefundsId = (
   | Response<StatusCode, t_error>
 >
 
-const postApplicationFeesFeeRefundsIdResponder = {
-  with200: r.with200<t_fee_refund>,
-  withDefault: r.withDefault<t_error>,
+const postApplicationFeesFeeRefundsId = b((r) => ({
+  with200: r.with200<t_fee_refund>(s_fee_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostApplicationFeesFeeRefundsIdResponder =
-  typeof postApplicationFeesFeeRefundsIdResponder & KoaRuntimeResponder
-
-const postApplicationFeesFeeRefundsIdResponseValidator =
-  responseValidationFactory([["200", s_fee_refund]], s_error)
+  (typeof postApplicationFeesFeeRefundsId)["responder"] & KoaRuntimeResponder
 
 export type PostApplicationFeesFeeRefundsId = (
   params: Params<
@@ -2770,19 +2596,14 @@ export type PostApplicationFeesFeeRefundsId = (
   | Response<StatusCode, t_error>
 >
 
-const getApplicationFeesIdResponder = {
-  with200: r.with200<t_application_fee>,
-  withDefault: r.withDefault<t_error>,
+const getApplicationFeesId = b((r) => ({
+  with200: r.with200<t_application_fee>(s_application_fee),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetApplicationFeesIdResponder = typeof getApplicationFeesIdResponder &
-  KoaRuntimeResponder
-
-const getApplicationFeesIdResponseValidator = responseValidationFactory(
-  [["200", s_application_fee]],
-  s_error,
-)
+type GetApplicationFeesIdResponder =
+  (typeof getApplicationFeesId)["responder"] & KoaRuntimeResponder
 
 export type GetApplicationFeesId = (
   params: Params<
@@ -2799,19 +2620,14 @@ export type GetApplicationFeesId = (
   | Response<StatusCode, t_error>
 >
 
-const postApplicationFeesIdRefundResponder = {
-  with200: r.with200<t_application_fee>,
-  withDefault: r.withDefault<t_error>,
+const postApplicationFeesIdRefund = b((r) => ({
+  with200: r.with200<t_application_fee>(s_application_fee),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostApplicationFeesIdRefundResponder =
-  typeof postApplicationFeesIdRefundResponder & KoaRuntimeResponder
-
-const postApplicationFeesIdRefundResponseValidator = responseValidationFactory(
-  [["200", s_application_fee]],
-  s_error,
-)
+  (typeof postApplicationFeesIdRefund)["responder"] & KoaRuntimeResponder
 
 export type PostApplicationFeesIdRefund = (
   params: Params<
@@ -2828,34 +2644,26 @@ export type PostApplicationFeesIdRefund = (
   | Response<StatusCode, t_error>
 >
 
-const getApplicationFeesIdRefundsResponder = {
+const getApplicationFeesIdRefunds = b((r) => ({
   with200: r.with200<{
     data: t_fee_refund[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_fee_refund)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetApplicationFeesIdRefundsResponder =
-  typeof getApplicationFeesIdRefundsResponder & KoaRuntimeResponder
-
-const getApplicationFeesIdRefundsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_fee_refund)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getApplicationFeesIdRefunds)["responder"] & KoaRuntimeResponder
 
 export type GetApplicationFeesIdRefunds = (
   params: Params<
@@ -2880,19 +2688,14 @@ export type GetApplicationFeesIdRefunds = (
   | Response<StatusCode, t_error>
 >
 
-const postApplicationFeesIdRefundsResponder = {
-  with200: r.with200<t_fee_refund>,
-  withDefault: r.withDefault<t_error>,
+const postApplicationFeesIdRefunds = b((r) => ({
+  with200: r.with200<t_fee_refund>(s_fee_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostApplicationFeesIdRefundsResponder =
-  typeof postApplicationFeesIdRefundsResponder & KoaRuntimeResponder
-
-const postApplicationFeesIdRefundsResponseValidator = responseValidationFactory(
-  [["200", s_fee_refund]],
-  s_error,
-)
+  (typeof postApplicationFeesIdRefunds)["responder"] & KoaRuntimeResponder
 
 export type PostApplicationFeesIdRefunds = (
   params: Params<
@@ -2909,34 +2712,26 @@ export type PostApplicationFeesIdRefunds = (
   | Response<StatusCode, t_error>
 >
 
-const getAppsSecretsResponder = {
+const getAppsSecrets = b((r) => ({
   with200: r.with200<{
     data: t_apps_secret[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_apps_secret),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/apps/secrets")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetAppsSecretsResponder = typeof getAppsSecretsResponder &
+type GetAppsSecretsResponder = (typeof getAppsSecrets)["responder"] &
   KoaRuntimeResponder
-
-const getAppsSecretsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_apps_secret),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/apps/secrets")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetAppsSecrets = (
   params: Params<
@@ -2961,19 +2756,14 @@ export type GetAppsSecrets = (
   | Response<StatusCode, t_error>
 >
 
-const postAppsSecretsResponder = {
-  with200: r.with200<t_apps_secret>,
-  withDefault: r.withDefault<t_error>,
+const postAppsSecrets = b((r) => ({
+  with200: r.with200<t_apps_secret>(s_apps_secret),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostAppsSecretsResponder = typeof postAppsSecretsResponder &
+type PostAppsSecretsResponder = (typeof postAppsSecrets)["responder"] &
   KoaRuntimeResponder
-
-const postAppsSecretsResponseValidator = responseValidationFactory(
-  [["200", s_apps_secret]],
-  s_error,
-)
 
 export type PostAppsSecrets = (
   params: Params<void, void, t_PostAppsSecretsBodySchema, void>,
@@ -2985,19 +2775,14 @@ export type PostAppsSecrets = (
   | Response<StatusCode, t_error>
 >
 
-const postAppsSecretsDeleteResponder = {
-  with200: r.with200<t_apps_secret>,
-  withDefault: r.withDefault<t_error>,
+const postAppsSecretsDelete = b((r) => ({
+  with200: r.with200<t_apps_secret>(s_apps_secret),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostAppsSecretsDeleteResponder = typeof postAppsSecretsDeleteResponder &
-  KoaRuntimeResponder
-
-const postAppsSecretsDeleteResponseValidator = responseValidationFactory(
-  [["200", s_apps_secret]],
-  s_error,
-)
+type PostAppsSecretsDeleteResponder =
+  (typeof postAppsSecretsDelete)["responder"] & KoaRuntimeResponder
 
 export type PostAppsSecretsDelete = (
   params: Params<void, void, t_PostAppsSecretsDeleteBodySchema, void>,
@@ -3009,19 +2794,14 @@ export type PostAppsSecretsDelete = (
   | Response<StatusCode, t_error>
 >
 
-const getAppsSecretsFindResponder = {
-  with200: r.with200<t_apps_secret>,
-  withDefault: r.withDefault<t_error>,
+const getAppsSecretsFind = b((r) => ({
+  with200: r.with200<t_apps_secret>(s_apps_secret),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetAppsSecretsFindResponder = typeof getAppsSecretsFindResponder &
+type GetAppsSecretsFindResponder = (typeof getAppsSecretsFind)["responder"] &
   KoaRuntimeResponder
-
-const getAppsSecretsFindResponseValidator = responseValidationFactory(
-  [["200", s_apps_secret]],
-  s_error,
-)
 
 export type GetAppsSecretsFind = (
   params: Params<
@@ -3038,18 +2818,14 @@ export type GetAppsSecretsFind = (
   | Response<StatusCode, t_error>
 >
 
-const getBalanceResponder = {
-  with200: r.with200<t_balance>,
-  withDefault: r.withDefault<t_error>,
+const getBalance = b((r) => ({
+  with200: r.with200<t_balance>(s_balance),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBalanceResponder = typeof getBalanceResponder & KoaRuntimeResponder
-
-const getBalanceResponseValidator = responseValidationFactory(
-  [["200", s_balance]],
-  s_error,
-)
+type GetBalanceResponder = (typeof getBalance)["responder"] &
+  KoaRuntimeResponder
 
 export type GetBalance = (
   params: Params<
@@ -3066,37 +2842,26 @@ export type GetBalance = (
   | Response<StatusCode, t_error>
 >
 
-const getBalanceHistoryResponder = {
+const getBalanceHistory = b((r) => ({
   with200: r.with200<{
     data: t_balance_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_balance_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/balance_transactions")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBalanceHistoryResponder = typeof getBalanceHistoryResponder &
+type GetBalanceHistoryResponder = (typeof getBalanceHistory)["responder"] &
   KoaRuntimeResponder
-
-const getBalanceHistoryResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_balance_transaction)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/balance_transactions")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetBalanceHistory = (
   params: Params<
@@ -3121,19 +2886,14 @@ export type GetBalanceHistory = (
   | Response<StatusCode, t_error>
 >
 
-const getBalanceHistoryIdResponder = {
-  with200: r.with200<t_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getBalanceHistoryId = b((r) => ({
+  with200: r.with200<t_balance_transaction>(s_balance_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBalanceHistoryIdResponder = typeof getBalanceHistoryIdResponder &
+type GetBalanceHistoryIdResponder = (typeof getBalanceHistoryId)["responder"] &
   KoaRuntimeResponder
-
-const getBalanceHistoryIdResponseValidator = responseValidationFactory(
-  [["200", s_balance_transaction]],
-  s_error,
-)
 
 export type GetBalanceHistoryId = (
   params: Params<
@@ -3150,37 +2910,26 @@ export type GetBalanceHistoryId = (
   | Response<StatusCode, t_error>
 >
 
-const getBalanceTransactionsResponder = {
+const getBalanceTransactions = b((r) => ({
   with200: r.with200<{
     data: t_balance_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_balance_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/balance_transactions")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBalanceTransactionsResponder = typeof getBalanceTransactionsResponder &
-  KoaRuntimeResponder
-
-const getBalanceTransactionsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_balance_transaction)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/balance_transactions")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetBalanceTransactionsResponder =
+  (typeof getBalanceTransactions)["responder"] & KoaRuntimeResponder
 
 export type GetBalanceTransactions = (
   params: Params<
@@ -3205,19 +2954,14 @@ export type GetBalanceTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getBalanceTransactionsIdResponder = {
-  with200: r.with200<t_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getBalanceTransactionsId = b((r) => ({
+  with200: r.with200<t_balance_transaction>(s_balance_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBalanceTransactionsIdResponder =
-  typeof getBalanceTransactionsIdResponder & KoaRuntimeResponder
-
-const getBalanceTransactionsIdResponseValidator = responseValidationFactory(
-  [["200", s_balance_transaction]],
-  s_error,
-)
+  (typeof getBalanceTransactionsId)["responder"] & KoaRuntimeResponder
 
 export type GetBalanceTransactionsId = (
   params: Params<
@@ -3234,34 +2978,26 @@ export type GetBalanceTransactionsId = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingAlertsResponder = {
+const getBillingAlerts = b((r) => ({
   with200: r.with200<{
     data: t_billing_alert[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_billing_alert)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/billing/alerts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBillingAlertsResponder = typeof getBillingAlertsResponder &
+type GetBillingAlertsResponder = (typeof getBillingAlerts)["responder"] &
   KoaRuntimeResponder
-
-const getBillingAlertsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_billing_alert)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/billing/alerts")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetBillingAlerts = (
   params: Params<
@@ -3286,19 +3022,14 @@ export type GetBillingAlerts = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingAlertsResponder = {
-  with200: r.with200<t_billing_alert>,
-  withDefault: r.withDefault<t_error>,
+const postBillingAlerts = b((r) => ({
+  with200: r.with200<t_billing_alert>(s_billing_alert),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostBillingAlertsResponder = typeof postBillingAlertsResponder &
+type PostBillingAlertsResponder = (typeof postBillingAlerts)["responder"] &
   KoaRuntimeResponder
-
-const postBillingAlertsResponseValidator = responseValidationFactory(
-  [["200", s_billing_alert]],
-  s_error,
-)
 
 export type PostBillingAlerts = (
   params: Params<void, void, t_PostBillingAlertsBodySchema, void>,
@@ -3310,19 +3041,14 @@ export type PostBillingAlerts = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingAlertsIdResponder = {
-  with200: r.with200<t_billing_alert>,
-  withDefault: r.withDefault<t_error>,
+const getBillingAlertsId = b((r) => ({
+  with200: r.with200<t_billing_alert>(s_billing_alert),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBillingAlertsIdResponder = typeof getBillingAlertsIdResponder &
+type GetBillingAlertsIdResponder = (typeof getBillingAlertsId)["responder"] &
   KoaRuntimeResponder
-
-const getBillingAlertsIdResponseValidator = responseValidationFactory(
-  [["200", s_billing_alert]],
-  s_error,
-)
 
 export type GetBillingAlertsId = (
   params: Params<
@@ -3339,19 +3065,14 @@ export type GetBillingAlertsId = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingAlertsIdActivateResponder = {
-  with200: r.with200<t_billing_alert>,
-  withDefault: r.withDefault<t_error>,
+const postBillingAlertsIdActivate = b((r) => ({
+  with200: r.with200<t_billing_alert>(s_billing_alert),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingAlertsIdActivateResponder =
-  typeof postBillingAlertsIdActivateResponder & KoaRuntimeResponder
-
-const postBillingAlertsIdActivateResponseValidator = responseValidationFactory(
-  [["200", s_billing_alert]],
-  s_error,
-)
+  (typeof postBillingAlertsIdActivate)["responder"] & KoaRuntimeResponder
 
 export type PostBillingAlertsIdActivate = (
   params: Params<
@@ -3368,19 +3089,14 @@ export type PostBillingAlertsIdActivate = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingAlertsIdArchiveResponder = {
-  with200: r.with200<t_billing_alert>,
-  withDefault: r.withDefault<t_error>,
+const postBillingAlertsIdArchive = b((r) => ({
+  with200: r.with200<t_billing_alert>(s_billing_alert),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingAlertsIdArchiveResponder =
-  typeof postBillingAlertsIdArchiveResponder & KoaRuntimeResponder
-
-const postBillingAlertsIdArchiveResponseValidator = responseValidationFactory(
-  [["200", s_billing_alert]],
-  s_error,
-)
+  (typeof postBillingAlertsIdArchive)["responder"] & KoaRuntimeResponder
 
 export type PostBillingAlertsIdArchive = (
   params: Params<
@@ -3397,17 +3113,14 @@ export type PostBillingAlertsIdArchive = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingAlertsIdDeactivateResponder = {
-  with200: r.with200<t_billing_alert>,
-  withDefault: r.withDefault<t_error>,
+const postBillingAlertsIdDeactivate = b((r) => ({
+  with200: r.with200<t_billing_alert>(s_billing_alert),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingAlertsIdDeactivateResponder =
-  typeof postBillingAlertsIdDeactivateResponder & KoaRuntimeResponder
-
-const postBillingAlertsIdDeactivateResponseValidator =
-  responseValidationFactory([["200", s_billing_alert]], s_error)
+  (typeof postBillingAlertsIdDeactivate)["responder"] & KoaRuntimeResponder
 
 export type PostBillingAlertsIdDeactivate = (
   params: Params<
@@ -3424,20 +3137,16 @@ export type PostBillingAlertsIdDeactivate = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingCreditBalanceSummaryResponder = {
-  with200: r.with200<t_billing_credit_balance_summary>,
-  withDefault: r.withDefault<t_error>,
+const getBillingCreditBalanceSummary = b((r) => ({
+  with200: r.with200<t_billing_credit_balance_summary>(
+    s_billing_credit_balance_summary,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingCreditBalanceSummaryResponder =
-  typeof getBillingCreditBalanceSummaryResponder & KoaRuntimeResponder
-
-const getBillingCreditBalanceSummaryResponseValidator =
-  responseValidationFactory(
-    [["200", s_billing_credit_balance_summary]],
-    s_error,
-  )
+  (typeof getBillingCreditBalanceSummary)["responder"] & KoaRuntimeResponder
 
 export type GetBillingCreditBalanceSummary = (
   params: Params<
@@ -3454,38 +3163,27 @@ export type GetBillingCreditBalanceSummary = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingCreditBalanceTransactionsResponder = {
+const getBillingCreditBalanceTransactions = b((r) => ({
   with200: r.with200<{
     data: t_billing_credit_balance_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_billing_credit_balance_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/billing/credit_grants")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingCreditBalanceTransactionsResponder =
-  typeof getBillingCreditBalanceTransactionsResponder & KoaRuntimeResponder
-
-const getBillingCreditBalanceTransactionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_billing_credit_balance_transaction)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/billing/credit_grants")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getBillingCreditBalanceTransactions)["responder"] &
+    KoaRuntimeResponder
 
 export type GetBillingCreditBalanceTransactions = (
   params: Params<
@@ -3510,20 +3208,17 @@ export type GetBillingCreditBalanceTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingCreditBalanceTransactionsIdResponder = {
-  with200: r.with200<t_billing_credit_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getBillingCreditBalanceTransactionsId = b((r) => ({
+  with200: r.with200<t_billing_credit_balance_transaction>(
+    s_billing_credit_balance_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingCreditBalanceTransactionsIdResponder =
-  typeof getBillingCreditBalanceTransactionsIdResponder & KoaRuntimeResponder
-
-const getBillingCreditBalanceTransactionsIdResponseValidator =
-  responseValidationFactory(
-    [["200", s_billing_credit_balance_transaction]],
-    s_error,
-  )
+  (typeof getBillingCreditBalanceTransactionsId)["responder"] &
+    KoaRuntimeResponder
 
 export type GetBillingCreditBalanceTransactionsId = (
   params: Params<
@@ -3540,37 +3235,26 @@ export type GetBillingCreditBalanceTransactionsId = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingCreditGrantsResponder = {
+const getBillingCreditGrants = b((r) => ({
   with200: r.with200<{
     data: t_billing_credit_grant[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_billing_credit_grant)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/billing/credit_grants")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBillingCreditGrantsResponder = typeof getBillingCreditGrantsResponder &
-  KoaRuntimeResponder
-
-const getBillingCreditGrantsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_billing_credit_grant)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/billing/credit_grants")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetBillingCreditGrantsResponder =
+  (typeof getBillingCreditGrants)["responder"] & KoaRuntimeResponder
 
 export type GetBillingCreditGrants = (
   params: Params<
@@ -3595,19 +3279,14 @@ export type GetBillingCreditGrants = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingCreditGrantsResponder = {
-  with200: r.with200<t_billing_credit_grant>,
-  withDefault: r.withDefault<t_error>,
+const postBillingCreditGrants = b((r) => ({
+  with200: r.with200<t_billing_credit_grant>(s_billing_credit_grant),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingCreditGrantsResponder =
-  typeof postBillingCreditGrantsResponder & KoaRuntimeResponder
-
-const postBillingCreditGrantsResponseValidator = responseValidationFactory(
-  [["200", s_billing_credit_grant]],
-  s_error,
-)
+  (typeof postBillingCreditGrants)["responder"] & KoaRuntimeResponder
 
 export type PostBillingCreditGrants = (
   params: Params<void, void, t_PostBillingCreditGrantsBodySchema, void>,
@@ -3619,19 +3298,14 @@ export type PostBillingCreditGrants = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingCreditGrantsIdResponder = {
-  with200: r.with200<t_billing_credit_grant>,
-  withDefault: r.withDefault<t_error>,
+const getBillingCreditGrantsId = b((r) => ({
+  with200: r.with200<t_billing_credit_grant>(s_billing_credit_grant),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingCreditGrantsIdResponder =
-  typeof getBillingCreditGrantsIdResponder & KoaRuntimeResponder
-
-const getBillingCreditGrantsIdResponseValidator = responseValidationFactory(
-  [["200", s_billing_credit_grant]],
-  s_error,
-)
+  (typeof getBillingCreditGrantsId)["responder"] & KoaRuntimeResponder
 
 export type GetBillingCreditGrantsId = (
   params: Params<
@@ -3648,19 +3322,14 @@ export type GetBillingCreditGrantsId = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingCreditGrantsIdResponder = {
-  with200: r.with200<t_billing_credit_grant>,
-  withDefault: r.withDefault<t_error>,
+const postBillingCreditGrantsId = b((r) => ({
+  with200: r.with200<t_billing_credit_grant>(s_billing_credit_grant),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingCreditGrantsIdResponder =
-  typeof postBillingCreditGrantsIdResponder & KoaRuntimeResponder
-
-const postBillingCreditGrantsIdResponseValidator = responseValidationFactory(
-  [["200", s_billing_credit_grant]],
-  s_error,
-)
+  (typeof postBillingCreditGrantsId)["responder"] & KoaRuntimeResponder
 
 export type PostBillingCreditGrantsId = (
   params: Params<
@@ -3677,17 +3346,14 @@ export type PostBillingCreditGrantsId = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingCreditGrantsIdExpireResponder = {
-  with200: r.with200<t_billing_credit_grant>,
-  withDefault: r.withDefault<t_error>,
+const postBillingCreditGrantsIdExpire = b((r) => ({
+  with200: r.with200<t_billing_credit_grant>(s_billing_credit_grant),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingCreditGrantsIdExpireResponder =
-  typeof postBillingCreditGrantsIdExpireResponder & KoaRuntimeResponder
-
-const postBillingCreditGrantsIdExpireResponseValidator =
-  responseValidationFactory([["200", s_billing_credit_grant]], s_error)
+  (typeof postBillingCreditGrantsIdExpire)["responder"] & KoaRuntimeResponder
 
 export type PostBillingCreditGrantsIdExpire = (
   params: Params<
@@ -3704,17 +3370,14 @@ export type PostBillingCreditGrantsIdExpire = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingCreditGrantsIdVoidResponder = {
-  with200: r.with200<t_billing_credit_grant>,
-  withDefault: r.withDefault<t_error>,
+const postBillingCreditGrantsIdVoid = b((r) => ({
+  with200: r.with200<t_billing_credit_grant>(s_billing_credit_grant),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingCreditGrantsIdVoidResponder =
-  typeof postBillingCreditGrantsIdVoidResponder & KoaRuntimeResponder
-
-const postBillingCreditGrantsIdVoidResponseValidator =
-  responseValidationFactory([["200", s_billing_credit_grant]], s_error)
+  (typeof postBillingCreditGrantsIdVoid)["responder"] & KoaRuntimeResponder
 
 export type PostBillingCreditGrantsIdVoid = (
   params: Params<
@@ -3731,20 +3394,16 @@ export type PostBillingCreditGrantsIdVoid = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingMeterEventAdjustmentsResponder = {
-  with200: r.with200<t_billing_meter_event_adjustment>,
-  withDefault: r.withDefault<t_error>,
+const postBillingMeterEventAdjustments = b((r) => ({
+  with200: r.with200<t_billing_meter_event_adjustment>(
+    s_billing_meter_event_adjustment,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingMeterEventAdjustmentsResponder =
-  typeof postBillingMeterEventAdjustmentsResponder & KoaRuntimeResponder
-
-const postBillingMeterEventAdjustmentsResponseValidator =
-  responseValidationFactory(
-    [["200", s_billing_meter_event_adjustment]],
-    s_error,
-  )
+  (typeof postBillingMeterEventAdjustments)["responder"] & KoaRuntimeResponder
 
 export type PostBillingMeterEventAdjustments = (
   params: Params<
@@ -3761,19 +3420,14 @@ export type PostBillingMeterEventAdjustments = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingMeterEventsResponder = {
-  with200: r.with200<t_billing_meter_event>,
-  withDefault: r.withDefault<t_error>,
+const postBillingMeterEvents = b((r) => ({
+  with200: r.with200<t_billing_meter_event>(s_billing_meter_event),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostBillingMeterEventsResponder = typeof postBillingMeterEventsResponder &
-  KoaRuntimeResponder
-
-const postBillingMeterEventsResponseValidator = responseValidationFactory(
-  [["200", s_billing_meter_event]],
-  s_error,
-)
+type PostBillingMeterEventsResponder =
+  (typeof postBillingMeterEvents)["responder"] & KoaRuntimeResponder
 
 export type PostBillingMeterEvents = (
   params: Params<void, void, t_PostBillingMeterEventsBodySchema, void>,
@@ -3785,34 +3439,26 @@ export type PostBillingMeterEvents = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingMetersResponder = {
+const getBillingMeters = b((r) => ({
   with200: r.with200<{
     data: t_billing_meter[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_billing_meter),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/billing/meters")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBillingMetersResponder = typeof getBillingMetersResponder &
+type GetBillingMetersResponder = (typeof getBillingMeters)["responder"] &
   KoaRuntimeResponder
-
-const getBillingMetersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_billing_meter),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/billing/meters")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetBillingMeters = (
   params: Params<
@@ -3837,19 +3483,14 @@ export type GetBillingMeters = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingMetersResponder = {
-  with200: r.with200<t_billing_meter>,
-  withDefault: r.withDefault<t_error>,
+const postBillingMeters = b((r) => ({
+  with200: r.with200<t_billing_meter>(s_billing_meter),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostBillingMetersResponder = typeof postBillingMetersResponder &
+type PostBillingMetersResponder = (typeof postBillingMeters)["responder"] &
   KoaRuntimeResponder
-
-const postBillingMetersResponseValidator = responseValidationFactory(
-  [["200", s_billing_meter]],
-  s_error,
-)
 
 export type PostBillingMeters = (
   params: Params<void, void, t_PostBillingMetersBodySchema, void>,
@@ -3861,19 +3502,14 @@ export type PostBillingMeters = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingMetersIdResponder = {
-  with200: r.with200<t_billing_meter>,
-  withDefault: r.withDefault<t_error>,
+const getBillingMetersId = b((r) => ({
+  with200: r.with200<t_billing_meter>(s_billing_meter),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetBillingMetersIdResponder = typeof getBillingMetersIdResponder &
+type GetBillingMetersIdResponder = (typeof getBillingMetersId)["responder"] &
   KoaRuntimeResponder
-
-const getBillingMetersIdResponseValidator = responseValidationFactory(
-  [["200", s_billing_meter]],
-  s_error,
-)
 
 export type GetBillingMetersId = (
   params: Params<
@@ -3890,19 +3526,14 @@ export type GetBillingMetersId = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingMetersIdResponder = {
-  with200: r.with200<t_billing_meter>,
-  withDefault: r.withDefault<t_error>,
+const postBillingMetersId = b((r) => ({
+  with200: r.with200<t_billing_meter>(s_billing_meter),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostBillingMetersIdResponder = typeof postBillingMetersIdResponder &
+type PostBillingMetersIdResponder = (typeof postBillingMetersId)["responder"] &
   KoaRuntimeResponder
-
-const postBillingMetersIdResponseValidator = responseValidationFactory(
-  [["200", s_billing_meter]],
-  s_error,
-)
 
 export type PostBillingMetersId = (
   params: Params<
@@ -3919,17 +3550,14 @@ export type PostBillingMetersId = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingMetersIdDeactivateResponder = {
-  with200: r.with200<t_billing_meter>,
-  withDefault: r.withDefault<t_error>,
+const postBillingMetersIdDeactivate = b((r) => ({
+  with200: r.with200<t_billing_meter>(s_billing_meter),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingMetersIdDeactivateResponder =
-  typeof postBillingMetersIdDeactivateResponder & KoaRuntimeResponder
-
-const postBillingMetersIdDeactivateResponseValidator =
-  responseValidationFactory([["200", s_billing_meter]], s_error)
+  (typeof postBillingMetersIdDeactivate)["responder"] & KoaRuntimeResponder
 
 export type PostBillingMetersIdDeactivate = (
   params: Params<
@@ -3946,38 +3574,29 @@ export type PostBillingMetersIdDeactivate = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingMetersIdEventSummariesResponder = {
+const getBillingMetersIdEventSummaries = b((r) => ({
   with200: r.with200<{
     data: t_billing_meter_event_summary[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_billing_meter_event_summary),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/billing/meters/[^/]+/event_summaries")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingMetersIdEventSummariesResponder =
-  typeof getBillingMetersIdEventSummariesResponder & KoaRuntimeResponder
-
-const getBillingMetersIdEventSummariesResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_billing_meter_event_summary),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/billing/meters/[^/]+/event_summaries")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getBillingMetersIdEventSummaries)["responder"] & KoaRuntimeResponder
 
 export type GetBillingMetersIdEventSummaries = (
   params: Params<
@@ -4002,17 +3621,14 @@ export type GetBillingMetersIdEventSummaries = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingMetersIdReactivateResponder = {
-  with200: r.with200<t_billing_meter>,
-  withDefault: r.withDefault<t_error>,
+const postBillingMetersIdReactivate = b((r) => ({
+  with200: r.with200<t_billing_meter>(s_billing_meter),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingMetersIdReactivateResponder =
-  typeof postBillingMetersIdReactivateResponder & KoaRuntimeResponder
-
-const postBillingMetersIdReactivateResponseValidator =
-  responseValidationFactory([["200", s_billing_meter]], s_error)
+  (typeof postBillingMetersIdReactivate)["responder"] & KoaRuntimeResponder
 
 export type PostBillingMetersIdReactivate = (
   params: Params<
@@ -4029,38 +3645,29 @@ export type PostBillingMetersIdReactivate = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingPortalConfigurationsResponder = {
+const getBillingPortalConfigurations = b((r) => ({
   with200: r.with200<{
     data: t_billing_portal_configuration[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_billing_portal_configuration),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/billing_portal/configurations")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingPortalConfigurationsResponder =
-  typeof getBillingPortalConfigurationsResponder & KoaRuntimeResponder
-
-const getBillingPortalConfigurationsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_billing_portal_configuration),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/billing_portal/configurations")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getBillingPortalConfigurations)["responder"] & KoaRuntimeResponder
 
 export type GetBillingPortalConfigurations = (
   params: Params<
@@ -4085,17 +3692,16 @@ export type GetBillingPortalConfigurations = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingPortalConfigurationsResponder = {
-  with200: r.with200<t_billing_portal_configuration>,
-  withDefault: r.withDefault<t_error>,
+const postBillingPortalConfigurations = b((r) => ({
+  with200: r.with200<t_billing_portal_configuration>(
+    s_billing_portal_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingPortalConfigurationsResponder =
-  typeof postBillingPortalConfigurationsResponder & KoaRuntimeResponder
-
-const postBillingPortalConfigurationsResponseValidator =
-  responseValidationFactory([["200", s_billing_portal_configuration]], s_error)
+  (typeof postBillingPortalConfigurations)["responder"] & KoaRuntimeResponder
 
 export type PostBillingPortalConfigurations = (
   params: Params<void, void, t_PostBillingPortalConfigurationsBodySchema, void>,
@@ -4107,18 +3713,17 @@ export type PostBillingPortalConfigurations = (
   | Response<StatusCode, t_error>
 >
 
-const getBillingPortalConfigurationsConfigurationResponder = {
-  with200: r.with200<t_billing_portal_configuration>,
-  withDefault: r.withDefault<t_error>,
+const getBillingPortalConfigurationsConfiguration = b((r) => ({
+  with200: r.with200<t_billing_portal_configuration>(
+    s_billing_portal_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetBillingPortalConfigurationsConfigurationResponder =
-  typeof getBillingPortalConfigurationsConfigurationResponder &
+  (typeof getBillingPortalConfigurationsConfiguration)["responder"] &
     KoaRuntimeResponder
-
-const getBillingPortalConfigurationsConfigurationResponseValidator =
-  responseValidationFactory([["200", s_billing_portal_configuration]], s_error)
 
 export type GetBillingPortalConfigurationsConfiguration = (
   params: Params<
@@ -4135,18 +3740,17 @@ export type GetBillingPortalConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingPortalConfigurationsConfigurationResponder = {
-  with200: r.with200<t_billing_portal_configuration>,
-  withDefault: r.withDefault<t_error>,
+const postBillingPortalConfigurationsConfiguration = b((r) => ({
+  with200: r.with200<t_billing_portal_configuration>(
+    s_billing_portal_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingPortalConfigurationsConfigurationResponder =
-  typeof postBillingPortalConfigurationsConfigurationResponder &
+  (typeof postBillingPortalConfigurationsConfiguration)["responder"] &
     KoaRuntimeResponder
-
-const postBillingPortalConfigurationsConfigurationResponseValidator =
-  responseValidationFactory([["200", s_billing_portal_configuration]], s_error)
 
 export type PostBillingPortalConfigurationsConfiguration = (
   params: Params<
@@ -4163,19 +3767,14 @@ export type PostBillingPortalConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const postBillingPortalSessionsResponder = {
-  with200: r.with200<t_billing_portal_session>,
-  withDefault: r.withDefault<t_error>,
+const postBillingPortalSessions = b((r) => ({
+  with200: r.with200<t_billing_portal_session>(s_billing_portal_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostBillingPortalSessionsResponder =
-  typeof postBillingPortalSessionsResponder & KoaRuntimeResponder
-
-const postBillingPortalSessionsResponseValidator = responseValidationFactory(
-  [["200", s_billing_portal_session]],
-  s_error,
-)
+  (typeof postBillingPortalSessions)["responder"] & KoaRuntimeResponder
 
 export type PostBillingPortalSessions = (
   params: Params<void, void, t_PostBillingPortalSessionsBodySchema, void>,
@@ -4187,33 +3786,26 @@ export type PostBillingPortalSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getChargesResponder = {
+const getCharges = b((r) => ({
   with200: r.with200<{
     data: t_charge[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_charge)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/charges")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetChargesResponder = typeof getChargesResponder & KoaRuntimeResponder
-
-const getChargesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_charge)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/charges")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetChargesResponder = (typeof getCharges)["responder"] &
+  KoaRuntimeResponder
 
 export type GetCharges = (
   params: Params<
@@ -4238,18 +3830,14 @@ export type GetCharges = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesResponder = {
-  with200: r.with200<t_charge>,
-  withDefault: r.withDefault<t_error>,
+const postCharges = b((r) => ({
+  with200: r.with200<t_charge>(s_charge),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostChargesResponder = typeof postChargesResponder & KoaRuntimeResponder
-
-const postChargesResponseValidator = responseValidationFactory(
-  [["200", s_charge]],
-  s_error,
-)
+type PostChargesResponder = (typeof postCharges)["responder"] &
+  KoaRuntimeResponder
 
 export type PostCharges = (
   params: Params<void, void, t_PostChargesBodySchema | undefined, void>,
@@ -4261,7 +3849,7 @@ export type PostCharges = (
   | Response<StatusCode, t_error>
 >
 
-const getChargesSearchResponder = {
+const getChargesSearch = b((r) => ({
   with200: r.with200<{
     data: t_charge[]
     has_more: boolean
@@ -4269,30 +3857,22 @@ const getChargesSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_charge)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetChargesSearchResponder = typeof getChargesSearchResponder &
+type GetChargesSearchResponder = (typeof getChargesSearch)["responder"] &
   KoaRuntimeResponder
-
-const getChargesSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_charge)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetChargesSearch = (
   params: Params<
@@ -4319,19 +3899,14 @@ export type GetChargesSearch = (
   | Response<StatusCode, t_error>
 >
 
-const getChargesChargeResponder = {
-  with200: r.with200<t_charge>,
-  withDefault: r.withDefault<t_error>,
+const getChargesCharge = b((r) => ({
+  with200: r.with200<t_charge>(s_charge),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetChargesChargeResponder = typeof getChargesChargeResponder &
+type GetChargesChargeResponder = (typeof getChargesCharge)["responder"] &
   KoaRuntimeResponder
-
-const getChargesChargeResponseValidator = responseValidationFactory(
-  [["200", s_charge]],
-  s_error,
-)
 
 export type GetChargesCharge = (
   params: Params<
@@ -4348,19 +3923,14 @@ export type GetChargesCharge = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeResponder = {
-  with200: r.with200<t_charge>,
-  withDefault: r.withDefault<t_error>,
+const postChargesCharge = b((r) => ({
+  with200: r.with200<t_charge>(s_charge),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostChargesChargeResponder = typeof postChargesChargeResponder &
+type PostChargesChargeResponder = (typeof postChargesCharge)["responder"] &
   KoaRuntimeResponder
-
-const postChargesChargeResponseValidator = responseValidationFactory(
-  [["200", s_charge]],
-  s_error,
-)
 
 export type PostChargesCharge = (
   params: Params<
@@ -4377,19 +3947,14 @@ export type PostChargesCharge = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeCaptureResponder = {
-  with200: r.with200<t_charge>,
-  withDefault: r.withDefault<t_error>,
+const postChargesChargeCapture = b((r) => ({
+  with200: r.with200<t_charge>(s_charge),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostChargesChargeCaptureResponder =
-  typeof postChargesChargeCaptureResponder & KoaRuntimeResponder
-
-const postChargesChargeCaptureResponseValidator = responseValidationFactory(
-  [["200", s_charge]],
-  s_error,
-)
+  (typeof postChargesChargeCapture)["responder"] & KoaRuntimeResponder
 
 export type PostChargesChargeCapture = (
   params: Params<
@@ -4406,19 +3971,14 @@ export type PostChargesChargeCapture = (
   | Response<StatusCode, t_error>
 >
 
-const getChargesChargeDisputeResponder = {
-  with200: r.with200<t_dispute>,
-  withDefault: r.withDefault<t_error>,
+const getChargesChargeDispute = b((r) => ({
+  with200: r.with200<t_dispute>(s_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetChargesChargeDisputeResponder =
-  typeof getChargesChargeDisputeResponder & KoaRuntimeResponder
-
-const getChargesChargeDisputeResponseValidator = responseValidationFactory(
-  [["200", s_dispute]],
-  s_error,
-)
+  (typeof getChargesChargeDispute)["responder"] & KoaRuntimeResponder
 
 export type GetChargesChargeDispute = (
   params: Params<
@@ -4435,19 +3995,14 @@ export type GetChargesChargeDispute = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeDisputeResponder = {
-  with200: r.with200<t_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postChargesChargeDispute = b((r) => ({
+  with200: r.with200<t_dispute>(s_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostChargesChargeDisputeResponder =
-  typeof postChargesChargeDisputeResponder & KoaRuntimeResponder
-
-const postChargesChargeDisputeResponseValidator = responseValidationFactory(
-  [["200", s_dispute]],
-  s_error,
-)
+  (typeof postChargesChargeDispute)["responder"] & KoaRuntimeResponder
 
 export type PostChargesChargeDispute = (
   params: Params<
@@ -4464,17 +4019,14 @@ export type PostChargesChargeDispute = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeDisputeCloseResponder = {
-  with200: r.with200<t_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postChargesChargeDisputeClose = b((r) => ({
+  with200: r.with200<t_dispute>(s_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostChargesChargeDisputeCloseResponder =
-  typeof postChargesChargeDisputeCloseResponder & KoaRuntimeResponder
-
-const postChargesChargeDisputeCloseResponseValidator =
-  responseValidationFactory([["200", s_dispute]], s_error)
+  (typeof postChargesChargeDisputeClose)["responder"] & KoaRuntimeResponder
 
 export type PostChargesChargeDisputeClose = (
   params: Params<
@@ -4491,19 +4043,14 @@ export type PostChargesChargeDisputeClose = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeRefundResponder = {
-  with200: r.with200<t_charge>,
-  withDefault: r.withDefault<t_error>,
+const postChargesChargeRefund = b((r) => ({
+  with200: r.with200<t_charge>(s_charge),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostChargesChargeRefundResponder =
-  typeof postChargesChargeRefundResponder & KoaRuntimeResponder
-
-const postChargesChargeRefundResponseValidator = responseValidationFactory(
-  [["200", s_charge]],
-  s_error,
-)
+  (typeof postChargesChargeRefund)["responder"] & KoaRuntimeResponder
 
 export type PostChargesChargeRefund = (
   params: Params<
@@ -4520,34 +4067,26 @@ export type PostChargesChargeRefund = (
   | Response<StatusCode, t_error>
 >
 
-const getChargesChargeRefundsResponder = {
+const getChargesChargeRefunds = b((r) => ({
   with200: r.with200<{
     data: t_refund[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_refund)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetChargesChargeRefundsResponder =
-  typeof getChargesChargeRefundsResponder & KoaRuntimeResponder
-
-const getChargesChargeRefundsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_refund)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getChargesChargeRefunds)["responder"] & KoaRuntimeResponder
 
 export type GetChargesChargeRefunds = (
   params: Params<
@@ -4572,19 +4111,14 @@ export type GetChargesChargeRefunds = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeRefundsResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const postChargesChargeRefunds = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostChargesChargeRefundsResponder =
-  typeof postChargesChargeRefundsResponder & KoaRuntimeResponder
-
-const postChargesChargeRefundsResponseValidator = responseValidationFactory(
-  [["200", s_refund]],
-  s_error,
-)
+  (typeof postChargesChargeRefunds)["responder"] & KoaRuntimeResponder
 
 export type PostChargesChargeRefunds = (
   params: Params<
@@ -4601,17 +4135,14 @@ export type PostChargesChargeRefunds = (
   | Response<StatusCode, t_error>
 >
 
-const getChargesChargeRefundsRefundResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const getChargesChargeRefundsRefund = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetChargesChargeRefundsRefundResponder =
-  typeof getChargesChargeRefundsRefundResponder & KoaRuntimeResponder
-
-const getChargesChargeRefundsRefundResponseValidator =
-  responseValidationFactory([["200", s_refund]], s_error)
+  (typeof getChargesChargeRefundsRefund)["responder"] & KoaRuntimeResponder
 
 export type GetChargesChargeRefundsRefund = (
   params: Params<
@@ -4628,17 +4159,14 @@ export type GetChargesChargeRefundsRefund = (
   | Response<StatusCode, t_error>
 >
 
-const postChargesChargeRefundsRefundResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const postChargesChargeRefundsRefund = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostChargesChargeRefundsRefundResponder =
-  typeof postChargesChargeRefundsRefundResponder & KoaRuntimeResponder
-
-const postChargesChargeRefundsRefundResponseValidator =
-  responseValidationFactory([["200", s_refund]], s_error)
+  (typeof postChargesChargeRefundsRefund)["responder"] & KoaRuntimeResponder
 
 export type PostChargesChargeRefundsRefund = (
   params: Params<
@@ -4655,34 +4183,26 @@ export type PostChargesChargeRefundsRefund = (
   | Response<StatusCode, t_error>
 >
 
-const getCheckoutSessionsResponder = {
+const getCheckoutSessions = b((r) => ({
   with200: r.with200<{
     data: t_checkout_session[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_checkout_session)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCheckoutSessionsResponder = typeof getCheckoutSessionsResponder &
+type GetCheckoutSessionsResponder = (typeof getCheckoutSessions)["responder"] &
   KoaRuntimeResponder
-
-const getCheckoutSessionsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_checkout_session)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetCheckoutSessions = (
   params: Params<
@@ -4707,19 +4227,14 @@ export type GetCheckoutSessions = (
   | Response<StatusCode, t_error>
 >
 
-const postCheckoutSessionsResponder = {
-  with200: r.with200<t_checkout_session>,
-  withDefault: r.withDefault<t_error>,
+const postCheckoutSessions = b((r) => ({
+  with200: r.with200<t_checkout_session>(s_checkout_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCheckoutSessionsResponder = typeof postCheckoutSessionsResponder &
-  KoaRuntimeResponder
-
-const postCheckoutSessionsResponseValidator = responseValidationFactory(
-  [["200", s_checkout_session]],
-  s_error,
-)
+type PostCheckoutSessionsResponder =
+  (typeof postCheckoutSessions)["responder"] & KoaRuntimeResponder
 
 export type PostCheckoutSessions = (
   params: Params<
@@ -4736,19 +4251,14 @@ export type PostCheckoutSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getCheckoutSessionsSessionResponder = {
-  with200: r.with200<t_checkout_session>,
-  withDefault: r.withDefault<t_error>,
+const getCheckoutSessionsSession = b((r) => ({
+  with200: r.with200<t_checkout_session>(s_checkout_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCheckoutSessionsSessionResponder =
-  typeof getCheckoutSessionsSessionResponder & KoaRuntimeResponder
-
-const getCheckoutSessionsSessionResponseValidator = responseValidationFactory(
-  [["200", s_checkout_session]],
-  s_error,
-)
+  (typeof getCheckoutSessionsSession)["responder"] & KoaRuntimeResponder
 
 export type GetCheckoutSessionsSession = (
   params: Params<
@@ -4765,19 +4275,14 @@ export type GetCheckoutSessionsSession = (
   | Response<StatusCode, t_error>
 >
 
-const postCheckoutSessionsSessionResponder = {
-  with200: r.with200<t_checkout_session>,
-  withDefault: r.withDefault<t_error>,
+const postCheckoutSessionsSession = b((r) => ({
+  with200: r.with200<t_checkout_session>(s_checkout_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCheckoutSessionsSessionResponder =
-  typeof postCheckoutSessionsSessionResponder & KoaRuntimeResponder
-
-const postCheckoutSessionsSessionResponseValidator = responseValidationFactory(
-  [["200", s_checkout_session]],
-  s_error,
-)
+  (typeof postCheckoutSessionsSession)["responder"] & KoaRuntimeResponder
 
 export type PostCheckoutSessionsSession = (
   params: Params<
@@ -4794,17 +4299,14 @@ export type PostCheckoutSessionsSession = (
   | Response<StatusCode, t_error>
 >
 
-const postCheckoutSessionsSessionExpireResponder = {
-  with200: r.with200<t_checkout_session>,
-  withDefault: r.withDefault<t_error>,
+const postCheckoutSessionsSessionExpire = b((r) => ({
+  with200: r.with200<t_checkout_session>(s_checkout_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCheckoutSessionsSessionExpireResponder =
-  typeof postCheckoutSessionsSessionExpireResponder & KoaRuntimeResponder
-
-const postCheckoutSessionsSessionExpireResponseValidator =
-  responseValidationFactory([["200", s_checkout_session]], s_error)
+  (typeof postCheckoutSessionsSessionExpire)["responder"] & KoaRuntimeResponder
 
 export type PostCheckoutSessionsSessionExpire = (
   params: Params<
@@ -4821,35 +4323,27 @@ export type PostCheckoutSessionsSessionExpire = (
   | Response<StatusCode, t_error>
 >
 
-const getCheckoutSessionsSessionLineItemsResponder = {
+const getCheckoutSessionsSessionLineItems = b((r) => ({
   with200: r.with200<{
     data: t_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCheckoutSessionsSessionLineItemsResponder =
-  typeof getCheckoutSessionsSessionLineItemsResponder & KoaRuntimeResponder
-
-const getCheckoutSessionsSessionLineItemsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_item)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getCheckoutSessionsSessionLineItems)["responder"] &
+    KoaRuntimeResponder
 
 export type GetCheckoutSessionsSessionLineItems = (
   params: Params<
@@ -4874,34 +4368,26 @@ export type GetCheckoutSessionsSessionLineItems = (
   | Response<StatusCode, t_error>
 >
 
-const getClimateOrdersResponder = {
+const getClimateOrders = b((r) => ({
   with200: r.with200<{
     data: t_climate_order[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_climate_order),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/climate/orders")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetClimateOrdersResponder = typeof getClimateOrdersResponder &
+type GetClimateOrdersResponder = (typeof getClimateOrders)["responder"] &
   KoaRuntimeResponder
-
-const getClimateOrdersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_climate_order),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/climate/orders")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetClimateOrders = (
   params: Params<
@@ -4926,19 +4412,14 @@ export type GetClimateOrders = (
   | Response<StatusCode, t_error>
 >
 
-const postClimateOrdersResponder = {
-  with200: r.with200<t_climate_order>,
-  withDefault: r.withDefault<t_error>,
+const postClimateOrders = b((r) => ({
+  with200: r.with200<t_climate_order>(s_climate_order),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostClimateOrdersResponder = typeof postClimateOrdersResponder &
+type PostClimateOrdersResponder = (typeof postClimateOrders)["responder"] &
   KoaRuntimeResponder
-
-const postClimateOrdersResponseValidator = responseValidationFactory(
-  [["200", s_climate_order]],
-  s_error,
-)
 
 export type PostClimateOrders = (
   params: Params<void, void, t_PostClimateOrdersBodySchema, void>,
@@ -4950,19 +4431,14 @@ export type PostClimateOrders = (
   | Response<StatusCode, t_error>
 >
 
-const getClimateOrdersOrderResponder = {
-  with200: r.with200<t_climate_order>,
-  withDefault: r.withDefault<t_error>,
+const getClimateOrdersOrder = b((r) => ({
+  with200: r.with200<t_climate_order>(s_climate_order),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetClimateOrdersOrderResponder = typeof getClimateOrdersOrderResponder &
-  KoaRuntimeResponder
-
-const getClimateOrdersOrderResponseValidator = responseValidationFactory(
-  [["200", s_climate_order]],
-  s_error,
-)
+type GetClimateOrdersOrderResponder =
+  (typeof getClimateOrdersOrder)["responder"] & KoaRuntimeResponder
 
 export type GetClimateOrdersOrder = (
   params: Params<
@@ -4979,19 +4455,14 @@ export type GetClimateOrdersOrder = (
   | Response<StatusCode, t_error>
 >
 
-const postClimateOrdersOrderResponder = {
-  with200: r.with200<t_climate_order>,
-  withDefault: r.withDefault<t_error>,
+const postClimateOrdersOrder = b((r) => ({
+  with200: r.with200<t_climate_order>(s_climate_order),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostClimateOrdersOrderResponder = typeof postClimateOrdersOrderResponder &
-  KoaRuntimeResponder
-
-const postClimateOrdersOrderResponseValidator = responseValidationFactory(
-  [["200", s_climate_order]],
-  s_error,
-)
+type PostClimateOrdersOrderResponder =
+  (typeof postClimateOrdersOrder)["responder"] & KoaRuntimeResponder
 
 export type PostClimateOrdersOrder = (
   params: Params<
@@ -5008,19 +4479,14 @@ export type PostClimateOrdersOrder = (
   | Response<StatusCode, t_error>
 >
 
-const postClimateOrdersOrderCancelResponder = {
-  with200: r.with200<t_climate_order>,
-  withDefault: r.withDefault<t_error>,
+const postClimateOrdersOrderCancel = b((r) => ({
+  with200: r.with200<t_climate_order>(s_climate_order),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostClimateOrdersOrderCancelResponder =
-  typeof postClimateOrdersOrderCancelResponder & KoaRuntimeResponder
-
-const postClimateOrdersOrderCancelResponseValidator = responseValidationFactory(
-  [["200", s_climate_order]],
-  s_error,
-)
+  (typeof postClimateOrdersOrderCancel)["responder"] & KoaRuntimeResponder
 
 export type PostClimateOrdersOrderCancel = (
   params: Params<
@@ -5037,34 +4503,26 @@ export type PostClimateOrdersOrderCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getClimateProductsResponder = {
+const getClimateProducts = b((r) => ({
   with200: r.with200<{
     data: t_climate_product[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_climate_product),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/climate/products")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetClimateProductsResponder = typeof getClimateProductsResponder &
+type GetClimateProductsResponder = (typeof getClimateProducts)["responder"] &
   KoaRuntimeResponder
-
-const getClimateProductsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_climate_product),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/climate/products")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetClimateProducts = (
   params: Params<
@@ -5089,19 +4547,14 @@ export type GetClimateProducts = (
   | Response<StatusCode, t_error>
 >
 
-const getClimateProductsProductResponder = {
-  with200: r.with200<t_climate_product>,
-  withDefault: r.withDefault<t_error>,
+const getClimateProductsProduct = b((r) => ({
+  with200: r.with200<t_climate_product>(s_climate_product),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetClimateProductsProductResponder =
-  typeof getClimateProductsProductResponder & KoaRuntimeResponder
-
-const getClimateProductsProductResponseValidator = responseValidationFactory(
-  [["200", s_climate_product]],
-  s_error,
-)
+  (typeof getClimateProductsProduct)["responder"] & KoaRuntimeResponder
 
 export type GetClimateProductsProduct = (
   params: Params<
@@ -5118,34 +4571,26 @@ export type GetClimateProductsProduct = (
   | Response<StatusCode, t_error>
 >
 
-const getClimateSuppliersResponder = {
+const getClimateSuppliers = b((r) => ({
   with200: r.with200<{
     data: t_climate_supplier[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_climate_supplier),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/climate/suppliers")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetClimateSuppliersResponder = typeof getClimateSuppliersResponder &
+type GetClimateSuppliersResponder = (typeof getClimateSuppliers)["responder"] &
   KoaRuntimeResponder
-
-const getClimateSuppliersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_climate_supplier),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/climate/suppliers")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetClimateSuppliers = (
   params: Params<
@@ -5170,19 +4615,14 @@ export type GetClimateSuppliers = (
   | Response<StatusCode, t_error>
 >
 
-const getClimateSuppliersSupplierResponder = {
-  with200: r.with200<t_climate_supplier>,
-  withDefault: r.withDefault<t_error>,
+const getClimateSuppliersSupplier = b((r) => ({
+  with200: r.with200<t_climate_supplier>(s_climate_supplier),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetClimateSuppliersSupplierResponder =
-  typeof getClimateSuppliersSupplierResponder & KoaRuntimeResponder
-
-const getClimateSuppliersSupplierResponseValidator = responseValidationFactory(
-  [["200", s_climate_supplier]],
-  s_error,
-)
+  (typeof getClimateSuppliersSupplier)["responder"] & KoaRuntimeResponder
 
 export type GetClimateSuppliersSupplier = (
   params: Params<
@@ -5199,17 +4639,15 @@ export type GetClimateSuppliersSupplier = (
   | Response<StatusCode, t_error>
 >
 
-const getConfirmationTokensConfirmationTokenResponder = {
-  with200: r.with200<t_confirmation_token>,
-  withDefault: r.withDefault<t_error>,
+const getConfirmationTokensConfirmationToken = b((r) => ({
+  with200: r.with200<t_confirmation_token>(s_confirmation_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetConfirmationTokensConfirmationTokenResponder =
-  typeof getConfirmationTokensConfirmationTokenResponder & KoaRuntimeResponder
-
-const getConfirmationTokensConfirmationTokenResponseValidator =
-  responseValidationFactory([["200", s_confirmation_token]], s_error)
+  (typeof getConfirmationTokensConfirmationToken)["responder"] &
+    KoaRuntimeResponder
 
 export type GetConfirmationTokensConfirmationToken = (
   params: Params<
@@ -5226,34 +4664,26 @@ export type GetConfirmationTokensConfirmationToken = (
   | Response<StatusCode, t_error>
 >
 
-const getCountrySpecsResponder = {
+const getCountrySpecs = b((r) => ({
   with200: r.with200<{
     data: t_country_spec[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_country_spec),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/country_specs")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCountrySpecsResponder = typeof getCountrySpecsResponder &
+type GetCountrySpecsResponder = (typeof getCountrySpecs)["responder"] &
   KoaRuntimeResponder
-
-const getCountrySpecsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_country_spec),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/country_specs")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetCountrySpecs = (
   params: Params<
@@ -5278,19 +4708,14 @@ export type GetCountrySpecs = (
   | Response<StatusCode, t_error>
 >
 
-const getCountrySpecsCountryResponder = {
-  with200: r.with200<t_country_spec>,
-  withDefault: r.withDefault<t_error>,
+const getCountrySpecsCountry = b((r) => ({
+  with200: r.with200<t_country_spec>(s_country_spec),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCountrySpecsCountryResponder = typeof getCountrySpecsCountryResponder &
-  KoaRuntimeResponder
-
-const getCountrySpecsCountryResponseValidator = responseValidationFactory(
-  [["200", s_country_spec]],
-  s_error,
-)
+type GetCountrySpecsCountryResponder =
+  (typeof getCountrySpecsCountry)["responder"] & KoaRuntimeResponder
 
 export type GetCountrySpecsCountry = (
   params: Params<
@@ -5307,33 +4732,26 @@ export type GetCountrySpecsCountry = (
   | Response<StatusCode, t_error>
 >
 
-const getCouponsResponder = {
+const getCoupons = b((r) => ({
   with200: r.with200<{
     data: t_coupon[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_coupon),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/coupons")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCouponsResponder = typeof getCouponsResponder & KoaRuntimeResponder
-
-const getCouponsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_coupon),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/coupons")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetCouponsResponder = (typeof getCoupons)["responder"] &
+  KoaRuntimeResponder
 
 export type GetCoupons = (
   params: Params<
@@ -5358,18 +4776,14 @@ export type GetCoupons = (
   | Response<StatusCode, t_error>
 >
 
-const postCouponsResponder = {
-  with200: r.with200<t_coupon>,
-  withDefault: r.withDefault<t_error>,
+const postCoupons = b((r) => ({
+  with200: r.with200<t_coupon>(s_coupon),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCouponsResponder = typeof postCouponsResponder & KoaRuntimeResponder
-
-const postCouponsResponseValidator = responseValidationFactory(
-  [["200", s_coupon]],
-  s_error,
-)
+type PostCouponsResponder = (typeof postCoupons)["responder"] &
+  KoaRuntimeResponder
 
 export type PostCoupons = (
   params: Params<void, void, t_PostCouponsBodySchema | undefined, void>,
@@ -5381,19 +4795,14 @@ export type PostCoupons = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCouponsCouponResponder = {
-  with200: r.with200<t_deleted_coupon>,
-  withDefault: r.withDefault<t_error>,
+const deleteCouponsCoupon = b((r) => ({
+  with200: r.with200<t_deleted_coupon>(s_deleted_coupon),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteCouponsCouponResponder = typeof deleteCouponsCouponResponder &
+type DeleteCouponsCouponResponder = (typeof deleteCouponsCoupon)["responder"] &
   KoaRuntimeResponder
-
-const deleteCouponsCouponResponseValidator = responseValidationFactory(
-  [["200", s_deleted_coupon]],
-  s_error,
-)
 
 export type DeleteCouponsCoupon = (
   params: Params<
@@ -5410,19 +4819,14 @@ export type DeleteCouponsCoupon = (
   | Response<StatusCode, t_error>
 >
 
-const getCouponsCouponResponder = {
-  with200: r.with200<t_coupon>,
-  withDefault: r.withDefault<t_error>,
+const getCouponsCoupon = b((r) => ({
+  with200: r.with200<t_coupon>(s_coupon),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCouponsCouponResponder = typeof getCouponsCouponResponder &
+type GetCouponsCouponResponder = (typeof getCouponsCoupon)["responder"] &
   KoaRuntimeResponder
-
-const getCouponsCouponResponseValidator = responseValidationFactory(
-  [["200", s_coupon]],
-  s_error,
-)
 
 export type GetCouponsCoupon = (
   params: Params<
@@ -5439,19 +4843,14 @@ export type GetCouponsCoupon = (
   | Response<StatusCode, t_error>
 >
 
-const postCouponsCouponResponder = {
-  with200: r.with200<t_coupon>,
-  withDefault: r.withDefault<t_error>,
+const postCouponsCoupon = b((r) => ({
+  with200: r.with200<t_coupon>(s_coupon),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCouponsCouponResponder = typeof postCouponsCouponResponder &
+type PostCouponsCouponResponder = (typeof postCouponsCoupon)["responder"] &
   KoaRuntimeResponder
-
-const postCouponsCouponResponseValidator = responseValidationFactory(
-  [["200", s_coupon]],
-  s_error,
-)
 
 export type PostCouponsCoupon = (
   params: Params<
@@ -5468,34 +4867,26 @@ export type PostCouponsCoupon = (
   | Response<StatusCode, t_error>
 >
 
-const getCreditNotesResponder = {
+const getCreditNotes = b((r) => ({
   with200: r.with200<{
     data: t_credit_note[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_credit_note)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCreditNotesResponder = typeof getCreditNotesResponder &
+type GetCreditNotesResponder = (typeof getCreditNotes)["responder"] &
   KoaRuntimeResponder
-
-const getCreditNotesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_credit_note)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetCreditNotes = (
   params: Params<
@@ -5520,19 +4911,14 @@ export type GetCreditNotes = (
   | Response<StatusCode, t_error>
 >
 
-const postCreditNotesResponder = {
-  with200: r.with200<t_credit_note>,
-  withDefault: r.withDefault<t_error>,
+const postCreditNotes = b((r) => ({
+  with200: r.with200<t_credit_note>(s_credit_note),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCreditNotesResponder = typeof postCreditNotesResponder &
+type PostCreditNotesResponder = (typeof postCreditNotes)["responder"] &
   KoaRuntimeResponder
-
-const postCreditNotesResponseValidator = responseValidationFactory(
-  [["200", s_credit_note]],
-  s_error,
-)
 
 export type PostCreditNotes = (
   params: Params<void, void, t_PostCreditNotesBodySchema, void>,
@@ -5544,19 +4930,14 @@ export type PostCreditNotes = (
   | Response<StatusCode, t_error>
 >
 
-const getCreditNotesPreviewResponder = {
-  with200: r.with200<t_credit_note>,
-  withDefault: r.withDefault<t_error>,
+const getCreditNotesPreview = b((r) => ({
+  with200: r.with200<t_credit_note>(s_credit_note),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCreditNotesPreviewResponder = typeof getCreditNotesPreviewResponder &
-  KoaRuntimeResponder
-
-const getCreditNotesPreviewResponseValidator = responseValidationFactory(
-  [["200", s_credit_note]],
-  s_error,
-)
+type GetCreditNotesPreviewResponder =
+  (typeof getCreditNotesPreview)["responder"] & KoaRuntimeResponder
 
 export type GetCreditNotesPreview = (
   params: Params<
@@ -5573,34 +4954,26 @@ export type GetCreditNotesPreview = (
   | Response<StatusCode, t_error>
 >
 
-const getCreditNotesPreviewLinesResponder = {
+const getCreditNotesPreviewLines = b((r) => ({
   with200: r.with200<{
     data: t_credit_note_line_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_credit_note_line_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCreditNotesPreviewLinesResponder =
-  typeof getCreditNotesPreviewLinesResponder & KoaRuntimeResponder
-
-const getCreditNotesPreviewLinesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_credit_note_line_item)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getCreditNotesPreviewLines)["responder"] & KoaRuntimeResponder
 
 export type GetCreditNotesPreviewLines = (
   params: Params<
@@ -5625,35 +4998,26 @@ export type GetCreditNotesPreviewLines = (
   | Response<StatusCode, t_error>
 >
 
-const getCreditNotesCreditNoteLinesResponder = {
+const getCreditNotesCreditNoteLines = b((r) => ({
   with200: r.with200<{
     data: t_credit_note_line_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_credit_note_line_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCreditNotesCreditNoteLinesResponder =
-  typeof getCreditNotesCreditNoteLinesResponder & KoaRuntimeResponder
-
-const getCreditNotesCreditNoteLinesResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_credit_note_line_item)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getCreditNotesCreditNoteLines)["responder"] & KoaRuntimeResponder
 
 export type GetCreditNotesCreditNoteLines = (
   params: Params<
@@ -5678,19 +5042,14 @@ export type GetCreditNotesCreditNoteLines = (
   | Response<StatusCode, t_error>
 >
 
-const getCreditNotesIdResponder = {
-  with200: r.with200<t_credit_note>,
-  withDefault: r.withDefault<t_error>,
+const getCreditNotesId = b((r) => ({
+  with200: r.with200<t_credit_note>(s_credit_note),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCreditNotesIdResponder = typeof getCreditNotesIdResponder &
+type GetCreditNotesIdResponder = (typeof getCreditNotesId)["responder"] &
   KoaRuntimeResponder
-
-const getCreditNotesIdResponseValidator = responseValidationFactory(
-  [["200", s_credit_note]],
-  s_error,
-)
 
 export type GetCreditNotesId = (
   params: Params<
@@ -5707,19 +5066,14 @@ export type GetCreditNotesId = (
   | Response<StatusCode, t_error>
 >
 
-const postCreditNotesIdResponder = {
-  with200: r.with200<t_credit_note>,
-  withDefault: r.withDefault<t_error>,
+const postCreditNotesId = b((r) => ({
+  with200: r.with200<t_credit_note>(s_credit_note),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCreditNotesIdResponder = typeof postCreditNotesIdResponder &
+type PostCreditNotesIdResponder = (typeof postCreditNotesId)["responder"] &
   KoaRuntimeResponder
-
-const postCreditNotesIdResponseValidator = responseValidationFactory(
-  [["200", s_credit_note]],
-  s_error,
-)
 
 export type PostCreditNotesId = (
   params: Params<
@@ -5736,19 +5090,14 @@ export type PostCreditNotesId = (
   | Response<StatusCode, t_error>
 >
 
-const postCreditNotesIdVoidResponder = {
-  with200: r.with200<t_credit_note>,
-  withDefault: r.withDefault<t_error>,
+const postCreditNotesIdVoid = b((r) => ({
+  with200: r.with200<t_credit_note>(s_credit_note),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCreditNotesIdVoidResponder = typeof postCreditNotesIdVoidResponder &
-  KoaRuntimeResponder
-
-const postCreditNotesIdVoidResponseValidator = responseValidationFactory(
-  [["200", s_credit_note]],
-  s_error,
-)
+type PostCreditNotesIdVoidResponder =
+  (typeof postCreditNotesIdVoid)["responder"] & KoaRuntimeResponder
 
 export type PostCreditNotesIdVoid = (
   params: Params<
@@ -5765,19 +5114,14 @@ export type PostCreditNotesIdVoid = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomerSessionsResponder = {
-  with200: r.with200<t_customer_session>,
-  withDefault: r.withDefault<t_error>,
+const postCustomerSessions = b((r) => ({
+  with200: r.with200<t_customer_session>(s_customer_session),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCustomerSessionsResponder = typeof postCustomerSessionsResponder &
-  KoaRuntimeResponder
-
-const postCustomerSessionsResponseValidator = responseValidationFactory(
-  [["200", s_customer_session]],
-  s_error,
-)
+type PostCustomerSessionsResponder =
+  (typeof postCustomerSessions)["responder"] & KoaRuntimeResponder
 
 export type PostCustomerSessions = (
   params: Params<void, void, t_PostCustomerSessionsBodySchema, void>,
@@ -5789,33 +5133,26 @@ export type PostCustomerSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersResponder = {
+const getCustomers = b((r) => ({
   with200: r.with200<{
     data: t_customer[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_customer)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/customers")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCustomersResponder = typeof getCustomersResponder & KoaRuntimeResponder
-
-const getCustomersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_customer)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/customers")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetCustomersResponder = (typeof getCustomers)["responder"] &
+  KoaRuntimeResponder
 
 export type GetCustomers = (
   params: Params<
@@ -5840,19 +5177,14 @@ export type GetCustomers = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersResponder = {
-  with200: r.with200<t_customer>,
-  withDefault: r.withDefault<t_error>,
+const postCustomers = b((r) => ({
+  with200: r.with200<t_customer>(s_customer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCustomersResponder = typeof postCustomersResponder &
+type PostCustomersResponder = (typeof postCustomers)["responder"] &
   KoaRuntimeResponder
-
-const postCustomersResponseValidator = responseValidationFactory(
-  [["200", s_customer]],
-  s_error,
-)
 
 export type PostCustomers = (
   params: Params<void, void, t_PostCustomersBodySchema | undefined, void>,
@@ -5864,7 +5196,7 @@ export type PostCustomers = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersSearchResponder = {
+const getCustomersSearch = b((r) => ({
   with200: r.with200<{
     data: t_customer[]
     has_more: boolean
@@ -5872,30 +5204,22 @@ const getCustomersSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_customer)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCustomersSearchResponder = typeof getCustomersSearchResponder &
+type GetCustomersSearchResponder = (typeof getCustomersSearch)["responder"] &
   KoaRuntimeResponder
-
-const getCustomersSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_customer)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetCustomersSearch = (
   params: Params<
@@ -5922,19 +5246,14 @@ export type GetCustomersSearch = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerResponder = {
-  with200: r.with200<t_deleted_customer>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomer = b((r) => ({
+  with200: r.with200<t_deleted_customer>(s_deleted_customer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerResponder =
-  typeof deleteCustomersCustomerResponder & KoaRuntimeResponder
-
-const deleteCustomersCustomerResponseValidator = responseValidationFactory(
-  [["200", s_deleted_customer]],
-  s_error,
-)
+  (typeof deleteCustomersCustomer)["responder"] & KoaRuntimeResponder
 
 export type DeleteCustomersCustomer = (
   params: Params<
@@ -5951,19 +5270,16 @@ export type DeleteCustomersCustomer = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerResponder = {
-  with200: r.with200<t_customer | t_deleted_customer>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomer = b((r) => ({
+  with200: r.with200<t_customer | t_deleted_customer>(
+    z.union([z.lazy(() => s_customer), s_deleted_customer]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetCustomersCustomerResponder = typeof getCustomersCustomerResponder &
-  KoaRuntimeResponder
-
-const getCustomersCustomerResponseValidator = responseValidationFactory(
-  [["200", z.union([z.lazy(() => s_customer), s_deleted_customer])]],
-  s_error,
-)
+type GetCustomersCustomerResponder =
+  (typeof getCustomersCustomer)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomer = (
   params: Params<
@@ -5980,19 +5296,14 @@ export type GetCustomersCustomer = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerResponder = {
-  with200: r.with200<t_customer>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomer = b((r) => ({
+  with200: r.with200<t_customer>(s_customer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostCustomersCustomerResponder = typeof postCustomersCustomerResponder &
-  KoaRuntimeResponder
-
-const postCustomersCustomerResponseValidator = responseValidationFactory(
-  [["200", s_customer]],
-  s_error,
-)
+type PostCustomersCustomerResponder =
+  (typeof postCustomersCustomer)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomer = (
   params: Params<
@@ -6009,35 +5320,27 @@ export type PostCustomersCustomer = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerBalanceTransactionsResponder = {
+const getCustomersCustomerBalanceTransactions = b((r) => ({
   with200: r.with200<{
     data: t_customer_balance_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_customer_balance_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerBalanceTransactionsResponder =
-  typeof getCustomersCustomerBalanceTransactionsResponder & KoaRuntimeResponder
-
-const getCustomersCustomerBalanceTransactionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_customer_balance_transaction)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getCustomersCustomerBalanceTransactions)["responder"] &
+    KoaRuntimeResponder
 
 export type GetCustomersCustomerBalanceTransactions = (
   params: Params<
@@ -6062,17 +5365,17 @@ export type GetCustomersCustomerBalanceTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerBalanceTransactionsResponder = {
-  with200: r.with200<t_customer_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerBalanceTransactions = b((r) => ({
+  with200: r.with200<t_customer_balance_transaction>(
+    s_customer_balance_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerBalanceTransactionsResponder =
-  typeof postCustomersCustomerBalanceTransactionsResponder & KoaRuntimeResponder
-
-const postCustomersCustomerBalanceTransactionsResponseValidator =
-  responseValidationFactory([["200", s_customer_balance_transaction]], s_error)
+  (typeof postCustomersCustomerBalanceTransactions)["responder"] &
+    KoaRuntimeResponder
 
 export type PostCustomersCustomerBalanceTransactions = (
   params: Params<
@@ -6089,18 +5392,17 @@ export type PostCustomersCustomerBalanceTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerBalanceTransactionsTransactionResponder = {
-  with200: r.with200<t_customer_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerBalanceTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_customer_balance_transaction>(
+    s_customer_balance_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerBalanceTransactionsTransactionResponder =
-  typeof getCustomersCustomerBalanceTransactionsTransactionResponder &
+  (typeof getCustomersCustomerBalanceTransactionsTransaction)["responder"] &
     KoaRuntimeResponder
-
-const getCustomersCustomerBalanceTransactionsTransactionResponseValidator =
-  responseValidationFactory([["200", s_customer_balance_transaction]], s_error)
 
 export type GetCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
@@ -6117,18 +5419,17 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerBalanceTransactionsTransactionResponder = {
-  with200: r.with200<t_customer_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerBalanceTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_customer_balance_transaction>(
+    s_customer_balance_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerBalanceTransactionsTransactionResponder =
-  typeof postCustomersCustomerBalanceTransactionsTransactionResponder &
+  (typeof postCustomersCustomerBalanceTransactionsTransaction)["responder"] &
     KoaRuntimeResponder
-
-const postCustomersCustomerBalanceTransactionsTransactionResponseValidator =
-  responseValidationFactory([["200", s_customer_balance_transaction]], s_error)
 
 export type PostCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
@@ -6145,35 +5446,26 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerBankAccountsResponder = {
+const getCustomersCustomerBankAccounts = b((r) => ({
   with200: r.with200<{
     data: t_bank_account[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_bank_account)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerBankAccountsResponder =
-  typeof getCustomersCustomerBankAccountsResponder & KoaRuntimeResponder
-
-const getCustomersCustomerBankAccountsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_bank_account)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getCustomersCustomerBankAccounts)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerBankAccounts = (
   params: Params<
@@ -6198,17 +5490,14 @@ export type GetCustomersCustomerBankAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerBankAccountsResponder = {
-  with200: r.with200<t_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerBankAccounts = b((r) => ({
+  with200: r.with200<t_payment_source>(s_payment_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerBankAccountsResponder =
-  typeof postCustomersCustomerBankAccountsResponder & KoaRuntimeResponder
-
-const postCustomersCustomerBankAccountsResponseValidator =
-  responseValidationFactory([["200", s_payment_source]], s_error)
+  (typeof postCustomersCustomerBankAccounts)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerBankAccounts = (
   params: Params<
@@ -6225,25 +5514,17 @@ export type PostCustomersCustomerBankAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerBankAccountsIdResponder = {
-  with200: r.with200<t_payment_source | t_deleted_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerBankAccountsId = b((r) => ({
+  with200: r.with200<t_payment_source | t_deleted_payment_source>(
+    z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerBankAccountsIdResponder =
-  typeof deleteCustomersCustomerBankAccountsIdResponder & KoaRuntimeResponder
-
-const deleteCustomersCustomerBankAccountsIdResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof deleteCustomersCustomerBankAccountsId)["responder"] &
+    KoaRuntimeResponder
 
 export type DeleteCustomersCustomerBankAccountsId = (
   params: Params<
@@ -6260,17 +5541,14 @@ export type DeleteCustomersCustomerBankAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerBankAccountsIdResponder = {
-  with200: r.with200<t_bank_account>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerBankAccountsId = b((r) => ({
+  with200: r.with200<t_bank_account>(s_bank_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerBankAccountsIdResponder =
-  typeof getCustomersCustomerBankAccountsIdResponder & KoaRuntimeResponder
-
-const getCustomersCustomerBankAccountsIdResponseValidator =
-  responseValidationFactory([["200", s_bank_account]], s_error)
+  (typeof getCustomersCustomerBankAccountsId)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerBankAccountsId = (
   params: Params<
@@ -6287,25 +5565,17 @@ export type GetCustomersCustomerBankAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerBankAccountsIdResponder = {
-  with200: r.with200<t_card | t_bank_account | t_source>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerBankAccountsId = b((r) => ({
+  with200: r.with200<t_card | t_bank_account | t_source>(
+    z.union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerBankAccountsIdResponder =
-  typeof postCustomersCustomerBankAccountsIdResponder & KoaRuntimeResponder
-
-const postCustomersCustomerBankAccountsIdResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof postCustomersCustomerBankAccountsId)["responder"] &
+    KoaRuntimeResponder
 
 export type PostCustomersCustomerBankAccountsId = (
   params: Params<
@@ -6322,18 +5592,15 @@ export type PostCustomersCustomerBankAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerBankAccountsIdVerifyResponder = {
-  with200: r.with200<t_bank_account>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerBankAccountsIdVerify = b((r) => ({
+  with200: r.with200<t_bank_account>(s_bank_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerBankAccountsIdVerifyResponder =
-  typeof postCustomersCustomerBankAccountsIdVerifyResponder &
+  (typeof postCustomersCustomerBankAccountsIdVerify)["responder"] &
     KoaRuntimeResponder
-
-const postCustomersCustomerBankAccountsIdVerifyResponseValidator =
-  responseValidationFactory([["200", s_bank_account]], s_error)
 
 export type PostCustomersCustomerBankAccountsIdVerify = (
   params: Params<
@@ -6350,34 +5617,26 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerCardsResponder = {
+const getCustomersCustomerCards = b((r) => ({
   with200: r.with200<{
     data: t_card[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_card)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerCardsResponder =
-  typeof getCustomersCustomerCardsResponder & KoaRuntimeResponder
-
-const getCustomersCustomerCardsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_card)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getCustomersCustomerCards)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerCards = (
   params: Params<
@@ -6402,19 +5661,14 @@ export type GetCustomersCustomerCards = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerCardsResponder = {
-  with200: r.with200<t_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerCards = b((r) => ({
+  with200: r.with200<t_payment_source>(s_payment_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerCardsResponder =
-  typeof postCustomersCustomerCardsResponder & KoaRuntimeResponder
-
-const postCustomersCustomerCardsResponseValidator = responseValidationFactory(
-  [["200", s_payment_source]],
-  s_error,
-)
+  (typeof postCustomersCustomerCards)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerCards = (
   params: Params<
@@ -6431,25 +5685,16 @@ export type PostCustomersCustomerCards = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerCardsIdResponder = {
-  with200: r.with200<t_payment_source | t_deleted_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerCardsId = b((r) => ({
+  with200: r.with200<t_payment_source | t_deleted_payment_source>(
+    z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerCardsIdResponder =
-  typeof deleteCustomersCustomerCardsIdResponder & KoaRuntimeResponder
-
-const deleteCustomersCustomerCardsIdResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof deleteCustomersCustomerCardsId)["responder"] & KoaRuntimeResponder
 
 export type DeleteCustomersCustomerCardsId = (
   params: Params<
@@ -6466,19 +5711,14 @@ export type DeleteCustomersCustomerCardsId = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerCardsIdResponder = {
-  with200: r.with200<t_card>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerCardsId = b((r) => ({
+  with200: r.with200<t_card>(s_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerCardsIdResponder =
-  typeof getCustomersCustomerCardsIdResponder & KoaRuntimeResponder
-
-const getCustomersCustomerCardsIdResponseValidator = responseValidationFactory(
-  [["200", s_card]],
-  s_error,
-)
+  (typeof getCustomersCustomerCardsId)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerCardsId = (
   params: Params<
@@ -6495,24 +5735,16 @@ export type GetCustomersCustomerCardsId = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerCardsIdResponder = {
-  with200: r.with200<t_card | t_bank_account | t_source>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerCardsId = b((r) => ({
+  with200: r.with200<t_card | t_bank_account | t_source>(
+    z.union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerCardsIdResponder =
-  typeof postCustomersCustomerCardsIdResponder & KoaRuntimeResponder
-
-const postCustomersCustomerCardsIdResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source]),
-    ],
-  ],
-  s_error,
-)
+  (typeof postCustomersCustomerCardsId)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerCardsId = (
   params: Params<
@@ -6529,17 +5761,14 @@ export type PostCustomersCustomerCardsId = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerCashBalanceResponder = {
-  with200: r.with200<t_cash_balance>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerCashBalance = b((r) => ({
+  with200: r.with200<t_cash_balance>(s_cash_balance),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerCashBalanceResponder =
-  typeof getCustomersCustomerCashBalanceResponder & KoaRuntimeResponder
-
-const getCustomersCustomerCashBalanceResponseValidator =
-  responseValidationFactory([["200", s_cash_balance]], s_error)
+  (typeof getCustomersCustomerCashBalance)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerCashBalance = (
   params: Params<
@@ -6556,17 +5785,14 @@ export type GetCustomersCustomerCashBalance = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerCashBalanceResponder = {
-  with200: r.with200<t_cash_balance>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerCashBalance = b((r) => ({
+  with200: r.with200<t_cash_balance>(s_cash_balance),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerCashBalanceResponder =
-  typeof postCustomersCustomerCashBalanceResponder & KoaRuntimeResponder
-
-const postCustomersCustomerCashBalanceResponseValidator =
-  responseValidationFactory([["200", s_cash_balance]], s_error)
+  (typeof postCustomersCustomerCashBalance)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerCashBalance = (
   params: Params<
@@ -6583,36 +5809,27 @@ export type PostCustomersCustomerCashBalance = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerCashBalanceTransactionsResponder = {
+const getCustomersCustomerCashBalanceTransactions = b((r) => ({
   with200: r.with200<{
     data: t_customer_cash_balance_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerCashBalanceTransactionsResponder =
-  typeof getCustomersCustomerCashBalanceTransactionsResponder &
+  (typeof getCustomersCustomerCashBalanceTransactions)["responder"] &
     KoaRuntimeResponder
-
-const getCustomersCustomerCashBalanceTransactionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_customer_cash_balance_transaction)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
 
 export type GetCustomersCustomerCashBalanceTransactions = (
   params: Params<
@@ -6637,21 +5854,17 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerCashBalanceTransactionsTransactionResponder = {
-  with200: r.with200<t_customer_cash_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerCashBalanceTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_customer_cash_balance_transaction>(
+    s_customer_cash_balance_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerCashBalanceTransactionsTransactionResponder =
-  typeof getCustomersCustomerCashBalanceTransactionsTransactionResponder &
+  (typeof getCustomersCustomerCashBalanceTransactionsTransaction)["responder"] &
     KoaRuntimeResponder
-
-const getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator =
-  responseValidationFactory(
-    [["200", s_customer_cash_balance_transaction]],
-    s_error,
-  )
 
 export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   params: Params<
@@ -6669,17 +5882,14 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerDiscountResponder = {
-  with200: r.with200<t_deleted_discount>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerDiscount = b((r) => ({
+  with200: r.with200<t_deleted_discount>(s_deleted_discount),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerDiscountResponder =
-  typeof deleteCustomersCustomerDiscountResponder & KoaRuntimeResponder
-
-const deleteCustomersCustomerDiscountResponseValidator =
-  responseValidationFactory([["200", s_deleted_discount]], s_error)
+  (typeof deleteCustomersCustomerDiscount)["responder"] & KoaRuntimeResponder
 
 export type DeleteCustomersCustomerDiscount = (
   params: Params<
@@ -6696,19 +5906,14 @@ export type DeleteCustomersCustomerDiscount = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerDiscountResponder = {
-  with200: r.with200<t_discount>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerDiscount = b((r) => ({
+  with200: r.with200<t_discount>(s_discount),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerDiscountResponder =
-  typeof getCustomersCustomerDiscountResponder & KoaRuntimeResponder
-
-const getCustomersCustomerDiscountResponseValidator = responseValidationFactory(
-  [["200", s_discount]],
-  s_error,
-)
+  (typeof getCustomersCustomerDiscount)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerDiscount = (
   params: Params<
@@ -6725,17 +5930,15 @@ export type GetCustomersCustomerDiscount = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerFundingInstructionsResponder = {
-  with200: r.with200<t_funding_instructions>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerFundingInstructions = b((r) => ({
+  with200: r.with200<t_funding_instructions>(s_funding_instructions),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerFundingInstructionsResponder =
-  typeof postCustomersCustomerFundingInstructionsResponder & KoaRuntimeResponder
-
-const postCustomersCustomerFundingInstructionsResponseValidator =
-  responseValidationFactory([["200", s_funding_instructions]], s_error)
+  (typeof postCustomersCustomerFundingInstructions)["responder"] &
+    KoaRuntimeResponder
 
 export type PostCustomersCustomerFundingInstructions = (
   params: Params<
@@ -6752,35 +5955,26 @@ export type PostCustomersCustomerFundingInstructions = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerPaymentMethodsResponder = {
+const getCustomersCustomerPaymentMethods = b((r) => ({
   with200: r.with200<{
     data: t_payment_method[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_payment_method)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerPaymentMethodsResponder =
-  typeof getCustomersCustomerPaymentMethodsResponder & KoaRuntimeResponder
-
-const getCustomersCustomerPaymentMethodsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_payment_method)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getCustomersCustomerPaymentMethods)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerPaymentMethods = (
   params: Params<
@@ -6805,18 +5999,15 @@ export type GetCustomersCustomerPaymentMethods = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerPaymentMethodsPaymentMethodResponder = {
-  with200: r.with200<t_payment_method>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerPaymentMethodsPaymentMethod = b((r) => ({
+  with200: r.with200<t_payment_method>(s_payment_method),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerPaymentMethodsPaymentMethodResponder =
-  typeof getCustomersCustomerPaymentMethodsPaymentMethodResponder &
+  (typeof getCustomersCustomerPaymentMethodsPaymentMethod)["responder"] &
     KoaRuntimeResponder
-
-const getCustomersCustomerPaymentMethodsPaymentMethodResponseValidator =
-  responseValidationFactory([["200", s_payment_method]], s_error)
 
 export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   params: Params<
@@ -6833,40 +6024,28 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerSourcesResponder = {
+const getCustomersCustomerSources = b((r) => ({
   with200: r.with200<{
     data: (t_bank_account | t_card | t_source)[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(
+        z.union([z.lazy(() => s_bank_account), z.lazy(() => s_card), s_source]),
+      ),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerSourcesResponder =
-  typeof getCustomersCustomerSourcesResponder & KoaRuntimeResponder
-
-const getCustomersCustomerSourcesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(
-          z.union([
-            z.lazy(() => s_bank_account),
-            z.lazy(() => s_card),
-            s_source,
-          ]),
-        ),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getCustomersCustomerSources)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerSources = (
   params: Params<
@@ -6891,19 +6070,14 @@ export type GetCustomersCustomerSources = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerSourcesResponder = {
-  with200: r.with200<t_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerSources = b((r) => ({
+  with200: r.with200<t_payment_source>(s_payment_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerSourcesResponder =
-  typeof postCustomersCustomerSourcesResponder & KoaRuntimeResponder
-
-const postCustomersCustomerSourcesResponseValidator = responseValidationFactory(
-  [["200", s_payment_source]],
-  s_error,
-)
+  (typeof postCustomersCustomerSources)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerSources = (
   params: Params<
@@ -6920,25 +6094,16 @@ export type PostCustomersCustomerSources = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerSourcesIdResponder = {
-  with200: r.with200<t_payment_source | t_deleted_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerSourcesId = b((r) => ({
+  with200: r.with200<t_payment_source | t_deleted_payment_source>(
+    z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerSourcesIdResponder =
-  typeof deleteCustomersCustomerSourcesIdResponder & KoaRuntimeResponder
-
-const deleteCustomersCustomerSourcesIdResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([z.lazy(() => s_payment_source), s_deleted_payment_source]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof deleteCustomersCustomerSourcesId)["responder"] & KoaRuntimeResponder
 
 export type DeleteCustomersCustomerSourcesId = (
   params: Params<
@@ -6955,17 +6120,14 @@ export type DeleteCustomersCustomerSourcesId = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerSourcesIdResponder = {
-  with200: r.with200<t_payment_source>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerSourcesId = b((r) => ({
+  with200: r.with200<t_payment_source>(s_payment_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerSourcesIdResponder =
-  typeof getCustomersCustomerSourcesIdResponder & KoaRuntimeResponder
-
-const getCustomersCustomerSourcesIdResponseValidator =
-  responseValidationFactory([["200", s_payment_source]], s_error)
+  (typeof getCustomersCustomerSourcesId)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerSourcesId = (
   params: Params<
@@ -6982,25 +6144,16 @@ export type GetCustomersCustomerSourcesId = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerSourcesIdResponder = {
-  with200: r.with200<t_card | t_bank_account | t_source>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerSourcesId = b((r) => ({
+  with200: r.with200<t_card | t_bank_account | t_source>(
+    z.union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerSourcesIdResponder =
-  typeof postCustomersCustomerSourcesIdResponder & KoaRuntimeResponder
-
-const postCustomersCustomerSourcesIdResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([z.lazy(() => s_card), z.lazy(() => s_bank_account), s_source]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof postCustomersCustomerSourcesId)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerSourcesId = (
   params: Params<
@@ -7017,17 +6170,15 @@ export type PostCustomersCustomerSourcesId = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerSourcesIdVerifyResponder = {
-  with200: r.with200<t_bank_account>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerSourcesIdVerify = b((r) => ({
+  with200: r.with200<t_bank_account>(s_bank_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerSourcesIdVerifyResponder =
-  typeof postCustomersCustomerSourcesIdVerifyResponder & KoaRuntimeResponder
-
-const postCustomersCustomerSourcesIdVerifyResponseValidator =
-  responseValidationFactory([["200", s_bank_account]], s_error)
+  (typeof postCustomersCustomerSourcesIdVerify)["responder"] &
+    KoaRuntimeResponder
 
 export type PostCustomersCustomerSourcesIdVerify = (
   params: Params<
@@ -7044,35 +6195,26 @@ export type PostCustomersCustomerSourcesIdVerify = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerSubscriptionsResponder = {
+const getCustomersCustomerSubscriptions = b((r) => ({
   with200: r.with200<{
     data: t_subscription[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_subscription)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerSubscriptionsResponder =
-  typeof getCustomersCustomerSubscriptionsResponder & KoaRuntimeResponder
-
-const getCustomersCustomerSubscriptionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_subscription)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getCustomersCustomerSubscriptions)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerSubscriptions = (
   params: Params<
@@ -7097,17 +6239,14 @@ export type GetCustomersCustomerSubscriptions = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerSubscriptionsResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerSubscriptions = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerSubscriptionsResponder =
-  typeof postCustomersCustomerSubscriptionsResponder & KoaRuntimeResponder
-
-const postCustomersCustomerSubscriptionsResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
+  (typeof postCustomersCustomerSubscriptions)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerSubscriptions = (
   params: Params<
@@ -7124,18 +6263,15 @@ export type PostCustomersCustomerSubscriptions = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerSubscriptionsSubscriptionExposedId = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
-  typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder &
+  (typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"] &
     KoaRuntimeResponder
-
-const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
@@ -7153,18 +6289,15 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerSubscriptionsSubscriptionExposedId = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
-  typeof getCustomersCustomerSubscriptionsSubscriptionExposedIdResponder &
+  (typeof getCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"] &
     KoaRuntimeResponder
-
-const getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
@@ -7182,18 +6315,15 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerSubscriptionsSubscriptionExposedId = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
-  typeof postCustomersCustomerSubscriptionsSubscriptionExposedIdResponder &
+  (typeof postCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"] &
     KoaRuntimeResponder
-
-const postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
 
 export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
@@ -7211,19 +6341,17 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
-  {
-    with200: r.with200<t_deleted_discount>,
-    withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = b(
+  (r) => ({
+    with200: r.with200<t_deleted_discount>(s_deleted_discount),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }),
+)
 
 type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
-  typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder &
+  (typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount)["responder"] &
     KoaRuntimeResponder
-
-const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator =
-  responseValidationFactory([["200", s_deleted_discount]], s_error)
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
   (
@@ -7242,19 +6370,17 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     | Response<StatusCode, t_error>
   >
 
-const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
-  {
-    with200: r.with200<t_discount>,
-    withDefault: r.withDefault<t_error>,
+const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = b(
+  (r) => ({
+    with200: r.with200<t_discount>(s_discount),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }),
+)
 
 type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
-  typeof getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder &
+  (typeof getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount)["responder"] &
     KoaRuntimeResponder
-
-const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator =
-  responseValidationFactory([["200", s_discount]], s_error)
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
@@ -7272,34 +6398,26 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerTaxIdsResponder = {
+const getCustomersCustomerTaxIds = b((r) => ({
   with200: r.with200<{
     data: t_tax_id[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_tax_id)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerTaxIdsResponder =
-  typeof getCustomersCustomerTaxIdsResponder & KoaRuntimeResponder
-
-const getCustomersCustomerTaxIdsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_tax_id)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getCustomersCustomerTaxIds)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerTaxIds = (
   params: Params<
@@ -7324,19 +6442,14 @@ export type GetCustomersCustomerTaxIds = (
   | Response<StatusCode, t_error>
 >
 
-const postCustomersCustomerTaxIdsResponder = {
-  with200: r.with200<t_tax_id>,
-  withDefault: r.withDefault<t_error>,
+const postCustomersCustomerTaxIds = b((r) => ({
+  with200: r.with200<t_tax_id>(s_tax_id),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostCustomersCustomerTaxIdsResponder =
-  typeof postCustomersCustomerTaxIdsResponder & KoaRuntimeResponder
-
-const postCustomersCustomerTaxIdsResponseValidator = responseValidationFactory(
-  [["200", s_tax_id]],
-  s_error,
-)
+  (typeof postCustomersCustomerTaxIds)["responder"] & KoaRuntimeResponder
 
 export type PostCustomersCustomerTaxIds = (
   params: Params<
@@ -7353,17 +6466,14 @@ export type PostCustomersCustomerTaxIds = (
   | Response<StatusCode, t_error>
 >
 
-const deleteCustomersCustomerTaxIdsIdResponder = {
-  with200: r.with200<t_deleted_tax_id>,
-  withDefault: r.withDefault<t_error>,
+const deleteCustomersCustomerTaxIdsId = b((r) => ({
+  with200: r.with200<t_deleted_tax_id>(s_deleted_tax_id),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteCustomersCustomerTaxIdsIdResponder =
-  typeof deleteCustomersCustomerTaxIdsIdResponder & KoaRuntimeResponder
-
-const deleteCustomersCustomerTaxIdsIdResponseValidator =
-  responseValidationFactory([["200", s_deleted_tax_id]], s_error)
+  (typeof deleteCustomersCustomerTaxIdsId)["responder"] & KoaRuntimeResponder
 
 export type DeleteCustomersCustomerTaxIdsId = (
   params: Params<
@@ -7380,19 +6490,14 @@ export type DeleteCustomersCustomerTaxIdsId = (
   | Response<StatusCode, t_error>
 >
 
-const getCustomersCustomerTaxIdsIdResponder = {
-  with200: r.with200<t_tax_id>,
-  withDefault: r.withDefault<t_error>,
+const getCustomersCustomerTaxIdsId = b((r) => ({
+  with200: r.with200<t_tax_id>(s_tax_id),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetCustomersCustomerTaxIdsIdResponder =
-  typeof getCustomersCustomerTaxIdsIdResponder & KoaRuntimeResponder
-
-const getCustomersCustomerTaxIdsIdResponseValidator = responseValidationFactory(
-  [["200", s_tax_id]],
-  s_error,
-)
+  (typeof getCustomersCustomerTaxIdsId)["responder"] & KoaRuntimeResponder
 
 export type GetCustomersCustomerTaxIdsId = (
   params: Params<
@@ -7409,33 +6514,26 @@ export type GetCustomersCustomerTaxIdsId = (
   | Response<StatusCode, t_error>
 >
 
-const getDisputesResponder = {
+const getDisputes = b((r) => ({
   with200: r.with200<{
     data: t_dispute[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_dispute)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/disputes")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetDisputesResponder = typeof getDisputesResponder & KoaRuntimeResponder
-
-const getDisputesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_dispute)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/disputes")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetDisputesResponder = (typeof getDisputes)["responder"] &
+  KoaRuntimeResponder
 
 export type GetDisputes = (
   params: Params<
@@ -7460,19 +6558,14 @@ export type GetDisputes = (
   | Response<StatusCode, t_error>
 >
 
-const getDisputesDisputeResponder = {
-  with200: r.with200<t_dispute>,
-  withDefault: r.withDefault<t_error>,
+const getDisputesDispute = b((r) => ({
+  with200: r.with200<t_dispute>(s_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetDisputesDisputeResponder = typeof getDisputesDisputeResponder &
+type GetDisputesDisputeResponder = (typeof getDisputesDispute)["responder"] &
   KoaRuntimeResponder
-
-const getDisputesDisputeResponseValidator = responseValidationFactory(
-  [["200", s_dispute]],
-  s_error,
-)
 
 export type GetDisputesDispute = (
   params: Params<
@@ -7489,19 +6582,14 @@ export type GetDisputesDispute = (
   | Response<StatusCode, t_error>
 >
 
-const postDisputesDisputeResponder = {
-  with200: r.with200<t_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postDisputesDispute = b((r) => ({
+  with200: r.with200<t_dispute>(s_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostDisputesDisputeResponder = typeof postDisputesDisputeResponder &
+type PostDisputesDisputeResponder = (typeof postDisputesDispute)["responder"] &
   KoaRuntimeResponder
-
-const postDisputesDisputeResponseValidator = responseValidationFactory(
-  [["200", s_dispute]],
-  s_error,
-)
 
 export type PostDisputesDispute = (
   params: Params<
@@ -7518,19 +6606,14 @@ export type PostDisputesDispute = (
   | Response<StatusCode, t_error>
 >
 
-const postDisputesDisputeCloseResponder = {
-  with200: r.with200<t_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postDisputesDisputeClose = b((r) => ({
+  with200: r.with200<t_dispute>(s_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostDisputesDisputeCloseResponder =
-  typeof postDisputesDisputeCloseResponder & KoaRuntimeResponder
-
-const postDisputesDisputeCloseResponseValidator = responseValidationFactory(
-  [["200", s_dispute]],
-  s_error,
-)
+  (typeof postDisputesDisputeClose)["responder"] & KoaRuntimeResponder
 
 export type PostDisputesDisputeClose = (
   params: Params<
@@ -7547,35 +6630,26 @@ export type PostDisputesDisputeClose = (
   | Response<StatusCode, t_error>
 >
 
-const getEntitlementsActiveEntitlementsResponder = {
+const getEntitlementsActiveEntitlements = b((r) => ({
   with200: r.with200<{
     data: t_entitlements_active_entitlement[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_entitlements_active_entitlement),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetEntitlementsActiveEntitlementsResponder =
-  typeof getEntitlementsActiveEntitlementsResponder & KoaRuntimeResponder
-
-const getEntitlementsActiveEntitlementsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_entitlements_active_entitlement),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getEntitlementsActiveEntitlements)["responder"] & KoaRuntimeResponder
 
 export type GetEntitlementsActiveEntitlements = (
   params: Params<
@@ -7600,20 +6674,17 @@ export type GetEntitlementsActiveEntitlements = (
   | Response<StatusCode, t_error>
 >
 
-const getEntitlementsActiveEntitlementsIdResponder = {
-  with200: r.with200<t_entitlements_active_entitlement>,
-  withDefault: r.withDefault<t_error>,
+const getEntitlementsActiveEntitlementsId = b((r) => ({
+  with200: r.with200<t_entitlements_active_entitlement>(
+    s_entitlements_active_entitlement,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetEntitlementsActiveEntitlementsIdResponder =
-  typeof getEntitlementsActiveEntitlementsIdResponder & KoaRuntimeResponder
-
-const getEntitlementsActiveEntitlementsIdResponseValidator =
-  responseValidationFactory(
-    [["200", s_entitlements_active_entitlement]],
-    s_error,
-  )
+  (typeof getEntitlementsActiveEntitlementsId)["responder"] &
+    KoaRuntimeResponder
 
 export type GetEntitlementsActiveEntitlementsId = (
   params: Params<
@@ -7630,37 +6701,26 @@ export type GetEntitlementsActiveEntitlementsId = (
   | Response<StatusCode, t_error>
 >
 
-const getEntitlementsFeaturesResponder = {
+const getEntitlementsFeatures = b((r) => ({
   with200: r.with200<{
     data: t_entitlements_feature[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_entitlements_feature),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/entitlements/features")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetEntitlementsFeaturesResponder =
-  typeof getEntitlementsFeaturesResponder & KoaRuntimeResponder
-
-const getEntitlementsFeaturesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_entitlements_feature),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/entitlements/features")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getEntitlementsFeatures)["responder"] & KoaRuntimeResponder
 
 export type GetEntitlementsFeatures = (
   params: Params<
@@ -7685,19 +6745,14 @@ export type GetEntitlementsFeatures = (
   | Response<StatusCode, t_error>
 >
 
-const postEntitlementsFeaturesResponder = {
-  with200: r.with200<t_entitlements_feature>,
-  withDefault: r.withDefault<t_error>,
+const postEntitlementsFeatures = b((r) => ({
+  with200: r.with200<t_entitlements_feature>(s_entitlements_feature),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostEntitlementsFeaturesResponder =
-  typeof postEntitlementsFeaturesResponder & KoaRuntimeResponder
-
-const postEntitlementsFeaturesResponseValidator = responseValidationFactory(
-  [["200", s_entitlements_feature]],
-  s_error,
-)
+  (typeof postEntitlementsFeatures)["responder"] & KoaRuntimeResponder
 
 export type PostEntitlementsFeatures = (
   params: Params<void, void, t_PostEntitlementsFeaturesBodySchema, void>,
@@ -7709,19 +6764,14 @@ export type PostEntitlementsFeatures = (
   | Response<StatusCode, t_error>
 >
 
-const getEntitlementsFeaturesIdResponder = {
-  with200: r.with200<t_entitlements_feature>,
-  withDefault: r.withDefault<t_error>,
+const getEntitlementsFeaturesId = b((r) => ({
+  with200: r.with200<t_entitlements_feature>(s_entitlements_feature),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetEntitlementsFeaturesIdResponder =
-  typeof getEntitlementsFeaturesIdResponder & KoaRuntimeResponder
-
-const getEntitlementsFeaturesIdResponseValidator = responseValidationFactory(
-  [["200", s_entitlements_feature]],
-  s_error,
-)
+  (typeof getEntitlementsFeaturesId)["responder"] & KoaRuntimeResponder
 
 export type GetEntitlementsFeaturesId = (
   params: Params<
@@ -7738,19 +6788,14 @@ export type GetEntitlementsFeaturesId = (
   | Response<StatusCode, t_error>
 >
 
-const postEntitlementsFeaturesIdResponder = {
-  with200: r.with200<t_entitlements_feature>,
-  withDefault: r.withDefault<t_error>,
+const postEntitlementsFeaturesId = b((r) => ({
+  with200: r.with200<t_entitlements_feature>(s_entitlements_feature),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostEntitlementsFeaturesIdResponder =
-  typeof postEntitlementsFeaturesIdResponder & KoaRuntimeResponder
-
-const postEntitlementsFeaturesIdResponseValidator = responseValidationFactory(
-  [["200", s_entitlements_feature]],
-  s_error,
-)
+  (typeof postEntitlementsFeaturesId)["responder"] & KoaRuntimeResponder
 
 export type PostEntitlementsFeaturesId = (
   params: Params<
@@ -7767,19 +6812,14 @@ export type PostEntitlementsFeaturesId = (
   | Response<StatusCode, t_error>
 >
 
-const postEphemeralKeysResponder = {
-  with200: r.with200<t_ephemeral_key>,
-  withDefault: r.withDefault<t_error>,
+const postEphemeralKeys = b((r) => ({
+  with200: r.with200<t_ephemeral_key>(s_ephemeral_key),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostEphemeralKeysResponder = typeof postEphemeralKeysResponder &
+type PostEphemeralKeysResponder = (typeof postEphemeralKeys)["responder"] &
   KoaRuntimeResponder
-
-const postEphemeralKeysResponseValidator = responseValidationFactory(
-  [["200", s_ephemeral_key]],
-  s_error,
-)
 
 export type PostEphemeralKeys = (
   params: Params<void, void, t_PostEphemeralKeysBodySchema | undefined, void>,
@@ -7791,19 +6831,14 @@ export type PostEphemeralKeys = (
   | Response<StatusCode, t_error>
 >
 
-const deleteEphemeralKeysKeyResponder = {
-  with200: r.with200<t_ephemeral_key>,
-  withDefault: r.withDefault<t_error>,
+const deleteEphemeralKeysKey = b((r) => ({
+  with200: r.with200<t_ephemeral_key>(s_ephemeral_key),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteEphemeralKeysKeyResponder = typeof deleteEphemeralKeysKeyResponder &
-  KoaRuntimeResponder
-
-const deleteEphemeralKeysKeyResponseValidator = responseValidationFactory(
-  [["200", s_ephemeral_key]],
-  s_error,
-)
+type DeleteEphemeralKeysKeyResponder =
+  (typeof deleteEphemeralKeysKey)["responder"] & KoaRuntimeResponder
 
 export type DeleteEphemeralKeysKey = (
   params: Params<
@@ -7820,33 +6855,25 @@ export type DeleteEphemeralKeysKey = (
   | Response<StatusCode, t_error>
 >
 
-const getEventsResponder = {
+const getEvents = b((r) => ({
   with200: r.with200<{
     data: t_event[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_event),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/events")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetEventsResponder = typeof getEventsResponder & KoaRuntimeResponder
-
-const getEventsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_event),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/events")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetEventsResponder = (typeof getEvents)["responder"] & KoaRuntimeResponder
 
 export type GetEvents = (
   params: Params<
@@ -7871,18 +6898,14 @@ export type GetEvents = (
   | Response<StatusCode, t_error>
 >
 
-const getEventsIdResponder = {
-  with200: r.with200<t_event>,
-  withDefault: r.withDefault<t_error>,
+const getEventsId = b((r) => ({
+  with200: r.with200<t_event>(s_event),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetEventsIdResponder = typeof getEventsIdResponder & KoaRuntimeResponder
-
-const getEventsIdResponseValidator = responseValidationFactory(
-  [["200", s_event]],
-  s_error,
-)
+type GetEventsIdResponder = (typeof getEventsId)["responder"] &
+  KoaRuntimeResponder
 
 export type GetEventsId = (
   params: Params<
@@ -7899,34 +6922,26 @@ export type GetEventsId = (
   | Response<StatusCode, t_error>
 >
 
-const getExchangeRatesResponder = {
+const getExchangeRates = b((r) => ({
   with200: r.with200<{
     data: t_exchange_rate[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_exchange_rate),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/exchange_rates")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetExchangeRatesResponder = typeof getExchangeRatesResponder &
+type GetExchangeRatesResponder = (typeof getExchangeRates)["responder"] &
   KoaRuntimeResponder
-
-const getExchangeRatesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_exchange_rate),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/exchange_rates")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetExchangeRates = (
   params: Params<
@@ -7951,19 +6966,14 @@ export type GetExchangeRates = (
   | Response<StatusCode, t_error>
 >
 
-const getExchangeRatesRateIdResponder = {
-  with200: r.with200<t_exchange_rate>,
-  withDefault: r.withDefault<t_error>,
+const getExchangeRatesRateId = b((r) => ({
+  with200: r.with200<t_exchange_rate>(s_exchange_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetExchangeRatesRateIdResponder = typeof getExchangeRatesRateIdResponder &
-  KoaRuntimeResponder
-
-const getExchangeRatesRateIdResponseValidator = responseValidationFactory(
-  [["200", s_exchange_rate]],
-  s_error,
-)
+type GetExchangeRatesRateIdResponder =
+  (typeof getExchangeRatesRateId)["responder"] & KoaRuntimeResponder
 
 export type GetExchangeRatesRateId = (
   params: Params<
@@ -7980,19 +6990,14 @@ export type GetExchangeRatesRateId = (
   | Response<StatusCode, t_error>
 >
 
-const postExternalAccountsIdResponder = {
-  with200: r.with200<t_external_account>,
-  withDefault: r.withDefault<t_error>,
+const postExternalAccountsId = b((r) => ({
+  with200: r.with200<t_external_account>(s_external_account),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostExternalAccountsIdResponder = typeof postExternalAccountsIdResponder &
-  KoaRuntimeResponder
-
-const postExternalAccountsIdResponseValidator = responseValidationFactory(
-  [["200", s_external_account]],
-  s_error,
-)
+type PostExternalAccountsIdResponder =
+  (typeof postExternalAccountsId)["responder"] & KoaRuntimeResponder
 
 export type PostExternalAccountsId = (
   params: Params<
@@ -8009,33 +7014,26 @@ export type PostExternalAccountsId = (
   | Response<StatusCode, t_error>
 >
 
-const getFileLinksResponder = {
+const getFileLinks = b((r) => ({
   with200: r.with200<{
     data: t_file_link[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_file_link)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/file_links")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetFileLinksResponder = typeof getFileLinksResponder & KoaRuntimeResponder
-
-const getFileLinksResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_file_link)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/file_links")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetFileLinksResponder = (typeof getFileLinks)["responder"] &
+  KoaRuntimeResponder
 
 export type GetFileLinks = (
   params: Params<
@@ -8060,19 +7058,14 @@ export type GetFileLinks = (
   | Response<StatusCode, t_error>
 >
 
-const postFileLinksResponder = {
-  with200: r.with200<t_file_link>,
-  withDefault: r.withDefault<t_error>,
+const postFileLinks = b((r) => ({
+  with200: r.with200<t_file_link>(s_file_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostFileLinksResponder = typeof postFileLinksResponder &
+type PostFileLinksResponder = (typeof postFileLinks)["responder"] &
   KoaRuntimeResponder
-
-const postFileLinksResponseValidator = responseValidationFactory(
-  [["200", s_file_link]],
-  s_error,
-)
 
 export type PostFileLinks = (
   params: Params<void, void, t_PostFileLinksBodySchema, void>,
@@ -8084,19 +7077,14 @@ export type PostFileLinks = (
   | Response<StatusCode, t_error>
 >
 
-const getFileLinksLinkResponder = {
-  with200: r.with200<t_file_link>,
-  withDefault: r.withDefault<t_error>,
+const getFileLinksLink = b((r) => ({
+  with200: r.with200<t_file_link>(s_file_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetFileLinksLinkResponder = typeof getFileLinksLinkResponder &
+type GetFileLinksLinkResponder = (typeof getFileLinksLink)["responder"] &
   KoaRuntimeResponder
-
-const getFileLinksLinkResponseValidator = responseValidationFactory(
-  [["200", s_file_link]],
-  s_error,
-)
 
 export type GetFileLinksLink = (
   params: Params<
@@ -8113,19 +7101,14 @@ export type GetFileLinksLink = (
   | Response<StatusCode, t_error>
 >
 
-const postFileLinksLinkResponder = {
-  with200: r.with200<t_file_link>,
-  withDefault: r.withDefault<t_error>,
+const postFileLinksLink = b((r) => ({
+  with200: r.with200<t_file_link>(s_file_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostFileLinksLinkResponder = typeof postFileLinksLinkResponder &
+type PostFileLinksLinkResponder = (typeof postFileLinksLink)["responder"] &
   KoaRuntimeResponder
-
-const postFileLinksLinkResponseValidator = responseValidationFactory(
-  [["200", s_file_link]],
-  s_error,
-)
 
 export type PostFileLinksLink = (
   params: Params<
@@ -8142,33 +7125,25 @@ export type PostFileLinksLink = (
   | Response<StatusCode, t_error>
 >
 
-const getFilesResponder = {
+const getFiles = b((r) => ({
   with200: r.with200<{
     data: t_file[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_file)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/files")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetFilesResponder = typeof getFilesResponder & KoaRuntimeResponder
-
-const getFilesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_file)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/files")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetFilesResponder = (typeof getFiles)["responder"] & KoaRuntimeResponder
 
 export type GetFiles = (
   params: Params<
@@ -8193,18 +7168,13 @@ export type GetFiles = (
   | Response<StatusCode, t_error>
 >
 
-const postFilesResponder = {
-  with200: r.with200<t_file>,
-  withDefault: r.withDefault<t_error>,
+const postFiles = b((r) => ({
+  with200: r.with200<t_file>(s_file),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostFilesResponder = typeof postFilesResponder & KoaRuntimeResponder
-
-const postFilesResponseValidator = responseValidationFactory(
-  [["200", s_file]],
-  s_error,
-)
+type PostFilesResponder = (typeof postFiles)["responder"] & KoaRuntimeResponder
 
 export type PostFiles = (
   params: Params<void, void, t_PostFilesBodySchema, void>,
@@ -8216,18 +7186,14 @@ export type PostFiles = (
   | Response<StatusCode, t_error>
 >
 
-const getFilesFileResponder = {
-  with200: r.with200<t_file>,
-  withDefault: r.withDefault<t_error>,
+const getFilesFile = b((r) => ({
+  with200: r.with200<t_file>(s_file),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetFilesFileResponder = typeof getFilesFileResponder & KoaRuntimeResponder
-
-const getFilesFileResponseValidator = responseValidationFactory(
-  [["200", s_file]],
-  s_error,
-)
+type GetFilesFileResponder = (typeof getFilesFile)["responder"] &
+  KoaRuntimeResponder
 
 export type GetFilesFile = (
   params: Params<
@@ -8244,38 +7210,29 @@ export type GetFilesFile = (
   | Response<StatusCode, t_error>
 >
 
-const getFinancialConnectionsAccountsResponder = {
+const getFinancialConnectionsAccounts = b((r) => ({
   with200: r.with200<{
     data: t_financial_connections_account[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_financial_connections_account)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/financial_connections/accounts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetFinancialConnectionsAccountsResponder =
-  typeof getFinancialConnectionsAccountsResponder & KoaRuntimeResponder
-
-const getFinancialConnectionsAccountsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_financial_connections_account)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/financial_connections/accounts")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getFinancialConnectionsAccounts)["responder"] & KoaRuntimeResponder
 
 export type GetFinancialConnectionsAccounts = (
   params: Params<
@@ -8300,17 +7257,17 @@ export type GetFinancialConnectionsAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const getFinancialConnectionsAccountsAccountResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const getFinancialConnectionsAccountsAccount = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetFinancialConnectionsAccountsAccountResponder =
-  typeof getFinancialConnectionsAccountsAccountResponder & KoaRuntimeResponder
-
-const getFinancialConnectionsAccountsAccountResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
+  (typeof getFinancialConnectionsAccountsAccount)["responder"] &
+    KoaRuntimeResponder
 
 export type GetFinancialConnectionsAccountsAccount = (
   params: Params<
@@ -8327,18 +7284,17 @@ export type GetFinancialConnectionsAccountsAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postFinancialConnectionsAccountsAccountDisconnectResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const postFinancialConnectionsAccountsAccountDisconnect = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostFinancialConnectionsAccountsAccountDisconnectResponder =
-  typeof postFinancialConnectionsAccountsAccountDisconnectResponder &
+  (typeof postFinancialConnectionsAccountsAccountDisconnect)["responder"] &
     KoaRuntimeResponder
-
-const postFinancialConnectionsAccountsAccountDisconnectResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
 
 export type PostFinancialConnectionsAccountsAccountDisconnect = (
   params: Params<
@@ -8355,36 +7311,27 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
   | Response<StatusCode, t_error>
 >
 
-const getFinancialConnectionsAccountsAccountOwnersResponder = {
+const getFinancialConnectionsAccountsAccountOwners = b((r) => ({
   with200: r.with200<{
     data: t_financial_connections_account_owner[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_financial_connections_account_owner),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetFinancialConnectionsAccountsAccountOwnersResponder =
-  typeof getFinancialConnectionsAccountsAccountOwnersResponder &
+  (typeof getFinancialConnectionsAccountsAccountOwners)["responder"] &
     KoaRuntimeResponder
-
-const getFinancialConnectionsAccountsAccountOwnersResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_financial_connections_account_owner),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
 
 export type GetFinancialConnectionsAccountsAccountOwners = (
   params: Params<
@@ -8409,18 +7356,17 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   | Response<StatusCode, t_error>
 >
 
-const postFinancialConnectionsAccountsAccountRefreshResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const postFinancialConnectionsAccountsAccountRefresh = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostFinancialConnectionsAccountsAccountRefreshResponder =
-  typeof postFinancialConnectionsAccountsAccountRefreshResponder &
+  (typeof postFinancialConnectionsAccountsAccountRefresh)["responder"] &
     KoaRuntimeResponder
-
-const postFinancialConnectionsAccountsAccountRefreshResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
 
 export type PostFinancialConnectionsAccountsAccountRefresh = (
   params: Params<
@@ -8437,18 +7383,17 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
   | Response<StatusCode, t_error>
 >
 
-const postFinancialConnectionsAccountsAccountSubscribeResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const postFinancialConnectionsAccountsAccountSubscribe = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostFinancialConnectionsAccountsAccountSubscribeResponder =
-  typeof postFinancialConnectionsAccountsAccountSubscribeResponder &
+  (typeof postFinancialConnectionsAccountsAccountSubscribe)["responder"] &
     KoaRuntimeResponder
-
-const postFinancialConnectionsAccountsAccountSubscribeResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
 
 export type PostFinancialConnectionsAccountsAccountSubscribe = (
   params: Params<
@@ -8465,18 +7410,17 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
   | Response<StatusCode, t_error>
 >
 
-const postFinancialConnectionsAccountsAccountUnsubscribeResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const postFinancialConnectionsAccountsAccountUnsubscribe = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostFinancialConnectionsAccountsAccountUnsubscribeResponder =
-  typeof postFinancialConnectionsAccountsAccountUnsubscribeResponder &
+  (typeof postFinancialConnectionsAccountsAccountUnsubscribe)["responder"] &
     KoaRuntimeResponder
-
-const postFinancialConnectionsAccountsAccountUnsubscribeResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
 
 export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   params: Params<
@@ -8493,17 +7437,16 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   | Response<StatusCode, t_error>
 >
 
-const postFinancialConnectionsSessionsResponder = {
-  with200: r.with200<t_financial_connections_session>,
-  withDefault: r.withDefault<t_error>,
+const postFinancialConnectionsSessions = b((r) => ({
+  with200: r.with200<t_financial_connections_session>(
+    s_financial_connections_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostFinancialConnectionsSessionsResponder =
-  typeof postFinancialConnectionsSessionsResponder & KoaRuntimeResponder
-
-const postFinancialConnectionsSessionsResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_session]], s_error)
+  (typeof postFinancialConnectionsSessions)["responder"] & KoaRuntimeResponder
 
 export type PostFinancialConnectionsSessions = (
   params: Params<
@@ -8520,17 +7463,17 @@ export type PostFinancialConnectionsSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getFinancialConnectionsSessionsSessionResponder = {
-  with200: r.with200<t_financial_connections_session>,
-  withDefault: r.withDefault<t_error>,
+const getFinancialConnectionsSessionsSession = b((r) => ({
+  with200: r.with200<t_financial_connections_session>(
+    s_financial_connections_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetFinancialConnectionsSessionsSessionResponder =
-  typeof getFinancialConnectionsSessionsSessionResponder & KoaRuntimeResponder
-
-const getFinancialConnectionsSessionsSessionResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_session]], s_error)
+  (typeof getFinancialConnectionsSessionsSession)["responder"] &
+    KoaRuntimeResponder
 
 export type GetFinancialConnectionsSessionsSession = (
   params: Params<
@@ -8547,38 +7490,30 @@ export type GetFinancialConnectionsSessionsSession = (
   | Response<StatusCode, t_error>
 >
 
-const getFinancialConnectionsTransactionsResponder = {
+const getFinancialConnectionsTransactions = b((r) => ({
   with200: r.with200<{
     data: t_financial_connections_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_financial_connections_transaction),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/financial_connections/transactions")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetFinancialConnectionsTransactionsResponder =
-  typeof getFinancialConnectionsTransactionsResponder & KoaRuntimeResponder
-
-const getFinancialConnectionsTransactionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_financial_connections_transaction),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/financial_connections/transactions")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getFinancialConnectionsTransactions)["responder"] &
+    KoaRuntimeResponder
 
 export type GetFinancialConnectionsTransactions = (
   params: Params<
@@ -8603,21 +7538,17 @@ export type GetFinancialConnectionsTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getFinancialConnectionsTransactionsTransactionResponder = {
-  with200: r.with200<t_financial_connections_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getFinancialConnectionsTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_financial_connections_transaction>(
+    s_financial_connections_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetFinancialConnectionsTransactionsTransactionResponder =
-  typeof getFinancialConnectionsTransactionsTransactionResponder &
+  (typeof getFinancialConnectionsTransactionsTransaction)["responder"] &
     KoaRuntimeResponder
-
-const getFinancialConnectionsTransactionsTransactionResponseValidator =
-  responseValidationFactory(
-    [["200", s_financial_connections_transaction]],
-    s_error,
-  )
 
 export type GetFinancialConnectionsTransactionsTransaction = (
   params: Params<
@@ -8634,34 +7565,26 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const getForwardingRequestsResponder = {
+const getForwardingRequests = b((r) => ({
   with200: r.with200<{
     data: t_forwarding_request[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_forwarding_request),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetForwardingRequestsResponder = typeof getForwardingRequestsResponder &
-  KoaRuntimeResponder
-
-const getForwardingRequestsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_forwarding_request),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetForwardingRequestsResponder =
+  (typeof getForwardingRequests)["responder"] & KoaRuntimeResponder
 
 export type GetForwardingRequests = (
   params: Params<
@@ -8686,19 +7609,14 @@ export type GetForwardingRequests = (
   | Response<StatusCode, t_error>
 >
 
-const postForwardingRequestsResponder = {
-  with200: r.with200<t_forwarding_request>,
-  withDefault: r.withDefault<t_error>,
+const postForwardingRequests = b((r) => ({
+  with200: r.with200<t_forwarding_request>(s_forwarding_request),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostForwardingRequestsResponder = typeof postForwardingRequestsResponder &
-  KoaRuntimeResponder
-
-const postForwardingRequestsResponseValidator = responseValidationFactory(
-  [["200", s_forwarding_request]],
-  s_error,
-)
+type PostForwardingRequestsResponder =
+  (typeof postForwardingRequests)["responder"] & KoaRuntimeResponder
 
 export type PostForwardingRequests = (
   params: Params<void, void, t_PostForwardingRequestsBodySchema, void>,
@@ -8710,19 +7628,14 @@ export type PostForwardingRequests = (
   | Response<StatusCode, t_error>
 >
 
-const getForwardingRequestsIdResponder = {
-  with200: r.with200<t_forwarding_request>,
-  withDefault: r.withDefault<t_error>,
+const getForwardingRequestsId = b((r) => ({
+  with200: r.with200<t_forwarding_request>(s_forwarding_request),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetForwardingRequestsIdResponder =
-  typeof getForwardingRequestsIdResponder & KoaRuntimeResponder
-
-const getForwardingRequestsIdResponseValidator = responseValidationFactory(
-  [["200", s_forwarding_request]],
-  s_error,
-)
+  (typeof getForwardingRequestsId)["responder"] & KoaRuntimeResponder
 
 export type GetForwardingRequestsId = (
   params: Params<
@@ -8739,38 +7652,29 @@ export type GetForwardingRequestsId = (
   | Response<StatusCode, t_error>
 >
 
-const getIdentityVerificationReportsResponder = {
+const getIdentityVerificationReports = b((r) => ({
   with200: r.with200<{
     data: t_identity_verification_report[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_identity_verification_report),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/identity/verification_reports")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIdentityVerificationReportsResponder =
-  typeof getIdentityVerificationReportsResponder & KoaRuntimeResponder
-
-const getIdentityVerificationReportsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_identity_verification_report),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/identity/verification_reports")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getIdentityVerificationReports)["responder"] & KoaRuntimeResponder
 
 export type GetIdentityVerificationReports = (
   params: Params<
@@ -8795,17 +7699,17 @@ export type GetIdentityVerificationReports = (
   | Response<StatusCode, t_error>
 >
 
-const getIdentityVerificationReportsReportResponder = {
-  with200: r.with200<t_identity_verification_report>,
-  withDefault: r.withDefault<t_error>,
+const getIdentityVerificationReportsReport = b((r) => ({
+  with200: r.with200<t_identity_verification_report>(
+    s_identity_verification_report,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIdentityVerificationReportsReportResponder =
-  typeof getIdentityVerificationReportsReportResponder & KoaRuntimeResponder
-
-const getIdentityVerificationReportsReportResponseValidator =
-  responseValidationFactory([["200", s_identity_verification_report]], s_error)
+  (typeof getIdentityVerificationReportsReport)["responder"] &
+    KoaRuntimeResponder
 
 export type GetIdentityVerificationReportsReport = (
   params: Params<
@@ -8822,38 +7726,29 @@ export type GetIdentityVerificationReportsReport = (
   | Response<StatusCode, t_error>
 >
 
-const getIdentityVerificationSessionsResponder = {
+const getIdentityVerificationSessions = b((r) => ({
   with200: r.with200<{
     data: t_identity_verification_session[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_identity_verification_session),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/identity/verification_sessions")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIdentityVerificationSessionsResponder =
-  typeof getIdentityVerificationSessionsResponder & KoaRuntimeResponder
-
-const getIdentityVerificationSessionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_identity_verification_session),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/identity/verification_sessions")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getIdentityVerificationSessions)["responder"] & KoaRuntimeResponder
 
 export type GetIdentityVerificationSessions = (
   params: Params<
@@ -8878,17 +7773,16 @@ export type GetIdentityVerificationSessions = (
   | Response<StatusCode, t_error>
 >
 
-const postIdentityVerificationSessionsResponder = {
-  with200: r.with200<t_identity_verification_session>,
-  withDefault: r.withDefault<t_error>,
+const postIdentityVerificationSessions = b((r) => ({
+  with200: r.with200<t_identity_verification_session>(
+    s_identity_verification_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIdentityVerificationSessionsResponder =
-  typeof postIdentityVerificationSessionsResponder & KoaRuntimeResponder
-
-const postIdentityVerificationSessionsResponseValidator =
-  responseValidationFactory([["200", s_identity_verification_session]], s_error)
+  (typeof postIdentityVerificationSessions)["responder"] & KoaRuntimeResponder
 
 export type PostIdentityVerificationSessions = (
   params: Params<
@@ -8905,17 +7799,17 @@ export type PostIdentityVerificationSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getIdentityVerificationSessionsSessionResponder = {
-  with200: r.with200<t_identity_verification_session>,
-  withDefault: r.withDefault<t_error>,
+const getIdentityVerificationSessionsSession = b((r) => ({
+  with200: r.with200<t_identity_verification_session>(
+    s_identity_verification_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIdentityVerificationSessionsSessionResponder =
-  typeof getIdentityVerificationSessionsSessionResponder & KoaRuntimeResponder
-
-const getIdentityVerificationSessionsSessionResponseValidator =
-  responseValidationFactory([["200", s_identity_verification_session]], s_error)
+  (typeof getIdentityVerificationSessionsSession)["responder"] &
+    KoaRuntimeResponder
 
 export type GetIdentityVerificationSessionsSession = (
   params: Params<
@@ -8932,17 +7826,17 @@ export type GetIdentityVerificationSessionsSession = (
   | Response<StatusCode, t_error>
 >
 
-const postIdentityVerificationSessionsSessionResponder = {
-  with200: r.with200<t_identity_verification_session>,
-  withDefault: r.withDefault<t_error>,
+const postIdentityVerificationSessionsSession = b((r) => ({
+  with200: r.with200<t_identity_verification_session>(
+    s_identity_verification_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIdentityVerificationSessionsSessionResponder =
-  typeof postIdentityVerificationSessionsSessionResponder & KoaRuntimeResponder
-
-const postIdentityVerificationSessionsSessionResponseValidator =
-  responseValidationFactory([["200", s_identity_verification_session]], s_error)
+  (typeof postIdentityVerificationSessionsSession)["responder"] &
+    KoaRuntimeResponder
 
 export type PostIdentityVerificationSessionsSession = (
   params: Params<
@@ -8959,18 +7853,17 @@ export type PostIdentityVerificationSessionsSession = (
   | Response<StatusCode, t_error>
 >
 
-const postIdentityVerificationSessionsSessionCancelResponder = {
-  with200: r.with200<t_identity_verification_session>,
-  withDefault: r.withDefault<t_error>,
+const postIdentityVerificationSessionsSessionCancel = b((r) => ({
+  with200: r.with200<t_identity_verification_session>(
+    s_identity_verification_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIdentityVerificationSessionsSessionCancelResponder =
-  typeof postIdentityVerificationSessionsSessionCancelResponder &
+  (typeof postIdentityVerificationSessionsSessionCancel)["responder"] &
     KoaRuntimeResponder
-
-const postIdentityVerificationSessionsSessionCancelResponseValidator =
-  responseValidationFactory([["200", s_identity_verification_session]], s_error)
 
 export type PostIdentityVerificationSessionsSessionCancel = (
   params: Params<
@@ -8987,18 +7880,17 @@ export type PostIdentityVerificationSessionsSessionCancel = (
   | Response<StatusCode, t_error>
 >
 
-const postIdentityVerificationSessionsSessionRedactResponder = {
-  with200: r.with200<t_identity_verification_session>,
-  withDefault: r.withDefault<t_error>,
+const postIdentityVerificationSessionsSessionRedact = b((r) => ({
+  with200: r.with200<t_identity_verification_session>(
+    s_identity_verification_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIdentityVerificationSessionsSessionRedactResponder =
-  typeof postIdentityVerificationSessionsSessionRedactResponder &
+  (typeof postIdentityVerificationSessionsSessionRedact)["responder"] &
     KoaRuntimeResponder
-
-const postIdentityVerificationSessionsSessionRedactResponseValidator =
-  responseValidationFactory([["200", s_identity_verification_session]], s_error)
 
 export type PostIdentityVerificationSessionsSessionRedact = (
   params: Params<
@@ -9015,34 +7907,26 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoicePaymentsResponder = {
+const getInvoicePayments = b((r) => ({
   with200: r.with200<{
     data: t_invoice_payment[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_invoice_payment)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetInvoicePaymentsResponder = typeof getInvoicePaymentsResponder &
+type GetInvoicePaymentsResponder = (typeof getInvoicePayments)["responder"] &
   KoaRuntimeResponder
-
-const getInvoicePaymentsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_invoice_payment)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetInvoicePayments = (
   params: Params<
@@ -9067,17 +7951,14 @@ export type GetInvoicePayments = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoicePaymentsInvoicePaymentResponder = {
-  with200: r.with200<t_invoice_payment>,
-  withDefault: r.withDefault<t_error>,
+const getInvoicePaymentsInvoicePayment = b((r) => ({
+  with200: r.with200<t_invoice_payment>(s_invoice_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetInvoicePaymentsInvoicePaymentResponder =
-  typeof getInvoicePaymentsInvoicePaymentResponder & KoaRuntimeResponder
-
-const getInvoicePaymentsInvoicePaymentResponseValidator =
-  responseValidationFactory([["200", s_invoice_payment]], s_error)
+  (typeof getInvoicePaymentsInvoicePayment)["responder"] & KoaRuntimeResponder
 
 export type GetInvoicePaymentsInvoicePayment = (
   params: Params<
@@ -9094,34 +7975,26 @@ export type GetInvoicePaymentsInvoicePayment = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoiceRenderingTemplatesResponder = {
+const getInvoiceRenderingTemplates = b((r) => ({
   with200: r.with200<{
     data: t_invoice_rendering_template[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_invoice_rendering_template),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetInvoiceRenderingTemplatesResponder =
-  typeof getInvoiceRenderingTemplatesResponder & KoaRuntimeResponder
-
-const getInvoiceRenderingTemplatesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_invoice_rendering_template),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getInvoiceRenderingTemplates)["responder"] & KoaRuntimeResponder
 
 export type GetInvoiceRenderingTemplates = (
   params: Params<
@@ -9146,17 +8019,17 @@ export type GetInvoiceRenderingTemplates = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoiceRenderingTemplatesTemplateResponder = {
-  with200: r.with200<t_invoice_rendering_template>,
-  withDefault: r.withDefault<t_error>,
+const getInvoiceRenderingTemplatesTemplate = b((r) => ({
+  with200: r.with200<t_invoice_rendering_template>(
+    s_invoice_rendering_template,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetInvoiceRenderingTemplatesTemplateResponder =
-  typeof getInvoiceRenderingTemplatesTemplateResponder & KoaRuntimeResponder
-
-const getInvoiceRenderingTemplatesTemplateResponseValidator =
-  responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
+  (typeof getInvoiceRenderingTemplatesTemplate)["responder"] &
+    KoaRuntimeResponder
 
 export type GetInvoiceRenderingTemplatesTemplate = (
   params: Params<
@@ -9173,18 +8046,17 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoiceRenderingTemplatesTemplateArchiveResponder = {
-  with200: r.with200<t_invoice_rendering_template>,
-  withDefault: r.withDefault<t_error>,
+const postInvoiceRenderingTemplatesTemplateArchive = b((r) => ({
+  with200: r.with200<t_invoice_rendering_template>(
+    s_invoice_rendering_template,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoiceRenderingTemplatesTemplateArchiveResponder =
-  typeof postInvoiceRenderingTemplatesTemplateArchiveResponder &
+  (typeof postInvoiceRenderingTemplatesTemplateArchive)["responder"] &
     KoaRuntimeResponder
-
-const postInvoiceRenderingTemplatesTemplateArchiveResponseValidator =
-  responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
 export type PostInvoiceRenderingTemplatesTemplateArchive = (
   params: Params<
@@ -9201,18 +8073,17 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoiceRenderingTemplatesTemplateUnarchiveResponder = {
-  with200: r.with200<t_invoice_rendering_template>,
-  withDefault: r.withDefault<t_error>,
+const postInvoiceRenderingTemplatesTemplateUnarchive = b((r) => ({
+  with200: r.with200<t_invoice_rendering_template>(
+    s_invoice_rendering_template,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoiceRenderingTemplatesTemplateUnarchiveResponder =
-  typeof postInvoiceRenderingTemplatesTemplateUnarchiveResponder &
+  (typeof postInvoiceRenderingTemplatesTemplateUnarchive)["responder"] &
     KoaRuntimeResponder
-
-const postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator =
-  responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
 export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   params: Params<
@@ -9229,34 +8100,26 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoiceitemsResponder = {
+const getInvoiceitems = b((r) => ({
   with200: r.with200<{
     data: t_invoiceitem[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_invoiceitem)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/invoiceitems")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetInvoiceitemsResponder = typeof getInvoiceitemsResponder &
+type GetInvoiceitemsResponder = (typeof getInvoiceitems)["responder"] &
   KoaRuntimeResponder
-
-const getInvoiceitemsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_invoiceitem)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/invoiceitems")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetInvoiceitems = (
   params: Params<
@@ -9281,19 +8144,14 @@ export type GetInvoiceitems = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoiceitemsResponder = {
-  with200: r.with200<t_invoiceitem>,
-  withDefault: r.withDefault<t_error>,
+const postInvoiceitems = b((r) => ({
+  with200: r.with200<t_invoiceitem>(s_invoiceitem),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostInvoiceitemsResponder = typeof postInvoiceitemsResponder &
+type PostInvoiceitemsResponder = (typeof postInvoiceitems)["responder"] &
   KoaRuntimeResponder
-
-const postInvoiceitemsResponseValidator = responseValidationFactory(
-  [["200", s_invoiceitem]],
-  s_error,
-)
 
 export type PostInvoiceitems = (
   params: Params<void, void, t_PostInvoiceitemsBodySchema, void>,
@@ -9305,17 +8163,14 @@ export type PostInvoiceitems = (
   | Response<StatusCode, t_error>
 >
 
-const deleteInvoiceitemsInvoiceitemResponder = {
-  with200: r.with200<t_deleted_invoiceitem>,
-  withDefault: r.withDefault<t_error>,
+const deleteInvoiceitemsInvoiceitem = b((r) => ({
+  with200: r.with200<t_deleted_invoiceitem>(s_deleted_invoiceitem),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteInvoiceitemsInvoiceitemResponder =
-  typeof deleteInvoiceitemsInvoiceitemResponder & KoaRuntimeResponder
-
-const deleteInvoiceitemsInvoiceitemResponseValidator =
-  responseValidationFactory([["200", s_deleted_invoiceitem]], s_error)
+  (typeof deleteInvoiceitemsInvoiceitem)["responder"] & KoaRuntimeResponder
 
 export type DeleteInvoiceitemsInvoiceitem = (
   params: Params<
@@ -9332,19 +8187,14 @@ export type DeleteInvoiceitemsInvoiceitem = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoiceitemsInvoiceitemResponder = {
-  with200: r.with200<t_invoiceitem>,
-  withDefault: r.withDefault<t_error>,
+const getInvoiceitemsInvoiceitem = b((r) => ({
+  with200: r.with200<t_invoiceitem>(s_invoiceitem),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetInvoiceitemsInvoiceitemResponder =
-  typeof getInvoiceitemsInvoiceitemResponder & KoaRuntimeResponder
-
-const getInvoiceitemsInvoiceitemResponseValidator = responseValidationFactory(
-  [["200", s_invoiceitem]],
-  s_error,
-)
+  (typeof getInvoiceitemsInvoiceitem)["responder"] & KoaRuntimeResponder
 
 export type GetInvoiceitemsInvoiceitem = (
   params: Params<
@@ -9361,19 +8211,14 @@ export type GetInvoiceitemsInvoiceitem = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoiceitemsInvoiceitemResponder = {
-  with200: r.with200<t_invoiceitem>,
-  withDefault: r.withDefault<t_error>,
+const postInvoiceitemsInvoiceitem = b((r) => ({
+  with200: r.with200<t_invoiceitem>(s_invoiceitem),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoiceitemsInvoiceitemResponder =
-  typeof postInvoiceitemsInvoiceitemResponder & KoaRuntimeResponder
-
-const postInvoiceitemsInvoiceitemResponseValidator = responseValidationFactory(
-  [["200", s_invoiceitem]],
-  s_error,
-)
+  (typeof postInvoiceitemsInvoiceitem)["responder"] & KoaRuntimeResponder
 
 export type PostInvoiceitemsInvoiceitem = (
   params: Params<
@@ -9390,33 +8235,26 @@ export type PostInvoiceitemsInvoiceitem = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoicesResponder = {
+const getInvoices = b((r) => ({
   with200: r.with200<{
     data: t_invoice[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_invoice)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/invoices")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetInvoicesResponder = typeof getInvoicesResponder & KoaRuntimeResponder
-
-const getInvoicesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_invoice)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/invoices")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetInvoicesResponder = (typeof getInvoices)["responder"] &
+  KoaRuntimeResponder
 
 export type GetInvoices = (
   params: Params<
@@ -9441,18 +8279,14 @@ export type GetInvoices = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoices = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostInvoicesResponder = typeof postInvoicesResponder & KoaRuntimeResponder
-
-const postInvoicesResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+type PostInvoicesResponder = (typeof postInvoices)["responder"] &
+  KoaRuntimeResponder
 
 export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesBodySchema | undefined, void>,
@@ -9464,19 +8298,14 @@ export type PostInvoices = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesCreatePreviewResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesCreatePreview = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesCreatePreviewResponder =
-  typeof postInvoicesCreatePreviewResponder & KoaRuntimeResponder
-
-const postInvoicesCreatePreviewResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+  (typeof postInvoicesCreatePreview)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesCreatePreview = (
   params: Params<
@@ -9493,7 +8322,7 @@ export type PostInvoicesCreatePreview = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoicesSearchResponder = {
+const getInvoicesSearch = b((r) => ({
   with200: r.with200<{
     data: t_invoice[]
     has_more: boolean
@@ -9501,30 +8330,22 @@ const getInvoicesSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_invoice)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetInvoicesSearchResponder = typeof getInvoicesSearchResponder &
+type GetInvoicesSearchResponder = (typeof getInvoicesSearch)["responder"] &
   KoaRuntimeResponder
-
-const getInvoicesSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_invoice)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetInvoicesSearch = (
   params: Params<
@@ -9551,19 +8372,14 @@ export type GetInvoicesSearch = (
   | Response<StatusCode, t_error>
 >
 
-const deleteInvoicesInvoiceResponder = {
-  with200: r.with200<t_deleted_invoice>,
-  withDefault: r.withDefault<t_error>,
+const deleteInvoicesInvoice = b((r) => ({
+  with200: r.with200<t_deleted_invoice>(s_deleted_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteInvoicesInvoiceResponder = typeof deleteInvoicesInvoiceResponder &
-  KoaRuntimeResponder
-
-const deleteInvoicesInvoiceResponseValidator = responseValidationFactory(
-  [["200", s_deleted_invoice]],
-  s_error,
-)
+type DeleteInvoicesInvoiceResponder =
+  (typeof deleteInvoicesInvoice)["responder"] & KoaRuntimeResponder
 
 export type DeleteInvoicesInvoice = (
   params: Params<
@@ -9580,19 +8396,14 @@ export type DeleteInvoicesInvoice = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoicesInvoiceResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const getInvoicesInvoice = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetInvoicesInvoiceResponder = typeof getInvoicesInvoiceResponder &
+type GetInvoicesInvoiceResponder = (typeof getInvoicesInvoice)["responder"] &
   KoaRuntimeResponder
-
-const getInvoicesInvoiceResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
 
 export type GetInvoicesInvoice = (
   params: Params<
@@ -9609,19 +8420,14 @@ export type GetInvoicesInvoice = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoice = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostInvoicesInvoiceResponder = typeof postInvoicesInvoiceResponder &
+type PostInvoicesInvoiceResponder = (typeof postInvoicesInvoice)["responder"] &
   KoaRuntimeResponder
-
-const postInvoicesInvoiceResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
 
 export type PostInvoicesInvoice = (
   params: Params<
@@ -9638,19 +8444,14 @@ export type PostInvoicesInvoice = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceAddLinesResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceAddLines = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceAddLinesResponder =
-  typeof postInvoicesInvoiceAddLinesResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceAddLinesResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+  (typeof postInvoicesInvoiceAddLines)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceAddLines = (
   params: Params<
@@ -9667,19 +8468,14 @@ export type PostInvoicesInvoiceAddLines = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceFinalizeResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceFinalize = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceFinalizeResponder =
-  typeof postInvoicesInvoiceFinalizeResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceFinalizeResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+  (typeof postInvoicesInvoiceFinalize)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceFinalize = (
   params: Params<
@@ -9696,34 +8492,26 @@ export type PostInvoicesInvoiceFinalize = (
   | Response<StatusCode, t_error>
 >
 
-const getInvoicesInvoiceLinesResponder = {
+const getInvoicesInvoiceLines = b((r) => ({
   with200: r.with200<{
     data: t_line_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_line_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetInvoicesInvoiceLinesResponder =
-  typeof getInvoicesInvoiceLinesResponder & KoaRuntimeResponder
-
-const getInvoicesInvoiceLinesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_line_item)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getInvoicesInvoiceLines)["responder"] & KoaRuntimeResponder
 
 export type GetInvoicesInvoiceLines = (
   params: Params<
@@ -9748,17 +8536,14 @@ export type GetInvoicesInvoiceLines = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceLinesLineItemIdResponder = {
-  with200: r.with200<t_line_item>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceLinesLineItemId = b((r) => ({
+  with200: r.with200<t_line_item>(s_line_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceLinesLineItemIdResponder =
-  typeof postInvoicesInvoiceLinesLineItemIdResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceLinesLineItemIdResponseValidator =
-  responseValidationFactory([["200", s_line_item]], s_error)
+  (typeof postInvoicesInvoiceLinesLineItemId)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceLinesLineItemId = (
   params: Params<
@@ -9775,17 +8560,15 @@ export type PostInvoicesInvoiceLinesLineItemId = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceMarkUncollectibleResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceMarkUncollectible = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceMarkUncollectibleResponder =
-  typeof postInvoicesInvoiceMarkUncollectibleResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceMarkUncollectibleResponseValidator =
-  responseValidationFactory([["200", s_invoice]], s_error)
+  (typeof postInvoicesInvoiceMarkUncollectible)["responder"] &
+    KoaRuntimeResponder
 
 export type PostInvoicesInvoiceMarkUncollectible = (
   params: Params<
@@ -9802,19 +8585,14 @@ export type PostInvoicesInvoiceMarkUncollectible = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoicePayResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoicePay = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostInvoicesInvoicePayResponder = typeof postInvoicesInvoicePayResponder &
-  KoaRuntimeResponder
-
-const postInvoicesInvoicePayResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+type PostInvoicesInvoicePayResponder =
+  (typeof postInvoicesInvoicePay)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoicePay = (
   params: Params<
@@ -9831,17 +8609,14 @@ export type PostInvoicesInvoicePay = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceRemoveLinesResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceRemoveLines = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceRemoveLinesResponder =
-  typeof postInvoicesInvoiceRemoveLinesResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceRemoveLinesResponseValidator =
-  responseValidationFactory([["200", s_invoice]], s_error)
+  (typeof postInvoicesInvoiceRemoveLines)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceRemoveLines = (
   params: Params<
@@ -9858,19 +8633,14 @@ export type PostInvoicesInvoiceRemoveLines = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceSendResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceSend = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceSendResponder =
-  typeof postInvoicesInvoiceSendResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceSendResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+  (typeof postInvoicesInvoiceSend)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceSend = (
   params: Params<
@@ -9887,17 +8657,14 @@ export type PostInvoicesInvoiceSend = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceUpdateLinesResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceUpdateLines = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceUpdateLinesResponder =
-  typeof postInvoicesInvoiceUpdateLinesResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceUpdateLinesResponseValidator =
-  responseValidationFactory([["200", s_invoice]], s_error)
+  (typeof postInvoicesInvoiceUpdateLines)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceUpdateLines = (
   params: Params<
@@ -9914,19 +8681,14 @@ export type PostInvoicesInvoiceUpdateLines = (
   | Response<StatusCode, t_error>
 >
 
-const postInvoicesInvoiceVoidResponder = {
-  with200: r.with200<t_invoice>,
-  withDefault: r.withDefault<t_error>,
+const postInvoicesInvoiceVoid = b((r) => ({
+  with200: r.with200<t_invoice>(s_invoice),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostInvoicesInvoiceVoidResponder =
-  typeof postInvoicesInvoiceVoidResponder & KoaRuntimeResponder
-
-const postInvoicesInvoiceVoidResponseValidator = responseValidationFactory(
-  [["200", s_invoice]],
-  s_error,
-)
+  (typeof postInvoicesInvoiceVoid)["responder"] & KoaRuntimeResponder
 
 export type PostInvoicesInvoiceVoid = (
   params: Params<
@@ -9943,37 +8705,29 @@ export type PostInvoicesInvoiceVoid = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingAuthorizationsResponder = {
+const getIssuingAuthorizations = b((r) => ({
   with200: r.with200<{
     data: t_issuing_authorization[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_authorization)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/issuing/authorizations")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingAuthorizationsResponder =
-  typeof getIssuingAuthorizationsResponder & KoaRuntimeResponder
-
-const getIssuingAuthorizationsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_issuing_authorization)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/issuing/authorizations")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getIssuingAuthorizations)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingAuthorizations = (
   params: Params<
@@ -9998,17 +8752,15 @@ export type GetIssuingAuthorizations = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingAuthorizationsAuthorizationResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingAuthorizationsAuthorization = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingAuthorizationsAuthorizationResponder =
-  typeof getIssuingAuthorizationsAuthorizationResponder & KoaRuntimeResponder
-
-const getIssuingAuthorizationsAuthorizationResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
+  (typeof getIssuingAuthorizationsAuthorization)["responder"] &
+    KoaRuntimeResponder
 
 export type GetIssuingAuthorizationsAuthorization = (
   params: Params<
@@ -10025,17 +8777,15 @@ export type GetIssuingAuthorizationsAuthorization = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingAuthorizationsAuthorizationResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingAuthorizationsAuthorization = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingAuthorizationsAuthorizationResponder =
-  typeof postIssuingAuthorizationsAuthorizationResponder & KoaRuntimeResponder
-
-const postIssuingAuthorizationsAuthorizationResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
+  (typeof postIssuingAuthorizationsAuthorization)["responder"] &
+    KoaRuntimeResponder
 
 export type PostIssuingAuthorizationsAuthorization = (
   params: Params<
@@ -10052,18 +8802,15 @@ export type PostIssuingAuthorizationsAuthorization = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingAuthorizationsAuthorizationApproveResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingAuthorizationsAuthorizationApprove = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingAuthorizationsAuthorizationApproveResponder =
-  typeof postIssuingAuthorizationsAuthorizationApproveResponder &
+  (typeof postIssuingAuthorizationsAuthorizationApprove)["responder"] &
     KoaRuntimeResponder
-
-const postIssuingAuthorizationsAuthorizationApproveResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostIssuingAuthorizationsAuthorizationApprove = (
   params: Params<
@@ -10080,18 +8827,15 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingAuthorizationsAuthorizationDeclineResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingAuthorizationsAuthorizationDecline = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingAuthorizationsAuthorizationDeclineResponder =
-  typeof postIssuingAuthorizationsAuthorizationDeclineResponder &
+  (typeof postIssuingAuthorizationsAuthorizationDecline)["responder"] &
     KoaRuntimeResponder
-
-const postIssuingAuthorizationsAuthorizationDeclineResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostIssuingAuthorizationsAuthorizationDecline = (
   params: Params<
@@ -10108,34 +8852,26 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingCardholdersResponder = {
+const getIssuingCardholders = b((r) => ({
   with200: r.with200<{
     data: t_issuing_cardholder[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_cardholder)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cardholders")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingCardholdersResponder = typeof getIssuingCardholdersResponder &
-  KoaRuntimeResponder
-
-const getIssuingCardholdersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_issuing_cardholder)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cardholders")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetIssuingCardholdersResponder =
+  (typeof getIssuingCardholders)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingCardholders = (
   params: Params<
@@ -10160,19 +8896,14 @@ export type GetIssuingCardholders = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingCardholdersResponder = {
-  with200: r.with200<t_issuing_cardholder>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingCardholders = b((r) => ({
+  with200: r.with200<t_issuing_cardholder>(s_issuing_cardholder),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostIssuingCardholdersResponder = typeof postIssuingCardholdersResponder &
-  KoaRuntimeResponder
-
-const postIssuingCardholdersResponseValidator = responseValidationFactory(
-  [["200", s_issuing_cardholder]],
-  s_error,
-)
+type PostIssuingCardholdersResponder =
+  (typeof postIssuingCardholders)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingCardholders = (
   params: Params<void, void, t_PostIssuingCardholdersBodySchema, void>,
@@ -10184,17 +8915,14 @@ export type PostIssuingCardholders = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingCardholdersCardholderResponder = {
-  with200: r.with200<t_issuing_cardholder>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingCardholdersCardholder = b((r) => ({
+  with200: r.with200<t_issuing_cardholder>(s_issuing_cardholder),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingCardholdersCardholderResponder =
-  typeof getIssuingCardholdersCardholderResponder & KoaRuntimeResponder
-
-const getIssuingCardholdersCardholderResponseValidator =
-  responseValidationFactory([["200", s_issuing_cardholder]], s_error)
+  (typeof getIssuingCardholdersCardholder)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingCardholdersCardholder = (
   params: Params<
@@ -10211,17 +8939,14 @@ export type GetIssuingCardholdersCardholder = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingCardholdersCardholderResponder = {
-  with200: r.with200<t_issuing_cardholder>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingCardholdersCardholder = b((r) => ({
+  with200: r.with200<t_issuing_cardholder>(s_issuing_cardholder),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingCardholdersCardholderResponder =
-  typeof postIssuingCardholdersCardholderResponder & KoaRuntimeResponder
-
-const postIssuingCardholdersCardholderResponseValidator =
-  responseValidationFactory([["200", s_issuing_cardholder]], s_error)
+  (typeof postIssuingCardholdersCardholder)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingCardholdersCardholder = (
   params: Params<
@@ -10238,34 +8963,26 @@ export type PostIssuingCardholdersCardholder = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingCardsResponder = {
+const getIssuingCards = b((r) => ({
   with200: r.with200<{
     data: t_issuing_card[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_card)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cards")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingCardsResponder = typeof getIssuingCardsResponder &
+type GetIssuingCardsResponder = (typeof getIssuingCards)["responder"] &
   KoaRuntimeResponder
-
-const getIssuingCardsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_issuing_card)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/issuing/cards")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetIssuingCards = (
   params: Params<
@@ -10290,19 +9007,14 @@ export type GetIssuingCards = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingCardsResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingCards = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostIssuingCardsResponder = typeof postIssuingCardsResponder &
+type PostIssuingCardsResponder = (typeof postIssuingCards)["responder"] &
   KoaRuntimeResponder
-
-const postIssuingCardsResponseValidator = responseValidationFactory(
-  [["200", s_issuing_card]],
-  s_error,
-)
 
 export type PostIssuingCards = (
   params: Params<void, void, t_PostIssuingCardsBodySchema, void>,
@@ -10314,19 +9026,14 @@ export type PostIssuingCards = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingCardsCardResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingCardsCard = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingCardsCardResponder = typeof getIssuingCardsCardResponder &
+type GetIssuingCardsCardResponder = (typeof getIssuingCardsCard)["responder"] &
   KoaRuntimeResponder
-
-const getIssuingCardsCardResponseValidator = responseValidationFactory(
-  [["200", s_issuing_card]],
-  s_error,
-)
 
 export type GetIssuingCardsCard = (
   params: Params<
@@ -10343,19 +9050,14 @@ export type GetIssuingCardsCard = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingCardsCardResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingCardsCard = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostIssuingCardsCardResponder = typeof postIssuingCardsCardResponder &
-  KoaRuntimeResponder
-
-const postIssuingCardsCardResponseValidator = responseValidationFactory(
-  [["200", s_issuing_card]],
-  s_error,
-)
+type PostIssuingCardsCardResponder =
+  (typeof postIssuingCardsCard)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingCardsCard = (
   params: Params<
@@ -10372,34 +9074,26 @@ export type PostIssuingCardsCard = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingDisputesResponder = {
+const getIssuingDisputes = b((r) => ({
   with200: r.with200<{
     data: t_issuing_dispute[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_dispute)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/issuing/disputes")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingDisputesResponder = typeof getIssuingDisputesResponder &
+type GetIssuingDisputesResponder = (typeof getIssuingDisputes)["responder"] &
   KoaRuntimeResponder
-
-const getIssuingDisputesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_issuing_dispute)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/issuing/disputes")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetIssuingDisputes = (
   params: Params<
@@ -10424,19 +9118,14 @@ export type GetIssuingDisputes = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingDisputesResponder = {
-  with200: r.with200<t_issuing_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingDisputes = b((r) => ({
+  with200: r.with200<t_issuing_dispute>(s_issuing_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostIssuingDisputesResponder = typeof postIssuingDisputesResponder &
+type PostIssuingDisputesResponder = (typeof postIssuingDisputes)["responder"] &
   KoaRuntimeResponder
-
-const postIssuingDisputesResponseValidator = responseValidationFactory(
-  [["200", s_issuing_dispute]],
-  s_error,
-)
 
 export type PostIssuingDisputes = (
   params: Params<void, void, t_PostIssuingDisputesBodySchema | undefined, void>,
@@ -10448,19 +9137,14 @@ export type PostIssuingDisputes = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingDisputesDisputeResponder = {
-  with200: r.with200<t_issuing_dispute>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingDisputesDispute = b((r) => ({
+  with200: r.with200<t_issuing_dispute>(s_issuing_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingDisputesDisputeResponder =
-  typeof getIssuingDisputesDisputeResponder & KoaRuntimeResponder
-
-const getIssuingDisputesDisputeResponseValidator = responseValidationFactory(
-  [["200", s_issuing_dispute]],
-  s_error,
-)
+  (typeof getIssuingDisputesDispute)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingDisputesDispute = (
   params: Params<
@@ -10477,19 +9161,14 @@ export type GetIssuingDisputesDispute = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingDisputesDisputeResponder = {
-  with200: r.with200<t_issuing_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingDisputesDispute = b((r) => ({
+  with200: r.with200<t_issuing_dispute>(s_issuing_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingDisputesDisputeResponder =
-  typeof postIssuingDisputesDisputeResponder & KoaRuntimeResponder
-
-const postIssuingDisputesDisputeResponseValidator = responseValidationFactory(
-  [["200", s_issuing_dispute]],
-  s_error,
-)
+  (typeof postIssuingDisputesDispute)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingDisputesDispute = (
   params: Params<
@@ -10506,17 +9185,14 @@ export type PostIssuingDisputesDispute = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingDisputesDisputeSubmitResponder = {
-  with200: r.with200<t_issuing_dispute>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingDisputesDisputeSubmit = b((r) => ({
+  with200: r.with200<t_issuing_dispute>(s_issuing_dispute),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingDisputesDisputeSubmitResponder =
-  typeof postIssuingDisputesDisputeSubmitResponder & KoaRuntimeResponder
-
-const postIssuingDisputesDisputeSubmitResponseValidator =
-  responseValidationFactory([["200", s_issuing_dispute]], s_error)
+  (typeof postIssuingDisputesDisputeSubmit)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingDisputesDisputeSubmit = (
   params: Params<
@@ -10533,38 +9209,29 @@ export type PostIssuingDisputesDisputeSubmit = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingPersonalizationDesignsResponder = {
+const getIssuingPersonalizationDesigns = b((r) => ({
   with200: r.with200<{
     data: t_issuing_personalization_design[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_personalization_design)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/issuing/personalization_designs")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingPersonalizationDesignsResponder =
-  typeof getIssuingPersonalizationDesignsResponder & KoaRuntimeResponder
-
-const getIssuingPersonalizationDesignsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_issuing_personalization_design)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/issuing/personalization_designs")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getIssuingPersonalizationDesigns)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingPersonalizationDesigns = (
   params: Params<
@@ -10589,20 +9256,16 @@ export type GetIssuingPersonalizationDesigns = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingPersonalizationDesignsResponder = {
-  with200: r.with200<t_issuing_personalization_design>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingPersonalizationDesigns = b((r) => ({
+  with200: r.with200<t_issuing_personalization_design>(
+    s_issuing_personalization_design,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingPersonalizationDesignsResponder =
-  typeof postIssuingPersonalizationDesignsResponder & KoaRuntimeResponder
-
-const postIssuingPersonalizationDesignsResponseValidator =
-  responseValidationFactory(
-    [["200", s_issuing_personalization_design]],
-    s_error,
-  )
+  (typeof postIssuingPersonalizationDesigns)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingPersonalizationDesigns = (
   params: Params<
@@ -10619,21 +9282,17 @@ export type PostIssuingPersonalizationDesigns = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingPersonalizationDesignsPersonalizationDesignResponder = {
-  with200: r.with200<t_issuing_personalization_design>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingPersonalizationDesignsPersonalizationDesign = b((r) => ({
+  with200: r.with200<t_issuing_personalization_design>(
+    s_issuing_personalization_design,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingPersonalizationDesignsPersonalizationDesignResponder =
-  typeof getIssuingPersonalizationDesignsPersonalizationDesignResponder &
+  (typeof getIssuingPersonalizationDesignsPersonalizationDesign)["responder"] &
     KoaRuntimeResponder
-
-const getIssuingPersonalizationDesignsPersonalizationDesignResponseValidator =
-  responseValidationFactory(
-    [["200", s_issuing_personalization_design]],
-    s_error,
-  )
 
 export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
@@ -10651,21 +9310,17 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingPersonalizationDesignsPersonalizationDesignResponder = {
-  with200: r.with200<t_issuing_personalization_design>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingPersonalizationDesignsPersonalizationDesign = b((r) => ({
+  with200: r.with200<t_issuing_personalization_design>(
+    s_issuing_personalization_design,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingPersonalizationDesignsPersonalizationDesignResponder =
-  typeof postIssuingPersonalizationDesignsPersonalizationDesignResponder &
+  (typeof postIssuingPersonalizationDesignsPersonalizationDesign)["responder"] &
     KoaRuntimeResponder
-
-const postIssuingPersonalizationDesignsPersonalizationDesignResponseValidator =
-  responseValidationFactory(
-    [["200", s_issuing_personalization_design]],
-    s_error,
-  )
 
 export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
@@ -10683,37 +9338,29 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingPhysicalBundlesResponder = {
+const getIssuingPhysicalBundles = b((r) => ({
   with200: r.with200<{
     data: t_issuing_physical_bundle[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_issuing_physical_bundle),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/issuing/physical_bundles")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingPhysicalBundlesResponder =
-  typeof getIssuingPhysicalBundlesResponder & KoaRuntimeResponder
-
-const getIssuingPhysicalBundlesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_issuing_physical_bundle),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/issuing/physical_bundles")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getIssuingPhysicalBundles)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingPhysicalBundles = (
   params: Params<
@@ -10738,17 +9385,15 @@ export type GetIssuingPhysicalBundles = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingPhysicalBundlesPhysicalBundleResponder = {
-  with200: r.with200<t_issuing_physical_bundle>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingPhysicalBundlesPhysicalBundle = b((r) => ({
+  with200: r.with200<t_issuing_physical_bundle>(s_issuing_physical_bundle),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingPhysicalBundlesPhysicalBundleResponder =
-  typeof getIssuingPhysicalBundlesPhysicalBundleResponder & KoaRuntimeResponder
-
-const getIssuingPhysicalBundlesPhysicalBundleResponseValidator =
-  responseValidationFactory([["200", s_issuing_physical_bundle]], s_error)
+  (typeof getIssuingPhysicalBundlesPhysicalBundle)["responder"] &
+    KoaRuntimeResponder
 
 export type GetIssuingPhysicalBundlesPhysicalBundle = (
   params: Params<
@@ -10765,17 +9410,14 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingSettlementsSettlementResponder = {
-  with200: r.with200<t_issuing_settlement>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingSettlementsSettlement = b((r) => ({
+  with200: r.with200<t_issuing_settlement>(s_issuing_settlement),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingSettlementsSettlementResponder =
-  typeof getIssuingSettlementsSettlementResponder & KoaRuntimeResponder
-
-const getIssuingSettlementsSettlementResponseValidator =
-  responseValidationFactory([["200", s_issuing_settlement]], s_error)
+  (typeof getIssuingSettlementsSettlement)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingSettlementsSettlement = (
   params: Params<
@@ -10792,17 +9434,14 @@ export type GetIssuingSettlementsSettlement = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingSettlementsSettlementResponder = {
-  with200: r.with200<t_issuing_settlement>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingSettlementsSettlement = b((r) => ({
+  with200: r.with200<t_issuing_settlement>(s_issuing_settlement),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingSettlementsSettlementResponder =
-  typeof postIssuingSettlementsSettlementResponder & KoaRuntimeResponder
-
-const postIssuingSettlementsSettlementResponseValidator =
-  responseValidationFactory([["200", s_issuing_settlement]], s_error)
+  (typeof postIssuingSettlementsSettlement)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingSettlementsSettlement = (
   params: Params<
@@ -10819,34 +9458,26 @@ export type PostIssuingSettlementsSettlement = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingTokensResponder = {
+const getIssuingTokens = b((r) => ({
   with200: r.with200<{
     data: t_issuing_token[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_token)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingTokensResponder = typeof getIssuingTokensResponder &
+type GetIssuingTokensResponder = (typeof getIssuingTokens)["responder"] &
   KoaRuntimeResponder
-
-const getIssuingTokensResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_issuing_token)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetIssuingTokens = (
   params: Params<
@@ -10871,19 +9502,14 @@ export type GetIssuingTokens = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingTokensTokenResponder = {
-  with200: r.with200<t_issuing_token>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingTokensToken = b((r) => ({
+  with200: r.with200<t_issuing_token>(s_issuing_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingTokensTokenResponder = typeof getIssuingTokensTokenResponder &
-  KoaRuntimeResponder
-
-const getIssuingTokensTokenResponseValidator = responseValidationFactory(
-  [["200", s_issuing_token]],
-  s_error,
-)
+type GetIssuingTokensTokenResponder =
+  (typeof getIssuingTokensToken)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingTokensToken = (
   params: Params<
@@ -10900,19 +9526,14 @@ export type GetIssuingTokensToken = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingTokensTokenResponder = {
-  with200: r.with200<t_issuing_token>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingTokensToken = b((r) => ({
+  with200: r.with200<t_issuing_token>(s_issuing_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostIssuingTokensTokenResponder = typeof postIssuingTokensTokenResponder &
-  KoaRuntimeResponder
-
-const postIssuingTokensTokenResponseValidator = responseValidationFactory(
-  [["200", s_issuing_token]],
-  s_error,
-)
+type PostIssuingTokensTokenResponder =
+  (typeof postIssuingTokensToken)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingTokensToken = (
   params: Params<
@@ -10929,37 +9550,26 @@ export type PostIssuingTokensToken = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingTransactionsResponder = {
+const getIssuingTransactions = b((r) => ({
   with200: r.with200<{
     data: t_issuing_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_issuing_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/issuing/transactions")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetIssuingTransactionsResponder = typeof getIssuingTransactionsResponder &
-  KoaRuntimeResponder
-
-const getIssuingTransactionsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_issuing_transaction)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/issuing/transactions")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetIssuingTransactionsResponder =
+  (typeof getIssuingTransactions)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingTransactions = (
   params: Params<
@@ -10984,17 +9594,14 @@ export type GetIssuingTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getIssuingTransactionsTransactionResponder = {
-  with200: r.with200<t_issuing_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getIssuingTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_issuing_transaction>(s_issuing_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetIssuingTransactionsTransactionResponder =
-  typeof getIssuingTransactionsTransactionResponder & KoaRuntimeResponder
-
-const getIssuingTransactionsTransactionResponseValidator =
-  responseValidationFactory([["200", s_issuing_transaction]], s_error)
+  (typeof getIssuingTransactionsTransaction)["responder"] & KoaRuntimeResponder
 
 export type GetIssuingTransactionsTransaction = (
   params: Params<
@@ -11011,17 +9618,14 @@ export type GetIssuingTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const postIssuingTransactionsTransactionResponder = {
-  with200: r.with200<t_issuing_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postIssuingTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_issuing_transaction>(s_issuing_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostIssuingTransactionsTransactionResponder =
-  typeof postIssuingTransactionsTransactionResponder & KoaRuntimeResponder
-
-const postIssuingTransactionsTransactionResponseValidator =
-  responseValidationFactory([["200", s_issuing_transaction]], s_error)
+  (typeof postIssuingTransactionsTransaction)["responder"] & KoaRuntimeResponder
 
 export type PostIssuingTransactionsTransaction = (
   params: Params<
@@ -11038,19 +9642,16 @@ export type PostIssuingTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const postLinkAccountSessionsResponder = {
-  with200: r.with200<t_financial_connections_session>,
-  withDefault: r.withDefault<t_error>,
+const postLinkAccountSessions = b((r) => ({
+  with200: r.with200<t_financial_connections_session>(
+    s_financial_connections_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostLinkAccountSessionsResponder =
-  typeof postLinkAccountSessionsResponder & KoaRuntimeResponder
-
-const postLinkAccountSessionsResponseValidator = responseValidationFactory(
-  [["200", s_financial_connections_session]],
-  s_error,
-)
+  (typeof postLinkAccountSessions)["responder"] & KoaRuntimeResponder
 
 export type PostLinkAccountSessions = (
   params: Params<void, void, t_PostLinkAccountSessionsBodySchema, void>,
@@ -11062,17 +9663,16 @@ export type PostLinkAccountSessions = (
   | Response<StatusCode, t_error>
 >
 
-const getLinkAccountSessionsSessionResponder = {
-  with200: r.with200<t_financial_connections_session>,
-  withDefault: r.withDefault<t_error>,
+const getLinkAccountSessionsSession = b((r) => ({
+  with200: r.with200<t_financial_connections_session>(
+    s_financial_connections_session,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetLinkAccountSessionsSessionResponder =
-  typeof getLinkAccountSessionsSessionResponder & KoaRuntimeResponder
-
-const getLinkAccountSessionsSessionResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_session]], s_error)
+  (typeof getLinkAccountSessionsSession)["responder"] & KoaRuntimeResponder
 
 export type GetLinkAccountSessionsSession = (
   params: Params<
@@ -11089,37 +9689,29 @@ export type GetLinkAccountSessionsSession = (
   | Response<StatusCode, t_error>
 >
 
-const getLinkedAccountsResponder = {
+const getLinkedAccounts = b((r) => ({
   with200: r.with200<{
     data: t_financial_connections_account[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_financial_connections_account)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/financial_connections/accounts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetLinkedAccountsResponder = typeof getLinkedAccountsResponder &
+type GetLinkedAccountsResponder = (typeof getLinkedAccounts)["responder"] &
   KoaRuntimeResponder
-
-const getLinkedAccountsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_financial_connections_account)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/financial_connections/accounts")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetLinkedAccounts = (
   params: Params<
@@ -11144,19 +9736,16 @@ export type GetLinkedAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const getLinkedAccountsAccountResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const getLinkedAccountsAccount = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetLinkedAccountsAccountResponder =
-  typeof getLinkedAccountsAccountResponder & KoaRuntimeResponder
-
-const getLinkedAccountsAccountResponseValidator = responseValidationFactory(
-  [["200", s_financial_connections_account]],
-  s_error,
-)
+  (typeof getLinkedAccountsAccount)["responder"] & KoaRuntimeResponder
 
 export type GetLinkedAccountsAccount = (
   params: Params<
@@ -11173,17 +9762,17 @@ export type GetLinkedAccountsAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postLinkedAccountsAccountDisconnectResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const postLinkedAccountsAccountDisconnect = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostLinkedAccountsAccountDisconnectResponder =
-  typeof postLinkedAccountsAccountDisconnectResponder & KoaRuntimeResponder
-
-const postLinkedAccountsAccountDisconnectResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
+  (typeof postLinkedAccountsAccountDisconnect)["responder"] &
+    KoaRuntimeResponder
 
 export type PostLinkedAccountsAccountDisconnect = (
   params: Params<
@@ -11200,35 +9789,26 @@ export type PostLinkedAccountsAccountDisconnect = (
   | Response<StatusCode, t_error>
 >
 
-const getLinkedAccountsAccountOwnersResponder = {
+const getLinkedAccountsAccountOwners = b((r) => ({
   with200: r.with200<{
     data: t_financial_connections_account_owner[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_financial_connections_account_owner),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetLinkedAccountsAccountOwnersResponder =
-  typeof getLinkedAccountsAccountOwnersResponder & KoaRuntimeResponder
-
-const getLinkedAccountsAccountOwnersResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_financial_connections_account_owner),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getLinkedAccountsAccountOwners)["responder"] & KoaRuntimeResponder
 
 export type GetLinkedAccountsAccountOwners = (
   params: Params<
@@ -11253,17 +9833,16 @@ export type GetLinkedAccountsAccountOwners = (
   | Response<StatusCode, t_error>
 >
 
-const postLinkedAccountsAccountRefreshResponder = {
-  with200: r.with200<t_financial_connections_account>,
-  withDefault: r.withDefault<t_error>,
+const postLinkedAccountsAccountRefresh = b((r) => ({
+  with200: r.with200<t_financial_connections_account>(
+    s_financial_connections_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostLinkedAccountsAccountRefreshResponder =
-  typeof postLinkedAccountsAccountRefreshResponder & KoaRuntimeResponder
-
-const postLinkedAccountsAccountRefreshResponseValidator =
-  responseValidationFactory([["200", s_financial_connections_account]], s_error)
+  (typeof postLinkedAccountsAccountRefresh)["responder"] & KoaRuntimeResponder
 
 export type PostLinkedAccountsAccountRefresh = (
   params: Params<
@@ -11280,19 +9859,14 @@ export type PostLinkedAccountsAccountRefresh = (
   | Response<StatusCode, t_error>
 >
 
-const getMandatesMandateResponder = {
-  with200: r.with200<t_mandate>,
-  withDefault: r.withDefault<t_error>,
+const getMandatesMandate = b((r) => ({
+  with200: r.with200<t_mandate>(s_mandate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetMandatesMandateResponder = typeof getMandatesMandateResponder &
+type GetMandatesMandateResponder = (typeof getMandatesMandate)["responder"] &
   KoaRuntimeResponder
-
-const getMandatesMandateResponseValidator = responseValidationFactory(
-  [["200", s_mandate]],
-  s_error,
-)
 
 export type GetMandatesMandate = (
   params: Params<
@@ -11309,34 +9883,26 @@ export type GetMandatesMandate = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentIntentsResponder = {
+const getPaymentIntents = b((r) => ({
   with200: r.with200<{
     data: t_payment_intent[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_payment_intent)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/payment_intents")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPaymentIntentsResponder = typeof getPaymentIntentsResponder &
+type GetPaymentIntentsResponder = (typeof getPaymentIntents)["responder"] &
   KoaRuntimeResponder
-
-const getPaymentIntentsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_payment_intent)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/payment_intents")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetPaymentIntents = (
   params: Params<
@@ -11361,19 +9927,14 @@ export type GetPaymentIntents = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntents = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPaymentIntentsResponder = typeof postPaymentIntentsResponder &
+type PostPaymentIntentsResponder = (typeof postPaymentIntents)["responder"] &
   KoaRuntimeResponder
-
-const postPaymentIntentsResponseValidator = responseValidationFactory(
-  [["200", s_payment_intent]],
-  s_error,
-)
 
 export type PostPaymentIntents = (
   params: Params<void, void, t_PostPaymentIntentsBodySchema, void>,
@@ -11385,7 +9946,7 @@ export type PostPaymentIntents = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentIntentsSearchResponder = {
+const getPaymentIntentsSearch = b((r) => ({
   with200: r.with200<{
     data: t_payment_intent[]
     has_more: boolean
@@ -11393,30 +9954,22 @@ const getPaymentIntentsSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_payment_intent)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentIntentsSearchResponder =
-  typeof getPaymentIntentsSearchResponder & KoaRuntimeResponder
-
-const getPaymentIntentsSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_payment_intent)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getPaymentIntentsSearch)["responder"] & KoaRuntimeResponder
 
 export type GetPaymentIntentsSearch = (
   params: Params<
@@ -11443,19 +9996,14 @@ export type GetPaymentIntentsSearch = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentIntentsIntentResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const getPaymentIntentsIntent = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentIntentsIntentResponder =
-  typeof getPaymentIntentsIntentResponder & KoaRuntimeResponder
-
-const getPaymentIntentsIntentResponseValidator = responseValidationFactory(
-  [["200", s_payment_intent]],
-  s_error,
-)
+  (typeof getPaymentIntentsIntent)["responder"] & KoaRuntimeResponder
 
 export type GetPaymentIntentsIntent = (
   params: Params<
@@ -11472,19 +10020,14 @@ export type GetPaymentIntentsIntent = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntent = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentResponder =
-  typeof postPaymentIntentsIntentResponder & KoaRuntimeResponder
-
-const postPaymentIntentsIntentResponseValidator = responseValidationFactory(
-  [["200", s_payment_intent]],
-  s_error,
-)
+  (typeof postPaymentIntentsIntent)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentIntentsIntent = (
   params: Params<
@@ -11501,18 +10044,15 @@ export type PostPaymentIntentsIntent = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentApplyCustomerBalanceResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntentApplyCustomerBalance = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentApplyCustomerBalanceResponder =
-  typeof postPaymentIntentsIntentApplyCustomerBalanceResponder &
+  (typeof postPaymentIntentsIntentApplyCustomerBalance)["responder"] &
     KoaRuntimeResponder
-
-const postPaymentIntentsIntentApplyCustomerBalanceResponseValidator =
-  responseValidationFactory([["200", s_payment_intent]], s_error)
 
 export type PostPaymentIntentsIntentApplyCustomerBalance = (
   params: Params<
@@ -11529,17 +10069,14 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentCancelResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntentCancel = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentCancelResponder =
-  typeof postPaymentIntentsIntentCancelResponder & KoaRuntimeResponder
-
-const postPaymentIntentsIntentCancelResponseValidator =
-  responseValidationFactory([["200", s_payment_intent]], s_error)
+  (typeof postPaymentIntentsIntentCancel)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentIntentsIntentCancel = (
   params: Params<
@@ -11556,17 +10093,14 @@ export type PostPaymentIntentsIntentCancel = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentCaptureResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntentCapture = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentCaptureResponder =
-  typeof postPaymentIntentsIntentCaptureResponder & KoaRuntimeResponder
-
-const postPaymentIntentsIntentCaptureResponseValidator =
-  responseValidationFactory([["200", s_payment_intent]], s_error)
+  (typeof postPaymentIntentsIntentCapture)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentIntentsIntentCapture = (
   params: Params<
@@ -11583,17 +10117,14 @@ export type PostPaymentIntentsIntentCapture = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentConfirmResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntentConfirm = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentConfirmResponder =
-  typeof postPaymentIntentsIntentConfirmResponder & KoaRuntimeResponder
-
-const postPaymentIntentsIntentConfirmResponseValidator =
-  responseValidationFactory([["200", s_payment_intent]], s_error)
+  (typeof postPaymentIntentsIntentConfirm)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentIntentsIntentConfirm = (
   params: Params<
@@ -11610,18 +10141,15 @@ export type PostPaymentIntentsIntentConfirm = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentIncrementAuthorizationResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntentIncrementAuthorization = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentIncrementAuthorizationResponder =
-  typeof postPaymentIntentsIntentIncrementAuthorizationResponder &
+  (typeof postPaymentIntentsIntentIncrementAuthorization)["responder"] &
     KoaRuntimeResponder
-
-const postPaymentIntentsIntentIncrementAuthorizationResponseValidator =
-  responseValidationFactory([["200", s_payment_intent]], s_error)
 
 export type PostPaymentIntentsIntentIncrementAuthorization = (
   params: Params<
@@ -11638,18 +10166,15 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentIntentsIntentVerifyMicrodepositsResponder = {
-  with200: r.with200<t_payment_intent>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentIntentsIntentVerifyMicrodeposits = b((r) => ({
+  with200: r.with200<t_payment_intent>(s_payment_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentIntentsIntentVerifyMicrodepositsResponder =
-  typeof postPaymentIntentsIntentVerifyMicrodepositsResponder &
+  (typeof postPaymentIntentsIntentVerifyMicrodeposits)["responder"] &
     KoaRuntimeResponder
-
-const postPaymentIntentsIntentVerifyMicrodepositsResponseValidator =
-  responseValidationFactory([["200", s_payment_intent]], s_error)
 
 export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   params: Params<
@@ -11666,34 +10191,26 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentLinksResponder = {
+const getPaymentLinks = b((r) => ({
   with200: r.with200<{
     data: t_payment_link[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_payment_link)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/payment_links")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPaymentLinksResponder = typeof getPaymentLinksResponder &
+type GetPaymentLinksResponder = (typeof getPaymentLinks)["responder"] &
   KoaRuntimeResponder
-
-const getPaymentLinksResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_payment_link)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/payment_links")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetPaymentLinks = (
   params: Params<
@@ -11718,19 +10235,14 @@ export type GetPaymentLinks = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentLinksResponder = {
-  with200: r.with200<t_payment_link>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentLinks = b((r) => ({
+  with200: r.with200<t_payment_link>(s_payment_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPaymentLinksResponder = typeof postPaymentLinksResponder &
+type PostPaymentLinksResponder = (typeof postPaymentLinks)["responder"] &
   KoaRuntimeResponder
-
-const postPaymentLinksResponseValidator = responseValidationFactory(
-  [["200", s_payment_link]],
-  s_error,
-)
 
 export type PostPaymentLinks = (
   params: Params<void, void, t_PostPaymentLinksBodySchema, void>,
@@ -11742,19 +10254,14 @@ export type PostPaymentLinks = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentLinksPaymentLinkResponder = {
-  with200: r.with200<t_payment_link>,
-  withDefault: r.withDefault<t_error>,
+const getPaymentLinksPaymentLink = b((r) => ({
+  with200: r.with200<t_payment_link>(s_payment_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentLinksPaymentLinkResponder =
-  typeof getPaymentLinksPaymentLinkResponder & KoaRuntimeResponder
-
-const getPaymentLinksPaymentLinkResponseValidator = responseValidationFactory(
-  [["200", s_payment_link]],
-  s_error,
-)
+  (typeof getPaymentLinksPaymentLink)["responder"] & KoaRuntimeResponder
 
 export type GetPaymentLinksPaymentLink = (
   params: Params<
@@ -11771,19 +10278,14 @@ export type GetPaymentLinksPaymentLink = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentLinksPaymentLinkResponder = {
-  with200: r.with200<t_payment_link>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentLinksPaymentLink = b((r) => ({
+  with200: r.with200<t_payment_link>(s_payment_link),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentLinksPaymentLinkResponder =
-  typeof postPaymentLinksPaymentLinkResponder & KoaRuntimeResponder
-
-const postPaymentLinksPaymentLinkResponseValidator = responseValidationFactory(
-  [["200", s_payment_link]],
-  s_error,
-)
+  (typeof postPaymentLinksPaymentLink)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentLinksPaymentLink = (
   params: Params<
@@ -11800,35 +10302,27 @@ export type PostPaymentLinksPaymentLink = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentLinksPaymentLinkLineItemsResponder = {
+const getPaymentLinksPaymentLinkLineItems = b((r) => ({
   with200: r.with200<{
     data: t_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentLinksPaymentLinkLineItemsResponder =
-  typeof getPaymentLinksPaymentLinkLineItemsResponder & KoaRuntimeResponder
-
-const getPaymentLinksPaymentLinkLineItemsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_item)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getPaymentLinksPaymentLinkLineItems)["responder"] &
+    KoaRuntimeResponder
 
 export type GetPaymentLinksPaymentLinkLineItems = (
   params: Params<
@@ -11853,38 +10347,29 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentMethodConfigurationsResponder = {
+const getPaymentMethodConfigurations = b((r) => ({
   with200: r.with200<{
     data: t_payment_method_configuration[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_payment_method_configuration),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/payment_method_configurations")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentMethodConfigurationsResponder =
-  typeof getPaymentMethodConfigurationsResponder & KoaRuntimeResponder
-
-const getPaymentMethodConfigurationsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_payment_method_configuration),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/payment_method_configurations")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getPaymentMethodConfigurations)["responder"] & KoaRuntimeResponder
 
 export type GetPaymentMethodConfigurations = (
   params: Params<
@@ -11909,17 +10394,16 @@ export type GetPaymentMethodConfigurations = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodConfigurationsResponder = {
-  with200: r.with200<t_payment_method_configuration>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodConfigurations = b((r) => ({
+  with200: r.with200<t_payment_method_configuration>(
+    s_payment_method_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodConfigurationsResponder =
-  typeof postPaymentMethodConfigurationsResponder & KoaRuntimeResponder
-
-const postPaymentMethodConfigurationsResponseValidator =
-  responseValidationFactory([["200", s_payment_method_configuration]], s_error)
+  (typeof postPaymentMethodConfigurations)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentMethodConfigurations = (
   params: Params<
@@ -11936,18 +10420,17 @@ export type PostPaymentMethodConfigurations = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentMethodConfigurationsConfigurationResponder = {
-  with200: r.with200<t_payment_method_configuration>,
-  withDefault: r.withDefault<t_error>,
+const getPaymentMethodConfigurationsConfiguration = b((r) => ({
+  with200: r.with200<t_payment_method_configuration>(
+    s_payment_method_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentMethodConfigurationsConfigurationResponder =
-  typeof getPaymentMethodConfigurationsConfigurationResponder &
+  (typeof getPaymentMethodConfigurationsConfiguration)["responder"] &
     KoaRuntimeResponder
-
-const getPaymentMethodConfigurationsConfigurationResponseValidator =
-  responseValidationFactory([["200", s_payment_method_configuration]], s_error)
 
 export type GetPaymentMethodConfigurationsConfiguration = (
   params: Params<
@@ -11964,18 +10447,17 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodConfigurationsConfigurationResponder = {
-  with200: r.with200<t_payment_method_configuration>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodConfigurationsConfiguration = b((r) => ({
+  with200: r.with200<t_payment_method_configuration>(
+    s_payment_method_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodConfigurationsConfigurationResponder =
-  typeof postPaymentMethodConfigurationsConfigurationResponder &
+  (typeof postPaymentMethodConfigurationsConfiguration)["responder"] &
     KoaRuntimeResponder
-
-const postPaymentMethodConfigurationsConfigurationResponseValidator =
-  responseValidationFactory([["200", s_payment_method_configuration]], s_error)
 
 export type PostPaymentMethodConfigurationsConfiguration = (
   params: Params<
@@ -11992,37 +10474,29 @@ export type PostPaymentMethodConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentMethodDomainsResponder = {
+const getPaymentMethodDomains = b((r) => ({
   with200: r.with200<{
     data: t_payment_method_domain[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_payment_method_domain),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/payment_method_domains")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentMethodDomainsResponder =
-  typeof getPaymentMethodDomainsResponder & KoaRuntimeResponder
-
-const getPaymentMethodDomainsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_payment_method_domain),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/payment_method_domains")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getPaymentMethodDomains)["responder"] & KoaRuntimeResponder
 
 export type GetPaymentMethodDomains = (
   params: Params<
@@ -12047,19 +10521,14 @@ export type GetPaymentMethodDomains = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodDomainsResponder = {
-  with200: r.with200<t_payment_method_domain>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodDomains = b((r) => ({
+  with200: r.with200<t_payment_method_domain>(s_payment_method_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodDomainsResponder =
-  typeof postPaymentMethodDomainsResponder & KoaRuntimeResponder
-
-const postPaymentMethodDomainsResponseValidator = responseValidationFactory(
-  [["200", s_payment_method_domain]],
-  s_error,
-)
+  (typeof postPaymentMethodDomains)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentMethodDomains = (
   params: Params<void, void, t_PostPaymentMethodDomainsBodySchema, void>,
@@ -12071,18 +10540,15 @@ export type PostPaymentMethodDomains = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentMethodDomainsPaymentMethodDomainResponder = {
-  with200: r.with200<t_payment_method_domain>,
-  withDefault: r.withDefault<t_error>,
+const getPaymentMethodDomainsPaymentMethodDomain = b((r) => ({
+  with200: r.with200<t_payment_method_domain>(s_payment_method_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentMethodDomainsPaymentMethodDomainResponder =
-  typeof getPaymentMethodDomainsPaymentMethodDomainResponder &
+  (typeof getPaymentMethodDomainsPaymentMethodDomain)["responder"] &
     KoaRuntimeResponder
-
-const getPaymentMethodDomainsPaymentMethodDomainResponseValidator =
-  responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
 export type GetPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
@@ -12099,18 +10565,15 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodDomainsPaymentMethodDomainResponder = {
-  with200: r.with200<t_payment_method_domain>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodDomainsPaymentMethodDomain = b((r) => ({
+  with200: r.with200<t_payment_method_domain>(s_payment_method_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodDomainsPaymentMethodDomainResponder =
-  typeof postPaymentMethodDomainsPaymentMethodDomainResponder &
+  (typeof postPaymentMethodDomainsPaymentMethodDomain)["responder"] &
     KoaRuntimeResponder
-
-const postPaymentMethodDomainsPaymentMethodDomainResponseValidator =
-  responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
 export type PostPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
@@ -12127,18 +10590,15 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodDomainsPaymentMethodDomainValidateResponder = {
-  with200: r.with200<t_payment_method_domain>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodDomainsPaymentMethodDomainValidate = b((r) => ({
+  with200: r.with200<t_payment_method_domain>(s_payment_method_domain),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodDomainsPaymentMethodDomainValidateResponder =
-  typeof postPaymentMethodDomainsPaymentMethodDomainValidateResponder &
+  (typeof postPaymentMethodDomainsPaymentMethodDomainValidate)["responder"] &
     KoaRuntimeResponder
-
-const postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator =
-  responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
 export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   params: Params<
@@ -12155,34 +10615,26 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentMethodsResponder = {
+const getPaymentMethods = b((r) => ({
   with200: r.with200<{
     data: t_payment_method[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_payment_method)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/payment_methods")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPaymentMethodsResponder = typeof getPaymentMethodsResponder &
+type GetPaymentMethodsResponder = (typeof getPaymentMethods)["responder"] &
   KoaRuntimeResponder
-
-const getPaymentMethodsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_payment_method)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/payment_methods")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetPaymentMethods = (
   params: Params<
@@ -12207,19 +10659,14 @@ export type GetPaymentMethods = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodsResponder = {
-  with200: r.with200<t_payment_method>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethods = b((r) => ({
+  with200: r.with200<t_payment_method>(s_payment_method),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPaymentMethodsResponder = typeof postPaymentMethodsResponder &
+type PostPaymentMethodsResponder = (typeof postPaymentMethods)["responder"] &
   KoaRuntimeResponder
-
-const postPaymentMethodsResponseValidator = responseValidationFactory(
-  [["200", s_payment_method]],
-  s_error,
-)
 
 export type PostPaymentMethods = (
   params: Params<void, void, t_PostPaymentMethodsBodySchema | undefined, void>,
@@ -12231,17 +10678,14 @@ export type PostPaymentMethods = (
   | Response<StatusCode, t_error>
 >
 
-const getPaymentMethodsPaymentMethodResponder = {
-  with200: r.with200<t_payment_method>,
-  withDefault: r.withDefault<t_error>,
+const getPaymentMethodsPaymentMethod = b((r) => ({
+  with200: r.with200<t_payment_method>(s_payment_method),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPaymentMethodsPaymentMethodResponder =
-  typeof getPaymentMethodsPaymentMethodResponder & KoaRuntimeResponder
-
-const getPaymentMethodsPaymentMethodResponseValidator =
-  responseValidationFactory([["200", s_payment_method]], s_error)
+  (typeof getPaymentMethodsPaymentMethod)["responder"] & KoaRuntimeResponder
 
 export type GetPaymentMethodsPaymentMethod = (
   params: Params<
@@ -12258,17 +10702,14 @@ export type GetPaymentMethodsPaymentMethod = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodsPaymentMethodResponder = {
-  with200: r.with200<t_payment_method>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodsPaymentMethod = b((r) => ({
+  with200: r.with200<t_payment_method>(s_payment_method),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodsPaymentMethodResponder =
-  typeof postPaymentMethodsPaymentMethodResponder & KoaRuntimeResponder
-
-const postPaymentMethodsPaymentMethodResponseValidator =
-  responseValidationFactory([["200", s_payment_method]], s_error)
+  (typeof postPaymentMethodsPaymentMethod)["responder"] & KoaRuntimeResponder
 
 export type PostPaymentMethodsPaymentMethod = (
   params: Params<
@@ -12285,17 +10726,15 @@ export type PostPaymentMethodsPaymentMethod = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodsPaymentMethodAttachResponder = {
-  with200: r.with200<t_payment_method>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodsPaymentMethodAttach = b((r) => ({
+  with200: r.with200<t_payment_method>(s_payment_method),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodsPaymentMethodAttachResponder =
-  typeof postPaymentMethodsPaymentMethodAttachResponder & KoaRuntimeResponder
-
-const postPaymentMethodsPaymentMethodAttachResponseValidator =
-  responseValidationFactory([["200", s_payment_method]], s_error)
+  (typeof postPaymentMethodsPaymentMethodAttach)["responder"] &
+    KoaRuntimeResponder
 
 export type PostPaymentMethodsPaymentMethodAttach = (
   params: Params<
@@ -12312,17 +10751,15 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   | Response<StatusCode, t_error>
 >
 
-const postPaymentMethodsPaymentMethodDetachResponder = {
-  with200: r.with200<t_payment_method>,
-  withDefault: r.withDefault<t_error>,
+const postPaymentMethodsPaymentMethodDetach = b((r) => ({
+  with200: r.with200<t_payment_method>(s_payment_method),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPaymentMethodsPaymentMethodDetachResponder =
-  typeof postPaymentMethodsPaymentMethodDetachResponder & KoaRuntimeResponder
-
-const postPaymentMethodsPaymentMethodDetachResponseValidator =
-  responseValidationFactory([["200", s_payment_method]], s_error)
+  (typeof postPaymentMethodsPaymentMethodDetach)["responder"] &
+    KoaRuntimeResponder
 
 export type PostPaymentMethodsPaymentMethodDetach = (
   params: Params<
@@ -12339,33 +10776,26 @@ export type PostPaymentMethodsPaymentMethodDetach = (
   | Response<StatusCode, t_error>
 >
 
-const getPayoutsResponder = {
+const getPayouts = b((r) => ({
   with200: r.with200<{
     data: t_payout[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_payout)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/payouts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPayoutsResponder = typeof getPayoutsResponder & KoaRuntimeResponder
-
-const getPayoutsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_payout)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/payouts")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetPayoutsResponder = (typeof getPayouts)["responder"] &
+  KoaRuntimeResponder
 
 export type GetPayouts = (
   params: Params<
@@ -12390,18 +10820,14 @@ export type GetPayouts = (
   | Response<StatusCode, t_error>
 >
 
-const postPayoutsResponder = {
-  with200: r.with200<t_payout>,
-  withDefault: r.withDefault<t_error>,
+const postPayouts = b((r) => ({
+  with200: r.with200<t_payout>(s_payout),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPayoutsResponder = typeof postPayoutsResponder & KoaRuntimeResponder
-
-const postPayoutsResponseValidator = responseValidationFactory(
-  [["200", s_payout]],
-  s_error,
-)
+type PostPayoutsResponder = (typeof postPayouts)["responder"] &
+  KoaRuntimeResponder
 
 export type PostPayouts = (
   params: Params<void, void, t_PostPayoutsBodySchema, void>,
@@ -12413,19 +10839,14 @@ export type PostPayouts = (
   | Response<StatusCode, t_error>
 >
 
-const getPayoutsPayoutResponder = {
-  with200: r.with200<t_payout>,
-  withDefault: r.withDefault<t_error>,
+const getPayoutsPayout = b((r) => ({
+  with200: r.with200<t_payout>(s_payout),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPayoutsPayoutResponder = typeof getPayoutsPayoutResponder &
+type GetPayoutsPayoutResponder = (typeof getPayoutsPayout)["responder"] &
   KoaRuntimeResponder
-
-const getPayoutsPayoutResponseValidator = responseValidationFactory(
-  [["200", s_payout]],
-  s_error,
-)
 
 export type GetPayoutsPayout = (
   params: Params<
@@ -12442,19 +10863,14 @@ export type GetPayoutsPayout = (
   | Response<StatusCode, t_error>
 >
 
-const postPayoutsPayoutResponder = {
-  with200: r.with200<t_payout>,
-  withDefault: r.withDefault<t_error>,
+const postPayoutsPayout = b((r) => ({
+  with200: r.with200<t_payout>(s_payout),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPayoutsPayoutResponder = typeof postPayoutsPayoutResponder &
+type PostPayoutsPayoutResponder = (typeof postPayoutsPayout)["responder"] &
   KoaRuntimeResponder
-
-const postPayoutsPayoutResponseValidator = responseValidationFactory(
-  [["200", s_payout]],
-  s_error,
-)
 
 export type PostPayoutsPayout = (
   params: Params<
@@ -12471,19 +10887,14 @@ export type PostPayoutsPayout = (
   | Response<StatusCode, t_error>
 >
 
-const postPayoutsPayoutCancelResponder = {
-  with200: r.with200<t_payout>,
-  withDefault: r.withDefault<t_error>,
+const postPayoutsPayoutCancel = b((r) => ({
+  with200: r.with200<t_payout>(s_payout),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPayoutsPayoutCancelResponder =
-  typeof postPayoutsPayoutCancelResponder & KoaRuntimeResponder
-
-const postPayoutsPayoutCancelResponseValidator = responseValidationFactory(
-  [["200", s_payout]],
-  s_error,
-)
+  (typeof postPayoutsPayoutCancel)["responder"] & KoaRuntimeResponder
 
 export type PostPayoutsPayoutCancel = (
   params: Params<
@@ -12500,19 +10911,14 @@ export type PostPayoutsPayoutCancel = (
   | Response<StatusCode, t_error>
 >
 
-const postPayoutsPayoutReverseResponder = {
-  with200: r.with200<t_payout>,
-  withDefault: r.withDefault<t_error>,
+const postPayoutsPayoutReverse = b((r) => ({
+  with200: r.with200<t_payout>(s_payout),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPayoutsPayoutReverseResponder =
-  typeof postPayoutsPayoutReverseResponder & KoaRuntimeResponder
-
-const postPayoutsPayoutReverseResponseValidator = responseValidationFactory(
-  [["200", s_payout]],
-  s_error,
-)
+  (typeof postPayoutsPayoutReverse)["responder"] & KoaRuntimeResponder
 
 export type PostPayoutsPayoutReverse = (
   params: Params<
@@ -12529,33 +10935,25 @@ export type PostPayoutsPayoutReverse = (
   | Response<StatusCode, t_error>
 >
 
-const getPlansResponder = {
+const getPlans = b((r) => ({
   with200: r.with200<{
     data: t_plan[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_plan)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/plans")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPlansResponder = typeof getPlansResponder & KoaRuntimeResponder
-
-const getPlansResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_plan)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/plans")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetPlansResponder = (typeof getPlans)["responder"] & KoaRuntimeResponder
 
 export type GetPlans = (
   params: Params<
@@ -12580,18 +10978,13 @@ export type GetPlans = (
   | Response<StatusCode, t_error>
 >
 
-const postPlansResponder = {
-  with200: r.with200<t_plan>,
-  withDefault: r.withDefault<t_error>,
+const postPlans = b((r) => ({
+  with200: r.with200<t_plan>(s_plan),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPlansResponder = typeof postPlansResponder & KoaRuntimeResponder
-
-const postPlansResponseValidator = responseValidationFactory(
-  [["200", s_plan]],
-  s_error,
-)
+type PostPlansResponder = (typeof postPlans)["responder"] & KoaRuntimeResponder
 
 export type PostPlans = (
   params: Params<void, void, t_PostPlansBodySchema, void>,
@@ -12603,19 +10996,14 @@ export type PostPlans = (
   | Response<StatusCode, t_error>
 >
 
-const deletePlansPlanResponder = {
-  with200: r.with200<t_deleted_plan>,
-  withDefault: r.withDefault<t_error>,
+const deletePlansPlan = b((r) => ({
+  with200: r.with200<t_deleted_plan>(s_deleted_plan),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeletePlansPlanResponder = typeof deletePlansPlanResponder &
+type DeletePlansPlanResponder = (typeof deletePlansPlan)["responder"] &
   KoaRuntimeResponder
-
-const deletePlansPlanResponseValidator = responseValidationFactory(
-  [["200", s_deleted_plan]],
-  s_error,
-)
 
 export type DeletePlansPlan = (
   params: Params<
@@ -12632,18 +11020,14 @@ export type DeletePlansPlan = (
   | Response<StatusCode, t_error>
 >
 
-const getPlansPlanResponder = {
-  with200: r.with200<t_plan>,
-  withDefault: r.withDefault<t_error>,
+const getPlansPlan = b((r) => ({
+  with200: r.with200<t_plan>(s_plan),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPlansPlanResponder = typeof getPlansPlanResponder & KoaRuntimeResponder
-
-const getPlansPlanResponseValidator = responseValidationFactory(
-  [["200", s_plan]],
-  s_error,
-)
+type GetPlansPlanResponder = (typeof getPlansPlan)["responder"] &
+  KoaRuntimeResponder
 
 export type GetPlansPlan = (
   params: Params<
@@ -12660,19 +11044,14 @@ export type GetPlansPlan = (
   | Response<StatusCode, t_error>
 >
 
-const postPlansPlanResponder = {
-  with200: r.with200<t_plan>,
-  withDefault: r.withDefault<t_error>,
+const postPlansPlan = b((r) => ({
+  with200: r.with200<t_plan>(s_plan),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPlansPlanResponder = typeof postPlansPlanResponder &
+type PostPlansPlanResponder = (typeof postPlansPlan)["responder"] &
   KoaRuntimeResponder
-
-const postPlansPlanResponseValidator = responseValidationFactory(
-  [["200", s_plan]],
-  s_error,
-)
 
 export type PostPlansPlan = (
   params: Params<
@@ -12689,33 +11068,25 @@ export type PostPlansPlan = (
   | Response<StatusCode, t_error>
 >
 
-const getPricesResponder = {
+const getPrices = b((r) => ({
   with200: r.with200<{
     data: t_price[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_price)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/prices")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPricesResponder = typeof getPricesResponder & KoaRuntimeResponder
-
-const getPricesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_price)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/prices")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetPricesResponder = (typeof getPrices)["responder"] & KoaRuntimeResponder
 
 export type GetPrices = (
   params: Params<
@@ -12740,18 +11111,14 @@ export type GetPrices = (
   | Response<StatusCode, t_error>
 >
 
-const postPricesResponder = {
-  with200: r.with200<t_price>,
-  withDefault: r.withDefault<t_error>,
+const postPrices = b((r) => ({
+  with200: r.with200<t_price>(s_price),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPricesResponder = typeof postPricesResponder & KoaRuntimeResponder
-
-const postPricesResponseValidator = responseValidationFactory(
-  [["200", s_price]],
-  s_error,
-)
+type PostPricesResponder = (typeof postPrices)["responder"] &
+  KoaRuntimeResponder
 
 export type PostPrices = (
   params: Params<void, void, t_PostPricesBodySchema, void>,
@@ -12763,7 +11130,7 @@ export type PostPrices = (
   | Response<StatusCode, t_error>
 >
 
-const getPricesSearchResponder = {
+const getPricesSearch = b((r) => ({
   with200: r.with200<{
     data: t_price[]
     has_more: boolean
@@ -12771,30 +11138,22 @@ const getPricesSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_price)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPricesSearchResponder = typeof getPricesSearchResponder &
+type GetPricesSearchResponder = (typeof getPricesSearch)["responder"] &
   KoaRuntimeResponder
-
-const getPricesSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_price)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetPricesSearch = (
   params: Params<
@@ -12821,19 +11180,14 @@ export type GetPricesSearch = (
   | Response<StatusCode, t_error>
 >
 
-const getPricesPriceResponder = {
-  with200: r.with200<t_price>,
-  withDefault: r.withDefault<t_error>,
+const getPricesPrice = b((r) => ({
+  with200: r.with200<t_price>(s_price),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPricesPriceResponder = typeof getPricesPriceResponder &
+type GetPricesPriceResponder = (typeof getPricesPrice)["responder"] &
   KoaRuntimeResponder
-
-const getPricesPriceResponseValidator = responseValidationFactory(
-  [["200", s_price]],
-  s_error,
-)
 
 export type GetPricesPrice = (
   params: Params<
@@ -12850,19 +11204,14 @@ export type GetPricesPrice = (
   | Response<StatusCode, t_error>
 >
 
-const postPricesPriceResponder = {
-  with200: r.with200<t_price>,
-  withDefault: r.withDefault<t_error>,
+const postPricesPrice = b((r) => ({
+  with200: r.with200<t_price>(s_price),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPricesPriceResponder = typeof postPricesPriceResponder &
+type PostPricesPriceResponder = (typeof postPricesPrice)["responder"] &
   KoaRuntimeResponder
-
-const postPricesPriceResponseValidator = responseValidationFactory(
-  [["200", s_price]],
-  s_error,
-)
 
 export type PostPricesPrice = (
   params: Params<
@@ -12879,33 +11228,26 @@ export type PostPricesPrice = (
   | Response<StatusCode, t_error>
 >
 
-const getProductsResponder = {
+const getProducts = b((r) => ({
   with200: r.with200<{
     data: t_product[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_product)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/products")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetProductsResponder = typeof getProductsResponder & KoaRuntimeResponder
-
-const getProductsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_product)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/products")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetProductsResponder = (typeof getProducts)["responder"] &
+  KoaRuntimeResponder
 
 export type GetProducts = (
   params: Params<
@@ -12930,18 +11272,14 @@ export type GetProducts = (
   | Response<StatusCode, t_error>
 >
 
-const postProductsResponder = {
-  with200: r.with200<t_product>,
-  withDefault: r.withDefault<t_error>,
+const postProducts = b((r) => ({
+  with200: r.with200<t_product>(s_product),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostProductsResponder = typeof postProductsResponder & KoaRuntimeResponder
-
-const postProductsResponseValidator = responseValidationFactory(
-  [["200", s_product]],
-  s_error,
-)
+type PostProductsResponder = (typeof postProducts)["responder"] &
+  KoaRuntimeResponder
 
 export type PostProducts = (
   params: Params<void, void, t_PostProductsBodySchema, void>,
@@ -12953,7 +11291,7 @@ export type PostProducts = (
   | Response<StatusCode, t_error>
 >
 
-const getProductsSearchResponder = {
+const getProductsSearch = b((r) => ({
   with200: r.with200<{
     data: t_product[]
     has_more: boolean
@@ -12961,30 +11299,22 @@ const getProductsSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_product)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetProductsSearchResponder = typeof getProductsSearchResponder &
+type GetProductsSearchResponder = (typeof getProductsSearch)["responder"] &
   KoaRuntimeResponder
-
-const getProductsSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_product)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetProductsSearch = (
   params: Params<
@@ -13011,19 +11341,14 @@ export type GetProductsSearch = (
   | Response<StatusCode, t_error>
 >
 
-const deleteProductsIdResponder = {
-  with200: r.with200<t_deleted_product>,
-  withDefault: r.withDefault<t_error>,
+const deleteProductsId = b((r) => ({
+  with200: r.with200<t_deleted_product>(s_deleted_product),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteProductsIdResponder = typeof deleteProductsIdResponder &
+type DeleteProductsIdResponder = (typeof deleteProductsId)["responder"] &
   KoaRuntimeResponder
-
-const deleteProductsIdResponseValidator = responseValidationFactory(
-  [["200", s_deleted_product]],
-  s_error,
-)
 
 export type DeleteProductsId = (
   params: Params<
@@ -13040,19 +11365,14 @@ export type DeleteProductsId = (
   | Response<StatusCode, t_error>
 >
 
-const getProductsIdResponder = {
-  with200: r.with200<t_product>,
-  withDefault: r.withDefault<t_error>,
+const getProductsId = b((r) => ({
+  with200: r.with200<t_product>(s_product),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetProductsIdResponder = typeof getProductsIdResponder &
+type GetProductsIdResponder = (typeof getProductsId)["responder"] &
   KoaRuntimeResponder
-
-const getProductsIdResponseValidator = responseValidationFactory(
-  [["200", s_product]],
-  s_error,
-)
 
 export type GetProductsId = (
   params: Params<
@@ -13069,19 +11389,14 @@ export type GetProductsId = (
   | Response<StatusCode, t_error>
 >
 
-const postProductsIdResponder = {
-  with200: r.with200<t_product>,
-  withDefault: r.withDefault<t_error>,
+const postProductsId = b((r) => ({
+  with200: r.with200<t_product>(s_product),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostProductsIdResponder = typeof postProductsIdResponder &
+type PostProductsIdResponder = (typeof postProductsId)["responder"] &
   KoaRuntimeResponder
-
-const postProductsIdResponseValidator = responseValidationFactory(
-  [["200", s_product]],
-  s_error,
-)
 
 export type PostProductsId = (
   params: Params<
@@ -13098,34 +11413,26 @@ export type PostProductsId = (
   | Response<StatusCode, t_error>
 >
 
-const getProductsProductFeaturesResponder = {
+const getProductsProductFeatures = b((r) => ({
   with200: r.with200<{
     data: t_product_feature[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_product_feature),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetProductsProductFeaturesResponder =
-  typeof getProductsProductFeaturesResponder & KoaRuntimeResponder
-
-const getProductsProductFeaturesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_product_feature),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getProductsProductFeatures)["responder"] & KoaRuntimeResponder
 
 export type GetProductsProductFeatures = (
   params: Params<
@@ -13150,19 +11457,14 @@ export type GetProductsProductFeatures = (
   | Response<StatusCode, t_error>
 >
 
-const postProductsProductFeaturesResponder = {
-  with200: r.with200<t_product_feature>,
-  withDefault: r.withDefault<t_error>,
+const postProductsProductFeatures = b((r) => ({
+  with200: r.with200<t_product_feature>(s_product_feature),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostProductsProductFeaturesResponder =
-  typeof postProductsProductFeaturesResponder & KoaRuntimeResponder
-
-const postProductsProductFeaturesResponseValidator = responseValidationFactory(
-  [["200", s_product_feature]],
-  s_error,
-)
+  (typeof postProductsProductFeatures)["responder"] & KoaRuntimeResponder
 
 export type PostProductsProductFeatures = (
   params: Params<
@@ -13179,17 +11481,14 @@ export type PostProductsProductFeatures = (
   | Response<StatusCode, t_error>
 >
 
-const deleteProductsProductFeaturesIdResponder = {
-  with200: r.with200<t_deleted_product_feature>,
-  withDefault: r.withDefault<t_error>,
+const deleteProductsProductFeaturesId = b((r) => ({
+  with200: r.with200<t_deleted_product_feature>(s_deleted_product_feature),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteProductsProductFeaturesIdResponder =
-  typeof deleteProductsProductFeaturesIdResponder & KoaRuntimeResponder
-
-const deleteProductsProductFeaturesIdResponseValidator =
-  responseValidationFactory([["200", s_deleted_product_feature]], s_error)
+  (typeof deleteProductsProductFeaturesId)["responder"] & KoaRuntimeResponder
 
 export type DeleteProductsProductFeaturesId = (
   params: Params<
@@ -13206,19 +11505,14 @@ export type DeleteProductsProductFeaturesId = (
   | Response<StatusCode, t_error>
 >
 
-const getProductsProductFeaturesIdResponder = {
-  with200: r.with200<t_product_feature>,
-  withDefault: r.withDefault<t_error>,
+const getProductsProductFeaturesId = b((r) => ({
+  with200: r.with200<t_product_feature>(s_product_feature),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetProductsProductFeaturesIdResponder =
-  typeof getProductsProductFeaturesIdResponder & KoaRuntimeResponder
-
-const getProductsProductFeaturesIdResponseValidator = responseValidationFactory(
-  [["200", s_product_feature]],
-  s_error,
-)
+  (typeof getProductsProductFeaturesId)["responder"] & KoaRuntimeResponder
 
 export type GetProductsProductFeaturesId = (
   params: Params<
@@ -13235,34 +11529,26 @@ export type GetProductsProductFeaturesId = (
   | Response<StatusCode, t_error>
 >
 
-const getPromotionCodesResponder = {
+const getPromotionCodes = b((r) => ({
   with200: r.with200<{
     data: t_promotion_code[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_promotion_code)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/promotion_codes")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPromotionCodesResponder = typeof getPromotionCodesResponder &
+type GetPromotionCodesResponder = (typeof getPromotionCodes)["responder"] &
   KoaRuntimeResponder
-
-const getPromotionCodesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_promotion_code)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/promotion_codes")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetPromotionCodes = (
   params: Params<
@@ -13287,19 +11573,14 @@ export type GetPromotionCodes = (
   | Response<StatusCode, t_error>
 >
 
-const postPromotionCodesResponder = {
-  with200: r.with200<t_promotion_code>,
-  withDefault: r.withDefault<t_error>,
+const postPromotionCodes = b((r) => ({
+  with200: r.with200<t_promotion_code>(s_promotion_code),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostPromotionCodesResponder = typeof postPromotionCodesResponder &
+type PostPromotionCodesResponder = (typeof postPromotionCodes)["responder"] &
   KoaRuntimeResponder
-
-const postPromotionCodesResponseValidator = responseValidationFactory(
-  [["200", s_promotion_code]],
-  s_error,
-)
 
 export type PostPromotionCodes = (
   params: Params<void, void, t_PostPromotionCodesBodySchema, void>,
@@ -13311,17 +11592,14 @@ export type PostPromotionCodes = (
   | Response<StatusCode, t_error>
 >
 
-const getPromotionCodesPromotionCodeResponder = {
-  with200: r.with200<t_promotion_code>,
-  withDefault: r.withDefault<t_error>,
+const getPromotionCodesPromotionCode = b((r) => ({
+  with200: r.with200<t_promotion_code>(s_promotion_code),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetPromotionCodesPromotionCodeResponder =
-  typeof getPromotionCodesPromotionCodeResponder & KoaRuntimeResponder
-
-const getPromotionCodesPromotionCodeResponseValidator =
-  responseValidationFactory([["200", s_promotion_code]], s_error)
+  (typeof getPromotionCodesPromotionCode)["responder"] & KoaRuntimeResponder
 
 export type GetPromotionCodesPromotionCode = (
   params: Params<
@@ -13338,17 +11616,14 @@ export type GetPromotionCodesPromotionCode = (
   | Response<StatusCode, t_error>
 >
 
-const postPromotionCodesPromotionCodeResponder = {
-  with200: r.with200<t_promotion_code>,
-  withDefault: r.withDefault<t_error>,
+const postPromotionCodesPromotionCode = b((r) => ({
+  with200: r.with200<t_promotion_code>(s_promotion_code),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostPromotionCodesPromotionCodeResponder =
-  typeof postPromotionCodesPromotionCodeResponder & KoaRuntimeResponder
-
-const postPromotionCodesPromotionCodeResponseValidator =
-  responseValidationFactory([["200", s_promotion_code]], s_error)
+  (typeof postPromotionCodesPromotionCode)["responder"] & KoaRuntimeResponder
 
 export type PostPromotionCodesPromotionCode = (
   params: Params<
@@ -13365,33 +11640,25 @@ export type PostPromotionCodesPromotionCode = (
   | Response<StatusCode, t_error>
 >
 
-const getQuotesResponder = {
+const getQuotes = b((r) => ({
   with200: r.with200<{
     data: t_quote[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_quote)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/quotes")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetQuotesResponder = typeof getQuotesResponder & KoaRuntimeResponder
-
-const getQuotesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_quote)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/quotes")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetQuotesResponder = (typeof getQuotes)["responder"] & KoaRuntimeResponder
 
 export type GetQuotes = (
   params: Params<
@@ -13416,18 +11683,14 @@ export type GetQuotes = (
   | Response<StatusCode, t_error>
 >
 
-const postQuotesResponder = {
-  with200: r.with200<t_quote>,
-  withDefault: r.withDefault<t_error>,
+const postQuotes = b((r) => ({
+  with200: r.with200<t_quote>(s_quote),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostQuotesResponder = typeof postQuotesResponder & KoaRuntimeResponder
-
-const postQuotesResponseValidator = responseValidationFactory(
-  [["200", s_quote]],
-  s_error,
-)
+type PostQuotesResponder = (typeof postQuotes)["responder"] &
+  KoaRuntimeResponder
 
 export type PostQuotes = (
   params: Params<void, void, t_PostQuotesBodySchema | undefined, void>,
@@ -13439,19 +11702,14 @@ export type PostQuotes = (
   | Response<StatusCode, t_error>
 >
 
-const getQuotesQuoteResponder = {
-  with200: r.with200<t_quote>,
-  withDefault: r.withDefault<t_error>,
+const getQuotesQuote = b((r) => ({
+  with200: r.with200<t_quote>(s_quote),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetQuotesQuoteResponder = typeof getQuotesQuoteResponder &
+type GetQuotesQuoteResponder = (typeof getQuotesQuote)["responder"] &
   KoaRuntimeResponder
-
-const getQuotesQuoteResponseValidator = responseValidationFactory(
-  [["200", s_quote]],
-  s_error,
-)
 
 export type GetQuotesQuote = (
   params: Params<
@@ -13468,19 +11726,14 @@ export type GetQuotesQuote = (
   | Response<StatusCode, t_error>
 >
 
-const postQuotesQuoteResponder = {
-  with200: r.with200<t_quote>,
-  withDefault: r.withDefault<t_error>,
+const postQuotesQuote = b((r) => ({
+  with200: r.with200<t_quote>(s_quote),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostQuotesQuoteResponder = typeof postQuotesQuoteResponder &
+type PostQuotesQuoteResponder = (typeof postQuotesQuote)["responder"] &
   KoaRuntimeResponder
-
-const postQuotesQuoteResponseValidator = responseValidationFactory(
-  [["200", s_quote]],
-  s_error,
-)
 
 export type PostQuotesQuote = (
   params: Params<
@@ -13497,19 +11750,14 @@ export type PostQuotesQuote = (
   | Response<StatusCode, t_error>
 >
 
-const postQuotesQuoteAcceptResponder = {
-  with200: r.with200<t_quote>,
-  withDefault: r.withDefault<t_error>,
+const postQuotesQuoteAccept = b((r) => ({
+  with200: r.with200<t_quote>(s_quote),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostQuotesQuoteAcceptResponder = typeof postQuotesQuoteAcceptResponder &
-  KoaRuntimeResponder
-
-const postQuotesQuoteAcceptResponseValidator = responseValidationFactory(
-  [["200", s_quote]],
-  s_error,
-)
+type PostQuotesQuoteAcceptResponder =
+  (typeof postQuotesQuoteAccept)["responder"] & KoaRuntimeResponder
 
 export type PostQuotesQuoteAccept = (
   params: Params<
@@ -13526,19 +11774,14 @@ export type PostQuotesQuoteAccept = (
   | Response<StatusCode, t_error>
 >
 
-const postQuotesQuoteCancelResponder = {
-  with200: r.with200<t_quote>,
-  withDefault: r.withDefault<t_error>,
+const postQuotesQuoteCancel = b((r) => ({
+  with200: r.with200<t_quote>(s_quote),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostQuotesQuoteCancelResponder = typeof postQuotesQuoteCancelResponder &
-  KoaRuntimeResponder
-
-const postQuotesQuoteCancelResponseValidator = responseValidationFactory(
-  [["200", s_quote]],
-  s_error,
-)
+type PostQuotesQuoteCancelResponder =
+  (typeof postQuotesQuoteCancel)["responder"] & KoaRuntimeResponder
 
 export type PostQuotesQuoteCancel = (
   params: Params<
@@ -13555,35 +11798,27 @@ export type PostQuotesQuoteCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getQuotesQuoteComputedUpfrontLineItemsResponder = {
+const getQuotesQuoteComputedUpfrontLineItems = b((r) => ({
   with200: r.with200<{
     data: t_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetQuotesQuoteComputedUpfrontLineItemsResponder =
-  typeof getQuotesQuoteComputedUpfrontLineItemsResponder & KoaRuntimeResponder
-
-const getQuotesQuoteComputedUpfrontLineItemsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_item)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getQuotesQuoteComputedUpfrontLineItems)["responder"] &
+    KoaRuntimeResponder
 
 export type GetQuotesQuoteComputedUpfrontLineItems = (
   params: Params<
@@ -13608,19 +11843,14 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   | Response<StatusCode, t_error>
 >
 
-const postQuotesQuoteFinalizeResponder = {
-  with200: r.with200<t_quote>,
-  withDefault: r.withDefault<t_error>,
+const postQuotesQuoteFinalize = b((r) => ({
+  with200: r.with200<t_quote>(s_quote),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostQuotesQuoteFinalizeResponder =
-  typeof postQuotesQuoteFinalizeResponder & KoaRuntimeResponder
-
-const postQuotesQuoteFinalizeResponseValidator = responseValidationFactory(
-  [["200", s_quote]],
-  s_error,
-)
+  (typeof postQuotesQuoteFinalize)["responder"] & KoaRuntimeResponder
 
 export type PostQuotesQuoteFinalize = (
   params: Params<
@@ -13637,34 +11867,26 @@ export type PostQuotesQuoteFinalize = (
   | Response<StatusCode, t_error>
 >
 
-const getQuotesQuoteLineItemsResponder = {
+const getQuotesQuoteLineItems = b((r) => ({
   with200: r.with200<{
     data: t_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetQuotesQuoteLineItemsResponder =
-  typeof getQuotesQuoteLineItemsResponder & KoaRuntimeResponder
-
-const getQuotesQuoteLineItemsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_item)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getQuotesQuoteLineItems)["responder"] & KoaRuntimeResponder
 
 export type GetQuotesQuoteLineItems = (
   params: Params<
@@ -13689,19 +11911,14 @@ export type GetQuotesQuoteLineItems = (
   | Response<StatusCode, t_error>
 >
 
-const getQuotesQuotePdfResponder = {
-  with200: r.with200<string>,
-  withDefault: r.withDefault<t_error>,
+const getQuotesQuotePdf = b((r) => ({
+  with200: r.with200<string>(z.string()),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetQuotesQuotePdfResponder = typeof getQuotesQuotePdfResponder &
+type GetQuotesQuotePdfResponder = (typeof getQuotesQuotePdf)["responder"] &
   KoaRuntimeResponder
-
-const getQuotesQuotePdfResponseValidator = responseValidationFactory(
-  [["200", z.string()]],
-  s_error,
-)
 
 export type GetQuotesQuotePdf = (
   params: Params<
@@ -13718,37 +11935,29 @@ export type GetQuotesQuotePdf = (
   | Response<StatusCode, t_error>
 >
 
-const getRadarEarlyFraudWarningsResponder = {
+const getRadarEarlyFraudWarnings = b((r) => ({
   with200: r.with200<{
     data: t_radar_early_fraud_warning[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/radar/early_fraud_warnings")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetRadarEarlyFraudWarningsResponder =
-  typeof getRadarEarlyFraudWarningsResponder & KoaRuntimeResponder
-
-const getRadarEarlyFraudWarningsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_radar_early_fraud_warning)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/radar/early_fraud_warnings")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getRadarEarlyFraudWarnings)["responder"] & KoaRuntimeResponder
 
 export type GetRadarEarlyFraudWarnings = (
   params: Params<
@@ -13773,18 +11982,15 @@ export type GetRadarEarlyFraudWarnings = (
   | Response<StatusCode, t_error>
 >
 
-const getRadarEarlyFraudWarningsEarlyFraudWarningResponder = {
-  with200: r.with200<t_radar_early_fraud_warning>,
-  withDefault: r.withDefault<t_error>,
+const getRadarEarlyFraudWarningsEarlyFraudWarning = b((r) => ({
+  with200: r.with200<t_radar_early_fraud_warning>(s_radar_early_fraud_warning),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetRadarEarlyFraudWarningsEarlyFraudWarningResponder =
-  typeof getRadarEarlyFraudWarningsEarlyFraudWarningResponder &
+  (typeof getRadarEarlyFraudWarningsEarlyFraudWarning)["responder"] &
     KoaRuntimeResponder
-
-const getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator =
-  responseValidationFactory([["200", s_radar_early_fraud_warning]], s_error)
 
 export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   params: Params<
@@ -13801,37 +12007,29 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   | Response<StatusCode, t_error>
 >
 
-const getRadarValueListItemsResponder = {
+const getRadarValueListItems = b((r) => ({
   with200: r.with200<{
     data: t_radar_value_list_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_radar_value_list_item),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/radar/value_list_items")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetRadarValueListItemsResponder = typeof getRadarValueListItemsResponder &
-  KoaRuntimeResponder
-
-const getRadarValueListItemsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_radar_value_list_item),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/radar/value_list_items")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetRadarValueListItemsResponder =
+  (typeof getRadarValueListItems)["responder"] & KoaRuntimeResponder
 
 export type GetRadarValueListItems = (
   params: Params<
@@ -13856,19 +12054,14 @@ export type GetRadarValueListItems = (
   | Response<StatusCode, t_error>
 >
 
-const postRadarValueListItemsResponder = {
-  with200: r.with200<t_radar_value_list_item>,
-  withDefault: r.withDefault<t_error>,
+const postRadarValueListItems = b((r) => ({
+  with200: r.with200<t_radar_value_list_item>(s_radar_value_list_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostRadarValueListItemsResponder =
-  typeof postRadarValueListItemsResponder & KoaRuntimeResponder
-
-const postRadarValueListItemsResponseValidator = responseValidationFactory(
-  [["200", s_radar_value_list_item]],
-  s_error,
-)
+  (typeof postRadarValueListItems)["responder"] & KoaRuntimeResponder
 
 export type PostRadarValueListItems = (
   params: Params<void, void, t_PostRadarValueListItemsBodySchema, void>,
@@ -13880,17 +12073,16 @@ export type PostRadarValueListItems = (
   | Response<StatusCode, t_error>
 >
 
-const deleteRadarValueListItemsItemResponder = {
-  with200: r.with200<t_deleted_radar_value_list_item>,
-  withDefault: r.withDefault<t_error>,
+const deleteRadarValueListItemsItem = b((r) => ({
+  with200: r.with200<t_deleted_radar_value_list_item>(
+    s_deleted_radar_value_list_item,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteRadarValueListItemsItemResponder =
-  typeof deleteRadarValueListItemsItemResponder & KoaRuntimeResponder
-
-const deleteRadarValueListItemsItemResponseValidator =
-  responseValidationFactory([["200", s_deleted_radar_value_list_item]], s_error)
+  (typeof deleteRadarValueListItemsItem)["responder"] & KoaRuntimeResponder
 
 export type DeleteRadarValueListItemsItem = (
   params: Params<
@@ -13907,19 +12099,14 @@ export type DeleteRadarValueListItemsItem = (
   | Response<StatusCode, t_error>
 >
 
-const getRadarValueListItemsItemResponder = {
-  with200: r.with200<t_radar_value_list_item>,
-  withDefault: r.withDefault<t_error>,
+const getRadarValueListItemsItem = b((r) => ({
+  with200: r.with200<t_radar_value_list_item>(s_radar_value_list_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetRadarValueListItemsItemResponder =
-  typeof getRadarValueListItemsItemResponder & KoaRuntimeResponder
-
-const getRadarValueListItemsItemResponseValidator = responseValidationFactory(
-  [["200", s_radar_value_list_item]],
-  s_error,
-)
+  (typeof getRadarValueListItemsItem)["responder"] & KoaRuntimeResponder
 
 export type GetRadarValueListItemsItem = (
   params: Params<
@@ -13936,34 +12123,26 @@ export type GetRadarValueListItemsItem = (
   | Response<StatusCode, t_error>
 >
 
-const getRadarValueListsResponder = {
+const getRadarValueLists = b((r) => ({
   with200: r.with200<{
     data: t_radar_value_list[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_radar_value_list),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/radar/value_lists")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetRadarValueListsResponder = typeof getRadarValueListsResponder &
+type GetRadarValueListsResponder = (typeof getRadarValueLists)["responder"] &
   KoaRuntimeResponder
-
-const getRadarValueListsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_radar_value_list),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/radar/value_lists")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetRadarValueLists = (
   params: Params<
@@ -13988,19 +12167,14 @@ export type GetRadarValueLists = (
   | Response<StatusCode, t_error>
 >
 
-const postRadarValueListsResponder = {
-  with200: r.with200<t_radar_value_list>,
-  withDefault: r.withDefault<t_error>,
+const postRadarValueLists = b((r) => ({
+  with200: r.with200<t_radar_value_list>(s_radar_value_list),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostRadarValueListsResponder = typeof postRadarValueListsResponder &
+type PostRadarValueListsResponder = (typeof postRadarValueLists)["responder"] &
   KoaRuntimeResponder
-
-const postRadarValueListsResponseValidator = responseValidationFactory(
-  [["200", s_radar_value_list]],
-  s_error,
-)
 
 export type PostRadarValueLists = (
   params: Params<void, void, t_PostRadarValueListsBodySchema, void>,
@@ -14012,17 +12186,14 @@ export type PostRadarValueLists = (
   | Response<StatusCode, t_error>
 >
 
-const deleteRadarValueListsValueListResponder = {
-  with200: r.with200<t_deleted_radar_value_list>,
-  withDefault: r.withDefault<t_error>,
+const deleteRadarValueListsValueList = b((r) => ({
+  with200: r.with200<t_deleted_radar_value_list>(s_deleted_radar_value_list),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteRadarValueListsValueListResponder =
-  typeof deleteRadarValueListsValueListResponder & KoaRuntimeResponder
-
-const deleteRadarValueListsValueListResponseValidator =
-  responseValidationFactory([["200", s_deleted_radar_value_list]], s_error)
+  (typeof deleteRadarValueListsValueList)["responder"] & KoaRuntimeResponder
 
 export type DeleteRadarValueListsValueList = (
   params: Params<
@@ -14039,19 +12210,14 @@ export type DeleteRadarValueListsValueList = (
   | Response<StatusCode, t_error>
 >
 
-const getRadarValueListsValueListResponder = {
-  with200: r.with200<t_radar_value_list>,
-  withDefault: r.withDefault<t_error>,
+const getRadarValueListsValueList = b((r) => ({
+  with200: r.with200<t_radar_value_list>(s_radar_value_list),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetRadarValueListsValueListResponder =
-  typeof getRadarValueListsValueListResponder & KoaRuntimeResponder
-
-const getRadarValueListsValueListResponseValidator = responseValidationFactory(
-  [["200", s_radar_value_list]],
-  s_error,
-)
+  (typeof getRadarValueListsValueList)["responder"] & KoaRuntimeResponder
 
 export type GetRadarValueListsValueList = (
   params: Params<
@@ -14068,19 +12234,14 @@ export type GetRadarValueListsValueList = (
   | Response<StatusCode, t_error>
 >
 
-const postRadarValueListsValueListResponder = {
-  with200: r.with200<t_radar_value_list>,
-  withDefault: r.withDefault<t_error>,
+const postRadarValueListsValueList = b((r) => ({
+  with200: r.with200<t_radar_value_list>(s_radar_value_list),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostRadarValueListsValueListResponder =
-  typeof postRadarValueListsValueListResponder & KoaRuntimeResponder
-
-const postRadarValueListsValueListResponseValidator = responseValidationFactory(
-  [["200", s_radar_value_list]],
-  s_error,
-)
+  (typeof postRadarValueListsValueList)["responder"] & KoaRuntimeResponder
 
 export type PostRadarValueListsValueList = (
   params: Params<
@@ -14097,33 +12258,26 @@ export type PostRadarValueListsValueList = (
   | Response<StatusCode, t_error>
 >
 
-const getRefundsResponder = {
+const getRefunds = b((r) => ({
   with200: r.with200<{
     data: t_refund[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_refund)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/refunds")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetRefundsResponder = typeof getRefundsResponder & KoaRuntimeResponder
-
-const getRefundsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_refund)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/refunds")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetRefundsResponder = (typeof getRefunds)["responder"] &
+  KoaRuntimeResponder
 
 export type GetRefunds = (
   params: Params<
@@ -14148,18 +12302,14 @@ export type GetRefunds = (
   | Response<StatusCode, t_error>
 >
 
-const postRefundsResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const postRefunds = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostRefundsResponder = typeof postRefundsResponder & KoaRuntimeResponder
-
-const postRefundsResponseValidator = responseValidationFactory(
-  [["200", s_refund]],
-  s_error,
-)
+type PostRefundsResponder = (typeof postRefunds)["responder"] &
+  KoaRuntimeResponder
 
 export type PostRefunds = (
   params: Params<void, void, t_PostRefundsBodySchema | undefined, void>,
@@ -14171,19 +12321,14 @@ export type PostRefunds = (
   | Response<StatusCode, t_error>
 >
 
-const getRefundsRefundResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const getRefundsRefund = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetRefundsRefundResponder = typeof getRefundsRefundResponder &
+type GetRefundsRefundResponder = (typeof getRefundsRefund)["responder"] &
   KoaRuntimeResponder
-
-const getRefundsRefundResponseValidator = responseValidationFactory(
-  [["200", s_refund]],
-  s_error,
-)
 
 export type GetRefundsRefund = (
   params: Params<
@@ -14200,19 +12345,14 @@ export type GetRefundsRefund = (
   | Response<StatusCode, t_error>
 >
 
-const postRefundsRefundResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const postRefundsRefund = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostRefundsRefundResponder = typeof postRefundsRefundResponder &
+type PostRefundsRefundResponder = (typeof postRefundsRefund)["responder"] &
   KoaRuntimeResponder
-
-const postRefundsRefundResponseValidator = responseValidationFactory(
-  [["200", s_refund]],
-  s_error,
-)
 
 export type PostRefundsRefund = (
   params: Params<
@@ -14229,19 +12369,14 @@ export type PostRefundsRefund = (
   | Response<StatusCode, t_error>
 >
 
-const postRefundsRefundCancelResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const postRefundsRefundCancel = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostRefundsRefundCancelResponder =
-  typeof postRefundsRefundCancelResponder & KoaRuntimeResponder
-
-const postRefundsRefundCancelResponseValidator = responseValidationFactory(
-  [["200", s_refund]],
-  s_error,
-)
+  (typeof postRefundsRefundCancel)["responder"] & KoaRuntimeResponder
 
 export type PostRefundsRefundCancel = (
   params: Params<
@@ -14258,37 +12393,26 @@ export type PostRefundsRefundCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getReportingReportRunsResponder = {
+const getReportingReportRuns = b((r) => ({
   with200: r.with200<{
     data: t_reporting_report_run[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_reporting_report_run)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/reporting/report_runs")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetReportingReportRunsResponder = typeof getReportingReportRunsResponder &
-  KoaRuntimeResponder
-
-const getReportingReportRunsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_reporting_report_run)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/reporting/report_runs")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetReportingReportRunsResponder =
+  (typeof getReportingReportRuns)["responder"] & KoaRuntimeResponder
 
 export type GetReportingReportRuns = (
   params: Params<
@@ -14313,19 +12437,14 @@ export type GetReportingReportRuns = (
   | Response<StatusCode, t_error>
 >
 
-const postReportingReportRunsResponder = {
-  with200: r.with200<t_reporting_report_run>,
-  withDefault: r.withDefault<t_error>,
+const postReportingReportRuns = b((r) => ({
+  with200: r.with200<t_reporting_report_run>(s_reporting_report_run),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostReportingReportRunsResponder =
-  typeof postReportingReportRunsResponder & KoaRuntimeResponder
-
-const postReportingReportRunsResponseValidator = responseValidationFactory(
-  [["200", s_reporting_report_run]],
-  s_error,
-)
+  (typeof postReportingReportRuns)["responder"] & KoaRuntimeResponder
 
 export type PostReportingReportRuns = (
   params: Params<void, void, t_PostReportingReportRunsBodySchema, void>,
@@ -14337,17 +12456,14 @@ export type PostReportingReportRuns = (
   | Response<StatusCode, t_error>
 >
 
-const getReportingReportRunsReportRunResponder = {
-  with200: r.with200<t_reporting_report_run>,
-  withDefault: r.withDefault<t_error>,
+const getReportingReportRunsReportRun = b((r) => ({
+  with200: r.with200<t_reporting_report_run>(s_reporting_report_run),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetReportingReportRunsReportRunResponder =
-  typeof getReportingReportRunsReportRunResponder & KoaRuntimeResponder
-
-const getReportingReportRunsReportRunResponseValidator =
-  responseValidationFactory([["200", s_reporting_report_run]], s_error)
+  (typeof getReportingReportRunsReportRun)["responder"] & KoaRuntimeResponder
 
 export type GetReportingReportRunsReportRun = (
   params: Params<
@@ -14364,34 +12480,26 @@ export type GetReportingReportRunsReportRun = (
   | Response<StatusCode, t_error>
 >
 
-const getReportingReportTypesResponder = {
+const getReportingReportTypes = b((r) => ({
   with200: r.with200<{
     data: t_reporting_report_type[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_reporting_report_type),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetReportingReportTypesResponder =
-  typeof getReportingReportTypesResponder & KoaRuntimeResponder
-
-const getReportingReportTypesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_reporting_report_type),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getReportingReportTypes)["responder"] & KoaRuntimeResponder
 
 export type GetReportingReportTypes = (
   params: Params<
@@ -14416,17 +12524,14 @@ export type GetReportingReportTypes = (
   | Response<StatusCode, t_error>
 >
 
-const getReportingReportTypesReportTypeResponder = {
-  with200: r.with200<t_reporting_report_type>,
-  withDefault: r.withDefault<t_error>,
+const getReportingReportTypesReportType = b((r) => ({
+  with200: r.with200<t_reporting_report_type>(s_reporting_report_type),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetReportingReportTypesReportTypeResponder =
-  typeof getReportingReportTypesReportTypeResponder & KoaRuntimeResponder
-
-const getReportingReportTypesReportTypeResponseValidator =
-  responseValidationFactory([["200", s_reporting_report_type]], s_error)
+  (typeof getReportingReportTypesReportType)["responder"] & KoaRuntimeResponder
 
 export type GetReportingReportTypesReportType = (
   params: Params<
@@ -14443,33 +12548,26 @@ export type GetReportingReportTypesReportType = (
   | Response<StatusCode, t_error>
 >
 
-const getReviewsResponder = {
+const getReviews = b((r) => ({
   with200: r.with200<{
     data: t_review[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_review)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetReviewsResponder = typeof getReviewsResponder & KoaRuntimeResponder
-
-const getReviewsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_review)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetReviewsResponder = (typeof getReviews)["responder"] &
+  KoaRuntimeResponder
 
 export type GetReviews = (
   params: Params<
@@ -14494,19 +12592,14 @@ export type GetReviews = (
   | Response<StatusCode, t_error>
 >
 
-const getReviewsReviewResponder = {
-  with200: r.with200<t_review>,
-  withDefault: r.withDefault<t_error>,
+const getReviewsReview = b((r) => ({
+  with200: r.with200<t_review>(s_review),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetReviewsReviewResponder = typeof getReviewsReviewResponder &
+type GetReviewsReviewResponder = (typeof getReviewsReview)["responder"] &
   KoaRuntimeResponder
-
-const getReviewsReviewResponseValidator = responseValidationFactory(
-  [["200", s_review]],
-  s_error,
-)
 
 export type GetReviewsReview = (
   params: Params<
@@ -14523,19 +12616,14 @@ export type GetReviewsReview = (
   | Response<StatusCode, t_error>
 >
 
-const postReviewsReviewApproveResponder = {
-  with200: r.with200<t_review>,
-  withDefault: r.withDefault<t_error>,
+const postReviewsReviewApprove = b((r) => ({
+  with200: r.with200<t_review>(s_review),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostReviewsReviewApproveResponder =
-  typeof postReviewsReviewApproveResponder & KoaRuntimeResponder
-
-const postReviewsReviewApproveResponseValidator = responseValidationFactory(
-  [["200", s_review]],
-  s_error,
-)
+  (typeof postReviewsReviewApprove)["responder"] & KoaRuntimeResponder
 
 export type PostReviewsReviewApprove = (
   params: Params<
@@ -14552,34 +12640,26 @@ export type PostReviewsReviewApprove = (
   | Response<StatusCode, t_error>
 >
 
-const getSetupAttemptsResponder = {
+const getSetupAttempts = b((r) => ({
   with200: r.with200<{
     data: t_setup_attempt[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_setup_attempt)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/setup_attempts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSetupAttemptsResponder = typeof getSetupAttemptsResponder &
+type GetSetupAttemptsResponder = (typeof getSetupAttempts)["responder"] &
   KoaRuntimeResponder
-
-const getSetupAttemptsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_setup_attempt)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/setup_attempts")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetSetupAttempts = (
   params: Params<
@@ -14604,34 +12684,26 @@ export type GetSetupAttempts = (
   | Response<StatusCode, t_error>
 >
 
-const getSetupIntentsResponder = {
+const getSetupIntents = b((r) => ({
   with200: r.with200<{
     data: t_setup_intent[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_setup_intent)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/setup_intents")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSetupIntentsResponder = typeof getSetupIntentsResponder &
+type GetSetupIntentsResponder = (typeof getSetupIntents)["responder"] &
   KoaRuntimeResponder
-
-const getSetupIntentsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_setup_intent)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/setup_intents")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetSetupIntents = (
   params: Params<
@@ -14656,19 +12728,14 @@ export type GetSetupIntents = (
   | Response<StatusCode, t_error>
 >
 
-const postSetupIntentsResponder = {
-  with200: r.with200<t_setup_intent>,
-  withDefault: r.withDefault<t_error>,
+const postSetupIntents = b((r) => ({
+  with200: r.with200<t_setup_intent>(s_setup_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostSetupIntentsResponder = typeof postSetupIntentsResponder &
+type PostSetupIntentsResponder = (typeof postSetupIntents)["responder"] &
   KoaRuntimeResponder
-
-const postSetupIntentsResponseValidator = responseValidationFactory(
-  [["200", s_setup_intent]],
-  s_error,
-)
 
 export type PostSetupIntents = (
   params: Params<void, void, t_PostSetupIntentsBodySchema | undefined, void>,
@@ -14680,19 +12747,14 @@ export type PostSetupIntents = (
   | Response<StatusCode, t_error>
 >
 
-const getSetupIntentsIntentResponder = {
-  with200: r.with200<t_setup_intent>,
-  withDefault: r.withDefault<t_error>,
+const getSetupIntentsIntent = b((r) => ({
+  with200: r.with200<t_setup_intent>(s_setup_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSetupIntentsIntentResponder = typeof getSetupIntentsIntentResponder &
-  KoaRuntimeResponder
-
-const getSetupIntentsIntentResponseValidator = responseValidationFactory(
-  [["200", s_setup_intent]],
-  s_error,
-)
+type GetSetupIntentsIntentResponder =
+  (typeof getSetupIntentsIntent)["responder"] & KoaRuntimeResponder
 
 export type GetSetupIntentsIntent = (
   params: Params<
@@ -14709,19 +12771,14 @@ export type GetSetupIntentsIntent = (
   | Response<StatusCode, t_error>
 >
 
-const postSetupIntentsIntentResponder = {
-  with200: r.with200<t_setup_intent>,
-  withDefault: r.withDefault<t_error>,
+const postSetupIntentsIntent = b((r) => ({
+  with200: r.with200<t_setup_intent>(s_setup_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostSetupIntentsIntentResponder = typeof postSetupIntentsIntentResponder &
-  KoaRuntimeResponder
-
-const postSetupIntentsIntentResponseValidator = responseValidationFactory(
-  [["200", s_setup_intent]],
-  s_error,
-)
+type PostSetupIntentsIntentResponder =
+  (typeof postSetupIntentsIntent)["responder"] & KoaRuntimeResponder
 
 export type PostSetupIntentsIntent = (
   params: Params<
@@ -14738,19 +12795,14 @@ export type PostSetupIntentsIntent = (
   | Response<StatusCode, t_error>
 >
 
-const postSetupIntentsIntentCancelResponder = {
-  with200: r.with200<t_setup_intent>,
-  withDefault: r.withDefault<t_error>,
+const postSetupIntentsIntentCancel = b((r) => ({
+  with200: r.with200<t_setup_intent>(s_setup_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSetupIntentsIntentCancelResponder =
-  typeof postSetupIntentsIntentCancelResponder & KoaRuntimeResponder
-
-const postSetupIntentsIntentCancelResponseValidator = responseValidationFactory(
-  [["200", s_setup_intent]],
-  s_error,
-)
+  (typeof postSetupIntentsIntentCancel)["responder"] & KoaRuntimeResponder
 
 export type PostSetupIntentsIntentCancel = (
   params: Params<
@@ -14767,17 +12819,14 @@ export type PostSetupIntentsIntentCancel = (
   | Response<StatusCode, t_error>
 >
 
-const postSetupIntentsIntentConfirmResponder = {
-  with200: r.with200<t_setup_intent>,
-  withDefault: r.withDefault<t_error>,
+const postSetupIntentsIntentConfirm = b((r) => ({
+  with200: r.with200<t_setup_intent>(s_setup_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSetupIntentsIntentConfirmResponder =
-  typeof postSetupIntentsIntentConfirmResponder & KoaRuntimeResponder
-
-const postSetupIntentsIntentConfirmResponseValidator =
-  responseValidationFactory([["200", s_setup_intent]], s_error)
+  (typeof postSetupIntentsIntentConfirm)["responder"] & KoaRuntimeResponder
 
 export type PostSetupIntentsIntentConfirm = (
   params: Params<
@@ -14794,18 +12843,15 @@ export type PostSetupIntentsIntentConfirm = (
   | Response<StatusCode, t_error>
 >
 
-const postSetupIntentsIntentVerifyMicrodepositsResponder = {
-  with200: r.with200<t_setup_intent>,
-  withDefault: r.withDefault<t_error>,
+const postSetupIntentsIntentVerifyMicrodeposits = b((r) => ({
+  with200: r.with200<t_setup_intent>(s_setup_intent),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSetupIntentsIntentVerifyMicrodepositsResponder =
-  typeof postSetupIntentsIntentVerifyMicrodepositsResponder &
+  (typeof postSetupIntentsIntentVerifyMicrodeposits)["responder"] &
     KoaRuntimeResponder
-
-const postSetupIntentsIntentVerifyMicrodepositsResponseValidator =
-  responseValidationFactory([["200", s_setup_intent]], s_error)
 
 export type PostSetupIntentsIntentVerifyMicrodeposits = (
   params: Params<
@@ -14822,34 +12868,26 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
   | Response<StatusCode, t_error>
 >
 
-const getShippingRatesResponder = {
+const getShippingRates = b((r) => ({
   with200: r.with200<{
     data: t_shipping_rate[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_shipping_rate),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/shipping_rates")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetShippingRatesResponder = typeof getShippingRatesResponder &
+type GetShippingRatesResponder = (typeof getShippingRates)["responder"] &
   KoaRuntimeResponder
-
-const getShippingRatesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_shipping_rate),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/shipping_rates")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetShippingRates = (
   params: Params<
@@ -14874,19 +12912,14 @@ export type GetShippingRates = (
   | Response<StatusCode, t_error>
 >
 
-const postShippingRatesResponder = {
-  with200: r.with200<t_shipping_rate>,
-  withDefault: r.withDefault<t_error>,
+const postShippingRates = b((r) => ({
+  with200: r.with200<t_shipping_rate>(s_shipping_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostShippingRatesResponder = typeof postShippingRatesResponder &
+type PostShippingRatesResponder = (typeof postShippingRates)["responder"] &
   KoaRuntimeResponder
-
-const postShippingRatesResponseValidator = responseValidationFactory(
-  [["200", s_shipping_rate]],
-  s_error,
-)
 
 export type PostShippingRates = (
   params: Params<void, void, t_PostShippingRatesBodySchema, void>,
@@ -14898,17 +12931,14 @@ export type PostShippingRates = (
   | Response<StatusCode, t_error>
 >
 
-const getShippingRatesShippingRateTokenResponder = {
-  with200: r.with200<t_shipping_rate>,
-  withDefault: r.withDefault<t_error>,
+const getShippingRatesShippingRateToken = b((r) => ({
+  with200: r.with200<t_shipping_rate>(s_shipping_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetShippingRatesShippingRateTokenResponder =
-  typeof getShippingRatesShippingRateTokenResponder & KoaRuntimeResponder
-
-const getShippingRatesShippingRateTokenResponseValidator =
-  responseValidationFactory([["200", s_shipping_rate]], s_error)
+  (typeof getShippingRatesShippingRateToken)["responder"] & KoaRuntimeResponder
 
 export type GetShippingRatesShippingRateToken = (
   params: Params<
@@ -14925,17 +12955,14 @@ export type GetShippingRatesShippingRateToken = (
   | Response<StatusCode, t_error>
 >
 
-const postShippingRatesShippingRateTokenResponder = {
-  with200: r.with200<t_shipping_rate>,
-  withDefault: r.withDefault<t_error>,
+const postShippingRatesShippingRateToken = b((r) => ({
+  with200: r.with200<t_shipping_rate>(s_shipping_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostShippingRatesShippingRateTokenResponder =
-  typeof postShippingRatesShippingRateTokenResponder & KoaRuntimeResponder
-
-const postShippingRatesShippingRateTokenResponseValidator =
-  responseValidationFactory([["200", s_shipping_rate]], s_error)
+  (typeof postShippingRatesShippingRateToken)["responder"] & KoaRuntimeResponder
 
 export type PostShippingRatesShippingRateToken = (
   params: Params<
@@ -14952,19 +12979,14 @@ export type PostShippingRatesShippingRateToken = (
   | Response<StatusCode, t_error>
 >
 
-const postSigmaSavedQueriesIdResponder = {
-  with200: r.with200<t_sigma_sigma_api_query>,
-  withDefault: r.withDefault<t_error>,
+const postSigmaSavedQueriesId = b((r) => ({
+  with200: r.with200<t_sigma_sigma_api_query>(s_sigma_sigma_api_query),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSigmaSavedQueriesIdResponder =
-  typeof postSigmaSavedQueriesIdResponder & KoaRuntimeResponder
-
-const postSigmaSavedQueriesIdResponseValidator = responseValidationFactory(
-  [["200", s_sigma_sigma_api_query]],
-  s_error,
-)
+  (typeof postSigmaSavedQueriesId)["responder"] & KoaRuntimeResponder
 
 export type PostSigmaSavedQueriesId = (
   params: Params<
@@ -14981,37 +13003,29 @@ export type PostSigmaSavedQueriesId = (
   | Response<StatusCode, t_error>
 >
 
-const getSigmaScheduledQueryRunsResponder = {
+const getSigmaScheduledQueryRuns = b((r) => ({
   with200: r.with200<{
     data: t_scheduled_query_run[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_scheduled_query_run)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/sigma/scheduled_query_runs")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSigmaScheduledQueryRunsResponder =
-  typeof getSigmaScheduledQueryRunsResponder & KoaRuntimeResponder
-
-const getSigmaScheduledQueryRunsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_scheduled_query_run)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/sigma/scheduled_query_runs")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getSigmaScheduledQueryRuns)["responder"] & KoaRuntimeResponder
 
 export type GetSigmaScheduledQueryRuns = (
   params: Params<
@@ -15036,18 +13050,15 @@ export type GetSigmaScheduledQueryRuns = (
   | Response<StatusCode, t_error>
 >
 
-const getSigmaScheduledQueryRunsScheduledQueryRunResponder = {
-  with200: r.with200<t_scheduled_query_run>,
-  withDefault: r.withDefault<t_error>,
+const getSigmaScheduledQueryRunsScheduledQueryRun = b((r) => ({
+  with200: r.with200<t_scheduled_query_run>(s_scheduled_query_run),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSigmaScheduledQueryRunsScheduledQueryRunResponder =
-  typeof getSigmaScheduledQueryRunsScheduledQueryRunResponder &
+  (typeof getSigmaScheduledQueryRunsScheduledQueryRun)["responder"] &
     KoaRuntimeResponder
-
-const getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator =
-  responseValidationFactory([["200", s_scheduled_query_run]], s_error)
 
 export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   params: Params<
@@ -15064,18 +13075,14 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   | Response<StatusCode, t_error>
 >
 
-const postSourcesResponder = {
-  with200: r.with200<t_source>,
-  withDefault: r.withDefault<t_error>,
+const postSources = b((r) => ({
+  with200: r.with200<t_source>(s_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostSourcesResponder = typeof postSourcesResponder & KoaRuntimeResponder
-
-const postSourcesResponseValidator = responseValidationFactory(
-  [["200", s_source]],
-  s_error,
-)
+type PostSourcesResponder = (typeof postSources)["responder"] &
+  KoaRuntimeResponder
 
 export type PostSources = (
   params: Params<void, void, t_PostSourcesBodySchema | undefined, void>,
@@ -15087,19 +13094,14 @@ export type PostSources = (
   | Response<StatusCode, t_error>
 >
 
-const getSourcesSourceResponder = {
-  with200: r.with200<t_source>,
-  withDefault: r.withDefault<t_error>,
+const getSourcesSource = b((r) => ({
+  with200: r.with200<t_source>(s_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSourcesSourceResponder = typeof getSourcesSourceResponder &
+type GetSourcesSourceResponder = (typeof getSourcesSource)["responder"] &
   KoaRuntimeResponder
-
-const getSourcesSourceResponseValidator = responseValidationFactory(
-  [["200", s_source]],
-  s_error,
-)
 
 export type GetSourcesSource = (
   params: Params<
@@ -15116,19 +13118,14 @@ export type GetSourcesSource = (
   | Response<StatusCode, t_error>
 >
 
-const postSourcesSourceResponder = {
-  with200: r.with200<t_source>,
-  withDefault: r.withDefault<t_error>,
+const postSourcesSource = b((r) => ({
+  with200: r.with200<t_source>(s_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostSourcesSourceResponder = typeof postSourcesSourceResponder &
+type PostSourcesSourceResponder = (typeof postSourcesSource)["responder"] &
   KoaRuntimeResponder
-
-const postSourcesSourceResponseValidator = responseValidationFactory(
-  [["200", s_source]],
-  s_error,
-)
 
 export type PostSourcesSource = (
   params: Params<
@@ -15145,18 +13142,17 @@ export type PostSourcesSource = (
   | Response<StatusCode, t_error>
 >
 
-const getSourcesSourceMandateNotificationsMandateNotificationResponder = {
-  with200: r.with200<t_source_mandate_notification>,
-  withDefault: r.withDefault<t_error>,
+const getSourcesSourceMandateNotificationsMandateNotification = b((r) => ({
+  with200: r.with200<t_source_mandate_notification>(
+    s_source_mandate_notification,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSourcesSourceMandateNotificationsMandateNotificationResponder =
-  typeof getSourcesSourceMandateNotificationsMandateNotificationResponder &
+  (typeof getSourcesSourceMandateNotificationsMandateNotification)["responder"] &
     KoaRuntimeResponder
-
-const getSourcesSourceMandateNotificationsMandateNotificationResponseValidator =
-  responseValidationFactory([["200", s_source_mandate_notification]], s_error)
 
 export type GetSourcesSourceMandateNotificationsMandateNotification = (
   params: Params<
@@ -15174,35 +13170,26 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   | Response<StatusCode, t_error>
 >
 
-const getSourcesSourceSourceTransactionsResponder = {
+const getSourcesSourceSourceTransactions = b((r) => ({
   with200: r.with200<{
     data: t_source_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_source_transaction),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSourcesSourceSourceTransactionsResponder =
-  typeof getSourcesSourceSourceTransactionsResponder & KoaRuntimeResponder
-
-const getSourcesSourceSourceTransactionsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_source_transaction),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getSourcesSourceSourceTransactions)["responder"] & KoaRuntimeResponder
 
 export type GetSourcesSourceSourceTransactions = (
   params: Params<
@@ -15227,18 +13214,15 @@ export type GetSourcesSourceSourceTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getSourcesSourceSourceTransactionsSourceTransactionResponder = {
-  with200: r.with200<t_source_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getSourcesSourceSourceTransactionsSourceTransaction = b((r) => ({
+  with200: r.with200<t_source_transaction>(s_source_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSourcesSourceSourceTransactionsSourceTransactionResponder =
-  typeof getSourcesSourceSourceTransactionsSourceTransactionResponder &
+  (typeof getSourcesSourceSourceTransactionsSourceTransaction)["responder"] &
     KoaRuntimeResponder
-
-const getSourcesSourceSourceTransactionsSourceTransactionResponseValidator =
-  responseValidationFactory([["200", s_source_transaction]], s_error)
 
 export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   params: Params<
@@ -15255,19 +13239,14 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const postSourcesSourceVerifyResponder = {
-  with200: r.with200<t_source>,
-  withDefault: r.withDefault<t_error>,
+const postSourcesSourceVerify = b((r) => ({
+  with200: r.with200<t_source>(s_source),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSourcesSourceVerifyResponder =
-  typeof postSourcesSourceVerifyResponder & KoaRuntimeResponder
-
-const postSourcesSourceVerifyResponseValidator = responseValidationFactory(
-  [["200", s_source]],
-  s_error,
-)
+  (typeof postSourcesSourceVerify)["responder"] & KoaRuntimeResponder
 
 export type PostSourcesSourceVerify = (
   params: Params<
@@ -15284,34 +13263,26 @@ export type PostSourcesSourceVerify = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionItemsResponder = {
+const getSubscriptionItems = b((r) => ({
   with200: r.with200<{
     data: t_subscription_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_subscription_item)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/subscription_items")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSubscriptionItemsResponder = typeof getSubscriptionItemsResponder &
-  KoaRuntimeResponder
-
-const getSubscriptionItemsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_subscription_item)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/subscription_items")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetSubscriptionItemsResponder =
+  (typeof getSubscriptionItems)["responder"] & KoaRuntimeResponder
 
 export type GetSubscriptionItems = (
   params: Params<
@@ -15336,19 +13307,14 @@ export type GetSubscriptionItems = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionItemsResponder = {
-  with200: r.with200<t_subscription_item>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionItems = b((r) => ({
+  with200: r.with200<t_subscription_item>(s_subscription_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostSubscriptionItemsResponder = typeof postSubscriptionItemsResponder &
-  KoaRuntimeResponder
-
-const postSubscriptionItemsResponseValidator = responseValidationFactory(
-  [["200", s_subscription_item]],
-  s_error,
-)
+type PostSubscriptionItemsResponder =
+  (typeof postSubscriptionItems)["responder"] & KoaRuntimeResponder
 
 export type PostSubscriptionItems = (
   params: Params<void, void, t_PostSubscriptionItemsBodySchema, void>,
@@ -15360,19 +13326,14 @@ export type PostSubscriptionItems = (
   | Response<StatusCode, t_error>
 >
 
-const deleteSubscriptionItemsItemResponder = {
-  with200: r.with200<t_deleted_subscription_item>,
-  withDefault: r.withDefault<t_error>,
+const deleteSubscriptionItemsItem = b((r) => ({
+  with200: r.with200<t_deleted_subscription_item>(s_deleted_subscription_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteSubscriptionItemsItemResponder =
-  typeof deleteSubscriptionItemsItemResponder & KoaRuntimeResponder
-
-const deleteSubscriptionItemsItemResponseValidator = responseValidationFactory(
-  [["200", s_deleted_subscription_item]],
-  s_error,
-)
+  (typeof deleteSubscriptionItemsItem)["responder"] & KoaRuntimeResponder
 
 export type DeleteSubscriptionItemsItem = (
   params: Params<
@@ -15389,19 +13350,14 @@ export type DeleteSubscriptionItemsItem = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionItemsItemResponder = {
-  with200: r.with200<t_subscription_item>,
-  withDefault: r.withDefault<t_error>,
+const getSubscriptionItemsItem = b((r) => ({
+  with200: r.with200<t_subscription_item>(s_subscription_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSubscriptionItemsItemResponder =
-  typeof getSubscriptionItemsItemResponder & KoaRuntimeResponder
-
-const getSubscriptionItemsItemResponseValidator = responseValidationFactory(
-  [["200", s_subscription_item]],
-  s_error,
-)
+  (typeof getSubscriptionItemsItem)["responder"] & KoaRuntimeResponder
 
 export type GetSubscriptionItemsItem = (
   params: Params<
@@ -15418,19 +13374,14 @@ export type GetSubscriptionItemsItem = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionItemsItemResponder = {
-  with200: r.with200<t_subscription_item>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionItemsItem = b((r) => ({
+  with200: r.with200<t_subscription_item>(s_subscription_item),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionItemsItemResponder =
-  typeof postSubscriptionItemsItemResponder & KoaRuntimeResponder
-
-const postSubscriptionItemsItemResponseValidator = responseValidationFactory(
-  [["200", s_subscription_item]],
-  s_error,
-)
+  (typeof postSubscriptionItemsItem)["responder"] & KoaRuntimeResponder
 
 export type PostSubscriptionItemsItem = (
   params: Params<
@@ -15447,37 +13398,29 @@ export type PostSubscriptionItemsItem = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionSchedulesResponder = {
+const getSubscriptionSchedules = b((r) => ({
   with200: r.with200<{
     data: t_subscription_schedule[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_subscription_schedule)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/subscription_schedules")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSubscriptionSchedulesResponder =
-  typeof getSubscriptionSchedulesResponder & KoaRuntimeResponder
-
-const getSubscriptionSchedulesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_subscription_schedule)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/subscription_schedules")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getSubscriptionSchedules)["responder"] & KoaRuntimeResponder
 
 export type GetSubscriptionSchedules = (
   params: Params<
@@ -15502,19 +13445,14 @@ export type GetSubscriptionSchedules = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionSchedulesResponder = {
-  with200: r.with200<t_subscription_schedule>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionSchedules = b((r) => ({
+  with200: r.with200<t_subscription_schedule>(s_subscription_schedule),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionSchedulesResponder =
-  typeof postSubscriptionSchedulesResponder & KoaRuntimeResponder
-
-const postSubscriptionSchedulesResponseValidator = responseValidationFactory(
-  [["200", s_subscription_schedule]],
-  s_error,
-)
+  (typeof postSubscriptionSchedules)["responder"] & KoaRuntimeResponder
 
 export type PostSubscriptionSchedules = (
   params: Params<
@@ -15531,17 +13469,14 @@ export type PostSubscriptionSchedules = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionSchedulesScheduleResponder = {
-  with200: r.with200<t_subscription_schedule>,
-  withDefault: r.withDefault<t_error>,
+const getSubscriptionSchedulesSchedule = b((r) => ({
+  with200: r.with200<t_subscription_schedule>(s_subscription_schedule),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSubscriptionSchedulesScheduleResponder =
-  typeof getSubscriptionSchedulesScheduleResponder & KoaRuntimeResponder
-
-const getSubscriptionSchedulesScheduleResponseValidator =
-  responseValidationFactory([["200", s_subscription_schedule]], s_error)
+  (typeof getSubscriptionSchedulesSchedule)["responder"] & KoaRuntimeResponder
 
 export type GetSubscriptionSchedulesSchedule = (
   params: Params<
@@ -15558,17 +13493,14 @@ export type GetSubscriptionSchedulesSchedule = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionSchedulesScheduleResponder = {
-  with200: r.with200<t_subscription_schedule>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionSchedulesSchedule = b((r) => ({
+  with200: r.with200<t_subscription_schedule>(s_subscription_schedule),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionSchedulesScheduleResponder =
-  typeof postSubscriptionSchedulesScheduleResponder & KoaRuntimeResponder
-
-const postSubscriptionSchedulesScheduleResponseValidator =
-  responseValidationFactory([["200", s_subscription_schedule]], s_error)
+  (typeof postSubscriptionSchedulesSchedule)["responder"] & KoaRuntimeResponder
 
 export type PostSubscriptionSchedulesSchedule = (
   params: Params<
@@ -15585,17 +13517,15 @@ export type PostSubscriptionSchedulesSchedule = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionSchedulesScheduleCancelResponder = {
-  with200: r.with200<t_subscription_schedule>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionSchedulesScheduleCancel = b((r) => ({
+  with200: r.with200<t_subscription_schedule>(s_subscription_schedule),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionSchedulesScheduleCancelResponder =
-  typeof postSubscriptionSchedulesScheduleCancelResponder & KoaRuntimeResponder
-
-const postSubscriptionSchedulesScheduleCancelResponseValidator =
-  responseValidationFactory([["200", s_subscription_schedule]], s_error)
+  (typeof postSubscriptionSchedulesScheduleCancel)["responder"] &
+    KoaRuntimeResponder
 
 export type PostSubscriptionSchedulesScheduleCancel = (
   params: Params<
@@ -15612,17 +13542,15 @@ export type PostSubscriptionSchedulesScheduleCancel = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionSchedulesScheduleReleaseResponder = {
-  with200: r.with200<t_subscription_schedule>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionSchedulesScheduleRelease = b((r) => ({
+  with200: r.with200<t_subscription_schedule>(s_subscription_schedule),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionSchedulesScheduleReleaseResponder =
-  typeof postSubscriptionSchedulesScheduleReleaseResponder & KoaRuntimeResponder
-
-const postSubscriptionSchedulesScheduleReleaseResponseValidator =
-  responseValidationFactory([["200", s_subscription_schedule]], s_error)
+  (typeof postSubscriptionSchedulesScheduleRelease)["responder"] &
+    KoaRuntimeResponder
 
 export type PostSubscriptionSchedulesScheduleRelease = (
   params: Params<
@@ -15639,34 +13567,26 @@ export type PostSubscriptionSchedulesScheduleRelease = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionsResponder = {
+const getSubscriptions = b((r) => ({
   with200: r.with200<{
     data: t_subscription[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_subscription)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/subscriptions")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSubscriptionsResponder = typeof getSubscriptionsResponder &
+type GetSubscriptionsResponder = (typeof getSubscriptions)["responder"] &
   KoaRuntimeResponder
-
-const getSubscriptionsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_subscription)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/subscriptions")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetSubscriptions = (
   params: Params<
@@ -15691,19 +13611,14 @@ export type GetSubscriptions = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionsResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptions = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostSubscriptionsResponder = typeof postSubscriptionsResponder &
+type PostSubscriptionsResponder = (typeof postSubscriptions)["responder"] &
   KoaRuntimeResponder
-
-const postSubscriptionsResponseValidator = responseValidationFactory(
-  [["200", s_subscription]],
-  s_error,
-)
 
 export type PostSubscriptions = (
   params: Params<void, void, t_PostSubscriptionsBodySchema, void>,
@@ -15715,7 +13630,7 @@ export type PostSubscriptions = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionsSearchResponder = {
+const getSubscriptionsSearch = b((r) => ({
   with200: r.with200<{
     data: t_subscription[]
     has_more: boolean
@@ -15723,30 +13638,22 @@ const getSubscriptionsSearchResponder = {
     object: "search_result"
     total_count?: number
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_subscription)),
+      has_more: PermissiveBoolean,
+      next_page: z.string().max(5000).nullable().optional(),
+      object: z.enum(["search_result"]),
+      total_count: z.coerce.number().optional(),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetSubscriptionsSearchResponder = typeof getSubscriptionsSearchResponder &
-  KoaRuntimeResponder
-
-const getSubscriptionsSearchResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_subscription)),
-        has_more: PermissiveBoolean,
-        next_page: z.string().max(5000).nullable().optional(),
-        object: z.enum(["search_result"]),
-        total_count: z.coerce.number().optional(),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetSubscriptionsSearchResponder =
+  (typeof getSubscriptionsSearch)["responder"] & KoaRuntimeResponder
 
 export type GetSubscriptionsSearch = (
   params: Params<
@@ -15773,17 +13680,15 @@ export type GetSubscriptionsSearch = (
   | Response<StatusCode, t_error>
 >
 
-const deleteSubscriptionsSubscriptionExposedIdResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const deleteSubscriptionsSubscriptionExposedId = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteSubscriptionsSubscriptionExposedIdResponder =
-  typeof deleteSubscriptionsSubscriptionExposedIdResponder & KoaRuntimeResponder
-
-const deleteSubscriptionsSubscriptionExposedIdResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
+  (typeof deleteSubscriptionsSubscriptionExposedId)["responder"] &
+    KoaRuntimeResponder
 
 export type DeleteSubscriptionsSubscriptionExposedId = (
   params: Params<
@@ -15800,17 +13705,15 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
   | Response<StatusCode, t_error>
 >
 
-const getSubscriptionsSubscriptionExposedIdResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const getSubscriptionsSubscriptionExposedId = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetSubscriptionsSubscriptionExposedIdResponder =
-  typeof getSubscriptionsSubscriptionExposedIdResponder & KoaRuntimeResponder
-
-const getSubscriptionsSubscriptionExposedIdResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
+  (typeof getSubscriptionsSubscriptionExposedId)["responder"] &
+    KoaRuntimeResponder
 
 export type GetSubscriptionsSubscriptionExposedId = (
   params: Params<
@@ -15827,17 +13730,15 @@ export type GetSubscriptionsSubscriptionExposedId = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionsSubscriptionExposedIdResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionsSubscriptionExposedId = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionsSubscriptionExposedIdResponder =
-  typeof postSubscriptionsSubscriptionExposedIdResponder & KoaRuntimeResponder
-
-const postSubscriptionsSubscriptionExposedIdResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
+  (typeof postSubscriptionsSubscriptionExposedId)["responder"] &
+    KoaRuntimeResponder
 
 export type PostSubscriptionsSubscriptionExposedId = (
   params: Params<
@@ -15854,18 +13755,15 @@ export type PostSubscriptionsSubscriptionExposedId = (
   | Response<StatusCode, t_error>
 >
 
-const deleteSubscriptionsSubscriptionExposedIdDiscountResponder = {
-  with200: r.with200<t_deleted_discount>,
-  withDefault: r.withDefault<t_error>,
+const deleteSubscriptionsSubscriptionExposedIdDiscount = b((r) => ({
+  with200: r.with200<t_deleted_discount>(s_deleted_discount),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteSubscriptionsSubscriptionExposedIdDiscountResponder =
-  typeof deleteSubscriptionsSubscriptionExposedIdDiscountResponder &
+  (typeof deleteSubscriptionsSubscriptionExposedIdDiscount)["responder"] &
     KoaRuntimeResponder
-
-const deleteSubscriptionsSubscriptionExposedIdDiscountResponseValidator =
-  responseValidationFactory([["200", s_deleted_discount]], s_error)
 
 export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
@@ -15882,17 +13780,15 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   | Response<StatusCode, t_error>
 >
 
-const postSubscriptionsSubscriptionResumeResponder = {
-  with200: r.with200<t_subscription>,
-  withDefault: r.withDefault<t_error>,
+const postSubscriptionsSubscriptionResume = b((r) => ({
+  with200: r.with200<t_subscription>(s_subscription),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostSubscriptionsSubscriptionResumeResponder =
-  typeof postSubscriptionsSubscriptionResumeResponder & KoaRuntimeResponder
-
-const postSubscriptionsSubscriptionResumeResponseValidator =
-  responseValidationFactory([["200", s_subscription]], s_error)
+  (typeof postSubscriptionsSubscriptionResume)["responder"] &
+    KoaRuntimeResponder
 
 export type PostSubscriptionsSubscriptionResume = (
   params: Params<
@@ -15909,19 +13805,14 @@ export type PostSubscriptionsSubscriptionResume = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxCalculationsResponder = {
-  with200: r.with200<t_tax_calculation>,
-  withDefault: r.withDefault<t_error>,
+const postTaxCalculations = b((r) => ({
+  with200: r.with200<t_tax_calculation>(s_tax_calculation),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxCalculationsResponder = typeof postTaxCalculationsResponder &
+type PostTaxCalculationsResponder = (typeof postTaxCalculations)["responder"] &
   KoaRuntimeResponder
-
-const postTaxCalculationsResponseValidator = responseValidationFactory(
-  [["200", s_tax_calculation]],
-  s_error,
-)
 
 export type PostTaxCalculations = (
   params: Params<void, void, t_PostTaxCalculationsBodySchema, void>,
@@ -15933,17 +13824,14 @@ export type PostTaxCalculations = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxCalculationsCalculationResponder = {
-  with200: r.with200<t_tax_calculation>,
-  withDefault: r.withDefault<t_error>,
+const getTaxCalculationsCalculation = b((r) => ({
+  with200: r.with200<t_tax_calculation>(s_tax_calculation),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTaxCalculationsCalculationResponder =
-  typeof getTaxCalculationsCalculationResponder & KoaRuntimeResponder
-
-const getTaxCalculationsCalculationResponseValidator =
-  responseValidationFactory([["200", s_tax_calculation]], s_error)
+  (typeof getTaxCalculationsCalculation)["responder"] & KoaRuntimeResponder
 
 export type GetTaxCalculationsCalculation = (
   params: Params<
@@ -15960,38 +13848,30 @@ export type GetTaxCalculationsCalculation = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxCalculationsCalculationLineItemsResponder = {
+const getTaxCalculationsCalculationLineItems = b((r) => ({
   with200: r.with200<{
     data: t_tax_calculation_line_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_tax_calculation_line_item),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/tax/calculations/[^/]+/line_items")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTaxCalculationsCalculationLineItemsResponder =
-  typeof getTaxCalculationsCalculationLineItemsResponder & KoaRuntimeResponder
-
-const getTaxCalculationsCalculationLineItemsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_tax_calculation_line_item),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/tax/calculations/[^/]+/line_items")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getTaxCalculationsCalculationLineItems)["responder"] &
+    KoaRuntimeResponder
 
 export type GetTaxCalculationsCalculationLineItems = (
   params: Params<
@@ -16016,34 +13896,26 @@ export type GetTaxCalculationsCalculationLineItems = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxRegistrationsResponder = {
+const getTaxRegistrations = b((r) => ({
   with200: r.with200<{
     data: t_tax_registration[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_tax_registration),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/tax/registrations")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxRegistrationsResponder = typeof getTaxRegistrationsResponder &
+type GetTaxRegistrationsResponder = (typeof getTaxRegistrations)["responder"] &
   KoaRuntimeResponder
-
-const getTaxRegistrationsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_tax_registration),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/tax/registrations")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetTaxRegistrations = (
   params: Params<
@@ -16068,19 +13940,14 @@ export type GetTaxRegistrations = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxRegistrationsResponder = {
-  with200: r.with200<t_tax_registration>,
-  withDefault: r.withDefault<t_error>,
+const postTaxRegistrations = b((r) => ({
+  with200: r.with200<t_tax_registration>(s_tax_registration),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxRegistrationsResponder = typeof postTaxRegistrationsResponder &
-  KoaRuntimeResponder
-
-const postTaxRegistrationsResponseValidator = responseValidationFactory(
-  [["200", s_tax_registration]],
-  s_error,
-)
+type PostTaxRegistrationsResponder =
+  (typeof postTaxRegistrations)["responder"] & KoaRuntimeResponder
 
 export type PostTaxRegistrations = (
   params: Params<void, void, t_PostTaxRegistrationsBodySchema, void>,
@@ -16092,19 +13959,14 @@ export type PostTaxRegistrations = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxRegistrationsIdResponder = {
-  with200: r.with200<t_tax_registration>,
-  withDefault: r.withDefault<t_error>,
+const getTaxRegistrationsId = b((r) => ({
+  with200: r.with200<t_tax_registration>(s_tax_registration),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxRegistrationsIdResponder = typeof getTaxRegistrationsIdResponder &
-  KoaRuntimeResponder
-
-const getTaxRegistrationsIdResponseValidator = responseValidationFactory(
-  [["200", s_tax_registration]],
-  s_error,
-)
+type GetTaxRegistrationsIdResponder =
+  (typeof getTaxRegistrationsId)["responder"] & KoaRuntimeResponder
 
 export type GetTaxRegistrationsId = (
   params: Params<
@@ -16121,19 +13983,14 @@ export type GetTaxRegistrationsId = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxRegistrationsIdResponder = {
-  with200: r.with200<t_tax_registration>,
-  withDefault: r.withDefault<t_error>,
+const postTaxRegistrationsId = b((r) => ({
+  with200: r.with200<t_tax_registration>(s_tax_registration),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxRegistrationsIdResponder = typeof postTaxRegistrationsIdResponder &
-  KoaRuntimeResponder
-
-const postTaxRegistrationsIdResponseValidator = responseValidationFactory(
-  [["200", s_tax_registration]],
-  s_error,
-)
+type PostTaxRegistrationsIdResponder =
+  (typeof postTaxRegistrationsId)["responder"] & KoaRuntimeResponder
 
 export type PostTaxRegistrationsId = (
   params: Params<
@@ -16150,19 +14007,14 @@ export type PostTaxRegistrationsId = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxSettingsResponder = {
-  with200: r.with200<t_tax_settings>,
-  withDefault: r.withDefault<t_error>,
+const getTaxSettings = b((r) => ({
+  with200: r.with200<t_tax_settings>(s_tax_settings),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxSettingsResponder = typeof getTaxSettingsResponder &
+type GetTaxSettingsResponder = (typeof getTaxSettings)["responder"] &
   KoaRuntimeResponder
-
-const getTaxSettingsResponseValidator = responseValidationFactory(
-  [["200", s_tax_settings]],
-  s_error,
-)
 
 export type GetTaxSettings = (
   params: Params<
@@ -16179,19 +14031,14 @@ export type GetTaxSettings = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxSettingsResponder = {
-  with200: r.with200<t_tax_settings>,
-  withDefault: r.withDefault<t_error>,
+const postTaxSettings = b((r) => ({
+  with200: r.with200<t_tax_settings>(s_tax_settings),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxSettingsResponder = typeof postTaxSettingsResponder &
+type PostTaxSettingsResponder = (typeof postTaxSettings)["responder"] &
   KoaRuntimeResponder
-
-const postTaxSettingsResponseValidator = responseValidationFactory(
-  [["200", s_tax_settings]],
-  s_error,
-)
 
 export type PostTaxSettings = (
   params: Params<void, void, t_PostTaxSettingsBodySchema | undefined, void>,
@@ -16203,17 +14050,15 @@ export type PostTaxSettings = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxTransactionsCreateFromCalculationResponder = {
-  with200: r.with200<t_tax_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postTaxTransactionsCreateFromCalculation = b((r) => ({
+  with200: r.with200<t_tax_transaction>(s_tax_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTaxTransactionsCreateFromCalculationResponder =
-  typeof postTaxTransactionsCreateFromCalculationResponder & KoaRuntimeResponder
-
-const postTaxTransactionsCreateFromCalculationResponseValidator =
-  responseValidationFactory([["200", s_tax_transaction]], s_error)
+  (typeof postTaxTransactionsCreateFromCalculation)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTaxTransactionsCreateFromCalculation = (
   params: Params<
@@ -16230,17 +14075,14 @@ export type PostTaxTransactionsCreateFromCalculation = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxTransactionsCreateReversalResponder = {
-  with200: r.with200<t_tax_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postTaxTransactionsCreateReversal = b((r) => ({
+  with200: r.with200<t_tax_transaction>(s_tax_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTaxTransactionsCreateReversalResponder =
-  typeof postTaxTransactionsCreateReversalResponder & KoaRuntimeResponder
-
-const postTaxTransactionsCreateReversalResponseValidator =
-  responseValidationFactory([["200", s_tax_transaction]], s_error)
+  (typeof postTaxTransactionsCreateReversal)["responder"] & KoaRuntimeResponder
 
 export type PostTaxTransactionsCreateReversal = (
   params: Params<
@@ -16257,17 +14099,14 @@ export type PostTaxTransactionsCreateReversal = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxTransactionsTransactionResponder = {
-  with200: r.with200<t_tax_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getTaxTransactionsTransaction = b((r) => ({
+  with200: r.with200<t_tax_transaction>(s_tax_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTaxTransactionsTransactionResponder =
-  typeof getTaxTransactionsTransactionResponder & KoaRuntimeResponder
-
-const getTaxTransactionsTransactionResponseValidator =
-  responseValidationFactory([["200", s_tax_transaction]], s_error)
+  (typeof getTaxTransactionsTransaction)["responder"] & KoaRuntimeResponder
 
 export type GetTaxTransactionsTransaction = (
   params: Params<
@@ -16284,38 +14123,30 @@ export type GetTaxTransactionsTransaction = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxTransactionsTransactionLineItemsResponder = {
+const getTaxTransactionsTransactionLineItems = b((r) => ({
   with200: r.with200<{
     data: t_tax_transaction_line_item[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_tax_transaction_line_item),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/tax/transactions/[^/]+/line_items")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTaxTransactionsTransactionLineItemsResponder =
-  typeof getTaxTransactionsTransactionLineItemsResponder & KoaRuntimeResponder
-
-const getTaxTransactionsTransactionLineItemsResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_tax_transaction_line_item),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/tax/transactions/[^/]+/line_items")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getTaxTransactionsTransactionLineItems)["responder"] &
+    KoaRuntimeResponder
 
 export type GetTaxTransactionsTransactionLineItems = (
   params: Params<
@@ -16340,33 +14171,26 @@ export type GetTaxTransactionsTransactionLineItems = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxCodesResponder = {
+const getTaxCodes = b((r) => ({
   with200: r.with200<{
     data: t_tax_code[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_tax_code),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxCodesResponder = typeof getTaxCodesResponder & KoaRuntimeResponder
-
-const getTaxCodesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_tax_code),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetTaxCodesResponder = (typeof getTaxCodes)["responder"] &
+  KoaRuntimeResponder
 
 export type GetTaxCodes = (
   params: Params<
@@ -16391,19 +14215,14 @@ export type GetTaxCodes = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxCodesIdResponder = {
-  with200: r.with200<t_tax_code>,
-  withDefault: r.withDefault<t_error>,
+const getTaxCodesId = b((r) => ({
+  with200: r.with200<t_tax_code>(s_tax_code),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxCodesIdResponder = typeof getTaxCodesIdResponder &
+type GetTaxCodesIdResponder = (typeof getTaxCodesId)["responder"] &
   KoaRuntimeResponder
-
-const getTaxCodesIdResponseValidator = responseValidationFactory(
-  [["200", s_tax_code]],
-  s_error,
-)
 
 export type GetTaxCodesId = (
   params: Params<
@@ -16420,33 +14239,25 @@ export type GetTaxCodesId = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxIdsResponder = {
+const getTaxIds = b((r) => ({
   with200: r.with200<{
     data: t_tax_id[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_tax_id)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxIdsResponder = typeof getTaxIdsResponder & KoaRuntimeResponder
-
-const getTaxIdsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_tax_id)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetTaxIdsResponder = (typeof getTaxIds)["responder"] & KoaRuntimeResponder
 
 export type GetTaxIds = (
   params: Params<
@@ -16471,18 +14282,14 @@ export type GetTaxIds = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxIdsResponder = {
-  with200: r.with200<t_tax_id>,
-  withDefault: r.withDefault<t_error>,
+const postTaxIds = b((r) => ({
+  with200: r.with200<t_tax_id>(s_tax_id),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxIdsResponder = typeof postTaxIdsResponder & KoaRuntimeResponder
-
-const postTaxIdsResponseValidator = responseValidationFactory(
-  [["200", s_tax_id]],
-  s_error,
-)
+type PostTaxIdsResponder = (typeof postTaxIds)["responder"] &
+  KoaRuntimeResponder
 
 export type PostTaxIds = (
   params: Params<void, void, t_PostTaxIdsBodySchema, void>,
@@ -16494,19 +14301,14 @@ export type PostTaxIds = (
   | Response<StatusCode, t_error>
 >
 
-const deleteTaxIdsIdResponder = {
-  with200: r.with200<t_deleted_tax_id>,
-  withDefault: r.withDefault<t_error>,
+const deleteTaxIdsId = b((r) => ({
+  with200: r.with200<t_deleted_tax_id>(s_deleted_tax_id),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteTaxIdsIdResponder = typeof deleteTaxIdsIdResponder &
+type DeleteTaxIdsIdResponder = (typeof deleteTaxIdsId)["responder"] &
   KoaRuntimeResponder
-
-const deleteTaxIdsIdResponseValidator = responseValidationFactory(
-  [["200", s_deleted_tax_id]],
-  s_error,
-)
 
 export type DeleteTaxIdsId = (
   params: Params<
@@ -16523,18 +14325,14 @@ export type DeleteTaxIdsId = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxIdsIdResponder = {
-  with200: r.with200<t_tax_id>,
-  withDefault: r.withDefault<t_error>,
+const getTaxIdsId = b((r) => ({
+  with200: r.with200<t_tax_id>(s_tax_id),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxIdsIdResponder = typeof getTaxIdsIdResponder & KoaRuntimeResponder
-
-const getTaxIdsIdResponseValidator = responseValidationFactory(
-  [["200", s_tax_id]],
-  s_error,
-)
+type GetTaxIdsIdResponder = (typeof getTaxIdsId)["responder"] &
+  KoaRuntimeResponder
 
 export type GetTaxIdsId = (
   params: Params<
@@ -16551,33 +14349,26 @@ export type GetTaxIdsId = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxRatesResponder = {
+const getTaxRates = b((r) => ({
   with200: r.with200<{
     data: t_tax_rate[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_tax_rate),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/tax_rates")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxRatesResponder = typeof getTaxRatesResponder & KoaRuntimeResponder
-
-const getTaxRatesResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_tax_rate),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/tax_rates")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetTaxRatesResponder = (typeof getTaxRates)["responder"] &
+  KoaRuntimeResponder
 
 export type GetTaxRates = (
   params: Params<
@@ -16602,18 +14393,14 @@ export type GetTaxRates = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxRatesResponder = {
-  with200: r.with200<t_tax_rate>,
-  withDefault: r.withDefault<t_error>,
+const postTaxRates = b((r) => ({
+  with200: r.with200<t_tax_rate>(s_tax_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxRatesResponder = typeof postTaxRatesResponder & KoaRuntimeResponder
-
-const postTaxRatesResponseValidator = responseValidationFactory(
-  [["200", s_tax_rate]],
-  s_error,
-)
+type PostTaxRatesResponder = (typeof postTaxRates)["responder"] &
+  KoaRuntimeResponder
 
 export type PostTaxRates = (
   params: Params<void, void, t_PostTaxRatesBodySchema, void>,
@@ -16625,19 +14412,14 @@ export type PostTaxRates = (
   | Response<StatusCode, t_error>
 >
 
-const getTaxRatesTaxRateResponder = {
-  with200: r.with200<t_tax_rate>,
-  withDefault: r.withDefault<t_error>,
+const getTaxRatesTaxRate = b((r) => ({
+  with200: r.with200<t_tax_rate>(s_tax_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTaxRatesTaxRateResponder = typeof getTaxRatesTaxRateResponder &
+type GetTaxRatesTaxRateResponder = (typeof getTaxRatesTaxRate)["responder"] &
   KoaRuntimeResponder
-
-const getTaxRatesTaxRateResponseValidator = responseValidationFactory(
-  [["200", s_tax_rate]],
-  s_error,
-)
 
 export type GetTaxRatesTaxRate = (
   params: Params<
@@ -16654,19 +14436,14 @@ export type GetTaxRatesTaxRate = (
   | Response<StatusCode, t_error>
 >
 
-const postTaxRatesTaxRateResponder = {
-  with200: r.with200<t_tax_rate>,
-  withDefault: r.withDefault<t_error>,
+const postTaxRatesTaxRate = b((r) => ({
+  with200: r.with200<t_tax_rate>(s_tax_rate),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTaxRatesTaxRateResponder = typeof postTaxRatesTaxRateResponder &
+type PostTaxRatesTaxRateResponder = (typeof postTaxRatesTaxRate)["responder"] &
   KoaRuntimeResponder
-
-const postTaxRatesTaxRateResponseValidator = responseValidationFactory(
-  [["200", s_tax_rate]],
-  s_error,
-)
 
 export type PostTaxRatesTaxRate = (
   params: Params<
@@ -16683,37 +14460,29 @@ export type PostTaxRatesTaxRate = (
   | Response<StatusCode, t_error>
 >
 
-const getTerminalConfigurationsResponder = {
+const getTerminalConfigurations = b((r) => ({
   with200: r.with200<{
     data: t_terminal_configuration[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_terminal_configuration)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/terminal/configurations")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTerminalConfigurationsResponder =
-  typeof getTerminalConfigurationsResponder & KoaRuntimeResponder
-
-const getTerminalConfigurationsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_terminal_configuration)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/terminal/configurations")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTerminalConfigurations)["responder"] & KoaRuntimeResponder
 
 export type GetTerminalConfigurations = (
   params: Params<
@@ -16738,19 +14507,14 @@ export type GetTerminalConfigurations = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalConfigurationsResponder = {
-  with200: r.with200<t_terminal_configuration>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalConfigurations = b((r) => ({
+  with200: r.with200<t_terminal_configuration>(s_terminal_configuration),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalConfigurationsResponder =
-  typeof postTerminalConfigurationsResponder & KoaRuntimeResponder
-
-const postTerminalConfigurationsResponseValidator = responseValidationFactory(
-  [["200", s_terminal_configuration]],
-  s_error,
-)
+  (typeof postTerminalConfigurations)["responder"] & KoaRuntimeResponder
 
 export type PostTerminalConfigurations = (
   params: Params<
@@ -16767,21 +14531,17 @@ export type PostTerminalConfigurations = (
   | Response<StatusCode, t_error>
 >
 
-const deleteTerminalConfigurationsConfigurationResponder = {
-  with200: r.with200<t_deleted_terminal_configuration>,
-  withDefault: r.withDefault<t_error>,
+const deleteTerminalConfigurationsConfiguration = b((r) => ({
+  with200: r.with200<t_deleted_terminal_configuration>(
+    s_deleted_terminal_configuration,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteTerminalConfigurationsConfigurationResponder =
-  typeof deleteTerminalConfigurationsConfigurationResponder &
+  (typeof deleteTerminalConfigurationsConfiguration)["responder"] &
     KoaRuntimeResponder
-
-const deleteTerminalConfigurationsConfigurationResponseValidator =
-  responseValidationFactory(
-    [["200", s_deleted_terminal_configuration]],
-    s_error,
-  )
 
 export type DeleteTerminalConfigurationsConfiguration = (
   params: Params<
@@ -16798,30 +14558,22 @@ export type DeleteTerminalConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const getTerminalConfigurationsConfigurationResponder = {
+const getTerminalConfigurationsConfiguration = b((r) => ({
   with200: r.with200<
     t_terminal_configuration | t_deleted_terminal_configuration
-  >,
-  withDefault: r.withDefault<t_error>,
+  >(
+    z.union([
+      z.lazy(() => s_terminal_configuration),
+      s_deleted_terminal_configuration,
+    ]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTerminalConfigurationsConfigurationResponder =
-  typeof getTerminalConfigurationsConfigurationResponder & KoaRuntimeResponder
-
-const getTerminalConfigurationsConfigurationResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([
-          z.lazy(() => s_terminal_configuration),
-          s_deleted_terminal_configuration,
-        ]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getTerminalConfigurationsConfiguration)["responder"] &
+    KoaRuntimeResponder
 
 export type GetTerminalConfigurationsConfiguration = (
   params: Params<
@@ -16838,30 +14590,22 @@ export type GetTerminalConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalConfigurationsConfigurationResponder = {
+const postTerminalConfigurationsConfiguration = b((r) => ({
   with200: r.with200<
     t_terminal_configuration | t_deleted_terminal_configuration
-  >,
-  withDefault: r.withDefault<t_error>,
+  >(
+    z.union([
+      z.lazy(() => s_terminal_configuration),
+      s_deleted_terminal_configuration,
+    ]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalConfigurationsConfigurationResponder =
-  typeof postTerminalConfigurationsConfigurationResponder & KoaRuntimeResponder
-
-const postTerminalConfigurationsConfigurationResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([
-          z.lazy(() => s_terminal_configuration),
-          s_deleted_terminal_configuration,
-        ]),
-      ],
-    ],
-    s_error,
-  )
+  (typeof postTerminalConfigurationsConfiguration)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTerminalConfigurationsConfiguration = (
   params: Params<
@@ -16878,19 +14622,14 @@ export type PostTerminalConfigurationsConfiguration = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalConnectionTokensResponder = {
-  with200: r.with200<t_terminal_connection_token>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalConnectionTokens = b((r) => ({
+  with200: r.with200<t_terminal_connection_token>(s_terminal_connection_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalConnectionTokensResponder =
-  typeof postTerminalConnectionTokensResponder & KoaRuntimeResponder
-
-const postTerminalConnectionTokensResponseValidator = responseValidationFactory(
-  [["200", s_terminal_connection_token]],
-  s_error,
-)
+  (typeof postTerminalConnectionTokens)["responder"] & KoaRuntimeResponder
 
 export type PostTerminalConnectionTokens = (
   params: Params<
@@ -16907,34 +14646,26 @@ export type PostTerminalConnectionTokens = (
   | Response<StatusCode, t_error>
 >
 
-const getTerminalLocationsResponder = {
+const getTerminalLocations = b((r) => ({
   with200: r.with200<{
     data: t_terminal_location[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_terminal_location),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/terminal/locations")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTerminalLocationsResponder = typeof getTerminalLocationsResponder &
-  KoaRuntimeResponder
-
-const getTerminalLocationsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_terminal_location),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/terminal/locations")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetTerminalLocationsResponder =
+  (typeof getTerminalLocations)["responder"] & KoaRuntimeResponder
 
 export type GetTerminalLocations = (
   params: Params<
@@ -16959,19 +14690,14 @@ export type GetTerminalLocations = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalLocationsResponder = {
-  with200: r.with200<t_terminal_location>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalLocations = b((r) => ({
+  with200: r.with200<t_terminal_location>(s_terminal_location),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTerminalLocationsResponder = typeof postTerminalLocationsResponder &
-  KoaRuntimeResponder
-
-const postTerminalLocationsResponseValidator = responseValidationFactory(
-  [["200", s_terminal_location]],
-  s_error,
-)
+type PostTerminalLocationsResponder =
+  (typeof postTerminalLocations)["responder"] & KoaRuntimeResponder
 
 export type PostTerminalLocations = (
   params: Params<void, void, t_PostTerminalLocationsBodySchema, void>,
@@ -16983,17 +14709,14 @@ export type PostTerminalLocations = (
   | Response<StatusCode, t_error>
 >
 
-const deleteTerminalLocationsLocationResponder = {
-  with200: r.with200<t_deleted_terminal_location>,
-  withDefault: r.withDefault<t_error>,
+const deleteTerminalLocationsLocation = b((r) => ({
+  with200: r.with200<t_deleted_terminal_location>(s_deleted_terminal_location),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteTerminalLocationsLocationResponder =
-  typeof deleteTerminalLocationsLocationResponder & KoaRuntimeResponder
-
-const deleteTerminalLocationsLocationResponseValidator =
-  responseValidationFactory([["200", s_deleted_terminal_location]], s_error)
+  (typeof deleteTerminalLocationsLocation)["responder"] & KoaRuntimeResponder
 
 export type DeleteTerminalLocationsLocation = (
   params: Params<
@@ -17010,19 +14733,16 @@ export type DeleteTerminalLocationsLocation = (
   | Response<StatusCode, t_error>
 >
 
-const getTerminalLocationsLocationResponder = {
-  with200: r.with200<t_terminal_location | t_deleted_terminal_location>,
-  withDefault: r.withDefault<t_error>,
+const getTerminalLocationsLocation = b((r) => ({
+  with200: r.with200<t_terminal_location | t_deleted_terminal_location>(
+    z.union([s_terminal_location, s_deleted_terminal_location]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTerminalLocationsLocationResponder =
-  typeof getTerminalLocationsLocationResponder & KoaRuntimeResponder
-
-const getTerminalLocationsLocationResponseValidator = responseValidationFactory(
-  [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
-  s_error,
-)
+  (typeof getTerminalLocationsLocation)["responder"] & KoaRuntimeResponder
 
 export type GetTerminalLocationsLocation = (
   params: Params<
@@ -17039,20 +14759,16 @@ export type GetTerminalLocationsLocation = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalLocationsLocationResponder = {
-  with200: r.with200<t_terminal_location | t_deleted_terminal_location>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalLocationsLocation = b((r) => ({
+  with200: r.with200<t_terminal_location | t_deleted_terminal_location>(
+    z.union([s_terminal_location, s_deleted_terminal_location]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalLocationsLocationResponder =
-  typeof postTerminalLocationsLocationResponder & KoaRuntimeResponder
-
-const postTerminalLocationsLocationResponseValidator =
-  responseValidationFactory(
-    [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
-    s_error,
-  )
+  (typeof postTerminalLocationsLocation)["responder"] & KoaRuntimeResponder
 
 export type PostTerminalLocationsLocation = (
   params: Params<
@@ -17069,34 +14785,26 @@ export type PostTerminalLocationsLocation = (
   | Response<StatusCode, t_error>
 >
 
-const getTerminalReadersResponder = {
+const getTerminalReaders = b((r) => ({
   with200: r.with200<{
     data: t_terminal_reader[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_terminal_reader)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTerminalReadersResponder = typeof getTerminalReadersResponder &
+type GetTerminalReadersResponder = (typeof getTerminalReaders)["responder"] &
   KoaRuntimeResponder
-
-const getTerminalReadersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_terminal_reader)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetTerminalReaders = (
   params: Params<
@@ -17121,19 +14829,14 @@ export type GetTerminalReaders = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReaders = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTerminalReadersResponder = typeof postTerminalReadersResponder &
+type PostTerminalReadersResponder = (typeof postTerminalReaders)["responder"] &
   KoaRuntimeResponder
-
-const postTerminalReadersResponseValidator = responseValidationFactory(
-  [["200", s_terminal_reader]],
-  s_error,
-)
 
 export type PostTerminalReaders = (
   params: Params<void, void, t_PostTerminalReadersBodySchema, void>,
@@ -17145,19 +14848,14 @@ export type PostTerminalReaders = (
   | Response<StatusCode, t_error>
 >
 
-const deleteTerminalReadersReaderResponder = {
-  with200: r.with200<t_deleted_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const deleteTerminalReadersReader = b((r) => ({
+  with200: r.with200<t_deleted_terminal_reader>(s_deleted_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteTerminalReadersReaderResponder =
-  typeof deleteTerminalReadersReaderResponder & KoaRuntimeResponder
-
-const deleteTerminalReadersReaderResponseValidator = responseValidationFactory(
-  [["200", s_deleted_terminal_reader]],
-  s_error,
-)
+  (typeof deleteTerminalReadersReader)["responder"] & KoaRuntimeResponder
 
 export type DeleteTerminalReadersReader = (
   params: Params<
@@ -17174,24 +14872,16 @@ export type DeleteTerminalReadersReader = (
   | Response<StatusCode, t_error>
 >
 
-const getTerminalReadersReaderResponder = {
-  with200: r.with200<t_terminal_reader | t_deleted_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const getTerminalReadersReader = b((r) => ({
+  with200: r.with200<t_terminal_reader | t_deleted_terminal_reader>(
+    z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTerminalReadersReaderResponder =
-  typeof getTerminalReadersReaderResponder & KoaRuntimeResponder
-
-const getTerminalReadersReaderResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTerminalReadersReader)["responder"] & KoaRuntimeResponder
 
 export type GetTerminalReadersReader = (
   params: Params<
@@ -17208,24 +14898,16 @@ export type GetTerminalReadersReader = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersReaderResponder = {
-  with200: r.with200<t_terminal_reader | t_deleted_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReadersReader = b((r) => ({
+  with200: r.with200<t_terminal_reader | t_deleted_terminal_reader>(
+    z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalReadersReaderResponder =
-  typeof postTerminalReadersReaderResponder & KoaRuntimeResponder
-
-const postTerminalReadersReaderResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.union([z.lazy(() => s_terminal_reader), s_deleted_terminal_reader]),
-    ],
-  ],
-  s_error,
-)
+  (typeof postTerminalReadersReader)["responder"] & KoaRuntimeResponder
 
 export type PostTerminalReadersReader = (
   params: Params<
@@ -17242,17 +14924,15 @@ export type PostTerminalReadersReader = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersReaderCancelActionResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReadersReaderCancelAction = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalReadersReaderCancelActionResponder =
-  typeof postTerminalReadersReaderCancelActionResponder & KoaRuntimeResponder
-
-const postTerminalReadersReaderCancelActionResponseValidator =
-  responseValidationFactory([["200", s_terminal_reader]], s_error)
+  (typeof postTerminalReadersReaderCancelAction)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTerminalReadersReaderCancelAction = (
   params: Params<
@@ -17269,18 +14949,15 @@ export type PostTerminalReadersReaderCancelAction = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersReaderProcessPaymentIntentResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReadersReaderProcessPaymentIntent = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalReadersReaderProcessPaymentIntentResponder =
-  typeof postTerminalReadersReaderProcessPaymentIntentResponder &
+  (typeof postTerminalReadersReaderProcessPaymentIntent)["responder"] &
     KoaRuntimeResponder
-
-const postTerminalReadersReaderProcessPaymentIntentResponseValidator =
-  responseValidationFactory([["200", s_terminal_reader]], s_error)
 
 export type PostTerminalReadersReaderProcessPaymentIntent = (
   params: Params<
@@ -17297,18 +14974,15 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersReaderProcessSetupIntentResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReadersReaderProcessSetupIntent = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalReadersReaderProcessSetupIntentResponder =
-  typeof postTerminalReadersReaderProcessSetupIntentResponder &
+  (typeof postTerminalReadersReaderProcessSetupIntent)["responder"] &
     KoaRuntimeResponder
-
-const postTerminalReadersReaderProcessSetupIntentResponseValidator =
-  responseValidationFactory([["200", s_terminal_reader]], s_error)
 
 export type PostTerminalReadersReaderProcessSetupIntent = (
   params: Params<
@@ -17325,17 +14999,15 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersReaderRefundPaymentResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReadersReaderRefundPayment = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalReadersReaderRefundPaymentResponder =
-  typeof postTerminalReadersReaderRefundPaymentResponder & KoaRuntimeResponder
-
-const postTerminalReadersReaderRefundPaymentResponseValidator =
-  responseValidationFactory([["200", s_terminal_reader]], s_error)
+  (typeof postTerminalReadersReaderRefundPayment)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTerminalReadersReaderRefundPayment = (
   params: Params<
@@ -17352,18 +15024,15 @@ export type PostTerminalReadersReaderRefundPayment = (
   | Response<StatusCode, t_error>
 >
 
-const postTerminalReadersReaderSetReaderDisplayResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTerminalReadersReaderSetReaderDisplay = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTerminalReadersReaderSetReaderDisplayResponder =
-  typeof postTerminalReadersReaderSetReaderDisplayResponder &
+  (typeof postTerminalReadersReaderSetReaderDisplay)["responder"] &
     KoaRuntimeResponder
-
-const postTerminalReadersReaderSetReaderDisplayResponseValidator =
-  responseValidationFactory([["200", s_terminal_reader]], s_error)
 
 export type PostTerminalReadersReaderSetReaderDisplay = (
   params: Params<
@@ -17380,17 +15049,14 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersConfirmationTokensResponder = {
-  with200: r.with200<t_confirmation_token>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersConfirmationTokens = b((r) => ({
+  with200: r.with200<t_confirmation_token>(s_confirmation_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersConfirmationTokensResponder =
-  typeof postTestHelpersConfirmationTokensResponder & KoaRuntimeResponder
-
-const postTestHelpersConfirmationTokensResponseValidator =
-  responseValidationFactory([["200", s_confirmation_token]], s_error)
+  (typeof postTestHelpersConfirmationTokens)["responder"] & KoaRuntimeResponder
 
 export type PostTestHelpersConfirmationTokens = (
   params: Params<
@@ -17407,21 +15073,17 @@ export type PostTestHelpersConfirmationTokens = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersCustomersCustomerFundCashBalanceResponder = {
-  with200: r.with200<t_customer_cash_balance_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersCustomersCustomerFundCashBalance = b((r) => ({
+  with200: r.with200<t_customer_cash_balance_transaction>(
+    s_customer_cash_balance_transaction,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersCustomersCustomerFundCashBalanceResponder =
-  typeof postTestHelpersCustomersCustomerFundCashBalanceResponder &
+  (typeof postTestHelpersCustomersCustomerFundCashBalance)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersCustomersCustomerFundCashBalanceResponseValidator =
-  responseValidationFactory(
-    [["200", s_customer_cash_balance_transaction]],
-    s_error,
-  )
 
 export type PostTestHelpersCustomersCustomerFundCashBalance = (
   params: Params<
@@ -17438,17 +15100,15 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingAuthorizationsResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizations = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingAuthorizationsResponder =
-  typeof postTestHelpersIssuingAuthorizationsResponder & KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
+  (typeof postTestHelpersIssuingAuthorizations)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTestHelpersIssuingAuthorizations = (
   params: Params<
@@ -17465,18 +15125,15 @@ export type PostTestHelpersIssuingAuthorizations = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizationsAuthorizationCapture = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder =
-  typeof postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder &
+  (typeof postTestHelpersIssuingAuthorizationsAuthorizationCapture)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   params: Params<
@@ -17494,18 +15151,15 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizationsAuthorizationExpire = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder =
-  typeof postTestHelpersIssuingAuthorizationsAuthorizationExpireResponder &
+  (typeof postTestHelpersIssuingAuthorizationsAuthorizationExpire)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   params: Params<
@@ -17523,19 +15177,17 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder =
-  {
-    with200: r.with200<t_issuing_authorization>,
-    withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = b(
+  (r) => ({
+    with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }),
+)
 
 type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder =
-  typeof postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder &
+  (typeof postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   params: Params<
@@ -17552,19 +15204,16 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder =
-  {
-    with200: r.with200<t_issuing_authorization>,
-    withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond =
+  b((r) => ({
+    with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }))
 
 type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder =
-  typeof postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder &
+  (typeof postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond =
   (
@@ -17582,18 +15231,15 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
     | Response<StatusCode, t_error>
   >
 
-const postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizationsAuthorizationIncrement = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder =
-  typeof postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder &
+  (typeof postTestHelpersIssuingAuthorizationsAuthorizationIncrement)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   params: Params<
@@ -17610,18 +15256,15 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingAuthorizationsAuthorizationReverseResponder = {
-  with200: r.with200<t_issuing_authorization>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingAuthorizationsAuthorizationReverse = b((r) => ({
+  with200: r.with200<t_issuing_authorization>(s_issuing_authorization),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder =
-  typeof postTestHelpersIssuingAuthorizationsAuthorizationReverseResponder &
+  (typeof postTestHelpersIssuingAuthorizationsAuthorizationReverse)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseValidator =
-  responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   params: Params<
@@ -17639,18 +15282,15 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingCardsCardShippingDeliverResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingCardsCardShippingDeliver = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingCardsCardShippingDeliverResponder =
-  typeof postTestHelpersIssuingCardsCardShippingDeliverResponder &
+  (typeof postTestHelpersIssuingCardsCardShippingDeliver)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingCardsCardShippingDeliverResponseValidator =
-  responseValidationFactory([["200", s_issuing_card]], s_error)
 
 export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   params: Params<
@@ -17667,18 +15307,15 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingCardsCardShippingFailResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingCardsCardShippingFail = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingCardsCardShippingFailResponder =
-  typeof postTestHelpersIssuingCardsCardShippingFailResponder &
+  (typeof postTestHelpersIssuingCardsCardShippingFail)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingCardsCardShippingFailResponseValidator =
-  responseValidationFactory([["200", s_issuing_card]], s_error)
 
 export type PostTestHelpersIssuingCardsCardShippingFail = (
   params: Params<
@@ -17695,18 +15332,15 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingCardsCardShippingReturnResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingCardsCardShippingReturn = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingCardsCardShippingReturnResponder =
-  typeof postTestHelpersIssuingCardsCardShippingReturnResponder &
+  (typeof postTestHelpersIssuingCardsCardShippingReturn)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingCardsCardShippingReturnResponseValidator =
-  responseValidationFactory([["200", s_issuing_card]], s_error)
 
 export type PostTestHelpersIssuingCardsCardShippingReturn = (
   params: Params<
@@ -17723,18 +15357,15 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingCardsCardShippingShipResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingCardsCardShippingShip = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingCardsCardShippingShipResponder =
-  typeof postTestHelpersIssuingCardsCardShippingShipResponder &
+  (typeof postTestHelpersIssuingCardsCardShippingShip)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingCardsCardShippingShipResponseValidator =
-  responseValidationFactory([["200", s_issuing_card]], s_error)
 
 export type PostTestHelpersIssuingCardsCardShippingShip = (
   params: Params<
@@ -17751,18 +15382,15 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingCardsCardShippingSubmitResponder = {
-  with200: r.with200<t_issuing_card>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingCardsCardShippingSubmit = b((r) => ({
+  with200: r.with200<t_issuing_card>(s_issuing_card),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingCardsCardShippingSubmitResponder =
-  typeof postTestHelpersIssuingCardsCardShippingSubmitResponder &
+  (typeof postTestHelpersIssuingCardsCardShippingSubmit)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingCardsCardShippingSubmitResponseValidator =
-  responseValidationFactory([["200", s_issuing_card]], s_error)
 
 export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   params: Params<
@@ -17779,22 +15407,18 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder =
-  {
-    with200: r.with200<t_issuing_personalization_design>,
-    withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate =
+  b((r) => ({
+    with200: r.with200<t_issuing_personalization_design>(
+      s_issuing_personalization_design,
+    ),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }))
 
 type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder =
-  typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder &
+  (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseValidator =
-  responseValidationFactory(
-    [["200", s_issuing_personalization_design]],
-    s_error,
-  )
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate =
   (
@@ -17813,22 +15437,18 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
     | Response<StatusCode, t_error>
   >
 
-const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder =
-  {
-    with200: r.with200<t_issuing_personalization_design>,
-    withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate =
+  b((r) => ({
+    with200: r.with200<t_issuing_personalization_design>(
+      s_issuing_personalization_design,
+    ),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }))
 
 type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder =
-  typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder &
+  (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseValidator =
-  responseValidationFactory(
-    [["200", s_issuing_personalization_design]],
-    s_error,
-  )
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate =
   (
@@ -17847,22 +15467,18 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
     | Response<StatusCode, t_error>
   >
 
-const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder =
-  {
-    with200: r.with200<t_issuing_personalization_design>,
-    withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject =
+  b((r) => ({
+    with200: r.with200<t_issuing_personalization_design>(
+      s_issuing_personalization_design,
+    ),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }))
 
 type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder =
-  typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder &
+  (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseValidator =
-  responseValidationFactory(
-    [["200", s_issuing_personalization_design]],
-    s_error,
-  )
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject =
   (
@@ -17880,17 +15496,14 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     | Response<StatusCode, t_error>
   >
 
-const postTestHelpersIssuingSettlementsResponder = {
-  with200: r.with200<t_issuing_settlement>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingSettlements = b((r) => ({
+  with200: r.with200<t_issuing_settlement>(s_issuing_settlement),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingSettlementsResponder =
-  typeof postTestHelpersIssuingSettlementsResponder & KoaRuntimeResponder
-
-const postTestHelpersIssuingSettlementsResponseValidator =
-  responseValidationFactory([["200", s_issuing_settlement]], s_error)
+  (typeof postTestHelpersIssuingSettlements)["responder"] & KoaRuntimeResponder
 
 export type PostTestHelpersIssuingSettlements = (
   params: Params<
@@ -17907,18 +15520,15 @@ export type PostTestHelpersIssuingSettlements = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingSettlementsSettlementCompleteResponder = {
-  with200: r.with200<t_issuing_settlement>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingSettlementsSettlementComplete = b((r) => ({
+  with200: r.with200<t_issuing_settlement>(s_issuing_settlement),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingSettlementsSettlementCompleteResponder =
-  typeof postTestHelpersIssuingSettlementsSettlementCompleteResponder &
+  (typeof postTestHelpersIssuingSettlementsSettlementComplete)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingSettlementsSettlementCompleteResponseValidator =
-  responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
 export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   params: Params<
@@ -17935,18 +15545,15 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingTransactionsCreateForceCaptureResponder = {
-  with200: r.with200<t_issuing_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingTransactionsCreateForceCapture = b((r) => ({
+  with200: r.with200<t_issuing_transaction>(s_issuing_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingTransactionsCreateForceCaptureResponder =
-  typeof postTestHelpersIssuingTransactionsCreateForceCaptureResponder &
+  (typeof postTestHelpersIssuingTransactionsCreateForceCapture)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingTransactionsCreateForceCaptureResponseValidator =
-  responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
 export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   params: Params<
@@ -17963,18 +15570,15 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder = {
-  with200: r.with200<t_issuing_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingTransactionsCreateUnlinkedRefund = b((r) => ({
+  with200: r.with200<t_issuing_transaction>(s_issuing_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder =
-  typeof postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder &
+  (typeof postTestHelpersIssuingTransactionsCreateUnlinkedRefund)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseValidator =
-  responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
 export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   params: Params<
@@ -17991,18 +15595,15 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersIssuingTransactionsTransactionRefundResponder = {
-  with200: r.with200<t_issuing_transaction>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersIssuingTransactionsTransactionRefund = b((r) => ({
+  with200: r.with200<t_issuing_transaction>(s_issuing_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersIssuingTransactionsTransactionRefundResponder =
-  typeof postTestHelpersIssuingTransactionsTransactionRefundResponder &
+  (typeof postTestHelpersIssuingTransactionsTransactionRefund)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersIssuingTransactionsTransactionRefundResponseValidator =
-  responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
 export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   params: Params<
@@ -18019,17 +15620,14 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersRefundsRefundExpireResponder = {
-  with200: r.with200<t_refund>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersRefundsRefundExpire = b((r) => ({
+  with200: r.with200<t_refund>(s_refund),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersRefundsRefundExpireResponder =
-  typeof postTestHelpersRefundsRefundExpireResponder & KoaRuntimeResponder
-
-const postTestHelpersRefundsRefundExpireResponseValidator =
-  responseValidationFactory([["200", s_refund]], s_error)
+  (typeof postTestHelpersRefundsRefundExpire)["responder"] & KoaRuntimeResponder
 
 export type PostTestHelpersRefundsRefundExpire = (
   params: Params<
@@ -18046,18 +15644,15 @@ export type PostTestHelpersRefundsRefundExpire = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTerminalReadersReaderPresentPaymentMethodResponder = {
-  with200: r.with200<t_terminal_reader>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTerminalReadersReaderPresentPaymentMethod = b((r) => ({
+  with200: r.with200<t_terminal_reader>(s_terminal_reader),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder =
-  typeof postTestHelpersTerminalReadersReaderPresentPaymentMethodResponder &
+  (typeof postTestHelpersTerminalReadersReaderPresentPaymentMethod)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseValidator =
-  responseValidationFactory([["200", s_terminal_reader]], s_error)
 
 export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   params: Params<
@@ -18075,37 +15670,29 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   | Response<StatusCode, t_error>
 >
 
-const getTestHelpersTestClocksResponder = {
+const getTestHelpersTestClocks = b((r) => ({
   with200: r.with200<{
     data: t_test_helpers_test_clock[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_test_helpers_test_clock),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/test_helpers/test_clocks")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTestHelpersTestClocksResponder =
-  typeof getTestHelpersTestClocksResponder & KoaRuntimeResponder
-
-const getTestHelpersTestClocksResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_test_helpers_test_clock),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/test_helpers/test_clocks")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTestHelpersTestClocks)["responder"] & KoaRuntimeResponder
 
 export type GetTestHelpersTestClocks = (
   params: Params<
@@ -18130,19 +15717,14 @@ export type GetTestHelpersTestClocks = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTestClocksResponder = {
-  with200: r.with200<t_test_helpers_test_clock>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTestClocks = b((r) => ({
+  with200: r.with200<t_test_helpers_test_clock>(s_test_helpers_test_clock),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTestClocksResponder =
-  typeof postTestHelpersTestClocksResponder & KoaRuntimeResponder
-
-const postTestHelpersTestClocksResponseValidator = responseValidationFactory(
-  [["200", s_test_helpers_test_clock]],
-  s_error,
-)
+  (typeof postTestHelpersTestClocks)["responder"] & KoaRuntimeResponder
 
 export type PostTestHelpersTestClocks = (
   params: Params<void, void, t_PostTestHelpersTestClocksBodySchema, void>,
@@ -18154,20 +15736,17 @@ export type PostTestHelpersTestClocks = (
   | Response<StatusCode, t_error>
 >
 
-const deleteTestHelpersTestClocksTestClockResponder = {
-  with200: r.with200<t_deleted_test_helpers_test_clock>,
-  withDefault: r.withDefault<t_error>,
+const deleteTestHelpersTestClocksTestClock = b((r) => ({
+  with200: r.with200<t_deleted_test_helpers_test_clock>(
+    s_deleted_test_helpers_test_clock,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteTestHelpersTestClocksTestClockResponder =
-  typeof deleteTestHelpersTestClocksTestClockResponder & KoaRuntimeResponder
-
-const deleteTestHelpersTestClocksTestClockResponseValidator =
-  responseValidationFactory(
-    [["200", s_deleted_test_helpers_test_clock]],
-    s_error,
-  )
+  (typeof deleteTestHelpersTestClocksTestClock)["responder"] &
+    KoaRuntimeResponder
 
 export type DeleteTestHelpersTestClocksTestClock = (
   params: Params<
@@ -18184,17 +15763,14 @@ export type DeleteTestHelpersTestClocksTestClock = (
   | Response<StatusCode, t_error>
 >
 
-const getTestHelpersTestClocksTestClockResponder = {
-  with200: r.with200<t_test_helpers_test_clock>,
-  withDefault: r.withDefault<t_error>,
+const getTestHelpersTestClocksTestClock = b((r) => ({
+  with200: r.with200<t_test_helpers_test_clock>(s_test_helpers_test_clock),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTestHelpersTestClocksTestClockResponder =
-  typeof getTestHelpersTestClocksTestClockResponder & KoaRuntimeResponder
-
-const getTestHelpersTestClocksTestClockResponseValidator =
-  responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
+  (typeof getTestHelpersTestClocksTestClock)["responder"] & KoaRuntimeResponder
 
 export type GetTestHelpersTestClocksTestClock = (
   params: Params<
@@ -18211,18 +15787,15 @@ export type GetTestHelpersTestClocksTestClock = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTestClocksTestClockAdvanceResponder = {
-  with200: r.with200<t_test_helpers_test_clock>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTestClocksTestClockAdvance = b((r) => ({
+  with200: r.with200<t_test_helpers_test_clock>(s_test_helpers_test_clock),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTestClocksTestClockAdvanceResponder =
-  typeof postTestHelpersTestClocksTestClockAdvanceResponder &
+  (typeof postTestHelpersTestClocksTestClockAdvance)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTestClocksTestClockAdvanceResponseValidator =
-  responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
 
 export type PostTestHelpersTestClocksTestClockAdvance = (
   params: Params<
@@ -18239,18 +15812,15 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryInboundTransfersIdFailResponder = {
-  with200: r.with200<t_treasury_inbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryInboundTransfersIdFail = b((r) => ({
+  with200: r.with200<t_treasury_inbound_transfer>(s_treasury_inbound_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryInboundTransfersIdFailResponder =
-  typeof postTestHelpersTreasuryInboundTransfersIdFailResponder &
+  (typeof postTestHelpersTreasuryInboundTransfersIdFail)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryInboundTransfersIdFailResponseValidator =
-  responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   params: Params<
@@ -18267,18 +15837,15 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryInboundTransfersIdReturnResponder = {
-  with200: r.with200<t_treasury_inbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryInboundTransfersIdReturn = b((r) => ({
+  with200: r.with200<t_treasury_inbound_transfer>(s_treasury_inbound_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryInboundTransfersIdReturnResponder =
-  typeof postTestHelpersTreasuryInboundTransfersIdReturnResponder &
+  (typeof postTestHelpersTreasuryInboundTransfersIdReturn)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator =
-  responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   params: Params<
@@ -18295,18 +15862,15 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryInboundTransfersIdSucceedResponder = {
-  with200: r.with200<t_treasury_inbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryInboundTransfersIdSucceed = b((r) => ({
+  with200: r.with200<t_treasury_inbound_transfer>(s_treasury_inbound_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryInboundTransfersIdSucceedResponder =
-  typeof postTestHelpersTreasuryInboundTransfersIdSucceedResponder &
+  (typeof postTestHelpersTreasuryInboundTransfersIdSucceed)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator =
-  responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   params: Params<
@@ -18323,18 +15887,15 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundPaymentsIdResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundPaymentsId = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundPaymentsIdResponder =
-  typeof postTestHelpersTreasuryOutboundPaymentsIdResponder &
+  (typeof postTestHelpersTreasuryOutboundPaymentsId)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundPaymentsIdResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
 export type PostTestHelpersTreasuryOutboundPaymentsId = (
   params: Params<
@@ -18351,18 +15912,15 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundPaymentsIdFailResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundPaymentsIdFail = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundPaymentsIdFailResponder =
-  typeof postTestHelpersTreasuryOutboundPaymentsIdFailResponder &
+  (typeof postTestHelpersTreasuryOutboundPaymentsIdFail)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   params: Params<
@@ -18379,18 +15937,15 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundPaymentsIdPostResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundPaymentsIdPost = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundPaymentsIdPostResponder =
-  typeof postTestHelpersTreasuryOutboundPaymentsIdPostResponder &
+  (typeof postTestHelpersTreasuryOutboundPaymentsIdPost)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   params: Params<
@@ -18407,18 +15962,15 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundPaymentsIdReturnResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundPaymentsIdReturn = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder =
-  typeof postTestHelpersTreasuryOutboundPaymentsIdReturnResponder &
+  (typeof postTestHelpersTreasuryOutboundPaymentsIdReturn)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   params: Params<
@@ -18435,18 +15987,17 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferResponder = {
-  with200: r.with200<t_treasury_outbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundTransfersOutboundTransfer = b((r) => ({
+  with200: r.with200<t_treasury_outbound_transfer>(
+    s_treasury_outbound_transfer,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder =
-  typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferResponder &
+  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransfer)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
@@ -18463,18 +16014,17 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder = {
-  with200: r.with200<t_treasury_outbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundTransfersOutboundTransferFail = b((r) => ({
+  with200: r.with200<t_treasury_outbound_transfer>(
+    s_treasury_outbound_transfer,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder =
-  typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder &
+  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferFail)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   params: Params<
@@ -18492,18 +16042,17 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder = {
-  with200: r.with200<t_treasury_outbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundTransfersOutboundTransferPost = b((r) => ({
+  with200: r.with200<t_treasury_outbound_transfer>(
+    s_treasury_outbound_transfer,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder =
-  typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder &
+  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferPost)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   params: Params<
@@ -18521,19 +16070,19 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder =
-  {
-    with200: r.with200<t_treasury_outbound_transfer>,
-    withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = b(
+  (r) => ({
+    with200: r.with200<t_treasury_outbound_transfer>(
+      s_treasury_outbound_transfer,
+    ),
+    withDefault: r.withDefault<t_error>(s_error),
     withStatus: r.withStatus,
-  }
+  }),
+)
 
 type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder =
-  typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder &
+  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn)["responder"] &
     KoaRuntimeResponder
-
-const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   params: Params<
@@ -18551,17 +16100,15 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryReceivedCreditsResponder = {
-  with200: r.with200<t_treasury_received_credit>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryReceivedCredits = b((r) => ({
+  with200: r.with200<t_treasury_received_credit>(s_treasury_received_credit),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryReceivedCreditsResponder =
-  typeof postTestHelpersTreasuryReceivedCreditsResponder & KoaRuntimeResponder
-
-const postTestHelpersTreasuryReceivedCreditsResponseValidator =
-  responseValidationFactory([["200", s_treasury_received_credit]], s_error)
+  (typeof postTestHelpersTreasuryReceivedCredits)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTestHelpersTreasuryReceivedCredits = (
   params: Params<
@@ -18578,17 +16125,15 @@ export type PostTestHelpersTreasuryReceivedCredits = (
   | Response<StatusCode, t_error>
 >
 
-const postTestHelpersTreasuryReceivedDebitsResponder = {
-  with200: r.with200<t_treasury_received_debit>,
-  withDefault: r.withDefault<t_error>,
+const postTestHelpersTreasuryReceivedDebits = b((r) => ({
+  with200: r.with200<t_treasury_received_debit>(s_treasury_received_debit),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTestHelpersTreasuryReceivedDebitsResponder =
-  typeof postTestHelpersTreasuryReceivedDebitsResponder & KoaRuntimeResponder
-
-const postTestHelpersTreasuryReceivedDebitsResponseValidator =
-  responseValidationFactory([["200", s_treasury_received_debit]], s_error)
+  (typeof postTestHelpersTreasuryReceivedDebits)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTestHelpersTreasuryReceivedDebits = (
   params: Params<
@@ -18605,18 +16150,14 @@ export type PostTestHelpersTreasuryReceivedDebits = (
   | Response<StatusCode, t_error>
 >
 
-const postTokensResponder = {
-  with200: r.with200<t_token>,
-  withDefault: r.withDefault<t_error>,
+const postTokens = b((r) => ({
+  with200: r.with200<t_token>(s_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTokensResponder = typeof postTokensResponder & KoaRuntimeResponder
-
-const postTokensResponseValidator = responseValidationFactory(
-  [["200", s_token]],
-  s_error,
-)
+type PostTokensResponder = (typeof postTokens)["responder"] &
+  KoaRuntimeResponder
 
 export type PostTokens = (
   params: Params<void, void, t_PostTokensBodySchema | undefined, void>,
@@ -18628,19 +16169,14 @@ export type PostTokens = (
   | Response<StatusCode, t_error>
 >
 
-const getTokensTokenResponder = {
-  with200: r.with200<t_token>,
-  withDefault: r.withDefault<t_error>,
+const getTokensToken = b((r) => ({
+  with200: r.with200<t_token>(s_token),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTokensTokenResponder = typeof getTokensTokenResponder &
+type GetTokensTokenResponder = (typeof getTokensToken)["responder"] &
   KoaRuntimeResponder
-
-const getTokensTokenResponseValidator = responseValidationFactory(
-  [["200", s_token]],
-  s_error,
-)
 
 export type GetTokensToken = (
   params: Params<
@@ -18657,33 +16193,25 @@ export type GetTokensToken = (
   | Response<StatusCode, t_error>
 >
 
-const getTopupsResponder = {
+const getTopups = b((r) => ({
   with200: r.with200<{
     data: t_topup[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_topup)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/topups")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTopupsResponder = typeof getTopupsResponder & KoaRuntimeResponder
-
-const getTopupsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_topup)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/topups")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetTopupsResponder = (typeof getTopups)["responder"] & KoaRuntimeResponder
 
 export type GetTopups = (
   params: Params<
@@ -18708,18 +16236,14 @@ export type GetTopups = (
   | Response<StatusCode, t_error>
 >
 
-const postTopupsResponder = {
-  with200: r.with200<t_topup>,
-  withDefault: r.withDefault<t_error>,
+const postTopups = b((r) => ({
+  with200: r.with200<t_topup>(s_topup),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTopupsResponder = typeof postTopupsResponder & KoaRuntimeResponder
-
-const postTopupsResponseValidator = responseValidationFactory(
-  [["200", s_topup]],
-  s_error,
-)
+type PostTopupsResponder = (typeof postTopups)["responder"] &
+  KoaRuntimeResponder
 
 export type PostTopups = (
   params: Params<void, void, t_PostTopupsBodySchema, void>,
@@ -18731,19 +16255,14 @@ export type PostTopups = (
   | Response<StatusCode, t_error>
 >
 
-const getTopupsTopupResponder = {
-  with200: r.with200<t_topup>,
-  withDefault: r.withDefault<t_error>,
+const getTopupsTopup = b((r) => ({
+  with200: r.with200<t_topup>(s_topup),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTopupsTopupResponder = typeof getTopupsTopupResponder &
+type GetTopupsTopupResponder = (typeof getTopupsTopup)["responder"] &
   KoaRuntimeResponder
-
-const getTopupsTopupResponseValidator = responseValidationFactory(
-  [["200", s_topup]],
-  s_error,
-)
 
 export type GetTopupsTopup = (
   params: Params<
@@ -18760,19 +16279,14 @@ export type GetTopupsTopup = (
   | Response<StatusCode, t_error>
 >
 
-const postTopupsTopupResponder = {
-  with200: r.with200<t_topup>,
-  withDefault: r.withDefault<t_error>,
+const postTopupsTopup = b((r) => ({
+  with200: r.with200<t_topup>(s_topup),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTopupsTopupResponder = typeof postTopupsTopupResponder &
+type PostTopupsTopupResponder = (typeof postTopupsTopup)["responder"] &
   KoaRuntimeResponder
-
-const postTopupsTopupResponseValidator = responseValidationFactory(
-  [["200", s_topup]],
-  s_error,
-)
 
 export type PostTopupsTopup = (
   params: Params<
@@ -18789,19 +16303,14 @@ export type PostTopupsTopup = (
   | Response<StatusCode, t_error>
 >
 
-const postTopupsTopupCancelResponder = {
-  with200: r.with200<t_topup>,
-  withDefault: r.withDefault<t_error>,
+const postTopupsTopupCancel = b((r) => ({
+  with200: r.with200<t_topup>(s_topup),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTopupsTopupCancelResponder = typeof postTopupsTopupCancelResponder &
-  KoaRuntimeResponder
-
-const postTopupsTopupCancelResponseValidator = responseValidationFactory(
-  [["200", s_topup]],
-  s_error,
-)
+type PostTopupsTopupCancelResponder =
+  (typeof postTopupsTopupCancel)["responder"] & KoaRuntimeResponder
 
 export type PostTopupsTopupCancel = (
   params: Params<
@@ -18818,33 +16327,26 @@ export type PostTopupsTopupCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getTransfersResponder = {
+const getTransfers = b((r) => ({
   with200: r.with200<{
     data: t_transfer[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_transfer)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/transfers")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTransfersResponder = typeof getTransfersResponder & KoaRuntimeResponder
-
-const getTransfersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_transfer)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/transfers")),
-      }),
-    ],
-  ],
-  s_error,
-)
+type GetTransfersResponder = (typeof getTransfers)["responder"] &
+  KoaRuntimeResponder
 
 export type GetTransfers = (
   params: Params<
@@ -18869,19 +16371,14 @@ export type GetTransfers = (
   | Response<StatusCode, t_error>
 >
 
-const postTransfersResponder = {
-  with200: r.with200<t_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTransfers = b((r) => ({
+  with200: r.with200<t_transfer>(s_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTransfersResponder = typeof postTransfersResponder &
+type PostTransfersResponder = (typeof postTransfers)["responder"] &
   KoaRuntimeResponder
-
-const postTransfersResponseValidator = responseValidationFactory(
-  [["200", s_transfer]],
-  s_error,
-)
 
 export type PostTransfers = (
   params: Params<void, void, t_PostTransfersBodySchema, void>,
@@ -18893,34 +16390,26 @@ export type PostTransfers = (
   | Response<StatusCode, t_error>
 >
 
-const getTransfersIdReversalsResponder = {
+const getTransfersIdReversals = b((r) => ({
   with200: r.with200<{
     data: t_transfer_reversal[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_transfer_reversal)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTransfersIdReversalsResponder =
-  typeof getTransfersIdReversalsResponder & KoaRuntimeResponder
-
-const getTransfersIdReversalsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_transfer_reversal)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTransfersIdReversals)["responder"] & KoaRuntimeResponder
 
 export type GetTransfersIdReversals = (
   params: Params<
@@ -18945,19 +16434,14 @@ export type GetTransfersIdReversals = (
   | Response<StatusCode, t_error>
 >
 
-const postTransfersIdReversalsResponder = {
-  with200: r.with200<t_transfer_reversal>,
-  withDefault: r.withDefault<t_error>,
+const postTransfersIdReversals = b((r) => ({
+  with200: r.with200<t_transfer_reversal>(s_transfer_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTransfersIdReversalsResponder =
-  typeof postTransfersIdReversalsResponder & KoaRuntimeResponder
-
-const postTransfersIdReversalsResponseValidator = responseValidationFactory(
-  [["200", s_transfer_reversal]],
-  s_error,
-)
+  (typeof postTransfersIdReversals)["responder"] & KoaRuntimeResponder
 
 export type PostTransfersIdReversals = (
   params: Params<
@@ -18974,19 +16458,14 @@ export type PostTransfersIdReversals = (
   | Response<StatusCode, t_error>
 >
 
-const getTransfersTransferResponder = {
-  with200: r.with200<t_transfer>,
-  withDefault: r.withDefault<t_error>,
+const getTransfersTransfer = b((r) => ({
+  with200: r.with200<t_transfer>(s_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetTransfersTransferResponder = typeof getTransfersTransferResponder &
-  KoaRuntimeResponder
-
-const getTransfersTransferResponseValidator = responseValidationFactory(
-  [["200", s_transfer]],
-  s_error,
-)
+type GetTransfersTransferResponder =
+  (typeof getTransfersTransfer)["responder"] & KoaRuntimeResponder
 
 export type GetTransfersTransfer = (
   params: Params<
@@ -19003,19 +16482,14 @@ export type GetTransfersTransfer = (
   | Response<StatusCode, t_error>
 >
 
-const postTransfersTransferResponder = {
-  with200: r.with200<t_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTransfersTransfer = b((r) => ({
+  with200: r.with200<t_transfer>(s_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostTransfersTransferResponder = typeof postTransfersTransferResponder &
-  KoaRuntimeResponder
-
-const postTransfersTransferResponseValidator = responseValidationFactory(
-  [["200", s_transfer]],
-  s_error,
-)
+type PostTransfersTransferResponder =
+  (typeof postTransfersTransfer)["responder"] & KoaRuntimeResponder
 
 export type PostTransfersTransfer = (
   params: Params<
@@ -19032,17 +16506,14 @@ export type PostTransfersTransfer = (
   | Response<StatusCode, t_error>
 >
 
-const getTransfersTransferReversalsIdResponder = {
-  with200: r.with200<t_transfer_reversal>,
-  withDefault: r.withDefault<t_error>,
+const getTransfersTransferReversalsId = b((r) => ({
+  with200: r.with200<t_transfer_reversal>(s_transfer_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTransfersTransferReversalsIdResponder =
-  typeof getTransfersTransferReversalsIdResponder & KoaRuntimeResponder
-
-const getTransfersTransferReversalsIdResponseValidator =
-  responseValidationFactory([["200", s_transfer_reversal]], s_error)
+  (typeof getTransfersTransferReversalsId)["responder"] & KoaRuntimeResponder
 
 export type GetTransfersTransferReversalsId = (
   params: Params<
@@ -19059,17 +16530,14 @@ export type GetTransfersTransferReversalsId = (
   | Response<StatusCode, t_error>
 >
 
-const postTransfersTransferReversalsIdResponder = {
-  with200: r.with200<t_transfer_reversal>,
-  withDefault: r.withDefault<t_error>,
+const postTransfersTransferReversalsId = b((r) => ({
+  with200: r.with200<t_transfer_reversal>(s_transfer_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTransfersTransferReversalsIdResponder =
-  typeof postTransfersTransferReversalsIdResponder & KoaRuntimeResponder
-
-const postTransfersTransferReversalsIdResponseValidator =
-  responseValidationFactory([["200", s_transfer_reversal]], s_error)
+  (typeof postTransfersTransferReversalsId)["responder"] & KoaRuntimeResponder
 
 export type PostTransfersTransferReversalsId = (
   params: Params<
@@ -19086,34 +16554,26 @@ export type PostTransfersTransferReversalsId = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryCreditReversalsResponder = {
+const getTreasuryCreditReversals = b((r) => ({
   with200: r.with200<{
     data: t_treasury_credit_reversal[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_credit_reversal)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryCreditReversalsResponder =
-  typeof getTreasuryCreditReversalsResponder & KoaRuntimeResponder
-
-const getTreasuryCreditReversalsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_credit_reversal)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryCreditReversals)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryCreditReversals = (
   params: Params<
@@ -19138,19 +16598,14 @@ export type GetTreasuryCreditReversals = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryCreditReversalsResponder = {
-  with200: r.with200<t_treasury_credit_reversal>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryCreditReversals = b((r) => ({
+  with200: r.with200<t_treasury_credit_reversal>(s_treasury_credit_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryCreditReversalsResponder =
-  typeof postTreasuryCreditReversalsResponder & KoaRuntimeResponder
-
-const postTreasuryCreditReversalsResponseValidator = responseValidationFactory(
-  [["200", s_treasury_credit_reversal]],
-  s_error,
-)
+  (typeof postTreasuryCreditReversals)["responder"] & KoaRuntimeResponder
 
 export type PostTreasuryCreditReversals = (
   params: Params<void, void, t_PostTreasuryCreditReversalsBodySchema, void>,
@@ -19162,17 +16617,15 @@ export type PostTreasuryCreditReversals = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryCreditReversalsCreditReversalResponder = {
-  with200: r.with200<t_treasury_credit_reversal>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryCreditReversalsCreditReversal = b((r) => ({
+  with200: r.with200<t_treasury_credit_reversal>(s_treasury_credit_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryCreditReversalsCreditReversalResponder =
-  typeof getTreasuryCreditReversalsCreditReversalResponder & KoaRuntimeResponder
-
-const getTreasuryCreditReversalsCreditReversalResponseValidator =
-  responseValidationFactory([["200", s_treasury_credit_reversal]], s_error)
+  (typeof getTreasuryCreditReversalsCreditReversal)["responder"] &
+    KoaRuntimeResponder
 
 export type GetTreasuryCreditReversalsCreditReversal = (
   params: Params<
@@ -19189,34 +16642,26 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryDebitReversalsResponder = {
+const getTreasuryDebitReversals = b((r) => ({
   with200: r.with200<{
     data: t_treasury_debit_reversal[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_debit_reversal)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryDebitReversalsResponder =
-  typeof getTreasuryDebitReversalsResponder & KoaRuntimeResponder
-
-const getTreasuryDebitReversalsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_debit_reversal)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryDebitReversals)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryDebitReversals = (
   params: Params<
@@ -19241,19 +16686,14 @@ export type GetTreasuryDebitReversals = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryDebitReversalsResponder = {
-  with200: r.with200<t_treasury_debit_reversal>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryDebitReversals = b((r) => ({
+  with200: r.with200<t_treasury_debit_reversal>(s_treasury_debit_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryDebitReversalsResponder =
-  typeof postTreasuryDebitReversalsResponder & KoaRuntimeResponder
-
-const postTreasuryDebitReversalsResponseValidator = responseValidationFactory(
-  [["200", s_treasury_debit_reversal]],
-  s_error,
-)
+  (typeof postTreasuryDebitReversals)["responder"] & KoaRuntimeResponder
 
 export type PostTreasuryDebitReversals = (
   params: Params<void, void, t_PostTreasuryDebitReversalsBodySchema, void>,
@@ -19265,17 +16705,15 @@ export type PostTreasuryDebitReversals = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryDebitReversalsDebitReversalResponder = {
-  with200: r.with200<t_treasury_debit_reversal>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryDebitReversalsDebitReversal = b((r) => ({
+  with200: r.with200<t_treasury_debit_reversal>(s_treasury_debit_reversal),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryDebitReversalsDebitReversalResponder =
-  typeof getTreasuryDebitReversalsDebitReversalResponder & KoaRuntimeResponder
-
-const getTreasuryDebitReversalsDebitReversalResponseValidator =
-  responseValidationFactory([["200", s_treasury_debit_reversal]], s_error)
+  (typeof getTreasuryDebitReversalsDebitReversal)["responder"] &
+    KoaRuntimeResponder
 
 export type GetTreasuryDebitReversalsDebitReversal = (
   params: Params<
@@ -19292,37 +16730,29 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryFinancialAccountsResponder = {
+const getTreasuryFinancialAccounts = b((r) => ({
   with200: r.with200<{
     data: t_treasury_financial_account[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_treasury_financial_account),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/treasury/financial_accounts")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryFinancialAccountsResponder =
-  typeof getTreasuryFinancialAccountsResponder & KoaRuntimeResponder
-
-const getTreasuryFinancialAccountsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_treasury_financial_account),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/treasury/financial_accounts")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryFinancialAccounts)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryFinancialAccounts = (
   params: Params<
@@ -19347,17 +16777,16 @@ export type GetTreasuryFinancialAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryFinancialAccountsResponder = {
-  with200: r.with200<t_treasury_financial_account>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryFinancialAccounts = b((r) => ({
+  with200: r.with200<t_treasury_financial_account>(
+    s_treasury_financial_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryFinancialAccountsResponder =
-  typeof postTreasuryFinancialAccountsResponder & KoaRuntimeResponder
-
-const postTreasuryFinancialAccountsResponseValidator =
-  responseValidationFactory([["200", s_treasury_financial_account]], s_error)
+  (typeof postTreasuryFinancialAccounts)["responder"] & KoaRuntimeResponder
 
 export type PostTreasuryFinancialAccounts = (
   params: Params<void, void, t_PostTreasuryFinancialAccountsBodySchema, void>,
@@ -19369,18 +16798,17 @@ export type PostTreasuryFinancialAccounts = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryFinancialAccountsFinancialAccountResponder = {
-  with200: r.with200<t_treasury_financial_account>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryFinancialAccountsFinancialAccount = b((r) => ({
+  with200: r.with200<t_treasury_financial_account>(
+    s_treasury_financial_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryFinancialAccountsFinancialAccountResponder =
-  typeof getTreasuryFinancialAccountsFinancialAccountResponder &
+  (typeof getTreasuryFinancialAccountsFinancialAccount)["responder"] &
     KoaRuntimeResponder
-
-const getTreasuryFinancialAccountsFinancialAccountResponseValidator =
-  responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
 export type GetTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
@@ -19397,18 +16825,17 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryFinancialAccountsFinancialAccountResponder = {
-  with200: r.with200<t_treasury_financial_account>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryFinancialAccountsFinancialAccount = b((r) => ({
+  with200: r.with200<t_treasury_financial_account>(
+    s_treasury_financial_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryFinancialAccountsFinancialAccountResponder =
-  typeof postTreasuryFinancialAccountsFinancialAccountResponder &
+  (typeof postTreasuryFinancialAccountsFinancialAccount)["responder"] &
     KoaRuntimeResponder
-
-const postTreasuryFinancialAccountsFinancialAccountResponseValidator =
-  responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
 export type PostTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
@@ -19425,18 +16852,17 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryFinancialAccountsFinancialAccountCloseResponder = {
-  with200: r.with200<t_treasury_financial_account>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryFinancialAccountsFinancialAccountClose = b((r) => ({
+  with200: r.with200<t_treasury_financial_account>(
+    s_treasury_financial_account,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryFinancialAccountsFinancialAccountCloseResponder =
-  typeof postTreasuryFinancialAccountsFinancialAccountCloseResponder &
+  (typeof postTreasuryFinancialAccountsFinancialAccountClose)["responder"] &
     KoaRuntimeResponder
-
-const postTreasuryFinancialAccountsFinancialAccountCloseResponseValidator =
-  responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
 export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   params: Params<
@@ -19453,21 +16879,17 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryFinancialAccountsFinancialAccountFeaturesResponder = {
-  with200: r.with200<t_treasury_financial_account_features>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryFinancialAccountsFinancialAccountFeatures = b((r) => ({
+  with200: r.with200<t_treasury_financial_account_features>(
+    s_treasury_financial_account_features,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder =
-  typeof getTreasuryFinancialAccountsFinancialAccountFeaturesResponder &
+  (typeof getTreasuryFinancialAccountsFinancialAccountFeatures)["responder"] &
     KoaRuntimeResponder
-
-const getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator =
-  responseValidationFactory(
-    [["200", s_treasury_financial_account_features]],
-    s_error,
-  )
 
 export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
@@ -19485,21 +16907,17 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryFinancialAccountsFinancialAccountFeaturesResponder = {
-  with200: r.with200<t_treasury_financial_account_features>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryFinancialAccountsFinancialAccountFeatures = b((r) => ({
+  with200: r.with200<t_treasury_financial_account_features>(
+    s_treasury_financial_account_features,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder =
-  typeof postTreasuryFinancialAccountsFinancialAccountFeaturesResponder &
+  (typeof postTreasuryFinancialAccountsFinancialAccountFeatures)["responder"] &
     KoaRuntimeResponder
-
-const postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator =
-  responseValidationFactory(
-    [["200", s_treasury_financial_account_features]],
-    s_error,
-  )
 
 export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
@@ -19517,34 +16935,26 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryInboundTransfersResponder = {
+const getTreasuryInboundTransfers = b((r) => ({
   with200: r.with200<{
     data: t_treasury_inbound_transfer[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryInboundTransfersResponder =
-  typeof getTreasuryInboundTransfersResponder & KoaRuntimeResponder
-
-const getTreasuryInboundTransfersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_inbound_transfer)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryInboundTransfers)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryInboundTransfers = (
   params: Params<
@@ -19569,19 +16979,14 @@ export type GetTreasuryInboundTransfers = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryInboundTransfersResponder = {
-  with200: r.with200<t_treasury_inbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryInboundTransfers = b((r) => ({
+  with200: r.with200<t_treasury_inbound_transfer>(s_treasury_inbound_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryInboundTransfersResponder =
-  typeof postTreasuryInboundTransfersResponder & KoaRuntimeResponder
-
-const postTreasuryInboundTransfersResponseValidator = responseValidationFactory(
-  [["200", s_treasury_inbound_transfer]],
-  s_error,
-)
+  (typeof postTreasuryInboundTransfers)["responder"] & KoaRuntimeResponder
 
 export type PostTreasuryInboundTransfers = (
   params: Params<void, void, t_PostTreasuryInboundTransfersBodySchema, void>,
@@ -19593,17 +16998,14 @@ export type PostTreasuryInboundTransfers = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryInboundTransfersIdResponder = {
-  with200: r.with200<t_treasury_inbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryInboundTransfersId = b((r) => ({
+  with200: r.with200<t_treasury_inbound_transfer>(s_treasury_inbound_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryInboundTransfersIdResponder =
-  typeof getTreasuryInboundTransfersIdResponder & KoaRuntimeResponder
-
-const getTreasuryInboundTransfersIdResponseValidator =
-  responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
+  (typeof getTreasuryInboundTransfersId)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryInboundTransfersId = (
   params: Params<
@@ -19620,18 +17022,15 @@ export type GetTreasuryInboundTransfersId = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryInboundTransfersInboundTransferCancelResponder = {
-  with200: r.with200<t_treasury_inbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryInboundTransfersInboundTransferCancel = b((r) => ({
+  with200: r.with200<t_treasury_inbound_transfer>(s_treasury_inbound_transfer),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryInboundTransfersInboundTransferCancelResponder =
-  typeof postTreasuryInboundTransfersInboundTransferCancelResponder &
+  (typeof postTreasuryInboundTransfersInboundTransferCancel)["responder"] &
     KoaRuntimeResponder
-
-const postTreasuryInboundTransfersInboundTransferCancelResponseValidator =
-  responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
 export type PostTreasuryInboundTransfersInboundTransferCancel = (
   params: Params<
@@ -19648,37 +17047,29 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryOutboundPaymentsResponder = {
+const getTreasuryOutboundPayments = b((r) => ({
   with200: r.with200<{
     data: t_treasury_outbound_payment[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_outbound_payment)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/treasury/outbound_payments")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryOutboundPaymentsResponder =
-  typeof getTreasuryOutboundPaymentsResponder & KoaRuntimeResponder
-
-const getTreasuryOutboundPaymentsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_outbound_payment)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z
-          .string()
-          .max(5000)
-          .regex(new RegExp("^/v1/treasury/outbound_payments")),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryOutboundPayments)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryOutboundPayments = (
   params: Params<
@@ -19703,19 +17094,14 @@ export type GetTreasuryOutboundPayments = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryOutboundPaymentsResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryOutboundPayments = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryOutboundPaymentsResponder =
-  typeof postTreasuryOutboundPaymentsResponder & KoaRuntimeResponder
-
-const postTreasuryOutboundPaymentsResponseValidator = responseValidationFactory(
-  [["200", s_treasury_outbound_payment]],
-  s_error,
-)
+  (typeof postTreasuryOutboundPayments)["responder"] & KoaRuntimeResponder
 
 export type PostTreasuryOutboundPayments = (
   params: Params<void, void, t_PostTreasuryOutboundPaymentsBodySchema, void>,
@@ -19727,17 +17113,14 @@ export type PostTreasuryOutboundPayments = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryOutboundPaymentsIdResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryOutboundPaymentsId = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryOutboundPaymentsIdResponder =
-  typeof getTreasuryOutboundPaymentsIdResponder & KoaRuntimeResponder
-
-const getTreasuryOutboundPaymentsIdResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
+  (typeof getTreasuryOutboundPaymentsId)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryOutboundPaymentsId = (
   params: Params<
@@ -19754,17 +17137,15 @@ export type GetTreasuryOutboundPaymentsId = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryOutboundPaymentsIdCancelResponder = {
-  with200: r.with200<t_treasury_outbound_payment>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryOutboundPaymentsIdCancel = b((r) => ({
+  with200: r.with200<t_treasury_outbound_payment>(s_treasury_outbound_payment),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryOutboundPaymentsIdCancelResponder =
-  typeof postTreasuryOutboundPaymentsIdCancelResponder & KoaRuntimeResponder
-
-const postTreasuryOutboundPaymentsIdCancelResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
+  (typeof postTreasuryOutboundPaymentsIdCancel)["responder"] &
+    KoaRuntimeResponder
 
 export type PostTreasuryOutboundPaymentsIdCancel = (
   params: Params<
@@ -19781,34 +17162,26 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryOutboundTransfersResponder = {
+const getTreasuryOutboundTransfers = b((r) => ({
   with200: r.with200<{
     data: t_treasury_outbound_transfer[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryOutboundTransfersResponder =
-  typeof getTreasuryOutboundTransfersResponder & KoaRuntimeResponder
-
-const getTreasuryOutboundTransfersResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_outbound_transfer)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryOutboundTransfers)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryOutboundTransfers = (
   params: Params<
@@ -19833,17 +17206,16 @@ export type GetTreasuryOutboundTransfers = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryOutboundTransfersResponder = {
-  with200: r.with200<t_treasury_outbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryOutboundTransfers = b((r) => ({
+  with200: r.with200<t_treasury_outbound_transfer>(
+    s_treasury_outbound_transfer,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryOutboundTransfersResponder =
-  typeof postTreasuryOutboundTransfersResponder & KoaRuntimeResponder
-
-const postTreasuryOutboundTransfersResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
+  (typeof postTreasuryOutboundTransfers)["responder"] & KoaRuntimeResponder
 
 export type PostTreasuryOutboundTransfers = (
   params: Params<void, void, t_PostTreasuryOutboundTransfersBodySchema, void>,
@@ -19855,18 +17227,17 @@ export type PostTreasuryOutboundTransfers = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryOutboundTransfersOutboundTransferResponder = {
-  with200: r.with200<t_treasury_outbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryOutboundTransfersOutboundTransfer = b((r) => ({
+  with200: r.with200<t_treasury_outbound_transfer>(
+    s_treasury_outbound_transfer,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryOutboundTransfersOutboundTransferResponder =
-  typeof getTreasuryOutboundTransfersOutboundTransferResponder &
+  (typeof getTreasuryOutboundTransfersOutboundTransfer)["responder"] &
     KoaRuntimeResponder
-
-const getTreasuryOutboundTransfersOutboundTransferResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
 export type GetTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
@@ -19883,18 +17254,17 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   | Response<StatusCode, t_error>
 >
 
-const postTreasuryOutboundTransfersOutboundTransferCancelResponder = {
-  with200: r.with200<t_treasury_outbound_transfer>,
-  withDefault: r.withDefault<t_error>,
+const postTreasuryOutboundTransfersOutboundTransferCancel = b((r) => ({
+  with200: r.with200<t_treasury_outbound_transfer>(
+    s_treasury_outbound_transfer,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostTreasuryOutboundTransfersOutboundTransferCancelResponder =
-  typeof postTreasuryOutboundTransfersOutboundTransferCancelResponder &
+  (typeof postTreasuryOutboundTransfersOutboundTransferCancel)["responder"] &
     KoaRuntimeResponder
-
-const postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator =
-  responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
 export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   params: Params<
@@ -19911,34 +17281,26 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryReceivedCreditsResponder = {
+const getTreasuryReceivedCredits = b((r) => ({
   with200: r.with200<{
     data: t_treasury_received_credit[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_received_credit)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryReceivedCreditsResponder =
-  typeof getTreasuryReceivedCreditsResponder & KoaRuntimeResponder
-
-const getTreasuryReceivedCreditsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_received_credit)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryReceivedCredits)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryReceivedCredits = (
   params: Params<
@@ -19963,19 +17325,14 @@ export type GetTreasuryReceivedCredits = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryReceivedCreditsIdResponder = {
-  with200: r.with200<t_treasury_received_credit>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryReceivedCreditsId = b((r) => ({
+  with200: r.with200<t_treasury_received_credit>(s_treasury_received_credit),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryReceivedCreditsIdResponder =
-  typeof getTreasuryReceivedCreditsIdResponder & KoaRuntimeResponder
-
-const getTreasuryReceivedCreditsIdResponseValidator = responseValidationFactory(
-  [["200", s_treasury_received_credit]],
-  s_error,
-)
+  (typeof getTreasuryReceivedCreditsId)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryReceivedCreditsId = (
   params: Params<
@@ -19992,34 +17349,26 @@ export type GetTreasuryReceivedCreditsId = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryReceivedDebitsResponder = {
+const getTreasuryReceivedDebits = b((r) => ({
   with200: r.with200<{
     data: t_treasury_received_debit[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_received_debit)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryReceivedDebitsResponder =
-  typeof getTreasuryReceivedDebitsResponder & KoaRuntimeResponder
-
-const getTreasuryReceivedDebitsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_received_debit)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryReceivedDebits)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryReceivedDebits = (
   params: Params<
@@ -20044,19 +17393,14 @@ export type GetTreasuryReceivedDebits = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryReceivedDebitsIdResponder = {
-  with200: r.with200<t_treasury_received_debit>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryReceivedDebitsId = b((r) => ({
+  with200: r.with200<t_treasury_received_debit>(s_treasury_received_debit),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryReceivedDebitsIdResponder =
-  typeof getTreasuryReceivedDebitsIdResponder & KoaRuntimeResponder
-
-const getTreasuryReceivedDebitsIdResponseValidator = responseValidationFactory(
-  [["200", s_treasury_received_debit]],
-  s_error,
-)
+  (typeof getTreasuryReceivedDebitsId)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryReceivedDebitsId = (
   params: Params<
@@ -20073,38 +17417,29 @@ export type GetTreasuryReceivedDebitsId = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryTransactionEntriesResponder = {
+const getTreasuryTransactionEntries = b((r) => ({
   with200: r.with200<{
     data: t_treasury_transaction_entry[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_transaction_entry)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z
+        .string()
+        .max(5000)
+        .regex(new RegExp("^/v1/treasury/transaction_entries")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryTransactionEntriesResponder =
-  typeof getTreasuryTransactionEntriesResponder & KoaRuntimeResponder
-
-const getTreasuryTransactionEntriesResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_treasury_transaction_entry)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/treasury/transaction_entries")),
-        }),
-      ],
-    ],
-    s_error,
-  )
+  (typeof getTreasuryTransactionEntries)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryTransactionEntries = (
   params: Params<
@@ -20129,17 +17464,16 @@ export type GetTreasuryTransactionEntries = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryTransactionEntriesIdResponder = {
-  with200: r.with200<t_treasury_transaction_entry>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryTransactionEntriesId = b((r) => ({
+  with200: r.with200<t_treasury_transaction_entry>(
+    s_treasury_transaction_entry,
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryTransactionEntriesIdResponder =
-  typeof getTreasuryTransactionEntriesIdResponder & KoaRuntimeResponder
-
-const getTreasuryTransactionEntriesIdResponseValidator =
-  responseValidationFactory([["200", s_treasury_transaction_entry]], s_error)
+  (typeof getTreasuryTransactionEntriesId)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryTransactionEntriesId = (
   params: Params<
@@ -20156,34 +17490,26 @@ export type GetTreasuryTransactionEntriesId = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryTransactionsResponder = {
+const getTreasuryTransactions = b((r) => ({
   with200: r.with200<{
     data: t_treasury_transaction[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(z.lazy(() => s_treasury_transaction)),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryTransactionsResponder =
-  typeof getTreasuryTransactionsResponder & KoaRuntimeResponder
-
-const getTreasuryTransactionsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(z.lazy(() => s_treasury_transaction)),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000),
-      }),
-    ],
-  ],
-  s_error,
-)
+  (typeof getTreasuryTransactions)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryTransactions = (
   params: Params<
@@ -20208,19 +17534,14 @@ export type GetTreasuryTransactions = (
   | Response<StatusCode, t_error>
 >
 
-const getTreasuryTransactionsIdResponder = {
-  with200: r.with200<t_treasury_transaction>,
-  withDefault: r.withDefault<t_error>,
+const getTreasuryTransactionsId = b((r) => ({
+  with200: r.with200<t_treasury_transaction>(s_treasury_transaction),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetTreasuryTransactionsIdResponder =
-  typeof getTreasuryTransactionsIdResponder & KoaRuntimeResponder
-
-const getTreasuryTransactionsIdResponseValidator = responseValidationFactory(
-  [["200", s_treasury_transaction]],
-  s_error,
-)
+  (typeof getTreasuryTransactionsId)["responder"] & KoaRuntimeResponder
 
 export type GetTreasuryTransactionsId = (
   params: Params<
@@ -20237,34 +17558,26 @@ export type GetTreasuryTransactionsId = (
   | Response<StatusCode, t_error>
 >
 
-const getWebhookEndpointsResponder = {
+const getWebhookEndpoints = b((r) => ({
   with200: r.with200<{
     data: t_webhook_endpoint[]
     has_more: boolean
     object: "list"
     url: string
-  }>,
-  withDefault: r.withDefault<t_error>,
+  }>(
+    z.object({
+      data: z.array(s_webhook_endpoint),
+      has_more: PermissiveBoolean,
+      object: z.enum(["list"]),
+      url: z.string().max(5000).regex(new RegExp("^/v1/webhook_endpoints")),
+    }),
+  ),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetWebhookEndpointsResponder = typeof getWebhookEndpointsResponder &
+type GetWebhookEndpointsResponder = (typeof getWebhookEndpoints)["responder"] &
   KoaRuntimeResponder
-
-const getWebhookEndpointsResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        data: z.array(s_webhook_endpoint),
-        has_more: PermissiveBoolean,
-        object: z.enum(["list"]),
-        url: z.string().max(5000).regex(new RegExp("^/v1/webhook_endpoints")),
-      }),
-    ],
-  ],
-  s_error,
-)
 
 export type GetWebhookEndpoints = (
   params: Params<
@@ -20289,19 +17602,14 @@ export type GetWebhookEndpoints = (
   | Response<StatusCode, t_error>
 >
 
-const postWebhookEndpointsResponder = {
-  with200: r.with200<t_webhook_endpoint>,
-  withDefault: r.withDefault<t_error>,
+const postWebhookEndpoints = b((r) => ({
+  with200: r.with200<t_webhook_endpoint>(s_webhook_endpoint),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
-type PostWebhookEndpointsResponder = typeof postWebhookEndpointsResponder &
-  KoaRuntimeResponder
-
-const postWebhookEndpointsResponseValidator = responseValidationFactory(
-  [["200", s_webhook_endpoint]],
-  s_error,
-)
+type PostWebhookEndpointsResponder =
+  (typeof postWebhookEndpoints)["responder"] & KoaRuntimeResponder
 
 export type PostWebhookEndpoints = (
   params: Params<void, void, t_PostWebhookEndpointsBodySchema, void>,
@@ -20313,17 +17621,15 @@ export type PostWebhookEndpoints = (
   | Response<StatusCode, t_error>
 >
 
-const deleteWebhookEndpointsWebhookEndpointResponder = {
-  with200: r.with200<t_deleted_webhook_endpoint>,
-  withDefault: r.withDefault<t_error>,
+const deleteWebhookEndpointsWebhookEndpoint = b((r) => ({
+  with200: r.with200<t_deleted_webhook_endpoint>(s_deleted_webhook_endpoint),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteWebhookEndpointsWebhookEndpointResponder =
-  typeof deleteWebhookEndpointsWebhookEndpointResponder & KoaRuntimeResponder
-
-const deleteWebhookEndpointsWebhookEndpointResponseValidator =
-  responseValidationFactory([["200", s_deleted_webhook_endpoint]], s_error)
+  (typeof deleteWebhookEndpointsWebhookEndpoint)["responder"] &
+    KoaRuntimeResponder
 
 export type DeleteWebhookEndpointsWebhookEndpoint = (
   params: Params<
@@ -20340,17 +17646,14 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   | Response<StatusCode, t_error>
 >
 
-const getWebhookEndpointsWebhookEndpointResponder = {
-  with200: r.with200<t_webhook_endpoint>,
-  withDefault: r.withDefault<t_error>,
+const getWebhookEndpointsWebhookEndpoint = b((r) => ({
+  with200: r.with200<t_webhook_endpoint>(s_webhook_endpoint),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type GetWebhookEndpointsWebhookEndpointResponder =
-  typeof getWebhookEndpointsWebhookEndpointResponder & KoaRuntimeResponder
-
-const getWebhookEndpointsWebhookEndpointResponseValidator =
-  responseValidationFactory([["200", s_webhook_endpoint]], s_error)
+  (typeof getWebhookEndpointsWebhookEndpoint)["responder"] & KoaRuntimeResponder
 
 export type GetWebhookEndpointsWebhookEndpoint = (
   params: Params<
@@ -20367,17 +17670,15 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   | Response<StatusCode, t_error>
 >
 
-const postWebhookEndpointsWebhookEndpointResponder = {
-  with200: r.with200<t_webhook_endpoint>,
-  withDefault: r.withDefault<t_error>,
+const postWebhookEndpointsWebhookEndpoint = b((r) => ({
+  with200: r.with200<t_webhook_endpoint>(s_webhook_endpoint),
+  withDefault: r.withDefault<t_error>(s_error),
   withStatus: r.withStatus,
-}
+}))
 
 type PostWebhookEndpointsWebhookEndpointResponder =
-  typeof postWebhookEndpointsWebhookEndpointResponder & KoaRuntimeResponder
-
-const postWebhookEndpointsWebhookEndpointResponseValidator =
-  responseValidationFactory([["200", s_webhook_endpoint]], s_error)
+  (typeof postWebhookEndpointsWebhookEndpoint)["responder"] &
+    KoaRuntimeResponder
 
 export type PostWebhookEndpointsWebhookEndpoint = (
   params: Params<
@@ -20991,7 +18292,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getAccount(input, getAccountResponder, ctx)
+      .getAccount(input, getAccount.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -20999,7 +18300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getAccountResponseValidator(status, body)
+    ctx.body = getAccount.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -21032,7 +18333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postAccountLinks(input, postAccountLinksResponder, ctx)
+      .postAccountLinks(input, postAccountLinks.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -21040,7 +18341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postAccountLinksResponseValidator(status, body)
+    ctx.body = postAccountLinks.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -21231,7 +18532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountSessions(input, postAccountSessionsResponder, ctx)
+        .postAccountSessions(input, postAccountSessions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -21239,7 +18540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountSessionsResponseValidator(status, body)
+      ctx.body = postAccountSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -21287,7 +18588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getAccounts(input, getAccountsResponder, ctx)
+      .getAccounts(input, getAccounts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -21295,7 +18596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getAccountsResponseValidator(status, body)
+    ctx.body = getAccounts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -21926,7 +19227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postAccounts(input, postAccountsResponder, ctx)
+      .postAccounts(input, postAccounts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -21934,7 +19235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postAccountsResponseValidator(status, body)
+    ctx.body = postAccounts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -21965,7 +19266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteAccountsAccount(input, deleteAccountsAccountResponder, ctx)
+        .deleteAccountsAccount(input, deleteAccountsAccount.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -21973,7 +19274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteAccountsAccountResponseValidator(status, body)
+      ctx.body = deleteAccountsAccount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22018,7 +19319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccount(input, getAccountsAccountResponder, ctx)
+        .getAccountsAccount(input, getAccountsAccount.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -22026,7 +19327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountResponseValidator(status, body)
+      ctx.body = getAccountsAccount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22632,7 +19933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccount(input, postAccountsAccountResponder, ctx)
+        .postAccountsAccount(input, postAccountsAccount.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -22640,7 +19941,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountResponseValidator(status, body)
+      ctx.body = postAccountsAccount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22705,7 +20006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountBankAccounts(
           input,
-          postAccountsAccountBankAccountsResponder,
+          postAccountsAccountBankAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -22715,7 +20016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountBankAccountsResponseValidator(status, body)
+      ctx.body = postAccountsAccountBankAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22750,7 +20051,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteAccountsAccountBankAccountsId(
           input,
-          deleteAccountsAccountBankAccountsIdResponder,
+          deleteAccountsAccountBankAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -22760,10 +20061,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteAccountsAccountBankAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteAccountsAccountBankAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22811,7 +20109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountBankAccountsId(
           input,
-          getAccountsAccountBankAccountsIdResponder,
+          getAccountsAccountBankAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -22821,7 +20119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountBankAccountsIdResponseValidator(status, body)
+      ctx.body = getAccountsAccountBankAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22881,7 +20179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountBankAccountsId(
           input,
-          postAccountsAccountBankAccountsIdResponder,
+          postAccountsAccountBankAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -22891,10 +20189,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountBankAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postAccountsAccountBankAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -22941,7 +20236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountCapabilities(
           input,
-          getAccountsAccountCapabilitiesResponder,
+          getAccountsAccountCapabilities.responder,
           ctx,
         )
         .catch((err) => {
@@ -22951,7 +20246,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountCapabilitiesResponseValidator(status, body)
+      ctx.body = getAccountsAccountCapabilities.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23001,7 +20296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountCapabilitiesCapability(
           input,
-          getAccountsAccountCapabilitiesCapabilityResponder,
+          getAccountsAccountCapabilitiesCapability.responder,
           ctx,
         )
         .catch((err) => {
@@ -23011,7 +20306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountCapabilitiesCapabilityResponseValidator(
+      ctx.body = getAccountsAccountCapabilitiesCapability.validator(
         status,
         body,
       )
@@ -23054,7 +20349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountCapabilitiesCapability(
           input,
-          postAccountsAccountCapabilitiesCapabilityResponder,
+          postAccountsAccountCapabilitiesCapability.responder,
           ctx,
         )
         .catch((err) => {
@@ -23064,7 +20359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountCapabilitiesCapabilityResponseValidator(
+      ctx.body = postAccountsAccountCapabilitiesCapability.validator(
         status,
         body,
       )
@@ -23118,7 +20413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountExternalAccounts(
           input,
-          getAccountsAccountExternalAccountsResponder,
+          getAccountsAccountExternalAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -23128,10 +20423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountExternalAccountsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getAccountsAccountExternalAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23196,7 +20488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountExternalAccounts(
           input,
-          postAccountsAccountExternalAccountsResponder,
+          postAccountsAccountExternalAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -23206,10 +20498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountExternalAccountsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postAccountsAccountExternalAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23246,7 +20535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteAccountsAccountExternalAccountsId(
           input,
-          deleteAccountsAccountExternalAccountsIdResponder,
+          deleteAccountsAccountExternalAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -23256,10 +20545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteAccountsAccountExternalAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteAccountsAccountExternalAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23307,7 +20593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountExternalAccountsId(
           input,
-          getAccountsAccountExternalAccountsIdResponder,
+          getAccountsAccountExternalAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -23317,10 +20603,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountExternalAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getAccountsAccountExternalAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23380,7 +20663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountExternalAccountsId(
           input,
-          postAccountsAccountExternalAccountsIdResponder,
+          postAccountsAccountExternalAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -23390,10 +20673,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountExternalAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postAccountsAccountExternalAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23429,7 +20709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountLoginLinks(
           input,
-          postAccountsAccountLoginLinksResponder,
+          postAccountsAccountLoginLinks.responder,
           ctx,
         )
         .catch((err) => {
@@ -23439,7 +20719,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountLoginLinksResponseValidator(status, body)
+      ctx.body = postAccountsAccountLoginLinks.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23497,7 +20777,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountPeople(input, getAccountsAccountPeopleResponder, ctx)
+        .getAccountsAccountPeople(
+          input,
+          getAccountsAccountPeople.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -23505,7 +20789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountPeopleResponseValidator(status, body)
+      ctx.body = getAccountsAccountPeople.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23683,7 +20967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountPeople(
           input,
-          postAccountsAccountPeopleResponder,
+          postAccountsAccountPeople.responder,
           ctx,
         )
         .catch((err) => {
@@ -23693,7 +20977,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountPeopleResponseValidator(status, body)
+      ctx.body = postAccountsAccountPeople.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23728,7 +21012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteAccountsAccountPeoplePerson(
           input,
-          deleteAccountsAccountPeoplePersonResponder,
+          deleteAccountsAccountPeoplePerson.responder,
           ctx,
         )
         .catch((err) => {
@@ -23738,10 +21022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteAccountsAccountPeoplePersonResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteAccountsAccountPeoplePerson.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23789,7 +21070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountPeoplePerson(
           input,
-          getAccountsAccountPeoplePersonResponder,
+          getAccountsAccountPeoplePerson.responder,
           ctx,
         )
         .catch((err) => {
@@ -23799,7 +21080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountPeoplePersonResponseValidator(status, body)
+      ctx.body = getAccountsAccountPeoplePerson.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -23978,7 +21259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountPeoplePerson(
           input,
-          postAccountsAccountPeoplePersonResponder,
+          postAccountsAccountPeoplePerson.responder,
           ctx,
         )
         .catch((err) => {
@@ -23988,7 +21269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountPeoplePersonResponseValidator(status, body)
+      ctx.body = postAccountsAccountPeoplePerson.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24048,7 +21329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountPersons(
           input,
-          getAccountsAccountPersonsResponder,
+          getAccountsAccountPersons.responder,
           ctx,
         )
         .catch((err) => {
@@ -24058,7 +21339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountPersonsResponseValidator(status, body)
+      ctx.body = getAccountsAccountPersons.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24236,7 +21517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountPersons(
           input,
-          postAccountsAccountPersonsResponder,
+          postAccountsAccountPersons.responder,
           ctx,
         )
         .catch((err) => {
@@ -24246,7 +21527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountPersonsResponseValidator(status, body)
+      ctx.body = postAccountsAccountPersons.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24281,7 +21562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteAccountsAccountPersonsPerson(
           input,
-          deleteAccountsAccountPersonsPersonResponder,
+          deleteAccountsAccountPersonsPerson.responder,
           ctx,
         )
         .catch((err) => {
@@ -24291,10 +21572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteAccountsAccountPersonsPersonResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteAccountsAccountPersonsPerson.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24342,7 +21620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getAccountsAccountPersonsPerson(
           input,
-          getAccountsAccountPersonsPersonResponder,
+          getAccountsAccountPersonsPerson.responder,
           ctx,
         )
         .catch((err) => {
@@ -24352,7 +21630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAccountsAccountPersonsPersonResponseValidator(status, body)
+      ctx.body = getAccountsAccountPersonsPerson.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24531,7 +21809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountPersonsPerson(
           input,
-          postAccountsAccountPersonsPersonResponder,
+          postAccountsAccountPersonsPerson.responder,
           ctx,
         )
         .catch((err) => {
@@ -24541,7 +21819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountPersonsPersonResponseValidator(status, body)
+      ctx.body = postAccountsAccountPersonsPerson.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24578,7 +21856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postAccountsAccountReject(
           input,
-          postAccountsAccountRejectResponder,
+          postAccountsAccountReject.responder,
           ctx,
         )
         .catch((err) => {
@@ -24588,7 +21866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAccountsAccountRejectResponseValidator(status, body)
+      ctx.body = postAccountsAccountReject.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24629,7 +21907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplePayDomains(input, getApplePayDomainsResponder, ctx)
+        .getApplePayDomains(input, getApplePayDomains.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -24637,7 +21915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getApplePayDomainsResponseValidator(status, body)
+      ctx.body = getApplePayDomains.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24664,7 +21942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postApplePayDomains(input, postApplePayDomainsResponder, ctx)
+        .postApplePayDomains(input, postApplePayDomains.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -24672,7 +21950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postApplePayDomainsResponseValidator(status, body)
+      ctx.body = postApplePayDomains.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24706,7 +21984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteApplePayDomainsDomain(
           input,
-          deleteApplePayDomainsDomainResponder,
+          deleteApplePayDomainsDomain.responder,
           ctx,
         )
         .catch((err) => {
@@ -24716,7 +21994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteApplePayDomainsDomainResponseValidator(status, body)
+      ctx.body = deleteApplePayDomainsDomain.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24761,7 +22039,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplePayDomainsDomain(input, getApplePayDomainsDomainResponder, ctx)
+        .getApplePayDomainsDomain(
+          input,
+          getApplePayDomainsDomain.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -24769,7 +22051,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getApplePayDomainsDomainResponseValidator(status, body)
+      ctx.body = getApplePayDomainsDomain.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24821,7 +22103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplicationFees(input, getApplicationFeesResponder, ctx)
+        .getApplicationFees(input, getApplicationFees.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -24829,7 +22111,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getApplicationFeesResponseValidator(status, body)
+      ctx.body = getApplicationFees.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24877,7 +22159,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getApplicationFeesFeeRefundsId(
           input,
-          getApplicationFeesFeeRefundsIdResponder,
+          getApplicationFeesFeeRefundsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -24887,7 +22169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getApplicationFeesFeeRefundsIdResponseValidator(status, body)
+      ctx.body = getApplicationFeesFeeRefundsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24927,7 +22209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postApplicationFeesFeeRefundsId(
           input,
-          postApplicationFeesFeeRefundsIdResponder,
+          postApplicationFeesFeeRefundsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -24937,7 +22219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postApplicationFeesFeeRefundsIdResponseValidator(status, body)
+      ctx.body = postApplicationFeesFeeRefundsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -24980,7 +22262,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplicationFeesId(input, getApplicationFeesIdResponder, ctx)
+        .getApplicationFeesId(input, getApplicationFeesId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -24988,7 +22270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getApplicationFeesIdResponseValidator(status, body)
+      ctx.body = getApplicationFeesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25028,7 +22310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postApplicationFeesIdRefund(
           input,
-          postApplicationFeesIdRefundResponder,
+          postApplicationFeesIdRefund.responder,
           ctx,
         )
         .catch((err) => {
@@ -25038,7 +22320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postApplicationFeesIdRefundResponseValidator(status, body)
+      ctx.body = postApplicationFeesIdRefund.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25088,7 +22370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getApplicationFeesIdRefunds(
           input,
-          getApplicationFeesIdRefundsResponder,
+          getApplicationFeesIdRefunds.responder,
           ctx,
         )
         .catch((err) => {
@@ -25098,7 +22380,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getApplicationFeesIdRefundsResponseValidator(status, body)
+      ctx.body = getApplicationFeesIdRefunds.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25138,7 +22420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postApplicationFeesIdRefunds(
           input,
-          postApplicationFeesIdRefundsResponder,
+          postApplicationFeesIdRefunds.responder,
           ctx,
         )
         .catch((err) => {
@@ -25148,7 +22430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postApplicationFeesIdRefundsResponseValidator(status, body)
+      ctx.body = postApplicationFeesIdRefunds.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25189,7 +22471,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getAppsSecrets(input, getAppsSecretsResponder, ctx)
+      .getAppsSecrets(input, getAppsSecrets.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -25197,7 +22479,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getAppsSecretsResponseValidator(status, body)
+    ctx.body = getAppsSecrets.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -25226,7 +22508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postAppsSecrets(input, postAppsSecretsResponder, ctx)
+      .postAppsSecrets(input, postAppsSecrets.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -25234,7 +22516,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postAppsSecretsResponseValidator(status, body)
+    ctx.body = postAppsSecrets.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -25264,7 +22546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAppsSecretsDelete(input, postAppsSecretsDeleteResponder, ctx)
+        .postAppsSecretsDelete(input, postAppsSecretsDelete.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -25272,7 +22554,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postAppsSecretsDeleteResponseValidator(status, body)
+      ctx.body = postAppsSecretsDelete.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25314,7 +22596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAppsSecretsFind(input, getAppsSecretsFindResponder, ctx)
+        .getAppsSecretsFind(input, getAppsSecretsFind.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -25322,7 +22604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAppsSecretsFindResponseValidator(status, body)
+      ctx.body = getAppsSecretsFind.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25356,7 +22638,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBalance(input, getBalanceResponder, ctx)
+      .getBalance(input, getBalance.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -25364,7 +22646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getBalanceResponseValidator(status, body)
+    ctx.body = getBalance.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -25415,7 +22697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBalanceHistory(input, getBalanceHistoryResponder, ctx)
+      .getBalanceHistory(input, getBalanceHistory.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -25423,7 +22705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getBalanceHistoryResponseValidator(status, body)
+    ctx.body = getBalanceHistory.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -25465,7 +22747,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBalanceHistoryId(input, getBalanceHistoryIdResponder, ctx)
+        .getBalanceHistoryId(input, getBalanceHistoryId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -25473,7 +22755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBalanceHistoryIdResponseValidator(status, body)
+      ctx.body = getBalanceHistoryId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25528,7 +22810,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBalanceTransactions(input, getBalanceTransactionsResponder, ctx)
+        .getBalanceTransactions(input, getBalanceTransactions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -25536,7 +22818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBalanceTransactionsResponseValidator(status, body)
+      ctx.body = getBalanceTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25581,7 +22863,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBalanceTransactionsId(input, getBalanceTransactionsIdResponder, ctx)
+        .getBalanceTransactionsId(
+          input,
+          getBalanceTransactionsId.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -25589,7 +22875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBalanceTransactionsIdResponseValidator(status, body)
+      ctx.body = getBalanceTransactionsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25628,7 +22914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBillingAlerts(input, getBillingAlertsResponder, ctx)
+      .getBillingAlerts(input, getBillingAlerts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -25636,7 +22922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getBillingAlertsResponseValidator(status, body)
+    ctx.body = getBillingAlerts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -25675,7 +22961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postBillingAlerts(input, postBillingAlertsResponder, ctx)
+      .postBillingAlerts(input, postBillingAlerts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -25683,7 +22969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postBillingAlertsResponseValidator(status, body)
+    ctx.body = postBillingAlerts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -25725,7 +23011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingAlertsId(input, getBillingAlertsIdResponder, ctx)
+        .getBillingAlertsId(input, getBillingAlertsId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -25733,7 +23019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingAlertsIdResponseValidator(status, body)
+      ctx.body = getBillingAlertsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25769,7 +23055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingAlertsIdActivate(
           input,
-          postBillingAlertsIdActivateResponder,
+          postBillingAlertsIdActivate.responder,
           ctx,
         )
         .catch((err) => {
@@ -25779,7 +23065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingAlertsIdActivateResponseValidator(status, body)
+      ctx.body = postBillingAlertsIdActivate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25815,7 +23101,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingAlertsIdArchive(
           input,
-          postBillingAlertsIdArchiveResponder,
+          postBillingAlertsIdArchive.responder,
           ctx,
         )
         .catch((err) => {
@@ -25825,7 +23111,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingAlertsIdArchiveResponseValidator(status, body)
+      ctx.body = postBillingAlertsIdArchive.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25861,7 +23147,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingAlertsIdDeactivate(
           input,
-          postBillingAlertsIdDeactivateResponder,
+          postBillingAlertsIdDeactivate.responder,
           ctx,
         )
         .catch((err) => {
@@ -25871,7 +23157,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingAlertsIdDeactivateResponseValidator(status, body)
+      ctx.body = postBillingAlertsIdDeactivate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25921,7 +23207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getBillingCreditBalanceSummary(
           input,
-          getBillingCreditBalanceSummaryResponder,
+          getBillingCreditBalanceSummary.responder,
           ctx,
         )
         .catch((err) => {
@@ -25931,7 +23217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingCreditBalanceSummaryResponseValidator(status, body)
+      ctx.body = getBillingCreditBalanceSummary.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -25975,7 +23261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getBillingCreditBalanceTransactions(
           input,
-          getBillingCreditBalanceTransactionsResponder,
+          getBillingCreditBalanceTransactions.responder,
           ctx,
         )
         .catch((err) => {
@@ -25985,10 +23271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingCreditBalanceTransactionsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getBillingCreditBalanceTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26037,7 +23320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getBillingCreditBalanceTransactionsId(
           input,
-          getBillingCreditBalanceTransactionsIdResponder,
+          getBillingCreditBalanceTransactionsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -26047,10 +23330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingCreditBalanceTransactionsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getBillingCreditBalanceTransactionsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26091,7 +23371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditGrants(input, getBillingCreditGrantsResponder, ctx)
+        .getBillingCreditGrants(input, getBillingCreditGrants.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -26099,7 +23379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingCreditGrantsResponseValidator(status, body)
+      ctx.body = getBillingCreditGrants.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26144,7 +23424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingCreditGrants(input, postBillingCreditGrantsResponder, ctx)
+        .postBillingCreditGrants(input, postBillingCreditGrants.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -26152,7 +23432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingCreditGrantsResponseValidator(status, body)
+      ctx.body = postBillingCreditGrants.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26197,7 +23477,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditGrantsId(input, getBillingCreditGrantsIdResponder, ctx)
+        .getBillingCreditGrantsId(
+          input,
+          getBillingCreditGrantsId.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -26205,7 +23489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingCreditGrantsIdResponseValidator(status, body)
+      ctx.body = getBillingCreditGrantsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26245,7 +23529,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingCreditGrantsId(
           input,
-          postBillingCreditGrantsIdResponder,
+          postBillingCreditGrantsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -26255,7 +23539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingCreditGrantsIdResponseValidator(status, body)
+      ctx.body = postBillingCreditGrantsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26291,7 +23575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingCreditGrantsIdExpire(
           input,
-          postBillingCreditGrantsIdExpireResponder,
+          postBillingCreditGrantsIdExpire.responder,
           ctx,
         )
         .catch((err) => {
@@ -26301,7 +23585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingCreditGrantsIdExpireResponseValidator(status, body)
+      ctx.body = postBillingCreditGrantsIdExpire.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26337,7 +23621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingCreditGrantsIdVoid(
           input,
-          postBillingCreditGrantsIdVoidResponder,
+          postBillingCreditGrantsIdVoid.responder,
           ctx,
         )
         .catch((err) => {
@@ -26347,7 +23631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingCreditGrantsIdVoidResponseValidator(status, body)
+      ctx.body = postBillingCreditGrantsIdVoid.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26378,7 +23662,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingMeterEventAdjustments(
           input,
-          postBillingMeterEventAdjustmentsResponder,
+          postBillingMeterEventAdjustments.responder,
           ctx,
         )
         .catch((err) => {
@@ -26388,7 +23672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingMeterEventAdjustmentsResponseValidator(status, body)
+      ctx.body = postBillingMeterEventAdjustments.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26418,7 +23702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMeterEvents(input, postBillingMeterEventsResponder, ctx)
+        .postBillingMeterEvents(input, postBillingMeterEvents.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -26426,7 +23710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingMeterEventsResponseValidator(status, body)
+      ctx.body = postBillingMeterEvents.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26464,7 +23748,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBillingMeters(input, getBillingMetersResponder, ctx)
+      .getBillingMeters(input, getBillingMeters.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -26472,7 +23756,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getBillingMetersResponseValidator(status, body)
+    ctx.body = getBillingMeters.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -26509,7 +23793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postBillingMeters(input, postBillingMetersResponder, ctx)
+      .postBillingMeters(input, postBillingMeters.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -26517,7 +23801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postBillingMetersResponseValidator(status, body)
+    ctx.body = postBillingMeters.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -26559,7 +23843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingMetersId(input, getBillingMetersIdResponder, ctx)
+        .getBillingMetersId(input, getBillingMetersId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -26567,7 +23851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingMetersIdResponseValidator(status, body)
+      ctx.body = getBillingMetersId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26602,7 +23886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMetersId(input, postBillingMetersIdResponder, ctx)
+        .postBillingMetersId(input, postBillingMetersId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -26610,7 +23894,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingMetersIdResponseValidator(status, body)
+      ctx.body = postBillingMetersId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26646,7 +23930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingMetersIdDeactivate(
           input,
-          postBillingMetersIdDeactivateResponder,
+          postBillingMetersIdDeactivate.responder,
           ctx,
         )
         .catch((err) => {
@@ -26656,7 +23940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingMetersIdDeactivateResponseValidator(status, body)
+      ctx.body = postBillingMetersIdDeactivate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26710,7 +23994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getBillingMetersIdEventSummaries(
           input,
-          getBillingMetersIdEventSummariesResponder,
+          getBillingMetersIdEventSummaries.responder,
           ctx,
         )
         .catch((err) => {
@@ -26720,7 +24004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingMetersIdEventSummariesResponseValidator(status, body)
+      ctx.body = getBillingMetersIdEventSummaries.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26756,7 +24040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingMetersIdReactivate(
           input,
-          postBillingMetersIdReactivateResponder,
+          postBillingMetersIdReactivate.responder,
           ctx,
         )
         .catch((err) => {
@@ -26766,7 +24050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingMetersIdReactivateResponseValidator(status, body)
+      ctx.body = postBillingMetersIdReactivate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26810,7 +24094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getBillingPortalConfigurations(
           input,
-          getBillingPortalConfigurationsResponder,
+          getBillingPortalConfigurations.responder,
           ctx,
         )
         .catch((err) => {
@@ -26820,7 +24104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingPortalConfigurationsResponseValidator(status, body)
+      ctx.body = getBillingPortalConfigurations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -26952,7 +24236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingPortalConfigurations(
           input,
-          postBillingPortalConfigurationsResponder,
+          postBillingPortalConfigurations.responder,
           ctx,
         )
         .catch((err) => {
@@ -26962,7 +24246,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingPortalConfigurationsResponseValidator(status, body)
+      ctx.body = postBillingPortalConfigurations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -27011,7 +24295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getBillingPortalConfigurationsConfiguration(
           input,
-          getBillingPortalConfigurationsConfigurationResponder,
+          getBillingPortalConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -27021,7 +24305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getBillingPortalConfigurationsConfigurationResponseValidator(
+      ctx.body = getBillingPortalConfigurationsConfiguration.validator(
         status,
         body,
       )
@@ -27174,7 +24458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingPortalConfigurationsConfiguration(
           input,
-          postBillingPortalConfigurationsConfigurationResponder,
+          postBillingPortalConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -27184,7 +24468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingPortalConfigurationsConfigurationResponseValidator(
+      ctx.body = postBillingPortalConfigurationsConfiguration.validator(
         status,
         body,
       )
@@ -27327,7 +24611,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postBillingPortalSessions(
           input,
-          postBillingPortalSessionsResponder,
+          postBillingPortalSessions.responder,
           ctx,
         )
         .catch((err) => {
@@ -27337,7 +24621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postBillingPortalSessionsResponseValidator(status, body)
+      ctx.body = postBillingPortalSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -27388,7 +24672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCharges(input, getChargesResponder, ctx)
+      .getCharges(input, getCharges.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -27396,7 +24680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getChargesResponseValidator(status, body)
+    ctx.body = getCharges.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -27488,7 +24772,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCharges(input, postChargesResponder, ctx)
+      .postCharges(input, postCharges.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -27496,7 +24780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postChargesResponseValidator(status, body)
+    ctx.body = postCharges.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -27532,7 +24816,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getChargesSearch(input, getChargesSearchResponder, ctx)
+      .getChargesSearch(input, getChargesSearch.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -27540,7 +24824,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getChargesSearchResponseValidator(status, body)
+    ctx.body = getChargesSearch.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -27579,7 +24863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getChargesCharge(input, getChargesChargeResponder, ctx)
+      .getChargesCharge(input, getChargesCharge.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -27587,7 +24871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getChargesChargeResponseValidator(status, body)
+    ctx.body = getChargesCharge.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -27643,7 +24927,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postChargesCharge(input, postChargesChargeResponder, ctx)
+      .postChargesCharge(input, postChargesCharge.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -27651,7 +24935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postChargesChargeResponseValidator(status, body)
+    ctx.body = postChargesCharge.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -27696,7 +24980,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeCapture(input, postChargesChargeCaptureResponder, ctx)
+        .postChargesChargeCapture(
+          input,
+          postChargesChargeCapture.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -27704,7 +24992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postChargesChargeCaptureResponseValidator(status, body)
+      ctx.body = postChargesChargeCapture.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -27749,7 +25037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getChargesChargeDispute(input, getChargesChargeDisputeResponder, ctx)
+        .getChargesChargeDispute(input, getChargesChargeDispute.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -27757,7 +25045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getChargesChargeDisputeResponseValidator(status, body)
+      ctx.body = getChargesChargeDispute.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -27934,7 +25222,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeDispute(input, postChargesChargeDisputeResponder, ctx)
+        .postChargesChargeDispute(
+          input,
+          postChargesChargeDispute.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -27942,7 +25234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postChargesChargeDisputeResponseValidator(status, body)
+      ctx.body = postChargesChargeDispute.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -27978,7 +25270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postChargesChargeDisputeClose(
           input,
-          postChargesChargeDisputeCloseResponder,
+          postChargesChargeDisputeClose.responder,
           ctx,
         )
         .catch((err) => {
@@ -27988,7 +25280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postChargesChargeDisputeCloseResponseValidator(status, body)
+      ctx.body = postChargesChargeDisputeClose.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -28033,7 +25325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeRefund(input, postChargesChargeRefundResponder, ctx)
+        .postChargesChargeRefund(input, postChargesChargeRefund.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -28041,7 +25333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postChargesChargeRefundResponseValidator(status, body)
+      ctx.body = postChargesChargeRefund.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -28087,7 +25379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getChargesChargeRefunds(input, getChargesChargeRefundsResponder, ctx)
+        .getChargesChargeRefunds(input, getChargesChargeRefunds.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -28095,7 +25387,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getChargesChargeRefundsResponseValidator(status, body)
+      ctx.body = getChargesChargeRefunds.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -28143,7 +25435,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeRefunds(input, postChargesChargeRefundsResponder, ctx)
+        .postChargesChargeRefunds(
+          input,
+          postChargesChargeRefunds.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -28151,7 +25447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postChargesChargeRefundsResponseValidator(status, body)
+      ctx.body = postChargesChargeRefunds.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -28199,7 +25495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getChargesChargeRefundsRefund(
           input,
-          getChargesChargeRefundsRefundResponder,
+          getChargesChargeRefundsRefund.responder,
           ctx,
         )
         .catch((err) => {
@@ -28209,7 +25505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getChargesChargeRefundsRefundResponseValidator(status, body)
+      ctx.body = getChargesChargeRefundsRefund.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -28249,7 +25545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postChargesChargeRefundsRefund(
           input,
-          postChargesChargeRefundsRefundResponder,
+          postChargesChargeRefundsRefund.responder,
           ctx,
         )
         .catch((err) => {
@@ -28259,7 +25555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postChargesChargeRefundsRefundResponseValidator(status, body)
+      ctx.body = postChargesChargeRefundsRefund.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -28316,7 +25612,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCheckoutSessions(input, getCheckoutSessionsResponder, ctx)
+        .getCheckoutSessions(input, getCheckoutSessions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -28324,7 +25620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCheckoutSessionsResponseValidator(status, body)
+      ctx.body = getCheckoutSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29425,7 +26721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCheckoutSessions(input, postCheckoutSessionsResponder, ctx)
+        .postCheckoutSessions(input, postCheckoutSessions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -29433,7 +26729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCheckoutSessionsResponseValidator(status, body)
+      ctx.body = postCheckoutSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29480,7 +26776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCheckoutSessionsSession(
           input,
-          getCheckoutSessionsSessionResponder,
+          getCheckoutSessionsSession.responder,
           ctx,
         )
         .catch((err) => {
@@ -29490,7 +26786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCheckoutSessionsSessionResponseValidator(status, body)
+      ctx.body = getCheckoutSessionsSession.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29611,7 +26907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCheckoutSessionsSession(
           input,
-          postCheckoutSessionsSessionResponder,
+          postCheckoutSessionsSession.responder,
           ctx,
         )
         .catch((err) => {
@@ -29621,7 +26917,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCheckoutSessionsSessionResponseValidator(status, body)
+      ctx.body = postCheckoutSessionsSession.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29657,7 +26953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCheckoutSessionsSessionExpire(
           input,
-          postCheckoutSessionsSessionExpireResponder,
+          postCheckoutSessionsSessionExpire.responder,
           ctx,
         )
         .catch((err) => {
@@ -29667,10 +26963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCheckoutSessionsSessionExpireResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postCheckoutSessionsSessionExpire.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29720,7 +27013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCheckoutSessionsSessionLineItems(
           input,
-          getCheckoutSessionsSessionLineItemsResponder,
+          getCheckoutSessionsSessionLineItems.responder,
           ctx,
         )
         .catch((err) => {
@@ -29730,10 +27023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCheckoutSessionsSessionLineItemsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getCheckoutSessionsSessionLineItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29770,7 +27060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getClimateOrders(input, getClimateOrdersResponder, ctx)
+      .getClimateOrders(input, getClimateOrders.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -29778,7 +27068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getClimateOrdersResponseValidator(status, body)
+    ctx.body = getClimateOrders.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -29806,7 +27096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postClimateOrders(input, postClimateOrdersResponder, ctx)
+      .postClimateOrders(input, postClimateOrders.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -29814,7 +27104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postClimateOrdersResponseValidator(status, body)
+    ctx.body = postClimateOrders.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -29858,7 +27148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateOrdersOrder(input, getClimateOrdersOrderResponder, ctx)
+        .getClimateOrdersOrder(input, getClimateOrdersOrder.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -29866,7 +27156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getClimateOrdersOrderResponseValidator(status, body)
+      ctx.body = getClimateOrdersOrder.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29911,7 +27201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postClimateOrdersOrder(input, postClimateOrdersOrderResponder, ctx)
+        .postClimateOrdersOrder(input, postClimateOrdersOrder.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -29919,7 +27209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postClimateOrdersOrderResponseValidator(status, body)
+      ctx.body = postClimateOrdersOrder.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -29955,7 +27245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postClimateOrdersOrderCancel(
           input,
-          postClimateOrdersOrderCancelResponder,
+          postClimateOrdersOrderCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -29965,7 +27255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postClimateOrdersOrderCancelResponseValidator(status, body)
+      ctx.body = postClimateOrdersOrderCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30005,7 +27295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateProducts(input, getClimateProductsResponder, ctx)
+        .getClimateProducts(input, getClimateProducts.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -30013,7 +27303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getClimateProductsResponseValidator(status, body)
+      ctx.body = getClimateProducts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30060,7 +27350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getClimateProductsProduct(
           input,
-          getClimateProductsProductResponder,
+          getClimateProductsProduct.responder,
           ctx,
         )
         .catch((err) => {
@@ -30070,7 +27360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getClimateProductsProductResponseValidator(status, body)
+      ctx.body = getClimateProductsProduct.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30110,7 +27400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateSuppliers(input, getClimateSuppliersResponder, ctx)
+        .getClimateSuppliers(input, getClimateSuppliers.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -30118,7 +27408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getClimateSuppliersResponseValidator(status, body)
+      ctx.body = getClimateSuppliers.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30165,7 +27455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getClimateSuppliersSupplier(
           input,
-          getClimateSuppliersSupplierResponder,
+          getClimateSuppliersSupplier.responder,
           ctx,
         )
         .catch((err) => {
@@ -30175,7 +27465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getClimateSuppliersSupplierResponseValidator(status, body)
+      ctx.body = getClimateSuppliersSupplier.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30224,7 +27514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getConfirmationTokensConfirmationToken(
           input,
-          getConfirmationTokensConfirmationTokenResponder,
+          getConfirmationTokensConfirmationToken.responder,
           ctx,
         )
         .catch((err) => {
@@ -30234,10 +27524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getConfirmationTokensConfirmationTokenResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getConfirmationTokensConfirmationToken.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30274,7 +27561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCountrySpecs(input, getCountrySpecsResponder, ctx)
+      .getCountrySpecs(input, getCountrySpecs.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30282,7 +27569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getCountrySpecsResponseValidator(status, body)
+    ctx.body = getCountrySpecs.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30326,7 +27613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCountrySpecsCountry(input, getCountrySpecsCountryResponder, ctx)
+        .getCountrySpecsCountry(input, getCountrySpecsCountry.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -30334,7 +27621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCountrySpecsCountryResponseValidator(status, body)
+      ctx.body = getCountrySpecsCountry.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30382,7 +27669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCoupons(input, getCouponsResponder, ctx)
+      .getCoupons(input, getCoupons.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30390,7 +27677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getCouponsResponseValidator(status, body)
+    ctx.body = getCoupons.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30430,7 +27717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCoupons(input, postCouponsResponder, ctx)
+      .postCoupons(input, postCoupons.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30438,7 +27725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postCouponsResponseValidator(status, body)
+    ctx.body = postCoupons.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30469,7 +27756,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCouponsCoupon(input, deleteCouponsCouponResponder, ctx)
+        .deleteCouponsCoupon(input, deleteCouponsCoupon.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -30477,7 +27764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCouponsCouponResponseValidator(status, body)
+      ctx.body = deleteCouponsCoupon.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30517,7 +27804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCouponsCoupon(input, getCouponsCouponResponder, ctx)
+      .getCouponsCoupon(input, getCouponsCoupon.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30525,7 +27812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getCouponsCouponResponseValidator(status, body)
+    ctx.body = getCouponsCoupon.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30562,7 +27849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCouponsCoupon(input, postCouponsCouponResponder, ctx)
+      .postCouponsCoupon(input, postCouponsCoupon.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30570,7 +27857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postCouponsCouponResponseValidator(status, body)
+    ctx.body = postCouponsCoupon.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30619,7 +27906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCreditNotes(input, getCreditNotesResponder, ctx)
+      .getCreditNotes(input, getCreditNotes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30627,7 +27914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getCreditNotesResponseValidator(status, body)
+    ctx.body = getCreditNotes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30705,7 +27992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCreditNotes(input, postCreditNotesResponder, ctx)
+      .postCreditNotes(input, postCreditNotes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -30713,7 +28000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postCreditNotesResponseValidator(status, body)
+    ctx.body = postCreditNotes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -30811,7 +28098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCreditNotesPreview(input, getCreditNotesPreviewResponder, ctx)
+        .getCreditNotesPreview(input, getCreditNotesPreview.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -30819,7 +28106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCreditNotesPreviewResponseValidator(status, body)
+      ctx.body = getCreditNotesPreview.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30923,7 +28210,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCreditNotesPreviewLines(
           input,
-          getCreditNotesPreviewLinesResponder,
+          getCreditNotesPreviewLines.responder,
           ctx,
         )
         .catch((err) => {
@@ -30933,7 +28220,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCreditNotesPreviewLinesResponseValidator(status, body)
+      ctx.body = getCreditNotesPreviewLines.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -30983,7 +28270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCreditNotesCreditNoteLines(
           input,
-          getCreditNotesCreditNoteLinesResponder,
+          getCreditNotesCreditNoteLines.responder,
           ctx,
         )
         .catch((err) => {
@@ -30993,7 +28280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCreditNotesCreditNoteLinesResponseValidator(status, body)
+      ctx.body = getCreditNotesCreditNoteLines.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31033,7 +28320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCreditNotesId(input, getCreditNotesIdResponder, ctx)
+      .getCreditNotesId(input, getCreditNotesId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -31041,7 +28328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getCreditNotesIdResponseValidator(status, body)
+    ctx.body = getCreditNotesId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -31076,7 +28363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCreditNotesId(input, postCreditNotesIdResponder, ctx)
+        .postCreditNotesId(input, postCreditNotesId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31084,7 +28371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCreditNotesIdResponseValidator(status, body)
+      ctx.body = postCreditNotesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31118,7 +28405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCreditNotesIdVoid(input, postCreditNotesIdVoidResponder, ctx)
+        .postCreditNotesIdVoid(input, postCreditNotesIdVoid.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31126,7 +28413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCreditNotesIdVoidResponseValidator(status, body)
+      ctx.body = postCreditNotesIdVoid.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31178,7 +28465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomerSessions(input, postCustomerSessionsResponder, ctx)
+        .postCustomerSessions(input, postCustomerSessions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31186,7 +28473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomerSessionsResponseValidator(status, body)
+      ctx.body = postCustomerSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31236,7 +28523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCustomers(input, getCustomersResponder, ctx)
+      .getCustomers(input, getCustomers.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -31244,7 +28531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getCustomersResponseValidator(status, body)
+    ctx.body = getCustomers.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -31465,7 +28752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCustomers(input, postCustomersResponder, ctx)
+      .postCustomers(input, postCustomers.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -31473,7 +28760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postCustomersResponseValidator(status, body)
+    ctx.body = postCustomers.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -31512,7 +28799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersSearch(input, getCustomersSearchResponder, ctx)
+        .getCustomersSearch(input, getCustomersSearch.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31520,7 +28807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersSearchResponseValidator(status, body)
+      ctx.body = getCustomersSearch.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31552,7 +28839,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomer(input, deleteCustomersCustomerResponder, ctx)
+        .deleteCustomersCustomer(input, deleteCustomersCustomer.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31560,7 +28847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCustomersCustomerResponseValidator(status, body)
+      ctx.body = deleteCustomersCustomer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31605,7 +28892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomer(input, getCustomersCustomerResponder, ctx)
+        .getCustomersCustomer(input, getCustomersCustomer.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31613,7 +28900,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerResponseValidator(status, body)
+      ctx.body = getCustomersCustomer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31775,7 +29062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomer(input, postCustomersCustomerResponder, ctx)
+        .postCustomersCustomer(input, postCustomersCustomer.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -31783,7 +29070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerResponseValidator(status, body)
+      ctx.body = postCustomersCustomer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31835,7 +29122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerBalanceTransactions(
           input,
-          getCustomersCustomerBalanceTransactionsResponder,
+          getCustomersCustomerBalanceTransactions.responder,
           ctx,
         )
         .catch((err) => {
@@ -31845,10 +29132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerBalanceTransactionsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getCustomersCustomerBalanceTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -31888,7 +29172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerBalanceTransactions(
           input,
-          postCustomersCustomerBalanceTransactionsResponder,
+          postCustomersCustomerBalanceTransactions.responder,
           ctx,
         )
         .catch((err) => {
@@ -31898,7 +29182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerBalanceTransactionsResponseValidator(
+      ctx.body = postCustomersCustomerBalanceTransactions.validator(
         status,
         body,
       )
@@ -31950,7 +29234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerBalanceTransactionsTransaction(
           input,
-          getCustomersCustomerBalanceTransactionsTransactionResponder,
+          getCustomersCustomerBalanceTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -31960,11 +29244,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        getCustomersCustomerBalanceTransactionsTransactionResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = getCustomersCustomerBalanceTransactionsTransaction.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -32006,7 +29289,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerBalanceTransactionsTransaction(
           input,
-          postCustomersCustomerBalanceTransactionsTransactionResponder,
+          postCustomersCustomerBalanceTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -32016,11 +29299,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postCustomersCustomerBalanceTransactionsTransactionResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postCustomersCustomerBalanceTransactionsTransaction.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -32070,7 +29352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerBankAccounts(
           input,
-          getCustomersCustomerBankAccountsResponder,
+          getCustomersCustomerBankAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -32080,7 +29362,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerBankAccountsResponseValidator(status, body)
+      ctx.body = getCustomersCustomerBankAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32155,7 +29437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerBankAccounts(
           input,
-          postCustomersCustomerBankAccountsResponder,
+          postCustomersCustomerBankAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -32165,10 +29447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerBankAccountsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postCustomersCustomerBankAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32205,7 +29484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerBankAccountsId(
           input,
-          deleteCustomersCustomerBankAccountsIdResponder,
+          deleteCustomersCustomerBankAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -32215,10 +29494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCustomersCustomerBankAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteCustomersCustomerBankAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32266,7 +29542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerBankAccountsId(
           input,
-          getCustomersCustomerBankAccountsIdResponder,
+          getCustomersCustomerBankAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -32276,10 +29552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerBankAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getCustomersCustomerBankAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32347,7 +29620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerBankAccountsId(
           input,
-          postCustomersCustomerBankAccountsIdResponder,
+          postCustomersCustomerBankAccountsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -32357,10 +29630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerBankAccountsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postCustomersCustomerBankAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32400,7 +29670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerBankAccountsIdVerify(
           input,
-          postCustomersCustomerBankAccountsIdVerifyResponder,
+          postCustomersCustomerBankAccountsIdVerify.responder,
           ctx,
         )
         .catch((err) => {
@@ -32410,7 +29680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerBankAccountsIdVerifyResponseValidator(
+      ctx.body = postCustomersCustomerBankAccountsIdVerify.validator(
         status,
         body,
       )
@@ -32463,7 +29733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerCards(
           input,
-          getCustomersCustomerCardsResponder,
+          getCustomersCustomerCards.responder,
           ctx,
         )
         .catch((err) => {
@@ -32473,7 +29743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerCardsResponseValidator(status, body)
+      ctx.body = getCustomersCustomerCards.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32548,7 +29818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerCards(
           input,
-          postCustomersCustomerCardsResponder,
+          postCustomersCustomerCards.responder,
           ctx,
         )
         .catch((err) => {
@@ -32558,7 +29828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerCardsResponseValidator(status, body)
+      ctx.body = postCustomersCustomerCards.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32595,7 +29865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerCardsId(
           input,
-          deleteCustomersCustomerCardsIdResponder,
+          deleteCustomersCustomerCardsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -32605,7 +29875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCustomersCustomerCardsIdResponseValidator(status, body)
+      ctx.body = deleteCustomersCustomerCardsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32653,7 +29923,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerCardsId(
           input,
-          getCustomersCustomerCardsIdResponder,
+          getCustomersCustomerCardsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -32663,7 +29933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerCardsIdResponseValidator(status, body)
+      ctx.body = getCustomersCustomerCardsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32731,7 +30001,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerCardsId(
           input,
-          postCustomersCustomerCardsIdResponder,
+          postCustomersCustomerCardsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -32741,7 +30011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerCardsIdResponseValidator(status, body)
+      ctx.body = postCustomersCustomerCardsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32788,7 +30058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerCashBalance(
           input,
-          getCustomersCustomerCashBalanceResponder,
+          getCustomersCustomerCashBalance.responder,
           ctx,
         )
         .catch((err) => {
@@ -32798,7 +30068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerCashBalanceResponseValidator(status, body)
+      ctx.body = getCustomersCustomerCashBalance.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32843,7 +30113,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerCashBalance(
           input,
-          postCustomersCustomerCashBalanceResponder,
+          postCustomersCustomerCashBalance.responder,
           ctx,
         )
         .catch((err) => {
@@ -32853,7 +30123,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerCashBalanceResponseValidator(status, body)
+      ctx.body = postCustomersCustomerCashBalance.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -32905,7 +30175,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerCashBalanceTransactions(
           input,
-          getCustomersCustomerCashBalanceTransactionsResponder,
+          getCustomersCustomerCashBalanceTransactions.responder,
           ctx,
         )
         .catch((err) => {
@@ -32915,7 +30185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerCashBalanceTransactionsResponseValidator(
+      ctx.body = getCustomersCustomerCashBalanceTransactions.validator(
         status,
         body,
       )
@@ -32967,7 +30237,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerCashBalanceTransactionsTransaction(
           input,
-          getCustomersCustomerCashBalanceTransactionsTransactionResponder,
+          getCustomersCustomerCashBalanceTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -32978,7 +30248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator(
+        getCustomersCustomerCashBalanceTransactionsTransaction.validator(
           status,
           body,
         )
@@ -33015,7 +30285,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerDiscount(
           input,
-          deleteCustomersCustomerDiscountResponder,
+          deleteCustomersCustomerDiscount.responder,
           ctx,
         )
         .catch((err) => {
@@ -33025,7 +30295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCustomersCustomerDiscountResponseValidator(status, body)
+      ctx.body = deleteCustomersCustomerDiscount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33072,7 +30342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerDiscount(
           input,
-          getCustomersCustomerDiscountResponder,
+          getCustomersCustomerDiscount.responder,
           ctx,
         )
         .catch((err) => {
@@ -33082,7 +30352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerDiscountResponseValidator(status, body)
+      ctx.body = getCustomersCustomerDiscount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33133,7 +30403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerFundingInstructions(
           input,
-          postCustomersCustomerFundingInstructionsResponder,
+          postCustomersCustomerFundingInstructions.responder,
           ctx,
         )
         .catch((err) => {
@@ -33143,7 +30413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerFundingInstructionsResponseValidator(
+      ctx.body = postCustomersCustomerFundingInstructions.validator(
         status,
         body,
       )
@@ -33248,7 +30518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerPaymentMethods(
           input,
-          getCustomersCustomerPaymentMethodsResponder,
+          getCustomersCustomerPaymentMethods.responder,
           ctx,
         )
         .catch((err) => {
@@ -33258,10 +30528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerPaymentMethodsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getCustomersCustomerPaymentMethods.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33311,7 +30578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerPaymentMethodsPaymentMethod(
           input,
-          getCustomersCustomerPaymentMethodsPaymentMethodResponder,
+          getCustomersCustomerPaymentMethodsPaymentMethod.responder,
           ctx,
         )
         .catch((err) => {
@@ -33321,11 +30588,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        getCustomersCustomerPaymentMethodsPaymentMethodResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = getCustomersCustomerPaymentMethodsPaymentMethod.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -33376,7 +30642,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerSources(
           input,
-          getCustomersCustomerSourcesResponder,
+          getCustomersCustomerSources.responder,
           ctx,
         )
         .catch((err) => {
@@ -33386,7 +30652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerSourcesResponseValidator(status, body)
+      ctx.body = getCustomersCustomerSources.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33461,7 +30727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerSources(
           input,
-          postCustomersCustomerSourcesResponder,
+          postCustomersCustomerSources.responder,
           ctx,
         )
         .catch((err) => {
@@ -33471,7 +30737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerSourcesResponseValidator(status, body)
+      ctx.body = postCustomersCustomerSources.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33508,7 +30774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerSourcesId(
           input,
-          deleteCustomersCustomerSourcesIdResponder,
+          deleteCustomersCustomerSourcesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -33518,7 +30784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCustomersCustomerSourcesIdResponseValidator(status, body)
+      ctx.body = deleteCustomersCustomerSourcesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33566,7 +30832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerSourcesId(
           input,
-          getCustomersCustomerSourcesIdResponder,
+          getCustomersCustomerSourcesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -33576,7 +30842,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerSourcesIdResponseValidator(status, body)
+      ctx.body = getCustomersCustomerSourcesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33644,7 +30910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerSourcesId(
           input,
-          postCustomersCustomerSourcesIdResponder,
+          postCustomersCustomerSourcesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -33654,7 +30920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerSourcesIdResponseValidator(status, body)
+      ctx.body = postCustomersCustomerSourcesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33694,7 +30960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerSourcesIdVerify(
           input,
-          postCustomersCustomerSourcesIdVerifyResponder,
+          postCustomersCustomerSourcesIdVerify.responder,
           ctx,
         )
         .catch((err) => {
@@ -33704,10 +30970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerSourcesIdVerifyResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postCustomersCustomerSourcesIdVerify.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -33757,7 +31020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerSubscriptions(
           input,
-          getCustomersCustomerSubscriptionsResponder,
+          getCustomersCustomerSubscriptions.responder,
           ctx,
         )
         .catch((err) => {
@@ -33767,10 +31030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerSubscriptionsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getCustomersCustomerSubscriptions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -34145,7 +31405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerSubscriptions(
           input,
-          postCustomersCustomerSubscriptionsResponder,
+          postCustomersCustomerSubscriptions.responder,
           ctx,
         )
         .catch((err) => {
@@ -34155,10 +31415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerSubscriptionsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postCustomersCustomerSubscriptions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -34200,7 +31457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
           input,
-          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
+          deleteCustomersCustomerSubscriptionsSubscriptionExposedId.responder,
           ctx,
         )
         .catch((err) => {
@@ -34211,7 +31468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
+        deleteCustomersCustomerSubscriptionsSubscriptionExposedId.validator(
           status,
           body,
         )
@@ -34266,7 +31523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerSubscriptionsSubscriptionExposedId(
           input,
-          getCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
+          getCustomersCustomerSubscriptionsSubscriptionExposedId.responder,
           ctx,
         )
         .catch((err) => {
@@ -34277,7 +31534,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
+        getCustomersCustomerSubscriptionsSubscriptionExposedId.validator(
           status,
           body,
         )
@@ -34688,7 +31945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerSubscriptionsSubscriptionExposedId(
           input,
-          postCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
+          postCustomersCustomerSubscriptionsSubscriptionExposedId.responder,
           ctx,
         )
         .catch((err) => {
@@ -34699,7 +31956,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator(
+        postCustomersCustomerSubscriptionsSubscriptionExposedId.validator(
           status,
           body,
         )
@@ -34739,7 +31996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
           input,
-          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
+          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount.responder,
           ctx,
         )
         .catch((err) => {
@@ -34750,7 +32007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
+        deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount.validator(
           status,
           body,
         )
@@ -34804,7 +32061,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
           input,
-          getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
+          getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount.responder,
           ctx,
         )
         .catch((err) => {
@@ -34815,7 +32072,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
+        getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount.validator(
           status,
           body,
         )
@@ -34868,7 +32125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerTaxIds(
           input,
-          getCustomersCustomerTaxIdsResponder,
+          getCustomersCustomerTaxIds.responder,
           ctx,
         )
         .catch((err) => {
@@ -34878,7 +32135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerTaxIdsResponseValidator(status, body)
+      ctx.body = getCustomersCustomerTaxIds.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35017,7 +32274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postCustomersCustomerTaxIds(
           input,
-          postCustomersCustomerTaxIdsResponder,
+          postCustomersCustomerTaxIds.responder,
           ctx,
         )
         .catch((err) => {
@@ -35027,7 +32284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postCustomersCustomerTaxIdsResponseValidator(status, body)
+      ctx.body = postCustomersCustomerTaxIds.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35062,7 +32319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteCustomersCustomerTaxIdsId(
           input,
-          deleteCustomersCustomerTaxIdsIdResponder,
+          deleteCustomersCustomerTaxIdsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -35072,7 +32329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteCustomersCustomerTaxIdsIdResponseValidator(status, body)
+      ctx.body = deleteCustomersCustomerTaxIdsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35120,7 +32377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getCustomersCustomerTaxIdsId(
           input,
-          getCustomersCustomerTaxIdsIdResponder,
+          getCustomersCustomerTaxIdsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -35130,7 +32387,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getCustomersCustomerTaxIdsIdResponseValidator(status, body)
+      ctx.body = getCustomersCustomerTaxIdsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35180,7 +32437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getDisputes(input, getDisputesResponder, ctx)
+      .getDisputes(input, getDisputes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -35188,7 +32445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getDisputesResponseValidator(status, body)
+    ctx.body = getDisputes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -35232,7 +32489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getDisputesDispute(input, getDisputesDisputeResponder, ctx)
+        .getDisputesDispute(input, getDisputesDispute.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -35240,7 +32497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getDisputesDisputeResponseValidator(status, body)
+      ctx.body = getDisputesDispute.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35417,7 +32674,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postDisputesDispute(input, postDisputesDisputeResponder, ctx)
+        .postDisputesDispute(input, postDisputesDispute.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -35425,7 +32682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postDisputesDisputeResponseValidator(status, body)
+      ctx.body = postDisputesDispute.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35459,7 +32716,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postDisputesDisputeClose(input, postDisputesDisputeCloseResponder, ctx)
+        .postDisputesDisputeClose(
+          input,
+          postDisputesDisputeClose.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -35467,7 +32728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postDisputesDisputeCloseResponseValidator(status, body)
+      ctx.body = postDisputesDisputeClose.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35510,7 +32771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getEntitlementsActiveEntitlements(
           input,
-          getEntitlementsActiveEntitlementsResponder,
+          getEntitlementsActiveEntitlements.responder,
           ctx,
         )
         .catch((err) => {
@@ -35520,10 +32781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getEntitlementsActiveEntitlementsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getEntitlementsActiveEntitlements.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35570,7 +32828,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getEntitlementsActiveEntitlementsId(
           input,
-          getEntitlementsActiveEntitlementsIdResponder,
+          getEntitlementsActiveEntitlementsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -35580,10 +32838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getEntitlementsActiveEntitlementsIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getEntitlementsActiveEntitlementsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35625,7 +32880,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getEntitlementsFeatures(input, getEntitlementsFeaturesResponder, ctx)
+        .getEntitlementsFeatures(input, getEntitlementsFeatures.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -35633,7 +32888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getEntitlementsFeaturesResponseValidator(status, body)
+      ctx.body = getEntitlementsFeatures.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35662,7 +32917,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postEntitlementsFeatures(input, postEntitlementsFeaturesResponder, ctx)
+        .postEntitlementsFeatures(
+          input,
+          postEntitlementsFeatures.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -35670,7 +32929,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postEntitlementsFeaturesResponseValidator(status, body)
+      ctx.body = postEntitlementsFeatures.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35717,7 +32976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getEntitlementsFeaturesId(
           input,
-          getEntitlementsFeaturesIdResponder,
+          getEntitlementsFeaturesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -35727,7 +32986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getEntitlementsFeaturesIdResponseValidator(status, body)
+      ctx.body = getEntitlementsFeaturesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35768,7 +33027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postEntitlementsFeaturesId(
           input,
-          postEntitlementsFeaturesIdResponder,
+          postEntitlementsFeaturesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -35778,7 +33037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postEntitlementsFeaturesIdResponseValidator(status, body)
+      ctx.body = postEntitlementsFeaturesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35807,7 +33066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postEphemeralKeys(input, postEphemeralKeysResponder, ctx)
+      .postEphemeralKeys(input, postEphemeralKeys.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -35815,7 +33074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postEphemeralKeysResponseValidator(status, body)
+    ctx.body = postEphemeralKeys.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -35848,7 +33107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteEphemeralKeysKey(input, deleteEphemeralKeysKeyResponder, ctx)
+        .deleteEphemeralKeysKey(input, deleteEphemeralKeysKey.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -35856,7 +33115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteEphemeralKeysKeyResponseValidator(status, body)
+      ctx.body = deleteEphemeralKeysKey.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -35912,7 +33171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getEvents(input, getEventsResponder, ctx)
+      .getEvents(input, getEvents.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -35920,7 +33179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getEventsResponseValidator(status, body)
+    ctx.body = getEvents.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -35959,7 +33218,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getEventsId(input, getEventsIdResponder, ctx)
+      .getEventsId(input, getEventsId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -35967,7 +33226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getEventsIdResponseValidator(status, body)
+    ctx.body = getEventsId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36003,7 +33262,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getExchangeRates(input, getExchangeRatesResponder, ctx)
+      .getExchangeRates(input, getExchangeRates.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36011,7 +33270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getExchangeRatesResponseValidator(status, body)
+    ctx.body = getExchangeRates.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36055,7 +33314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getExchangeRatesRateId(input, getExchangeRatesRateIdResponder, ctx)
+        .getExchangeRatesRateId(input, getExchangeRatesRateId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -36063,7 +33322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getExchangeRatesRateIdResponseValidator(status, body)
+      ctx.body = getExchangeRatesRateId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -36118,7 +33377,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postExternalAccountsId(input, postExternalAccountsIdResponder, ctx)
+        .postExternalAccountsId(input, postExternalAccountsId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -36126,7 +33385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postExternalAccountsIdResponseValidator(status, body)
+      ctx.body = postExternalAccountsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -36176,7 +33435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFileLinks(input, getFileLinksResponder, ctx)
+      .getFileLinks(input, getFileLinks.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36184,7 +33443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getFileLinksResponseValidator(status, body)
+    ctx.body = getFileLinks.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36209,7 +33468,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postFileLinks(input, postFileLinksResponder, ctx)
+      .postFileLinks(input, postFileLinks.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36217,7 +33476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postFileLinksResponseValidator(status, body)
+    ctx.body = postFileLinks.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36256,7 +33515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFileLinksLink(input, getFileLinksLinkResponder, ctx)
+      .getFileLinksLink(input, getFileLinksLink.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36264,7 +33523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getFileLinksLinkResponseValidator(status, body)
+    ctx.body = getFileLinksLink.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36301,7 +33560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postFileLinksLink(input, postFileLinksLinkResponder, ctx)
+        .postFileLinksLink(input, postFileLinksLink.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -36309,7 +33568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postFileLinksLinkResponseValidator(status, body)
+      ctx.body = postFileLinksLink.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -36378,7 +33637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFiles(input, getFilesResponder, ctx)
+      .getFiles(input, getFiles.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36386,7 +33645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getFilesResponseValidator(status, body)
+    ctx.body = getFiles.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36429,7 +33688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postFiles(input, postFilesResponder, ctx)
+      .postFiles(input, postFiles.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36437,7 +33696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postFilesResponseValidator(status, body)
+    ctx.body = postFiles.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36476,7 +33735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFilesFile(input, getFilesFileResponder, ctx)
+      .getFilesFile(input, getFilesFile.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -36484,7 +33743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getFilesFileResponseValidator(status, body)
+    ctx.body = getFilesFile.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -36532,7 +33791,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getFinancialConnectionsAccounts(
           input,
-          getFinancialConnectionsAccountsResponder,
+          getFinancialConnectionsAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -36542,7 +33801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getFinancialConnectionsAccountsResponseValidator(status, body)
+      ctx.body = getFinancialConnectionsAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -36591,7 +33850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getFinancialConnectionsAccountsAccount(
           input,
-          getFinancialConnectionsAccountsAccountResponder,
+          getFinancialConnectionsAccountsAccount.responder,
           ctx,
         )
         .catch((err) => {
@@ -36601,10 +33860,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getFinancialConnectionsAccountsAccountResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getFinancialConnectionsAccountsAccount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -36640,7 +33896,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postFinancialConnectionsAccountsAccountDisconnect(
           input,
-          postFinancialConnectionsAccountsAccountDisconnectResponder,
+          postFinancialConnectionsAccountsAccountDisconnect.responder,
           ctx,
         )
         .catch((err) => {
@@ -36650,11 +33906,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postFinancialConnectionsAccountsAccountDisconnectResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postFinancialConnectionsAccountsAccountDisconnect.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -36707,7 +33962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getFinancialConnectionsAccountsAccountOwners(
           input,
-          getFinancialConnectionsAccountsAccountOwnersResponder,
+          getFinancialConnectionsAccountsAccountOwners.responder,
           ctx,
         )
         .catch((err) => {
@@ -36717,7 +33972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getFinancialConnectionsAccountsAccountOwnersResponseValidator(
+      ctx.body = getFinancialConnectionsAccountsAccountOwners.validator(
         status,
         body,
       )
@@ -36757,7 +34012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postFinancialConnectionsAccountsAccountRefresh(
           input,
-          postFinancialConnectionsAccountsAccountRefreshResponder,
+          postFinancialConnectionsAccountsAccountRefresh.responder,
           ctx,
         )
         .catch((err) => {
@@ -36767,11 +34022,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postFinancialConnectionsAccountsAccountRefreshResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postFinancialConnectionsAccountsAccountRefresh.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -36808,7 +34062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postFinancialConnectionsAccountsAccountSubscribe(
           input,
-          postFinancialConnectionsAccountsAccountSubscribeResponder,
+          postFinancialConnectionsAccountsAccountSubscribe.responder,
           ctx,
         )
         .catch((err) => {
@@ -36818,11 +34072,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postFinancialConnectionsAccountsAccountSubscribeResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postFinancialConnectionsAccountsAccountSubscribe.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -36860,7 +34113,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postFinancialConnectionsAccountsAccountUnsubscribe(
           input,
-          postFinancialConnectionsAccountsAccountUnsubscribeResponder,
+          postFinancialConnectionsAccountsAccountUnsubscribe.responder,
           ctx,
         )
         .catch((err) => {
@@ -36870,11 +34123,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postFinancialConnectionsAccountsAccountUnsubscribeResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postFinancialConnectionsAccountsAccountUnsubscribe.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -36930,7 +34182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postFinancialConnectionsSessions(
           input,
-          postFinancialConnectionsSessionsResponder,
+          postFinancialConnectionsSessions.responder,
           ctx,
         )
         .catch((err) => {
@@ -36940,7 +34192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postFinancialConnectionsSessionsResponseValidator(status, body)
+      ctx.body = postFinancialConnectionsSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -36989,7 +34241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getFinancialConnectionsSessionsSession(
           input,
-          getFinancialConnectionsSessionsSessionResponder,
+          getFinancialConnectionsSessionsSession.responder,
           ctx,
         )
         .catch((err) => {
@@ -36999,10 +34251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getFinancialConnectionsSessionsSessionResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getFinancialConnectionsSessionsSession.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37057,7 +34306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getFinancialConnectionsTransactions(
           input,
-          getFinancialConnectionsTransactionsResponder,
+          getFinancialConnectionsTransactions.responder,
           ctx,
         )
         .catch((err) => {
@@ -37067,10 +34316,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getFinancialConnectionsTransactionsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getFinancialConnectionsTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37119,7 +34365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getFinancialConnectionsTransactionsTransaction(
           input,
-          getFinancialConnectionsTransactionsTransactionResponder,
+          getFinancialConnectionsTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -37129,11 +34375,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        getFinancialConnectionsTransactionsTransactionResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = getFinancialConnectionsTransactionsTransaction.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -37181,7 +34426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getForwardingRequests(input, getForwardingRequestsResponder, ctx)
+        .getForwardingRequests(input, getForwardingRequests.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -37189,7 +34434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getForwardingRequestsResponseValidator(status, body)
+      ctx.body = getForwardingRequests.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37240,7 +34485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postForwardingRequests(input, postForwardingRequestsResponder, ctx)
+        .postForwardingRequests(input, postForwardingRequests.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -37248,7 +34493,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postForwardingRequestsResponseValidator(status, body)
+      ctx.body = postForwardingRequests.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37293,7 +34538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getForwardingRequestsId(input, getForwardingRequestsIdResponder, ctx)
+        .getForwardingRequestsId(input, getForwardingRequestsId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -37301,7 +34546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getForwardingRequestsIdResponseValidator(status, body)
+      ctx.body = getForwardingRequestsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37357,7 +34602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIdentityVerificationReports(
           input,
-          getIdentityVerificationReportsResponder,
+          getIdentityVerificationReports.responder,
           ctx,
         )
         .catch((err) => {
@@ -37367,7 +34612,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIdentityVerificationReportsResponseValidator(status, body)
+      ctx.body = getIdentityVerificationReports.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37414,7 +34659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIdentityVerificationReportsReport(
           input,
-          getIdentityVerificationReportsReportResponder,
+          getIdentityVerificationReportsReport.responder,
           ctx,
         )
         .catch((err) => {
@@ -37424,10 +34669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIdentityVerificationReportsReportResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getIdentityVerificationReportsReport.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37485,7 +34727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIdentityVerificationSessions(
           input,
-          getIdentityVerificationSessionsResponder,
+          getIdentityVerificationSessions.responder,
           ctx,
         )
         .catch((err) => {
@@ -37495,7 +34737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIdentityVerificationSessionsResponseValidator(status, body)
+      ctx.body = getIdentityVerificationSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37551,7 +34793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIdentityVerificationSessions(
           input,
-          postIdentityVerificationSessionsResponder,
+          postIdentityVerificationSessions.responder,
           ctx,
         )
         .catch((err) => {
@@ -37561,7 +34803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIdentityVerificationSessionsResponseValidator(status, body)
+      ctx.body = postIdentityVerificationSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37610,7 +34852,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIdentityVerificationSessionsSession(
           input,
-          getIdentityVerificationSessionsSessionResponder,
+          getIdentityVerificationSessionsSession.responder,
           ctx,
         )
         .catch((err) => {
@@ -37620,10 +34862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIdentityVerificationSessionsSessionResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getIdentityVerificationSessionsSession.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37683,7 +34922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIdentityVerificationSessionsSession(
           input,
-          postIdentityVerificationSessionsSessionResponder,
+          postIdentityVerificationSessionsSession.responder,
           ctx,
         )
         .catch((err) => {
@@ -37693,10 +34932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIdentityVerificationSessionsSessionResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postIdentityVerificationSessionsSession.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37732,7 +34968,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIdentityVerificationSessionsSessionCancel(
           input,
-          postIdentityVerificationSessionsSessionCancelResponder,
+          postIdentityVerificationSessionsSessionCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -37742,7 +34978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIdentityVerificationSessionsSessionCancelResponseValidator(
+      ctx.body = postIdentityVerificationSessionsSessionCancel.validator(
         status,
         body,
       )
@@ -37781,7 +35017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIdentityVerificationSessionsSessionRedact(
           input,
-          postIdentityVerificationSessionsSessionRedactResponder,
+          postIdentityVerificationSessionsSessionRedact.responder,
           ctx,
         )
         .catch((err) => {
@@ -37791,7 +35027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIdentityVerificationSessionsSessionRedactResponseValidator(
+      ctx.body = postIdentityVerificationSessionsSessionRedact.validator(
         status,
         body,
       )
@@ -37842,7 +35078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicePayments(input, getInvoicePaymentsResponder, ctx)
+        .getInvoicePayments(input, getInvoicePayments.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -37850,7 +35086,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoicePaymentsResponseValidator(status, body)
+      ctx.body = getInvoicePayments.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37897,7 +35133,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getInvoicePaymentsInvoicePayment(
           input,
-          getInvoicePaymentsInvoicePaymentResponder,
+          getInvoicePaymentsInvoicePayment.responder,
           ctx,
         )
         .catch((err) => {
@@ -37907,7 +35143,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoicePaymentsInvoicePaymentResponseValidator(status, body)
+      ctx.body = getInvoicePaymentsInvoicePayment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -37950,7 +35186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getInvoiceRenderingTemplates(
           input,
-          getInvoiceRenderingTemplatesResponder,
+          getInvoiceRenderingTemplates.responder,
           ctx,
         )
         .catch((err) => {
@@ -37960,7 +35196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoiceRenderingTemplatesResponseValidator(status, body)
+      ctx.body = getInvoiceRenderingTemplates.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -38008,7 +35244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getInvoiceRenderingTemplatesTemplate(
           input,
-          getInvoiceRenderingTemplatesTemplateResponder,
+          getInvoiceRenderingTemplatesTemplate.responder,
           ctx,
         )
         .catch((err) => {
@@ -38018,10 +35254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoiceRenderingTemplatesTemplateResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getInvoiceRenderingTemplatesTemplate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -38057,7 +35290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoiceRenderingTemplatesTemplateArchive(
           input,
-          postInvoiceRenderingTemplatesTemplateArchiveResponder,
+          postInvoiceRenderingTemplatesTemplateArchive.responder,
           ctx,
         )
         .catch((err) => {
@@ -38067,7 +35300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoiceRenderingTemplatesTemplateArchiveResponseValidator(
+      ctx.body = postInvoiceRenderingTemplatesTemplateArchive.validator(
         status,
         body,
       )
@@ -38106,7 +35339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoiceRenderingTemplatesTemplateUnarchive(
           input,
-          postInvoiceRenderingTemplatesTemplateUnarchiveResponder,
+          postInvoiceRenderingTemplatesTemplateUnarchive.responder,
           ctx,
         )
         .catch((err) => {
@@ -38116,11 +35349,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postInvoiceRenderingTemplatesTemplateUnarchive.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -38171,7 +35403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getInvoiceitems(input, getInvoiceitemsResponder, ctx)
+      .getInvoiceitems(input, getInvoiceitems.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -38179,7 +35411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getInvoiceitemsResponseValidator(status, body)
+    ctx.body = getInvoiceitems.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -38241,7 +35473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postInvoiceitems(input, postInvoiceitemsResponder, ctx)
+      .postInvoiceitems(input, postInvoiceitems.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -38249,7 +35481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postInvoiceitemsResponseValidator(status, body)
+    ctx.body = postInvoiceitems.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -38282,7 +35514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteInvoiceitemsInvoiceitem(
           input,
-          deleteInvoiceitemsInvoiceitemResponder,
+          deleteInvoiceitemsInvoiceitem.responder,
           ctx,
         )
         .catch((err) => {
@@ -38292,7 +35524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteInvoiceitemsInvoiceitemResponseValidator(status, body)
+      ctx.body = deleteInvoiceitemsInvoiceitem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -38339,7 +35571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getInvoiceitemsInvoiceitem(
           input,
-          getInvoiceitemsInvoiceitemResponder,
+          getInvoiceitemsInvoiceitem.responder,
           ctx,
         )
         .catch((err) => {
@@ -38349,7 +35581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoiceitemsInvoiceitemResponseValidator(status, body)
+      ctx.body = getInvoiceitemsInvoiceitem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -38427,7 +35659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoiceitemsInvoiceitem(
           input,
-          postInvoiceitemsInvoiceitemResponder,
+          postInvoiceitemsInvoiceitem.responder,
           ctx,
         )
         .catch((err) => {
@@ -38437,7 +35669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoiceitemsInvoiceitemResponseValidator(status, body)
+      ctx.body = postInvoiceitemsInvoiceitem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -38504,7 +35736,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getInvoices(input, getInvoicesResponder, ctx)
+      .getInvoices(input, getInvoices.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -38512,7 +35744,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getInvoicesResponseValidator(status, body)
+    ctx.body = getInvoices.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -38858,7 +36090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postInvoices(input, postInvoicesResponder, ctx)
+      .postInvoices(input, postInvoices.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -38866,7 +36098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postInvoicesResponseValidator(status, body)
+    ctx.body = postInvoices.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -39347,7 +36579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesCreatePreview(
           input,
-          postInvoicesCreatePreviewResponder,
+          postInvoicesCreatePreview.responder,
           ctx,
         )
         .catch((err) => {
@@ -39357,7 +36589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesCreatePreviewResponseValidator(status, body)
+      ctx.body = postInvoicesCreatePreview.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -39394,7 +36626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getInvoicesSearch(input, getInvoicesSearchResponder, ctx)
+      .getInvoicesSearch(input, getInvoicesSearch.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -39402,7 +36634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getInvoicesSearchResponseValidator(status, body)
+    ctx.body = getInvoicesSearch.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -39433,7 +36665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteInvoicesInvoice(input, deleteInvoicesInvoiceResponder, ctx)
+        .deleteInvoicesInvoice(input, deleteInvoicesInvoice.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -39441,7 +36673,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteInvoicesInvoiceResponseValidator(status, body)
+      ctx.body = deleteInvoicesInvoice.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -39486,7 +36718,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicesInvoice(input, getInvoicesInvoiceResponder, ctx)
+        .getInvoicesInvoice(input, getInvoicesInvoice.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -39494,7 +36726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoicesInvoiceResponseValidator(status, body)
+      ctx.body = getInvoicesInvoice.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -39856,7 +37088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoice(input, postInvoicesInvoiceResponder, ctx)
+        .postInvoicesInvoice(input, postInvoicesInvoice.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -39864,7 +37096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceResponseValidator(status, body)
+      ctx.body = postInvoicesInvoice.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40019,7 +37251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesInvoiceAddLines(
           input,
-          postInvoicesInvoiceAddLinesResponder,
+          postInvoicesInvoiceAddLines.responder,
           ctx,
         )
         .catch((err) => {
@@ -40029,7 +37261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceAddLinesResponseValidator(status, body)
+      ctx.body = postInvoicesInvoiceAddLines.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40068,7 +37300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesInvoiceFinalize(
           input,
-          postInvoicesInvoiceFinalizeResponder,
+          postInvoicesInvoiceFinalize.responder,
           ctx,
         )
         .catch((err) => {
@@ -40078,7 +37310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceFinalizeResponseValidator(status, body)
+      ctx.body = postInvoicesInvoiceFinalize.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40126,7 +37358,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicesInvoiceLines(input, getInvoicesInvoiceLinesResponder, ctx)
+        .getInvoicesInvoiceLines(input, getInvoicesInvoiceLines.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -40134,7 +37366,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getInvoicesInvoiceLinesResponseValidator(status, body)
+      ctx.body = getInvoicesInvoiceLines.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40284,7 +37516,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesInvoiceLinesLineItemId(
           input,
-          postInvoicesInvoiceLinesLineItemIdResponder,
+          postInvoicesInvoiceLinesLineItemId.responder,
           ctx,
         )
         .catch((err) => {
@@ -40294,10 +37526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceLinesLineItemIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postInvoicesInvoiceLinesLineItemId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40333,7 +37562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesInvoiceMarkUncollectible(
           input,
-          postInvoicesInvoiceMarkUncollectibleResponder,
+          postInvoicesInvoiceMarkUncollectible.responder,
           ctx,
         )
         .catch((err) => {
@@ -40343,10 +37572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceMarkUncollectibleResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postInvoicesInvoiceMarkUncollectible.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40388,7 +37614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoicePay(input, postInvoicesInvoicePayResponder, ctx)
+        .postInvoicesInvoicePay(input, postInvoicesInvoicePay.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -40396,7 +37622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoicePayResponseValidator(status, body)
+      ctx.body = postInvoicesInvoicePay.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40439,7 +37665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesInvoiceRemoveLines(
           input,
-          postInvoicesInvoiceRemoveLinesResponder,
+          postInvoicesInvoiceRemoveLines.responder,
           ctx,
         )
         .catch((err) => {
@@ -40449,7 +37675,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceRemoveLinesResponseValidator(status, body)
+      ctx.body = postInvoicesInvoiceRemoveLines.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40483,7 +37709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceSend(input, postInvoicesInvoiceSendResponder, ctx)
+        .postInvoicesInvoiceSend(input, postInvoicesInvoiceSend.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -40491,7 +37717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceSendResponseValidator(status, body)
+      ctx.body = postInvoicesInvoiceSend.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40646,7 +37872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postInvoicesInvoiceUpdateLines(
           input,
-          postInvoicesInvoiceUpdateLinesResponder,
+          postInvoicesInvoiceUpdateLines.responder,
           ctx,
         )
         .catch((err) => {
@@ -40656,7 +37882,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceUpdateLinesResponseValidator(status, body)
+      ctx.body = postInvoicesInvoiceUpdateLines.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40690,7 +37916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceVoid(input, postInvoicesInvoiceVoidResponder, ctx)
+        .postInvoicesInvoiceVoid(input, postInvoicesInvoiceVoid.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -40698,7 +37924,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postInvoicesInvoiceVoidResponseValidator(status, body)
+      ctx.body = postInvoicesInvoiceVoid.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40752,7 +37978,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingAuthorizations(input, getIssuingAuthorizationsResponder, ctx)
+        .getIssuingAuthorizations(
+          input,
+          getIssuingAuthorizations.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -40760,7 +37990,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingAuthorizationsResponseValidator(status, body)
+      ctx.body = getIssuingAuthorizations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40809,7 +38039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingAuthorizationsAuthorization(
           input,
-          getIssuingAuthorizationsAuthorizationResponder,
+          getIssuingAuthorizationsAuthorization.responder,
           ctx,
         )
         .catch((err) => {
@@ -40819,10 +38049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingAuthorizationsAuthorizationResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getIssuingAuthorizationsAuthorization.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40861,7 +38088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingAuthorizationsAuthorization(
           input,
-          postIssuingAuthorizationsAuthorizationResponder,
+          postIssuingAuthorizationsAuthorization.responder,
           ctx,
         )
         .catch((err) => {
@@ -40871,10 +38098,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingAuthorizationsAuthorizationResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postIssuingAuthorizationsAuthorization.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -40914,7 +38138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingAuthorizationsAuthorizationApprove(
           input,
-          postIssuingAuthorizationsAuthorizationApproveResponder,
+          postIssuingAuthorizationsAuthorizationApprove.responder,
           ctx,
         )
         .catch((err) => {
@@ -40924,7 +38148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingAuthorizationsAuthorizationApproveResponseValidator(
+      ctx.body = postIssuingAuthorizationsAuthorizationApprove.validator(
         status,
         body,
       )
@@ -40966,7 +38190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingAuthorizationsAuthorizationDecline(
           input,
-          postIssuingAuthorizationsAuthorizationDeclineResponder,
+          postIssuingAuthorizationsAuthorizationDecline.responder,
           ctx,
         )
         .catch((err) => {
@@ -40976,7 +38200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingAuthorizationsAuthorizationDeclineResponseValidator(
+      ctx.body = postIssuingAuthorizationsAuthorizationDecline.validator(
         status,
         body,
       )
@@ -41034,7 +38258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingCardholders(input, getIssuingCardholdersResponder, ctx)
+        .getIssuingCardholders(input, getIssuingCardholders.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -41042,7 +38266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingCardholdersResponseValidator(status, body)
+      ctx.body = getIssuingCardholders.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -42049,7 +39273,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingCardholders(input, postIssuingCardholdersResponder, ctx)
+        .postIssuingCardholders(input, postIssuingCardholders.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -42057,7 +39281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingCardholdersResponseValidator(status, body)
+      ctx.body = postIssuingCardholders.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -42104,7 +39328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingCardholdersCardholder(
           input,
-          getIssuingCardholdersCardholderResponder,
+          getIssuingCardholdersCardholder.responder,
           ctx,
         )
         .catch((err) => {
@@ -42114,7 +39338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingCardholdersCardholderResponseValidator(status, body)
+      ctx.body = getIssuingCardholdersCardholder.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -43133,7 +40357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingCardholdersCardholder(
           input,
-          postIssuingCardholdersCardholderResponder,
+          postIssuingCardholdersCardholder.responder,
           ctx,
         )
         .catch((err) => {
@@ -43143,7 +40367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingCardholdersCardholderResponseValidator(status, body)
+      ctx.body = postIssuingCardholdersCardholder.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -43198,7 +40422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getIssuingCards(input, getIssuingCardsResponder, ctx)
+      .getIssuingCards(input, getIssuingCards.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -43206,7 +40430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getIssuingCardsResponseValidator(status, body)
+    ctx.body = getIssuingCards.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -44196,7 +41420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postIssuingCards(input, postIssuingCardsResponder, ctx)
+      .postIssuingCards(input, postIssuingCards.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -44204,7 +41428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postIssuingCardsResponseValidator(status, body)
+    ctx.body = postIssuingCards.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -44248,7 +41472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingCardsCard(input, getIssuingCardsCardResponder, ctx)
+        .getIssuingCardsCard(input, getIssuingCardsCard.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -44256,7 +41480,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingCardsCardResponseValidator(status, body)
+      ctx.body = getIssuingCardsCard.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45252,7 +42476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingCardsCard(input, postIssuingCardsCardResponder, ctx)
+        .postIssuingCardsCard(input, postIssuingCardsCard.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -45260,7 +42484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingCardsCardResponseValidator(status, body)
+      ctx.body = postIssuingCardsCard.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45315,7 +42539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingDisputes(input, getIssuingDisputesResponder, ctx)
+        .getIssuingDisputes(input, getIssuingDisputes.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -45323,7 +42547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingDisputesResponseValidator(status, body)
+      ctx.body = getIssuingDisputes.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45533,7 +42757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingDisputes(input, postIssuingDisputesResponder, ctx)
+        .postIssuingDisputes(input, postIssuingDisputes.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -45541,7 +42765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingDisputesResponseValidator(status, body)
+      ctx.body = postIssuingDisputes.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45588,7 +42812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingDisputesDispute(
           input,
-          getIssuingDisputesDisputeResponder,
+          getIssuingDisputesDispute.responder,
           ctx,
         )
         .catch((err) => {
@@ -45598,7 +42822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingDisputesDisputeResponseValidator(status, body)
+      ctx.body = getIssuingDisputesDispute.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45816,7 +43040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingDisputesDispute(
           input,
-          postIssuingDisputesDisputeResponder,
+          postIssuingDisputesDispute.responder,
           ctx,
         )
         .catch((err) => {
@@ -45826,7 +43050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingDisputesDisputeResponseValidator(status, body)
+      ctx.body = postIssuingDisputesDispute.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45865,7 +43089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingDisputesDisputeSubmit(
           input,
-          postIssuingDisputesDisputeSubmitResponder,
+          postIssuingDisputesDisputeSubmit.responder,
           ctx,
         )
         .catch((err) => {
@@ -45875,7 +43099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingDisputesDisputeSubmitResponseValidator(status, body)
+      ctx.body = postIssuingDisputesDisputeSubmit.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45930,7 +43154,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingPersonalizationDesigns(
           input,
-          getIssuingPersonalizationDesignsResponder,
+          getIssuingPersonalizationDesigns.responder,
           ctx,
         )
         .catch((err) => {
@@ -45940,7 +43164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingPersonalizationDesignsResponseValidator(status, body)
+      ctx.body = getIssuingPersonalizationDesigns.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -45983,7 +43207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingPersonalizationDesigns(
           input,
-          postIssuingPersonalizationDesignsResponder,
+          postIssuingPersonalizationDesigns.responder,
           ctx,
         )
         .catch((err) => {
@@ -45993,10 +43217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingPersonalizationDesignsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postIssuingPersonalizationDesigns.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46045,7 +43266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingPersonalizationDesignsPersonalizationDesign(
           input,
-          getIssuingPersonalizationDesignsPersonalizationDesignResponder,
+          getIssuingPersonalizationDesignsPersonalizationDesign.responder,
           ctx,
         )
         .catch((err) => {
@@ -46056,7 +43277,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        getIssuingPersonalizationDesignsPersonalizationDesignResponseValidator(
+        getIssuingPersonalizationDesignsPersonalizationDesign.validator(
           status,
           body,
         )
@@ -46122,7 +43343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingPersonalizationDesignsPersonalizationDesign(
           input,
-          postIssuingPersonalizationDesignsPersonalizationDesignResponder,
+          postIssuingPersonalizationDesignsPersonalizationDesign.responder,
           ctx,
         )
         .catch((err) => {
@@ -46133,7 +43354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postIssuingPersonalizationDesignsPersonalizationDesignResponseValidator(
+        postIssuingPersonalizationDesignsPersonalizationDesign.validator(
           status,
           body,
         )
@@ -46180,7 +43401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingPhysicalBundles(
           input,
-          getIssuingPhysicalBundlesResponder,
+          getIssuingPhysicalBundles.responder,
           ctx,
         )
         .catch((err) => {
@@ -46190,7 +43411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingPhysicalBundlesResponseValidator(status, body)
+      ctx.body = getIssuingPhysicalBundles.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46239,7 +43460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingPhysicalBundlesPhysicalBundle(
           input,
-          getIssuingPhysicalBundlesPhysicalBundleResponder,
+          getIssuingPhysicalBundlesPhysicalBundle.responder,
           ctx,
         )
         .catch((err) => {
@@ -46249,10 +43470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingPhysicalBundlesPhysicalBundleResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getIssuingPhysicalBundlesPhysicalBundle.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46299,7 +43517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingSettlementsSettlement(
           input,
-          getIssuingSettlementsSettlementResponder,
+          getIssuingSettlementsSettlement.responder,
           ctx,
         )
         .catch((err) => {
@@ -46309,7 +43527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingSettlementsSettlementResponseValidator(status, body)
+      ctx.body = getIssuingSettlementsSettlement.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46348,7 +43566,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingSettlementsSettlement(
           input,
-          postIssuingSettlementsSettlementResponder,
+          postIssuingSettlementsSettlement.responder,
           ctx,
         )
         .catch((err) => {
@@ -46358,7 +43576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingSettlementsSettlementResponseValidator(status, body)
+      ctx.body = postIssuingSettlementsSettlement.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46408,7 +43626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getIssuingTokens(input, getIssuingTokensResponder, ctx)
+      .getIssuingTokens(input, getIssuingTokens.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -46416,7 +43634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getIssuingTokensResponseValidator(status, body)
+    ctx.body = getIssuingTokens.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -46460,7 +43678,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingTokensToken(input, getIssuingTokensTokenResponder, ctx)
+        .getIssuingTokensToken(input, getIssuingTokensToken.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -46468,7 +43686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingTokensTokenResponseValidator(status, body)
+      ctx.body = getIssuingTokensToken.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46503,7 +43721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingTokensToken(input, postIssuingTokensTokenResponder, ctx)
+        .postIssuingTokensToken(input, postIssuingTokensToken.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -46511,7 +43729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingTokensTokenResponseValidator(status, body)
+      ctx.body = postIssuingTokensToken.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46565,7 +43783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingTransactions(input, getIssuingTransactionsResponder, ctx)
+        .getIssuingTransactions(input, getIssuingTransactions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -46573,7 +43791,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingTransactionsResponseValidator(status, body)
+      ctx.body = getIssuingTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46620,7 +43838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getIssuingTransactionsTransaction(
           input,
-          getIssuingTransactionsTransactionResponder,
+          getIssuingTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -46630,10 +43848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getIssuingTransactionsTransactionResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getIssuingTransactionsTransaction.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46672,7 +43887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postIssuingTransactionsTransaction(
           input,
-          postIssuingTransactionsTransactionResponder,
+          postIssuingTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -46682,10 +43897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postIssuingTransactionsTransactionResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postIssuingTransactionsTransaction.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46739,7 +43951,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postLinkAccountSessions(input, postLinkAccountSessionsResponder, ctx)
+        .postLinkAccountSessions(input, postLinkAccountSessions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -46747,7 +43959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postLinkAccountSessionsResponseValidator(status, body)
+      ctx.body = postLinkAccountSessions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46794,7 +44006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getLinkAccountSessionsSession(
           input,
-          getLinkAccountSessionsSessionResponder,
+          getLinkAccountSessionsSession.responder,
           ctx,
         )
         .catch((err) => {
@@ -46804,7 +44016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getLinkAccountSessionsSessionResponseValidator(status, body)
+      ctx.body = getLinkAccountSessionsSession.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46848,7 +44060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getLinkedAccounts(input, getLinkedAccountsResponder, ctx)
+      .getLinkedAccounts(input, getLinkedAccounts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -46856,7 +44068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getLinkedAccountsResponseValidator(status, body)
+    ctx.body = getLinkedAccounts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -46900,7 +44112,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getLinkedAccountsAccount(input, getLinkedAccountsAccountResponder, ctx)
+        .getLinkedAccountsAccount(
+          input,
+          getLinkedAccountsAccount.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -46908,7 +44124,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getLinkedAccountsAccountResponseValidator(status, body)
+      ctx.body = getLinkedAccountsAccount.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -46944,7 +44160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postLinkedAccountsAccountDisconnect(
           input,
-          postLinkedAccountsAccountDisconnectResponder,
+          postLinkedAccountsAccountDisconnect.responder,
           ctx,
         )
         .catch((err) => {
@@ -46954,10 +44170,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postLinkedAccountsAccountDisconnectResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postLinkedAccountsAccountDisconnect.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -47008,7 +44221,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getLinkedAccountsAccountOwners(
           input,
-          getLinkedAccountsAccountOwnersResponder,
+          getLinkedAccountsAccountOwners.responder,
           ctx,
         )
         .catch((err) => {
@@ -47018,7 +44231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getLinkedAccountsAccountOwnersResponseValidator(status, body)
+      ctx.body = getLinkedAccountsAccountOwners.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -47055,7 +44268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postLinkedAccountsAccountRefresh(
           input,
-          postLinkedAccountsAccountRefreshResponder,
+          postLinkedAccountsAccountRefresh.responder,
           ctx,
         )
         .catch((err) => {
@@ -47065,7 +44278,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postLinkedAccountsAccountRefreshResponseValidator(status, body)
+      ctx.body = postLinkedAccountsAccountRefresh.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -47108,7 +44321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getMandatesMandate(input, getMandatesMandateResponder, ctx)
+        .getMandatesMandate(input, getMandatesMandate.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -47116,7 +44329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getMandatesMandateResponseValidator(status, body)
+      ctx.body = getMandatesMandate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -47165,7 +44378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPaymentIntents(input, getPaymentIntentsResponder, ctx)
+      .getPaymentIntents(input, getPaymentIntents.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -47173,7 +44386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPaymentIntentsResponseValidator(status, body)
+    ctx.body = getPaymentIntents.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -48273,7 +45486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntents(input, postPaymentIntentsResponder, ctx)
+        .postPaymentIntents(input, postPaymentIntents.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -48281,7 +45494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsResponseValidator(status, body)
+      ctx.body = postPaymentIntents.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -48321,7 +45534,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentIntentsSearch(input, getPaymentIntentsSearchResponder, ctx)
+        .getPaymentIntentsSearch(input, getPaymentIntentsSearch.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -48329,7 +45542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentIntentsSearchResponseValidator(status, body)
+      ctx.body = getPaymentIntentsSearch.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -48375,7 +45588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentIntentsIntent(input, getPaymentIntentsIntentResponder, ctx)
+        .getPaymentIntentsIntent(input, getPaymentIntentsIntent.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -48383,7 +45596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentIntentsIntentResponseValidator(status, body)
+      ctx.body = getPaymentIntentsIntent.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -49471,7 +46684,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntent(input, postPaymentIntentsIntentResponder, ctx)
+        .postPaymentIntentsIntent(
+          input,
+          postPaymentIntentsIntent.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -49479,7 +46696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsIntentResponseValidator(status, body)
+      ctx.body = postPaymentIntentsIntent.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -49519,7 +46736,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentIntentsIntentApplyCustomerBalance(
           input,
-          postPaymentIntentsIntentApplyCustomerBalanceResponder,
+          postPaymentIntentsIntentApplyCustomerBalance.responder,
           ctx,
         )
         .catch((err) => {
@@ -49529,7 +46746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsIntentApplyCustomerBalanceResponseValidator(
+      ctx.body = postPaymentIntentsIntentApplyCustomerBalance.validator(
         status,
         body,
       )
@@ -49573,7 +46790,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentIntentsIntentCancel(
           input,
-          postPaymentIntentsIntentCancelResponder,
+          postPaymentIntentsIntentCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -49583,7 +46800,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsIntentCancelResponseValidator(status, body)
+      ctx.body = postPaymentIntentsIntentCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -49630,7 +46847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentIntentsIntentCapture(
           input,
-          postPaymentIntentsIntentCaptureResponder,
+          postPaymentIntentsIntentCapture.responder,
           ctx,
         )
         .catch((err) => {
@@ -49640,7 +46857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsIntentCaptureResponseValidator(status, body)
+      ctx.body = postPaymentIntentsIntentCapture.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -50754,7 +47971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentIntentsIntentConfirm(
           input,
-          postPaymentIntentsIntentConfirmResponder,
+          postPaymentIntentsIntentConfirm.responder,
           ctx,
         )
         .catch((err) => {
@@ -50764,7 +47981,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsIntentConfirmResponseValidator(status, body)
+      ctx.body = postPaymentIntentsIntentConfirm.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -50808,7 +48025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentIntentsIntentIncrementAuthorization(
           input,
-          postPaymentIntentsIntentIncrementAuthorizationResponder,
+          postPaymentIntentsIntentIncrementAuthorization.responder,
           ctx,
         )
         .catch((err) => {
@@ -50818,11 +48035,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postPaymentIntentsIntentIncrementAuthorizationResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postPaymentIntentsIntentIncrementAuthorization.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -50863,7 +48079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentIntentsIntentVerifyMicrodeposits(
           input,
-          postPaymentIntentsIntentVerifyMicrodepositsResponder,
+          postPaymentIntentsIntentVerifyMicrodeposits.responder,
           ctx,
         )
         .catch((err) => {
@@ -50873,7 +48089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentIntentsIntentVerifyMicrodepositsResponseValidator(
+      ctx.body = postPaymentIntentsIntentVerifyMicrodeposits.validator(
         status,
         body,
       )
@@ -50914,7 +48130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPaymentLinks(input, getPaymentLinksResponder, ctx)
+      .getPaymentLinks(input, getPaymentLinks.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -50922,7 +48138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPaymentLinksResponseValidator(status, body)
+    ctx.body = getPaymentLinks.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -51458,7 +48674,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPaymentLinks(input, postPaymentLinksResponder, ctx)
+      .postPaymentLinks(input, postPaymentLinks.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -51466,7 +48682,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPaymentLinksResponseValidator(status, body)
+    ctx.body = postPaymentLinks.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -51512,7 +48728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPaymentLinksPaymentLink(
           input,
-          getPaymentLinksPaymentLinkResponder,
+          getPaymentLinksPaymentLink.responder,
           ctx,
         )
         .catch((err) => {
@@ -51522,7 +48738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentLinksPaymentLinkResponseValidator(status, body)
+      ctx.body = getPaymentLinksPaymentLink.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -52065,7 +49281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentLinksPaymentLink(
           input,
-          postPaymentLinksPaymentLinkResponder,
+          postPaymentLinksPaymentLink.responder,
           ctx,
         )
         .catch((err) => {
@@ -52075,7 +49291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentLinksPaymentLinkResponseValidator(status, body)
+      ctx.body = postPaymentLinksPaymentLink.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -52125,7 +49341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPaymentLinksPaymentLinkLineItems(
           input,
-          getPaymentLinksPaymentLinkLineItemsResponder,
+          getPaymentLinksPaymentLinkLineItems.responder,
           ctx,
         )
         .catch((err) => {
@@ -52135,10 +49351,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentLinksPaymentLinkLineItemsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getPaymentLinksPaymentLinkLineItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -52181,7 +49394,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPaymentMethodConfigurations(
           input,
-          getPaymentMethodConfigurationsResponder,
+          getPaymentMethodConfigurations.responder,
           ctx,
         )
         .catch((err) => {
@@ -52191,7 +49404,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentMethodConfigurationsResponseValidator(status, body)
+      ctx.body = getPaymentMethodConfigurations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -52545,7 +49758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodConfigurations(
           input,
-          postPaymentMethodConfigurationsResponder,
+          postPaymentMethodConfigurations.responder,
           ctx,
         )
         .catch((err) => {
@@ -52555,7 +49768,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodConfigurationsResponseValidator(status, body)
+      ctx.body = postPaymentMethodConfigurations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -52604,7 +49817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPaymentMethodConfigurationsConfiguration(
           input,
-          getPaymentMethodConfigurationsConfigurationResponder,
+          getPaymentMethodConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -52614,7 +49827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentMethodConfigurationsConfigurationResponseValidator(
+      ctx.body = getPaymentMethodConfigurationsConfiguration.validator(
         status,
         body,
       )
@@ -52979,7 +50192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodConfigurationsConfiguration(
           input,
-          postPaymentMethodConfigurationsConfigurationResponder,
+          postPaymentMethodConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -52989,7 +50202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodConfigurationsConfigurationResponseValidator(
+      ctx.body = postPaymentMethodConfigurationsConfiguration.validator(
         status,
         body,
       )
@@ -53034,7 +50247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentMethodDomains(input, getPaymentMethodDomainsResponder, ctx)
+        .getPaymentMethodDomains(input, getPaymentMethodDomains.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -53042,7 +50255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentMethodDomainsResponseValidator(status, body)
+      ctx.body = getPaymentMethodDomains.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53070,7 +50283,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodDomains(input, postPaymentMethodDomainsResponder, ctx)
+        .postPaymentMethodDomains(
+          input,
+          postPaymentMethodDomains.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -53078,7 +50295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodDomainsResponseValidator(status, body)
+      ctx.body = postPaymentMethodDomains.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53127,7 +50344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPaymentMethodDomainsPaymentMethodDomain(
           input,
-          getPaymentMethodDomainsPaymentMethodDomainResponder,
+          getPaymentMethodDomainsPaymentMethodDomain.responder,
           ctx,
         )
         .catch((err) => {
@@ -53137,7 +50354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentMethodDomainsPaymentMethodDomainResponseValidator(
+      ctx.body = getPaymentMethodDomainsPaymentMethodDomain.validator(
         status,
         body,
       )
@@ -53179,7 +50396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodDomainsPaymentMethodDomain(
           input,
-          postPaymentMethodDomainsPaymentMethodDomainResponder,
+          postPaymentMethodDomainsPaymentMethodDomain.responder,
           ctx,
         )
         .catch((err) => {
@@ -53189,7 +50406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodDomainsPaymentMethodDomainResponseValidator(
+      ctx.body = postPaymentMethodDomainsPaymentMethodDomain.validator(
         status,
         body,
       )
@@ -53227,7 +50444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodDomainsPaymentMethodDomainValidate(
           input,
-          postPaymentMethodDomainsPaymentMethodDomainValidateResponder,
+          postPaymentMethodDomainsPaymentMethodDomainValidate.responder,
           ctx,
         )
         .catch((err) => {
@@ -53237,11 +50454,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postPaymentMethodDomainsPaymentMethodDomainValidate.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -53330,7 +50546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPaymentMethods(input, getPaymentMethodsResponder, ctx)
+      .getPaymentMethods(input, getPaymentMethods.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -53338,7 +50554,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPaymentMethodsResponseValidator(status, body)
+    ctx.body = getPaymentMethods.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -53673,7 +50889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethods(input, postPaymentMethodsResponder, ctx)
+        .postPaymentMethods(input, postPaymentMethods.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -53681,7 +50897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodsResponseValidator(status, body)
+      ctx.body = postPaymentMethods.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53728,7 +50944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPaymentMethodsPaymentMethod(
           input,
-          getPaymentMethodsPaymentMethodResponder,
+          getPaymentMethodsPaymentMethod.responder,
           ctx,
         )
         .catch((err) => {
@@ -53738,7 +50954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPaymentMethodsPaymentMethodResponseValidator(status, body)
+      ctx.body = getPaymentMethodsPaymentMethod.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53819,7 +51035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodsPaymentMethod(
           input,
-          postPaymentMethodsPaymentMethodResponder,
+          postPaymentMethodsPaymentMethod.responder,
           ctx,
         )
         .catch((err) => {
@@ -53829,7 +51045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodsPaymentMethodResponseValidator(status, body)
+      ctx.body = postPaymentMethodsPaymentMethod.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53866,7 +51082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodsPaymentMethodAttach(
           input,
-          postPaymentMethodsPaymentMethodAttachResponder,
+          postPaymentMethodsPaymentMethodAttach.responder,
           ctx,
         )
         .catch((err) => {
@@ -53876,10 +51092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodsPaymentMethodAttachResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postPaymentMethodsPaymentMethodAttach.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53915,7 +51128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPaymentMethodsPaymentMethodDetach(
           input,
-          postPaymentMethodsPaymentMethodDetachResponder,
+          postPaymentMethodsPaymentMethodDetach.responder,
           ctx,
         )
         .catch((err) => {
@@ -53925,10 +51138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPaymentMethodsPaymentMethodDetachResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postPaymentMethodsPaymentMethodDetach.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -53989,7 +51199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPayouts(input, getPayoutsResponder, ctx)
+      .getPayouts(input, getPayouts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -53997,7 +51207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPayoutsResponseValidator(status, body)
+    ctx.body = getPayouts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54027,7 +51237,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPayouts(input, postPayoutsResponder, ctx)
+      .postPayouts(input, postPayouts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54035,7 +51245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPayoutsResponseValidator(status, body)
+    ctx.body = postPayouts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54074,7 +51284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPayoutsPayout(input, getPayoutsPayoutResponder, ctx)
+      .getPayoutsPayout(input, getPayoutsPayout.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54082,7 +51292,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPayoutsPayoutResponseValidator(status, body)
+    ctx.body = getPayoutsPayout.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54115,7 +51325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPayoutsPayout(input, postPayoutsPayoutResponder, ctx)
+      .postPayoutsPayout(input, postPayoutsPayout.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54123,7 +51333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPayoutsPayoutResponseValidator(status, body)
+    ctx.body = postPayoutsPayout.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54156,7 +51366,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPayoutsPayoutCancel(input, postPayoutsPayoutCancelResponder, ctx)
+        .postPayoutsPayoutCancel(input, postPayoutsPayoutCancel.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -54164,7 +51374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPayoutsPayoutCancelResponseValidator(status, body)
+      ctx.body = postPayoutsPayoutCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -54201,7 +51411,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPayoutsPayoutReverse(input, postPayoutsPayoutReverseResponder, ctx)
+        .postPayoutsPayoutReverse(
+          input,
+          postPayoutsPayoutReverse.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -54209,7 +51423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPayoutsPayoutReverseResponseValidator(status, body)
+      ctx.body = postPayoutsPayoutReverse.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -54259,7 +51473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPlans(input, getPlansResponder, ctx)
+      .getPlans(input, getPlans.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54267,7 +51481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPlansResponseValidator(status, body)
+    ctx.body = getPlans.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54331,7 +51545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPlans(input, postPlansResponder, ctx)
+      .postPlans(input, postPlans.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54339,7 +51553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPlansResponseValidator(status, body)
+    ctx.body = postPlans.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54365,7 +51579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deletePlansPlan(input, deletePlansPlanResponder, ctx)
+      .deletePlansPlan(input, deletePlansPlan.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54373,7 +51587,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = deletePlansPlanResponseValidator(status, body)
+    ctx.body = deletePlansPlan.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54412,7 +51626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPlansPlan(input, getPlansPlanResponder, ctx)
+      .getPlansPlan(input, getPlansPlan.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54420,7 +51634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPlansPlanResponseValidator(status, body)
+    ctx.body = getPlansPlan.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54455,7 +51669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPlansPlan(input, postPlansPlanResponder, ctx)
+      .postPlansPlan(input, postPlansPlan.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54463,7 +51677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPlansPlanResponseValidator(status, body)
+    ctx.body = postPlansPlan.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54527,7 +51741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPrices(input, getPricesResponder, ctx)
+      .getPrices(input, getPrices.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54535,7 +51749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPricesResponseValidator(status, body)
+    ctx.body = getPrices.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54640,7 +51854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPrices(input, postPricesResponder, ctx)
+      .postPrices(input, postPrices.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54648,7 +51862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPricesResponseValidator(status, body)
+    ctx.body = postPrices.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54684,7 +51898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPricesSearch(input, getPricesSearchResponder, ctx)
+      .getPricesSearch(input, getPricesSearch.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54692,7 +51906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPricesSearchResponseValidator(status, body)
+    ctx.body = getPricesSearch.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54731,7 +51945,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPricesPrice(input, getPricesPriceResponder, ctx)
+      .getPricesPrice(input, getPricesPrice.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54739,7 +51953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPricesPriceResponseValidator(status, body)
+    ctx.body = getPricesPrice.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54810,7 +52024,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPricesPrice(input, postPricesPriceResponder, ctx)
+      .postPricesPrice(input, postPricesPrice.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54818,7 +52032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postPricesPriceResponseValidator(status, body)
+    ctx.body = postPricesPrice.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54874,7 +52088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProducts(input, getProductsResponder, ctx)
+      .getProducts(input, getProducts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54882,7 +52096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getProductsResponseValidator(status, body)
+    ctx.body = getProducts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -54981,7 +52195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postProducts(input, postProductsResponder, ctx)
+      .postProducts(input, postProducts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -54989,7 +52203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postProductsResponseValidator(status, body)
+    ctx.body = postProducts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55025,7 +52239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProductsSearch(input, getProductsSearchResponder, ctx)
+      .getProductsSearch(input, getProductsSearch.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55033,7 +52247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getProductsSearchResponseValidator(status, body)
+    ctx.body = getProductsSearch.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55059,7 +52273,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deleteProductsId(input, deleteProductsIdResponder, ctx)
+      .deleteProductsId(input, deleteProductsId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55067,7 +52281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = deleteProductsIdResponseValidator(status, body)
+    ctx.body = deleteProductsId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55106,7 +52320,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProductsId(input, getProductsIdResponder, ctx)
+      .getProductsId(input, getProductsId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55114,7 +52328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getProductsIdResponseValidator(status, body)
+    ctx.body = getProductsId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55172,7 +52386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postProductsId(input, postProductsIdResponder, ctx)
+      .postProductsId(input, postProductsId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55180,7 +52394,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postProductsIdResponseValidator(status, body)
+    ctx.body = postProductsId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55229,7 +52443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getProductsProductFeatures(
           input,
-          getProductsProductFeaturesResponder,
+          getProductsProductFeatures.responder,
           ctx,
         )
         .catch((err) => {
@@ -55239,7 +52453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getProductsProductFeaturesResponseValidator(status, body)
+      ctx.body = getProductsProductFeatures.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55276,7 +52490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postProductsProductFeatures(
           input,
-          postProductsProductFeaturesResponder,
+          postProductsProductFeatures.responder,
           ctx,
         )
         .catch((err) => {
@@ -55286,7 +52500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postProductsProductFeaturesResponseValidator(status, body)
+      ctx.body = postProductsProductFeatures.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55321,7 +52535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteProductsProductFeaturesId(
           input,
-          deleteProductsProductFeaturesIdResponder,
+          deleteProductsProductFeaturesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -55331,7 +52545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteProductsProductFeaturesIdResponseValidator(status, body)
+      ctx.body = deleteProductsProductFeaturesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55379,7 +52593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getProductsProductFeaturesId(
           input,
-          getProductsProductFeaturesIdResponder,
+          getProductsProductFeaturesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -55389,7 +52603,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getProductsProductFeaturesIdResponseValidator(status, body)
+      ctx.body = getProductsProductFeaturesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55441,7 +52655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPromotionCodes(input, getPromotionCodesResponder, ctx)
+      .getPromotionCodes(input, getPromotionCodes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55449,7 +52663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPromotionCodesResponseValidator(status, body)
+    ctx.body = getPromotionCodes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55491,7 +52705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPromotionCodes(input, postPromotionCodesResponder, ctx)
+        .postPromotionCodes(input, postPromotionCodes.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55499,7 +52713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPromotionCodesResponseValidator(status, body)
+      ctx.body = postPromotionCodes.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55546,7 +52760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getPromotionCodesPromotionCode(
           input,
-          getPromotionCodesPromotionCodeResponder,
+          getPromotionCodesPromotionCode.responder,
           ctx,
         )
         .catch((err) => {
@@ -55556,7 +52770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getPromotionCodesPromotionCodeResponseValidator(status, body)
+      ctx.body = getPromotionCodesPromotionCode.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55603,7 +52817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postPromotionCodesPromotionCode(
           input,
-          postPromotionCodesPromotionCodeResponder,
+          postPromotionCodesPromotionCode.responder,
           ctx,
         )
         .catch((err) => {
@@ -55613,7 +52827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postPromotionCodesPromotionCodeResponseValidator(status, body)
+      ctx.body = postPromotionCodesPromotionCode.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -55653,7 +52867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getQuotes(input, getQuotesResponder, ctx)
+      .getQuotes(input, getQuotes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55661,7 +52875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getQuotesResponseValidator(status, body)
+    ctx.body = getQuotes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55811,7 +53025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postQuotes(input, postQuotesResponder, ctx)
+      .postQuotes(input, postQuotes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55819,7 +53033,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postQuotesResponseValidator(status, body)
+    ctx.body = postQuotes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -55858,7 +53072,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getQuotesQuote(input, getQuotesQuoteResponder, ctx)
+      .getQuotesQuote(input, getQuotesQuote.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -55866,7 +53080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getQuotesQuoteResponseValidator(status, body)
+    ctx.body = getQuotesQuote.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -56016,7 +53230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postQuotesQuote(input, postQuotesQuoteResponder, ctx)
+      .postQuotesQuote(input, postQuotesQuote.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -56024,7 +53238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postQuotesQuoteResponseValidator(status, body)
+    ctx.body = postQuotesQuote.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -56057,7 +53271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postQuotesQuoteAccept(input, postQuotesQuoteAcceptResponder, ctx)
+        .postQuotesQuoteAccept(input, postQuotesQuoteAccept.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56065,7 +53279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postQuotesQuoteAcceptResponseValidator(status, body)
+      ctx.body = postQuotesQuoteAccept.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56099,7 +53313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postQuotesQuoteCancel(input, postQuotesQuoteCancelResponder, ctx)
+        .postQuotesQuoteCancel(input, postQuotesQuoteCancel.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56107,7 +53321,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postQuotesQuoteCancelResponseValidator(status, body)
+      ctx.body = postQuotesQuoteCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56159,7 +53373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getQuotesQuoteComputedUpfrontLineItems(
           input,
-          getQuotesQuoteComputedUpfrontLineItemsResponder,
+          getQuotesQuoteComputedUpfrontLineItems.responder,
           ctx,
         )
         .catch((err) => {
@@ -56169,10 +53383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getQuotesQuoteComputedUpfrontLineItemsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getQuotesQuoteComputedUpfrontLineItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56209,7 +53420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postQuotesQuoteFinalize(input, postQuotesQuoteFinalizeResponder, ctx)
+        .postQuotesQuoteFinalize(input, postQuotesQuoteFinalize.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56217,7 +53428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postQuotesQuoteFinalizeResponseValidator(status, body)
+      ctx.body = postQuotesQuoteFinalize.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56265,7 +53476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getQuotesQuoteLineItems(input, getQuotesQuoteLineItemsResponder, ctx)
+        .getQuotesQuoteLineItems(input, getQuotesQuoteLineItems.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56273,7 +53484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getQuotesQuoteLineItemsResponseValidator(status, body)
+      ctx.body = getQuotesQuoteLineItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56316,7 +53527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getQuotesQuotePdf(input, getQuotesQuotePdfResponder, ctx)
+        .getQuotesQuotePdf(input, getQuotesQuotePdf.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56324,7 +53535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getQuotesQuotePdfResponseValidator(status, body)
+      ctx.body = getQuotesQuotePdf.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56379,7 +53590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getRadarEarlyFraudWarnings(
           input,
-          getRadarEarlyFraudWarningsResponder,
+          getRadarEarlyFraudWarnings.responder,
           ctx,
         )
         .catch((err) => {
@@ -56389,7 +53600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getRadarEarlyFraudWarningsResponseValidator(status, body)
+      ctx.body = getRadarEarlyFraudWarnings.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56438,7 +53649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getRadarEarlyFraudWarningsEarlyFraudWarning(
           input,
-          getRadarEarlyFraudWarningsEarlyFraudWarningResponder,
+          getRadarEarlyFraudWarningsEarlyFraudWarning.responder,
           ctx,
         )
         .catch((err) => {
@@ -56448,7 +53659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator(
+      ctx.body = getRadarEarlyFraudWarningsEarlyFraudWarning.validator(
         status,
         body,
       )
@@ -56504,7 +53715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarValueListItems(input, getRadarValueListItemsResponder, ctx)
+        .getRadarValueListItems(input, getRadarValueListItems.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56512,7 +53723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getRadarValueListItemsResponseValidator(status, body)
+      ctx.body = getRadarValueListItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56540,7 +53751,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRadarValueListItems(input, postRadarValueListItemsResponder, ctx)
+        .postRadarValueListItems(input, postRadarValueListItems.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56548,7 +53759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postRadarValueListItemsResponseValidator(status, body)
+      ctx.body = postRadarValueListItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56582,7 +53793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteRadarValueListItemsItem(
           input,
-          deleteRadarValueListItemsItemResponder,
+          deleteRadarValueListItemsItem.responder,
           ctx,
         )
         .catch((err) => {
@@ -56592,7 +53803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteRadarValueListItemsItemResponseValidator(status, body)
+      ctx.body = deleteRadarValueListItemsItem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56639,7 +53850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getRadarValueListItemsItem(
           input,
-          getRadarValueListItemsItemResponder,
+          getRadarValueListItemsItem.responder,
           ctx,
         )
         .catch((err) => {
@@ -56649,7 +53860,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getRadarValueListItemsItemResponseValidator(status, body)
+      ctx.body = getRadarValueListItemsItem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56702,7 +53913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarValueLists(input, getRadarValueListsResponder, ctx)
+        .getRadarValueLists(input, getRadarValueLists.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56710,7 +53921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getRadarValueListsResponseValidator(status, body)
+      ctx.body = getRadarValueLists.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56753,7 +53964,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRadarValueLists(input, postRadarValueListsResponder, ctx)
+        .postRadarValueLists(input, postRadarValueLists.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56761,7 +53972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postRadarValueListsResponseValidator(status, body)
+      ctx.body = postRadarValueLists.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56795,7 +54006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteRadarValueListsValueList(
           input,
-          deleteRadarValueListsValueListResponder,
+          deleteRadarValueListsValueList.responder,
           ctx,
         )
         .catch((err) => {
@@ -56805,7 +54016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteRadarValueListsValueListResponseValidator(status, body)
+      ctx.body = deleteRadarValueListsValueList.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56852,7 +54063,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getRadarValueListsValueList(
           input,
-          getRadarValueListsValueListResponder,
+          getRadarValueListsValueList.responder,
           ctx,
         )
         .catch((err) => {
@@ -56862,7 +54073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getRadarValueListsValueListResponseValidator(status, body)
+      ctx.body = getRadarValueListsValueList.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56903,7 +54114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postRadarValueListsValueList(
           input,
-          postRadarValueListsValueListResponder,
+          postRadarValueListsValueList.responder,
           ctx,
         )
         .catch((err) => {
@@ -56913,7 +54124,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postRadarValueListsValueListResponseValidator(status, body)
+      ctx.body = postRadarValueListsValueList.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -56963,7 +54174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getRefunds(input, getRefundsResponder, ctx)
+      .getRefunds(input, getRefunds.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -56971,7 +54182,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getRefundsResponseValidator(status, body)
+    ctx.body = getRefunds.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -57008,7 +54219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postRefunds(input, postRefundsResponder, ctx)
+      .postRefunds(input, postRefunds.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -57016,7 +54227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postRefundsResponseValidator(status, body)
+    ctx.body = postRefunds.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -57055,7 +54266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getRefundsRefund(input, getRefundsRefundResponder, ctx)
+      .getRefundsRefund(input, getRefundsRefund.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -57063,7 +54274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getRefundsRefundResponseValidator(status, body)
+    ctx.body = getRefundsRefund.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -57094,7 +54305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postRefundsRefund(input, postRefundsRefundResponder, ctx)
+      .postRefundsRefund(input, postRefundsRefund.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -57102,7 +54313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postRefundsRefundResponseValidator(status, body)
+    ctx.body = postRefundsRefund.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -57133,7 +54344,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRefundsRefundCancel(input, postRefundsRefundCancelResponder, ctx)
+        .postRefundsRefundCancel(input, postRefundsRefundCancel.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -57141,7 +54352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postRefundsRefundCancelResponseValidator(status, body)
+      ctx.body = postRefundsRefundCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -57192,7 +54403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getReportingReportRuns(input, getReportingReportRunsResponder, ctx)
+        .getReportingReportRuns(input, getReportingReportRuns.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -57200,7 +54411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getReportingReportRunsResponseValidator(status, body)
+      ctx.body = getReportingReportRuns.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -57880,7 +55091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postReportingReportRuns(input, postReportingReportRunsResponder, ctx)
+        .postReportingReportRuns(input, postReportingReportRuns.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -57888,7 +55099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postReportingReportRunsResponseValidator(status, body)
+      ctx.body = postReportingReportRuns.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -57935,7 +55146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getReportingReportRunsReportRun(
           input,
-          getReportingReportRunsReportRunResponder,
+          getReportingReportRunsReportRun.responder,
           ctx,
         )
         .catch((err) => {
@@ -57945,7 +55156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getReportingReportRunsReportRunResponseValidator(status, body)
+      ctx.body = getReportingReportRunsReportRun.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -57982,7 +55193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getReportingReportTypes(input, getReportingReportTypesResponder, ctx)
+        .getReportingReportTypes(input, getReportingReportTypes.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -57990,7 +55201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getReportingReportTypesResponseValidator(status, body)
+      ctx.body = getReportingReportTypes.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -58037,7 +55248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getReportingReportTypesReportType(
           input,
-          getReportingReportTypesReportTypeResponder,
+          getReportingReportTypesReportType.responder,
           ctx,
         )
         .catch((err) => {
@@ -58047,10 +55258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getReportingReportTypesReportTypeResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getReportingReportTypesReportType.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -58098,7 +55306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getReviews(input, getReviewsResponder, ctx)
+      .getReviews(input, getReviews.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -58106,7 +55314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getReviewsResponseValidator(status, body)
+    ctx.body = getReviews.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -58145,7 +55353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getReviewsReview(input, getReviewsReviewResponder, ctx)
+      .getReviewsReview(input, getReviewsReview.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -58153,7 +55361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getReviewsReviewResponseValidator(status, body)
+    ctx.body = getReviewsReview.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -58186,7 +55394,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postReviewsReviewApprove(input, postReviewsReviewApproveResponder, ctx)
+        .postReviewsReviewApprove(
+          input,
+          postReviewsReviewApprove.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -58194,7 +55406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postReviewsReviewApproveResponseValidator(status, body)
+      ctx.body = postReviewsReviewApprove.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -58243,7 +55455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSetupAttempts(input, getSetupAttemptsResponder, ctx)
+      .getSetupAttempts(input, getSetupAttempts.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -58251,7 +55463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getSetupAttemptsResponseValidator(status, body)
+    ctx.body = getSetupAttempts.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -58301,7 +55513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSetupIntents(input, getSetupIntentsResponder, ctx)
+      .getSetupIntents(input, getSetupIntents.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -58309,7 +55521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getSetupIntentsResponseValidator(status, body)
+    ctx.body = getSetupIntents.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -58831,7 +56043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSetupIntents(input, postSetupIntentsResponder, ctx)
+      .postSetupIntents(input, postSetupIntents.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -58839,7 +56051,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postSetupIntentsResponseValidator(status, body)
+    ctx.body = postSetupIntents.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -58884,7 +56096,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSetupIntentsIntent(input, getSetupIntentsIntentResponder, ctx)
+        .getSetupIntentsIntent(input, getSetupIntentsIntent.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -58892,7 +56104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSetupIntentsIntentResponseValidator(status, body)
+      ctx.body = getSetupIntentsIntent.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -59393,7 +56605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSetupIntentsIntent(input, postSetupIntentsIntentResponder, ctx)
+        .postSetupIntentsIntent(input, postSetupIntentsIntent.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -59401,7 +56613,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSetupIntentsIntentResponseValidator(status, body)
+      ctx.body = postSetupIntentsIntent.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -59442,7 +56654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSetupIntentsIntentCancel(
           input,
-          postSetupIntentsIntentCancelResponder,
+          postSetupIntentsIntentCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -59452,7 +56664,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSetupIntentsIntentCancelResponseValidator(status, body)
+      ctx.body = postSetupIntentsIntentCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -59979,7 +57191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSetupIntentsIntentConfirm(
           input,
-          postSetupIntentsIntentConfirmResponder,
+          postSetupIntentsIntentConfirm.responder,
           ctx,
         )
         .catch((err) => {
@@ -59989,7 +57201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSetupIntentsIntentConfirmResponseValidator(status, body)
+      ctx.body = postSetupIntentsIntentConfirm.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -60030,7 +57242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSetupIntentsIntentVerifyMicrodeposits(
           input,
-          postSetupIntentsIntentVerifyMicrodepositsResponder,
+          postSetupIntentsIntentVerifyMicrodeposits.responder,
           ctx,
         )
         .catch((err) => {
@@ -60040,7 +57252,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSetupIntentsIntentVerifyMicrodepositsResponseValidator(
+      ctx.body = postSetupIntentsIntentVerifyMicrodeposits.validator(
         status,
         body,
       )
@@ -60093,7 +57305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getShippingRates(input, getShippingRatesResponder, ctx)
+      .getShippingRates(input, getShippingRates.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -60101,7 +57313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getShippingRatesResponseValidator(status, body)
+    ctx.body = getShippingRates.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -60160,7 +57372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postShippingRates(input, postShippingRatesResponder, ctx)
+      .postShippingRates(input, postShippingRates.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -60168,7 +57380,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postShippingRatesResponseValidator(status, body)
+    ctx.body = postShippingRates.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -60214,7 +57426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getShippingRatesShippingRateToken(
           input,
-          getShippingRatesShippingRateTokenResponder,
+          getShippingRatesShippingRateToken.responder,
           ctx,
         )
         .catch((err) => {
@@ -60224,10 +57436,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getShippingRatesShippingRateTokenResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getShippingRatesShippingRateToken.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -60284,7 +57493,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postShippingRatesShippingRateToken(
           input,
-          postShippingRatesShippingRateTokenResponder,
+          postShippingRatesShippingRateToken.responder,
           ctx,
         )
         .catch((err) => {
@@ -60294,10 +57503,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postShippingRatesShippingRateTokenResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postShippingRatesShippingRateToken.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -60335,7 +57541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSigmaSavedQueriesId(input, postSigmaSavedQueriesIdResponder, ctx)
+        .postSigmaSavedQueriesId(input, postSigmaSavedQueriesId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -60343,7 +57549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSigmaSavedQueriesIdResponseValidator(status, body)
+      ctx.body = postSigmaSavedQueriesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -60385,7 +57591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSigmaScheduledQueryRuns(
           input,
-          getSigmaScheduledQueryRunsResponder,
+          getSigmaScheduledQueryRuns.responder,
           ctx,
         )
         .catch((err) => {
@@ -60395,7 +57601,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSigmaScheduledQueryRunsResponseValidator(status, body)
+      ctx.body = getSigmaScheduledQueryRuns.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -60444,7 +57650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSigmaScheduledQueryRunsScheduledQueryRun(
           input,
-          getSigmaScheduledQueryRunsScheduledQueryRunResponder,
+          getSigmaScheduledQueryRunsScheduledQueryRun.responder,
           ctx,
         )
         .catch((err) => {
@@ -60454,7 +57660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator(
+      ctx.body = getSigmaScheduledQueryRunsScheduledQueryRun.validator(
         status,
         body,
       )
@@ -60584,7 +57790,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSources(input, postSourcesResponder, ctx)
+      .postSources(input, postSources.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -60592,7 +57798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postSourcesResponseValidator(status, body)
+    ctx.body = postSources.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -60632,7 +57838,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSourcesSource(input, getSourcesSourceResponder, ctx)
+      .getSourcesSource(input, getSourcesSource.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -60640,7 +57846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getSourcesSourceResponseValidator(status, body)
+    ctx.body = getSourcesSource.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -60756,7 +57962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSourcesSource(input, postSourcesSourceResponder, ctx)
+      .postSourcesSource(input, postSourcesSource.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -60764,7 +57970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postSourcesSourceResponseValidator(status, body)
+    ctx.body = postSourcesSource.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -60815,7 +58021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSourcesSourceMandateNotificationsMandateNotification(
           input,
-          getSourcesSourceMandateNotificationsMandateNotificationResponder,
+          getSourcesSourceMandateNotificationsMandateNotification.responder,
           ctx,
         )
         .catch((err) => {
@@ -60826,7 +58032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        getSourcesSourceMandateNotificationsMandateNotificationResponseValidator(
+        getSourcesSourceMandateNotificationsMandateNotification.validator(
           status,
           body,
         )
@@ -60879,7 +58085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSourcesSourceSourceTransactions(
           input,
-          getSourcesSourceSourceTransactionsResponder,
+          getSourcesSourceSourceTransactions.responder,
           ctx,
         )
         .catch((err) => {
@@ -60889,10 +58095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSourcesSourceSourceTransactionsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getSourcesSourceSourceTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -60944,7 +58147,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSourcesSourceSourceTransactionsSourceTransaction(
           input,
-          getSourcesSourceSourceTransactionsSourceTransactionResponder,
+          getSourcesSourceSourceTransactionsSourceTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -60954,11 +58157,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        getSourcesSourceSourceTransactionsSourceTransactionResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = getSourcesSourceSourceTransactionsSourceTransaction.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -60993,7 +58195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSourcesSourceVerify(input, postSourcesSourceVerifyResponder, ctx)
+        .postSourcesSourceVerify(input, postSourcesSourceVerify.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -61001,7 +58203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSourcesSourceVerifyResponseValidator(status, body)
+      ctx.body = postSourcesSourceVerify.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61042,7 +58244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionItems(input, getSubscriptionItemsResponder, ctx)
+        .getSubscriptionItems(input, getSubscriptionItems.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -61050,7 +58252,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSubscriptionItemsResponseValidator(status, body)
+      ctx.body = getSubscriptionItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61122,7 +58324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionItems(input, postSubscriptionItemsResponder, ctx)
+        .postSubscriptionItems(input, postSubscriptionItems.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -61130,7 +58332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionItemsResponseValidator(status, body)
+      ctx.body = postSubscriptionItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61172,7 +58374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteSubscriptionItemsItem(
           input,
-          deleteSubscriptionItemsItemResponder,
+          deleteSubscriptionItemsItem.responder,
           ctx,
         )
         .catch((err) => {
@@ -61182,7 +58384,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteSubscriptionItemsItemResponseValidator(status, body)
+      ctx.body = deleteSubscriptionItemsItem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61227,7 +58429,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionItemsItem(input, getSubscriptionItemsItemResponder, ctx)
+        .getSubscriptionItemsItem(
+          input,
+          getSubscriptionItemsItem.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -61235,7 +58441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSubscriptionItemsItemResponseValidator(status, body)
+      ctx.body = getSubscriptionItemsItem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61319,7 +58525,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionItemsItem(
           input,
-          postSubscriptionItemsItemResponder,
+          postSubscriptionItemsItem.responder,
           ctx,
         )
         .catch((err) => {
@@ -61329,7 +58535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionItemsItemResponseValidator(status, body)
+      ctx.body = postSubscriptionItemsItem.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61415,7 +58621,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionSchedules(input, getSubscriptionSchedulesResponder, ctx)
+        .getSubscriptionSchedules(
+          input,
+          getSubscriptionSchedules.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -61423,7 +58633,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSubscriptionSchedulesResponseValidator(status, body)
+      ctx.body = getSubscriptionSchedules.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61645,7 +58855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionSchedules(
           input,
-          postSubscriptionSchedulesResponder,
+          postSubscriptionSchedules.responder,
           ctx,
         )
         .catch((err) => {
@@ -61655,7 +58865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionSchedulesResponseValidator(status, body)
+      ctx.body = postSubscriptionSchedules.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61702,7 +58912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSubscriptionSchedulesSchedule(
           input,
-          getSubscriptionSchedulesScheduleResponder,
+          getSubscriptionSchedulesSchedule.responder,
           ctx,
         )
         .catch((err) => {
@@ -61712,7 +58922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSubscriptionSchedulesScheduleResponseValidator(status, body)
+      ctx.body = getSubscriptionSchedulesSchedule.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61944,7 +59154,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionSchedulesSchedule(
           input,
-          postSubscriptionSchedulesScheduleResponder,
+          postSubscriptionSchedulesSchedule.responder,
           ctx,
         )
         .catch((err) => {
@@ -61954,10 +59164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionSchedulesScheduleResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postSubscriptionSchedulesSchedule.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -61997,7 +59204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionSchedulesScheduleCancel(
           input,
-          postSubscriptionSchedulesScheduleCancelResponder,
+          postSubscriptionSchedulesScheduleCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -62007,10 +59214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionSchedulesScheduleCancelResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postSubscriptionSchedulesScheduleCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -62049,7 +59253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionSchedulesScheduleRelease(
           input,
-          postSubscriptionSchedulesScheduleReleaseResponder,
+          postSubscriptionSchedulesScheduleRelease.responder,
           ctx,
         )
         .catch((err) => {
@@ -62059,7 +59263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionSchedulesScheduleReleaseResponseValidator(
+      ctx.body = postSubscriptionSchedulesScheduleRelease.validator(
         status,
         body,
       )
@@ -62153,7 +59357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSubscriptions(input, getSubscriptionsResponder, ctx)
+      .getSubscriptions(input, getSubscriptions.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -62161,7 +59365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getSubscriptionsResponseValidator(status, body)
+    ctx.body = getSubscriptions.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -62528,7 +59732,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSubscriptions(input, postSubscriptionsResponder, ctx)
+      .postSubscriptions(input, postSubscriptions.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -62536,7 +59740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postSubscriptionsResponseValidator(status, body)
+    ctx.body = postSubscriptions.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -62575,7 +59779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionsSearch(input, getSubscriptionsSearchResponder, ctx)
+        .getSubscriptionsSearch(input, getSubscriptionsSearch.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -62583,7 +59787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSubscriptionsSearchResponseValidator(status, body)
+      ctx.body = getSubscriptionsSearch.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -62641,7 +59845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteSubscriptionsSubscriptionExposedId(
           input,
-          deleteSubscriptionsSubscriptionExposedIdResponder,
+          deleteSubscriptionsSubscriptionExposedId.responder,
           ctx,
         )
         .catch((err) => {
@@ -62651,7 +59855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteSubscriptionsSubscriptionExposedIdResponseValidator(
+      ctx.body = deleteSubscriptionsSubscriptionExposedId.validator(
         status,
         body,
       )
@@ -62703,7 +59907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getSubscriptionsSubscriptionExposedId(
           input,
-          getSubscriptionsSubscriptionExposedIdResponder,
+          getSubscriptionsSubscriptionExposedId.responder,
           ctx,
         )
         .catch((err) => {
@@ -62713,10 +59917,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getSubscriptionsSubscriptionExposedIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getSubscriptionsSubscriptionExposedId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -63124,7 +60325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionsSubscriptionExposedId(
           input,
-          postSubscriptionsSubscriptionExposedIdResponder,
+          postSubscriptionsSubscriptionExposedId.responder,
           ctx,
         )
         .catch((err) => {
@@ -63134,10 +60335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionsSubscriptionExposedIdResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postSubscriptionsSubscriptionExposedId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -63173,7 +60371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteSubscriptionsSubscriptionExposedIdDiscount(
           input,
-          deleteSubscriptionsSubscriptionExposedIdDiscountResponder,
+          deleteSubscriptionsSubscriptionExposedIdDiscount.responder,
           ctx,
         )
         .catch((err) => {
@@ -63183,11 +60381,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        deleteSubscriptionsSubscriptionExposedIdDiscountResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = deleteSubscriptionsSubscriptionExposedIdDiscount.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -63230,7 +60427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postSubscriptionsSubscriptionResume(
           input,
-          postSubscriptionsSubscriptionResumeResponder,
+          postSubscriptionsSubscriptionResume.responder,
           ctx,
         )
         .catch((err) => {
@@ -63240,10 +60437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postSubscriptionsSubscriptionResumeResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postSubscriptionsSubscriptionResume.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -63432,7 +60626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxCalculations(input, postTaxCalculationsResponder, ctx)
+        .postTaxCalculations(input, postTaxCalculations.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -63440,7 +60634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTaxCalculationsResponseValidator(status, body)
+      ctx.body = postTaxCalculations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -63487,7 +60681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTaxCalculationsCalculation(
           input,
-          getTaxCalculationsCalculationResponder,
+          getTaxCalculationsCalculation.responder,
           ctx,
         )
         .catch((err) => {
@@ -63497,7 +60691,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxCalculationsCalculationResponseValidator(status, body)
+      ctx.body = getTaxCalculationsCalculation.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -63549,7 +60743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTaxCalculationsCalculationLineItems(
           input,
-          getTaxCalculationsCalculationLineItemsResponder,
+          getTaxCalculationsCalculationLineItems.responder,
           ctx,
         )
         .catch((err) => {
@@ -63559,10 +60753,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxCalculationsCalculationLineItemsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getTaxCalculationsCalculationLineItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -63603,7 +60794,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxRegistrations(input, getTaxRegistrationsResponder, ctx)
+        .getTaxRegistrations(input, getTaxRegistrations.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -63611,7 +60802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxRegistrationsResponseValidator(status, body)
+      ctx.body = getTaxRegistrations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64009,7 +61200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxRegistrations(input, postTaxRegistrationsResponder, ctx)
+        .postTaxRegistrations(input, postTaxRegistrations.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -64017,7 +61208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTaxRegistrationsResponseValidator(status, body)
+      ctx.body = postTaxRegistrations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64062,7 +61253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxRegistrationsId(input, getTaxRegistrationsIdResponder, ctx)
+        .getTaxRegistrationsId(input, getTaxRegistrationsId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -64070,7 +61261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxRegistrationsIdResponseValidator(status, body)
+      ctx.body = getTaxRegistrationsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64110,7 +61301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxRegistrationsId(input, postTaxRegistrationsIdResponder, ctx)
+        .postTaxRegistrationsId(input, postTaxRegistrationsId.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -64118,7 +61309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTaxRegistrationsIdResponseValidator(status, body)
+      ctx.body = postTaxRegistrationsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64152,7 +61343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxSettings(input, getTaxSettingsResponder, ctx)
+      .getTaxSettings(input, getTaxSettings.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64160,7 +61351,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTaxSettingsResponseValidator(status, body)
+    ctx.body = getTaxSettings.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64204,7 +61395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTaxSettings(input, postTaxSettingsResponder, ctx)
+      .postTaxSettings(input, postTaxSettings.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64212,7 +61403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTaxSettingsResponseValidator(status, body)
+    ctx.body = postTaxSettings.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64243,7 +61434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTaxTransactionsCreateFromCalculation(
           input,
-          postTaxTransactionsCreateFromCalculationResponder,
+          postTaxTransactionsCreateFromCalculation.responder,
           ctx,
         )
         .catch((err) => {
@@ -64253,7 +61444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTaxTransactionsCreateFromCalculationResponseValidator(
+      ctx.body = postTaxTransactionsCreateFromCalculation.validator(
         status,
         body,
       )
@@ -64304,7 +61495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTaxTransactionsCreateReversal(
           input,
-          postTaxTransactionsCreateReversalResponder,
+          postTaxTransactionsCreateReversal.responder,
           ctx,
         )
         .catch((err) => {
@@ -64314,10 +61505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTaxTransactionsCreateReversalResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTaxTransactionsCreateReversal.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64364,7 +61552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTaxTransactionsTransaction(
           input,
-          getTaxTransactionsTransactionResponder,
+          getTaxTransactionsTransaction.responder,
           ctx,
         )
         .catch((err) => {
@@ -64374,7 +61562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxTransactionsTransactionResponseValidator(status, body)
+      ctx.body = getTaxTransactionsTransaction.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64426,7 +61614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTaxTransactionsTransactionLineItems(
           input,
-          getTaxTransactionsTransactionLineItemsResponder,
+          getTaxTransactionsTransactionLineItems.responder,
           ctx,
         )
         .catch((err) => {
@@ -64436,10 +61624,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxTransactionsTransactionLineItemsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getTaxTransactionsTransactionLineItems.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -64476,7 +61661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxCodes(input, getTaxCodesResponder, ctx)
+      .getTaxCodes(input, getTaxCodes.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64484,7 +61669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTaxCodesResponseValidator(status, body)
+    ctx.body = getTaxCodes.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64523,7 +61708,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxCodesId(input, getTaxCodesIdResponder, ctx)
+      .getTaxCodesId(input, getTaxCodesId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64531,7 +61716,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTaxCodesIdResponseValidator(status, body)
+    ctx.body = getTaxCodesId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64574,7 +61759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxIds(input, getTaxIdsResponder, ctx)
+      .getTaxIds(input, getTaxIds.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64582,7 +61767,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTaxIdsResponseValidator(status, body)
+    ctx.body = getTaxIds.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64714,7 +61899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTaxIds(input, postTaxIdsResponder, ctx)
+      .postTaxIds(input, postTaxIds.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64722,7 +61907,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTaxIdsResponseValidator(status, body)
+    ctx.body = postTaxIds.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64748,7 +61933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deleteTaxIdsId(input, deleteTaxIdsIdResponder, ctx)
+      .deleteTaxIdsId(input, deleteTaxIdsId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64756,7 +61941,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = deleteTaxIdsIdResponseValidator(status, body)
+    ctx.body = deleteTaxIdsId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64795,7 +61980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxIdsId(input, getTaxIdsIdResponder, ctx)
+      .getTaxIdsId(input, getTaxIdsId.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64803,7 +61988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTaxIdsIdResponseValidator(status, body)
+    ctx.body = getTaxIdsId.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64852,7 +62037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxRates(input, getTaxRatesResponder, ctx)
+      .getTaxRates(input, getTaxRates.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64860,7 +62045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTaxRatesResponseValidator(status, body)
+    ctx.body = getTaxRates.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64909,7 +62094,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTaxRates(input, postTaxRatesResponder, ctx)
+      .postTaxRates(input, postTaxRates.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -64917,7 +62102,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTaxRatesResponseValidator(status, body)
+    ctx.body = postTaxRates.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -64961,7 +62146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxRatesTaxRate(input, getTaxRatesTaxRateResponder, ctx)
+        .getTaxRatesTaxRate(input, getTaxRatesTaxRate.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -64969,7 +62154,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTaxRatesTaxRateResponseValidator(status, body)
+      ctx.body = getTaxRatesTaxRate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65030,7 +62215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxRatesTaxRate(input, postTaxRatesTaxRateResponder, ctx)
+        .postTaxRatesTaxRate(input, postTaxRatesTaxRate.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -65038,7 +62223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTaxRatesTaxRateResponseValidator(status, body)
+      ctx.body = postTaxRatesTaxRate.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65081,7 +62266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTerminalConfigurations(
           input,
-          getTerminalConfigurationsResponder,
+          getTerminalConfigurations.responder,
           ctx,
         )
         .catch((err) => {
@@ -65091,7 +62276,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTerminalConfigurationsResponseValidator(status, body)
+      ctx.body = getTerminalConfigurations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65297,7 +62482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalConfigurations(
           input,
-          postTerminalConfigurationsResponder,
+          postTerminalConfigurations.responder,
           ctx,
         )
         .catch((err) => {
@@ -65307,7 +62492,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalConfigurationsResponseValidator(status, body)
+      ctx.body = postTerminalConfigurations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65343,7 +62528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteTerminalConfigurationsConfiguration(
           input,
-          deleteTerminalConfigurationsConfigurationResponder,
+          deleteTerminalConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -65353,7 +62538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteTerminalConfigurationsConfigurationResponseValidator(
+      ctx.body = deleteTerminalConfigurationsConfiguration.validator(
         status,
         body,
       )
@@ -65405,7 +62590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTerminalConfigurationsConfiguration(
           input,
-          getTerminalConfigurationsConfigurationResponder,
+          getTerminalConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -65415,10 +62600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTerminalConfigurationsConfigurationResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getTerminalConfigurationsConfiguration.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65647,7 +62829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalConfigurationsConfiguration(
           input,
-          postTerminalConfigurationsConfigurationResponder,
+          postTerminalConfigurationsConfiguration.responder,
           ctx,
         )
         .catch((err) => {
@@ -65657,10 +62839,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalConfigurationsConfigurationResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTerminalConfigurationsConfiguration.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65691,7 +62870,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalConnectionTokens(
           input,
-          postTerminalConnectionTokensResponder,
+          postTerminalConnectionTokens.responder,
           ctx,
         )
         .catch((err) => {
@@ -65701,7 +62880,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalConnectionTokensResponseValidator(status, body)
+      ctx.body = postTerminalConnectionTokens.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65741,7 +62920,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalLocations(input, getTerminalLocationsResponder, ctx)
+        .getTerminalLocations(input, getTerminalLocations.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -65749,7 +62928,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTerminalLocationsResponseValidator(status, body)
+      ctx.body = getTerminalLocations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65786,7 +62965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalLocations(input, postTerminalLocationsResponder, ctx)
+        .postTerminalLocations(input, postTerminalLocations.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -65794,7 +62973,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalLocationsResponseValidator(status, body)
+      ctx.body = postTerminalLocations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65828,7 +63007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteTerminalLocationsLocation(
           input,
-          deleteTerminalLocationsLocationResponder,
+          deleteTerminalLocationsLocation.responder,
           ctx,
         )
         .catch((err) => {
@@ -65838,7 +63017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteTerminalLocationsLocationResponseValidator(status, body)
+      ctx.body = deleteTerminalLocationsLocation.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65885,7 +63064,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTerminalLocationsLocation(
           input,
-          getTerminalLocationsLocationResponder,
+          getTerminalLocationsLocation.responder,
           ctx,
         )
         .catch((err) => {
@@ -65895,7 +63074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTerminalLocationsLocationResponseValidator(status, body)
+      ctx.body = getTerminalLocationsLocation.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -65948,7 +63127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalLocationsLocation(
           input,
-          postTerminalLocationsLocationResponder,
+          postTerminalLocationsLocation.responder,
           ctx,
         )
         .catch((err) => {
@@ -65958,7 +63137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalLocationsLocationResponseValidator(status, body)
+      ctx.body = postTerminalLocationsLocation.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66013,7 +63192,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalReaders(input, getTerminalReadersResponder, ctx)
+        .getTerminalReaders(input, getTerminalReaders.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -66021,7 +63200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTerminalReadersResponseValidator(status, body)
+      ctx.body = getTerminalReaders.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66051,7 +63230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReaders(input, postTerminalReadersResponder, ctx)
+        .postTerminalReaders(input, postTerminalReaders.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -66059,7 +63238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersResponseValidator(status, body)
+      ctx.body = postTerminalReaders.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66093,7 +63272,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteTerminalReadersReader(
           input,
-          deleteTerminalReadersReaderResponder,
+          deleteTerminalReadersReader.responder,
           ctx,
         )
         .catch((err) => {
@@ -66103,7 +63282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteTerminalReadersReaderResponseValidator(status, body)
+      ctx.body = deleteTerminalReadersReader.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66148,7 +63327,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalReadersReader(input, getTerminalReadersReaderResponder, ctx)
+        .getTerminalReadersReader(
+          input,
+          getTerminalReadersReader.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -66156,7 +63339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTerminalReadersReaderResponseValidator(status, body)
+      ctx.body = getTerminalReadersReader.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66196,7 +63379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalReadersReader(
           input,
-          postTerminalReadersReaderResponder,
+          postTerminalReadersReader.responder,
           ctx,
         )
         .catch((err) => {
@@ -66206,7 +63389,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersReaderResponseValidator(status, body)
+      ctx.body = postTerminalReadersReader.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66242,7 +63425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalReadersReaderCancelAction(
           input,
-          postTerminalReadersReaderCancelActionResponder,
+          postTerminalReadersReaderCancelAction.responder,
           ctx,
         )
         .catch((err) => {
@@ -66252,10 +63435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersReaderCancelActionResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTerminalReadersReaderCancelAction.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66304,7 +63484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalReadersReaderProcessPaymentIntent(
           input,
-          postTerminalReadersReaderProcessPaymentIntentResponder,
+          postTerminalReadersReaderProcessPaymentIntent.responder,
           ctx,
         )
         .catch((err) => {
@@ -66314,7 +63494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersReaderProcessPaymentIntentResponseValidator(
+      ctx.body = postTerminalReadersReaderProcessPaymentIntent.validator(
         status,
         body,
       )
@@ -66358,7 +63538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalReadersReaderProcessSetupIntent(
           input,
-          postTerminalReadersReaderProcessSetupIntentResponder,
+          postTerminalReadersReaderProcessSetupIntent.responder,
           ctx,
         )
         .catch((err) => {
@@ -66368,7 +63548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersReaderProcessSetupIntentResponseValidator(
+      ctx.body = postTerminalReadersReaderProcessSetupIntent.validator(
         status,
         body,
       )
@@ -66418,7 +63598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalReadersReaderRefundPayment(
           input,
-          postTerminalReadersReaderRefundPaymentResponder,
+          postTerminalReadersReaderRefundPayment.responder,
           ctx,
         )
         .catch((err) => {
@@ -66428,10 +63608,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersReaderRefundPaymentResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTerminalReadersReaderRefundPayment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66482,7 +63659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTerminalReadersReaderSetReaderDisplay(
           input,
-          postTerminalReadersReaderSetReaderDisplayResponder,
+          postTerminalReadersReaderSetReaderDisplay.responder,
           ctx,
         )
         .catch((err) => {
@@ -66492,7 +63669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTerminalReadersReaderSetReaderDisplayResponseValidator(
+      ctx.body = postTerminalReadersReaderSetReaderDisplay.validator(
         status,
         body,
       )
@@ -66833,7 +64010,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersConfirmationTokens(
           input,
-          postTestHelpersConfirmationTokensResponder,
+          postTestHelpersConfirmationTokens.responder,
           ctx,
         )
         .catch((err) => {
@@ -66843,10 +64020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersConfirmationTokensResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTestHelpersConfirmationTokens.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -66885,7 +64059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersCustomersCustomerFundCashBalance(
           input,
-          postTestHelpersCustomersCustomerFundCashBalanceResponder,
+          postTestHelpersCustomersCustomerFundCashBalance.responder,
           ctx,
         )
         .catch((err) => {
@@ -66895,11 +64069,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersCustomersCustomerFundCashBalanceResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersCustomersCustomerFundCashBalance.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -67355,7 +64528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizations(
           input,
-          postTestHelpersIssuingAuthorizationsResponder,
+          postTestHelpersIssuingAuthorizations.responder,
           ctx,
         )
         .catch((err) => {
@@ -67365,10 +64538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersIssuingAuthorizationsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTestHelpersIssuingAuthorizations.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -67515,7 +64685,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizationsAuthorizationCapture(
           input,
-          postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder,
+          postTestHelpersIssuingAuthorizationsAuthorizationCapture.responder,
           ctx,
         )
         .catch((err) => {
@@ -67526,7 +64696,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseValidator(
+        postTestHelpersIssuingAuthorizationsAuthorizationCapture.validator(
           status,
           body,
         )
@@ -67564,7 +64734,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizationsAuthorizationExpire(
           input,
-          postTestHelpersIssuingAuthorizationsAuthorizationExpireResponder,
+          postTestHelpersIssuingAuthorizationsAuthorizationExpire.responder,
           ctx,
         )
         .catch((err) => {
@@ -67575,7 +64745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator(
+        postTestHelpersIssuingAuthorizationsAuthorizationExpire.validator(
           status,
           body,
         )
@@ -67682,7 +64852,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(
           input,
-          postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder,
+          postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount.responder,
           ctx,
         )
         .catch((err) => {
@@ -67693,7 +64863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseValidator(
+        postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount.validator(
           status,
           body,
         )
@@ -67733,7 +64903,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond(
           input,
-          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
+          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond.responder,
           ctx,
         )
         .catch((err) => {
@@ -67744,7 +64914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseValidator(
+        postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond.validator(
           status,
           body,
         )
@@ -67785,7 +64955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
           input,
-          postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
+          postTestHelpersIssuingAuthorizationsAuthorizationIncrement.responder,
           ctx,
         )
         .catch((err) => {
@@ -67796,7 +64966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseValidator(
+        postTestHelpersIssuingAuthorizationsAuthorizationIncrement.validator(
           status,
           body,
         )
@@ -67837,7 +65007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingAuthorizationsAuthorizationReverse(
           input,
-          postTestHelpersIssuingAuthorizationsAuthorizationReverseResponder,
+          postTestHelpersIssuingAuthorizationsAuthorizationReverse.responder,
           ctx,
         )
         .catch((err) => {
@@ -67848,7 +65018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseValidator(
+        postTestHelpersIssuingAuthorizationsAuthorizationReverse.validator(
           status,
           body,
         )
@@ -67887,7 +65057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingCardsCardShippingDeliver(
           input,
-          postTestHelpersIssuingCardsCardShippingDeliverResponder,
+          postTestHelpersIssuingCardsCardShippingDeliver.responder,
           ctx,
         )
         .catch((err) => {
@@ -67897,11 +65067,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersIssuingCardsCardShippingDeliverResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersIssuingCardsCardShippingDeliver.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -67937,7 +65106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingCardsCardShippingFail(
           input,
-          postTestHelpersIssuingCardsCardShippingFailResponder,
+          postTestHelpersIssuingCardsCardShippingFail.responder,
           ctx,
         )
         .catch((err) => {
@@ -67947,7 +65116,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersIssuingCardsCardShippingFailResponseValidator(
+      ctx.body = postTestHelpersIssuingCardsCardShippingFail.validator(
         status,
         body,
       )
@@ -67986,7 +65155,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingCardsCardShippingReturn(
           input,
-          postTestHelpersIssuingCardsCardShippingReturnResponder,
+          postTestHelpersIssuingCardsCardShippingReturn.responder,
           ctx,
         )
         .catch((err) => {
@@ -67996,7 +65165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersIssuingCardsCardShippingReturnResponseValidator(
+      ctx.body = postTestHelpersIssuingCardsCardShippingReturn.validator(
         status,
         body,
       )
@@ -68035,7 +65204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingCardsCardShippingShip(
           input,
-          postTestHelpersIssuingCardsCardShippingShipResponder,
+          postTestHelpersIssuingCardsCardShippingShip.responder,
           ctx,
         )
         .catch((err) => {
@@ -68045,7 +65214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersIssuingCardsCardShippingShipResponseValidator(
+      ctx.body = postTestHelpersIssuingCardsCardShippingShip.validator(
         status,
         body,
       )
@@ -68084,7 +65253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingCardsCardShippingSubmit(
           input,
-          postTestHelpersIssuingCardsCardShippingSubmitResponder,
+          postTestHelpersIssuingCardsCardShippingSubmit.responder,
           ctx,
         )
         .catch((err) => {
@@ -68094,7 +65263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersIssuingCardsCardShippingSubmitResponseValidator(
+      ctx.body = postTestHelpersIssuingCardsCardShippingSubmit.validator(
         status,
         body,
       )
@@ -68131,7 +65300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate(
           input,
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate.responder,
           ctx,
         )
         .catch((err) => {
@@ -68142,7 +65311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseValidator(
+        postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate.validator(
           status,
           body,
         )
@@ -68179,7 +65348,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate(
           input,
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate.responder,
           ctx,
         )
         .catch((err) => {
@@ -68190,7 +65359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseValidator(
+        postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate.validator(
           status,
           body,
         )
@@ -68258,7 +65427,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject(
           input,
-          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject.responder,
           ctx,
         )
         .catch((err) => {
@@ -68269,7 +65438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseValidator(
+        postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject.validator(
           status,
           body,
         )
@@ -68309,7 +65478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingSettlements(
           input,
-          postTestHelpersIssuingSettlementsResponder,
+          postTestHelpersIssuingSettlements.responder,
           ctx,
         )
         .catch((err) => {
@@ -68319,10 +65488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersIssuingSettlementsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTestHelpersIssuingSettlements.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -68357,7 +65523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingSettlementsSettlementComplete(
           input,
-          postTestHelpersIssuingSettlementsSettlementCompleteResponder,
+          postTestHelpersIssuingSettlementsSettlementComplete.responder,
           ctx,
         )
         .catch((err) => {
@@ -68367,11 +65533,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersIssuingSettlementsSettlementCompleteResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersIssuingSettlementsSettlementComplete.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -68821,7 +65986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingTransactionsCreateForceCapture(
           input,
-          postTestHelpersIssuingTransactionsCreateForceCaptureResponder,
+          postTestHelpersIssuingTransactionsCreateForceCapture.responder,
           ctx,
         )
         .catch((err) => {
@@ -68831,11 +65996,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersIssuingTransactionsCreateForceCaptureResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersIssuingTransactionsCreateForceCapture.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -69285,7 +66449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
           input,
-          postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
+          postTestHelpersIssuingTransactionsCreateUnlinkedRefund.responder,
           ctx,
         )
         .catch((err) => {
@@ -69296,7 +66460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseValidator(
+        postTestHelpersIssuingTransactionsCreateUnlinkedRefund.validator(
           status,
           body,
         )
@@ -69337,7 +66501,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersIssuingTransactionsTransactionRefund(
           input,
-          postTestHelpersIssuingTransactionsTransactionRefundResponder,
+          postTestHelpersIssuingTransactionsTransactionRefund.responder,
           ctx,
         )
         .catch((err) => {
@@ -69347,11 +66511,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersIssuingTransactionsTransactionRefundResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersIssuingTransactionsTransactionRefund.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -69387,7 +66550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersRefundsRefundExpire(
           input,
-          postTestHelpersRefundsRefundExpireResponder,
+          postTestHelpersRefundsRefundExpire.responder,
           ctx,
         )
         .catch((err) => {
@@ -69397,10 +66560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersRefundsRefundExpireResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTestHelpersRefundsRefundExpire.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -69445,7 +66605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTerminalReadersReaderPresentPaymentMethod(
           input,
-          postTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
+          postTestHelpersTerminalReadersReaderPresentPaymentMethod.responder,
           ctx,
         )
         .catch((err) => {
@@ -69456,7 +66616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseValidator(
+        postTestHelpersTerminalReadersReaderPresentPaymentMethod.validator(
           status,
           body,
         )
@@ -69499,7 +66659,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTestHelpersTestClocks(input, getTestHelpersTestClocksResponder, ctx)
+        .getTestHelpersTestClocks(
+          input,
+          getTestHelpersTestClocks.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -69507,7 +66671,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTestHelpersTestClocksResponseValidator(status, body)
+      ctx.body = getTestHelpersTestClocks.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -69537,7 +66701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTestClocks(
           input,
-          postTestHelpersTestClocksResponder,
+          postTestHelpersTestClocks.responder,
           ctx,
         )
         .catch((err) => {
@@ -69547,7 +66711,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTestClocksResponseValidator(status, body)
+      ctx.body = postTestHelpersTestClocks.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -69581,7 +66745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteTestHelpersTestClocksTestClock(
           input,
-          deleteTestHelpersTestClocksTestClockResponder,
+          deleteTestHelpersTestClocksTestClock.responder,
           ctx,
         )
         .catch((err) => {
@@ -69591,10 +66755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteTestHelpersTestClocksTestClockResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteTestHelpersTestClocksTestClock.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -69641,7 +66802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTestHelpersTestClocksTestClock(
           input,
-          getTestHelpersTestClocksTestClockResponder,
+          getTestHelpersTestClocksTestClock.responder,
           ctx,
         )
         .catch((err) => {
@@ -69651,10 +66812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTestHelpersTestClocksTestClockResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getTestHelpersTestClocksTestClock.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -69691,7 +66849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTestClocksTestClockAdvance(
           input,
-          postTestHelpersTestClocksTestClockAdvanceResponder,
+          postTestHelpersTestClocksTestClockAdvance.responder,
           ctx,
         )
         .catch((err) => {
@@ -69701,7 +66859,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTestClocksTestClockAdvanceResponseValidator(
+      ctx.body = postTestHelpersTestClocksTestClockAdvance.validator(
         status,
         body,
       )
@@ -69763,7 +66921,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryInboundTransfersIdFail(
           input,
-          postTestHelpersTreasuryInboundTransfersIdFailResponder,
+          postTestHelpersTreasuryInboundTransfersIdFail.responder,
           ctx,
         )
         .catch((err) => {
@@ -69773,7 +66931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTreasuryInboundTransfersIdFailResponseValidator(
+      ctx.body = postTestHelpersTreasuryInboundTransfersIdFail.validator(
         status,
         body,
       )
@@ -69812,7 +66970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryInboundTransfersIdReturn(
           input,
-          postTestHelpersTreasuryInboundTransfersIdReturnResponder,
+          postTestHelpersTreasuryInboundTransfersIdReturn.responder,
           ctx,
         )
         .catch((err) => {
@@ -69822,11 +66980,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersTreasuryInboundTransfersIdReturn.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -69862,7 +67019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryInboundTransfersIdSucceed(
           input,
-          postTestHelpersTreasuryInboundTransfersIdSucceedResponder,
+          postTestHelpersTreasuryInboundTransfersIdSucceed.responder,
           ctx,
         )
         .catch((err) => {
@@ -69872,11 +67029,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersTreasuryInboundTransfersIdSucceed.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -69923,7 +67079,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundPaymentsId(
           input,
-          postTestHelpersTreasuryOutboundPaymentsIdResponder,
+          postTestHelpersTreasuryOutboundPaymentsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -69933,7 +67089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdResponseValidator(
+      ctx.body = postTestHelpersTreasuryOutboundPaymentsId.validator(
         status,
         body,
       )
@@ -69972,7 +67128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundPaymentsIdFail(
           input,
-          postTestHelpersTreasuryOutboundPaymentsIdFailResponder,
+          postTestHelpersTreasuryOutboundPaymentsIdFail.responder,
           ctx,
         )
         .catch((err) => {
@@ -69982,7 +67138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator(
+      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdFail.validator(
         status,
         body,
       )
@@ -70021,7 +67177,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundPaymentsIdPost(
           input,
-          postTestHelpersTreasuryOutboundPaymentsIdPostResponder,
+          postTestHelpersTreasuryOutboundPaymentsIdPost.responder,
           ctx,
         )
         .catch((err) => {
@@ -70031,7 +67187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator(
+      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdPost.validator(
         status,
         body,
       )
@@ -70090,7 +67246,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundPaymentsIdReturn(
           input,
-          postTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
+          postTestHelpersTreasuryOutboundPaymentsIdReturn.responder,
           ctx,
         )
         .catch((err) => {
@@ -70100,11 +67256,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdReturn.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -70151,7 +67306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
           input,
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransfer.responder,
           ctx,
         )
         .catch((err) => {
@@ -70162,7 +67317,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseValidator(
+        postTestHelpersTreasuryOutboundTransfersOutboundTransfer.validator(
           status,
           body,
         )
@@ -70199,7 +67354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
           input,
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferFail.responder,
           ctx,
         )
         .catch((err) => {
@@ -70210,7 +67365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator(
+        postTestHelpersTreasuryOutboundTransfersOutboundTransferFail.validator(
           status,
           body,
         )
@@ -70247,7 +67402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
           input,
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferPost.responder,
           ctx,
         )
         .catch((err) => {
@@ -70258,7 +67413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator(
+        postTestHelpersTreasuryOutboundTransfersOutboundTransferPost.validator(
           status,
           body,
         )
@@ -70317,7 +67472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
           input,
-          postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn.responder,
           ctx,
         )
         .catch((err) => {
@@ -70328,7 +67483,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseValidator(
+        postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn.validator(
           status,
           body,
         )
@@ -70376,7 +67531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryReceivedCredits(
           input,
-          postTestHelpersTreasuryReceivedCreditsResponder,
+          postTestHelpersTreasuryReceivedCredits.responder,
           ctx,
         )
         .catch((err) => {
@@ -70386,10 +67541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTreasuryReceivedCreditsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTestHelpersTreasuryReceivedCredits.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -70434,7 +67586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTestHelpersTreasuryReceivedDebits(
           input,
-          postTestHelpersTreasuryReceivedDebitsResponder,
+          postTestHelpersTreasuryReceivedDebits.responder,
           ctx,
         )
         .catch((err) => {
@@ -70444,10 +67596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTestHelpersTreasuryReceivedDebitsResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTestHelpersTreasuryReceivedDebits.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -70879,7 +68028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTokens(input, postTokensResponder, ctx)
+      .postTokens(input, postTokens.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -70887,7 +68036,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTokensResponseValidator(status, body)
+    ctx.body = postTokens.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -70926,7 +68075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTokensToken(input, getTokensTokenResponder, ctx)
+      .getTokensToken(input, getTokensToken.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -70934,7 +68083,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTokensTokenResponseValidator(status, body)
+    ctx.body = getTokensToken.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -70993,7 +68142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTopups(input, getTopupsResponder, ctx)
+      .getTopups(input, getTopups.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -71001,7 +68150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTopupsResponseValidator(status, body)
+    ctx.body = getTopups.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -71030,7 +68179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTopups(input, postTopupsResponder, ctx)
+      .postTopups(input, postTopups.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -71038,7 +68187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTopupsResponseValidator(status, body)
+    ctx.body = postTopups.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -71077,7 +68226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTopupsTopup(input, getTopupsTopupResponder, ctx)
+      .getTopupsTopup(input, getTopupsTopup.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -71085,7 +68234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTopupsTopupResponseValidator(status, body)
+    ctx.body = getTopupsTopup.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -71117,7 +68266,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTopupsTopup(input, postTopupsTopupResponder, ctx)
+      .postTopupsTopup(input, postTopupsTopup.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -71125,7 +68274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTopupsTopupResponseValidator(status, body)
+    ctx.body = postTopupsTopup.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -71158,7 +68307,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTopupsTopupCancel(input, postTopupsTopupCancelResponder, ctx)
+        .postTopupsTopupCancel(input, postTopupsTopupCancel.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -71166,7 +68315,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTopupsTopupCancelResponseValidator(status, body)
+      ctx.body = postTopupsTopupCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71216,7 +68365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTransfers(input, getTransfersResponder, ctx)
+      .getTransfers(input, getTransfers.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -71224,7 +68373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getTransfersResponseValidator(status, body)
+    ctx.body = getTransfers.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -71254,7 +68403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTransfers(input, postTransfersResponder, ctx)
+      .postTransfers(input, postTransfers.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -71262,7 +68411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postTransfersResponseValidator(status, body)
+    ctx.body = postTransfers.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -71309,7 +68458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTransfersIdReversals(input, getTransfersIdReversalsResponder, ctx)
+        .getTransfersIdReversals(input, getTransfersIdReversals.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -71317,7 +68466,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTransfersIdReversalsResponseValidator(status, body)
+      ctx.body = getTransfersIdReversals.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71357,7 +68506,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTransfersIdReversals(input, postTransfersIdReversalsResponder, ctx)
+        .postTransfersIdReversals(
+          input,
+          postTransfersIdReversals.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -71365,7 +68518,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTransfersIdReversalsResponseValidator(status, body)
+      ctx.body = postTransfersIdReversals.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71410,7 +68563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTransfersTransfer(input, getTransfersTransferResponder, ctx)
+        .getTransfersTransfer(input, getTransfersTransfer.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -71418,7 +68571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTransfersTransferResponseValidator(status, body)
+      ctx.body = getTransfersTransfer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71456,7 +68609,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTransfersTransfer(input, postTransfersTransferResponder, ctx)
+        .postTransfersTransfer(input, postTransfersTransfer.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -71464,7 +68617,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTransfersTransferResponseValidator(status, body)
+      ctx.body = postTransfersTransfer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71512,7 +68665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTransfersTransferReversalsId(
           input,
-          getTransfersTransferReversalsIdResponder,
+          getTransfersTransferReversalsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -71522,7 +68675,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTransfersTransferReversalsIdResponseValidator(status, body)
+      ctx.body = getTransfersTransferReversalsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71562,7 +68715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTransfersTransferReversalsId(
           input,
-          postTransfersTransferReversalsIdResponder,
+          postTransfersTransferReversalsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -71572,7 +68725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTransfersTransferReversalsIdResponseValidator(status, body)
+      ctx.body = postTransfersTransferReversalsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71617,7 +68770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryCreditReversals(
           input,
-          getTreasuryCreditReversalsResponder,
+          getTreasuryCreditReversals.responder,
           ctx,
         )
         .catch((err) => {
@@ -71627,7 +68780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryCreditReversalsResponseValidator(status, body)
+      ctx.body = getTreasuryCreditReversals.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71657,7 +68810,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryCreditReversals(
           input,
-          postTreasuryCreditReversalsResponder,
+          postTreasuryCreditReversals.responder,
           ctx,
         )
         .catch((err) => {
@@ -71667,7 +68820,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryCreditReversalsResponseValidator(status, body)
+      ctx.body = postTreasuryCreditReversals.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71716,7 +68869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryCreditReversalsCreditReversal(
           input,
-          getTreasuryCreditReversalsCreditReversalResponder,
+          getTreasuryCreditReversalsCreditReversal.responder,
           ctx,
         )
         .catch((err) => {
@@ -71726,7 +68879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryCreditReversalsCreditReversalResponseValidator(
+      ctx.body = getTreasuryCreditReversalsCreditReversal.validator(
         status,
         body,
       )
@@ -71775,7 +68928,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryDebitReversals(
           input,
-          getTreasuryDebitReversalsResponder,
+          getTreasuryDebitReversals.responder,
           ctx,
         )
         .catch((err) => {
@@ -71785,7 +68938,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryDebitReversalsResponseValidator(status, body)
+      ctx.body = getTreasuryDebitReversals.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71815,7 +68968,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryDebitReversals(
           input,
-          postTreasuryDebitReversalsResponder,
+          postTreasuryDebitReversals.responder,
           ctx,
         )
         .catch((err) => {
@@ -71825,7 +68978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryDebitReversalsResponseValidator(status, body)
+      ctx.body = postTreasuryDebitReversals.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71874,7 +69027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryDebitReversalsDebitReversal(
           input,
-          getTreasuryDebitReversalsDebitReversalResponder,
+          getTreasuryDebitReversalsDebitReversal.responder,
           ctx,
         )
         .catch((err) => {
@@ -71884,10 +69037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryDebitReversalsDebitReversalResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getTreasuryDebitReversalsDebitReversal.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -71940,7 +69090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryFinancialAccounts(
           input,
-          getTreasuryFinancialAccountsResponder,
+          getTreasuryFinancialAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -71950,7 +69100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryFinancialAccountsResponseValidator(status, body)
+      ctx.body = getTreasuryFinancialAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72024,7 +69174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryFinancialAccounts(
           input,
-          postTreasuryFinancialAccountsResponder,
+          postTreasuryFinancialAccounts.responder,
           ctx,
         )
         .catch((err) => {
@@ -72034,7 +69184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryFinancialAccountsResponseValidator(status, body)
+      ctx.body = postTreasuryFinancialAccounts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72083,7 +69233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryFinancialAccountsFinancialAccount(
           input,
-          getTreasuryFinancialAccountsFinancialAccountResponder,
+          getTreasuryFinancialAccountsFinancialAccount.responder,
           ctx,
         )
         .catch((err) => {
@@ -72093,7 +69243,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryFinancialAccountsFinancialAccountResponseValidator(
+      ctx.body = getTreasuryFinancialAccountsFinancialAccount.validator(
         status,
         body,
       )
@@ -72186,7 +69336,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryFinancialAccountsFinancialAccount(
           input,
-          postTreasuryFinancialAccountsFinancialAccountResponder,
+          postTreasuryFinancialAccountsFinancialAccount.responder,
           ctx,
         )
         .catch((err) => {
@@ -72196,7 +69346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryFinancialAccountsFinancialAccountResponseValidator(
+      ctx.body = postTreasuryFinancialAccountsFinancialAccount.validator(
         status,
         body,
       )
@@ -72243,7 +69393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryFinancialAccountsFinancialAccountClose(
           input,
-          postTreasuryFinancialAccountsFinancialAccountCloseResponder,
+          postTreasuryFinancialAccountsFinancialAccountClose.responder,
           ctx,
         )
         .catch((err) => {
@@ -72253,11 +69403,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTreasuryFinancialAccountsFinancialAccountCloseResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTreasuryFinancialAccountsFinancialAccountClose.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -72306,7 +69455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryFinancialAccountsFinancialAccountFeatures(
           input,
-          getTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
+          getTreasuryFinancialAccountsFinancialAccountFeatures.responder,
           ctx,
         )
         .catch((err) => {
@@ -72316,11 +69465,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = getTreasuryFinancialAccountsFinancialAccountFeatures.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -72382,7 +69530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryFinancialAccountsFinancialAccountFeatures(
           input,
-          postTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
+          postTreasuryFinancialAccountsFinancialAccountFeatures.responder,
           ctx,
         )
         .catch((err) => {
@@ -72393,7 +69541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        postTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator(
+        postTreasuryFinancialAccountsFinancialAccountFeatures.validator(
           status,
           body,
         )
@@ -72442,7 +69590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryInboundTransfers(
           input,
-          getTreasuryInboundTransfersResponder,
+          getTreasuryInboundTransfers.responder,
           ctx,
         )
         .catch((err) => {
@@ -72452,7 +69600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryInboundTransfersResponseValidator(status, body)
+      ctx.body = getTreasuryInboundTransfers.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72487,7 +69635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryInboundTransfers(
           input,
-          postTreasuryInboundTransfersResponder,
+          postTreasuryInboundTransfers.responder,
           ctx,
         )
         .catch((err) => {
@@ -72497,7 +69645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryInboundTransfersResponseValidator(status, body)
+      ctx.body = postTreasuryInboundTransfers.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72544,7 +69692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryInboundTransfersId(
           input,
-          getTreasuryInboundTransfersIdResponder,
+          getTreasuryInboundTransfersId.responder,
           ctx,
         )
         .catch((err) => {
@@ -72554,7 +69702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryInboundTransfersIdResponseValidator(status, body)
+      ctx.body = getTreasuryInboundTransfersId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72590,7 +69738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryInboundTransfersInboundTransferCancel(
           input,
-          postTreasuryInboundTransfersInboundTransferCancelResponder,
+          postTreasuryInboundTransfersInboundTransferCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -72600,11 +69748,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTreasuryInboundTransfersInboundTransferCancelResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTreasuryInboundTransfersInboundTransferCancel.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -72662,7 +69809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryOutboundPayments(
           input,
-          getTreasuryOutboundPaymentsResponder,
+          getTreasuryOutboundPayments.responder,
           ctx,
         )
         .catch((err) => {
@@ -72672,7 +69819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryOutboundPaymentsResponseValidator(status, body)
+      ctx.body = getTreasuryOutboundPayments.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72759,7 +69906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryOutboundPayments(
           input,
-          postTreasuryOutboundPaymentsResponder,
+          postTreasuryOutboundPayments.responder,
           ctx,
         )
         .catch((err) => {
@@ -72769,7 +69916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryOutboundPaymentsResponseValidator(status, body)
+      ctx.body = postTreasuryOutboundPayments.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72816,7 +69963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryOutboundPaymentsId(
           input,
-          getTreasuryOutboundPaymentsIdResponder,
+          getTreasuryOutboundPaymentsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -72826,7 +69973,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryOutboundPaymentsIdResponseValidator(status, body)
+      ctx.body = getTreasuryOutboundPaymentsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72862,7 +70009,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryOutboundPaymentsIdCancel(
           input,
-          postTreasuryOutboundPaymentsIdCancelResponder,
+          postTreasuryOutboundPaymentsIdCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -72872,10 +70019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryOutboundPaymentsIdCancelResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postTreasuryOutboundPaymentsIdCancel.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72921,7 +70065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryOutboundTransfers(
           input,
-          getTreasuryOutboundTransfersResponder,
+          getTreasuryOutboundTransfers.responder,
           ctx,
         )
         .catch((err) => {
@@ -72931,7 +70075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryOutboundTransfersResponseValidator(status, body)
+      ctx.body = getTreasuryOutboundTransfers.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -72984,7 +70128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryOutboundTransfers(
           input,
-          postTreasuryOutboundTransfersResponder,
+          postTreasuryOutboundTransfers.responder,
           ctx,
         )
         .catch((err) => {
@@ -72994,7 +70138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postTreasuryOutboundTransfersResponseValidator(status, body)
+      ctx.body = postTreasuryOutboundTransfers.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73043,7 +70187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryOutboundTransfersOutboundTransfer(
           input,
-          getTreasuryOutboundTransfersOutboundTransferResponder,
+          getTreasuryOutboundTransfersOutboundTransfer.responder,
           ctx,
         )
         .catch((err) => {
@@ -73053,7 +70197,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryOutboundTransfersOutboundTransferResponseValidator(
+      ctx.body = getTreasuryOutboundTransfersOutboundTransfer.validator(
         status,
         body,
       )
@@ -73091,7 +70235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postTreasuryOutboundTransfersOutboundTransferCancel(
           input,
-          postTreasuryOutboundTransfersOutboundTransferCancelResponder,
+          postTreasuryOutboundTransfersOutboundTransferCancel.responder,
           ctx,
         )
         .catch((err) => {
@@ -73101,11 +70245,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = postTreasuryOutboundTransfersOutboundTransferCancel.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -73160,7 +70303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryReceivedCredits(
           input,
-          getTreasuryReceivedCreditsResponder,
+          getTreasuryReceivedCredits.responder,
           ctx,
         )
         .catch((err) => {
@@ -73170,7 +70313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryReceivedCreditsResponseValidator(status, body)
+      ctx.body = getTreasuryReceivedCredits.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73217,7 +70360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryReceivedCreditsId(
           input,
-          getTreasuryReceivedCreditsIdResponder,
+          getTreasuryReceivedCreditsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -73227,7 +70370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryReceivedCreditsIdResponseValidator(status, body)
+      ctx.body = getTreasuryReceivedCreditsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73271,7 +70414,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryReceivedDebits(
           input,
-          getTreasuryReceivedDebitsResponder,
+          getTreasuryReceivedDebits.responder,
           ctx,
         )
         .catch((err) => {
@@ -73281,7 +70424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryReceivedDebitsResponseValidator(status, body)
+      ctx.body = getTreasuryReceivedDebits.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73328,7 +70471,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryReceivedDebitsId(
           input,
-          getTreasuryReceivedDebitsIdResponder,
+          getTreasuryReceivedDebitsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -73338,7 +70481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryReceivedDebitsIdResponseValidator(status, body)
+      ctx.body = getTreasuryReceivedDebitsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73405,7 +70548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryTransactionEntries(
           input,
-          getTreasuryTransactionEntriesResponder,
+          getTreasuryTransactionEntries.responder,
           ctx,
         )
         .catch((err) => {
@@ -73415,7 +70558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryTransactionEntriesResponseValidator(status, body)
+      ctx.body = getTreasuryTransactionEntries.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73462,7 +70605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryTransactionEntriesId(
           input,
-          getTreasuryTransactionEntriesIdResponder,
+          getTreasuryTransactionEntriesId.responder,
           ctx,
         )
         .catch((err) => {
@@ -73472,7 +70615,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryTransactionEntriesIdResponseValidator(status, body)
+      ctx.body = getTreasuryTransactionEntriesId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73541,7 +70684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryTransactions(input, getTreasuryTransactionsResponder, ctx)
+        .getTreasuryTransactions(input, getTreasuryTransactions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -73549,7 +70692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryTransactionsResponseValidator(status, body)
+      ctx.body = getTreasuryTransactions.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73596,7 +70739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getTreasuryTransactionsId(
           input,
-          getTreasuryTransactionsIdResponder,
+          getTreasuryTransactionsId.responder,
           ctx,
         )
         .catch((err) => {
@@ -73606,7 +70749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getTreasuryTransactionsIdResponseValidator(status, body)
+      ctx.body = getTreasuryTransactionsId.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -73646,7 +70789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getWebhookEndpoints(input, getWebhookEndpointsResponder, ctx)
+        .getWebhookEndpoints(input, getWebhookEndpoints.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -73654,7 +70797,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getWebhookEndpointsResponseValidator(status, body)
+      ctx.body = getWebhookEndpoints.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -74043,7 +71186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postWebhookEndpoints(input, postWebhookEndpointsResponder, ctx)
+        .postWebhookEndpoints(input, postWebhookEndpoints.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -74051,7 +71194,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postWebhookEndpointsResponseValidator(status, body)
+      ctx.body = postWebhookEndpoints.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -74087,7 +71230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteWebhookEndpointsWebhookEndpoint(
           input,
-          deleteWebhookEndpointsWebhookEndpointResponder,
+          deleteWebhookEndpointsWebhookEndpoint.responder,
           ctx,
         )
         .catch((err) => {
@@ -74097,10 +71240,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteWebhookEndpointsWebhookEndpointResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = deleteWebhookEndpointsWebhookEndpoint.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -74147,7 +71287,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .getWebhookEndpointsWebhookEndpoint(
           input,
-          getWebhookEndpointsWebhookEndpointResponder,
+          getWebhookEndpointsWebhookEndpoint.responder,
           ctx,
         )
         .catch((err) => {
@@ -74157,10 +71297,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getWebhookEndpointsWebhookEndpointResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = getWebhookEndpointsWebhookEndpoint.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -74449,7 +71586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .postWebhookEndpointsWebhookEndpoint(
           input,
-          postWebhookEndpointsWebhookEndpointResponder,
+          postWebhookEndpointsWebhookEndpoint.responder,
           ctx,
         )
         .catch((err) => {
@@ -74459,10 +71596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = postWebhookEndpointsWebhookEndpointResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = postWebhookEndpointsWebhookEndpoint.validator(status, body)
       ctx.status = status
       return next()
     },

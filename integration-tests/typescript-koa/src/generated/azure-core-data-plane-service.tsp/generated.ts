@@ -108,30 +108,24 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  r,
+  b,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-const getServiceStatusResponder = {
+const getServiceStatus = b((r) => ({
   with200: r.with200<{
     statusString: string
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(z.object({ statusString: z.string() })),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type GetServiceStatusResponder = typeof getServiceStatusResponder &
+type GetServiceStatusResponder = (typeof getServiceStatus)["responder"] &
   KoaRuntimeResponder
-
-const getServiceStatusResponseValidator = responseValidationFactory(
-  [["200", z.object({ statusString: z.string() })]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
 
 export type GetServiceStatus = (
   params: Params<
@@ -153,8 +147,8 @@ export type GetServiceStatus = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder =
-  {
+const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus = b(
+  (r) => ({
     with200: r.with200<
       | {
           error?: t_Azure_Core_Foundations_Error
@@ -167,37 +161,31 @@ const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusRespon
           id: string
           status: t_Azure_Core_Foundations_OperationState
         }
-    >,
-    withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+    >(
+      z.union([
+        z.object({
+          id: z.string(),
+          status: s_Azure_Core_Foundations_OperationState,
+          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+          result: s_Widget.optional(),
+        }),
+        z.object({
+          id: z.string(),
+          status: s_Azure_Core_Foundations_OperationState,
+          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+        }),
+      ]),
+    ),
+    withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+      s_Azure_Core_Foundations_ErrorResponse,
+    ),
     withStatus: r.withStatus,
-  }
+  }),
+)
 
 type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder =
-  typeof widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder &
+  (typeof widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus)["responder"] &
     KoaRuntimeResponder
-
-const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.union([
-          z.object({
-            id: z.string(),
-            status: s_Azure_Core_Foundations_OperationState,
-            error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-            result: s_Widget.optional(),
-          }),
-          z.object({
-            id: z.string(),
-            status: s_Azure_Core_Foundations_OperationState,
-            error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-          }),
-        ]),
-      ],
-    ],
-    s_Azure_Core_Foundations_ErrorResponse,
-  )
 
 export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus =
   (
@@ -228,23 +216,17 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
     | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   >
 
-const widgetsCreateOrUpdateWidgetResponder = {
-  with200: r.with200<t_Widget>,
-  with201: r.with201<t_Widget>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetsCreateOrUpdateWidget = b((r) => ({
+  with200: r.with200<t_Widget>(s_Widget),
+  with201: r.with201<t_Widget>(s_Widget),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetsCreateOrUpdateWidgetResponder =
-  typeof widgetsCreateOrUpdateWidgetResponder & KoaRuntimeResponder
-
-const widgetsCreateOrUpdateWidgetResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Widget],
-    ["201", s_Widget],
-  ],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof widgetsCreateOrUpdateWidget)["responder"] & KoaRuntimeResponder
 
 export type WidgetsCreateOrUpdateWidget = (
   params: Params<
@@ -262,19 +244,16 @@ export type WidgetsCreateOrUpdateWidget = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsGetWidgetResponder = {
-  with200: r.with200<t_Widget>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetsGetWidget = b((r) => ({
+  with200: r.with200<t_Widget>(s_Widget),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsGetWidgetResponder = typeof widgetsGetWidgetResponder &
+type WidgetsGetWidgetResponder = (typeof widgetsGetWidget)["responder"] &
   KoaRuntimeResponder
-
-const widgetsGetWidgetResponseValidator = responseValidationFactory(
-  [["200", s_Widget]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
 
 export type WidgetsGetWidget = (
   params: Params<
@@ -291,32 +270,26 @@ export type WidgetsGetWidget = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsDeleteWidgetResponder = {
+const widgetsDeleteWidget = b((r) => ({
   with202: r.with202<{
     error?: t_Azure_Core_Foundations_Error
     id: string
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsDeleteWidgetResponder = typeof widgetsDeleteWidgetResponder &
+type WidgetsDeleteWidgetResponder = (typeof widgetsDeleteWidget)["responder"] &
   KoaRuntimeResponder
-
-const widgetsDeleteWidgetResponseValidator = responseValidationFactory(
-  [
-    [
-      "202",
-      z.object({
-        id: z.string(),
-        status: s_Azure_Core_Foundations_OperationState,
-        error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-      }),
-    ],
-  ],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
 
 export type WidgetsDeleteWidget = (
   params: Params<
@@ -340,19 +313,16 @@ export type WidgetsDeleteWidget = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsListWidgetsResponder = {
-  with200: r.with200<t_PagedWidget>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetsListWidgets = b((r) => ({
+  with200: r.with200<t_PagedWidget>(s_PagedWidget),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsListWidgetsResponder = typeof widgetsListWidgetsResponder &
+type WidgetsListWidgetsResponder = (typeof widgetsListWidgets)["responder"] &
   KoaRuntimeResponder
-
-const widgetsListWidgetsResponseValidator = responseValidationFactory(
-  [["200", s_PagedWidget]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
 
 export type WidgetsListWidgets = (
   params: Params<
@@ -369,19 +339,16 @@ export type WidgetsListWidgets = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsGetAnalyticsResponder = {
-  with200: r.with200<t_WidgetAnalytics>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetsGetAnalytics = b((r) => ({
+  with200: r.with200<t_WidgetAnalytics>(s_WidgetAnalytics),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsGetAnalyticsResponder = typeof widgetsGetAnalyticsResponder &
+type WidgetsGetAnalyticsResponder = (typeof widgetsGetAnalytics)["responder"] &
   KoaRuntimeResponder
-
-const widgetsGetAnalyticsResponseValidator = responseValidationFactory(
-  [["200", s_WidgetAnalytics]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
 
 export type WidgetsGetAnalytics = (
   params: Params<
@@ -398,23 +365,17 @@ export type WidgetsGetAnalytics = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsUpdateAnalyticsResponder = {
-  with200: r.with200<t_WidgetAnalytics>,
-  with201: r.with201<t_WidgetAnalytics>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetsUpdateAnalytics = b((r) => ({
+  with200: r.with200<t_WidgetAnalytics>(s_WidgetAnalytics),
+  with201: r.with201<t_WidgetAnalytics>(s_WidgetAnalytics),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsUpdateAnalyticsResponder = typeof widgetsUpdateAnalyticsResponder &
-  KoaRuntimeResponder
-
-const widgetsUpdateAnalyticsResponseValidator = responseValidationFactory(
-  [
-    ["200", s_WidgetAnalytics],
-    ["201", s_WidgetAnalytics],
-  ],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+type WidgetsUpdateAnalyticsResponder =
+  (typeof widgetsUpdateAnalytics)["responder"] & KoaRuntimeResponder
 
 export type WidgetsUpdateAnalytics = (
   params: Params<
@@ -432,34 +393,28 @@ export type WidgetsUpdateAnalytics = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsGetRepairStatusResponder = {
+const widgetsGetRepairStatus = b((r) => ({
   with200: r.with200<{
     error?: t_Azure_Core_Foundations_Error
     id: string
     result?: t_WidgetRepairRequest
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+      result: s_WidgetRepairRequest.optional(),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsGetRepairStatusResponder = typeof widgetsGetRepairStatusResponder &
-  KoaRuntimeResponder
-
-const widgetsGetRepairStatusResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        id: z.string(),
-        status: s_Azure_Core_Foundations_OperationState,
-        error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-        result: s_WidgetRepairRequest.optional(),
-      }),
-    ],
-  ],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+type WidgetsGetRepairStatusResponder =
+  (typeof widgetsGetRepairStatus)["responder"] & KoaRuntimeResponder
 
 export type WidgetsGetRepairStatus = (
   params: Params<
@@ -484,7 +439,7 @@ export type WidgetsGetRepairStatus = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetsScheduleRepairsResponder = {
+const widgetsScheduleRepairs = b((r) => ({
   with202: r.with202<{
     error?: t_Azure_Core_Foundations_Error
     id: string
@@ -496,36 +451,30 @@ const widgetsScheduleRepairsResponder = {
       updatedDateTime: string
     }
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+      result: z
+        .object({
+          requestState: s_WidgetRepairState,
+          scheduledDateTime: z.string().datetime({ offset: true }),
+          createdDateTime: z.string().datetime({ offset: true }),
+          updatedDateTime: z.string().datetime({ offset: true }),
+          completedDateTime: z.string().datetime({ offset: true }),
+        })
+        .optional(),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
-type WidgetsScheduleRepairsResponder = typeof widgetsScheduleRepairsResponder &
-  KoaRuntimeResponder
-
-const widgetsScheduleRepairsResponseValidator = responseValidationFactory(
-  [
-    [
-      "202",
-      z.object({
-        id: z.string(),
-        status: s_Azure_Core_Foundations_OperationState,
-        error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-        result: z
-          .object({
-            requestState: s_WidgetRepairState,
-            scheduledDateTime: z.string().datetime({ offset: true }),
-            createdDateTime: z.string().datetime({ offset: true }),
-            updatedDateTime: z.string().datetime({ offset: true }),
-            completedDateTime: z.string().datetime({ offset: true }),
-          })
-          .optional(),
-      }),
-    ],
-  ],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+type WidgetsScheduleRepairsResponder =
+  (typeof widgetsScheduleRepairs)["responder"] & KoaRuntimeResponder
 
 export type WidgetsScheduleRepairs = (
   params: Params<
@@ -556,35 +505,29 @@ export type WidgetsScheduleRepairs = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetPartsGetWidgetPartOperationStatusResponder = {
+const widgetPartsGetWidgetPartOperationStatus = b((r) => ({
   with200: r.with200<{
     error?: t_Azure_Core_Foundations_Error
     id: string
     result?: t_WidgetPart
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+      result: s_WidgetPart.optional(),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetPartsGetWidgetPartOperationStatusResponder =
-  typeof widgetPartsGetWidgetPartOperationStatusResponder & KoaRuntimeResponder
-
-const widgetPartsGetWidgetPartOperationStatusResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-          result: s_WidgetPart.optional(),
-        }),
-      ],
-    ],
-    s_Azure_Core_Foundations_ErrorResponse,
-  )
+  (typeof widgetPartsGetWidgetPartOperationStatus)["responder"] &
+    KoaRuntimeResponder
 
 export type WidgetPartsGetWidgetPartOperationStatus = (
   params: Params<
@@ -609,19 +552,16 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetPartsCreateWidgetPartResponder = {
-  with201: r.with201<void>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetPartsCreateWidgetPart = b((r) => ({
+  with201: r.with201<void>(z.undefined()),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetPartsCreateWidgetPartResponder =
-  typeof widgetPartsCreateWidgetPartResponder & KoaRuntimeResponder
-
-const widgetPartsCreateWidgetPartResponseValidator = responseValidationFactory(
-  [["201", z.undefined()]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof widgetPartsCreateWidgetPart)["responder"] & KoaRuntimeResponder
 
 export type WidgetPartsCreateWidgetPart = (
   params: Params<
@@ -638,19 +578,16 @@ export type WidgetPartsCreateWidgetPart = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetPartsListWidgetPartsResponder = {
-  with200: r.with200<t_PagedWidgetPart>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetPartsListWidgetParts = b((r) => ({
+  with200: r.with200<t_PagedWidgetPart>(s_PagedWidgetPart),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetPartsListWidgetPartsResponder =
-  typeof widgetPartsListWidgetPartsResponder & KoaRuntimeResponder
-
-const widgetPartsListWidgetPartsResponseValidator = responseValidationFactory(
-  [["200", s_PagedWidgetPart]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof widgetPartsListWidgetParts)["responder"] & KoaRuntimeResponder
 
 export type WidgetPartsListWidgetParts = (
   params: Params<
@@ -667,19 +604,16 @@ export type WidgetPartsListWidgetParts = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetPartsGetWidgetPartResponder = {
-  with200: r.with200<t_WidgetPart>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetPartsGetWidgetPart = b((r) => ({
+  with200: r.with200<t_WidgetPart>(s_WidgetPart),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetPartsGetWidgetPartResponder =
-  typeof widgetPartsGetWidgetPartResponder & KoaRuntimeResponder
-
-const widgetPartsGetWidgetPartResponseValidator = responseValidationFactory(
-  [["200", s_WidgetPart]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof widgetPartsGetWidgetPart)["responder"] & KoaRuntimeResponder
 
 export type WidgetPartsGetWidgetPart = (
   params: Params<
@@ -696,19 +630,16 @@ export type WidgetPartsGetWidgetPart = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetPartsDeleteWidgetPartResponder = {
-  with204: r.with204<void>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const widgetPartsDeleteWidgetPart = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetPartsDeleteWidgetPartResponder =
-  typeof widgetPartsDeleteWidgetPartResponder & KoaRuntimeResponder
-
-const widgetPartsDeleteWidgetPartResponseValidator = responseValidationFactory(
-  [["204", z.undefined()]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof widgetPartsDeleteWidgetPart)["responder"] & KoaRuntimeResponder
 
 export type WidgetPartsDeleteWidgetPart = (
   params: Params<
@@ -725,32 +656,26 @@ export type WidgetPartsDeleteWidgetPart = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const widgetPartsReorderPartsResponder = {
+const widgetPartsReorderParts = b((r) => ({
   with202: r.with202<{
     error?: t_Azure_Core_Foundations_Error
     id: string
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type WidgetPartsReorderPartsResponder =
-  typeof widgetPartsReorderPartsResponder & KoaRuntimeResponder
-
-const widgetPartsReorderPartsResponseValidator = responseValidationFactory(
-  [
-    [
-      "202",
-      z.object({
-        id: z.string(),
-        status: s_Azure_Core_Foundations_OperationState,
-        error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-      }),
-    ],
-  ],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof widgetPartsReorderParts)["responder"] & KoaRuntimeResponder
 
 export type WidgetPartsReorderParts = (
   params: Params<
@@ -774,36 +699,29 @@ export type WidgetPartsReorderParts = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const manufacturersGetManufacturerOperationStatusResponder = {
+const manufacturersGetManufacturerOperationStatus = b((r) => ({
   with200: r.with200<{
     error?: t_Azure_Core_Foundations_Error
     id: string
     result?: t_Manufacturer
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+      result: s_Manufacturer.optional(),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type ManufacturersGetManufacturerOperationStatusResponder =
-  typeof manufacturersGetManufacturerOperationStatusResponder &
+  (typeof manufacturersGetManufacturerOperationStatus)["responder"] &
     KoaRuntimeResponder
-
-const manufacturersGetManufacturerOperationStatusResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-          result: s_Manufacturer.optional(),
-        }),
-      ],
-    ],
-    s_Azure_Core_Foundations_ErrorResponse,
-  )
 
 export type ManufacturersGetManufacturerOperationStatus = (
   params: Params<
@@ -828,24 +746,18 @@ export type ManufacturersGetManufacturerOperationStatus = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const manufacturersCreateOrReplaceManufacturerResponder = {
-  with200: r.with200<t_Manufacturer>,
-  with201: r.with201<t_Manufacturer>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const manufacturersCreateOrReplaceManufacturer = b((r) => ({
+  with200: r.with200<t_Manufacturer>(s_Manufacturer),
+  with201: r.with201<t_Manufacturer>(s_Manufacturer),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type ManufacturersCreateOrReplaceManufacturerResponder =
-  typeof manufacturersCreateOrReplaceManufacturerResponder & KoaRuntimeResponder
-
-const manufacturersCreateOrReplaceManufacturerResponseValidator =
-  responseValidationFactory(
-    [
-      ["200", s_Manufacturer],
-      ["201", s_Manufacturer],
-    ],
-    s_Azure_Core_Foundations_ErrorResponse,
-  )
+  (typeof manufacturersCreateOrReplaceManufacturer)["responder"] &
+    KoaRuntimeResponder
 
 export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
@@ -863,19 +775,16 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const manufacturersGetManufacturerResponder = {
-  with200: r.with200<t_Manufacturer>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const manufacturersGetManufacturer = b((r) => ({
+  with200: r.with200<t_Manufacturer>(s_Manufacturer),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type ManufacturersGetManufacturerResponder =
-  typeof manufacturersGetManufacturerResponder & KoaRuntimeResponder
-
-const manufacturersGetManufacturerResponseValidator = responseValidationFactory(
-  [["200", s_Manufacturer]],
-  s_Azure_Core_Foundations_ErrorResponse,
-)
+  (typeof manufacturersGetManufacturer)["responder"] & KoaRuntimeResponder
 
 export type ManufacturersGetManufacturer = (
   params: Params<
@@ -892,33 +801,26 @@ export type ManufacturersGetManufacturer = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const manufacturersDeleteManufacturerResponder = {
+const manufacturersDeleteManufacturer = b((r) => ({
   with202: r.with202<{
     error?: t_Azure_Core_Foundations_Error
     id: string
     status: t_Azure_Core_Foundations_OperationState
-  }>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+  }>(
+    z.object({
+      id: z.string(),
+      status: s_Azure_Core_Foundations_OperationState,
+      error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+    }),
+  ),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type ManufacturersDeleteManufacturerResponder =
-  typeof manufacturersDeleteManufacturerResponder & KoaRuntimeResponder
-
-const manufacturersDeleteManufacturerResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "202",
-        z.object({
-          id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
-          error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-        }),
-      ],
-    ],
-    s_Azure_Core_Foundations_ErrorResponse,
-  )
+  (typeof manufacturersDeleteManufacturer)["responder"] & KoaRuntimeResponder
 
 export type ManufacturersDeleteManufacturer = (
   params: Params<
@@ -942,20 +844,16 @@ export type ManufacturersDeleteManufacturer = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-const manufacturersListManufacturersResponder = {
-  with200: r.with200<t_PagedManufacturer>,
-  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>,
+const manufacturersListManufacturers = b((r) => ({
+  with200: r.with200<t_PagedManufacturer>(s_PagedManufacturer),
+  withDefault: r.withDefault<t_Azure_Core_Foundations_ErrorResponse>(
+    s_Azure_Core_Foundations_ErrorResponse,
+  ),
   withStatus: r.withStatus,
-}
+}))
 
 type ManufacturersListManufacturersResponder =
-  typeof manufacturersListManufacturersResponder & KoaRuntimeResponder
-
-const manufacturersListManufacturersResponseValidator =
-  responseValidationFactory(
-    [["200", s_PagedManufacturer]],
-    s_Azure_Core_Foundations_ErrorResponse,
-  )
+  (typeof manufacturersListManufacturers)["responder"] & KoaRuntimeResponder
 
 export type ManufacturersListManufacturers = (
   params: Params<
@@ -1024,7 +922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getServiceStatus(input, getServiceStatusResponder, ctx)
+      .getServiceStatus(input, getServiceStatus.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -1032,7 +930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getServiceStatusResponseValidator(status, body)
+    ctx.body = getServiceStatus.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -1065,7 +963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus(
           input,
-          widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder,
+          widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus.responder,
           ctx,
         )
         .catch((err) => {
@@ -1076,7 +974,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponseValidator(
+        widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus.validator(
           status,
           body,
         )
@@ -1135,7 +1033,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .widgetsCreateOrUpdateWidget(
           input,
-          widgetsCreateOrUpdateWidgetResponder,
+          widgetsCreateOrUpdateWidget.responder,
           ctx,
         )
         .catch((err) => {
@@ -1145,7 +1043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsCreateOrUpdateWidgetResponseValidator(status, body)
+      ctx.body = widgetsCreateOrUpdateWidget.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1186,7 +1084,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .widgetsGetWidget(input, widgetsGetWidgetResponder, ctx)
+      .widgetsGetWidget(input, widgetsGetWidget.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -1194,7 +1092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = widgetsGetWidgetResponseValidator(status, body)
+    ctx.body = widgetsGetWidget.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -1239,7 +1137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetsDeleteWidget(input, widgetsDeleteWidgetResponder, ctx)
+        .widgetsDeleteWidget(input, widgetsDeleteWidget.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1247,7 +1145,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsDeleteWidgetResponseValidator(status, body)
+      ctx.body = widgetsDeleteWidget.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1287,7 +1185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .widgetsListWidgets(input, widgetsListWidgetsResponder, ctx)
+      .widgetsListWidgets(input, widgetsListWidgets.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -1295,7 +1193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = widgetsListWidgetsResponseValidator(status, body)
+    ctx.body = widgetsListWidgets.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -1338,7 +1236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetsGetAnalytics(input, widgetsGetAnalyticsResponder, ctx)
+        .widgetsGetAnalytics(input, widgetsGetAnalytics.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1346,7 +1244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsGetAnalyticsResponseValidator(status, body)
+      ctx.body = widgetsGetAnalytics.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1398,7 +1296,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetsUpdateAnalytics(input, widgetsUpdateAnalyticsResponder, ctx)
+        .widgetsUpdateAnalytics(input, widgetsUpdateAnalytics.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1406,7 +1304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsUpdateAnalyticsResponseValidator(status, body)
+      ctx.body = widgetsUpdateAnalytics.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1441,7 +1339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetsGetRepairStatus(input, widgetsGetRepairStatusResponder, ctx)
+        .widgetsGetRepairStatus(input, widgetsGetRepairStatus.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1449,7 +1347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsGetRepairStatusResponseValidator(status, body)
+      ctx.body = widgetsGetRepairStatus.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1497,7 +1395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetsScheduleRepairs(input, widgetsScheduleRepairsResponder, ctx)
+        .widgetsScheduleRepairs(input, widgetsScheduleRepairs.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1505,7 +1403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsScheduleRepairsResponseValidator(status, body)
+      ctx.body = widgetsScheduleRepairs.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1543,7 +1441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .widgetPartsGetWidgetPartOperationStatus(
           input,
-          widgetPartsGetWidgetPartOperationStatusResponder,
+          widgetPartsGetWidgetPartOperationStatus.responder,
           ctx,
         )
         .catch((err) => {
@@ -1553,10 +1451,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetPartsGetWidgetPartOperationStatusResponseValidator(
-        status,
-        body,
-      )
+      ctx.body = widgetPartsGetWidgetPartOperationStatus.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1612,7 +1507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .widgetPartsCreateWidgetPart(
           input,
-          widgetPartsCreateWidgetPartResponder,
+          widgetPartsCreateWidgetPart.responder,
           ctx,
         )
         .catch((err) => {
@@ -1622,7 +1517,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetPartsCreateWidgetPartResponseValidator(status, body)
+      ctx.body = widgetPartsCreateWidgetPart.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1666,7 +1561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .widgetPartsListWidgetParts(
           input,
-          widgetPartsListWidgetPartsResponder,
+          widgetPartsListWidgetParts.responder,
           ctx,
         )
         .catch((err) => {
@@ -1676,7 +1571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetPartsListWidgetPartsResponseValidator(status, body)
+      ctx.body = widgetPartsListWidgetParts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1723,7 +1618,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetPartsGetWidgetPart(input, widgetPartsGetWidgetPartResponder, ctx)
+        .widgetPartsGetWidgetPart(
+          input,
+          widgetPartsGetWidgetPart.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1731,7 +1630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetPartsGetWidgetPartResponseValidator(status, body)
+      ctx.body = widgetPartsGetWidgetPart.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1782,7 +1681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .widgetPartsDeleteWidgetPart(
           input,
-          widgetPartsDeleteWidgetPartResponder,
+          widgetPartsDeleteWidgetPart.responder,
           ctx,
         )
         .catch((err) => {
@@ -1792,7 +1691,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetPartsDeleteWidgetPartResponseValidator(status, body)
+      ctx.body = widgetPartsDeleteWidgetPart.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1842,7 +1741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetPartsReorderParts(input, widgetPartsReorderPartsResponder, ctx)
+        .widgetPartsReorderParts(input, widgetPartsReorderParts.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1850,7 +1749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetPartsReorderPartsResponseValidator(status, body)
+      ctx.body = widgetPartsReorderParts.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1887,7 +1786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .manufacturersGetManufacturerOperationStatus(
           input,
-          manufacturersGetManufacturerOperationStatusResponder,
+          manufacturersGetManufacturerOperationStatus.responder,
           ctx,
         )
         .catch((err) => {
@@ -1897,7 +1796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = manufacturersGetManufacturerOperationStatusResponseValidator(
+      ctx.body = manufacturersGetManufacturerOperationStatus.validator(
         status,
         body,
       )
@@ -1956,7 +1855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .manufacturersCreateOrReplaceManufacturer(
           input,
-          manufacturersCreateOrReplaceManufacturerResponder,
+          manufacturersCreateOrReplaceManufacturer.responder,
           ctx,
         )
         .catch((err) => {
@@ -1966,7 +1865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = manufacturersCreateOrReplaceManufacturerResponseValidator(
+      ctx.body = manufacturersCreateOrReplaceManufacturer.validator(
         status,
         body,
       )
@@ -2017,7 +1916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .manufacturersGetManufacturer(
           input,
-          manufacturersGetManufacturerResponder,
+          manufacturersGetManufacturer.responder,
           ctx,
         )
         .catch((err) => {
@@ -2027,7 +1926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = manufacturersGetManufacturerResponseValidator(status, body)
+      ctx.body = manufacturersGetManufacturer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2077,7 +1976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .manufacturersDeleteManufacturer(
           input,
-          manufacturersDeleteManufacturerResponder,
+          manufacturersDeleteManufacturer.responder,
           ctx,
         )
         .catch((err) => {
@@ -2087,7 +1986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = manufacturersDeleteManufacturerResponseValidator(status, body)
+      ctx.body = manufacturersDeleteManufacturer.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2123,7 +2022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .manufacturersListManufacturers(
           input,
-          manufacturersListManufacturersResponder,
+          manufacturersListManufacturers.responder,
           ctx,
         )
         .catch((err) => {
@@ -2133,7 +2032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = manufacturersListManufacturersResponseValidator(status, body)
+      ctx.body = manufacturersListManufacturers.validator(status, body)
       ctx.status = status
       return next()
     },

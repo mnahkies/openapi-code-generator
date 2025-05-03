@@ -23,27 +23,19 @@ import {
   Response,
   ServerConfig,
   StatusCode,
-  r,
+  b,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-const findPetsResponder = {
-  with200: r.with200<t_Pet[]>,
-  withDefault: r.withDefault<t_Error>,
+const findPets = b((r) => ({
+  with200: r.with200<t_Pet[]>(z.array(s_Pet)),
+  withDefault: r.withDefault<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type FindPetsResponder = typeof findPetsResponder & KoaRuntimeResponder
-
-const findPetsResponseValidator = responseValidationFactory(
-  [["200", z.array(s_Pet)]],
-  s_Error,
-)
+type FindPetsResponder = (typeof findPets)["responder"] & KoaRuntimeResponder
 
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void, void>,
@@ -55,18 +47,13 @@ export type FindPets = (
   | Response<StatusCode, t_Error>
 >
 
-const addPetResponder = {
-  with200: r.with200<t_Pet>,
-  withDefault: r.withDefault<t_Error>,
+const addPet = b((r) => ({
+  with200: r.with200<t_Pet>(s_Pet),
+  withDefault: r.withDefault<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type AddPetResponder = typeof addPetResponder & KoaRuntimeResponder
-
-const addPetResponseValidator = responseValidationFactory(
-  [["200", s_Pet]],
-  s_Error,
-)
+type AddPetResponder = (typeof addPet)["responder"] & KoaRuntimeResponder
 
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema, void>,
@@ -78,18 +65,14 @@ export type AddPet = (
   | Response<StatusCode, t_Error>
 >
 
-const findPetByIdResponder = {
-  with200: r.with200<t_Pet>,
-  withDefault: r.withDefault<t_Error>,
+const findPetById = b((r) => ({
+  with200: r.with200<t_Pet>(s_Pet),
+  withDefault: r.withDefault<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type FindPetByIdResponder = typeof findPetByIdResponder & KoaRuntimeResponder
-
-const findPetByIdResponseValidator = responseValidationFactory(
-  [["200", s_Pet]],
-  s_Error,
-)
+type FindPetByIdResponder = (typeof findPetById)["responder"] &
+  KoaRuntimeResponder
 
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void, void>,
@@ -101,18 +84,13 @@ export type FindPetById = (
   | Response<StatusCode, t_Error>
 >
 
-const deletePetResponder = {
-  with204: r.with204<void>,
-  withDefault: r.withDefault<t_Error>,
+const deletePet = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  withDefault: r.withDefault<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeletePetResponder = typeof deletePetResponder & KoaRuntimeResponder
-
-const deletePetResponseValidator = responseValidationFactory(
-  [["204", z.undefined()]],
-  s_Error,
-)
+type DeletePetResponder = (typeof deletePet)["responder"] & KoaRuntimeResponder
 
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void, void>,
@@ -157,7 +135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .findPets(input, findPetsResponder, ctx)
+      .findPets(input, findPets.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -165,7 +143,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = findPetsResponseValidator(status, body)
+    ctx.body = findPets.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -185,7 +163,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .addPet(input, addPetResponder, ctx)
+      .addPet(input, addPet.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -193,7 +171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = addPetResponseValidator(status, body)
+    ctx.body = addPet.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -213,7 +191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .findPetById(input, findPetByIdResponder, ctx)
+      .findPetById(input, findPetById.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -221,7 +199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = findPetByIdResponseValidator(status, body)
+    ctx.body = findPetById.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -241,7 +219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deletePet(input, deletePetResponder, ctx)
+      .deletePet(input, deletePet.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -249,7 +227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = deletePetResponseValidator(status, body)
+    ctx.body = deletePet.validator(status, body)
     ctx.status = status
     return next()
   })

@@ -78,38 +78,25 @@ import {
   Params,
   Response,
   ServerConfig,
-  r,
+  b,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-const createAppAuthenticatorEnrollmentResponder = {
-  with200: r.with200<t_AppAuthenticatorEnrollment>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
+const createAppAuthenticatorEnrollment = b((r) => ({
+  with200: r.with200<t_AppAuthenticatorEnrollment>(
+    s_AppAuthenticatorEnrollment,
+  ),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
 type CreateAppAuthenticatorEnrollmentResponder =
-  typeof createAppAuthenticatorEnrollmentResponder & KoaRuntimeResponder
-
-const createAppAuthenticatorEnrollmentResponseValidator =
-  responseValidationFactory(
-    [
-      ["200", s_AppAuthenticatorEnrollment],
-      ["400", s_Error],
-      ["401", s_Error],
-      ["403", s_Error],
-      ["404", s_Error],
-    ],
-    undefined,
-  )
+  (typeof createAppAuthenticatorEnrollment)["responder"] & KoaRuntimeResponder
 
 export type CreateAppAuthenticatorEnrollment = (
   params: Params<
@@ -129,26 +116,16 @@ export type CreateAppAuthenticatorEnrollment = (
   | Response<404, t_Error>
 >
 
-const verifyAppAuthenticatorPushNotificationChallengeResponder = {
-  with200: r.with200<void>,
-  with204: r.with204<void>,
-  with400: r.with400<void>,
+const verifyAppAuthenticatorPushNotificationChallenge = b((r) => ({
+  with200: r.with200<void>(z.undefined()),
+  with204: r.with204<void>(z.undefined()),
+  with400: r.with400<void>(z.undefined()),
   withStatus: r.withStatus,
-}
+}))
 
 type VerifyAppAuthenticatorPushNotificationChallengeResponder =
-  typeof verifyAppAuthenticatorPushNotificationChallengeResponder &
+  (typeof verifyAppAuthenticatorPushNotificationChallenge)["responder"] &
     KoaRuntimeResponder
-
-const verifyAppAuthenticatorPushNotificationChallengeResponseValidator =
-  responseValidationFactory(
-    [
-      ["200", z.undefined()],
-      ["204", z.undefined()],
-      ["400", z.undefined()],
-    ],
-    undefined,
-  )
 
 export type VerifyAppAuthenticatorPushNotificationChallenge = (
   params: Params<
@@ -166,27 +143,18 @@ export type VerifyAppAuthenticatorPushNotificationChallenge = (
   | Response<400, void>
 >
 
-const updateAppAuthenticatorEnrollmentResponder = {
-  with200: r.with200<t_AppAuthenticatorEnrollment>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
+const updateAppAuthenticatorEnrollment = b((r) => ({
+  with200: r.with200<t_AppAuthenticatorEnrollment>(
+    s_AppAuthenticatorEnrollment,
+  ),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
 type UpdateAppAuthenticatorEnrollmentResponder =
-  typeof updateAppAuthenticatorEnrollmentResponder & KoaRuntimeResponder
-
-const updateAppAuthenticatorEnrollmentResponseValidator =
-  responseValidationFactory(
-    [
-      ["200", s_AppAuthenticatorEnrollment],
-      ["401", s_Error],
-      ["403", s_Error],
-      ["404", s_Error],
-    ],
-    undefined,
-  )
+  (typeof updateAppAuthenticatorEnrollment)["responder"] & KoaRuntimeResponder
 
 export type UpdateAppAuthenticatorEnrollment = (
   params: Params<
@@ -205,27 +173,16 @@ export type UpdateAppAuthenticatorEnrollment = (
   | Response<404, t_Error>
 >
 
-const deleteAppAuthenticatorEnrollmentResponder = {
-  with204: r.with204<void>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
+const deleteAppAuthenticatorEnrollment = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
 type DeleteAppAuthenticatorEnrollmentResponder =
-  typeof deleteAppAuthenticatorEnrollmentResponder & KoaRuntimeResponder
-
-const deleteAppAuthenticatorEnrollmentResponseValidator =
-  responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["401", s_Error],
-      ["403", s_Error],
-      ["404", s_Error],
-    ],
-    undefined,
-  )
+  (typeof deleteAppAuthenticatorEnrollment)["responder"] & KoaRuntimeResponder
 
 export type DeleteAppAuthenticatorEnrollment = (
   params: Params<
@@ -244,24 +201,17 @@ export type DeleteAppAuthenticatorEnrollment = (
   | Response<404, t_Error>
 >
 
-const listAppAuthenticatorPendingPushNotificationChallengesResponder = {
-  with200: r.with200<t_PushNotificationChallenge[]>,
-  with401: r.with401<t_Error>,
+const listAppAuthenticatorPendingPushNotificationChallenges = b((r) => ({
+  with200: r.with200<t_PushNotificationChallenge[]>(
+    z.array(s_PushNotificationChallenge),
+  ),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
 type ListAppAuthenticatorPendingPushNotificationChallengesResponder =
-  typeof listAppAuthenticatorPendingPushNotificationChallengesResponder &
+  (typeof listAppAuthenticatorPendingPushNotificationChallenges)["responder"] &
     KoaRuntimeResponder
-
-const listAppAuthenticatorPendingPushNotificationChallengesResponseValidator =
-  responseValidationFactory(
-    [
-      ["200", z.array(s_PushNotificationChallenge)],
-      ["401", s_Error],
-    ],
-    undefined,
-  )
 
 export type ListAppAuthenticatorPendingPushNotificationChallenges = (
   params: Params<
@@ -278,24 +228,15 @@ export type ListAppAuthenticatorPendingPushNotificationChallenges = (
   | Response<401, t_Error>
 >
 
-const listAuthenticatorsResponder = {
-  with200: r.with200<t_Authenticator[]>,
-  with403: r.with403<t_Error>,
-  with429: r.with429<t_Error>,
+const listAuthenticators = b((r) => ({
+  with200: r.with200<t_Authenticator[]>(z.array(s_Authenticator)),
+  with403: r.with403<t_Error>(s_Error),
+  with429: r.with429<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ListAuthenticatorsResponder = typeof listAuthenticatorsResponder &
+type ListAuthenticatorsResponder = (typeof listAuthenticators)["responder"] &
   KoaRuntimeResponder
-
-const listAuthenticatorsResponseValidator = responseValidationFactory(
-  [
-    ["200", z.array(s_Authenticator)],
-    ["403", s_Error],
-    ["429", s_Error],
-  ],
-  undefined,
-)
 
 export type ListAuthenticators = (
   params: Params<void, t_ListAuthenticatorsQuerySchema, void, void>,
@@ -308,26 +249,16 @@ export type ListAuthenticators = (
   | Response<429, t_Error>
 >
 
-const getAuthenticatorResponder = {
-  with200: r.with200<t_Authenticator>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
-  with429: r.with429<t_Error>,
+const getAuthenticator = b((r) => ({
+  with200: r.with200<t_Authenticator>(s_Authenticator),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  with429: r.with429<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetAuthenticatorResponder = typeof getAuthenticatorResponder &
+type GetAuthenticatorResponder = (typeof getAuthenticator)["responder"] &
   KoaRuntimeResponder
-
-const getAuthenticatorResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Authenticator],
-    ["403", s_Error],
-    ["404", s_Error],
-    ["429", s_Error],
-  ],
-  undefined,
-)
 
 export type GetAuthenticator = (
   params: Params<
@@ -346,26 +277,18 @@ export type GetAuthenticator = (
   | Response<429, t_Error>
 >
 
-const listEnrollmentsResponder = {
-  with200: r.with200<t_AuthenticatorEnrollment[]>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
-  with429: r.with429<t_Error>,
+const listEnrollments = b((r) => ({
+  with200: r.with200<t_AuthenticatorEnrollment[]>(
+    z.array(s_AuthenticatorEnrollment),
+  ),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  with429: r.with429<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ListEnrollmentsResponder = typeof listEnrollmentsResponder &
+type ListEnrollmentsResponder = (typeof listEnrollments)["responder"] &
   KoaRuntimeResponder
-
-const listEnrollmentsResponseValidator = responseValidationFactory(
-  [
-    ["200", z.array(s_AuthenticatorEnrollment)],
-    ["403", s_Error],
-    ["404", s_Error],
-    ["429", s_Error],
-  ],
-  undefined,
-)
 
 export type ListEnrollments = (
   params: Params<t_ListEnrollmentsParamSchema, void, void, void>,
@@ -379,26 +302,16 @@ export type ListEnrollments = (
   | Response<429, t_Error>
 >
 
-const getEnrollmentResponder = {
-  with200: r.with200<t_AuthenticatorEnrollment>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
-  with429: r.with429<t_Error>,
+const getEnrollment = b((r) => ({
+  with200: r.with200<t_AuthenticatorEnrollment>(s_AuthenticatorEnrollment),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  with429: r.with429<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetEnrollmentResponder = typeof getEnrollmentResponder &
+type GetEnrollmentResponder = (typeof getEnrollment)["responder"] &
   KoaRuntimeResponder
-
-const getEnrollmentResponseValidator = responseValidationFactory(
-  [
-    ["200", s_AuthenticatorEnrollment],
-    ["403", s_Error],
-    ["404", s_Error],
-    ["429", s_Error],
-  ],
-  undefined,
-)
 
 export type GetEnrollment = (
   params: Params<t_GetEnrollmentParamSchema, void, void, void>,
@@ -412,26 +325,16 @@ export type GetEnrollment = (
   | Response<429, t_Error>
 >
 
-const updateEnrollmentResponder = {
-  with200: r.with200<t_AuthenticatorEnrollment>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
+const updateEnrollment = b((r) => ({
+  with200: r.with200<t_AuthenticatorEnrollment>(s_AuthenticatorEnrollment),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type UpdateEnrollmentResponder = typeof updateEnrollmentResponder &
+type UpdateEnrollmentResponder = (typeof updateEnrollment)["responder"] &
   KoaRuntimeResponder
-
-const updateEnrollmentResponseValidator = responseValidationFactory(
-  [
-    ["200", s_AuthenticatorEnrollment],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
 
 export type UpdateEnrollment = (
   params: Params<
@@ -450,21 +353,14 @@ export type UpdateEnrollment = (
   | Response<404, t_Error>
 >
 
-const listEmailsResponder = {
-  with200: r.with200<t_Email[]>,
-  with401: r.with401<t_Error>,
+const listEmails = b((r) => ({
+  with200: r.with200<t_Email[]>(z.array(s_Email)),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ListEmailsResponder = typeof listEmailsResponder & KoaRuntimeResponder
-
-const listEmailsResponseValidator = responseValidationFactory(
-  [
-    ["200", z.array(s_Email)],
-    ["401", s_Error],
-  ],
-  undefined,
-)
+type ListEmailsResponder = (typeof listEmails)["responder"] &
+  KoaRuntimeResponder
 
 export type ListEmails = (
   params: Params<void, void, void, void>,
@@ -476,27 +372,17 @@ export type ListEmails = (
   | Response<401, t_Error>
 >
 
-const createEmailResponder = {
-  with201: r.with201<t_Email>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with409: r.with409<t_Error>,
+const createEmail = b((r) => ({
+  with201: r.with201<t_Email>(s_Email),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with409: r.with409<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type CreateEmailResponder = typeof createEmailResponder & KoaRuntimeResponder
-
-const createEmailResponseValidator = responseValidationFactory(
-  [
-    ["201", s_Email],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["409", s_Error],
-  ],
-  undefined,
-)
+type CreateEmailResponder = (typeof createEmail)["responder"] &
+  KoaRuntimeResponder
 
 export type CreateEmail = (
   params: Params<void, void, t_CreateEmailBodySchema, void>,
@@ -511,21 +397,13 @@ export type CreateEmail = (
   | Response<409, t_Error>
 >
 
-const getEmailResponder = {
-  with200: r.with200<t_Email>,
-  with401: r.with401<t_Error>,
+const getEmail = b((r) => ({
+  with200: r.with200<t_Email>(s_Email),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetEmailResponder = typeof getEmailResponder & KoaRuntimeResponder
-
-const getEmailResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Email],
-    ["401", s_Error],
-  ],
-  undefined,
-)
+type GetEmailResponder = (typeof getEmail)["responder"] & KoaRuntimeResponder
 
 export type GetEmail = (
   params: Params<t_GetEmailParamSchema, void, void, void>,
@@ -535,25 +413,16 @@ export type GetEmail = (
   KoaRuntimeResponse<unknown> | Response<200, t_Email> | Response<401, t_Error>
 >
 
-const deleteEmailResponder = {
-  with204: r.with204<void>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with404: r.with404<t_Error>,
+const deleteEmail = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteEmailResponder = typeof deleteEmailResponder & KoaRuntimeResponder
-
-const deleteEmailResponseValidator = responseValidationFactory(
-  [
-    ["204", z.undefined()],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
+type DeleteEmailResponder = (typeof deleteEmail)["responder"] &
+  KoaRuntimeResponder
 
 export type DeleteEmail = (
   params: Params<t_DeleteEmailParamSchema, void, void, void>,
@@ -567,7 +436,7 @@ export type DeleteEmail = (
   | Response<404, t_Error>
 >
 
-const sendEmailChallengeResponder = {
+const sendEmailChallenge = b((r) => ({
   with201: r.with201<{
     _links: {
       poll: {
@@ -589,43 +458,32 @@ const sendEmailChallengeResponder = {
       email: string
     }
     status: "VERIFIED" | "UNVERIFIED"
-  }>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
-  withStatus: r.withStatus,
-}
-
-type SendEmailChallengeResponder = typeof sendEmailChallengeResponder &
-  KoaRuntimeResponder
-
-const sendEmailChallengeResponseValidator = responseValidationFactory(
-  [
-    [
-      "201",
-      z.object({
-        id: z.string().min(1),
-        status: z.enum(["VERIFIED", "UNVERIFIED"]),
-        expiresAt: z.string().min(1),
-        profile: z.object({ email: z.string().min(1) }),
-        _links: z.object({
-          verify: z.object({
-            href: z.string().min(1),
-            hints: z.object({ allow: z.array(z.enum(["POST"])) }),
-          }),
-          poll: z.object({
-            href: z.string().min(1),
-            hints: z.object({ allow: z.array(z.enum(["GET"])) }),
-          }),
+  }>(
+    z.object({
+      id: z.string().min(1),
+      status: z.enum(["VERIFIED", "UNVERIFIED"]),
+      expiresAt: z.string().min(1),
+      profile: z.object({ email: z.string().min(1) }),
+      _links: z.object({
+        verify: z.object({
+          href: z.string().min(1),
+          hints: z.object({ allow: z.array(z.enum(["POST"])) }),
+        }),
+        poll: z.object({
+          href: z.string().min(1),
+          hints: z.object({ allow: z.array(z.enum(["GET"])) }),
         }),
       }),
-    ],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
+    }),
+  ),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  withStatus: r.withStatus,
+}))
+
+type SendEmailChallengeResponder = (typeof sendEmailChallenge)["responder"] &
+  KoaRuntimeResponder
 
 export type SendEmailChallenge = (
   params: Params<
@@ -668,7 +526,7 @@ export type SendEmailChallenge = (
   | Response<404, t_Error>
 >
 
-const pollChallengeForEmailMagicLinkResponder = {
+const pollChallengeForEmailMagicLink = b((r) => ({
   with200: r.with200<{
     _links: {
       poll: {
@@ -690,46 +548,35 @@ const pollChallengeForEmailMagicLinkResponder = {
       email: string
     }
     status: "VERIFIED" | "UNVERIFIED"
-  }>,
-  with401: r.with401<t_Error>,
-  with404: r.with404<t_Error>,
-  withStatus: r.withStatus,
-}
-
-type PollChallengeForEmailMagicLinkResponder =
-  typeof pollChallengeForEmailMagicLinkResponder & KoaRuntimeResponder
-
-const pollChallengeForEmailMagicLinkResponseValidator =
-  responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          id: z.string().min(1),
-          status: z.enum(["VERIFIED", "UNVERIFIED"]),
-          expiresAt: z.string().min(1),
-          profile: z.object({ email: z.string().min(1) }),
-          _links: z.object({
-            verify: z.object({
-              href: z.string().min(1),
-              hints: z.object({
-                allow: z.array(z.enum(["DELETE", "GET", "POST", "PUT"])),
-              }),
-            }),
-            poll: z.object({
-              href: z.string().min(1),
-              hints: z.object({
-                allow: z.array(z.enum(["DELETE", "GET", "POST", "PUT"])),
-              }),
-            }),
+  }>(
+    z.object({
+      id: z.string().min(1),
+      status: z.enum(["VERIFIED", "UNVERIFIED"]),
+      expiresAt: z.string().min(1),
+      profile: z.object({ email: z.string().min(1) }),
+      _links: z.object({
+        verify: z.object({
+          href: z.string().min(1),
+          hints: z.object({
+            allow: z.array(z.enum(["DELETE", "GET", "POST", "PUT"])),
           }),
         }),
-      ],
-      ["401", s_Error],
-      ["404", s_Error],
-    ],
-    undefined,
-  )
+        poll: z.object({
+          href: z.string().min(1),
+          hints: z.object({
+            allow: z.array(z.enum(["DELETE", "GET", "POST", "PUT"])),
+          }),
+        }),
+      }),
+    }),
+  ),
+  with401: r.with401<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  withStatus: r.withStatus,
+}))
+
+type PollChallengeForEmailMagicLinkResponder =
+  (typeof pollChallengeForEmailMagicLink)["responder"] & KoaRuntimeResponder
 
 export type PollChallengeForEmailMagicLink = (
   params: Params<t_PollChallengeForEmailMagicLinkParamSchema, void, void, void>,
@@ -766,26 +613,16 @@ export type PollChallengeForEmailMagicLink = (
   | Response<404, t_Error>
 >
 
-const verifyEmailOtpResponder = {
-  with200: r.with200<void>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
+const verifyEmailOtp = b((r) => ({
+  with200: r.with200<void>(z.undefined()),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type VerifyEmailOtpResponder = typeof verifyEmailOtpResponder &
+type VerifyEmailOtpResponder = (typeof verifyEmailOtp)["responder"] &
   KoaRuntimeResponder
-
-const verifyEmailOtpResponseValidator = responseValidationFactory(
-  [
-    ["200", z.undefined()],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
 
 export type VerifyEmailOtp = (
   params: Params<
@@ -804,22 +641,14 @@ export type VerifyEmailOtp = (
   | Response<404, t_Error>
 >
 
-const listOktaApplicationsResponder = {
-  with200: r.with200<t_OktaApplication[]>,
-  with400: r.with400<t_Error>,
+const listOktaApplications = b((r) => ({
+  with200: r.with200<t_OktaApplication[]>(z.array(s_OktaApplication)),
+  with400: r.with400<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ListOktaApplicationsResponder = typeof listOktaApplicationsResponder &
-  KoaRuntimeResponder
-
-const listOktaApplicationsResponseValidator = responseValidationFactory(
-  [
-    ["200", z.array(s_OktaApplication)],
-    ["400", s_Error],
-  ],
-  undefined,
-)
+type ListOktaApplicationsResponder =
+  (typeof listOktaApplications)["responder"] & KoaRuntimeResponder
 
 export type ListOktaApplications = (
   params: Params<void, void, void, void>,
@@ -831,22 +660,14 @@ export type ListOktaApplications = (
   | Response<400, t_Error>
 >
 
-const getOrganizationResponder = {
-  with200: r.with200<t_Organization>,
-  with401: r.with401<t_Error>,
+const getOrganization = b((r) => ({
+  with200: r.with200<t_Organization>(s_Organization),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetOrganizationResponder = typeof getOrganizationResponder &
+type GetOrganizationResponder = (typeof getOrganization)["responder"] &
   KoaRuntimeResponder
-
-const getOrganizationResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Organization],
-    ["401", s_Error],
-  ],
-  undefined,
-)
 
 export type GetOrganization = (
   params: Params<void, void, void, void>,
@@ -858,21 +679,14 @@ export type GetOrganization = (
   | Response<401, t_Error>
 >
 
-const getPasswordResponder = {
-  with200: r.with200<t_PasswordResponse>,
-  with401: r.with401<t_Error>,
+const getPassword = b((r) => ({
+  with200: r.with200<t_PasswordResponse>(s_PasswordResponse),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPasswordResponder = typeof getPasswordResponder & KoaRuntimeResponder
-
-const getPasswordResponseValidator = responseValidationFactory(
-  [
-    ["200", s_PasswordResponse],
-    ["401", s_Error],
-  ],
-  undefined,
-)
+type GetPasswordResponder = (typeof getPassword)["responder"] &
+  KoaRuntimeResponder
 
 export type GetPassword = (
   params: Params<void, void, void, void>,
@@ -884,26 +698,16 @@ export type GetPassword = (
   | Response<401, t_Error>
 >
 
-const createPasswordResponder = {
-  with201: r.with201<t_PasswordResponse>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
+const createPassword = b((r) => ({
+  with201: r.with201<t_PasswordResponse>(s_PasswordResponse),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type CreatePasswordResponder = typeof createPasswordResponder &
+type CreatePasswordResponder = (typeof createPassword)["responder"] &
   KoaRuntimeResponder
-
-const createPasswordResponseValidator = responseValidationFactory(
-  [
-    ["201", s_PasswordResponse],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["403", s_Error],
-  ],
-  undefined,
-)
 
 export type CreatePassword = (
   params: Params<void, void, t_CreatePasswordBodySchema, void>,
@@ -917,26 +721,16 @@ export type CreatePassword = (
   | Response<403, t_Error>
 >
 
-const replacePasswordResponder = {
-  with201: r.with201<t_PasswordResponse>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
+const replacePassword = b((r) => ({
+  with201: r.with201<t_PasswordResponse>(s_PasswordResponse),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ReplacePasswordResponder = typeof replacePasswordResponder &
+type ReplacePasswordResponder = (typeof replacePassword)["responder"] &
   KoaRuntimeResponder
-
-const replacePasswordResponseValidator = responseValidationFactory(
-  [
-    ["201", s_PasswordResponse],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["403", s_Error],
-  ],
-  undefined,
-)
 
 export type ReplacePassword = (
   params: Params<void, void, t_ReplacePasswordBodySchema, void>,
@@ -950,24 +744,15 @@ export type ReplacePassword = (
   | Response<403, t_Error>
 >
 
-const deletePasswordResponder = {
-  with204: r.with204<void>,
-  with401: r.with401<t_Error>,
-  with404: r.with404<t_Error>,
+const deletePassword = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with401: r.with401<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeletePasswordResponder = typeof deletePasswordResponder &
+type DeletePasswordResponder = (typeof deletePassword)["responder"] &
   KoaRuntimeResponder
-
-const deletePasswordResponseValidator = responseValidationFactory(
-  [
-    ["204", z.undefined()],
-    ["401", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
 
 export type DeletePassword = (
   params: Params<void, void, void, void>,
@@ -980,21 +765,14 @@ export type DeletePassword = (
   | Response<404, t_Error>
 >
 
-const listPhonesResponder = {
-  with200: r.with200<t_Phone[]>,
-  with401: r.with401<t_Error>,
+const listPhones = b((r) => ({
+  with200: r.with200<t_Phone[]>(z.array(s_Phone)),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ListPhonesResponder = typeof listPhonesResponder & KoaRuntimeResponder
-
-const listPhonesResponseValidator = responseValidationFactory(
-  [
-    ["200", z.array(s_Phone)],
-    ["401", s_Error],
-  ],
-  undefined,
-)
+type ListPhonesResponder = (typeof listPhones)["responder"] &
+  KoaRuntimeResponder
 
 export type ListPhones = (
   params: Params<void, void, void, void>,
@@ -1006,29 +784,18 @@ export type ListPhones = (
   | Response<401, t_Error>
 >
 
-const createPhoneResponder = {
-  with201: r.with201<t_Phone>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with409: r.with409<t_Error>,
-  with500: r.with500<t_Error>,
+const createPhone = b((r) => ({
+  with201: r.with201<t_Phone>(s_Phone),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with409: r.with409<t_Error>(s_Error),
+  with500: r.with500<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type CreatePhoneResponder = typeof createPhoneResponder & KoaRuntimeResponder
-
-const createPhoneResponseValidator = responseValidationFactory(
-  [
-    ["201", s_Phone],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["409", s_Error],
-    ["500", s_Error],
-  ],
-  undefined,
-)
+type CreatePhoneResponder = (typeof createPhone)["responder"] &
+  KoaRuntimeResponder
 
 export type CreatePhone = (
   params: Params<void, void, t_CreatePhoneBodySchema, void>,
@@ -1044,23 +811,14 @@ export type CreatePhone = (
   | Response<500, t_Error>
 >
 
-const getPhoneResponder = {
-  with200: r.with200<t_Phone>,
-  with401: r.with401<t_Error>,
-  with404: r.with404<t_Error>,
+const getPhone = b((r) => ({
+  with200: r.with200<t_Phone>(s_Phone),
+  with401: r.with401<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetPhoneResponder = typeof getPhoneResponder & KoaRuntimeResponder
-
-const getPhoneResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Phone],
-    ["401", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
+type GetPhoneResponder = (typeof getPhone)["responder"] & KoaRuntimeResponder
 
 export type GetPhone = (
   params: Params<t_GetPhoneParamSchema, void, void, void>,
@@ -1073,25 +831,16 @@ export type GetPhone = (
   | Response<404, t_Error>
 >
 
-const deletePhoneResponder = {
-  with204: r.with204<void>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
+const deletePhone = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeletePhoneResponder = typeof deletePhoneResponder & KoaRuntimeResponder
-
-const deletePhoneResponseValidator = responseValidationFactory(
-  [
-    ["204", z.undefined()],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
+type DeletePhoneResponder = (typeof deletePhone)["responder"] &
+  KoaRuntimeResponder
 
 export type DeletePhone = (
   params: Params<t_DeletePhoneParamSchema, void, void, void>,
@@ -1105,7 +854,7 @@ export type DeletePhone = (
   | Response<404, t_Error>
 >
 
-const sendPhoneChallengeResponder = {
+const sendPhoneChallenge = b((r) => ({
   with200: r.with200<{
     _links?: {
       verify?: {
@@ -1115,43 +864,30 @@ const sendPhoneChallengeResponder = {
         href: string
       }
     }
-  }>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
-  with500: r.with500<t_Error>,
+  }>(
+    z.object({
+      _links: z
+        .object({
+          verify: z
+            .object({
+              href: z.string().min(1),
+              hints: z.object({ allow: z.array(z.enum(["GET"])) }),
+            })
+            .optional(),
+        })
+        .optional(),
+    }),
+  ),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  with500: r.with500<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type SendPhoneChallengeResponder = typeof sendPhoneChallengeResponder &
+type SendPhoneChallengeResponder = (typeof sendPhoneChallenge)["responder"] &
   KoaRuntimeResponder
-
-const sendPhoneChallengeResponseValidator = responseValidationFactory(
-  [
-    [
-      "200",
-      z.object({
-        _links: z
-          .object({
-            verify: z
-              .object({
-                href: z.string().min(1),
-                hints: z.object({ allow: z.array(z.enum(["GET"])) }),
-              })
-              .optional(),
-          })
-          .optional(),
-      }),
-    ],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["404", s_Error],
-    ["500", s_Error],
-  ],
-  undefined,
-)
 
 export type SendPhoneChallenge = (
   params: Params<
@@ -1184,30 +920,18 @@ export type SendPhoneChallenge = (
   | Response<500, t_Error>
 >
 
-const verifyPhoneChallengeResponder = {
-  with204: r.with204<void>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
-  with403: r.with403<t_Error>,
-  with404: r.with404<t_Error>,
-  with409: r.with409<t_Error>,
+const verifyPhoneChallenge = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
+  with403: r.with403<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
+  with409: r.with409<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type VerifyPhoneChallengeResponder = typeof verifyPhoneChallengeResponder &
-  KoaRuntimeResponder
-
-const verifyPhoneChallengeResponseValidator = responseValidationFactory(
-  [
-    ["204", z.undefined()],
-    ["400", s_Error],
-    ["401", s_Error],
-    ["403", s_Error],
-    ["404", s_Error],
-    ["409", s_Error],
-  ],
-  undefined,
-)
+type VerifyPhoneChallengeResponder =
+  (typeof verifyPhoneChallenge)["responder"] & KoaRuntimeResponder
 
 export type VerifyPhoneChallenge = (
   params: Params<
@@ -1228,21 +952,14 @@ export type VerifyPhoneChallenge = (
   | Response<409, t_Error>
 >
 
-const getProfileResponder = {
-  with200: r.with200<t_Profile>,
-  with401: r.with401<t_Error>,
+const getProfile = b((r) => ({
+  with200: r.with200<t_Profile>(s_Profile),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetProfileResponder = typeof getProfileResponder & KoaRuntimeResponder
-
-const getProfileResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Profile],
-    ["401", s_Error],
-  ],
-  undefined,
-)
+type GetProfileResponder = (typeof getProfile)["responder"] &
+  KoaRuntimeResponder
 
 export type GetProfile = (
   params: Params<void, void, void, void>,
@@ -1254,24 +971,15 @@ export type GetProfile = (
   | Response<401, t_Error>
 >
 
-const replaceProfileResponder = {
-  with200: r.with200<t_Profile>,
-  with400: r.with400<t_Error>,
-  with401: r.with401<t_Error>,
+const replaceProfile = b((r) => ({
+  with200: r.with200<t_Profile>(s_Profile),
+  with400: r.with400<t_Error>(s_Error),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type ReplaceProfileResponder = typeof replaceProfileResponder &
+type ReplaceProfileResponder = (typeof replaceProfile)["responder"] &
   KoaRuntimeResponder
-
-const replaceProfileResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Profile],
-    ["400", s_Error],
-    ["401", s_Error],
-  ],
-  undefined,
-)
 
 export type ReplaceProfile = (
   params: Params<void, void, t_ReplaceProfileBodySchema, void>,
@@ -1284,22 +992,14 @@ export type ReplaceProfile = (
   | Response<401, t_Error>
 >
 
-const getProfileSchemaResponder = {
-  with200: r.with200<t_Schema>,
-  with401: r.with401<t_Error>,
+const getProfileSchema = b((r) => ({
+  with200: r.with200<t_Schema>(s_Schema),
+  with401: r.with401<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type GetProfileSchemaResponder = typeof getProfileSchemaResponder &
+type GetProfileSchemaResponder = (typeof getProfileSchema)["responder"] &
   KoaRuntimeResponder
-
-const getProfileSchemaResponseValidator = responseValidationFactory(
-  [
-    ["200", s_Schema],
-    ["401", s_Error],
-  ],
-  undefined,
-)
 
 export type GetProfileSchema = (
   params: Params<void, void, void, void>,
@@ -1309,24 +1009,15 @@ export type GetProfileSchema = (
   KoaRuntimeResponse<unknown> | Response<200, t_Schema> | Response<401, t_Error>
 >
 
-const deleteSessionsResponder = {
-  with204: r.with204<void>,
-  with401: r.with401<t_Error>,
-  with404: r.with404<t_Error>,
+const deleteSessions = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  with401: r.with401<t_Error>(s_Error),
+  with404: r.with404<t_Error>(s_Error),
   withStatus: r.withStatus,
-}
+}))
 
-type DeleteSessionsResponder = typeof deleteSessionsResponder &
+type DeleteSessionsResponder = (typeof deleteSessions)["responder"] &
   KoaRuntimeResponder
-
-const deleteSessionsResponseValidator = responseValidationFactory(
-  [
-    ["204", z.undefined()],
-    ["401", s_Error],
-    ["404", s_Error],
-  ],
-  undefined,
-)
 
 export type DeleteSessions = (
   params: Params<void, void, void, void>,
@@ -1399,7 +1090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .createAppAuthenticatorEnrollment(
           input,
-          createAppAuthenticatorEnrollmentResponder,
+          createAppAuthenticatorEnrollment.responder,
           ctx,
         )
         .catch((err) => {
@@ -1409,7 +1100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = createAppAuthenticatorEnrollmentResponseValidator(status, body)
+      ctx.body = createAppAuthenticatorEnrollment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1444,7 +1135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .verifyAppAuthenticatorPushNotificationChallenge(
           input,
-          verifyAppAuthenticatorPushNotificationChallengeResponder,
+          verifyAppAuthenticatorPushNotificationChallenge.responder,
           ctx,
         )
         .catch((err) => {
@@ -1454,11 +1145,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body =
-        verifyAppAuthenticatorPushNotificationChallengeResponseValidator(
-          status,
-          body,
-        )
+      ctx.body = verifyAppAuthenticatorPushNotificationChallenge.validator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -1493,7 +1183,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .updateAppAuthenticatorEnrollment(
           input,
-          updateAppAuthenticatorEnrollmentResponder,
+          updateAppAuthenticatorEnrollment.responder,
           ctx,
         )
         .catch((err) => {
@@ -1503,7 +1193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = updateAppAuthenticatorEnrollmentResponseValidator(status, body)
+      ctx.body = updateAppAuthenticatorEnrollment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1531,7 +1221,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .deleteAppAuthenticatorEnrollment(
           input,
-          deleteAppAuthenticatorEnrollmentResponder,
+          deleteAppAuthenticatorEnrollment.responder,
           ctx,
         )
         .catch((err) => {
@@ -1541,7 +1231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteAppAuthenticatorEnrollmentResponseValidator(status, body)
+      ctx.body = deleteAppAuthenticatorEnrollment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1568,7 +1258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .listAppAuthenticatorPendingPushNotificationChallenges(
           input,
-          listAppAuthenticatorPendingPushNotificationChallengesResponder,
+          listAppAuthenticatorPendingPushNotificationChallenges.responder,
           ctx,
         )
         .catch((err) => {
@@ -1579,7 +1269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        listAppAuthenticatorPendingPushNotificationChallengesResponseValidator(
+        listAppAuthenticatorPendingPushNotificationChallenges.validator(
           status,
           body,
         )
@@ -1608,7 +1298,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .listAuthenticators(input, listAuthenticatorsResponder, ctx)
+        .listAuthenticators(input, listAuthenticators.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1616,7 +1306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = listAuthenticatorsResponseValidator(status, body)
+      ctx.body = listAuthenticators.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1648,7 +1338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAuthenticator(input, getAuthenticatorResponder, ctx)
+        .getAuthenticator(input, getAuthenticator.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1656,7 +1346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getAuthenticatorResponseValidator(status, body)
+      ctx.body = getAuthenticator.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1680,7 +1370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .listEnrollments(input, listEnrollmentsResponder, ctx)
+        .listEnrollments(input, listEnrollments.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1688,7 +1378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = listEnrollmentsResponseValidator(status, body)
+      ctx.body = listEnrollments.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1715,7 +1405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getEnrollment(input, getEnrollmentResponder, ctx)
+        .getEnrollment(input, getEnrollment.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1723,7 +1413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getEnrollmentResponseValidator(status, body)
+      ctx.body = getEnrollment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1756,7 +1446,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .updateEnrollment(input, updateEnrollmentResponder, ctx)
+        .updateEnrollment(input, updateEnrollment.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1764,7 +1454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = updateEnrollmentResponseValidator(status, body)
+      ctx.body = updateEnrollment.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1779,7 +1469,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .listEmails(input, listEmailsResponder, ctx)
+      .listEmails(input, listEmails.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -1787,7 +1477,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = listEmailsResponseValidator(status, body)
+    ctx.body = listEmails.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -1812,7 +1502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .createEmail(input, createEmailResponder, ctx)
+      .createEmail(input, createEmail.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -1820,7 +1510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = createEmailResponseValidator(status, body)
+    ctx.body = createEmail.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -1840,7 +1530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getEmail(input, getEmailResponder, ctx)
+      .getEmail(input, getEmail.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -1848,7 +1538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getEmailResponseValidator(status, body)
+    ctx.body = getEmail.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -1871,7 +1561,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteEmail(input, deleteEmailResponder, ctx)
+        .deleteEmail(input, deleteEmail.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1879,7 +1569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteEmailResponseValidator(status, body)
+      ctx.body = deleteEmail.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1909,7 +1599,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .sendEmailChallenge(input, sendEmailChallengeResponder, ctx)
+        .sendEmailChallenge(input, sendEmailChallenge.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1917,7 +1607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = sendEmailChallengeResponseValidator(status, body)
+      ctx.body = sendEmailChallenge.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1946,7 +1636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const response = await implementation
         .pollChallengeForEmailMagicLink(
           input,
-          pollChallengeForEmailMagicLinkResponder,
+          pollChallengeForEmailMagicLink.responder,
           ctx,
         )
         .catch((err) => {
@@ -1956,7 +1646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = pollChallengeForEmailMagicLinkResponseValidator(status, body)
+      ctx.body = pollChallengeForEmailMagicLink.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -1989,7 +1679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .verifyEmailOtp(input, verifyEmailOtpResponder, ctx)
+        .verifyEmailOtp(input, verifyEmailOtp.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -1997,7 +1687,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = verifyEmailOtpResponseValidator(status, body)
+      ctx.body = verifyEmailOtp.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2015,7 +1705,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .listOktaApplications(input, listOktaApplicationsResponder, ctx)
+        .listOktaApplications(input, listOktaApplications.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2023,7 +1713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = listOktaApplicationsResponseValidator(status, body)
+      ctx.body = listOktaApplications.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2041,7 +1731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getOrganization(input, getOrganizationResponder, ctx)
+        .getOrganization(input, getOrganization.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2049,7 +1739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getOrganizationResponseValidator(status, body)
+      ctx.body = getOrganization.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2064,7 +1754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPassword(input, getPasswordResponder, ctx)
+      .getPassword(input, getPassword.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -2072,7 +1762,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPasswordResponseValidator(status, body)
+    ctx.body = getPassword.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -2097,7 +1787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .createPassword(input, createPasswordResponder, ctx)
+        .createPassword(input, createPassword.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2105,7 +1795,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = createPasswordResponseValidator(status, body)
+      ctx.body = createPassword.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2131,7 +1821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .replacePassword(input, replacePasswordResponder, ctx)
+        .replacePassword(input, replacePassword.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2139,7 +1829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = replacePasswordResponseValidator(status, body)
+      ctx.body = replacePassword.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2157,7 +1847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deletePassword(input, deletePasswordResponder, ctx)
+        .deletePassword(input, deletePassword.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2165,7 +1855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deletePasswordResponseValidator(status, body)
+      ctx.body = deletePassword.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2180,7 +1870,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .listPhones(input, listPhonesResponder, ctx)
+      .listPhones(input, listPhones.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -2188,7 +1878,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = listPhonesResponseValidator(status, body)
+    ctx.body = listPhones.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -2212,7 +1902,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .createPhone(input, createPhoneResponder, ctx)
+      .createPhone(input, createPhone.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -2220,7 +1910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = createPhoneResponseValidator(status, body)
+    ctx.body = createPhone.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -2240,7 +1930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPhone(input, getPhoneResponder, ctx)
+      .getPhone(input, getPhone.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -2248,7 +1938,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getPhoneResponseValidator(status, body)
+    ctx.body = getPhone.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -2271,7 +1961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deletePhone(input, deletePhoneResponder, ctx)
+        .deletePhone(input, deletePhone.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2279,7 +1969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deletePhoneResponseValidator(status, body)
+      ctx.body = deletePhone.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2312,7 +2002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .sendPhoneChallenge(input, sendPhoneChallengeResponder, ctx)
+        .sendPhoneChallenge(input, sendPhoneChallenge.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2320,7 +2010,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = sendPhoneChallengeResponseValidator(status, body)
+      ctx.body = sendPhoneChallenge.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2352,7 +2042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .verifyPhoneChallenge(input, verifyPhoneChallengeResponder, ctx)
+        .verifyPhoneChallenge(input, verifyPhoneChallenge.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2360,7 +2050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = verifyPhoneChallengeResponseValidator(status, body)
+      ctx.body = verifyPhoneChallenge.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2375,7 +2065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProfile(input, getProfileResponder, ctx)
+      .getProfile(input, getProfile.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -2383,7 +2073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getProfileResponseValidator(status, body)
+    ctx.body = getProfile.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -2405,7 +2095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .replaceProfile(input, replaceProfileResponder, ctx)
+      .replaceProfile(input, replaceProfile.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -2413,7 +2103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = replaceProfileResponseValidator(status, body)
+    ctx.body = replaceProfile.validator(status, body)
     ctx.status = status
     return next()
   })
@@ -2430,7 +2120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getProfileSchema(input, getProfileSchemaResponder, ctx)
+        .getProfileSchema(input, getProfileSchema.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2438,7 +2128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getProfileSchemaResponseValidator(status, body)
+      ctx.body = getProfileSchema.validator(status, body)
       ctx.status = status
       return next()
     },
@@ -2456,7 +2146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteSessions(input, deleteSessionsResponder, ctx)
+        .deleteSessions(input, deleteSessions.responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2464,7 +2154,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = deleteSessionsResponseValidator(status, body)
+      ctx.body = deleteSessions.validator(status, body)
       ctx.status = status
       return next()
     },
