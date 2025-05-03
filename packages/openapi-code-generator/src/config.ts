@@ -3,6 +3,7 @@ import type {GenericLoaderRequestHeaders} from "./core/loaders/generic.loader"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {tsconfigSchema} from "./core/schemas/tsconfig.schema"
 import type {IdentifierConvention} from "./core/utils"
+import {templateNames} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
 
 export type Config = {
@@ -15,6 +16,7 @@ export type Config = {
     | "typescript-axios"
     | "typescript-angular"
     | "typescript-koa"
+    | "typescript-express"
   schemaBuilder: "zod" | "joi"
   enableRuntimeResponseValidation: boolean
   enableTypedBasePaths: boolean
@@ -29,12 +31,7 @@ export type Config = {
   remoteSpecRequestHeaders?: GenericLoaderRequestHeaders | undefined
 }
 
-const templatesSchema = z.enum([
-  "typescript-koa",
-  "typescript-fetch",
-  "typescript-axios",
-  "typescript-angular",
-])
+const templatesSchema = z.enum(templateNames)
 
 const schemaBuilderSchema = z.enum(["zod", "joi"])
 
