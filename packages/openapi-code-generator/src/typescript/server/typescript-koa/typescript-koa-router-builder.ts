@@ -99,12 +99,11 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       operationId: builder.operationId,
       statements: [
         `const ${symbols.implPropName} = ${responder.implementation}`,
-        `type ${titleCase(symbols.responderName)} = typeof ${symbols.implPropName}['responder'] & KoaRuntimeResponder`,
         buildExport({
           name: symbols.implTypeName,
           value: `(
                     params: ${params.type},
-                    respond: ${titleCase(symbols.responderName)},
+                    respond: typeof ${symbols.implPropName}['responder'],
                     ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(

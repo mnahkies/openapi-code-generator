@@ -87,7 +87,7 @@ function isValidStatusCode(status: unknown): status is StatusCode {
   return !(status < 100 || status > 599)
 }
 
-export const b = <T>(fn: (r: ResponderBuilder) => T) => {
+export const b = <T>(fn: (r: ResponderBuilder) => T & KoaRuntimeResponder) => {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   const responses: any[] = []
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
