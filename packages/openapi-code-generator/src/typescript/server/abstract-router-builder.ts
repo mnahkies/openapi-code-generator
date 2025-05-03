@@ -6,7 +6,18 @@ import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
 import {ServerOperationBuilder} from "./server-operation-builder"
 
-export abstract class AbstractServerRouterBuilder implements ICompilable {
+export type ServerSymbols = {
+  implPropName: string
+  implTypeName: string
+  responderName: string
+  paramSchema: string
+  querySchema: string
+  requestBodySchema: string
+  requestHeaderSchema: string
+  responseBodyValidator: string
+}
+
+export abstract class AbstractRouterBuilder implements ICompilable {
   private readonly statements: string[] = []
 
   protected constructor(
@@ -39,6 +50,8 @@ export abstract class AbstractServerRouterBuilder implements ICompilable {
     routerName: string,
     statements: string[],
   ): string
+
+  protected abstract operationSymbols(operationId: string): ServerSymbols
 
   toString(): string {
     return this.buildRouter(this.name, this.statements)

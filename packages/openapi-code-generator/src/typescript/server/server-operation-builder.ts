@@ -12,7 +12,7 @@ import {
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"
-import type {ServerSymbols} from "./typescript-koa/typescript-koa.generator"
+import type {ServerSymbols} from "./abstract-router-builder"
 
 export function reduceParamsToOpenApiSchema(
   parameters: IRParameter[],

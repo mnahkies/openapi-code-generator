@@ -5,10 +5,10 @@ import {ImportBuilder} from "../../common/import-builder"
 import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../../common/type-builder"
 import {TypescriptFormatterBiome} from "../../common/typescript-formatter.biome"
-import {KoaServerRouterBuilder} from "./typescript-koa.generator"
+import {KoaRouterBuilder} from "./typescript-koa-router-builder"
 
-describe("typescript/typescript-koa", () => {
-  describe("ServerRouterBuilder#implementationExport", () => {
+describe("typescript/server/typescript-koa/koa-router-builder", () => {
+  describe("#implementationExport", () => {
     it("can output implementation types as a `export type`", async () => {
       const actual = await getActual("type")
       // TODO: check result is actually valid typescript
@@ -65,7 +65,7 @@ describe("typescript/typescript-koa", () => {
         "zod",
         {allowAny: true},
       )
-      const serverRouterBuilder = new KoaServerRouterBuilder(
+      const serverRouterBuilder = new KoaRouterBuilder(
         "unit-test.ts",
         "unit-test",
         input,
