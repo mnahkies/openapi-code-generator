@@ -166,8 +166,7 @@ export class ${clientName} {
   ${clientMethods.join("\n")}
 }
 
-export { ${clientName} as ApiClient }
-export { ${clientName}Config as ApiClientConfig }
+${this.legacyExports(clientName, true)}
 `
   }
 }
