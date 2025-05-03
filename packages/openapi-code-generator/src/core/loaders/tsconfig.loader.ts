@@ -12,7 +12,7 @@ import {
 
 export type CompilerOptions = Pick<
   TsCompilerOptions,
-  "exactOptionalPropertyTypes"
+  "exactOptionalPropertyTypes" | "paths"
 >
 
 export async function loadTsConfigCompilerOptions(

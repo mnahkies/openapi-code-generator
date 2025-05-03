@@ -2,7 +2,8 @@
 
 import "source-map-support/register"
 
-import path from "node:path"
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+import path from "path"
 import {
   Command,
   InvalidArgumentError,
@@ -89,6 +90,7 @@ const program = new Command()
       .env("OPENAPI_TEMPLATE")
       .choices([
         "typescript-koa",
+        "typescript-nextjs",
         "typescript-axios",
         "typescript-fetch",
         "typescript-angular",

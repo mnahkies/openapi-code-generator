@@ -3,6 +3,7 @@ import {generateTypescriptAngular} from "./typescript/client/typescript-angular/
 import {generateTypescriptAxios} from "./typescript/client/typescript-axios/typescript-axios.generator"
 import {generateTypescriptFetch} from "./typescript/client/typescript-fetch/typescript-fetch.generator"
 import {generateTypescriptKoa} from "./typescript/server/typescript-koa/typescript-koa.generator"
+import {generateTypescriptNextJS} from "./typescript/server/typescript-nextjs/typescript-nextjs.generator"
 
 export const templates = {
   "typescript-fetch": {
@@ -24,5 +25,10 @@ export const templates = {
     language: "typescript",
     type: "server",
     run: generateTypescriptKoa,
+  },
+  "typescript-nextjs": {
+    language: "typescript",
+    type: "server",
+    run: generateTypescriptNextJS,
   },
 } satisfies {[key: string]: OpenapiGenerator}
