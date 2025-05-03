@@ -48,7 +48,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "StatusCode4xx",
         "StatusCode5xx",
         "startServer",
-        "r",
+        "b",
       )
 
     this.imports
@@ -98,9 +98,8 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     this.operationTypes.push({
       operationId: builder.operationId,
       statements: [
-        `const ${symbols.responderName} = ${responder.implementation}`,
-        `type ${titleCase(symbols.responderName)} = typeof ${symbols.responderName} & KoaRuntimeResponder`,
-        `const ${symbols.responseBodyValidator} = ${builder.responseValidator()}`,
+        `const ${symbols.implPropName} = ${responder.implementation}`,
+        `type ${titleCase(symbols.responderName)} = typeof ${symbols.implPropName}['responder'] & KoaRuntimeResponder`,
         buildExport({
           name: symbols.implTypeName,
           value: `(
@@ -130,12 +129,12 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
     headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
    }
 
-   const response = await implementation.${symbols.implPropName}(input, ${symbols.responderName}, ctx)
+   const response = await implementation.${symbols.implPropName}(input, ${symbols.implPropName}.responder, ctx)
     .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
    const { status, body } = response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-   ctx.body = ${symbols.responseBodyValidator}(status, body)
+   ctx.body = ${symbols.implPropName}.validator(status, body)
    ctx.status = status
    return next();
 })`)

@@ -114,24 +114,18 @@ export class ServerOperationBuilder {
     return {type, path, query, header, body}
   }
 
-  responseValidator(): string {
-    const {specific, defaultResponse} = this.responseSchemas()
-
-    const pairs = specific.map((it) => `["${it.statusString}", ${it.schema}]`)
-
-    return `responseValidationFactory([${pairs}], ${defaultResponse?.schema})`
-  }
-
   responder(): {implementation: string} {
     const {specific, defaultResponse} = this.responseSchemas()
 
-    const implementation = object([
+    const implementation = `b(r => (${object([
       ...specific.map(
-        (it) => `with${it.statusType}: r.with${it.statusType}<${it.type}>`,
+        (it) =>
+          `with${it.statusType}: r.with${it.statusType}<${it.type}>(${it.schema})`,
       ),
-      defaultResponse && `withDefault: r.withDefault<${defaultResponse.type}>`,
+      defaultResponse &&
+        `withDefault: r.withDefault<${defaultResponse.type}>(${defaultResponse.schema})`,
       "withStatus: r.withStatus",
-    ])
+    ])}))`
 
     return {implementation}
   }
