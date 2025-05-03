@@ -135,8 +135,7 @@ export class ${clientName} extends AbstractFetchClient {
   ${clientMethods.join("\n")}
 }
 
-export { ${clientName} as ApiClient }
-export type { ${clientName}Config as ApiClientConfig }
+${this.legacyExports(clientName)}
 `
   }
 }

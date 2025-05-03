@@ -51,6 +51,17 @@ export abstract class AbstractClientBuilder implements ICompilable {
     this.operations.push(result)
   }
 
+  protected legacyExports(clientName: string, isConfigAClass = false) {
+    if (clientName === "ApiClient") {
+      return ""
+    }
+
+    return `
+export { ${clientName} as ApiClient }
+export ${isConfigAClass ? "" : "type"} { ${clientName}Config as ApiClientConfig }
+    `
+  }
+
   protected abstract buildImports(imports: ImportBuilder): void
 
   protected abstract buildOperation(builder: ClientOperationBuilder): string
