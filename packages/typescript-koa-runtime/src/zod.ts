@@ -1,7 +1,7 @@
 import type {z} from "zod"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
 
-/** @deprecated: update & re-generate to import from @nahkies/typescript-koa-runtime/server directly */
+/** @deprecated: update and re-generate to import from @nahkies/typescript-koa-runtime/server directly */
 export type {Params} from "./server"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(

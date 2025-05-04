@@ -1,7 +1,7 @@
 import type {Schema as JoiSchema} from "joi"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
 
-/** @deprecated: update & re-generate to import from @nahkies/typescript-koa-runtime/server directly */
+/** @deprecated: update and re-generate to import from @nahkies/typescript-koa-runtime/server directly */
 export type {Params} from "./server"
 
 // Note: joi types don't appear to have an equivalent of z.infer,
@@ -48,13 +48,25 @@ export function responseValidationFactory(
   possibleResponses.sort((x, y) => (x[0] < y[0] ? -1 : 1))
 
   return (status: number, value: unknown) => {
-    for (const [match, schema] of possibleResponses) {
-      const isMatch =
-        (/^\d+$/.test(match) && String(status) === match) ||
-        (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+    try {
+      for (const [match, schema] of possibleResponses) {
+        const isMatch =
+          (/^\d+$/.test(match) && String(status) === match) ||
+          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
 
-      if (isMatch) {
-        const result = schema.validate(value)
+        if (isMatch) {
+          const result = schema.validate(value)
+
+          if (result.error) {
+            throw result.error
+          }
+
+          return result.value
+        }
+      }
+
+      if (defaultResponse) {
+        const result = defaultResponse.validate(value)
 
         if (result.error) {
           throw result.error
@@ -62,18 +74,10 @@ export function responseValidationFactory(
 
         return result.value
       }
+
+      return value
+    } catch (err) {
+      throw KoaRuntimeError.ResponseError(err)
     }
-
-    if (defaultResponse) {
-      const result = defaultResponse.validate(value)
-
-      if (result.error) {
-        throw result.error
-      }
-
-      return result.value
-    }
-
-    return value
   }
 }
