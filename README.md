@@ -39,6 +39,7 @@ The repository is structured as a mono repo of several npm packages that work to
 
 - [openapi-code-generator](./packages/openapi-code-generator)
 - [typescript-axios-runtime](./packages/typescript-axios-runtime)
+- [typescript-express-runtime](./packages/typescript-express-runtime)
 - [typescript-fetch-runtime](./packages/typescript-fetch-runtime)
 - [typescript-koa-runtime](./packages/typescript-koa-runtime)
 

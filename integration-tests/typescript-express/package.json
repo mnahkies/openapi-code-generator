@@ -10,7 +10,7 @@
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
-    "@nahkies/typescript-koa-runtime": "*",
+    "@nahkies/typescript-express-runtime": "*",
     "express": "^5.1.0",
     "joi": "^17.13.3",
     "zod": "^3.24.3"

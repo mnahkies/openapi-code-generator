@@ -32,12 +32,6 @@ export async function generateTypescriptExpress(
     {allowAny},
   )
 
-  const runtimeUnit = new CompilationUnit(
-    "./runtime.ts",
-    undefined,
-    generateRuntimeCode(config.schemaBuilder),
-  )
-
   const server = new ExpressServerBuilder(
     "index.ts",
     input.name(),
@@ -77,43 +71,15 @@ export async function generateTypescriptExpress(
         ...routers,
         server.toCompilationUnit(),
       ),
-      runtimeUnit,
       rootTypeBuilder.toCompilationUnit(),
       rootSchemaBuilder.toCompilationUnit(),
     ])
   } else {
     await emitter.emitGenerationResult([
       server.toCompilationUnit(),
-      runtimeUnit,
       ...routers,
       rootTypeBuilder.toCompilationUnit(),
       rootSchemaBuilder.toCompilationUnit(),
     ])
   }
-}
-
-function generateRuntimeCode(schemaBuilderType: SchemaBuilderType): string {
-  return `
-export {
-  KoaRuntimeError as ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-
-export {
-  type KoaRuntimeResponder as ExpressRuntimeResponder,
-  KoaRuntimeResponse as ExpressRuntimeResponse,
-  type Params,
-  type Response,
-  type ServerConfig,
-  type StatusCode,
-  type StatusCode4xx,
-  type StatusCode5xx,
-  startServer,
-} from "@nahkies/typescript-koa-runtime/server"
-
-export {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
-`
 }

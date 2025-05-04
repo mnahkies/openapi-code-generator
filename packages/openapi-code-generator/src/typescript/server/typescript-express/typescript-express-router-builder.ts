@@ -43,7 +43,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
     this.imports.from("express").all("express")
 
     this.imports
-      .from("./runtime")
+      .from("@nahkies/typescript-express-runtime/server")
       .add(
         "StatusCode",
         "StatusCode1xx",
@@ -54,19 +54,19 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
         "Params",
         "ExpressRuntimeResponse",
         "ExpressRuntimeResponder",
-        "responseValidationFactory",
-        "ExpressRuntimeError",
-        "RequestInputType",
       )
 
-    // TODO: use actual runtime
+    this.imports
+      .from("@nahkies/typescript-express-runtime/errors")
+      .add("ExpressRuntimeError", "RequestInputType")
+
     if (this.schemaBuilder instanceof ZodBuilder) {
       this.imports
-        .from("./runtime")
+        .from("@nahkies/typescript-express-runtime/zod")
         .add("parseRequestInput", "responseValidationFactory")
     } else if (this.schemaBuilder instanceof JoiBuilder) {
       this.imports
-        .from("./runtime")
+        .from("@nahkies/typescript-express-runtime/joi")
         .add("parseRequestInput", "responseValidationFactory")
     }
   }

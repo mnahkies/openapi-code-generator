@@ -94,23 +94,22 @@ export const loadRuntimeTypes = async (
       },
     ],
     "typescript-express": [
-      // TODO: add these after publish
-      // {
-      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/package.json",
-      //   path: "/node_modules/@nahkies/typescript-express-runtime/package.json",
-      // },
-      // {
-      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/main.d.ts",
-      //   path: "/node_modules/@nahkies/typescript-express-runtime/main.d.ts",
-      // },
-      // {
-      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod.d.ts",
-      //   path: "/node_modules/@nahkies/typescript-express-runtime/zod.d.ts"
-      // },
-      // {
-      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/joi.d.ts",
-      //   path: "/node_modules/@nahkies/typescript-express-runtime/joi.d.ts"
-      // }
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/package.json",
+        path: "/node_modules/@nahkies/typescript-express-runtime/package.json",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/main.d.ts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/main.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod.d.ts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/zod.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/joi.d.ts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/joi.d.ts",
+      },
     ],
   }
 
