@@ -53,6 +53,17 @@ export type PostValidationEnums = (
   res: Response,
 ) => Promise<ExpressRuntimeResponse<unknown>>
 
+export type GetResponses500Responder = {
+  with500(): ExpressRuntimeResponse<void>
+} & ExpressRuntimeResponder
+
+export type GetResponses500 = (
+  params: Params<void, void, void, void>,
+  respond: GetResponses500Responder,
+  req: Request,
+  res: Response,
+) => Promise<ExpressRuntimeResponse<unknown>>
+
 export type GetResponsesEmptyResponder = {
   with204(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
@@ -67,6 +78,7 @@ export type GetResponsesEmpty = (
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
   postValidationEnums: PostValidationEnums
+  getResponses500: GetResponses500
   getResponsesEmpty: GetResponsesEmpty
 }
 
@@ -187,6 +199,56 @@ export function createValidationRouter(
 
         if (body !== undefined) {
           res.json(postValidationEnumsResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const getResponses500ResponseBodyValidator = responseValidationFactory(
+    [["500", z.undefined()]],
+    undefined,
+  )
+
+  // getResponses500
+  router.get(
+    `/responses/500`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with500() {
+            return new ExpressRuntimeResponse<void>(500)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .getResponses500(input, responder, req, res)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(getResponses500ResponseBodyValidator(status, body))
         } else {
           res.end()
         }

@@ -3,6 +3,7 @@ import {type NextFunction, type Request, type Response, Router} from "express"
 import {bootstrap} from "./generated/server/express"
 import {createRequestHeadersRouter} from "./routes/express/request-headers"
 import {createValidationRouter} from "./routes/express/validation"
+import {createErrorResponse} from "./shared"
 
 function createRouter() {
   const router = Router()
@@ -18,6 +19,12 @@ function createRouter() {
 
 export async function startExpressServer() {
   const {app, server, address} = await bootstrap({
+    cors: {
+      credentials: true,
+      allowedHeaders: ["Authorization", "Content-Type"],
+      methods: ["GET", "OPTIONS"],
+      origin: "http://example.com",
+    },
     router: createRouter(),
   })
 
@@ -26,23 +33,7 @@ export async function startExpressServer() {
       return next(err)
     }
 
-    const status = ExpressRuntimeError.isExpressError(err) ? 400 : 500
-    const body =
-      err instanceof Error
-        ? {
-            message: err.message,
-            phase: ExpressRuntimeError.isExpressError(err)
-              ? err.phase
-              : undefined,
-            cause:
-              err.cause instanceof Error
-                ? {
-                    message: err.cause.message,
-                  }
-                : undefined,
-          }
-        : {message: "non error thrown", value: err}
-
+    const {status, body} = createErrorResponse(err)
     res.status(status).json(body)
   })
 

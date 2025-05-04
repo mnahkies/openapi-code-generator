@@ -1,4 +1,5 @@
 import {
+  type GetResponses500,
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
@@ -39,10 +40,15 @@ const getResponsesEmpty: GetResponsesEmpty = async (_, respond) => {
   return respond.with204()
 }
 
+const getResponses500: GetResponses500 = async () => {
+  throw new Error("something went wrong")
+}
+
 export function createValidationRouter() {
   return createRouter({
     postValidationEnums,
     getValidationNumbersRandomNumber,
     getResponsesEmpty,
+    getResponses500,
   })
 }
