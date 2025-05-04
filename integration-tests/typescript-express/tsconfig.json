@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "types": [],
+    /* exercise the code path where exactOptionalPropertyTypes is enabled */
+    "exactOptionalPropertyTypes": true,
+    "noUnusedLocals": true
+  }
+}
