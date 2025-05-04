@@ -128,7 +128,7 @@ export async function startServer({
 
   if (cors !== "disabled") {
     app.use(Cors(cors))
-    app.options("*")
+    app.options("*route", Cors(cors))
   }
 
   if (body !== "disabled") {
