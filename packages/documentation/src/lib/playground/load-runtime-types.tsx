@@ -99,8 +99,12 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-express-runtime/package.json",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/main.d.ts",
-        path: "/node_modules/@nahkies/typescript-express-runtime/main.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/server.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/server.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/errors.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.ts",
       },
       {
         uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod.d.ts",
