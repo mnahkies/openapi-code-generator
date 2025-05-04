@@ -1,18 +1,11 @@
+
 {
-  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node22/tsconfig"],
-  "compilerOptions": {
-    "declaration": true,
-    "sourceMap": true,
-    "importHelpers": true,
-    "resolveJsonModule": true,
-    // prefer linter rule
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    // incompatible with https://biomejs.dev/linter/rules/use-literal-keys/
-    "noPropertyAccessFromIndexSignature": false,
-    "moduleResolution": "Node16",
-    "paths": {
-      "@nahkies/*": ["./packages/*/src"]
-    }
-  }
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "./packages/openapi-code-generator" },
+    { "path": "./packages/typescript-axios-runtime" },
+    { "path": "./packages/typescript-fetch-runtime" },
+    { "path": "./packages/typescript-koa-runtime" }
+  ]
 }
