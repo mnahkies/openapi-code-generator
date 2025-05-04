@@ -68,14 +68,14 @@ export type ServerConfig = {
   /**
    * set to "disabled" to disable body parsing middleware, omit or pass undefined for defaults.
    *
-   * if disabling, ensure you pass a body parsing middlware that places the parsed
+   * if disabling, ensure you pass a body parsing middleware that places the parsed
    * body on `ctx.body` for request body processing to work.
    **/
   body?: "disabled" | KoaBodyMiddlewareOptions | undefined
 
   /**
    *
-   * useful for mounting logging, alternative body parsers, etc
+   * useful for mounting logging, alternative body parsers, etc.
    */
   middleware?: Middleware[]
 
@@ -105,7 +105,7 @@ export type Params<Params, Query, Body, Header> = {
  * Enables CORS and body parsing by default. It's recommended to customize the CORS options
  * for production usage.
  *
- * If you need more control over your Koa server you should avoid calling this function,
+ * If you need more control over your Koa server, you should avoid calling this function
  * and instead mount the router from your generated codes `createRouter` call directly
  * onto a server you have constructed.
  */
