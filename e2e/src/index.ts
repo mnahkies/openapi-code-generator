@@ -1,3 +1,4 @@
+import {startExpressServer} from "./express.entrypoint"
 import {startKoaServer} from "./koa.entrypoint"
 
 type StartServerFunction = {
@@ -12,5 +13,9 @@ export const startServerFunctions = [
   {
     name: "koa",
     startServer: startKoaServer,
+  },
+  {
+    name: "express",
+    startServer: startExpressServer,
   },
 ] satisfies StartServerFunction[]
