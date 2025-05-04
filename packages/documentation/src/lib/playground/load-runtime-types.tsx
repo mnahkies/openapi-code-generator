@@ -19,7 +19,8 @@ export const loadRuntimeTypes = async (
     | "typescript-angular"
     | "typescript-fetch"
     | "typescript-axios"
-    | "typescript-koa",
+    | "typescript-koa"
+    | "typescript-express",
 ) => {
   const fileRootPath = "file:///"
 
@@ -91,6 +92,25 @@ export const loadRuntimeTypes = async (
         uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/joi.d.ts",
         path: "/node_modules/@nahkies/typescript-koa-runtime/joi.d.ts",
       },
+    ],
+    "typescript-express": [
+      // TODO: add these after publish
+      // {
+      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/package.json",
+      //   path: "/node_modules/@nahkies/typescript-express-runtime/package.json",
+      // },
+      // {
+      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/main.d.ts",
+      //   path: "/node_modules/@nahkies/typescript-express-runtime/main.d.ts",
+      // },
+      // {
+      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod.d.ts",
+      //   path: "/node_modules/@nahkies/typescript-express-runtime/zod.d.ts"
+      // },
+      // {
+      //   uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/joi.d.ts",
+      //   path: "/node_modules/@nahkies/typescript-express-runtime/joi.d.ts"
+      // }
     ],
   }
 
