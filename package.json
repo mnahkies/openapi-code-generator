@@ -24,6 +24,7 @@
     "lint": "biome lint --write .",
     "format": "biome check --write .",
     "build": "node ./scripts/generate-ajv-validator.js && lerna run build  --stream --scope '@nahkies/*'",
+    "build:watch": "tsc -b tsconfig.json -w",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "integration:generate": "node ./scripts/generate.mjs",
     "integration:validate": "lerna run validate --stream",
