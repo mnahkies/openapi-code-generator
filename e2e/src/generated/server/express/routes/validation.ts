@@ -17,6 +17,7 @@ import {
   ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   Params,
+  SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -40,7 +41,8 @@ export type GetValidationNumbersRandomNumber = (
   respond: GetValidationNumbersRandomNumberResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostValidationEnumsResponder = {
   with200(): ExpressRuntimeResponse<t_Enumerations>
@@ -51,7 +53,8 @@ export type PostValidationEnums = (
   respond: PostValidationEnumsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetResponses500Responder = {
   with500(): ExpressRuntimeResponse<void>
@@ -62,7 +65,8 @@ export type GetResponses500 = (
   respond: GetResponses500Responder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetResponsesEmptyResponder = {
   with204(): ExpressRuntimeResponse<void>
@@ -73,7 +77,8 @@ export type GetResponsesEmpty = (
   respond: GetResponsesEmptyResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
@@ -127,10 +132,15 @@ export function createValidationRouter(
         }
 
         const response = await implementation
-          .getValidationNumbersRandomNumber(input, responder, req, res)
+          .getValidationNumbersRandomNumber(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -185,10 +195,15 @@ export function createValidationRouter(
         }
 
         const response = await implementation
-          .postValidationEnums(input, responder, req, res)
+          .postValidationEnums(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -235,10 +250,15 @@ export function createValidationRouter(
         }
 
         const response = await implementation
-          .getResponses500(input, responder, req, res)
+          .getResponses500(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -285,10 +305,15 @@ export function createValidationRouter(
         }
 
         const response = await implementation
-          .getResponsesEmpty(input, responder, req, res)
+          .getResponsesEmpty(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse

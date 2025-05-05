@@ -1,3 +1,4 @@
+import type {ExpressRuntimeResponse} from "@nahkies/typescript-express-runtime/server"
 import {
   type GetResponses500,
   type GetResponsesEmpty,

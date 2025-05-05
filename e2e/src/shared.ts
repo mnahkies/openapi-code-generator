@@ -1,7 +1,12 @@
+import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 
 export function createErrorResponse(err: unknown) {
-  if (KoaRuntimeError.isKoaError(err) && err.phase !== "request_handler") {
+  if (
+    (KoaRuntimeError.isKoaError(err) ||
+      ExpressRuntimeError.isExpressError(err)) &&
+    err.phase !== "request_handler"
+  ) {
     return {
       status: 400,
       body: {

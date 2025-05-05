@@ -19,6 +19,7 @@ import {
   ExpressRuntimeResponder,
   ExpressRuntimeResponse,
   Params,
+  SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -37,7 +38,8 @@ export type GetHeadersUndeclared = (
   respond: GetHeadersUndeclaredResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetHeadersRequestResponder = {
   with200(): ExpressRuntimeResponse<t_getHeadersRequestJson200Response>
@@ -48,7 +50,8 @@ export type GetHeadersRequest = (
   respond: GetHeadersRequestResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type RequestHeadersImplementation = {
   getHeadersUndeclared: GetHeadersUndeclared
@@ -89,10 +92,15 @@ export function createRequestHeadersRouter(
         }
 
         const response = await implementation
-          .getHeadersUndeclared(input, responder, req, res)
+          .getHeadersUndeclared(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -151,10 +159,15 @@ export function createRequestHeadersRouter(
         }
 
         const response = await implementation
-          .getHeadersRequest(input, responder, req, res)
+          .getHeadersRequest(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
