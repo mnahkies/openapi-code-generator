@@ -98,3 +98,20 @@ if (res.status !== 200) {
 const body = await res.json()
 console.log(`id is: ${body.id}`)
 ```
+
+### Escape Hatches - raw `RequestInit` handling
+For most JSON based API's you shouldn't need to reach for this, but there are sometime situations where the
+code generation tooling doesn't support something you need (see also [roadmap](/overview/roadmap) / [compatibility](/overview/compatibility)).
+
+To account for these situations, we accept a raw `RequestInit` on client methods, that can be used
+to override any of the request configuration.
+
+The result is a proxy over the normal fetch `Response` with the only change being the `.json()` method is replaced
+with a validating version (when runtime response validation is enabled).
+
+```typescript
+const res = await client.createTodoListItem({/**/}, undefined, {
+  keepalive: true
+  // all fetch request configuration can be overridden here
+})
+```

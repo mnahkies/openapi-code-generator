@@ -96,6 +96,18 @@ bootstrap({
 })
 ```
 
+### Multiple routers
+By default, a single router is generated, but for larger API surfaces this can become unwieldy.
+
+You can split the generated routers by using the [--grouping-strategy](/reference/cli-options#--grouping-strategy-value-experimental)
+option to control the strategy to use for splitting output into separate files. Set to none for a single generated.ts file, one of:
+
+- none: don’t split output, yield single generated.ts (default)
+- first-tag: group operations based on their first tag
+- first-slug: group operations based on their first route slug/segment
+
+This can help to organize your codebase and separate concerns.
+
 ### Custom Koa app/config
 
 The provided `bootstrap` function has a limited range of options. For more advanced use-cases,
@@ -174,3 +186,36 @@ export async function genericErrorMiddleware(ctx: Context, next: Next) {
   }
 }
 ```
+
+### Escape Hatches - raw `ctx` handling
+For most JSON based API's you shouldn't need to reach for this, but there are sometime situations where the
+code generation tooling doesn't support something you need (see also [roadmap](/overview/roadmap) / [compatibility](/overview/compatibility)).
+
+Eg: response headers are not yet supported.
+
+To account for these situations, we pass the raw koa `ctx` object and `next` function to your handler implementations,
+allowing you full control where its needed.
+```typescript
+const createTodoList: CreateTodoList = async ({body}, respond, ctx, next) => {
+    ctx.set("x-ratelimit-remaining", "100")
+    // ...your implementation
+    return respond.with200().body({ /* ... */ })
+  }
+```
+
+It's also possible to skip response processing if needed by returning `SkipResponse` from your implementation.
+This allows you take complete control of the response.
+```typescript
+import {SkipResponse} from '@nahkies/typescript-koa-runtime/server'
+
+const getProfileImage: GetProfileImage = async ({body}, respond, ctx, next) => {
+    ctx.set("x-ratelimit-remaining", "100")
+    ctx.status =200
+    ctx.body = Buffer.from([/*some binary file*/])
+
+    return SkipResponse
+  }
+```
+
+It should be seldom that these escape hatches are required, and overtime fewer and fewer situations will
+require them.

@@ -90,3 +90,19 @@ const res = await client.createTodoListItem({
 // data will be typed correctly
 console.log(`id is: ${res.data.id}`)
 ```
+
+### Escape Hatches - raw `AxiosRequestConfig` handling
+For most JSON based API's you shouldn't need to reach for this, but there are sometime situations where the
+code generation tooling doesn't support something you need (see also [roadmap](/overview/roadmap) / [compatibility](/overview/compatibility)).
+
+To account for these situations, we accept a raw `AxiosRequestConfig` on client methods, that can be used
+to override any of the request configuration.
+
+Additionally, the result is a normal `AxiosResponse` exposing all available properties.
+
+```typescript
+const res = await client.createTodoListItem({/**/}, undefined, {
+  maxRedirects: 1
+  // all axios request configuration can be overridden here
+})
+```

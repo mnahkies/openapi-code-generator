@@ -38,6 +38,8 @@ export type Response<Status extends StatusCode, Type> = {
   body: Type
 }
 
+export const SkipResponse = Symbol("skip response processing")
+
 export class KoaRuntimeResponse<Type> {
   private _body?: Type
 
@@ -62,7 +64,11 @@ export type KoaRuntimeResponder<
 }
 
 export type ServerConfig = {
-  /** set to "disabled" to disable cors middleware, omit or pass undefined for defaults */
+  /**
+   * set to "disabled" to disable cors middleware, omit or pass undefined for defaults
+   *
+   * the default behavior is to allow all origins
+   **/
   cors?: "disabled" | Cors.Options | undefined
 
   /**
@@ -74,8 +80,8 @@ export type ServerConfig = {
   body?: "disabled" | KoaBodyMiddlewareOptions | undefined
 
   /**
-   *
-   * useful for mounting logging, alternative body parsers, etc.
+   * allows you to provide arbitrary koa middleware
+   * useful for mounting logging, error handlers, 404 handling, alternative body parsers, etc.
    */
   middleware?: Middleware[]
 
