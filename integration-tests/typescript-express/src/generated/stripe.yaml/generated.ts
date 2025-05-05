@@ -1522,6 +1522,7 @@ import {
   ExpressRuntimeResponse,
   Params,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
@@ -1547,7 +1548,8 @@ export type GetAccount = (
   respond: GetAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountLinksResponder = {
   with200(): ExpressRuntimeResponse<t_account_link>
@@ -1559,7 +1561,8 @@ export type PostAccountLinks = (
   respond: PostAccountLinksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_account_session>
@@ -1571,7 +1574,8 @@ export type PostAccountSessions = (
   respond: PostAccountSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -1593,7 +1597,8 @@ export type GetAccounts = (
   respond: GetAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsResponder = {
   with200(): ExpressRuntimeResponse<t_account>
@@ -1605,7 +1610,8 @@ export type PostAccounts = (
   respond: PostAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteAccountsAccountResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_account>
@@ -1622,7 +1628,8 @@ export type DeleteAccountsAccount = (
   respond: DeleteAccountsAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountResponder = {
   with200(): ExpressRuntimeResponse<t_account>
@@ -1639,7 +1646,8 @@ export type GetAccountsAccount = (
   respond: GetAccountsAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountResponder = {
   with200(): ExpressRuntimeResponse<t_account>
@@ -1656,7 +1664,8 @@ export type PostAccountsAccount = (
   respond: PostAccountsAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountBankAccountsResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -1673,7 +1682,8 @@ export type PostAccountsAccountBankAccounts = (
   respond: PostAccountsAccountBankAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteAccountsAccountBankAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_external_account>
@@ -1690,7 +1700,8 @@ export type DeleteAccountsAccountBankAccountsId = (
   respond: DeleteAccountsAccountBankAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountBankAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -1707,7 +1718,8 @@ export type GetAccountsAccountBankAccountsId = (
   respond: GetAccountsAccountBankAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountBankAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -1724,7 +1736,8 @@ export type PostAccountsAccountBankAccountsId = (
   respond: PostAccountsAccountBankAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountCapabilitiesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -1746,7 +1759,8 @@ export type GetAccountsAccountCapabilities = (
   respond: GetAccountsAccountCapabilitiesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountCapabilitiesCapabilityResponder = {
   with200(): ExpressRuntimeResponse<t_capability>
@@ -1763,7 +1777,8 @@ export type GetAccountsAccountCapabilitiesCapability = (
   respond: GetAccountsAccountCapabilitiesCapabilityResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountCapabilitiesCapabilityResponder = {
   with200(): ExpressRuntimeResponse<t_capability>
@@ -1780,7 +1795,8 @@ export type PostAccountsAccountCapabilitiesCapability = (
   respond: PostAccountsAccountCapabilitiesCapabilityResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountExternalAccountsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -1802,7 +1818,8 @@ export type GetAccountsAccountExternalAccounts = (
   respond: GetAccountsAccountExternalAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountExternalAccountsResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -1819,7 +1836,8 @@ export type PostAccountsAccountExternalAccounts = (
   respond: PostAccountsAccountExternalAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteAccountsAccountExternalAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_external_account>
@@ -1836,7 +1854,8 @@ export type DeleteAccountsAccountExternalAccountsId = (
   respond: DeleteAccountsAccountExternalAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountExternalAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -1853,7 +1872,8 @@ export type GetAccountsAccountExternalAccountsId = (
   respond: GetAccountsAccountExternalAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountExternalAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -1870,7 +1890,8 @@ export type PostAccountsAccountExternalAccountsId = (
   respond: PostAccountsAccountExternalAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountLoginLinksResponder = {
   with200(): ExpressRuntimeResponse<t_login_link>
@@ -1887,7 +1908,8 @@ export type PostAccountsAccountLoginLinks = (
   respond: PostAccountsAccountLoginLinksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountPeopleResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -1909,7 +1931,8 @@ export type GetAccountsAccountPeople = (
   respond: GetAccountsAccountPeopleResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountPeopleResponder = {
   with200(): ExpressRuntimeResponse<t_person>
@@ -1926,7 +1949,8 @@ export type PostAccountsAccountPeople = (
   respond: PostAccountsAccountPeopleResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteAccountsAccountPeoplePersonResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_person>
@@ -1943,7 +1967,8 @@ export type DeleteAccountsAccountPeoplePerson = (
   respond: DeleteAccountsAccountPeoplePersonResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountPeoplePersonResponder = {
   with200(): ExpressRuntimeResponse<t_person>
@@ -1960,7 +1985,8 @@ export type GetAccountsAccountPeoplePerson = (
   respond: GetAccountsAccountPeoplePersonResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountPeoplePersonResponder = {
   with200(): ExpressRuntimeResponse<t_person>
@@ -1977,7 +2003,8 @@ export type PostAccountsAccountPeoplePerson = (
   respond: PostAccountsAccountPeoplePersonResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountPersonsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -1999,7 +2026,8 @@ export type GetAccountsAccountPersons = (
   respond: GetAccountsAccountPersonsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountPersonsResponder = {
   with200(): ExpressRuntimeResponse<t_person>
@@ -2016,7 +2044,8 @@ export type PostAccountsAccountPersons = (
   respond: PostAccountsAccountPersonsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteAccountsAccountPersonsPersonResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_person>
@@ -2033,7 +2062,8 @@ export type DeleteAccountsAccountPersonsPerson = (
   respond: DeleteAccountsAccountPersonsPersonResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAccountsAccountPersonsPersonResponder = {
   with200(): ExpressRuntimeResponse<t_person>
@@ -2050,7 +2080,8 @@ export type GetAccountsAccountPersonsPerson = (
   respond: GetAccountsAccountPersonsPersonResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountPersonsPersonResponder = {
   with200(): ExpressRuntimeResponse<t_person>
@@ -2067,7 +2098,8 @@ export type PostAccountsAccountPersonsPerson = (
   respond: PostAccountsAccountPersonsPersonResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAccountsAccountRejectResponder = {
   with200(): ExpressRuntimeResponse<t_account>
@@ -2084,7 +2116,8 @@ export type PostAccountsAccountReject = (
   respond: PostAccountsAccountRejectResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetApplePayDomainsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2106,7 +2139,8 @@ export type GetApplePayDomains = (
   respond: GetApplePayDomainsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostApplePayDomainsResponder = {
   with200(): ExpressRuntimeResponse<t_apple_pay_domain>
@@ -2118,7 +2152,8 @@ export type PostApplePayDomains = (
   respond: PostApplePayDomainsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteApplePayDomainsDomainResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_apple_pay_domain>
@@ -2135,7 +2170,8 @@ export type DeleteApplePayDomainsDomain = (
   respond: DeleteApplePayDomainsDomainResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetApplePayDomainsDomainResponder = {
   with200(): ExpressRuntimeResponse<t_apple_pay_domain>
@@ -2152,7 +2188,8 @@ export type GetApplePayDomainsDomain = (
   respond: GetApplePayDomainsDomainResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetApplicationFeesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2174,7 +2211,8 @@ export type GetApplicationFees = (
   respond: GetApplicationFeesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetApplicationFeesFeeRefundsIdResponder = {
   with200(): ExpressRuntimeResponse<t_fee_refund>
@@ -2191,7 +2229,8 @@ export type GetApplicationFeesFeeRefundsId = (
   respond: GetApplicationFeesFeeRefundsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostApplicationFeesFeeRefundsIdResponder = {
   with200(): ExpressRuntimeResponse<t_fee_refund>
@@ -2208,7 +2247,8 @@ export type PostApplicationFeesFeeRefundsId = (
   respond: PostApplicationFeesFeeRefundsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetApplicationFeesIdResponder = {
   with200(): ExpressRuntimeResponse<t_application_fee>
@@ -2225,7 +2265,8 @@ export type GetApplicationFeesId = (
   respond: GetApplicationFeesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostApplicationFeesIdRefundResponder = {
   with200(): ExpressRuntimeResponse<t_application_fee>
@@ -2242,7 +2283,8 @@ export type PostApplicationFeesIdRefund = (
   respond: PostApplicationFeesIdRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetApplicationFeesIdRefundsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2264,7 +2306,8 @@ export type GetApplicationFeesIdRefunds = (
   respond: GetApplicationFeesIdRefundsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostApplicationFeesIdRefundsResponder = {
   with200(): ExpressRuntimeResponse<t_fee_refund>
@@ -2281,7 +2324,8 @@ export type PostApplicationFeesIdRefunds = (
   respond: PostApplicationFeesIdRefundsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAppsSecretsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2303,7 +2347,8 @@ export type GetAppsSecrets = (
   respond: GetAppsSecretsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAppsSecretsResponder = {
   with200(): ExpressRuntimeResponse<t_apps_secret>
@@ -2315,7 +2360,8 @@ export type PostAppsSecrets = (
   respond: PostAppsSecretsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostAppsSecretsDeleteResponder = {
   with200(): ExpressRuntimeResponse<t_apps_secret>
@@ -2327,7 +2373,8 @@ export type PostAppsSecretsDelete = (
   respond: PostAppsSecretsDeleteResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetAppsSecretsFindResponder = {
   with200(): ExpressRuntimeResponse<t_apps_secret>
@@ -2344,7 +2391,8 @@ export type GetAppsSecretsFind = (
   respond: GetAppsSecretsFindResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBalanceResponder = {
   with200(): ExpressRuntimeResponse<t_balance>
@@ -2361,7 +2409,8 @@ export type GetBalance = (
   respond: GetBalanceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBalanceHistoryResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2383,7 +2432,8 @@ export type GetBalanceHistory = (
   respond: GetBalanceHistoryResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBalanceHistoryIdResponder = {
   with200(): ExpressRuntimeResponse<t_balance_transaction>
@@ -2400,7 +2450,8 @@ export type GetBalanceHistoryId = (
   respond: GetBalanceHistoryIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBalanceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2422,7 +2473,8 @@ export type GetBalanceTransactions = (
   respond: GetBalanceTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBalanceTransactionsIdResponder = {
   with200(): ExpressRuntimeResponse<t_balance_transaction>
@@ -2439,7 +2491,8 @@ export type GetBalanceTransactionsId = (
   respond: GetBalanceTransactionsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingAlertsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2461,7 +2514,8 @@ export type GetBillingAlerts = (
   respond: GetBillingAlertsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingAlertsResponder = {
   with200(): ExpressRuntimeResponse<t_billing_alert>
@@ -2473,7 +2527,8 @@ export type PostBillingAlerts = (
   respond: PostBillingAlertsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingAlertsIdResponder = {
   with200(): ExpressRuntimeResponse<t_billing_alert>
@@ -2490,7 +2545,8 @@ export type GetBillingAlertsId = (
   respond: GetBillingAlertsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingAlertsIdActivateResponder = {
   with200(): ExpressRuntimeResponse<t_billing_alert>
@@ -2507,7 +2563,8 @@ export type PostBillingAlertsIdActivate = (
   respond: PostBillingAlertsIdActivateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingAlertsIdArchiveResponder = {
   with200(): ExpressRuntimeResponse<t_billing_alert>
@@ -2524,7 +2581,8 @@ export type PostBillingAlertsIdArchive = (
   respond: PostBillingAlertsIdArchiveResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingAlertsIdDeactivateResponder = {
   with200(): ExpressRuntimeResponse<t_billing_alert>
@@ -2541,7 +2599,8 @@ export type PostBillingAlertsIdDeactivate = (
   respond: PostBillingAlertsIdDeactivateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingCreditBalanceSummaryResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_balance_summary>
@@ -2558,7 +2617,8 @@ export type GetBillingCreditBalanceSummary = (
   respond: GetBillingCreditBalanceSummaryResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingCreditBalanceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2580,7 +2640,8 @@ export type GetBillingCreditBalanceTransactions = (
   respond: GetBillingCreditBalanceTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingCreditBalanceTransactionsIdResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_balance_transaction>
@@ -2597,7 +2658,8 @@ export type GetBillingCreditBalanceTransactionsId = (
   respond: GetBillingCreditBalanceTransactionsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingCreditGrantsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2619,7 +2681,8 @@ export type GetBillingCreditGrants = (
   respond: GetBillingCreditGrantsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingCreditGrantsResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_grant>
@@ -2631,7 +2694,8 @@ export type PostBillingCreditGrants = (
   respond: PostBillingCreditGrantsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingCreditGrantsIdResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_grant>
@@ -2648,7 +2712,8 @@ export type GetBillingCreditGrantsId = (
   respond: GetBillingCreditGrantsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingCreditGrantsIdResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_grant>
@@ -2665,7 +2730,8 @@ export type PostBillingCreditGrantsId = (
   respond: PostBillingCreditGrantsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingCreditGrantsIdExpireResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_grant>
@@ -2682,7 +2748,8 @@ export type PostBillingCreditGrantsIdExpire = (
   respond: PostBillingCreditGrantsIdExpireResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingCreditGrantsIdVoidResponder = {
   with200(): ExpressRuntimeResponse<t_billing_credit_grant>
@@ -2699,7 +2766,8 @@ export type PostBillingCreditGrantsIdVoid = (
   respond: PostBillingCreditGrantsIdVoidResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingMeterEventAdjustmentsResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter_event_adjustment>
@@ -2716,7 +2784,8 @@ export type PostBillingMeterEventAdjustments = (
   respond: PostBillingMeterEventAdjustmentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingMeterEventsResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter_event>
@@ -2728,7 +2797,8 @@ export type PostBillingMeterEvents = (
   respond: PostBillingMeterEventsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingMetersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2750,7 +2820,8 @@ export type GetBillingMeters = (
   respond: GetBillingMetersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingMetersResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter>
@@ -2762,7 +2833,8 @@ export type PostBillingMeters = (
   respond: PostBillingMetersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingMetersIdResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter>
@@ -2779,7 +2851,8 @@ export type GetBillingMetersId = (
   respond: GetBillingMetersIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingMetersIdResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter>
@@ -2796,7 +2869,8 @@ export type PostBillingMetersId = (
   respond: PostBillingMetersIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingMetersIdDeactivateResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter>
@@ -2813,7 +2887,8 @@ export type PostBillingMetersIdDeactivate = (
   respond: PostBillingMetersIdDeactivateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingMetersIdEventSummariesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2835,7 +2910,8 @@ export type GetBillingMetersIdEventSummaries = (
   respond: GetBillingMetersIdEventSummariesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingMetersIdReactivateResponder = {
   with200(): ExpressRuntimeResponse<t_billing_meter>
@@ -2852,7 +2928,8 @@ export type PostBillingMetersIdReactivate = (
   respond: PostBillingMetersIdReactivateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingPortalConfigurationsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2874,7 +2951,8 @@ export type GetBillingPortalConfigurations = (
   respond: GetBillingPortalConfigurationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingPortalConfigurationsResponder = {
   with200(): ExpressRuntimeResponse<t_billing_portal_configuration>
@@ -2891,7 +2969,8 @@ export type PostBillingPortalConfigurations = (
   respond: PostBillingPortalConfigurationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetBillingPortalConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_billing_portal_configuration>
@@ -2908,7 +2987,8 @@ export type GetBillingPortalConfigurationsConfiguration = (
   respond: GetBillingPortalConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingPortalConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_billing_portal_configuration>
@@ -2925,7 +3005,8 @@ export type PostBillingPortalConfigurationsConfiguration = (
   respond: PostBillingPortalConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostBillingPortalSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_billing_portal_session>
@@ -2942,7 +3023,8 @@ export type PostBillingPortalSessions = (
   respond: PostBillingPortalSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetChargesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -2964,7 +3046,8 @@ export type GetCharges = (
   respond: GetChargesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesResponder = {
   with200(): ExpressRuntimeResponse<t_charge>
@@ -2976,15 +3059,16 @@ export type PostCharges = (
   respond: PostChargesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetChargesSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_charge[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -3000,7 +3084,8 @@ export type GetChargesSearch = (
   respond: GetChargesSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetChargesChargeResponder = {
   with200(): ExpressRuntimeResponse<t_charge>
@@ -3017,7 +3102,8 @@ export type GetChargesCharge = (
   respond: GetChargesChargeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeResponder = {
   with200(): ExpressRuntimeResponse<t_charge>
@@ -3034,7 +3120,8 @@ export type PostChargesCharge = (
   respond: PostChargesChargeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeCaptureResponder = {
   with200(): ExpressRuntimeResponse<t_charge>
@@ -3051,7 +3138,8 @@ export type PostChargesChargeCapture = (
   respond: PostChargesChargeCaptureResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetChargesChargeDisputeResponder = {
   with200(): ExpressRuntimeResponse<t_dispute>
@@ -3068,7 +3156,8 @@ export type GetChargesChargeDispute = (
   respond: GetChargesChargeDisputeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeDisputeResponder = {
   with200(): ExpressRuntimeResponse<t_dispute>
@@ -3085,7 +3174,8 @@ export type PostChargesChargeDispute = (
   respond: PostChargesChargeDisputeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeDisputeCloseResponder = {
   with200(): ExpressRuntimeResponse<t_dispute>
@@ -3102,7 +3192,8 @@ export type PostChargesChargeDisputeClose = (
   respond: PostChargesChargeDisputeCloseResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeRefundResponder = {
   with200(): ExpressRuntimeResponse<t_charge>
@@ -3119,7 +3210,8 @@ export type PostChargesChargeRefund = (
   respond: PostChargesChargeRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetChargesChargeRefundsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3141,7 +3233,8 @@ export type GetChargesChargeRefunds = (
   respond: GetChargesChargeRefundsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeRefundsResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -3158,7 +3251,8 @@ export type PostChargesChargeRefunds = (
   respond: PostChargesChargeRefundsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetChargesChargeRefundsRefundResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -3175,7 +3269,8 @@ export type GetChargesChargeRefundsRefund = (
   respond: GetChargesChargeRefundsRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostChargesChargeRefundsRefundResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -3192,7 +3287,8 @@ export type PostChargesChargeRefundsRefund = (
   respond: PostChargesChargeRefundsRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCheckoutSessionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3214,7 +3310,8 @@ export type GetCheckoutSessions = (
   respond: GetCheckoutSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCheckoutSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_checkout_session>
@@ -3231,7 +3328,8 @@ export type PostCheckoutSessions = (
   respond: PostCheckoutSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCheckoutSessionsSessionResponder = {
   with200(): ExpressRuntimeResponse<t_checkout_session>
@@ -3248,7 +3346,8 @@ export type GetCheckoutSessionsSession = (
   respond: GetCheckoutSessionsSessionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCheckoutSessionsSessionResponder = {
   with200(): ExpressRuntimeResponse<t_checkout_session>
@@ -3265,7 +3364,8 @@ export type PostCheckoutSessionsSession = (
   respond: PostCheckoutSessionsSessionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCheckoutSessionsSessionExpireResponder = {
   with200(): ExpressRuntimeResponse<t_checkout_session>
@@ -3282,7 +3382,8 @@ export type PostCheckoutSessionsSessionExpire = (
   respond: PostCheckoutSessionsSessionExpireResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCheckoutSessionsSessionLineItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3304,7 +3405,8 @@ export type GetCheckoutSessionsSessionLineItems = (
   respond: GetCheckoutSessionsSessionLineItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetClimateOrdersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3326,7 +3428,8 @@ export type GetClimateOrders = (
   respond: GetClimateOrdersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostClimateOrdersResponder = {
   with200(): ExpressRuntimeResponse<t_climate_order>
@@ -3338,7 +3441,8 @@ export type PostClimateOrders = (
   respond: PostClimateOrdersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetClimateOrdersOrderResponder = {
   with200(): ExpressRuntimeResponse<t_climate_order>
@@ -3355,7 +3459,8 @@ export type GetClimateOrdersOrder = (
   respond: GetClimateOrdersOrderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostClimateOrdersOrderResponder = {
   with200(): ExpressRuntimeResponse<t_climate_order>
@@ -3372,7 +3477,8 @@ export type PostClimateOrdersOrder = (
   respond: PostClimateOrdersOrderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostClimateOrdersOrderCancelResponder = {
   with200(): ExpressRuntimeResponse<t_climate_order>
@@ -3389,7 +3495,8 @@ export type PostClimateOrdersOrderCancel = (
   respond: PostClimateOrdersOrderCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetClimateProductsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3411,7 +3518,8 @@ export type GetClimateProducts = (
   respond: GetClimateProductsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetClimateProductsProductResponder = {
   with200(): ExpressRuntimeResponse<t_climate_product>
@@ -3428,7 +3536,8 @@ export type GetClimateProductsProduct = (
   respond: GetClimateProductsProductResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetClimateSuppliersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3450,7 +3559,8 @@ export type GetClimateSuppliers = (
   respond: GetClimateSuppliersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetClimateSuppliersSupplierResponder = {
   with200(): ExpressRuntimeResponse<t_climate_supplier>
@@ -3467,7 +3577,8 @@ export type GetClimateSuppliersSupplier = (
   respond: GetClimateSuppliersSupplierResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetConfirmationTokensConfirmationTokenResponder = {
   with200(): ExpressRuntimeResponse<t_confirmation_token>
@@ -3484,7 +3595,8 @@ export type GetConfirmationTokensConfirmationToken = (
   respond: GetConfirmationTokensConfirmationTokenResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCountrySpecsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3506,7 +3618,8 @@ export type GetCountrySpecs = (
   respond: GetCountrySpecsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCountrySpecsCountryResponder = {
   with200(): ExpressRuntimeResponse<t_country_spec>
@@ -3523,7 +3636,8 @@ export type GetCountrySpecsCountry = (
   respond: GetCountrySpecsCountryResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCouponsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3545,7 +3659,8 @@ export type GetCoupons = (
   respond: GetCouponsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCouponsResponder = {
   with200(): ExpressRuntimeResponse<t_coupon>
@@ -3557,7 +3672,8 @@ export type PostCoupons = (
   respond: PostCouponsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCouponsCouponResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_coupon>
@@ -3574,7 +3690,8 @@ export type DeleteCouponsCoupon = (
   respond: DeleteCouponsCouponResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCouponsCouponResponder = {
   with200(): ExpressRuntimeResponse<t_coupon>
@@ -3591,7 +3708,8 @@ export type GetCouponsCoupon = (
   respond: GetCouponsCouponResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCouponsCouponResponder = {
   with200(): ExpressRuntimeResponse<t_coupon>
@@ -3608,7 +3726,8 @@ export type PostCouponsCoupon = (
   respond: PostCouponsCouponResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCreditNotesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3630,7 +3749,8 @@ export type GetCreditNotes = (
   respond: GetCreditNotesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCreditNotesResponder = {
   with200(): ExpressRuntimeResponse<t_credit_note>
@@ -3642,7 +3762,8 @@ export type PostCreditNotes = (
   respond: PostCreditNotesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCreditNotesPreviewResponder = {
   with200(): ExpressRuntimeResponse<t_credit_note>
@@ -3659,7 +3780,8 @@ export type GetCreditNotesPreview = (
   respond: GetCreditNotesPreviewResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCreditNotesPreviewLinesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3681,7 +3803,8 @@ export type GetCreditNotesPreviewLines = (
   respond: GetCreditNotesPreviewLinesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCreditNotesCreditNoteLinesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3703,7 +3826,8 @@ export type GetCreditNotesCreditNoteLines = (
   respond: GetCreditNotesCreditNoteLinesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCreditNotesIdResponder = {
   with200(): ExpressRuntimeResponse<t_credit_note>
@@ -3720,7 +3844,8 @@ export type GetCreditNotesId = (
   respond: GetCreditNotesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCreditNotesIdResponder = {
   with200(): ExpressRuntimeResponse<t_credit_note>
@@ -3737,7 +3862,8 @@ export type PostCreditNotesId = (
   respond: PostCreditNotesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCreditNotesIdVoidResponder = {
   with200(): ExpressRuntimeResponse<t_credit_note>
@@ -3754,7 +3880,8 @@ export type PostCreditNotesIdVoid = (
   respond: PostCreditNotesIdVoidResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomerSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_customer_session>
@@ -3766,7 +3893,8 @@ export type PostCustomerSessions = (
   respond: PostCustomerSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3788,7 +3916,8 @@ export type GetCustomers = (
   respond: GetCustomersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersResponder = {
   with200(): ExpressRuntimeResponse<t_customer>
@@ -3805,15 +3934,16 @@ export type PostCustomers = (
   respond: PostCustomersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_customer[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -3829,7 +3959,8 @@ export type GetCustomersSearch = (
   respond: GetCustomersSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_customer>
@@ -3846,7 +3977,8 @@ export type DeleteCustomersCustomer = (
   respond: DeleteCustomersCustomerResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerResponder = {
   with200(): ExpressRuntimeResponse<t_customer | t_deleted_customer>
@@ -3863,7 +3995,8 @@ export type GetCustomersCustomer = (
   respond: GetCustomersCustomerResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerResponder = {
   with200(): ExpressRuntimeResponse<t_customer>
@@ -3880,7 +4013,8 @@ export type PostCustomersCustomer = (
   respond: PostCustomersCustomerResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerBalanceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3902,7 +4036,8 @@ export type GetCustomersCustomerBalanceTransactions = (
   respond: GetCustomersCustomerBalanceTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerBalanceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<t_customer_balance_transaction>
@@ -3919,7 +4054,8 @@ export type PostCustomersCustomerBalanceTransactions = (
   respond: PostCustomersCustomerBalanceTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerBalanceTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_customer_balance_transaction>
@@ -3937,7 +4073,8 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerBalanceTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_customer_balance_transaction>
@@ -3955,7 +4092,8 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
   respond: PostCustomersCustomerBalanceTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerBankAccountsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -3977,7 +4115,8 @@ export type GetCustomersCustomerBankAccounts = (
   respond: GetCustomersCustomerBankAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerBankAccountsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source>
@@ -3994,7 +4133,8 @@ export type PostCustomersCustomerBankAccounts = (
   respond: PostCustomersCustomerBankAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerBankAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source | t_deleted_payment_source>
@@ -4011,7 +4151,8 @@ export type DeleteCustomersCustomerBankAccountsId = (
   respond: DeleteCustomersCustomerBankAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerBankAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_bank_account>
@@ -4028,7 +4169,8 @@ export type GetCustomersCustomerBankAccountsId = (
   respond: GetCustomersCustomerBankAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerBankAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_card | t_bank_account | t_source>
@@ -4045,7 +4187,8 @@ export type PostCustomersCustomerBankAccountsId = (
   respond: PostCustomersCustomerBankAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerBankAccountsIdVerifyResponder = {
   with200(): ExpressRuntimeResponse<t_bank_account>
@@ -4062,7 +4205,8 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
   respond: PostCustomersCustomerBankAccountsIdVerifyResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerCardsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4084,7 +4228,8 @@ export type GetCustomersCustomerCards = (
   respond: GetCustomersCustomerCardsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerCardsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source>
@@ -4101,7 +4246,8 @@ export type PostCustomersCustomerCards = (
   respond: PostCustomersCustomerCardsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerCardsIdResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source | t_deleted_payment_source>
@@ -4118,7 +4264,8 @@ export type DeleteCustomersCustomerCardsId = (
   respond: DeleteCustomersCustomerCardsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerCardsIdResponder = {
   with200(): ExpressRuntimeResponse<t_card>
@@ -4135,7 +4282,8 @@ export type GetCustomersCustomerCardsId = (
   respond: GetCustomersCustomerCardsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerCardsIdResponder = {
   with200(): ExpressRuntimeResponse<t_card | t_bank_account | t_source>
@@ -4152,7 +4300,8 @@ export type PostCustomersCustomerCardsId = (
   respond: PostCustomersCustomerCardsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerCashBalanceResponder = {
   with200(): ExpressRuntimeResponse<t_cash_balance>
@@ -4169,7 +4318,8 @@ export type GetCustomersCustomerCashBalance = (
   respond: GetCustomersCustomerCashBalanceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerCashBalanceResponder = {
   with200(): ExpressRuntimeResponse<t_cash_balance>
@@ -4186,7 +4336,8 @@ export type PostCustomersCustomerCashBalance = (
   respond: PostCustomersCustomerCashBalanceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerCashBalanceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4208,7 +4359,8 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   respond: GetCustomersCustomerCashBalanceTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerCashBalanceTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_customer_cash_balance_transaction>
@@ -4226,7 +4378,8 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerDiscountResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_discount>
@@ -4243,7 +4396,8 @@ export type DeleteCustomersCustomerDiscount = (
   respond: DeleteCustomersCustomerDiscountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerDiscountResponder = {
   with200(): ExpressRuntimeResponse<t_discount>
@@ -4260,7 +4414,8 @@ export type GetCustomersCustomerDiscount = (
   respond: GetCustomersCustomerDiscountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerFundingInstructionsResponder = {
   with200(): ExpressRuntimeResponse<t_funding_instructions>
@@ -4277,7 +4432,8 @@ export type PostCustomersCustomerFundingInstructions = (
   respond: PostCustomersCustomerFundingInstructionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerPaymentMethodsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4299,7 +4455,8 @@ export type GetCustomersCustomerPaymentMethods = (
   respond: GetCustomersCustomerPaymentMethodsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerPaymentMethodsPaymentMethodResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method>
@@ -4317,7 +4474,8 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerSourcesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4339,7 +4497,8 @@ export type GetCustomersCustomerSources = (
   respond: GetCustomersCustomerSourcesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerSourcesResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source>
@@ -4356,7 +4515,8 @@ export type PostCustomersCustomerSources = (
   respond: PostCustomersCustomerSourcesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerSourcesIdResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source | t_deleted_payment_source>
@@ -4373,7 +4533,8 @@ export type DeleteCustomersCustomerSourcesId = (
   respond: DeleteCustomersCustomerSourcesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerSourcesIdResponder = {
   with200(): ExpressRuntimeResponse<t_payment_source>
@@ -4390,7 +4551,8 @@ export type GetCustomersCustomerSourcesId = (
   respond: GetCustomersCustomerSourcesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerSourcesIdResponder = {
   with200(): ExpressRuntimeResponse<t_card | t_bank_account | t_source>
@@ -4407,7 +4569,8 @@ export type PostCustomersCustomerSourcesId = (
   respond: PostCustomersCustomerSourcesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerSourcesIdVerifyResponder = {
   with200(): ExpressRuntimeResponse<t_bank_account>
@@ -4424,7 +4587,8 @@ export type PostCustomersCustomerSourcesIdVerify = (
   respond: PostCustomersCustomerSourcesIdVerifyResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerSubscriptionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4446,7 +4610,8 @@ export type GetCustomersCustomerSubscriptions = (
   respond: GetCustomersCustomerSubscriptionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerSubscriptionsResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -4463,7 +4628,8 @@ export type PostCustomersCustomerSubscriptions = (
   respond: PostCustomersCustomerSubscriptionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
   {
@@ -4482,7 +4648,8 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -4500,7 +4667,8 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -4518,7 +4686,8 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   respond: PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
   {
@@ -4538,7 +4707,8 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
     req: Request,
     res: Response,
-  ) => Promise<ExpressRuntimeResponse<unknown>>
+    next: NextFunction,
+  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
   {
@@ -4557,7 +4727,8 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerTaxIdsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4579,7 +4750,8 @@ export type GetCustomersCustomerTaxIds = (
   respond: GetCustomersCustomerTaxIdsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostCustomersCustomerTaxIdsResponder = {
   with200(): ExpressRuntimeResponse<t_tax_id>
@@ -4596,7 +4768,8 @@ export type PostCustomersCustomerTaxIds = (
   respond: PostCustomersCustomerTaxIdsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteCustomersCustomerTaxIdsIdResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_tax_id>
@@ -4613,7 +4786,8 @@ export type DeleteCustomersCustomerTaxIdsId = (
   respond: DeleteCustomersCustomerTaxIdsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetCustomersCustomerTaxIdsIdResponder = {
   with200(): ExpressRuntimeResponse<t_tax_id>
@@ -4630,7 +4804,8 @@ export type GetCustomersCustomerTaxIdsId = (
   respond: GetCustomersCustomerTaxIdsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetDisputesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4652,7 +4827,8 @@ export type GetDisputes = (
   respond: GetDisputesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetDisputesDisputeResponder = {
   with200(): ExpressRuntimeResponse<t_dispute>
@@ -4669,7 +4845,8 @@ export type GetDisputesDispute = (
   respond: GetDisputesDisputeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostDisputesDisputeResponder = {
   with200(): ExpressRuntimeResponse<t_dispute>
@@ -4686,7 +4863,8 @@ export type PostDisputesDispute = (
   respond: PostDisputesDisputeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostDisputesDisputeCloseResponder = {
   with200(): ExpressRuntimeResponse<t_dispute>
@@ -4703,7 +4881,8 @@ export type PostDisputesDisputeClose = (
   respond: PostDisputesDisputeCloseResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetEntitlementsActiveEntitlementsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4725,7 +4904,8 @@ export type GetEntitlementsActiveEntitlements = (
   respond: GetEntitlementsActiveEntitlementsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetEntitlementsActiveEntitlementsIdResponder = {
   with200(): ExpressRuntimeResponse<t_entitlements_active_entitlement>
@@ -4742,7 +4922,8 @@ export type GetEntitlementsActiveEntitlementsId = (
   respond: GetEntitlementsActiveEntitlementsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetEntitlementsFeaturesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4764,7 +4945,8 @@ export type GetEntitlementsFeatures = (
   respond: GetEntitlementsFeaturesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostEntitlementsFeaturesResponder = {
   with200(): ExpressRuntimeResponse<t_entitlements_feature>
@@ -4776,7 +4958,8 @@ export type PostEntitlementsFeatures = (
   respond: PostEntitlementsFeaturesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetEntitlementsFeaturesIdResponder = {
   with200(): ExpressRuntimeResponse<t_entitlements_feature>
@@ -4793,7 +4976,8 @@ export type GetEntitlementsFeaturesId = (
   respond: GetEntitlementsFeaturesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostEntitlementsFeaturesIdResponder = {
   with200(): ExpressRuntimeResponse<t_entitlements_feature>
@@ -4810,7 +4994,8 @@ export type PostEntitlementsFeaturesId = (
   respond: PostEntitlementsFeaturesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostEphemeralKeysResponder = {
   with200(): ExpressRuntimeResponse<t_ephemeral_key>
@@ -4827,7 +5012,8 @@ export type PostEphemeralKeys = (
   respond: PostEphemeralKeysResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteEphemeralKeysKeyResponder = {
   with200(): ExpressRuntimeResponse<t_ephemeral_key>
@@ -4844,7 +5030,8 @@ export type DeleteEphemeralKeysKey = (
   respond: DeleteEphemeralKeysKeyResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetEventsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4866,7 +5053,8 @@ export type GetEvents = (
   respond: GetEventsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetEventsIdResponder = {
   with200(): ExpressRuntimeResponse<t_event>
@@ -4883,7 +5071,8 @@ export type GetEventsId = (
   respond: GetEventsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetExchangeRatesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4905,7 +5094,8 @@ export type GetExchangeRates = (
   respond: GetExchangeRatesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetExchangeRatesRateIdResponder = {
   with200(): ExpressRuntimeResponse<t_exchange_rate>
@@ -4922,7 +5112,8 @@ export type GetExchangeRatesRateId = (
   respond: GetExchangeRatesRateIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostExternalAccountsIdResponder = {
   with200(): ExpressRuntimeResponse<t_external_account>
@@ -4939,7 +5130,8 @@ export type PostExternalAccountsId = (
   respond: PostExternalAccountsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFileLinksResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -4961,7 +5153,8 @@ export type GetFileLinks = (
   respond: GetFileLinksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFileLinksResponder = {
   with200(): ExpressRuntimeResponse<t_file_link>
@@ -4973,7 +5166,8 @@ export type PostFileLinks = (
   respond: PostFileLinksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFileLinksLinkResponder = {
   with200(): ExpressRuntimeResponse<t_file_link>
@@ -4990,7 +5184,8 @@ export type GetFileLinksLink = (
   respond: GetFileLinksLinkResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFileLinksLinkResponder = {
   with200(): ExpressRuntimeResponse<t_file_link>
@@ -5007,7 +5202,8 @@ export type PostFileLinksLink = (
   respond: PostFileLinksLinkResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFilesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5029,7 +5225,8 @@ export type GetFiles = (
   respond: GetFilesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFilesResponder = {
   with200(): ExpressRuntimeResponse<t_file>
@@ -5041,7 +5238,8 @@ export type PostFiles = (
   respond: PostFilesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFilesFileResponder = {
   with200(): ExpressRuntimeResponse<t_file>
@@ -5058,7 +5256,8 @@ export type GetFilesFile = (
   respond: GetFilesFileResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFinancialConnectionsAccountsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5080,7 +5279,8 @@ export type GetFinancialConnectionsAccounts = (
   respond: GetFinancialConnectionsAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFinancialConnectionsAccountsAccountResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -5097,7 +5297,8 @@ export type GetFinancialConnectionsAccountsAccount = (
   respond: GetFinancialConnectionsAccountsAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFinancialConnectionsAccountsAccountDisconnectResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -5115,7 +5316,8 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
   respond: PostFinancialConnectionsAccountsAccountDisconnectResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFinancialConnectionsAccountsAccountOwnersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5137,7 +5339,8 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFinancialConnectionsAccountsAccountRefreshResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -5154,7 +5357,8 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
   respond: PostFinancialConnectionsAccountsAccountRefreshResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFinancialConnectionsAccountsAccountSubscribeResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -5171,7 +5375,8 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
   respond: PostFinancialConnectionsAccountsAccountSubscribeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFinancialConnectionsAccountsAccountUnsubscribeResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -5188,7 +5393,8 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   respond: PostFinancialConnectionsAccountsAccountUnsubscribeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostFinancialConnectionsSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_session>
@@ -5205,7 +5411,8 @@ export type PostFinancialConnectionsSessions = (
   respond: PostFinancialConnectionsSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFinancialConnectionsSessionsSessionResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_session>
@@ -5222,7 +5429,8 @@ export type GetFinancialConnectionsSessionsSession = (
   respond: GetFinancialConnectionsSessionsSessionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFinancialConnectionsTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5244,7 +5452,8 @@ export type GetFinancialConnectionsTransactions = (
   respond: GetFinancialConnectionsTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetFinancialConnectionsTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_transaction>
@@ -5262,7 +5471,8 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   respond: GetFinancialConnectionsTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetForwardingRequestsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5284,7 +5494,8 @@ export type GetForwardingRequests = (
   respond: GetForwardingRequestsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostForwardingRequestsResponder = {
   with200(): ExpressRuntimeResponse<t_forwarding_request>
@@ -5296,7 +5507,8 @@ export type PostForwardingRequests = (
   respond: PostForwardingRequestsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetForwardingRequestsIdResponder = {
   with200(): ExpressRuntimeResponse<t_forwarding_request>
@@ -5313,7 +5525,8 @@ export type GetForwardingRequestsId = (
   respond: GetForwardingRequestsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIdentityVerificationReportsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5335,7 +5548,8 @@ export type GetIdentityVerificationReports = (
   respond: GetIdentityVerificationReportsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIdentityVerificationReportsReportResponder = {
   with200(): ExpressRuntimeResponse<t_identity_verification_report>
@@ -5352,7 +5566,8 @@ export type GetIdentityVerificationReportsReport = (
   respond: GetIdentityVerificationReportsReportResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIdentityVerificationSessionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5374,7 +5589,8 @@ export type GetIdentityVerificationSessions = (
   respond: GetIdentityVerificationSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIdentityVerificationSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_identity_verification_session>
@@ -5391,7 +5607,8 @@ export type PostIdentityVerificationSessions = (
   respond: PostIdentityVerificationSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIdentityVerificationSessionsSessionResponder = {
   with200(): ExpressRuntimeResponse<t_identity_verification_session>
@@ -5408,7 +5625,8 @@ export type GetIdentityVerificationSessionsSession = (
   respond: GetIdentityVerificationSessionsSessionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIdentityVerificationSessionsSessionResponder = {
   with200(): ExpressRuntimeResponse<t_identity_verification_session>
@@ -5425,7 +5643,8 @@ export type PostIdentityVerificationSessionsSession = (
   respond: PostIdentityVerificationSessionsSessionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIdentityVerificationSessionsSessionCancelResponder = {
   with200(): ExpressRuntimeResponse<t_identity_verification_session>
@@ -5443,7 +5662,8 @@ export type PostIdentityVerificationSessionsSessionCancel = (
   respond: PostIdentityVerificationSessionsSessionCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIdentityVerificationSessionsSessionRedactResponder = {
   with200(): ExpressRuntimeResponse<t_identity_verification_session>
@@ -5461,7 +5681,8 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   respond: PostIdentityVerificationSessionsSessionRedactResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoicePaymentsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5483,7 +5704,8 @@ export type GetInvoicePayments = (
   respond: GetInvoicePaymentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoicePaymentsInvoicePaymentResponder = {
   with200(): ExpressRuntimeResponse<t_invoice_payment>
@@ -5500,7 +5722,8 @@ export type GetInvoicePaymentsInvoicePayment = (
   respond: GetInvoicePaymentsInvoicePaymentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoiceRenderingTemplatesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5522,7 +5745,8 @@ export type GetInvoiceRenderingTemplates = (
   respond: GetInvoiceRenderingTemplatesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoiceRenderingTemplatesTemplateResponder = {
   with200(): ExpressRuntimeResponse<t_invoice_rendering_template>
@@ -5539,7 +5763,8 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   respond: GetInvoiceRenderingTemplatesTemplateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoiceRenderingTemplatesTemplateArchiveResponder = {
   with200(): ExpressRuntimeResponse<t_invoice_rendering_template>
@@ -5556,7 +5781,8 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
   respond: PostInvoiceRenderingTemplatesTemplateArchiveResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoiceRenderingTemplatesTemplateUnarchiveResponder = {
   with200(): ExpressRuntimeResponse<t_invoice_rendering_template>
@@ -5574,7 +5800,8 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   respond: PostInvoiceRenderingTemplatesTemplateUnarchiveResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoiceitemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5596,7 +5823,8 @@ export type GetInvoiceitems = (
   respond: GetInvoiceitemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoiceitemsResponder = {
   with200(): ExpressRuntimeResponse<t_invoiceitem>
@@ -5608,7 +5836,8 @@ export type PostInvoiceitems = (
   respond: PostInvoiceitemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteInvoiceitemsInvoiceitemResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_invoiceitem>
@@ -5625,7 +5854,8 @@ export type DeleteInvoiceitemsInvoiceitem = (
   respond: DeleteInvoiceitemsInvoiceitemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoiceitemsInvoiceitemResponder = {
   with200(): ExpressRuntimeResponse<t_invoiceitem>
@@ -5642,7 +5872,8 @@ export type GetInvoiceitemsInvoiceitem = (
   respond: GetInvoiceitemsInvoiceitemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoiceitemsInvoiceitemResponder = {
   with200(): ExpressRuntimeResponse<t_invoiceitem>
@@ -5659,7 +5890,8 @@ export type PostInvoiceitemsInvoiceitem = (
   respond: PostInvoiceitemsInvoiceitemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoicesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5681,7 +5913,8 @@ export type GetInvoices = (
   respond: GetInvoicesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5693,7 +5926,8 @@ export type PostInvoices = (
   respond: PostInvoicesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesCreatePreviewResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5710,15 +5944,16 @@ export type PostInvoicesCreatePreview = (
   respond: PostInvoicesCreatePreviewResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoicesSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_invoice[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -5734,7 +5969,8 @@ export type GetInvoicesSearch = (
   respond: GetInvoicesSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteInvoicesInvoiceResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_invoice>
@@ -5751,7 +5987,8 @@ export type DeleteInvoicesInvoice = (
   respond: DeleteInvoicesInvoiceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoicesInvoiceResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5768,7 +6005,8 @@ export type GetInvoicesInvoice = (
   respond: GetInvoicesInvoiceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5785,7 +6023,8 @@ export type PostInvoicesInvoice = (
   respond: PostInvoicesInvoiceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceAddLinesResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5802,7 +6041,8 @@ export type PostInvoicesInvoiceAddLines = (
   respond: PostInvoicesInvoiceAddLinesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceFinalizeResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5819,7 +6059,8 @@ export type PostInvoicesInvoiceFinalize = (
   respond: PostInvoicesInvoiceFinalizeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetInvoicesInvoiceLinesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5841,7 +6082,8 @@ export type GetInvoicesInvoiceLines = (
   respond: GetInvoicesInvoiceLinesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceLinesLineItemIdResponder = {
   with200(): ExpressRuntimeResponse<t_line_item>
@@ -5858,7 +6100,8 @@ export type PostInvoicesInvoiceLinesLineItemId = (
   respond: PostInvoicesInvoiceLinesLineItemIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceMarkUncollectibleResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5875,7 +6118,8 @@ export type PostInvoicesInvoiceMarkUncollectible = (
   respond: PostInvoicesInvoiceMarkUncollectibleResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoicePayResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5892,7 +6136,8 @@ export type PostInvoicesInvoicePay = (
   respond: PostInvoicesInvoicePayResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceRemoveLinesResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5909,7 +6154,8 @@ export type PostInvoicesInvoiceRemoveLines = (
   respond: PostInvoicesInvoiceRemoveLinesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceSendResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5926,7 +6172,8 @@ export type PostInvoicesInvoiceSend = (
   respond: PostInvoicesInvoiceSendResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceUpdateLinesResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5943,7 +6190,8 @@ export type PostInvoicesInvoiceUpdateLines = (
   respond: PostInvoicesInvoiceUpdateLinesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostInvoicesInvoiceVoidResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
@@ -5960,7 +6208,8 @@ export type PostInvoicesInvoiceVoid = (
   respond: PostInvoicesInvoiceVoidResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingAuthorizationsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -5982,7 +6231,8 @@ export type GetIssuingAuthorizations = (
   respond: GetIssuingAuthorizationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingAuthorizationsAuthorizationResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_authorization>
@@ -5999,7 +6249,8 @@ export type GetIssuingAuthorizationsAuthorization = (
   respond: GetIssuingAuthorizationsAuthorizationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingAuthorizationsAuthorizationResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_authorization>
@@ -6016,7 +6267,8 @@ export type PostIssuingAuthorizationsAuthorization = (
   respond: PostIssuingAuthorizationsAuthorizationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingAuthorizationsAuthorizationApproveResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_authorization>
@@ -6034,7 +6286,8 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
   respond: PostIssuingAuthorizationsAuthorizationApproveResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingAuthorizationsAuthorizationDeclineResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_authorization>
@@ -6052,7 +6305,8 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
   respond: PostIssuingAuthorizationsAuthorizationDeclineResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingCardholdersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6074,7 +6328,8 @@ export type GetIssuingCardholders = (
   respond: GetIssuingCardholdersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingCardholdersResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_cardholder>
@@ -6086,7 +6341,8 @@ export type PostIssuingCardholders = (
   respond: PostIssuingCardholdersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingCardholdersCardholderResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_cardholder>
@@ -6103,7 +6359,8 @@ export type GetIssuingCardholdersCardholder = (
   respond: GetIssuingCardholdersCardholderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingCardholdersCardholderResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_cardholder>
@@ -6120,7 +6377,8 @@ export type PostIssuingCardholdersCardholder = (
   respond: PostIssuingCardholdersCardholderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingCardsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6142,7 +6400,8 @@ export type GetIssuingCards = (
   respond: GetIssuingCardsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingCardsResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -6154,7 +6413,8 @@ export type PostIssuingCards = (
   respond: PostIssuingCardsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingCardsCardResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -6171,7 +6431,8 @@ export type GetIssuingCardsCard = (
   respond: GetIssuingCardsCardResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingCardsCardResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -6188,7 +6449,8 @@ export type PostIssuingCardsCard = (
   respond: PostIssuingCardsCardResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingDisputesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6210,7 +6472,8 @@ export type GetIssuingDisputes = (
   respond: GetIssuingDisputesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingDisputesResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_dispute>
@@ -6227,7 +6490,8 @@ export type PostIssuingDisputes = (
   respond: PostIssuingDisputesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingDisputesDisputeResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_dispute>
@@ -6244,7 +6508,8 @@ export type GetIssuingDisputesDispute = (
   respond: GetIssuingDisputesDisputeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingDisputesDisputeResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_dispute>
@@ -6261,7 +6526,8 @@ export type PostIssuingDisputesDispute = (
   respond: PostIssuingDisputesDisputeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingDisputesDisputeSubmitResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_dispute>
@@ -6278,7 +6544,8 @@ export type PostIssuingDisputesDisputeSubmit = (
   respond: PostIssuingDisputesDisputeSubmitResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingPersonalizationDesignsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6300,7 +6567,8 @@ export type GetIssuingPersonalizationDesigns = (
   respond: GetIssuingPersonalizationDesignsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingPersonalizationDesignsResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_personalization_design>
@@ -6317,7 +6585,8 @@ export type PostIssuingPersonalizationDesigns = (
   respond: PostIssuingPersonalizationDesignsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingPersonalizationDesignsPersonalizationDesignResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_personalization_design>
@@ -6335,7 +6604,8 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   respond: GetIssuingPersonalizationDesignsPersonalizationDesignResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingPersonalizationDesignsPersonalizationDesignResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_personalization_design>
@@ -6353,7 +6623,8 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   respond: PostIssuingPersonalizationDesignsPersonalizationDesignResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingPhysicalBundlesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6375,7 +6646,8 @@ export type GetIssuingPhysicalBundles = (
   respond: GetIssuingPhysicalBundlesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingPhysicalBundlesPhysicalBundleResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_physical_bundle>
@@ -6392,7 +6664,8 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   respond: GetIssuingPhysicalBundlesPhysicalBundleResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingSettlementsSettlementResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_settlement>
@@ -6409,7 +6682,8 @@ export type GetIssuingSettlementsSettlement = (
   respond: GetIssuingSettlementsSettlementResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingSettlementsSettlementResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_settlement>
@@ -6426,7 +6700,8 @@ export type PostIssuingSettlementsSettlement = (
   respond: PostIssuingSettlementsSettlementResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingTokensResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6448,7 +6723,8 @@ export type GetIssuingTokens = (
   respond: GetIssuingTokensResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingTokensTokenResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_token>
@@ -6465,7 +6741,8 @@ export type GetIssuingTokensToken = (
   respond: GetIssuingTokensTokenResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingTokensTokenResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_token>
@@ -6482,7 +6759,8 @@ export type PostIssuingTokensToken = (
   respond: PostIssuingTokensTokenResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6504,7 +6782,8 @@ export type GetIssuingTransactions = (
   respond: GetIssuingTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetIssuingTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_transaction>
@@ -6521,7 +6800,8 @@ export type GetIssuingTransactionsTransaction = (
   respond: GetIssuingTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostIssuingTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_transaction>
@@ -6538,7 +6818,8 @@ export type PostIssuingTransactionsTransaction = (
   respond: PostIssuingTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostLinkAccountSessionsResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_session>
@@ -6550,7 +6831,8 @@ export type PostLinkAccountSessions = (
   respond: PostLinkAccountSessionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetLinkAccountSessionsSessionResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_session>
@@ -6567,7 +6849,8 @@ export type GetLinkAccountSessionsSession = (
   respond: GetLinkAccountSessionsSessionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetLinkedAccountsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6589,7 +6872,8 @@ export type GetLinkedAccounts = (
   respond: GetLinkedAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetLinkedAccountsAccountResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -6606,7 +6890,8 @@ export type GetLinkedAccountsAccount = (
   respond: GetLinkedAccountsAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostLinkedAccountsAccountDisconnectResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -6623,7 +6908,8 @@ export type PostLinkedAccountsAccountDisconnect = (
   respond: PostLinkedAccountsAccountDisconnectResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetLinkedAccountsAccountOwnersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6645,7 +6931,8 @@ export type GetLinkedAccountsAccountOwners = (
   respond: GetLinkedAccountsAccountOwnersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostLinkedAccountsAccountRefreshResponder = {
   with200(): ExpressRuntimeResponse<t_financial_connections_account>
@@ -6662,7 +6949,8 @@ export type PostLinkedAccountsAccountRefresh = (
   respond: PostLinkedAccountsAccountRefreshResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetMandatesMandateResponder = {
   with200(): ExpressRuntimeResponse<t_mandate>
@@ -6679,7 +6967,8 @@ export type GetMandatesMandate = (
   respond: GetMandatesMandateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentIntentsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6701,7 +6990,8 @@ export type GetPaymentIntents = (
   respond: GetPaymentIntentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6713,15 +7003,16 @@ export type PostPaymentIntents = (
   respond: PostPaymentIntentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentIntentsSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_payment_intent[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -6737,7 +7028,8 @@ export type GetPaymentIntentsSearch = (
   respond: GetPaymentIntentsSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentIntentsIntentResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6754,7 +7046,8 @@ export type GetPaymentIntentsIntent = (
   respond: GetPaymentIntentsIntentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6771,7 +7064,8 @@ export type PostPaymentIntentsIntent = (
   respond: PostPaymentIntentsIntentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentApplyCustomerBalanceResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6788,7 +7082,8 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
   respond: PostPaymentIntentsIntentApplyCustomerBalanceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentCancelResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6805,7 +7100,8 @@ export type PostPaymentIntentsIntentCancel = (
   respond: PostPaymentIntentsIntentCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentCaptureResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6822,7 +7118,8 @@ export type PostPaymentIntentsIntentCapture = (
   respond: PostPaymentIntentsIntentCaptureResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentConfirmResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6839,7 +7136,8 @@ export type PostPaymentIntentsIntentConfirm = (
   respond: PostPaymentIntentsIntentConfirmResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentIncrementAuthorizationResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6856,7 +7154,8 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
   respond: PostPaymentIntentsIntentIncrementAuthorizationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentIntentsIntentVerifyMicrodepositsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_intent>
@@ -6873,7 +7172,8 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   respond: PostPaymentIntentsIntentVerifyMicrodepositsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentLinksResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6895,7 +7195,8 @@ export type GetPaymentLinks = (
   respond: GetPaymentLinksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentLinksResponder = {
   with200(): ExpressRuntimeResponse<t_payment_link>
@@ -6907,7 +7208,8 @@ export type PostPaymentLinks = (
   respond: PostPaymentLinksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentLinksPaymentLinkResponder = {
   with200(): ExpressRuntimeResponse<t_payment_link>
@@ -6924,7 +7226,8 @@ export type GetPaymentLinksPaymentLink = (
   respond: GetPaymentLinksPaymentLinkResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentLinksPaymentLinkResponder = {
   with200(): ExpressRuntimeResponse<t_payment_link>
@@ -6941,7 +7244,8 @@ export type PostPaymentLinksPaymentLink = (
   respond: PostPaymentLinksPaymentLinkResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentLinksPaymentLinkLineItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6963,7 +7267,8 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   respond: GetPaymentLinksPaymentLinkLineItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentMethodConfigurationsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -6985,7 +7290,8 @@ export type GetPaymentMethodConfigurations = (
   respond: GetPaymentMethodConfigurationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodConfigurationsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_configuration>
@@ -7002,7 +7308,8 @@ export type PostPaymentMethodConfigurations = (
   respond: PostPaymentMethodConfigurationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentMethodConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_configuration>
@@ -7019,7 +7326,8 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   respond: GetPaymentMethodConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_configuration>
@@ -7036,7 +7344,8 @@ export type PostPaymentMethodConfigurationsConfiguration = (
   respond: PostPaymentMethodConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentMethodDomainsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7058,7 +7367,8 @@ export type GetPaymentMethodDomains = (
   respond: GetPaymentMethodDomainsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodDomainsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_domain>
@@ -7070,7 +7380,8 @@ export type PostPaymentMethodDomains = (
   respond: PostPaymentMethodDomainsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentMethodDomainsPaymentMethodDomainResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_domain>
@@ -7087,7 +7398,8 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodDomainsPaymentMethodDomainResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_domain>
@@ -7104,7 +7416,8 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
   respond: PostPaymentMethodDomainsPaymentMethodDomainResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodDomainsPaymentMethodDomainValidateResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method_domain>
@@ -7122,7 +7435,8 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   respond: PostPaymentMethodDomainsPaymentMethodDomainValidateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentMethodsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7144,7 +7458,8 @@ export type GetPaymentMethods = (
   respond: GetPaymentMethodsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodsResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method>
@@ -7161,7 +7476,8 @@ export type PostPaymentMethods = (
   respond: PostPaymentMethodsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPaymentMethodsPaymentMethodResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method>
@@ -7178,7 +7494,8 @@ export type GetPaymentMethodsPaymentMethod = (
   respond: GetPaymentMethodsPaymentMethodResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodsPaymentMethodResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method>
@@ -7195,7 +7512,8 @@ export type PostPaymentMethodsPaymentMethod = (
   respond: PostPaymentMethodsPaymentMethodResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodsPaymentMethodAttachResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method>
@@ -7212,7 +7530,8 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   respond: PostPaymentMethodsPaymentMethodAttachResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPaymentMethodsPaymentMethodDetachResponder = {
   with200(): ExpressRuntimeResponse<t_payment_method>
@@ -7229,7 +7548,8 @@ export type PostPaymentMethodsPaymentMethodDetach = (
   respond: PostPaymentMethodsPaymentMethodDetachResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPayoutsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7251,7 +7571,8 @@ export type GetPayouts = (
   respond: GetPayoutsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPayoutsResponder = {
   with200(): ExpressRuntimeResponse<t_payout>
@@ -7263,7 +7584,8 @@ export type PostPayouts = (
   respond: PostPayoutsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPayoutsPayoutResponder = {
   with200(): ExpressRuntimeResponse<t_payout>
@@ -7280,7 +7602,8 @@ export type GetPayoutsPayout = (
   respond: GetPayoutsPayoutResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPayoutsPayoutResponder = {
   with200(): ExpressRuntimeResponse<t_payout>
@@ -7297,7 +7620,8 @@ export type PostPayoutsPayout = (
   respond: PostPayoutsPayoutResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPayoutsPayoutCancelResponder = {
   with200(): ExpressRuntimeResponse<t_payout>
@@ -7314,7 +7638,8 @@ export type PostPayoutsPayoutCancel = (
   respond: PostPayoutsPayoutCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPayoutsPayoutReverseResponder = {
   with200(): ExpressRuntimeResponse<t_payout>
@@ -7331,7 +7656,8 @@ export type PostPayoutsPayoutReverse = (
   respond: PostPayoutsPayoutReverseResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPlansResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7353,7 +7679,8 @@ export type GetPlans = (
   respond: GetPlansResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPlansResponder = {
   with200(): ExpressRuntimeResponse<t_plan>
@@ -7365,7 +7692,8 @@ export type PostPlans = (
   respond: PostPlansResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeletePlansPlanResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_plan>
@@ -7382,7 +7710,8 @@ export type DeletePlansPlan = (
   respond: DeletePlansPlanResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPlansPlanResponder = {
   with200(): ExpressRuntimeResponse<t_plan>
@@ -7399,7 +7728,8 @@ export type GetPlansPlan = (
   respond: GetPlansPlanResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPlansPlanResponder = {
   with200(): ExpressRuntimeResponse<t_plan>
@@ -7416,7 +7746,8 @@ export type PostPlansPlan = (
   respond: PostPlansPlanResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPricesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7438,7 +7769,8 @@ export type GetPrices = (
   respond: GetPricesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPricesResponder = {
   with200(): ExpressRuntimeResponse<t_price>
@@ -7450,15 +7782,16 @@ export type PostPrices = (
   respond: PostPricesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPricesSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_price[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -7474,7 +7807,8 @@ export type GetPricesSearch = (
   respond: GetPricesSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPricesPriceResponder = {
   with200(): ExpressRuntimeResponse<t_price>
@@ -7491,7 +7825,8 @@ export type GetPricesPrice = (
   respond: GetPricesPriceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPricesPriceResponder = {
   with200(): ExpressRuntimeResponse<t_price>
@@ -7508,7 +7843,8 @@ export type PostPricesPrice = (
   respond: PostPricesPriceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetProductsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7530,7 +7866,8 @@ export type GetProducts = (
   respond: GetProductsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostProductsResponder = {
   with200(): ExpressRuntimeResponse<t_product>
@@ -7542,15 +7879,16 @@ export type PostProducts = (
   respond: PostProductsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetProductsSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_product[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -7566,7 +7904,8 @@ export type GetProductsSearch = (
   respond: GetProductsSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteProductsIdResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_product>
@@ -7583,7 +7922,8 @@ export type DeleteProductsId = (
   respond: DeleteProductsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetProductsIdResponder = {
   with200(): ExpressRuntimeResponse<t_product>
@@ -7600,7 +7940,8 @@ export type GetProductsId = (
   respond: GetProductsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostProductsIdResponder = {
   with200(): ExpressRuntimeResponse<t_product>
@@ -7617,7 +7958,8 @@ export type PostProductsId = (
   respond: PostProductsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetProductsProductFeaturesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7639,7 +7981,8 @@ export type GetProductsProductFeatures = (
   respond: GetProductsProductFeaturesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostProductsProductFeaturesResponder = {
   with200(): ExpressRuntimeResponse<t_product_feature>
@@ -7656,7 +7999,8 @@ export type PostProductsProductFeatures = (
   respond: PostProductsProductFeaturesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteProductsProductFeaturesIdResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_product_feature>
@@ -7673,7 +8017,8 @@ export type DeleteProductsProductFeaturesId = (
   respond: DeleteProductsProductFeaturesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetProductsProductFeaturesIdResponder = {
   with200(): ExpressRuntimeResponse<t_product_feature>
@@ -7690,7 +8035,8 @@ export type GetProductsProductFeaturesId = (
   respond: GetProductsProductFeaturesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPromotionCodesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7712,7 +8058,8 @@ export type GetPromotionCodes = (
   respond: GetPromotionCodesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPromotionCodesResponder = {
   with200(): ExpressRuntimeResponse<t_promotion_code>
@@ -7724,7 +8071,8 @@ export type PostPromotionCodes = (
   respond: PostPromotionCodesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetPromotionCodesPromotionCodeResponder = {
   with200(): ExpressRuntimeResponse<t_promotion_code>
@@ -7741,7 +8089,8 @@ export type GetPromotionCodesPromotionCode = (
   respond: GetPromotionCodesPromotionCodeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostPromotionCodesPromotionCodeResponder = {
   with200(): ExpressRuntimeResponse<t_promotion_code>
@@ -7758,7 +8107,8 @@ export type PostPromotionCodesPromotionCode = (
   respond: PostPromotionCodesPromotionCodeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7780,7 +8130,8 @@ export type GetQuotes = (
   respond: GetQuotesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostQuotesResponder = {
   with200(): ExpressRuntimeResponse<t_quote>
@@ -7792,7 +8143,8 @@ export type PostQuotes = (
   respond: PostQuotesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesQuoteResponder = {
   with200(): ExpressRuntimeResponse<t_quote>
@@ -7809,7 +8161,8 @@ export type GetQuotesQuote = (
   respond: GetQuotesQuoteResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostQuotesQuoteResponder = {
   with200(): ExpressRuntimeResponse<t_quote>
@@ -7826,7 +8179,8 @@ export type PostQuotesQuote = (
   respond: PostQuotesQuoteResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostQuotesQuoteAcceptResponder = {
   with200(): ExpressRuntimeResponse<t_quote>
@@ -7843,7 +8197,8 @@ export type PostQuotesQuoteAccept = (
   respond: PostQuotesQuoteAcceptResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostQuotesQuoteCancelResponder = {
   with200(): ExpressRuntimeResponse<t_quote>
@@ -7860,7 +8215,8 @@ export type PostQuotesQuoteCancel = (
   respond: PostQuotesQuoteCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesQuoteComputedUpfrontLineItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7882,7 +8238,8 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostQuotesQuoteFinalizeResponder = {
   with200(): ExpressRuntimeResponse<t_quote>
@@ -7899,7 +8256,8 @@ export type PostQuotesQuoteFinalize = (
   respond: PostQuotesQuoteFinalizeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesQuoteLineItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7921,7 +8279,8 @@ export type GetQuotesQuoteLineItems = (
   respond: GetQuotesQuoteLineItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesQuotePdfResponder = {
   with200(): ExpressRuntimeResponse<string>
@@ -7938,7 +8297,8 @@ export type GetQuotesQuotePdf = (
   respond: GetQuotesQuotePdfResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRadarEarlyFraudWarningsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7960,7 +8320,8 @@ export type GetRadarEarlyFraudWarnings = (
   respond: GetRadarEarlyFraudWarningsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRadarEarlyFraudWarningsEarlyFraudWarningResponder = {
   with200(): ExpressRuntimeResponse<t_radar_early_fraud_warning>
@@ -7977,7 +8338,8 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRadarValueListItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -7999,7 +8361,8 @@ export type GetRadarValueListItems = (
   respond: GetRadarValueListItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostRadarValueListItemsResponder = {
   with200(): ExpressRuntimeResponse<t_radar_value_list_item>
@@ -8011,7 +8374,8 @@ export type PostRadarValueListItems = (
   respond: PostRadarValueListItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteRadarValueListItemsItemResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_radar_value_list_item>
@@ -8028,7 +8392,8 @@ export type DeleteRadarValueListItemsItem = (
   respond: DeleteRadarValueListItemsItemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRadarValueListItemsItemResponder = {
   with200(): ExpressRuntimeResponse<t_radar_value_list_item>
@@ -8045,7 +8410,8 @@ export type GetRadarValueListItemsItem = (
   respond: GetRadarValueListItemsItemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRadarValueListsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8067,7 +8433,8 @@ export type GetRadarValueLists = (
   respond: GetRadarValueListsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostRadarValueListsResponder = {
   with200(): ExpressRuntimeResponse<t_radar_value_list>
@@ -8079,7 +8446,8 @@ export type PostRadarValueLists = (
   respond: PostRadarValueListsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteRadarValueListsValueListResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_radar_value_list>
@@ -8096,7 +8464,8 @@ export type DeleteRadarValueListsValueList = (
   respond: DeleteRadarValueListsValueListResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRadarValueListsValueListResponder = {
   with200(): ExpressRuntimeResponse<t_radar_value_list>
@@ -8113,7 +8482,8 @@ export type GetRadarValueListsValueList = (
   respond: GetRadarValueListsValueListResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostRadarValueListsValueListResponder = {
   with200(): ExpressRuntimeResponse<t_radar_value_list>
@@ -8130,7 +8500,8 @@ export type PostRadarValueListsValueList = (
   respond: PostRadarValueListsValueListResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRefundsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8152,7 +8523,8 @@ export type GetRefunds = (
   respond: GetRefundsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostRefundsResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -8164,7 +8536,8 @@ export type PostRefunds = (
   respond: PostRefundsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetRefundsRefundResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -8181,7 +8554,8 @@ export type GetRefundsRefund = (
   respond: GetRefundsRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostRefundsRefundResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -8198,7 +8572,8 @@ export type PostRefundsRefund = (
   respond: PostRefundsRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostRefundsRefundCancelResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -8215,7 +8590,8 @@ export type PostRefundsRefundCancel = (
   respond: PostRefundsRefundCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetReportingReportRunsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8237,7 +8613,8 @@ export type GetReportingReportRuns = (
   respond: GetReportingReportRunsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostReportingReportRunsResponder = {
   with200(): ExpressRuntimeResponse<t_reporting_report_run>
@@ -8249,7 +8626,8 @@ export type PostReportingReportRuns = (
   respond: PostReportingReportRunsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetReportingReportRunsReportRunResponder = {
   with200(): ExpressRuntimeResponse<t_reporting_report_run>
@@ -8266,7 +8644,8 @@ export type GetReportingReportRunsReportRun = (
   respond: GetReportingReportRunsReportRunResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetReportingReportTypesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8288,7 +8667,8 @@ export type GetReportingReportTypes = (
   respond: GetReportingReportTypesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetReportingReportTypesReportTypeResponder = {
   with200(): ExpressRuntimeResponse<t_reporting_report_type>
@@ -8305,7 +8685,8 @@ export type GetReportingReportTypesReportType = (
   respond: GetReportingReportTypesReportTypeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetReviewsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8327,7 +8708,8 @@ export type GetReviews = (
   respond: GetReviewsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetReviewsReviewResponder = {
   with200(): ExpressRuntimeResponse<t_review>
@@ -8344,7 +8726,8 @@ export type GetReviewsReview = (
   respond: GetReviewsReviewResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostReviewsReviewApproveResponder = {
   with200(): ExpressRuntimeResponse<t_review>
@@ -8361,7 +8744,8 @@ export type PostReviewsReviewApprove = (
   respond: PostReviewsReviewApproveResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSetupAttemptsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8383,7 +8767,8 @@ export type GetSetupAttempts = (
   respond: GetSetupAttemptsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSetupIntentsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8405,7 +8790,8 @@ export type GetSetupIntents = (
   respond: GetSetupIntentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSetupIntentsResponder = {
   with200(): ExpressRuntimeResponse<t_setup_intent>
@@ -8422,7 +8808,8 @@ export type PostSetupIntents = (
   respond: PostSetupIntentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSetupIntentsIntentResponder = {
   with200(): ExpressRuntimeResponse<t_setup_intent>
@@ -8439,7 +8826,8 @@ export type GetSetupIntentsIntent = (
   respond: GetSetupIntentsIntentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSetupIntentsIntentResponder = {
   with200(): ExpressRuntimeResponse<t_setup_intent>
@@ -8456,7 +8844,8 @@ export type PostSetupIntentsIntent = (
   respond: PostSetupIntentsIntentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSetupIntentsIntentCancelResponder = {
   with200(): ExpressRuntimeResponse<t_setup_intent>
@@ -8473,7 +8862,8 @@ export type PostSetupIntentsIntentCancel = (
   respond: PostSetupIntentsIntentCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSetupIntentsIntentConfirmResponder = {
   with200(): ExpressRuntimeResponse<t_setup_intent>
@@ -8490,7 +8880,8 @@ export type PostSetupIntentsIntentConfirm = (
   respond: PostSetupIntentsIntentConfirmResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSetupIntentsIntentVerifyMicrodepositsResponder = {
   with200(): ExpressRuntimeResponse<t_setup_intent>
@@ -8507,7 +8898,8 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
   respond: PostSetupIntentsIntentVerifyMicrodepositsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetShippingRatesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8529,7 +8921,8 @@ export type GetShippingRates = (
   respond: GetShippingRatesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostShippingRatesResponder = {
   with200(): ExpressRuntimeResponse<t_shipping_rate>
@@ -8541,7 +8934,8 @@ export type PostShippingRates = (
   respond: PostShippingRatesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetShippingRatesShippingRateTokenResponder = {
   with200(): ExpressRuntimeResponse<t_shipping_rate>
@@ -8558,7 +8952,8 @@ export type GetShippingRatesShippingRateToken = (
   respond: GetShippingRatesShippingRateTokenResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostShippingRatesShippingRateTokenResponder = {
   with200(): ExpressRuntimeResponse<t_shipping_rate>
@@ -8575,7 +8970,8 @@ export type PostShippingRatesShippingRateToken = (
   respond: PostShippingRatesShippingRateTokenResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSigmaSavedQueriesIdResponder = {
   with200(): ExpressRuntimeResponse<t_sigma_sigma_api_query>
@@ -8592,7 +8988,8 @@ export type PostSigmaSavedQueriesId = (
   respond: PostSigmaSavedQueriesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSigmaScheduledQueryRunsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8614,7 +9011,8 @@ export type GetSigmaScheduledQueryRuns = (
   respond: GetSigmaScheduledQueryRunsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSigmaScheduledQueryRunsScheduledQueryRunResponder = {
   with200(): ExpressRuntimeResponse<t_scheduled_query_run>
@@ -8631,7 +9029,8 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSourcesResponder = {
   with200(): ExpressRuntimeResponse<t_source>
@@ -8643,7 +9042,8 @@ export type PostSources = (
   respond: PostSourcesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSourcesSourceResponder = {
   with200(): ExpressRuntimeResponse<t_source>
@@ -8660,7 +9060,8 @@ export type GetSourcesSource = (
   respond: GetSourcesSourceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSourcesSourceResponder = {
   with200(): ExpressRuntimeResponse<t_source>
@@ -8677,7 +9078,8 @@ export type PostSourcesSource = (
   respond: PostSourcesSourceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSourcesSourceMandateNotificationsMandateNotificationResponder = {
   with200(): ExpressRuntimeResponse<t_source_mandate_notification>
@@ -8695,7 +9097,8 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSourcesSourceSourceTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8717,7 +9120,8 @@ export type GetSourcesSourceSourceTransactions = (
   respond: GetSourcesSourceSourceTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSourcesSourceSourceTransactionsSourceTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_source_transaction>
@@ -8735,7 +9139,8 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSourcesSourceVerifyResponder = {
   with200(): ExpressRuntimeResponse<t_source>
@@ -8752,7 +9157,8 @@ export type PostSourcesSourceVerify = (
   respond: PostSourcesSourceVerifyResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8774,7 +9180,8 @@ export type GetSubscriptionItems = (
   respond: GetSubscriptionItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionItemsResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_item>
@@ -8786,7 +9193,8 @@ export type PostSubscriptionItems = (
   respond: PostSubscriptionItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteSubscriptionItemsItemResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_subscription_item>
@@ -8803,7 +9211,8 @@ export type DeleteSubscriptionItemsItem = (
   respond: DeleteSubscriptionItemsItemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionItemsItemResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_item>
@@ -8820,7 +9229,8 @@ export type GetSubscriptionItemsItem = (
   respond: GetSubscriptionItemsItemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionItemsItemResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_item>
@@ -8837,7 +9247,8 @@ export type PostSubscriptionItemsItem = (
   respond: PostSubscriptionItemsItemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionSchedulesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8859,7 +9270,8 @@ export type GetSubscriptionSchedules = (
   respond: GetSubscriptionSchedulesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionSchedulesResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_schedule>
@@ -8876,7 +9288,8 @@ export type PostSubscriptionSchedules = (
   respond: PostSubscriptionSchedulesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionSchedulesScheduleResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_schedule>
@@ -8893,7 +9306,8 @@ export type GetSubscriptionSchedulesSchedule = (
   respond: GetSubscriptionSchedulesScheduleResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionSchedulesScheduleResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_schedule>
@@ -8910,7 +9324,8 @@ export type PostSubscriptionSchedulesSchedule = (
   respond: PostSubscriptionSchedulesScheduleResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionSchedulesScheduleCancelResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_schedule>
@@ -8927,7 +9342,8 @@ export type PostSubscriptionSchedulesScheduleCancel = (
   respond: PostSubscriptionSchedulesScheduleCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionSchedulesScheduleReleaseResponder = {
   with200(): ExpressRuntimeResponse<t_subscription_schedule>
@@ -8944,7 +9360,8 @@ export type PostSubscriptionSchedulesScheduleRelease = (
   respond: PostSubscriptionSchedulesScheduleReleaseResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -8966,7 +9383,8 @@ export type GetSubscriptions = (
   respond: GetSubscriptionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionsResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -8978,15 +9396,16 @@ export type PostSubscriptions = (
   respond: PostSubscriptionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionsSearchResponder = {
   with200(): ExpressRuntimeResponse<{
     data: t_subscription[]
     has_more: boolean
-    next_page?: string | null
+    next_page?: (string | null) | undefined
     object: "search_result"
-    total_count?: number
+    total_count?: number | undefined
     url: string
   }>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -9002,7 +9421,8 @@ export type GetSubscriptionsSearch = (
   respond: GetSubscriptionsSearchResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteSubscriptionsSubscriptionExposedIdResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -9019,7 +9439,8 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
   respond: DeleteSubscriptionsSubscriptionExposedIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetSubscriptionsSubscriptionExposedIdResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -9036,7 +9457,8 @@ export type GetSubscriptionsSubscriptionExposedId = (
   respond: GetSubscriptionsSubscriptionExposedIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionsSubscriptionExposedIdResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -9053,7 +9475,8 @@ export type PostSubscriptionsSubscriptionExposedId = (
   respond: PostSubscriptionsSubscriptionExposedIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteSubscriptionsSubscriptionExposedIdDiscountResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_discount>
@@ -9071,7 +9494,8 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostSubscriptionsSubscriptionResumeResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
@@ -9088,7 +9512,8 @@ export type PostSubscriptionsSubscriptionResume = (
   respond: PostSubscriptionsSubscriptionResumeResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxCalculationsResponder = {
   with200(): ExpressRuntimeResponse<t_tax_calculation>
@@ -9100,7 +9525,8 @@ export type PostTaxCalculations = (
   respond: PostTaxCalculationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxCalculationsCalculationResponder = {
   with200(): ExpressRuntimeResponse<t_tax_calculation>
@@ -9117,7 +9543,8 @@ export type GetTaxCalculationsCalculation = (
   respond: GetTaxCalculationsCalculationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxCalculationsCalculationLineItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9139,7 +9566,8 @@ export type GetTaxCalculationsCalculationLineItems = (
   respond: GetTaxCalculationsCalculationLineItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxRegistrationsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9161,7 +9589,8 @@ export type GetTaxRegistrations = (
   respond: GetTaxRegistrationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxRegistrationsResponder = {
   with200(): ExpressRuntimeResponse<t_tax_registration>
@@ -9173,7 +9602,8 @@ export type PostTaxRegistrations = (
   respond: PostTaxRegistrationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxRegistrationsIdResponder = {
   with200(): ExpressRuntimeResponse<t_tax_registration>
@@ -9190,7 +9620,8 @@ export type GetTaxRegistrationsId = (
   respond: GetTaxRegistrationsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxRegistrationsIdResponder = {
   with200(): ExpressRuntimeResponse<t_tax_registration>
@@ -9207,7 +9638,8 @@ export type PostTaxRegistrationsId = (
   respond: PostTaxRegistrationsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxSettingsResponder = {
   with200(): ExpressRuntimeResponse<t_tax_settings>
@@ -9224,7 +9656,8 @@ export type GetTaxSettings = (
   respond: GetTaxSettingsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxSettingsResponder = {
   with200(): ExpressRuntimeResponse<t_tax_settings>
@@ -9241,7 +9674,8 @@ export type PostTaxSettings = (
   respond: PostTaxSettingsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxTransactionsCreateFromCalculationResponder = {
   with200(): ExpressRuntimeResponse<t_tax_transaction>
@@ -9258,7 +9692,8 @@ export type PostTaxTransactionsCreateFromCalculation = (
   respond: PostTaxTransactionsCreateFromCalculationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxTransactionsCreateReversalResponder = {
   with200(): ExpressRuntimeResponse<t_tax_transaction>
@@ -9275,7 +9710,8 @@ export type PostTaxTransactionsCreateReversal = (
   respond: PostTaxTransactionsCreateReversalResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxTransactionsTransactionResponder = {
   with200(): ExpressRuntimeResponse<t_tax_transaction>
@@ -9292,7 +9728,8 @@ export type GetTaxTransactionsTransaction = (
   respond: GetTaxTransactionsTransactionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxTransactionsTransactionLineItemsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9314,7 +9751,8 @@ export type GetTaxTransactionsTransactionLineItems = (
   respond: GetTaxTransactionsTransactionLineItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxCodesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9336,7 +9774,8 @@ export type GetTaxCodes = (
   respond: GetTaxCodesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxCodesIdResponder = {
   with200(): ExpressRuntimeResponse<t_tax_code>
@@ -9353,7 +9792,8 @@ export type GetTaxCodesId = (
   respond: GetTaxCodesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxIdsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9375,7 +9815,8 @@ export type GetTaxIds = (
   respond: GetTaxIdsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxIdsResponder = {
   with200(): ExpressRuntimeResponse<t_tax_id>
@@ -9387,7 +9828,8 @@ export type PostTaxIds = (
   respond: PostTaxIdsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteTaxIdsIdResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_tax_id>
@@ -9404,7 +9846,8 @@ export type DeleteTaxIdsId = (
   respond: DeleteTaxIdsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxIdsIdResponder = {
   with200(): ExpressRuntimeResponse<t_tax_id>
@@ -9421,7 +9864,8 @@ export type GetTaxIdsId = (
   respond: GetTaxIdsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxRatesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9443,7 +9887,8 @@ export type GetTaxRates = (
   respond: GetTaxRatesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxRatesResponder = {
   with200(): ExpressRuntimeResponse<t_tax_rate>
@@ -9455,7 +9900,8 @@ export type PostTaxRates = (
   respond: PostTaxRatesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTaxRatesTaxRateResponder = {
   with200(): ExpressRuntimeResponse<t_tax_rate>
@@ -9472,7 +9918,8 @@ export type GetTaxRatesTaxRate = (
   respond: GetTaxRatesTaxRateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTaxRatesTaxRateResponder = {
   with200(): ExpressRuntimeResponse<t_tax_rate>
@@ -9489,7 +9936,8 @@ export type PostTaxRatesTaxRate = (
   respond: PostTaxRatesTaxRateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTerminalConfigurationsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9511,7 +9959,8 @@ export type GetTerminalConfigurations = (
   respond: GetTerminalConfigurationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalConfigurationsResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_configuration>
@@ -9528,7 +9977,8 @@ export type PostTerminalConfigurations = (
   respond: PostTerminalConfigurationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteTerminalConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_terminal_configuration>
@@ -9545,7 +9995,8 @@ export type DeleteTerminalConfigurationsConfiguration = (
   respond: DeleteTerminalConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTerminalConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<
@@ -9564,7 +10015,8 @@ export type GetTerminalConfigurationsConfiguration = (
   respond: GetTerminalConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalConfigurationsConfigurationResponder = {
   with200(): ExpressRuntimeResponse<
@@ -9583,7 +10035,8 @@ export type PostTerminalConfigurationsConfiguration = (
   respond: PostTerminalConfigurationsConfigurationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalConnectionTokensResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_connection_token>
@@ -9600,7 +10053,8 @@ export type PostTerminalConnectionTokens = (
   respond: PostTerminalConnectionTokensResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTerminalLocationsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9622,7 +10076,8 @@ export type GetTerminalLocations = (
   respond: GetTerminalLocationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalLocationsResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_location>
@@ -9634,7 +10089,8 @@ export type PostTerminalLocations = (
   respond: PostTerminalLocationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteTerminalLocationsLocationResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_terminal_location>
@@ -9651,7 +10107,8 @@ export type DeleteTerminalLocationsLocation = (
   respond: DeleteTerminalLocationsLocationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTerminalLocationsLocationResponder = {
   with200(): ExpressRuntimeResponse<
@@ -9670,7 +10127,8 @@ export type GetTerminalLocationsLocation = (
   respond: GetTerminalLocationsLocationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalLocationsLocationResponder = {
   with200(): ExpressRuntimeResponse<
@@ -9689,7 +10147,8 @@ export type PostTerminalLocationsLocation = (
   respond: PostTerminalLocationsLocationResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTerminalReadersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -9711,7 +10170,8 @@ export type GetTerminalReaders = (
   respond: GetTerminalReadersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
@@ -9723,7 +10183,8 @@ export type PostTerminalReaders = (
   respond: PostTerminalReadersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteTerminalReadersReaderResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_terminal_reader>
@@ -9740,7 +10201,8 @@ export type DeleteTerminalReadersReader = (
   respond: DeleteTerminalReadersReaderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTerminalReadersReaderResponder = {
   with200(): ExpressRuntimeResponse<
@@ -9759,7 +10221,8 @@ export type GetTerminalReadersReader = (
   respond: GetTerminalReadersReaderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersReaderResponder = {
   with200(): ExpressRuntimeResponse<
@@ -9778,7 +10241,8 @@ export type PostTerminalReadersReader = (
   respond: PostTerminalReadersReaderResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersReaderCancelActionResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
@@ -9795,7 +10259,8 @@ export type PostTerminalReadersReaderCancelAction = (
   respond: PostTerminalReadersReaderCancelActionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersReaderProcessPaymentIntentResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
@@ -9812,7 +10277,8 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
   respond: PostTerminalReadersReaderProcessPaymentIntentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersReaderProcessSetupIntentResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
@@ -9829,7 +10295,8 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
   respond: PostTerminalReadersReaderProcessSetupIntentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersReaderRefundPaymentResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
@@ -9846,7 +10313,8 @@ export type PostTerminalReadersReaderRefundPayment = (
   respond: PostTerminalReadersReaderRefundPaymentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTerminalReadersReaderSetReaderDisplayResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
@@ -9863,7 +10331,8 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
   respond: PostTerminalReadersReaderSetReaderDisplayResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersConfirmationTokensResponder = {
   with200(): ExpressRuntimeResponse<t_confirmation_token>
@@ -9880,7 +10349,8 @@ export type PostTestHelpersConfirmationTokens = (
   respond: PostTestHelpersConfirmationTokensResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersCustomersCustomerFundCashBalanceResponder = {
   with200(): ExpressRuntimeResponse<t_customer_cash_balance_transaction>
@@ -9897,7 +10367,8 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
   respond: PostTestHelpersCustomersCustomerFundCashBalanceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_authorization>
@@ -9914,7 +10385,8 @@ export type PostTestHelpersIssuingAuthorizations = (
   respond: PostTestHelpersIssuingAuthorizationsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder =
   {
@@ -9933,7 +10405,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_authorization>
@@ -9951,7 +10424,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder =
   {
@@ -9969,7 +10443,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder =
   {
@@ -9988,7 +10463,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
     respond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
     req: Request,
     res: Response,
-  ) => Promise<ExpressRuntimeResponse<unknown>>
+    next: NextFunction,
+  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder =
   {
@@ -10006,7 +10482,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder =
   {
@@ -10025,7 +10502,8 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingCardsCardShippingDeliverResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -10043,7 +10521,8 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   respond: PostTestHelpersIssuingCardsCardShippingDeliverResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingCardsCardShippingFailResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -10060,7 +10539,8 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
   respond: PostTestHelpersIssuingCardsCardShippingFailResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingCardsCardShippingReturnResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -10078,7 +10558,8 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
   respond: PostTestHelpersIssuingCardsCardShippingReturnResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingCardsCardShippingShipResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -10095,7 +10576,8 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
   respond: PostTestHelpersIssuingCardsCardShippingShipResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingCardsCardShippingSubmitResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_card>
@@ -10113,7 +10595,8 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   respond: PostTestHelpersIssuingCardsCardShippingSubmitResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder =
   {
@@ -10133,7 +10616,8 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder,
     req: Request,
     res: Response,
-  ) => Promise<ExpressRuntimeResponse<unknown>>
+    next: NextFunction,
+  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder =
   {
@@ -10153,7 +10637,8 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder,
     req: Request,
     res: Response,
-  ) => Promise<ExpressRuntimeResponse<unknown>>
+    next: NextFunction,
+  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder =
   {
@@ -10172,7 +10657,8 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder,
     req: Request,
     res: Response,
-  ) => Promise<ExpressRuntimeResponse<unknown>>
+    next: NextFunction,
+  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingSettlementsResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_settlement>
@@ -10189,7 +10675,8 @@ export type PostTestHelpersIssuingSettlements = (
   respond: PostTestHelpersIssuingSettlementsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingSettlementsSettlementCompleteResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_settlement>
@@ -10207,7 +10694,8 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   respond: PostTestHelpersIssuingSettlementsSettlementCompleteResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingTransactionsCreateForceCaptureResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_transaction>
@@ -10224,7 +10712,8 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   respond: PostTestHelpersIssuingTransactionsCreateForceCaptureResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_transaction>
@@ -10241,7 +10730,8 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   respond: PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersIssuingTransactionsTransactionRefundResponder = {
   with200(): ExpressRuntimeResponse<t_issuing_transaction>
@@ -10259,7 +10749,8 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   respond: PostTestHelpersIssuingTransactionsTransactionRefundResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersRefundsRefundExpireResponder = {
   with200(): ExpressRuntimeResponse<t_refund>
@@ -10276,7 +10767,8 @@ export type PostTestHelpersRefundsRefundExpire = (
   respond: PostTestHelpersRefundsRefundExpireResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder =
   {
@@ -10295,7 +10787,8 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   respond: PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTestHelpersTestClocksResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -10317,7 +10810,8 @@ export type GetTestHelpersTestClocks = (
   respond: GetTestHelpersTestClocksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTestClocksResponder = {
   with200(): ExpressRuntimeResponse<t_test_helpers_test_clock>
@@ -10334,7 +10828,8 @@ export type PostTestHelpersTestClocks = (
   respond: PostTestHelpersTestClocksResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteTestHelpersTestClocksTestClockResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_test_helpers_test_clock>
@@ -10351,7 +10846,8 @@ export type DeleteTestHelpersTestClocksTestClock = (
   respond: DeleteTestHelpersTestClocksTestClockResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTestHelpersTestClocksTestClockResponder = {
   with200(): ExpressRuntimeResponse<t_test_helpers_test_clock>
@@ -10368,7 +10864,8 @@ export type GetTestHelpersTestClocksTestClock = (
   respond: GetTestHelpersTestClocksTestClockResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTestClocksTestClockAdvanceResponder = {
   with200(): ExpressRuntimeResponse<t_test_helpers_test_clock>
@@ -10385,7 +10882,8 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
   respond: PostTestHelpersTestClocksTestClockAdvanceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryInboundTransfersIdFailResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_inbound_transfer>
@@ -10403,7 +10901,8 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   respond: PostTestHelpersTreasuryInboundTransfersIdFailResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryInboundTransfersIdReturnResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_inbound_transfer>
@@ -10421,7 +10920,8 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   respond: PostTestHelpersTreasuryInboundTransfersIdReturnResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryInboundTransfersIdSucceedResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_inbound_transfer>
@@ -10439,7 +10939,8 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   respond: PostTestHelpersTreasuryInboundTransfersIdSucceedResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -10456,7 +10957,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
   respond: PostTestHelpersTreasuryOutboundPaymentsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdFailResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -10474,7 +10976,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   respond: PostTestHelpersTreasuryOutboundPaymentsIdFailResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdPostResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -10492,7 +10995,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   respond: PostTestHelpersTreasuryOutboundPaymentsIdPostResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -10510,7 +11014,8 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   respond: PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder =
   {
@@ -10528,7 +11033,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder =
   {
@@ -10547,7 +11053,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder =
   {
@@ -10566,7 +11073,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder =
   {
@@ -10585,7 +11093,8 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryReceivedCreditsResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_received_credit>
@@ -10602,7 +11111,8 @@ export type PostTestHelpersTreasuryReceivedCredits = (
   respond: PostTestHelpersTreasuryReceivedCreditsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTestHelpersTreasuryReceivedDebitsResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_received_debit>
@@ -10619,7 +11129,8 @@ export type PostTestHelpersTreasuryReceivedDebits = (
   respond: PostTestHelpersTreasuryReceivedDebitsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTokensResponder = {
   with200(): ExpressRuntimeResponse<t_token>
@@ -10631,7 +11142,8 @@ export type PostTokens = (
   respond: PostTokensResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTokensTokenResponder = {
   with200(): ExpressRuntimeResponse<t_token>
@@ -10648,7 +11160,8 @@ export type GetTokensToken = (
   respond: GetTokensTokenResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTopupsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -10670,7 +11183,8 @@ export type GetTopups = (
   respond: GetTopupsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTopupsResponder = {
   with200(): ExpressRuntimeResponse<t_topup>
@@ -10682,7 +11196,8 @@ export type PostTopups = (
   respond: PostTopupsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTopupsTopupResponder = {
   with200(): ExpressRuntimeResponse<t_topup>
@@ -10699,7 +11214,8 @@ export type GetTopupsTopup = (
   respond: GetTopupsTopupResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTopupsTopupResponder = {
   with200(): ExpressRuntimeResponse<t_topup>
@@ -10716,7 +11232,8 @@ export type PostTopupsTopup = (
   respond: PostTopupsTopupResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTopupsTopupCancelResponder = {
   with200(): ExpressRuntimeResponse<t_topup>
@@ -10733,7 +11250,8 @@ export type PostTopupsTopupCancel = (
   respond: PostTopupsTopupCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTransfersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -10755,7 +11273,8 @@ export type GetTransfers = (
   respond: GetTransfersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTransfersResponder = {
   with200(): ExpressRuntimeResponse<t_transfer>
@@ -10767,7 +11286,8 @@ export type PostTransfers = (
   respond: PostTransfersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTransfersIdReversalsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -10789,7 +11309,8 @@ export type GetTransfersIdReversals = (
   respond: GetTransfersIdReversalsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTransfersIdReversalsResponder = {
   with200(): ExpressRuntimeResponse<t_transfer_reversal>
@@ -10806,7 +11327,8 @@ export type PostTransfersIdReversals = (
   respond: PostTransfersIdReversalsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTransfersTransferResponder = {
   with200(): ExpressRuntimeResponse<t_transfer>
@@ -10823,7 +11345,8 @@ export type GetTransfersTransfer = (
   respond: GetTransfersTransferResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTransfersTransferResponder = {
   with200(): ExpressRuntimeResponse<t_transfer>
@@ -10840,7 +11363,8 @@ export type PostTransfersTransfer = (
   respond: PostTransfersTransferResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTransfersTransferReversalsIdResponder = {
   with200(): ExpressRuntimeResponse<t_transfer_reversal>
@@ -10857,7 +11381,8 @@ export type GetTransfersTransferReversalsId = (
   respond: GetTransfersTransferReversalsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTransfersTransferReversalsIdResponder = {
   with200(): ExpressRuntimeResponse<t_transfer_reversal>
@@ -10874,7 +11399,8 @@ export type PostTransfersTransferReversalsId = (
   respond: PostTransfersTransferReversalsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryCreditReversalsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -10896,7 +11422,8 @@ export type GetTreasuryCreditReversals = (
   respond: GetTreasuryCreditReversalsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryCreditReversalsResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_credit_reversal>
@@ -10913,7 +11440,8 @@ export type PostTreasuryCreditReversals = (
   respond: PostTreasuryCreditReversalsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryCreditReversalsCreditReversalResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_credit_reversal>
@@ -10930,7 +11458,8 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   respond: GetTreasuryCreditReversalsCreditReversalResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryDebitReversalsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -10952,7 +11481,8 @@ export type GetTreasuryDebitReversals = (
   respond: GetTreasuryDebitReversalsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryDebitReversalsResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_debit_reversal>
@@ -10969,7 +11499,8 @@ export type PostTreasuryDebitReversals = (
   respond: PostTreasuryDebitReversalsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryDebitReversalsDebitReversalResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_debit_reversal>
@@ -10986,7 +11517,8 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   respond: GetTreasuryDebitReversalsDebitReversalResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryFinancialAccountsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11008,7 +11540,8 @@ export type GetTreasuryFinancialAccounts = (
   respond: GetTreasuryFinancialAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryFinancialAccountsResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_financial_account>
@@ -11025,7 +11558,8 @@ export type PostTreasuryFinancialAccounts = (
   respond: PostTreasuryFinancialAccountsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryFinancialAccountsFinancialAccountResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_financial_account>
@@ -11042,7 +11576,8 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryFinancialAccountsFinancialAccountResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_financial_account>
@@ -11060,7 +11595,8 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
   respond: PostTreasuryFinancialAccountsFinancialAccountResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryFinancialAccountsFinancialAccountCloseResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_financial_account>
@@ -11078,7 +11614,8 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   respond: PostTreasuryFinancialAccountsFinancialAccountCloseResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_financial_account_features>
@@ -11096,7 +11633,8 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_financial_account_features>
@@ -11114,7 +11652,8 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   respond: PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryInboundTransfersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11136,7 +11675,8 @@ export type GetTreasuryInboundTransfers = (
   respond: GetTreasuryInboundTransfersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryInboundTransfersResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_inbound_transfer>
@@ -11153,7 +11693,8 @@ export type PostTreasuryInboundTransfers = (
   respond: PostTreasuryInboundTransfersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryInboundTransfersIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_inbound_transfer>
@@ -11170,7 +11711,8 @@ export type GetTreasuryInboundTransfersId = (
   respond: GetTreasuryInboundTransfersIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryInboundTransfersInboundTransferCancelResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_inbound_transfer>
@@ -11188,7 +11730,8 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
   respond: PostTreasuryInboundTransfersInboundTransferCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryOutboundPaymentsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11210,7 +11753,8 @@ export type GetTreasuryOutboundPayments = (
   respond: GetTreasuryOutboundPaymentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryOutboundPaymentsResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -11227,7 +11771,8 @@ export type PostTreasuryOutboundPayments = (
   respond: PostTreasuryOutboundPaymentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryOutboundPaymentsIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -11244,7 +11789,8 @@ export type GetTreasuryOutboundPaymentsId = (
   respond: GetTreasuryOutboundPaymentsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryOutboundPaymentsIdCancelResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_payment>
@@ -11261,7 +11807,8 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
   respond: PostTreasuryOutboundPaymentsIdCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryOutboundTransfersResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11283,7 +11830,8 @@ export type GetTreasuryOutboundTransfers = (
   respond: GetTreasuryOutboundTransfersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryOutboundTransfersResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_transfer>
@@ -11300,7 +11848,8 @@ export type PostTreasuryOutboundTransfers = (
   respond: PostTreasuryOutboundTransfersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryOutboundTransfersOutboundTransferResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_transfer>
@@ -11317,7 +11866,8 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostTreasuryOutboundTransfersOutboundTransferCancelResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_outbound_transfer>
@@ -11335,7 +11885,8 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   respond: PostTreasuryOutboundTransfersOutboundTransferCancelResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryReceivedCreditsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11357,7 +11908,8 @@ export type GetTreasuryReceivedCredits = (
   respond: GetTreasuryReceivedCreditsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryReceivedCreditsIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_received_credit>
@@ -11374,7 +11926,8 @@ export type GetTreasuryReceivedCreditsId = (
   respond: GetTreasuryReceivedCreditsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryReceivedDebitsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11396,7 +11949,8 @@ export type GetTreasuryReceivedDebits = (
   respond: GetTreasuryReceivedDebitsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryReceivedDebitsIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_received_debit>
@@ -11413,7 +11967,8 @@ export type GetTreasuryReceivedDebitsId = (
   respond: GetTreasuryReceivedDebitsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryTransactionEntriesResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11435,7 +11990,8 @@ export type GetTreasuryTransactionEntries = (
   respond: GetTreasuryTransactionEntriesResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryTransactionEntriesIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_transaction_entry>
@@ -11452,7 +12008,8 @@ export type GetTreasuryTransactionEntriesId = (
   respond: GetTreasuryTransactionEntriesIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryTransactionsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11474,7 +12031,8 @@ export type GetTreasuryTransactions = (
   respond: GetTreasuryTransactionsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTreasuryTransactionsIdResponder = {
   with200(): ExpressRuntimeResponse<t_treasury_transaction>
@@ -11491,7 +12049,8 @@ export type GetTreasuryTransactionsId = (
   respond: GetTreasuryTransactionsIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetWebhookEndpointsResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -11513,7 +12072,8 @@ export type GetWebhookEndpoints = (
   respond: GetWebhookEndpointsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostWebhookEndpointsResponder = {
   with200(): ExpressRuntimeResponse<t_webhook_endpoint>
@@ -11525,7 +12085,8 @@ export type PostWebhookEndpoints = (
   respond: PostWebhookEndpointsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteWebhookEndpointsWebhookEndpointResponder = {
   with200(): ExpressRuntimeResponse<t_deleted_webhook_endpoint>
@@ -11542,7 +12103,8 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   respond: DeleteWebhookEndpointsWebhookEndpointResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetWebhookEndpointsWebhookEndpointResponder = {
   with200(): ExpressRuntimeResponse<t_webhook_endpoint>
@@ -11559,7 +12121,8 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   respond: GetWebhookEndpointsWebhookEndpointResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type PostWebhookEndpointsWebhookEndpointResponder = {
   with200(): ExpressRuntimeResponse<t_webhook_endpoint>
@@ -11576,7 +12139,8 @@ export type PostWebhookEndpointsWebhookEndpoint = (
   respond: PostWebhookEndpointsWebhookEndpointResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type Implementation = {
   getAccount: GetAccount
@@ -12196,10 +12760,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccount(input, responder, req, res)
+          .getAccount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -12268,10 +12837,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountLinks(input, responder, req, res)
+          .postAccountLinks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -12495,10 +13069,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountSessions(input, responder, req, res)
+          .postAccountSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -12596,10 +13175,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccounts(input, responder, req, res)
+          .getAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -13266,10 +13850,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccounts(input, responder, req, res)
+          .postAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -13333,10 +13922,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteAccountsAccount(input, responder, req, res)
+          .deleteAccountsAccount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -13413,10 +14007,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccount(input, responder, req, res)
+          .getAccountsAccount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14054,10 +14653,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccount(input, responder, req, res)
+          .postAccountsAccount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14150,10 +14754,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountBankAccounts(input, responder, req, res)
+          .postAccountsAccountBankAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14220,10 +14829,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteAccountsAccountBankAccountsId(input, responder, req, res)
+          .deleteAccountsAccountBankAccountsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14306,10 +14920,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountBankAccountsId(input, responder, req, res)
+          .getAccountsAccountBankAccountsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14399,10 +15018,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountBankAccountsId(input, responder, req, res)
+          .postAccountsAccountBankAccountsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14502,10 +15126,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountCapabilities(input, responder, req, res)
+          .getAccountsAccountCapabilities(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14585,10 +15214,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountCapabilitiesCapability(input, responder, req, res)
+          .getAccountsAccountCapabilitiesCapability(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14661,10 +15301,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountCapabilitiesCapability(input, responder, req, res)
+          .postAccountsAccountCapabilitiesCapability(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14770,10 +15421,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountExternalAccounts(input, responder, req, res)
+          .getAccountsAccountExternalAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14871,10 +15527,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountExternalAccounts(input, responder, req, res)
+          .postAccountsAccountExternalAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -14944,10 +15605,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteAccountsAccountExternalAccountsId(input, responder, req, res)
+          .deleteAccountsAccountExternalAccountsId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15030,10 +15702,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountExternalAccountsId(input, responder, req, res)
+          .getAccountsAccountExternalAccountsId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15126,10 +15809,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountExternalAccountsId(input, responder, req, res)
+          .postAccountsAccountExternalAccountsId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15198,10 +15892,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountLoginLinks(input, responder, req, res)
+          .postAccountsAccountLoginLinks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15309,10 +16008,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountPeople(input, responder, req, res)
+          .getAccountsAccountPeople(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15518,10 +16222,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountPeople(input, responder, req, res)
+          .postAccountsAccountPeople(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15586,10 +16295,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteAccountsAccountPeoplePerson(input, responder, req, res)
+          .deleteAccountsAccountPeoplePerson(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15672,10 +16386,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountPeoplePerson(input, responder, req, res)
+          .getAccountsAccountPeoplePerson(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15884,10 +16603,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountPeoplePerson(input, responder, req, res)
+          .postAccountsAccountPeoplePerson(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -15995,10 +16719,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountPersons(input, responder, req, res)
+          .getAccountsAccountPersons(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16204,10 +16933,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountPersons(input, responder, req, res)
+          .postAccountsAccountPersons(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16274,10 +17008,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteAccountsAccountPersonsPerson(input, responder, req, res)
+          .deleteAccountsAccountPersonsPerson(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16360,10 +17099,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAccountsAccountPersonsPerson(input, responder, req, res)
+          .getAccountsAccountPersonsPerson(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16572,10 +17316,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountPersonsPerson(input, responder, req, res)
+          .postAccountsAccountPersonsPerson(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16642,10 +17391,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAccountsAccountReject(input, responder, req, res)
+          .postAccountsAccountReject(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16733,10 +17487,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getApplePayDomains(input, responder, req, res)
+          .getApplePayDomains(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16795,10 +17554,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postApplePayDomains(input, responder, req, res)
+          .postApplePayDomains(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16860,10 +17624,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteApplePayDomainsDomain(input, responder, req, res)
+          .deleteApplePayDomainsDomain(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -16940,10 +17709,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getApplePayDomainsDomain(input, responder, req, res)
+          .getApplePayDomainsDomain(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17042,10 +17816,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getApplicationFees(input, responder, req, res)
+          .getApplicationFees(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17123,10 +17902,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getApplicationFeesFeeRefundsId(input, responder, req, res)
+          .getApplicationFeesFeeRefundsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17196,10 +17980,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postApplicationFeesFeeRefundsId(input, responder, req, res)
+          .postApplicationFeesFeeRefundsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17276,10 +18065,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getApplicationFeesId(input, responder, req, res)
+          .getApplicationFeesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17347,10 +18141,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postApplicationFeesIdRefund(input, responder, req, res)
+          .postApplicationFeesIdRefund(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17448,10 +18247,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getApplicationFeesIdRefunds(input, responder, req, res)
+          .getApplicationFeesIdRefunds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17521,10 +18325,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postApplicationFeesIdRefunds(input, responder, req, res)
+          .postApplicationFeesIdRefunds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17617,10 +18426,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAppsSecrets(input, responder, req, res)
+          .getAppsSecrets(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17685,10 +18499,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAppsSecrets(input, responder, req, res)
+          .postAppsSecrets(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17751,10 +18570,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postAppsSecretsDelete(input, responder, req, res)
+          .postAppsSecretsDelete(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17828,10 +18652,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getAppsSecretsFind(input, responder, req, res)
+          .getAppsSecretsFind(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -17900,10 +18729,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBalance(input, responder, req, res)
+          .getBalance(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18008,10 +18842,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBalanceHistory(input, responder, req, res)
+          .getBalanceHistory(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18086,10 +18925,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBalanceHistoryId(input, responder, req, res)
+          .getBalanceHistoryId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18194,10 +19038,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBalanceTransactions(input, responder, req, res)
+          .getBalanceTransactions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18272,10 +19121,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBalanceTransactionsId(input, responder, req, res)
+          .getBalanceTransactionsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18364,10 +19218,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingAlerts(input, responder, req, res)
+          .getBillingAlerts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18442,10 +19301,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingAlerts(input, responder, req, res)
+          .postBillingAlerts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18520,10 +19384,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingAlertsId(input, responder, req, res)
+          .getBillingAlertsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18587,10 +19456,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingAlertsIdActivate(input, responder, req, res)
+          .postBillingAlertsIdActivate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18656,10 +19530,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingAlertsIdArchive(input, responder, req, res)
+          .postBillingAlertsIdArchive(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18725,10 +19604,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingAlertsIdDeactivate(input, responder, req, res)
+          .postBillingAlertsIdDeactivate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18815,10 +19699,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingCreditBalanceSummary(input, responder, req, res)
+          .getBillingCreditBalanceSummary(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -18915,10 +19804,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingCreditBalanceTransactions(input, responder, req, res)
+          .getBillingCreditBalanceTransactions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19005,10 +19899,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingCreditBalanceTransactionsId(input, responder, req, res)
+          .getBillingCreditBalanceTransactionsId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19104,10 +20009,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingCreditGrants(input, responder, req, res)
+          .getBillingCreditGrants(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19182,10 +20092,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingCreditGrants(input, responder, req, res)
+          .postBillingCreditGrants(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19260,10 +20175,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingCreditGrantsId(input, responder, req, res)
+          .getBillingCreditGrantsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19331,10 +20251,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingCreditGrantsId(input, responder, req, res)
+          .postBillingCreditGrantsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19398,10 +20323,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingCreditGrantsIdExpire(input, responder, req, res)
+          .postBillingCreditGrantsIdExpire(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19467,10 +20397,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingCreditGrantsIdVoid(input, responder, req, res)
+          .postBillingCreditGrantsIdVoid(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19536,10 +20471,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingMeterEventAdjustments(input, responder, req, res)
+          .postBillingMeterEventAdjustments(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19603,10 +20543,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingMeterEvents(input, responder, req, res)
+          .postBillingMeterEvents(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19694,10 +20639,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingMeters(input, responder, req, res)
+          .getBillingMeters(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19770,10 +20720,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingMeters(input, responder, req, res)
+          .postBillingMeters(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19848,10 +20803,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingMetersId(input, responder, req, res)
+          .getBillingMetersId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19918,10 +20878,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingMetersId(input, responder, req, res)
+          .postBillingMetersId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -19985,10 +20950,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingMetersIdDeactivate(input, responder, req, res)
+          .postBillingMetersIdDeactivate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20095,10 +21065,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingMetersIdEventSummaries(input, responder, req, res)
+          .getBillingMetersIdEventSummaries(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20164,10 +21139,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingMetersIdReactivate(input, responder, req, res)
+          .postBillingMetersIdReactivate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20264,10 +21244,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getBillingPortalConfigurations(input, responder, req, res)
+          .getBillingPortalConfigurations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20434,10 +21419,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingPortalConfigurations(input, responder, req, res)
+          .postBillingPortalConfigurations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20526,10 +21516,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20722,10 +21718,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -20898,10 +21900,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postBillingPortalSessions(input, responder, req, res)
+          .postBillingPortalSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21002,10 +22009,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCharges(input, responder, req, res)
+          .getCharges(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21133,10 +22145,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCharges(input, responder, req, res)
+          .postCharges(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21212,9 +22229,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_charge[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -21227,10 +22244,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getChargesSearch(input, responder, req, res)
+          .getChargesSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21305,10 +22327,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getChargesCharge(input, responder, req, res)
+          .getChargesCharge(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21400,10 +22427,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesCharge(input, responder, req, res)
+          .postChargesCharge(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21479,10 +22511,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesChargeCapture(input, responder, req, res)
+          .postChargesChargeCapture(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21557,10 +22594,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getChargesChargeDispute(input, responder, req, res)
+          .getChargesChargeDispute(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21767,10 +22809,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesChargeDispute(input, responder, req, res)
+          .postChargesChargeDispute(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21834,10 +22881,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesChargeDisputeClose(input, responder, req, res)
+          .postChargesChargeDisputeClose(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -21914,10 +22966,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesChargeRefund(input, responder, req, res)
+          .postChargesChargeRefund(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -22011,10 +23068,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getChargesChargeRefunds(input, responder, req, res)
+          .getChargesChargeRefunds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -22092,10 +23154,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesChargeRefunds(input, responder, req, res)
+          .postChargesChargeRefunds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -22171,10 +23238,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getChargesChargeRefundsRefund(input, responder, req, res)
+          .getChargesChargeRefundsRefund(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -22244,10 +23316,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postChargesChargeRefundsRefund(input, responder, req, res)
+          .postChargesChargeRefundsRefund(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -22353,10 +23430,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCheckoutSessions(input, responder, req, res)
+          .getCheckoutSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -23489,10 +24571,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCheckoutSessions(input, responder, req, res)
+          .postCheckoutSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -23567,10 +24654,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCheckoutSessionsSession(input, responder, req, res)
+          .getCheckoutSessionsSession(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -23721,10 +24813,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCheckoutSessionsSession(input, responder, req, res)
+          .postCheckoutSessionsSession(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -23790,10 +24887,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCheckoutSessionsSessionExpire(input, responder, req, res)
+          .postCheckoutSessionsSessionExpire(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -23896,10 +24998,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCheckoutSessionsSessionLineItems(input, responder, req, res)
+          .getCheckoutSessionsSessionLineItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -23991,10 +25098,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getClimateOrders(input, responder, req, res)
+          .getClimateOrders(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24058,10 +25170,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postClimateOrders(input, responder, req, res)
+          .postClimateOrders(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24138,10 +25255,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getClimateOrdersOrder(input, responder, req, res)
+          .getClimateOrdersOrder(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24218,10 +25340,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postClimateOrdersOrder(input, responder, req, res)
+          .postClimateOrdersOrder(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24285,10 +25412,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postClimateOrdersOrderCancel(input, responder, req, res)
+          .postClimateOrdersOrderCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24377,10 +25509,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getClimateProducts(input, responder, req, res)
+          .getClimateProducts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24455,10 +25592,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getClimateProductsProduct(input, responder, req, res)
+          .getClimateProductsProduct(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24545,10 +25687,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getClimateSuppliers(input, responder, req, res)
+          .getClimateSuppliers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24623,10 +25770,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getClimateSuppliersSupplier(input, responder, req, res)
+          .getClimateSuppliersSupplier(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24705,10 +25857,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getConfirmationTokensConfirmationToken(input, responder, req, res)
+          .getConfirmationTokensConfirmationToken(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24800,10 +25963,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCountrySpecs(input, responder, req, res)
+          .getCountrySpecs(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24880,10 +26048,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCountrySpecsCountry(input, responder, req, res)
+          .getCountrySpecsCountry(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -24981,10 +26154,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCoupons(input, responder, req, res)
+          .getCoupons(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25060,10 +26238,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCoupons(input, responder, req, res)
+          .postCoupons(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25127,10 +26310,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCouponsCoupon(input, responder, req, res)
+          .deleteCouponsCoupon(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25205,10 +26393,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCouponsCoupon(input, responder, req, res)
+          .getCouponsCoupon(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25281,10 +26474,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCouponsCoupon(input, responder, req, res)
+          .postCouponsCoupon(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25384,10 +26582,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCreditNotes(input, responder, req, res)
+          .getCreditNotes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25501,10 +26704,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCreditNotes(input, responder, req, res)
+          .postCreditNotes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25635,10 +26843,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCreditNotesPreview(input, responder, req, res)
+          .getCreditNotesPreview(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25788,10 +27001,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCreditNotesPreviewLines(input, responder, req, res)
+          .getCreditNotesPreviewLines(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25889,10 +27107,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCreditNotesCreditNoteLines(input, responder, req, res)
+          .getCreditNotesCreditNoteLines(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -25969,10 +27192,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCreditNotesId(input, responder, req, res)
+          .getCreditNotesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26040,10 +27268,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCreditNotesId(input, responder, req, res)
+          .postCreditNotesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26109,10 +27342,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCreditNotesIdVoid(input, responder, req, res)
+          .postCreditNotesIdVoid(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26196,10 +27434,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomerSessions(input, responder, req, res)
+          .postCustomerSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26299,10 +27542,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomers(input, responder, req, res)
+          .getCustomers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26559,10 +27807,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomers(input, responder, req, res)
+          .postCustomers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26638,9 +27891,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_customer[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -26653,10 +27906,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersSearch(input, responder, req, res)
+          .getCustomersSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26718,10 +27976,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCustomersCustomer(input, responder, req, res)
+          .deleteCustomersCustomer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26800,10 +28063,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomer(input, responder, req, res)
+          .getCustomersCustomer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -26997,10 +28265,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomer(input, responder, req, res)
+          .postCustomersCustomer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27098,10 +28371,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerBalanceTransactions(input, responder, req, res)
+          .getCustomersCustomerBalanceTransactions(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27179,10 +28463,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerBalanceTransactions(input, responder, req, res)
+          .postCustomersCustomerBalanceTransactions(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27274,10 +28569,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27362,10 +28663,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27468,10 +28775,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerBankAccounts(input, responder, req, res)
+          .getCustomersCustomerBankAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27576,10 +28888,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerBankAccounts(input, responder, req, res)
+          .postCustomersCustomerBankAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27659,10 +28976,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCustomersCustomerBankAccountsId(input, responder, req, res)
+          .deleteCustomersCustomerBankAccountsId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27745,10 +29073,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerBankAccountsId(input, responder, req, res)
+          .getCustomersCustomerBankAccountsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27863,10 +29196,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerBankAccountsId(input, responder, req, res)
+          .postCustomersCustomerBankAccountsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -27939,10 +29277,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerBankAccountsIdVerify(input, responder, req, res)
+          .postCustomersCustomerBankAccountsIdVerify(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28043,10 +29392,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerCards(input, responder, req, res)
+          .getCustomersCustomerCards(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28149,10 +29503,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerCards(input, responder, req, res)
+          .postCustomersCustomerCards(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28229,10 +29588,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCustomersCustomerCardsId(input, responder, req, res)
+          .deleteCustomersCustomerCardsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28310,10 +29674,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerCardsId(input, responder, req, res)
+          .getCustomersCustomerCardsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28425,10 +29794,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerCardsId(input, responder, req, res)
+          .postCustomersCustomerCardsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28507,10 +29881,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerCashBalance(input, responder, req, res)
+          .getCustomersCustomerCashBalance(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28585,10 +29964,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerCashBalance(input, responder, req, res)
+          .postCustomersCustomerCashBalance(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28693,10 +30077,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28787,10 +30177,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28859,10 +30255,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCustomersCustomerDiscount(input, responder, req, res)
+          .deleteCustomersCustomerDiscount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -28939,10 +30340,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerDiscount(input, responder, req, res)
+          .getCustomersCustomerDiscount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29023,10 +30429,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerFundingInstructions(input, responder, req, res)
+          .postCustomersCustomerFundingInstructions(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29181,10 +30598,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerPaymentMethods(input, responder, req, res)
+          .getCustomersCustomerPaymentMethods(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29272,10 +30694,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29383,10 +30811,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerSources(input, responder, req, res)
+          .getCustomersCustomerSources(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29491,10 +30924,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerSources(input, responder, req, res)
+          .postCustomersCustomerSources(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29571,10 +31009,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCustomersCustomerSourcesId(input, responder, req, res)
+          .deleteCustomersCustomerSourcesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29652,10 +31095,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerSourcesId(input, responder, req, res)
+          .getCustomersCustomerSourcesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29767,10 +31215,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerSourcesId(input, responder, req, res)
+          .postCustomersCustomerSourcesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29840,10 +31293,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerSourcesIdVerify(input, responder, req, res)
+          .postCustomersCustomerSourcesIdVerify(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -29946,10 +31410,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerSubscriptions(input, responder, req, res)
+          .getCustomersCustomerSubscriptions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -30357,10 +31826,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerSubscriptions(input, responder, req, res)
+          .postCustomersCustomerSubscriptions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -30441,10 +31915,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -30533,10 +32013,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -30987,10 +32473,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31065,10 +32557,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31157,10 +32655,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31261,10 +32765,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerTaxIds(input, responder, req, res)
+          .getCustomersCustomerTaxIds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31433,10 +32942,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postCustomersCustomerTaxIds(input, responder, req, res)
+          .postCustomersCustomerTaxIds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31503,10 +33017,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteCustomersCustomerTaxIdsId(input, responder, req, res)
+          .deleteCustomersCustomerTaxIdsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31584,10 +33103,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getCustomersCustomerTaxIdsId(input, responder, req, res)
+          .getCustomersCustomerTaxIdsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31689,10 +33213,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getDisputes(input, responder, req, res)
+          .getDisputes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31769,10 +33298,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getDisputesDispute(input, responder, req, res)
+          .getDisputesDispute(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -31981,10 +33515,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postDisputesDispute(input, responder, req, res)
+          .postDisputesDispute(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32048,10 +33587,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postDisputesDisputeClose(input, responder, req, res)
+          .postDisputesDisputeClose(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32142,10 +33686,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getEntitlementsActiveEntitlements(input, responder, req, res)
+          .getEntitlementsActiveEntitlements(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32232,10 +33781,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getEntitlementsActiveEntitlementsId(input, responder, req, res)
+          .getEntitlementsActiveEntitlementsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32333,10 +33887,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getEntitlementsFeatures(input, responder, req, res)
+          .getEntitlementsFeatures(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32395,10 +33954,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postEntitlementsFeatures(input, responder, req, res)
+          .postEntitlementsFeatures(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32473,10 +34037,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getEntitlementsFeaturesId(input, responder, req, res)
+          .getEntitlementsFeaturesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32545,10 +34114,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postEntitlementsFeaturesId(input, responder, req, res)
+          .postEntitlementsFeaturesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32614,10 +34188,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postEphemeralKeys(input, responder, req, res)
+          .postEphemeralKeys(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32683,10 +34262,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteEphemeralKeysKey(input, responder, req, res)
+          .deleteEphemeralKeysKey(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32792,10 +34376,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getEvents(input, responder, req, res)
+          .getEvents(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32870,10 +34459,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getEventsId(input, responder, req, res)
+          .getEventsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -32960,10 +34554,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getExchangeRates(input, responder, req, res)
+          .getExchangeRates(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33040,10 +34639,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getExchangeRatesRateId(input, responder, req, res)
+          .getExchangeRatesRateId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33130,10 +34734,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postExternalAccountsId(input, responder, req, res)
+          .postExternalAccountsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33233,10 +34842,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFileLinks(input, responder, req, res)
+          .getFileLinks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33297,10 +34911,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postFileLinks(input, responder, req, res)
+          .postFileLinks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33375,10 +34994,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFileLinksLink(input, responder, req, res)
+          .getFileLinksLink(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33448,10 +35072,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postFileLinksLink(input, responder, req, res)
+          .postFileLinksLink(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33570,10 +35199,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFiles(input, responder, req, res)
+          .getFiles(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33652,10 +35286,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postFiles(input, responder, req, res)
+          .postFiles(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33730,10 +35369,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFilesFile(input, responder, req, res)
+          .getFilesFile(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33833,10 +35477,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFinancialConnectionsAccounts(input, responder, req, res)
+          .getFinancialConnectionsAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -33920,10 +35569,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFinancialConnectionsAccountsAccount(input, responder, req, res)
+          .getFinancialConnectionsAccountsAccount(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34002,10 +35662,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34114,10 +35780,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34198,10 +35870,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34282,10 +35960,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34365,10 +36049,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34462,10 +36152,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postFinancialConnectionsSessions(input, responder, req, res)
+          .postFinancialConnectionsSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34549,10 +36244,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFinancialConnectionsSessionsSession(input, responder, req, res)
+          .getFinancialConnectionsSessionsSession(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34663,10 +36369,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getFinancialConnectionsTransactions(input, responder, req, res)
+          .getFinancialConnectionsTransactions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34758,10 +36469,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34861,10 +36578,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getForwardingRequests(input, responder, req, res)
+          .getForwardingRequests(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -34947,10 +36669,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postForwardingRequests(input, responder, req, res)
+          .postForwardingRequests(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35025,10 +36752,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getForwardingRequestsId(input, responder, req, res)
+          .getForwardingRequestsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35135,10 +36867,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIdentityVerificationReports(input, responder, req, res)
+          .getIdentityVerificationReports(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35222,10 +36959,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIdentityVerificationReportsReport(input, responder, req, res)
+          .getIdentityVerificationReportsReport(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35339,10 +37087,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIdentityVerificationSessions(input, responder, req, res)
+          .getIdentityVerificationSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35433,10 +37186,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIdentityVerificationSessions(input, responder, req, res)
+          .postIdentityVerificationSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35520,10 +37278,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIdentityVerificationSessionsSession(input, responder, req, res)
+          .getIdentityVerificationSessionsSession(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35621,10 +37390,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIdentityVerificationSessionsSession(input, responder, req, res)
+          .postIdentityVerificationSessionsSession(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35703,10 +37483,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35785,10 +37571,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35888,10 +37680,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoicePayments(input, responder, req, res)
+          .getInvoicePayments(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -35968,10 +37765,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoicePaymentsInvoicePayment(input, responder, req, res)
+          .getInvoicePaymentsInvoicePayment(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36062,10 +37864,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoiceRenderingTemplates(input, responder, req, res)
+          .getInvoiceRenderingTemplates(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36145,10 +37952,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoiceRenderingTemplatesTemplate(input, responder, req, res)
+          .getInvoiceRenderingTemplatesTemplate(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36222,10 +38040,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36299,10 +38123,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36408,10 +38238,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoiceitems(input, responder, req, res)
+          .getInvoiceitems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36509,10 +38344,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoiceitems(input, responder, req, res)
+          .postInvoiceitems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36574,10 +38414,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteInvoiceitemsInvoiceitem(input, responder, req, res)
+          .deleteInvoiceitemsInvoiceitem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36654,10 +38499,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoiceitemsInvoiceitem(input, responder, req, res)
+          .getInvoiceitemsInvoiceitem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36765,10 +38615,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoiceitemsInvoiceitem(input, responder, req, res)
+          .postInvoiceitemsInvoiceitem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -36887,10 +38742,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoices(input, responder, req, res)
+          .getInvoices(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -37272,10 +39132,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoices(input, responder, req, res)
+          .postInvoices(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -37785,10 +39650,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesCreatePreview(input, responder, req, res)
+          .postInvoicesCreatePreview(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -37864,9 +39734,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_invoice[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -37879,10 +39749,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoicesSearch(input, responder, req, res)
+          .getInvoicesSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -37946,10 +39821,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteInvoicesInvoice(input, responder, req, res)
+          .deleteInvoicesInvoice(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -38026,10 +39906,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoicesInvoice(input, responder, req, res)
+          .getInvoicesInvoice(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -38423,10 +40308,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoice(input, responder, req, res)
+          .postInvoicesInvoice(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -38609,10 +40499,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceAddLines(input, responder, req, res)
+          .postInvoicesInvoiceAddLines(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -38681,10 +40576,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceFinalize(input, responder, req, res)
+          .postInvoicesInvoiceFinalize(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -38782,10 +40682,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getInvoicesInvoiceLines(input, responder, req, res)
+          .getInvoicesInvoiceLines(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -38963,10 +40868,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceLinesLineItemId(input, responder, req, res)
+          .postInvoicesInvoiceLinesLineItemId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39035,10 +40945,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceMarkUncollectible(input, responder, req, res)
+          .postInvoicesInvoiceMarkUncollectible(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39117,10 +41038,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoicePay(input, responder, req, res)
+          .postInvoicesInvoicePay(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39191,10 +41117,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceRemoveLines(input, responder, req, res)
+          .postInvoicesInvoiceRemoveLines(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39260,10 +41191,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceSend(input, responder, req, res)
+          .postInvoicesInvoiceSend(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39446,10 +41382,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceUpdateLines(input, responder, req, res)
+          .postInvoicesInvoiceUpdateLines(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39515,10 +41456,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postInvoicesInvoiceVoid(input, responder, req, res)
+          .postInvoicesInvoiceVoid(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39623,10 +41569,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingAuthorizations(input, responder, req, res)
+          .getIssuingAuthorizations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39703,10 +41654,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingAuthorizationsAuthorization(input, responder, req, res)
+          .getIssuingAuthorizationsAuthorization(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39778,10 +41740,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingAuthorizationsAuthorization(input, responder, req, res)
+          .postIssuingAuthorizationsAuthorization(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39859,10 +41832,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -39939,10 +41918,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -40052,10 +42037,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingCardholders(input, responder, req, res)
+          .getIssuingCardholders(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -41094,10 +43084,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingCardholders(input, responder, req, res)
+          .postIssuingCardholders(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -41174,10 +43169,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingCardholdersCardholder(input, responder, req, res)
+          .getIssuingCardholdersCardholder(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -42226,10 +44226,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingCardholdersCardholder(input, responder, req, res)
+          .postIssuingCardholdersCardholder(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -42336,10 +44341,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingCards(input, responder, req, res)
+          .getIssuingCards(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -43365,10 +45375,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingCards(input, responder, req, res)
+          .postIssuingCards(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -43445,10 +45460,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingCardsCard(input, responder, req, res)
+          .getIssuingCardsCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -44476,10 +46496,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingCardsCard(input, responder, req, res)
+          .postIssuingCardsCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -44581,10 +46606,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingDisputes(input, responder, req, res)
+          .getIssuingDisputes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -44826,10 +46856,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingDisputes(input, responder, req, res)
+          .postIssuingDisputes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -44904,10 +46939,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingDisputesDispute(input, responder, req, res)
+          .getIssuingDisputesDispute(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45153,10 +47193,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingDisputesDispute(input, responder, req, res)
+          .postIssuingDisputesDispute(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45225,10 +47270,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingDisputesDisputeSubmit(input, responder, req, res)
+          .postIssuingDisputesDisputeSubmit(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45336,10 +47386,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingPersonalizationDesigns(input, responder, req, res)
+          .getIssuingPersonalizationDesigns(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45417,10 +47472,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingPersonalizationDesigns(input, responder, req, res)
+          .postIssuingPersonalizationDesigns(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45511,10 +47571,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45621,10 +47687,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45722,10 +47794,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingPhysicalBundles(input, responder, req, res)
+          .getIssuingPhysicalBundles(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45802,10 +47879,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingPhysicalBundlesPhysicalBundle(input, responder, req, res)
+          .getIssuingPhysicalBundlesPhysicalBundle(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45887,10 +47975,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingSettlementsSettlement(input, responder, req, res)
+          .getIssuingSettlementsSettlement(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -45959,10 +48052,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingSettlementsSettlement(input, responder, req, res)
+          .postIssuingSettlementsSettlement(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46064,10 +48162,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingTokens(input, responder, req, res)
+          .getIssuingTokens(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46144,10 +48247,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingTokensToken(input, responder, req, res)
+          .getIssuingTokensToken(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46214,10 +48322,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingTokensToken(input, responder, req, res)
+          .postIssuingTokensToken(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46321,10 +48434,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingTransactions(input, responder, req, res)
+          .getIssuingTransactions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46401,10 +48519,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getIssuingTransactionsTransaction(input, responder, req, res)
+          .getIssuingTransactionsTransaction(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46476,10 +48599,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postIssuingTransactionsTransaction(input, responder, req, res)
+          .postIssuingTransactionsTransaction(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46573,10 +48701,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postLinkAccountSessions(input, responder, req, res)
+          .postLinkAccountSessions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46656,10 +48789,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getLinkAccountSessionsSession(input, responder, req, res)
+          .getLinkAccountSessionsSession(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46758,10 +48896,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getLinkedAccounts(input, responder, req, res)
+          .getLinkedAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46841,10 +48984,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getLinkedAccountsAccount(input, responder, req, res)
+          .getLinkedAccountsAccount(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -46913,10 +49061,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postLinkedAccountsAccountDisconnect(input, responder, req, res)
+          .postLinkedAccountsAccountDisconnect(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -47020,10 +49173,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getLinkedAccountsAccountOwners(input, responder, req, res)
+          .getLinkedAccountsAccountOwners(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -47095,10 +49253,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postLinkedAccountsAccountRefresh(input, responder, req, res)
+          .postLinkedAccountsAccountRefresh(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -47175,10 +49338,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getMandatesMandate(input, responder, req, res)
+          .getMandatesMandate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -47277,10 +49445,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentIntents(input, responder, req, res)
+          .getPaymentIntents(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -48413,10 +50586,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentIntents(input, responder, req, res)
+          .postPaymentIntents(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -48493,9 +50671,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_payment_intent[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -48508,10 +50686,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentIntentsSearch(input, responder, req, res)
+          .getPaymentIntentsSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -48587,10 +50770,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentIntentsIntent(input, responder, req, res)
+          .getPaymentIntentsIntent(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -49708,10 +51896,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentIntentsIntent(input, responder, req, res)
+          .postPaymentIntentsIntent(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -49784,10 +51977,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -49861,10 +52060,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentIntentsIntentCancel(input, responder, req, res)
+          .postPaymentIntentsIntentCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -49941,10 +52145,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentIntentsIntentCapture(input, responder, req, res)
+          .postPaymentIntentsIntentCapture(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -51088,10 +53297,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentIntentsIntentConfirm(input, responder, req, res)
+          .postPaymentIntentsIntentConfirm(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -51171,10 +53385,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -51253,10 +53473,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -51349,10 +53575,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentLinks(input, responder, req, res)
+          .getPaymentLinks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -51924,10 +54155,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentLinks(input, responder, req, res)
+          .postPaymentLinks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -52002,10 +54238,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentLinksPaymentLink(input, responder, req, res)
+          .getPaymentLinksPaymentLink(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -52578,10 +54819,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentLinksPaymentLink(input, responder, req, res)
+          .postPaymentLinksPaymentLink(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -52681,10 +54927,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentLinksPaymentLinkLineItems(input, responder, req, res)
+          .getPaymentLinksPaymentLinkLineItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -52783,10 +55034,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentMethodConfigurations(input, responder, req, res)
+          .getPaymentMethodConfigurations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -53175,10 +55431,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentMethodConfigurations(input, responder, req, res)
+          .postPaymentMethodConfigurations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -53267,10 +55528,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -53675,10 +55942,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -53776,10 +56049,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentMethodDomains(input, responder, req, res)
+          .getPaymentMethodDomains(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -53837,10 +56115,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentMethodDomains(input, responder, req, res)
+          .postPaymentMethodDomains(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -53922,10 +56205,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54002,10 +56291,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54078,10 +56373,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54225,10 +56526,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentMethods(input, responder, req, res)
+          .getPaymentMethods(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54596,10 +56902,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentMethods(input, responder, req, res)
+          .postPaymentMethods(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54676,10 +56987,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPaymentMethodsPaymentMethod(input, responder, req, res)
+          .getPaymentMethodsPaymentMethod(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54790,10 +57106,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentMethodsPaymentMethod(input, responder, req, res)
+          .postPaymentMethodsPaymentMethod(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54860,10 +57181,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentMethodsPaymentMethodAttach(input, responder, req, res)
+          .postPaymentMethodsPaymentMethodAttach(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -54932,10 +57264,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPaymentMethodsPaymentMethodDetach(input, responder, req, res)
+          .postPaymentMethodsPaymentMethodDetach(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55051,10 +57394,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPayouts(input, responder, req, res)
+          .getPayouts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55120,10 +57468,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPayouts(input, responder, req, res)
+          .postPayouts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55198,10 +57551,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPayoutsPayout(input, responder, req, res)
+          .getPayoutsPayout(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55270,10 +57628,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPayoutsPayout(input, responder, req, res)
+          .postPayoutsPayout(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55337,10 +57700,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPayoutsPayoutCancel(input, responder, req, res)
+          .postPayoutsPayoutCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55407,10 +57775,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPayoutsPayoutReverse(input, responder, req, res)
+          .postPayoutsPayoutReverse(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55510,10 +57883,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPlans(input, responder, req, res)
+          .getPlans(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55613,10 +57991,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPlans(input, responder, req, res)
+          .postPlans(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55678,10 +58061,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deletePlansPlan(input, responder, req, res)
+          .deletePlansPlan(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55756,10 +58144,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPlansPlan(input, responder, req, res)
+          .getPlansPlan(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55830,10 +58223,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPlansPlan(input, responder, req, res)
+          .postPlansPlan(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -55948,10 +58346,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPrices(input, responder, req, res)
+          .getPrices(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56092,10 +58495,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPrices(input, responder, req, res)
+          .postPrices(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56171,9 +58579,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_price[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -56186,10 +58594,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPricesSearch(input, responder, req, res)
+          .getPricesSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56264,10 +58677,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPricesPrice(input, responder, req, res)
+          .getPricesPrice(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56374,10 +58792,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPricesPrice(input, responder, req, res)
+          .postPricesPrice(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56484,10 +58907,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getProducts(input, responder, req, res)
+          .getProducts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56622,10 +59050,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postProducts(input, responder, req, res)
+          .postProducts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56701,9 +59134,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_product[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -56716,10 +59149,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getProductsSearch(input, responder, req, res)
+          .getProductsSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56781,10 +59219,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteProductsId(input, responder, req, res)
+          .deleteProductsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56859,10 +59302,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getProductsId(input, responder, req, res)
+          .getProductsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -56956,10 +59404,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postProductsId(input, responder, req, res)
+          .postProductsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57055,10 +59508,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getProductsProductFeatures(input, responder, req, res)
+          .getProductsProductFeatures(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57125,10 +59583,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postProductsProductFeatures(input, responder, req, res)
+          .postProductsProductFeatures(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57195,10 +59658,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteProductsProductFeaturesId(input, responder, req, res)
+          .deleteProductsProductFeaturesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57276,10 +59744,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getProductsProductFeaturesId(input, responder, req, res)
+          .getProductsProductFeaturesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57383,10 +59856,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPromotionCodes(input, responder, req, res)
+          .getPromotionCodes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57461,10 +59939,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPromotionCodes(input, responder, req, res)
+          .postPromotionCodes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57541,10 +60024,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getPromotionCodesPromotionCode(input, responder, req, res)
+          .getPromotionCodesPromotionCode(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57621,10 +60109,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postPromotionCodesPromotionCode(input, responder, req, res)
+          .postPromotionCodesPromotionCode(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57716,10 +60209,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getQuotes(input, responder, req, res)
+          .getQuotes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57905,10 +60403,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postQuotes(input, responder, req, res)
+          .postQuotes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -57983,10 +60486,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getQuotesQuote(input, responder, req, res)
+          .getQuotesQuote(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58172,10 +60680,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postQuotesQuote(input, responder, req, res)
+          .postQuotesQuote(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58241,10 +60754,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postQuotesQuoteAccept(input, responder, req, res)
+          .postQuotesQuoteAccept(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58310,10 +60828,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postQuotesQuoteCancel(input, responder, req, res)
+          .postQuotesQuoteCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58411,10 +60934,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getQuotesQuoteComputedUpfrontLineItems(input, responder, req, res)
+          .getQuotesQuoteComputedUpfrontLineItems(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58486,10 +61020,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postQuotesQuoteFinalize(input, responder, req, res)
+          .postQuotesQuoteFinalize(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58585,10 +61124,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getQuotesQuoteLineItems(input, responder, req, res)
+          .getQuotesQuoteLineItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58663,10 +61207,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getQuotesQuotePdf(input, responder, req, res)
+          .getQuotesQuotePdf(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58770,10 +61319,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRadarEarlyFraudWarnings(input, responder, req, res)
+          .getRadarEarlyFraudWarnings(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58857,10 +61411,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -58968,10 +61528,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRadarValueListItems(input, responder, req, res)
+          .getRadarValueListItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59029,10 +61594,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postRadarValueListItems(input, responder, req, res)
+          .postRadarValueListItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59099,10 +61669,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteRadarValueListItemsItem(input, responder, req, res)
+          .deleteRadarValueListItemsItem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59179,10 +61754,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRadarValueListItemsItem(input, responder, req, res)
+          .getRadarValueListItemsItem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59284,10 +61864,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRadarValueLists(input, responder, req, res)
+          .getRadarValueLists(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59362,10 +61947,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postRadarValueLists(input, responder, req, res)
+          .postRadarValueLists(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59429,10 +62019,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteRadarValueListsValueList(input, responder, req, res)
+          .deleteRadarValueListsValueList(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59509,10 +62104,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRadarValueListsValueList(input, responder, req, res)
+          .getRadarValueListsValueList(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59583,10 +62183,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postRadarValueListsValueList(input, responder, req, res)
+          .postRadarValueListsValueList(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59688,10 +62293,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRefunds(input, responder, req, res)
+          .getRefunds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59764,10 +62374,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postRefunds(input, responder, req, res)
+          .postRefunds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59842,10 +62457,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getRefundsRefund(input, responder, req, res)
+          .getRefundsRefund(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59912,10 +62532,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postRefundsRefund(input, responder, req, res)
+          .postRefundsRefund(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -59977,10 +62602,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postRefundsRefundCancel(input, responder, req, res)
+          .postRefundsRefundCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -60081,10 +62711,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getReportingReportRuns(input, responder, req, res)
+          .getReportingReportRuns(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -60794,10 +63429,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postReportingReportRuns(input, responder, req, res)
+          .postReportingReportRuns(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -60874,10 +63514,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getReportingReportRunsReportRun(input, responder, req, res)
+          .getReportingReportRunsReportRun(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -60964,10 +63609,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getReportingReportTypes(input, responder, req, res)
+          .getReportingReportTypes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -61044,10 +63694,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getReportingReportTypesReportType(input, responder, req, res)
+          .getReportingReportTypesReportType(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -61150,10 +63805,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getReviews(input, responder, req, res)
+          .getReviews(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -61228,10 +63888,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getReviewsReview(input, responder, req, res)
+          .getReviewsReview(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -61295,10 +63960,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postReviewsReviewApprove(input, responder, req, res)
+          .postReviewsReviewApprove(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -61397,10 +64067,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSetupAttempts(input, responder, req, res)
+          .getSetupAttempts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -61501,10 +64176,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSetupIntents(input, responder, req, res)
+          .getSetupIntents(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -62062,10 +64742,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSetupIntents(input, responder, req, res)
+          .postSetupIntents(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -62143,10 +64828,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSetupIntentsIntent(input, responder, req, res)
+          .getSetupIntentsIntent(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -62679,10 +65369,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSetupIntentsIntent(input, responder, req, res)
+          .postSetupIntentsIntent(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -62751,10 +65446,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSetupIntentsIntentCancel(input, responder, req, res)
+          .postSetupIntentsIntentCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63311,10 +66011,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSetupIntentsIntentConfirm(input, responder, req, res)
+          .postSetupIntentsIntentConfirm(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63385,10 +66090,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSetupIntentsIntentVerifyMicrodeposits(input, responder, req, res)
+          .postSetupIntentsIntentVerifyMicrodeposits(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63493,10 +66209,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getShippingRates(input, responder, req, res)
+          .getShippingRates(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63591,10 +66312,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postShippingRates(input, responder, req, res)
+          .postShippingRates(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63671,10 +66397,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getShippingRatesShippingRateToken(input, responder, req, res)
+          .getShippingRatesShippingRateToken(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63764,10 +66495,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postShippingRatesShippingRateToken(input, responder, req, res)
+          .postShippingRatesShippingRateToken(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63840,10 +66576,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSigmaSavedQueriesId(input, responder, req, res)
+          .postSigmaSavedQueriesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -63934,10 +66675,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSigmaScheduledQueryRuns(input, responder, req, res)
+          .getSigmaScheduledQueryRuns(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64021,10 +66767,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64191,10 +66943,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSources(input, responder, req, res)
+          .postSources(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64270,10 +67027,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSourcesSource(input, responder, req, res)
+          .getSourcesSource(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64425,10 +67187,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSourcesSource(input, responder, req, res)
+          .postSourcesSource(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64514,10 +67281,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64620,10 +67393,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSourcesSourceSourceTransactions(input, responder, req, res)
+          .getSourcesSourceSourceTransactions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64713,10 +67491,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64786,10 +67570,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSourcesSourceVerify(input, responder, req, res)
+          .postSourcesSourceVerify(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64880,10 +67669,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptionItems(input, responder, req, res)
+          .getSubscriptionItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -64987,10 +67781,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionItems(input, responder, req, res)
+          .postSubscriptionItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65060,10 +67859,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteSubscriptionItemsItem(input, responder, req, res)
+          .deleteSubscriptionItemsItem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65140,10 +67944,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptionItemsItem(input, responder, req, res)
+          .getSubscriptionItemsItem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65255,10 +68064,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionItemsItem(input, responder, req, res)
+          .postSubscriptionItemsItem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65395,10 +68209,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptionSchedules(input, responder, req, res)
+          .getSubscriptionSchedules(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65648,10 +68467,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionSchedules(input, responder, req, res)
+          .postSubscriptionSchedules(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65728,10 +68552,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptionSchedulesSchedule(input, responder, req, res)
+          .getSubscriptionSchedulesSchedule(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -65993,10 +68822,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionSchedulesSchedule(input, responder, req, res)
+          .postSubscriptionSchedulesSchedule(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66069,10 +68903,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionSchedulesScheduleCancel(input, responder, req, res)
+          .postSubscriptionSchedulesScheduleCancel(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66144,10 +68989,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionSchedulesScheduleRelease(input, responder, req, res)
+          .postSubscriptionSchedulesScheduleRelease(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66293,10 +69149,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptions(input, responder, req, res)
+          .getSubscriptions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66699,10 +69560,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptions(input, responder, req, res)
+          .postSubscriptions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66778,9 +69644,9 @@ export function createRouter(implementation: Implementation): Router {
             return new ExpressRuntimeResponse<{
               data: t_subscription[]
               has_more: boolean
-              next_page?: string | null
+              next_page?: (string | null) | undefined
               object: "search_result"
-              total_count?: number
+              total_count?: number | undefined
               url: string
             }>(200)
           },
@@ -66793,10 +69659,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptionsSearch(input, responder, req, res)
+          .getSubscriptionsSearch(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66882,10 +69753,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteSubscriptionsSubscriptionExposedId(input, responder, req, res)
+          .deleteSubscriptionsSubscriptionExposedId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -66967,10 +69849,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getSubscriptionsSubscriptionExposedId(input, responder, req, res)
+          .getSubscriptionsSubscriptionExposedId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -67411,10 +70304,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionsSubscriptionExposedId(input, responder, req, res)
+          .postSubscriptionsSubscriptionExposedId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -67488,10 +70392,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -67567,10 +70477,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postSubscriptionsSubscriptionResume(input, responder, req, res)
+          .postSubscriptionsSubscriptionResume(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -67796,10 +70711,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxCalculations(input, responder, req, res)
+          .postTaxCalculations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -67874,10 +70794,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxCalculationsCalculation(input, responder, req, res)
+          .getTaxCalculationsCalculation(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -67980,10 +70905,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxCalculationsCalculationLineItems(input, responder, req, res)
+          .getTaxCalculationsCalculationLineItems(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68076,10 +71012,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxRegistrations(input, responder, req, res)
+          .getTaxRegistrations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68509,10 +71450,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxRegistrations(input, responder, req, res)
+          .postTaxRegistrations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68589,10 +71535,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxRegistrationsId(input, responder, req, res)
+          .getTaxRegistrationsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68664,10 +71615,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxRegistrationsId(input, responder, req, res)
+          .postTaxRegistrationsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68736,10 +71692,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxSettings(input, responder, req, res)
+          .getTaxSettings(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68819,10 +71780,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxSettings(input, responder, req, res)
+          .postTaxSettings(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68882,10 +71848,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxTransactionsCreateFromCalculation(input, responder, req, res)
+          .postTaxTransactionsCreateFromCalculation(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -68966,10 +71943,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxTransactionsCreateReversal(input, responder, req, res)
+          .postTaxTransactionsCreateReversal(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69049,10 +72031,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxTransactionsTransaction(input, responder, req, res)
+          .getTaxTransactionsTransaction(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69155,10 +72142,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxTransactionsTransactionLineItems(input, responder, req, res)
+          .getTaxTransactionsTransactionLineItems(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69250,10 +72248,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxCodes(input, responder, req, res)
+          .getTaxCodes(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69328,10 +72331,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxCodesId(input, responder, req, res)
+          .getTaxCodesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69425,10 +72433,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxIds(input, responder, req, res)
+          .getTaxIds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69596,10 +72609,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxIds(input, responder, req, res)
+          .postTaxIds(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69661,10 +72679,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteTaxIdsId(input, responder, req, res)
+          .deleteTaxIdsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69739,10 +72762,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxIdsId(input, responder, req, res)
+          .getTaxIdsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69842,10 +72870,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxRates(input, responder, req, res)
+          .getTaxRates(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -69930,10 +72963,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxRates(input, responder, req, res)
+          .postTaxRates(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70010,10 +73048,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTaxRatesTaxRate(input, responder, req, res)
+          .getTaxRatesTaxRate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70106,10 +73149,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTaxRatesTaxRate(input, responder, req, res)
+          .postTaxRatesTaxRate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70201,10 +73249,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTerminalConfigurations(input, responder, req, res)
+          .getTerminalConfigurations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70438,10 +73491,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalConfigurations(input, responder, req, res)
+          .postTerminalConfigurations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70512,10 +73570,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteTerminalConfigurationsConfiguration(input, responder, req, res)
+          .deleteTerminalConfigurationsConfiguration(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70610,10 +73679,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTerminalConfigurationsConfiguration(input, responder, req, res)
+          .getTerminalConfigurationsConfiguration(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70888,10 +73968,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalConfigurationsConfiguration(input, responder, req, res)
+          .postTerminalConfigurationsConfiguration(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -70955,10 +74046,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalConnectionTokens(input, responder, req, res)
+          .postTerminalConnectionTokens(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71050,10 +74146,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTerminalLocations(input, responder, req, res)
+          .getTerminalLocations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71122,10 +74223,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalLocations(input, responder, req, res)
+          .postTerminalLocations(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71189,10 +74295,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteTerminalLocationsLocation(input, responder, req, res)
+          .deleteTerminalLocationsLocation(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71274,10 +74385,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTerminalLocationsLocation(input, responder, req, res)
+          .getTerminalLocationsLocation(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71365,10 +74481,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalLocationsLocation(input, responder, req, res)
+          .postTerminalLocationsLocation(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71472,10 +74593,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTerminalReaders(input, responder, req, res)
+          .getTerminalReaders(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71537,10 +74663,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalReaders(input, responder, req, res)
+          .postTerminalReaders(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71602,10 +74733,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteTerminalReadersReader(input, responder, req, res)
+          .deleteTerminalReadersReader(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71692,10 +74828,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTerminalReadersReader(input, responder, req, res)
+          .getTerminalReadersReader(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71773,10 +74914,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalReadersReader(input, responder, req, res)
+          .postTerminalReadersReader(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71840,10 +74986,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalReadersReaderCancelAction(input, responder, req, res)
+          .postTerminalReadersReaderCancelAction(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -71931,10 +75088,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -72015,10 +75178,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -72098,10 +75267,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalReadersReaderRefundPayment(input, responder, req, res)
+          .postTerminalReadersReaderRefundPayment(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -72185,10 +75365,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTerminalReadersReaderSetReaderDisplay(input, responder, req, res)
+          .postTerminalReadersReaderSetReaderDisplay(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -72559,10 +75750,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersConfirmationTokens(input, responder, req, res)
+          .postTestHelpersConfirmationTokens(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -72645,10 +75841,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73137,10 +76339,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersIssuingAuthorizations(input, responder, req, res)
+          .postTestHelpersIssuingAuthorizations(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73330,10 +76543,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73405,10 +76624,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73550,10 +76775,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73628,10 +76859,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73707,10 +76944,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73787,10 +77030,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73864,10 +77113,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -73941,10 +77196,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74018,10 +77279,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74095,10 +77362,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74172,10 +77445,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74252,10 +77531,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74332,10 +77617,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74443,10 +77734,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74516,10 +77813,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersIssuingSettlements(input, responder, req, res)
+          .postTestHelpersIssuingSettlements(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -74592,10 +77894,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75083,10 +78391,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75574,10 +78888,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75653,10 +78973,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75725,10 +79051,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersRefundsRefundExpire(input, responder, req, res)
+          .postTestHelpersRefundsRefundExpire(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75812,10 +79143,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75911,10 +79248,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTestHelpersTestClocks(input, responder, req, res)
+          .getTestHelpersTestClocks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -75972,10 +79314,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersTestClocks(input, responder, req, res)
+          .postTestHelpersTestClocks(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76044,10 +79391,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteTestHelpersTestClocksTestClock(input, responder, req, res)
+          .deleteTestHelpersTestClocksTestClock(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76129,10 +79487,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTestHelpersTestClocksTestClock(input, responder, req, res)
+          .getTestHelpersTestClocksTestClock(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76202,10 +79565,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersTestClocksTestClockAdvance(input, responder, req, res)
+          .postTestHelpersTestClocksTestClockAdvance(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76302,10 +79676,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76379,10 +79759,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76456,10 +79842,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76539,10 +79931,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersTreasuryOutboundPaymentsId(input, responder, req, res)
+          .postTestHelpersTreasuryOutboundPaymentsId(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76616,10 +80019,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76693,10 +80102,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76790,10 +80205,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76878,10 +80299,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -76953,10 +80380,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77028,10 +80461,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77125,10 +80564,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77206,10 +80651,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersTreasuryReceivedCredits(input, responder, req, res)
+          .postTestHelpersTreasuryReceivedCredits(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77287,10 +80743,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTestHelpersTreasuryReceivedDebits(input, responder, req, res)
+          .postTestHelpersTreasuryReceivedDebits(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77762,10 +81229,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTokens(input, responder, req, res)
+          .postTokens(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77840,10 +81312,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTokensToken(input, responder, req, res)
+          .getTokensToken(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -77953,10 +81430,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTopups(input, responder, req, res)
+          .getTopups(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78021,10 +81503,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTopups(input, responder, req, res)
+          .postTopups(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78099,10 +81586,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTopupsTopup(input, responder, req, res)
+          .getTopupsTopup(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78170,10 +81662,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTopupsTopup(input, responder, req, res)
+          .postTopupsTopup(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78239,10 +81736,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTopupsTopupCancel(input, responder, req, res)
+          .postTopupsTopupCancel(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78342,10 +81844,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTransfers(input, responder, req, res)
+          .getTransfers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78411,10 +81918,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTransfers(input, responder, req, res)
+          .postTransfers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78510,10 +82022,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTransfersIdReversals(input, responder, req, res)
+          .getTransfersIdReversals(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78583,10 +82100,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTransfersIdReversals(input, responder, req, res)
+          .postTransfersIdReversals(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78663,10 +82185,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTransfersTransfer(input, responder, req, res)
+          .getTransfersTransfer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78736,10 +82263,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTransfersTransfer(input, responder, req, res)
+          .postTransfersTransfer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78817,10 +82349,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTransfersTransferReversalsId(input, responder, req, res)
+          .getTransfersTransferReversalsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78890,10 +82427,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTransfersTransferReversalsId(input, responder, req, res)
+          .postTransfersTransferReversalsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -78986,10 +82528,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryCreditReversals(input, responder, req, res)
+          .getTreasuryCreditReversals(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79049,10 +82596,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryCreditReversals(input, responder, req, res)
+          .postTreasuryCreditReversals(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79131,10 +82683,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryCreditReversalsCreditReversal(input, responder, req, res)
+          .getTreasuryCreditReversalsCreditReversal(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79231,10 +82794,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryDebitReversals(input, responder, req, res)
+          .getTreasuryDebitReversals(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79292,10 +82860,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryDebitReversals(input, responder, req, res)
+          .postTreasuryDebitReversals(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79374,10 +82947,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryDebitReversalsDebitReversal(input, responder, req, res)
+          .getTreasuryDebitReversalsDebitReversal(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79484,10 +83068,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryFinancialAccounts(input, responder, req, res)
+          .getTreasuryFinancialAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79591,10 +83180,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryFinancialAccounts(input, responder, req, res)
+          .postTreasuryFinancialAccounts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79678,10 +83272,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79809,10 +83409,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79894,10 +83500,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -79988,10 +83600,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80105,10 +83723,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80205,10 +83829,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryInboundTransfers(input, responder, req, res)
+          .getTreasuryInboundTransfers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80273,10 +83902,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryInboundTransfers(input, responder, req, res)
+          .postTreasuryInboundTransfers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80353,10 +83987,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryInboundTransfersId(input, responder, req, res)
+          .getTreasuryInboundTransfersId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80427,10 +84066,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80542,10 +84187,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryOutboundPayments(input, responder, req, res)
+          .getTreasuryOutboundPayments(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80662,10 +84312,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryOutboundPayments(input, responder, req, res)
+          .postTreasuryOutboundPayments(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80742,10 +84397,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryOutboundPaymentsId(input, responder, req, res)
+          .getTreasuryOutboundPaymentsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80811,10 +84471,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryOutboundPaymentsIdCancel(input, responder, req, res)
+          .postTreasuryOutboundPaymentsIdCancel(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80911,10 +84582,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryOutboundTransfers(input, responder, req, res)
+          .getTreasuryOutboundTransfers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -80997,10 +84673,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postTreasuryOutboundTransfers(input, responder, req, res)
+          .postTreasuryOutboundTransfers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81084,10 +84765,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81160,10 +84847,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81269,10 +84962,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryReceivedCredits(input, responder, req, res)
+          .getTreasuryReceivedCredits(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81349,10 +85047,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryReceivedCreditsId(input, responder, req, res)
+          .getTreasuryReceivedCreditsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81444,10 +85147,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryReceivedDebits(input, responder, req, res)
+          .getTreasuryReceivedDebits(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81522,10 +85230,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryReceivedDebitsId(input, responder, req, res)
+          .getTreasuryReceivedDebitsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81643,10 +85356,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryTransactionEntries(input, responder, req, res)
+          .getTreasuryTransactionEntries(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81725,10 +85443,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryTransactionEntriesId(input, responder, req, res)
+          .getTreasuryTransactionEntriesId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81847,10 +85570,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryTransactions(input, responder, req, res)
+          .getTreasuryTransactions(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -81925,10 +85653,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTreasuryTransactionsId(input, responder, req, res)
+          .getTreasuryTransactionsId(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -82015,10 +85748,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getWebhookEndpoints(input, responder, req, res)
+          .getWebhookEndpoints(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -82439,10 +86177,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postWebhookEndpoints(input, responder, req, res)
+          .postWebhookEndpoints(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -82506,10 +86249,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteWebhookEndpointsWebhookEndpoint(input, responder, req, res)
+          .deleteWebhookEndpointsWebhookEndpoint(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -82591,10 +86345,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getWebhookEndpointsWebhookEndpoint(input, responder, req, res)
+          .getWebhookEndpointsWebhookEndpoint(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -82916,10 +86675,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .postWebhookEndpointsWebhookEndpoint(input, responder, req, res)
+          .postWebhookEndpointsWebhookEndpoint(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse

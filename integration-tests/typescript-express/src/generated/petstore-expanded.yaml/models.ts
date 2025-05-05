@@ -9,7 +9,7 @@ export type t_Error = {
 
 export type t_NewPet = {
   name: string
-  tag?: string
+  tag?: string | undefined
 }
 
 export type t_Pet = t_NewPet & {
@@ -18,7 +18,7 @@ export type t_Pet = t_NewPet & {
 
 export type t_AddPetRequestBodySchema = {
   name: string
-  tag?: string
+  tag?: string | undefined
 }
 
 export type t_DeletePetParamSchema = {
@@ -30,6 +30,6 @@ export type t_FindPetByIdParamSchema = {
 }
 
 export type t_FindPetsQuerySchema = {
-  limit?: number
-  tags?: string[]
+  limit?: number | undefined
+  tags?: string[] | undefined
 }

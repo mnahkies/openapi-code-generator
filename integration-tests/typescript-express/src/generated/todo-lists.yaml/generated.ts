@@ -32,6 +32,7 @@ import {
   ExpressRuntimeResponse,
   Params,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   StatusCode4xx,
   StatusCode5xx,
@@ -53,7 +54,8 @@ export type GetTodoLists = (
   respond: GetTodoListsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTodoListByIdResponder = {
   with200(): ExpressRuntimeResponse<t_TodoList>
@@ -66,7 +68,8 @@ export type GetTodoListById = (
   respond: GetTodoListByIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type UpdateTodoListByIdResponder = {
   with200(): ExpressRuntimeResponse<t_TodoList>
@@ -84,7 +87,8 @@ export type UpdateTodoListById = (
   respond: UpdateTodoListByIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeleteTodoListByIdResponder = {
   with204(): ExpressRuntimeResponse<void>
@@ -97,11 +101,12 @@ export type DeleteTodoListById = (
   respond: DeleteTodoListByIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetTodoListItemsResponder = {
   with200(): ExpressRuntimeResponse<{
-    completedAt?: string
+    completedAt?: string | undefined
     content: string
     createdAt: string
     id: string
@@ -117,7 +122,8 @@ export type GetTodoListItems = (
   respond: GetTodoListItemsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type CreateTodoListItemResponder = {
   with204(): ExpressRuntimeResponse<void>
@@ -133,7 +139,8 @@ export type CreateTodoListItem = (
   respond: CreateTodoListItemResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ListAttachmentsResponder = {
   with200(): ExpressRuntimeResponse<t_UnknownObject[]>
@@ -144,7 +151,8 @@ export type ListAttachments = (
   respond: ListAttachmentsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type UploadAttachmentResponder = {
   with202(): ExpressRuntimeResponse<void>
@@ -155,7 +163,8 @@ export type UploadAttachment = (
   respond: UploadAttachmentResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type Implementation = {
   getTodoLists: GetTodoLists
@@ -218,10 +227,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTodoLists(input, responder, req, res)
+          .getTodoLists(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -283,10 +297,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTodoListById(input, responder, req, res)
+          .getTodoListById(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -354,10 +373,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .updateTodoListById(input, responder, req, res)
+          .updateTodoListById(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -419,10 +443,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deleteTodoListById(input, responder, req, res)
+          .deleteTodoListById(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -479,7 +508,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<{
-              completedAt?: string
+              completedAt?: string | undefined
               content: string
               createdAt: string
               id: string
@@ -497,10 +526,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getTodoListItems(input, responder, req, res)
+          .getTodoListItems(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -563,10 +597,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .createTodoListItem(input, responder, req, res)
+          .createTodoListItem(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -613,10 +652,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .listAttachments(input, responder, req, res)
+          .listAttachments(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -671,10 +715,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .uploadAttachment(input, responder, req, res)
+          .uploadAttachment(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse

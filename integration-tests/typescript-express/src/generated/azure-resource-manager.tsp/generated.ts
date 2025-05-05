@@ -48,6 +48,7 @@ import {
   ExpressRuntimeResponse,
   Params,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
@@ -70,7 +71,8 @@ export type OperationsList = (
   respond: OperationsListResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesGetResponder = {
   with200(): ExpressRuntimeResponse<t_Employee>
@@ -89,7 +91,8 @@ export type EmployeesGet = (
   respond: EmployeesGetResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesCreateOrUpdateResponder = {
   with200(): ExpressRuntimeResponse<t_Employee>
@@ -109,7 +112,8 @@ export type EmployeesCreateOrUpdate = (
   respond: EmployeesCreateOrUpdateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesUpdateResponder = {
   with200(): ExpressRuntimeResponse<t_Employee>
@@ -128,7 +132,8 @@ export type EmployeesUpdate = (
   respond: EmployeesUpdateResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesDeleteResponder = {
   with202(): ExpressRuntimeResponse<void>
@@ -148,7 +153,8 @@ export type EmployeesDelete = (
   respond: EmployeesDeleteResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesCheckExistenceResponder = {
   with204(): ExpressRuntimeResponse<void>
@@ -168,7 +174,8 @@ export type EmployeesCheckExistence = (
   respond: EmployeesCheckExistenceResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesListByResourceGroupResponder = {
   with200(): ExpressRuntimeResponse<t_EmployeeListResult>
@@ -187,7 +194,8 @@ export type EmployeesListByResourceGroup = (
   respond: EmployeesListByResourceGroupResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesListBySubscriptionResponder = {
   with200(): ExpressRuntimeResponse<t_EmployeeListResult>
@@ -206,7 +214,8 @@ export type EmployeesListBySubscription = (
   respond: EmployeesListBySubscriptionResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type EmployeesMoveResponder = {
   with200(): ExpressRuntimeResponse<t_MoveResponse>
@@ -225,7 +234,8 @@ export type EmployeesMove = (
   respond: EmployeesMoveResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type Implementation = {
   operationsList: OperationsList
@@ -282,10 +292,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .operationsList(input, responder, req, res)
+          .operationsList(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -357,10 +372,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesGet(input, responder, req, res)
+          .employeesGet(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -447,10 +467,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesCreateOrUpdate(input, responder, req, res)
+          .employeesCreateOrUpdate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -530,10 +555,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesUpdate(input, responder, req, res)
+          .employeesUpdate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -613,10 +643,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesDelete(input, responder, req, res)
+          .employeesDelete(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -697,10 +732,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesCheckExistence(input, responder, req, res)
+          .employeesCheckExistence(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -774,10 +814,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesListByResourceGroup(input, responder, req, res)
+          .employeesListByResourceGroup(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -848,10 +893,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesListBySubscription(input, responder, req, res)
+          .employeesListBySubscription(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -933,10 +983,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .employeesMove(input, responder, req, res)
+          .employeesMove(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse

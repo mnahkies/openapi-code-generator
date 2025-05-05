@@ -105,6 +105,7 @@ import {
   ExpressRuntimeResponse,
   Params,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
@@ -134,19 +135,20 @@ export type GetServiceStatus = (
   respond: GetServiceStatusResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder =
   {
     with200(): ExpressRuntimeResponse<
       | {
-          error?: t_Azure_Core_Foundations_Error
+          error?: t_Azure_Core_Foundations_Error | undefined
           id: string
-          result?: t_Widget
+          result?: t_Widget | undefined
           status: t_Azure_Core_Foundations_OperationState
         }
       | {
-          error?: t_Azure_Core_Foundations_Error
+          error?: t_Azure_Core_Foundations_Error | undefined
           id: string
           status: t_Azure_Core_Foundations_OperationState
         }
@@ -167,7 +169,8 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
     respond: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder,
     req: Request,
     res: Response,
-  ) => Promise<ExpressRuntimeResponse<unknown>>
+    next: NextFunction,
+  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsCreateOrUpdateWidgetResponder = {
   with200(): ExpressRuntimeResponse<t_Widget>
@@ -187,7 +190,8 @@ export type WidgetsCreateOrUpdateWidget = (
   respond: WidgetsCreateOrUpdateWidgetResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsGetWidgetResponder = {
   with200(): ExpressRuntimeResponse<t_Widget>
@@ -206,11 +210,12 @@ export type WidgetsGetWidget = (
   respond: WidgetsGetWidgetResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsDeleteWidgetResponder = {
   with202(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
     status: t_Azure_Core_Foundations_OperationState
   }>
@@ -229,7 +234,8 @@ export type WidgetsDeleteWidget = (
   respond: WidgetsDeleteWidgetResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsListWidgetsResponder = {
   with200(): ExpressRuntimeResponse<t_PagedWidget>
@@ -248,7 +254,8 @@ export type WidgetsListWidgets = (
   respond: WidgetsListWidgetsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsGetAnalyticsResponder = {
   with200(): ExpressRuntimeResponse<t_WidgetAnalytics>
@@ -267,7 +274,8 @@ export type WidgetsGetAnalytics = (
   respond: WidgetsGetAnalyticsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsUpdateAnalyticsResponder = {
   with200(): ExpressRuntimeResponse<t_WidgetAnalytics>
@@ -287,13 +295,14 @@ export type WidgetsUpdateAnalytics = (
   respond: WidgetsUpdateAnalyticsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsGetRepairStatusResponder = {
   with200(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
-    result?: t_WidgetRepairRequest
+    result?: t_WidgetRepairRequest | undefined
     status: t_Azure_Core_Foundations_OperationState
   }>
   withDefault(
@@ -311,19 +320,22 @@ export type WidgetsGetRepairStatus = (
   respond: WidgetsGetRepairStatusResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetsScheduleRepairsResponder = {
   with202(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
-    result?: {
-      completedDateTime: string
-      createdDateTime: string
-      requestState: t_WidgetRepairState
-      scheduledDateTime: string
-      updatedDateTime: string
-    }
+    result?:
+      | {
+          completedDateTime: string
+          createdDateTime: string
+          requestState: t_WidgetRepairState
+          scheduledDateTime: string
+          updatedDateTime: string
+        }
+      | undefined
     status: t_Azure_Core_Foundations_OperationState
   }>
   withDefault(
@@ -341,13 +353,14 @@ export type WidgetsScheduleRepairs = (
   respond: WidgetsScheduleRepairsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetPartsGetWidgetPartOperationStatusResponder = {
   with200(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
-    result?: t_WidgetPart
+    result?: t_WidgetPart | undefined
     status: t_Azure_Core_Foundations_OperationState
   }>
   withDefault(
@@ -365,7 +378,8 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
   respond: WidgetPartsGetWidgetPartOperationStatusResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetPartsCreateWidgetPartResponder = {
   with201(): ExpressRuntimeResponse<void>
@@ -384,7 +398,8 @@ export type WidgetPartsCreateWidgetPart = (
   respond: WidgetPartsCreateWidgetPartResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetPartsListWidgetPartsResponder = {
   with200(): ExpressRuntimeResponse<t_PagedWidgetPart>
@@ -403,7 +418,8 @@ export type WidgetPartsListWidgetParts = (
   respond: WidgetPartsListWidgetPartsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetPartsGetWidgetPartResponder = {
   with200(): ExpressRuntimeResponse<t_WidgetPart>
@@ -422,7 +438,8 @@ export type WidgetPartsGetWidgetPart = (
   respond: WidgetPartsGetWidgetPartResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetPartsDeleteWidgetPartResponder = {
   with204(): ExpressRuntimeResponse<void>
@@ -441,11 +458,12 @@ export type WidgetPartsDeleteWidgetPart = (
   respond: WidgetPartsDeleteWidgetPartResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type WidgetPartsReorderPartsResponder = {
   with202(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
     status: t_Azure_Core_Foundations_OperationState
   }>
@@ -464,13 +482,14 @@ export type WidgetPartsReorderParts = (
   respond: WidgetPartsReorderPartsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ManufacturersGetManufacturerOperationStatusResponder = {
   with200(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
-    result?: t_Manufacturer
+    result?: t_Manufacturer | undefined
     status: t_Azure_Core_Foundations_OperationState
   }>
   withDefault(
@@ -488,7 +507,8 @@ export type ManufacturersGetManufacturerOperationStatus = (
   respond: ManufacturersGetManufacturerOperationStatusResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ManufacturersCreateOrReplaceManufacturerResponder = {
   with200(): ExpressRuntimeResponse<t_Manufacturer>
@@ -508,7 +528,8 @@ export type ManufacturersCreateOrReplaceManufacturer = (
   respond: ManufacturersCreateOrReplaceManufacturerResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ManufacturersGetManufacturerResponder = {
   with200(): ExpressRuntimeResponse<t_Manufacturer>
@@ -527,11 +548,12 @@ export type ManufacturersGetManufacturer = (
   respond: ManufacturersGetManufacturerResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ManufacturersDeleteManufacturerResponder = {
   with202(): ExpressRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
+    error?: t_Azure_Core_Foundations_Error | undefined
     id: string
     status: t_Azure_Core_Foundations_OperationState
   }>
@@ -550,7 +572,8 @@ export type ManufacturersDeleteManufacturer = (
   respond: ManufacturersDeleteManufacturerResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type ManufacturersListManufacturersResponder = {
   with200(): ExpressRuntimeResponse<t_PagedManufacturer>
@@ -569,7 +592,8 @@ export type ManufacturersListManufacturers = (
   respond: ManufacturersListManufacturersResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type Implementation = {
   getServiceStatus: GetServiceStatus
@@ -648,10 +672,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .getServiceStatus(input, responder, req, res)
+          .getServiceStatus(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -724,13 +753,13 @@ export function createRouter(implementation: Implementation): Router {
           with200() {
             return new ExpressRuntimeResponse<
               | {
-                  error?: t_Azure_Core_Foundations_Error
+                  error?: t_Azure_Core_Foundations_Error | undefined
                   id: string
-                  result?: t_Widget
+                  result?: t_Widget | undefined
                   status: t_Azure_Core_Foundations_OperationState
                 }
               | {
-                  error?: t_Azure_Core_Foundations_Error
+                  error?: t_Azure_Core_Foundations_Error | undefined
                   id: string
                   status: t_Azure_Core_Foundations_OperationState
                 }
@@ -752,10 +781,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -855,10 +890,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsCreateOrUpdateWidget(input, responder, req, res)
+          .widgetsCreateOrUpdateWidget(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -938,10 +978,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsGetWidget(input, responder, req, res)
+          .widgetsGetWidget(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1018,7 +1063,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with202() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
               status: t_Azure_Core_Foundations_OperationState
             }>(202)
@@ -1034,10 +1079,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsDeleteWidget(input, responder, req, res)
+          .widgetsDeleteWidget(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1114,10 +1164,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsListWidgets(input, responder, req, res)
+          .widgetsListWidgets(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1195,10 +1250,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsGetAnalytics(input, responder, req, res)
+          .widgetsGetAnalytics(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1291,10 +1351,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsUpdateAnalytics(input, responder, req, res)
+          .widgetsUpdateAnalytics(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1361,9 +1426,9 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
-              result?: t_WidgetRepairRequest
+              result?: t_WidgetRepairRequest | undefined
               status: t_Azure_Core_Foundations_OperationState
             }>(200)
           },
@@ -1378,10 +1443,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsGetRepairStatus(input, responder, req, res)
+          .widgetsGetRepairStatus(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1469,15 +1539,17 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with202() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
-              result?: {
-                completedDateTime: string
-                createdDateTime: string
-                requestState: t_WidgetRepairState
-                scheduledDateTime: string
-                updatedDateTime: string
-              }
+              result?:
+                | {
+                    completedDateTime: string
+                    createdDateTime: string
+                    requestState: t_WidgetRepairState
+                    scheduledDateTime: string
+                    updatedDateTime: string
+                  }
+                | undefined
               status: t_Azure_Core_Foundations_OperationState
             }>(202)
           },
@@ -1492,10 +1564,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetsScheduleRepairs(input, responder, req, res)
+          .widgetsScheduleRepairs(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1564,9 +1641,9 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
-              result?: t_WidgetPart
+              result?: t_WidgetPart | undefined
               status: t_Azure_Core_Foundations_OperationState
             }>(200)
           },
@@ -1581,10 +1658,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetPartsGetWidgetPartOperationStatus(input, responder, req, res)
+          .widgetPartsGetWidgetPartOperationStatus(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1678,10 +1766,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetPartsCreateWidgetPart(input, responder, req, res)
+          .widgetPartsCreateWidgetPart(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1760,10 +1853,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetPartsListWidgetParts(input, responder, req, res)
+          .widgetPartsListWidgetParts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1847,10 +1945,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetPartsGetWidgetPart(input, responder, req, res)
+          .widgetPartsGetWidgetPart(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -1934,10 +2037,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetPartsDeleteWidgetPart(input, responder, req, res)
+          .widgetPartsDeleteWidgetPart(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -2021,7 +2129,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with202() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
               status: t_Azure_Core_Foundations_OperationState
             }>(202)
@@ -2037,10 +2145,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .widgetPartsReorderParts(input, responder, req, res)
+          .widgetPartsReorderParts(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -2108,9 +2221,9 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with200() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
-              result?: t_Manufacturer
+              result?: t_Manufacturer | undefined
               status: t_Azure_Core_Foundations_OperationState
             }>(200)
           },
@@ -2130,10 +2243,16 @@ export function createRouter(implementation: Implementation): Router {
             responder,
             req,
             res,
+            next,
           )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -2234,10 +2353,21 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .manufacturersCreateOrReplaceManufacturer(input, responder, req, res)
+          .manufacturersCreateOrReplaceManufacturer(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -2323,10 +2453,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .manufacturersGetManufacturer(input, responder, req, res)
+          .manufacturersGetManufacturer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -2408,7 +2543,7 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with202() {
             return new ExpressRuntimeResponse<{
-              error?: t_Azure_Core_Foundations_Error
+              error?: t_Azure_Core_Foundations_Error | undefined
               id: string
               status: t_Azure_Core_Foundations_OperationState
             }>(202)
@@ -2424,10 +2559,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .manufacturersDeleteManufacturer(input, responder, req, res)
+          .manufacturersDeleteManufacturer(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -2498,10 +2638,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .manufacturersListManufacturers(input, responder, req, res)
+          .manufacturersListManufacturers(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse

@@ -4,10 +4,10 @@
 
 export type t_Azure_Core_Foundations_Error = {
   code: string
-  details?: t_Azure_Core_Foundations_Error[]
-  innererror?: t_Azure_Core_Foundations_InnerError
+  details?: t_Azure_Core_Foundations_Error[] | undefined
+  innererror?: t_Azure_Core_Foundations_InnerError | undefined
   message: string
-  target?: string
+  target?: string | undefined
 }
 
 export type t_Azure_Core_Foundations_ErrorResponse = {
@@ -15,8 +15,8 @@ export type t_Azure_Core_Foundations_ErrorResponse = {
 }
 
 export type t_Azure_Core_Foundations_InnerError = {
-  code?: string
-  innererror?: t_Azure_Core_Foundations_InnerError
+  code?: string | undefined
+  innererror?: t_Azure_Core_Foundations_InnerError | undefined
 }
 
 export type t_Azure_Core_Foundations_OperationState =
@@ -39,17 +39,17 @@ export type t_Manufacturer = {
 }
 
 export type t_PagedManufacturer = {
-  nextLink?: string
+  nextLink?: string | undefined
   value: t_Manufacturer[]
 }
 
 export type t_PagedWidget = {
-  nextLink?: string
+  nextLink?: string | undefined
   value: t_Widget[]
 }
 
 export type t_PagedWidgetPart = {
-  nextLink?: string
+  nextLink?: string | undefined
   value: t_WidgetPart[]
 }
 
@@ -101,7 +101,7 @@ export type t_GetServiceStatusQuerySchema = {
 }
 
 export type t_GetServiceStatusRequestHeaderSchema = {
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_ManufacturersCreateOrReplaceManufacturerParamSchema = {
@@ -120,13 +120,13 @@ export type t_ManufacturersCreateOrReplaceManufacturerRequestBodySchema = {
 }
 
 export type t_ManufacturersCreateOrReplaceManufacturerRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_ManufacturersDeleteManufacturerParamSchema = {
@@ -138,13 +138,13 @@ export type t_ManufacturersDeleteManufacturerQuerySchema = {
 }
 
 export type t_ManufacturersDeleteManufacturerRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_ManufacturersGetManufacturerParamSchema = {
@@ -156,11 +156,11 @@ export type t_ManufacturersGetManufacturerQuerySchema = {
 }
 
 export type t_ManufacturersGetManufacturerRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_ManufacturersGetManufacturerOperationStatusParamSchema = {
@@ -177,7 +177,7 @@ export type t_ManufacturersListManufacturersQuerySchema = {
 }
 
 export type t_ManufacturersListManufacturersRequestHeaderSchema = {
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetPartsCreateWidgetPartParamSchema = {
@@ -196,13 +196,13 @@ export type t_WidgetPartsCreateWidgetPartRequestBodySchema = {
 }
 
 export type t_WidgetPartsCreateWidgetPartRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetPartsDeleteWidgetPartParamSchema = {
@@ -215,13 +215,13 @@ export type t_WidgetPartsDeleteWidgetPartQuerySchema = {
 }
 
 export type t_WidgetPartsDeleteWidgetPartRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetPartsGetWidgetPartParamSchema = {
@@ -234,11 +234,11 @@ export type t_WidgetPartsGetWidgetPartQuerySchema = {
 }
 
 export type t_WidgetPartsGetWidgetPartRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetPartsGetWidgetPartOperationStatusParamSchema = {
@@ -260,7 +260,7 @@ export type t_WidgetPartsListWidgetPartsQuerySchema = {
 }
 
 export type t_WidgetPartsListWidgetPartsRequestHeaderSchema = {
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetPartsReorderPartsParamSchema = {
@@ -276,9 +276,9 @@ export type t_WidgetPartsReorderPartsRequestBodySchema = {
 }
 
 export type t_WidgetPartsReorderPartsRequestHeaderSchema = {
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsCreateOrUpdateWidgetParamSchema = {
@@ -290,18 +290,18 @@ export type t_WidgetsCreateOrUpdateWidgetQuerySchema = {
 }
 
 export type t_WidgetsCreateOrUpdateWidgetRequestBodySchema = {
-  color?: t_WidgetColor
-  manufacturerId?: string
+  color?: t_WidgetColor | undefined
+  manufacturerId?: string | undefined
 }
 
 export type t_WidgetsCreateOrUpdateWidgetRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsDeleteWidgetParamSchema = {
@@ -313,13 +313,13 @@ export type t_WidgetsDeleteWidgetQuerySchema = {
 }
 
 export type t_WidgetsDeleteWidgetRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsGetAnalyticsParamSchema = {
@@ -331,11 +331,11 @@ export type t_WidgetsGetAnalyticsQuerySchema = {
 }
 
 export type t_WidgetsGetAnalyticsRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsGetRepairStatusParamSchema = {
@@ -356,11 +356,11 @@ export type t_WidgetsGetWidgetQuerySchema = {
 }
 
 export type t_WidgetsGetWidgetRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema =
@@ -376,14 +376,14 @@ export type t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStat
 
 export type t_WidgetsListWidgetsQuerySchema = {
   "api-version": string
-  maxpagesize?: number
-  select?: string[]
-  skip?: number
-  top?: number
+  maxpagesize?: number | undefined
+  select?: string[] | undefined
+  skip?: number | undefined
+  top?: number | undefined
 }
 
 export type t_WidgetsListWidgetsRequestHeaderSchema = {
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsScheduleRepairsParamSchema = {
@@ -403,9 +403,9 @@ export type t_WidgetsScheduleRepairsRequestBodySchema = {
 }
 
 export type t_WidgetsScheduleRepairsRequestHeaderSchema = {
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }
 
 export type t_WidgetsUpdateAnalyticsParamSchema = {
@@ -417,16 +417,16 @@ export type t_WidgetsUpdateAnalyticsQuerySchema = {
 }
 
 export type t_WidgetsUpdateAnalyticsRequestBodySchema = {
-  repairCount?: number
-  useCount?: number
+  repairCount?: number | undefined
+  useCount?: number | undefined
 }
 
 export type t_WidgetsUpdateAnalyticsRequestHeaderSchema = {
-  "if-match"?: string
-  "if-modified-since"?: string
-  "if-none-match"?: string
-  "if-unmodified-since"?: string
-  "repeatability-first-sent"?: string
-  "repeatability-request-id"?: string
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
+  "if-match"?: string | undefined
+  "if-modified-since"?: string | undefined
+  "if-none-match"?: string | undefined
+  "if-unmodified-since"?: string | undefined
+  "repeatability-first-sent"?: string | undefined
+  "repeatability-request-id"?: string | undefined
+  "x-ms-client-request-id"?: t_Azure_Core_uuid | undefined
 }

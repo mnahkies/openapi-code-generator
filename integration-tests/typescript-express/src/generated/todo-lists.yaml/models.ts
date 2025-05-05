@@ -3,8 +3,8 @@
 /* eslint-disable */
 
 export type t_Error = {
-  code?: number
-  message?: string
+  code?: number | undefined
+  message?: string | undefined
 }
 
 export type t_Statuses = ("incomplete" | "complete")[]
@@ -23,7 +23,7 @@ export type t_CreateTodoListItemParamSchema = {
 }
 
 export type t_CreateTodoListItemRequestBodySchema = {
-  completedAt?: string
+  completedAt?: string | undefined
   content: string
   id: string
 }
@@ -45,9 +45,9 @@ export type t_GetTodoListItemsParamSchema = {
 }
 
 export type t_GetTodoListsQuerySchema = {
-  created?: string
-  statuses?: t_Statuses
-  tags?: string[]
+  created?: string | undefined
+  statuses?: t_Statuses | undefined
+  tags?: string[] | undefined
 }
 
 export type t_UpdateTodoListByIdParamSchema = {
@@ -59,5 +59,5 @@ export type t_UpdateTodoListByIdRequestBodySchema = {
 }
 
 export type t_UploadAttachmentRequestBodySchema = {
-  file?: unknown
+  file?: unknown | undefined
 }

@@ -20,6 +20,7 @@ import {
   ExpressRuntimeResponse,
   Params,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
@@ -40,7 +41,8 @@ export type FindPets = (
   respond: FindPetsResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type AddPetResponder = {
   with200(): ExpressRuntimeResponse<t_Pet>
@@ -52,7 +54,8 @@ export type AddPet = (
   respond: AddPetResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type FindPetByIdResponder = {
   with200(): ExpressRuntimeResponse<t_Pet>
@@ -64,7 +67,8 @@ export type FindPetById = (
   respond: FindPetByIdResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type DeletePetResponder = {
   with204(): ExpressRuntimeResponse<void>
@@ -76,7 +80,8 @@ export type DeletePet = (
   respond: DeletePetResponder,
   req: Request,
   res: Response,
-) => Promise<ExpressRuntimeResponse<unknown>>
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type Implementation = {
   findPets: FindPets
@@ -132,10 +137,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .findPets(input, responder, req, res)
+          .findPets(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -191,10 +201,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .addPet(input, responder, req, res)
+          .addPet(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -250,10 +265,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .findPetById(input, responder, req, res)
+          .findPetById(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
@@ -309,10 +329,15 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .deletePet(input, responder, req, res)
+          .deletePet(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
 
         const { status, body } =
           response instanceof ExpressRuntimeResponse
