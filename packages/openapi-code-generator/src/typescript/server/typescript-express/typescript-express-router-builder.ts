@@ -45,15 +45,16 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
     this.imports
       .from("@nahkies/typescript-express-runtime/server")
       .add(
+        "ExpressRuntimeResponder",
+        "ExpressRuntimeResponse",
+        "Params",
+        "SkipResponse",
         "StatusCode",
         "StatusCode1xx",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
         "StatusCode5xx",
-        "Params",
-        "ExpressRuntimeResponse",
-        "ExpressRuntimeResponder",
       )
 
     this.imports
@@ -114,7 +115,8 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
                     respond: ${symbols.responderName},
                     req: Request,
                     res: Response,
-                  ) => Promise<ExpressRuntimeResponse<unknown>>`,
+                    next: NextFunction
+                  ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>`,
           kind: "type",
         }),
       ],
@@ -135,8 +137,13 @@ router.${builder.method.toLowerCase()}(\`${route(builder.route)}\`, async (req: 
 
    const responder = ${responder.implementation}
 
-   const response = await implementation.${symbols.implPropName}(input, responder, req, res)
+   const response = await implementation.${symbols.implPropName}(input, responder, req, res, next)
     .catch(err => { throw ExpressRuntimeError.HandlerError(err) })
+
+   // escape hatch to allow responses to be sent by the implementation handler
+   if(response === SkipResponse) {
+    return
+   }
 
    const { status, body } = response instanceof ExpressRuntimeResponse ? response.unpack() : response
 
