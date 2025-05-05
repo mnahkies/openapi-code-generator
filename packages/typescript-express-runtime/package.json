@@ -39,7 +39,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf ./dist && rm tsconfig.tsbuildinfo",
     "dev": "nodemon --watch ./src -e ts --delay 2 --exec 'yarn build'",
     "build": "tsc -p ./tsconfig.json",
     "test": "jest"
