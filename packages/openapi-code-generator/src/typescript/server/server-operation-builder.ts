@@ -122,31 +122,37 @@ export class ServerOperationBuilder {
     return `responseValidationFactory([${pairs}], ${defaultResponse?.schema})`
   }
 
-  responder(): {implementation: string; type: string} {
+  responder(
+    responderType: string,
+    runtimeResponseType: string,
+  ): {
+    implementation: string
+    type: string
+  } {
     const {specific, defaultResponse} = this.responseSchemas()
-    // TODO: figure out what to do about the KoaRuntimeResponse class
+
     const type = intersect(
       object([
         ...specific.map((it) =>
           it.isWildCard
-            ? `with${it.statusType}(status: ${it.statusType}): KoaRuntimeResponse<${it.type}>`
-            : `with${it.statusType}(): KoaRuntimeResponse<${it.type}>`,
+            ? `with${it.statusType}(status: ${it.statusType}): ${runtimeResponseType}<${it.type}>`
+            : `with${it.statusType}(): ${runtimeResponseType}<${it.type}>`,
         ),
         defaultResponse &&
-          `withDefault(status: StatusCode): KoaRuntimeResponse<${defaultResponse.type}>`,
+          `withDefault(status: StatusCode): ${runtimeResponseType}<${defaultResponse.type}>`,
       ]),
-      "KoaRuntimeResponder",
+      responderType,
     )
 
     const implementation = object([
       ...specific.map((it) =>
         it.isWildCard
-          ? `with${it.statusType}(status: ${it.statusType}) {return new KoaRuntimeResponse<${it.type}>(status) }`
-          : `with${it.statusType}() {return new KoaRuntimeResponse<${it.type}>(${it.statusType}) }`,
+          ? `with${it.statusType}(status: ${it.statusType}) {return new ${runtimeResponseType}<${it.type}>(status) }`
+          : `with${it.statusType}() {return new ${runtimeResponseType}<${it.type}>(${it.statusType}) }`,
       ),
       defaultResponse &&
-        `withDefault(status: StatusCode) { return new KoaRuntimeResponse<${defaultResponse.type}>(status) }`,
-      "withStatus(status: StatusCode) { return new KoaRuntimeResponse(status)}",
+        `withDefault(status: StatusCode) { return new ${runtimeResponseType}<${defaultResponse.type}>(status) }`,
+      `withStatus(status: StatusCode) { return new ${runtimeResponseType}(status)}`,
     ])
 
     return {implementation, type}
