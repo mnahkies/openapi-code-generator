@@ -1524,6 +1524,7 @@ import {
   Params,
   Response,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
@@ -1531,6 +1532,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
+import { Next } from "koa"
 import { z } from "zod"
 
 export type GetAccountResponder = {
@@ -1547,10 +1549,12 @@ export type GetAccount = (
   >,
   respond: GetAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountLinksResponder = {
@@ -1562,10 +1566,12 @@ export type PostAccountLinks = (
   params: Params<void, void, t_PostAccountLinksBodySchema, void>,
   respond: PostAccountLinksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountSessionsResponder = {
@@ -1577,10 +1583,12 @@ export type PostAccountSessions = (
   params: Params<void, void, t_PostAccountSessionsBodySchema, void>,
   respond: PostAccountSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsResponder = {
@@ -1602,6 +1610,7 @@ export type GetAccounts = (
   >,
   respond: GetAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -1614,6 +1623,7 @@ export type GetAccounts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsResponder = {
@@ -1625,10 +1635,12 @@ export type PostAccounts = (
   params: Params<void, void, t_PostAccountsBodySchema | undefined, void>,
   respond: PostAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteAccountsAccountResponder = {
@@ -1645,10 +1657,12 @@ export type DeleteAccountsAccount = (
   >,
   respond: DeleteAccountsAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountResponder = {
@@ -1665,10 +1679,12 @@ export type GetAccountsAccount = (
   >,
   respond: GetAccountsAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountResponder = {
@@ -1685,10 +1701,12 @@ export type PostAccountsAccount = (
   >,
   respond: PostAccountsAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountBankAccountsResponder = {
@@ -1705,10 +1723,12 @@ export type PostAccountsAccountBankAccounts = (
   >,
   respond: PostAccountsAccountBankAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteAccountsAccountBankAccountsIdResponder = {
@@ -1725,10 +1745,12 @@ export type DeleteAccountsAccountBankAccountsId = (
   >,
   respond: DeleteAccountsAccountBankAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountBankAccountsIdResponder = {
@@ -1745,10 +1767,12 @@ export type GetAccountsAccountBankAccountsId = (
   >,
   respond: GetAccountsAccountBankAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountBankAccountsIdResponder = {
@@ -1765,10 +1789,12 @@ export type PostAccountsAccountBankAccountsId = (
   >,
   respond: PostAccountsAccountBankAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountCapabilitiesResponder = {
@@ -1790,6 +1816,7 @@ export type GetAccountsAccountCapabilities = (
   >,
   respond: GetAccountsAccountCapabilitiesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -1802,6 +1829,7 @@ export type GetAccountsAccountCapabilities = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountCapabilitiesCapabilityResponder = {
@@ -1818,10 +1846,12 @@ export type GetAccountsAccountCapabilitiesCapability = (
   >,
   respond: GetAccountsAccountCapabilitiesCapabilityResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_capability>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountCapabilitiesCapabilityResponder = {
@@ -1838,10 +1868,12 @@ export type PostAccountsAccountCapabilitiesCapability = (
   >,
   respond: PostAccountsAccountCapabilitiesCapabilityResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_capability>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountExternalAccountsResponder = {
@@ -1863,6 +1895,7 @@ export type GetAccountsAccountExternalAccounts = (
   >,
   respond: GetAccountsAccountExternalAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -1875,6 +1908,7 @@ export type GetAccountsAccountExternalAccounts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountExternalAccountsResponder = {
@@ -1891,10 +1925,12 @@ export type PostAccountsAccountExternalAccounts = (
   >,
   respond: PostAccountsAccountExternalAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteAccountsAccountExternalAccountsIdResponder = {
@@ -1911,10 +1947,12 @@ export type DeleteAccountsAccountExternalAccountsId = (
   >,
   respond: DeleteAccountsAccountExternalAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountExternalAccountsIdResponder = {
@@ -1931,10 +1969,12 @@ export type GetAccountsAccountExternalAccountsId = (
   >,
   respond: GetAccountsAccountExternalAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountExternalAccountsIdResponder = {
@@ -1951,10 +1991,12 @@ export type PostAccountsAccountExternalAccountsId = (
   >,
   respond: PostAccountsAccountExternalAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountLoginLinksResponder = {
@@ -1971,10 +2013,12 @@ export type PostAccountsAccountLoginLinks = (
   >,
   respond: PostAccountsAccountLoginLinksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_login_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountPeopleResponder = {
@@ -1996,6 +2040,7 @@ export type GetAccountsAccountPeople = (
   >,
   respond: GetAccountsAccountPeopleResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2008,6 +2053,7 @@ export type GetAccountsAccountPeople = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountPeopleResponder = {
@@ -2024,10 +2070,12 @@ export type PostAccountsAccountPeople = (
   >,
   respond: PostAccountsAccountPeopleResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteAccountsAccountPeoplePersonResponder = {
@@ -2044,10 +2092,12 @@ export type DeleteAccountsAccountPeoplePerson = (
   >,
   respond: DeleteAccountsAccountPeoplePersonResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountPeoplePersonResponder = {
@@ -2064,10 +2114,12 @@ export type GetAccountsAccountPeoplePerson = (
   >,
   respond: GetAccountsAccountPeoplePersonResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountPeoplePersonResponder = {
@@ -2084,10 +2136,12 @@ export type PostAccountsAccountPeoplePerson = (
   >,
   respond: PostAccountsAccountPeoplePersonResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountPersonsResponder = {
@@ -2109,6 +2163,7 @@ export type GetAccountsAccountPersons = (
   >,
   respond: GetAccountsAccountPersonsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2121,6 +2176,7 @@ export type GetAccountsAccountPersons = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountPersonsResponder = {
@@ -2137,10 +2193,12 @@ export type PostAccountsAccountPersons = (
   >,
   respond: PostAccountsAccountPersonsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteAccountsAccountPersonsPersonResponder = {
@@ -2157,10 +2215,12 @@ export type DeleteAccountsAccountPersonsPerson = (
   >,
   respond: DeleteAccountsAccountPersonsPersonResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAccountsAccountPersonsPersonResponder = {
@@ -2177,10 +2237,12 @@ export type GetAccountsAccountPersonsPerson = (
   >,
   respond: GetAccountsAccountPersonsPersonResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountPersonsPersonResponder = {
@@ -2197,10 +2259,12 @@ export type PostAccountsAccountPersonsPerson = (
   >,
   respond: PostAccountsAccountPersonsPersonResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_person>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAccountsAccountRejectResponder = {
@@ -2217,10 +2281,12 @@ export type PostAccountsAccountReject = (
   >,
   respond: PostAccountsAccountRejectResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetApplePayDomainsResponder = {
@@ -2242,6 +2308,7 @@ export type GetApplePayDomains = (
   >,
   respond: GetApplePayDomainsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2254,6 +2321,7 @@ export type GetApplePayDomains = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostApplePayDomainsResponder = {
@@ -2265,10 +2333,12 @@ export type PostApplePayDomains = (
   params: Params<void, void, t_PostApplePayDomainsBodySchema, void>,
   respond: PostApplePayDomainsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apple_pay_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteApplePayDomainsDomainResponder = {
@@ -2285,10 +2355,12 @@ export type DeleteApplePayDomainsDomain = (
   >,
   respond: DeleteApplePayDomainsDomainResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_apple_pay_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetApplePayDomainsDomainResponder = {
@@ -2305,10 +2377,12 @@ export type GetApplePayDomainsDomain = (
   >,
   respond: GetApplePayDomainsDomainResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apple_pay_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetApplicationFeesResponder = {
@@ -2330,6 +2404,7 @@ export type GetApplicationFees = (
   >,
   respond: GetApplicationFeesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2342,6 +2417,7 @@ export type GetApplicationFees = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetApplicationFeesFeeRefundsIdResponder = {
@@ -2358,10 +2434,12 @@ export type GetApplicationFeesFeeRefundsId = (
   >,
   respond: GetApplicationFeesFeeRefundsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_fee_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostApplicationFeesFeeRefundsIdResponder = {
@@ -2378,10 +2456,12 @@ export type PostApplicationFeesFeeRefundsId = (
   >,
   respond: PostApplicationFeesFeeRefundsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_fee_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetApplicationFeesIdResponder = {
@@ -2398,10 +2478,12 @@ export type GetApplicationFeesId = (
   >,
   respond: GetApplicationFeesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_application_fee>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostApplicationFeesIdRefundResponder = {
@@ -2418,10 +2500,12 @@ export type PostApplicationFeesIdRefund = (
   >,
   respond: PostApplicationFeesIdRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_application_fee>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetApplicationFeesIdRefundsResponder = {
@@ -2443,6 +2527,7 @@ export type GetApplicationFeesIdRefunds = (
   >,
   respond: GetApplicationFeesIdRefundsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2455,6 +2540,7 @@ export type GetApplicationFeesIdRefunds = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostApplicationFeesIdRefundsResponder = {
@@ -2471,10 +2557,12 @@ export type PostApplicationFeesIdRefunds = (
   >,
   respond: PostApplicationFeesIdRefundsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_fee_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAppsSecretsResponder = {
@@ -2496,6 +2584,7 @@ export type GetAppsSecrets = (
   >,
   respond: GetAppsSecretsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2508,6 +2597,7 @@ export type GetAppsSecrets = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAppsSecretsResponder = {
@@ -2519,10 +2609,12 @@ export type PostAppsSecrets = (
   params: Params<void, void, t_PostAppsSecretsBodySchema, void>,
   respond: PostAppsSecretsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apps_secret>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostAppsSecretsDeleteResponder = {
@@ -2534,10 +2626,12 @@ export type PostAppsSecretsDelete = (
   params: Params<void, void, t_PostAppsSecretsDeleteBodySchema, void>,
   respond: PostAppsSecretsDeleteResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apps_secret>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetAppsSecretsFindResponder = {
@@ -2554,10 +2648,12 @@ export type GetAppsSecretsFind = (
   >,
   respond: GetAppsSecretsFindResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_apps_secret>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBalanceResponder = {
@@ -2574,10 +2670,12 @@ export type GetBalance = (
   >,
   respond: GetBalanceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBalanceHistoryResponder = {
@@ -2599,6 +2697,7 @@ export type GetBalanceHistory = (
   >,
   respond: GetBalanceHistoryResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2611,6 +2710,7 @@ export type GetBalanceHistory = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBalanceHistoryIdResponder = {
@@ -2627,10 +2727,12 @@ export type GetBalanceHistoryId = (
   >,
   respond: GetBalanceHistoryIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBalanceTransactionsResponder = {
@@ -2652,6 +2754,7 @@ export type GetBalanceTransactions = (
   >,
   respond: GetBalanceTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2664,6 +2767,7 @@ export type GetBalanceTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBalanceTransactionsIdResponder = {
@@ -2680,10 +2784,12 @@ export type GetBalanceTransactionsId = (
   >,
   respond: GetBalanceTransactionsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingAlertsResponder = {
@@ -2705,6 +2811,7 @@ export type GetBillingAlerts = (
   >,
   respond: GetBillingAlertsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2717,6 +2824,7 @@ export type GetBillingAlerts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingAlertsResponder = {
@@ -2728,10 +2836,12 @@ export type PostBillingAlerts = (
   params: Params<void, void, t_PostBillingAlertsBodySchema, void>,
   respond: PostBillingAlertsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_alert>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingAlertsIdResponder = {
@@ -2748,10 +2858,12 @@ export type GetBillingAlertsId = (
   >,
   respond: GetBillingAlertsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_alert>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingAlertsIdActivateResponder = {
@@ -2768,10 +2880,12 @@ export type PostBillingAlertsIdActivate = (
   >,
   respond: PostBillingAlertsIdActivateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_alert>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingAlertsIdArchiveResponder = {
@@ -2788,10 +2902,12 @@ export type PostBillingAlertsIdArchive = (
   >,
   respond: PostBillingAlertsIdArchiveResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_alert>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingAlertsIdDeactivateResponder = {
@@ -2808,10 +2924,12 @@ export type PostBillingAlertsIdDeactivate = (
   >,
   respond: PostBillingAlertsIdDeactivateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_alert>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingCreditBalanceSummaryResponder = {
@@ -2828,10 +2946,12 @@ export type GetBillingCreditBalanceSummary = (
   >,
   respond: GetBillingCreditBalanceSummaryResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_balance_summary>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingCreditBalanceTransactionsResponder = {
@@ -2853,6 +2973,7 @@ export type GetBillingCreditBalanceTransactions = (
   >,
   respond: GetBillingCreditBalanceTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2865,6 +2986,7 @@ export type GetBillingCreditBalanceTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingCreditBalanceTransactionsIdResponder = {
@@ -2881,10 +3003,12 @@ export type GetBillingCreditBalanceTransactionsId = (
   >,
   respond: GetBillingCreditBalanceTransactionsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingCreditGrantsResponder = {
@@ -2906,6 +3030,7 @@ export type GetBillingCreditGrants = (
   >,
   respond: GetBillingCreditGrantsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -2918,6 +3043,7 @@ export type GetBillingCreditGrants = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingCreditGrantsResponder = {
@@ -2929,10 +3055,12 @@ export type PostBillingCreditGrants = (
   params: Params<void, void, t_PostBillingCreditGrantsBodySchema, void>,
   respond: PostBillingCreditGrantsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_grant>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingCreditGrantsIdResponder = {
@@ -2949,10 +3077,12 @@ export type GetBillingCreditGrantsId = (
   >,
   respond: GetBillingCreditGrantsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_grant>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingCreditGrantsIdResponder = {
@@ -2969,10 +3099,12 @@ export type PostBillingCreditGrantsId = (
   >,
   respond: PostBillingCreditGrantsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_grant>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingCreditGrantsIdExpireResponder = {
@@ -2989,10 +3121,12 @@ export type PostBillingCreditGrantsIdExpire = (
   >,
   respond: PostBillingCreditGrantsIdExpireResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_grant>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingCreditGrantsIdVoidResponder = {
@@ -3009,10 +3143,12 @@ export type PostBillingCreditGrantsIdVoid = (
   >,
   respond: PostBillingCreditGrantsIdVoidResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_credit_grant>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingMeterEventAdjustmentsResponder = {
@@ -3029,10 +3165,12 @@ export type PostBillingMeterEventAdjustments = (
   >,
   respond: PostBillingMeterEventAdjustmentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter_event_adjustment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingMeterEventsResponder = {
@@ -3044,10 +3182,12 @@ export type PostBillingMeterEvents = (
   params: Params<void, void, t_PostBillingMeterEventsBodySchema, void>,
   respond: PostBillingMeterEventsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter_event>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingMetersResponder = {
@@ -3069,6 +3209,7 @@ export type GetBillingMeters = (
   >,
   respond: GetBillingMetersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3081,6 +3222,7 @@ export type GetBillingMeters = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingMetersResponder = {
@@ -3092,10 +3234,12 @@ export type PostBillingMeters = (
   params: Params<void, void, t_PostBillingMetersBodySchema, void>,
   respond: PostBillingMetersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingMetersIdResponder = {
@@ -3112,10 +3256,12 @@ export type GetBillingMetersId = (
   >,
   respond: GetBillingMetersIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingMetersIdResponder = {
@@ -3132,10 +3278,12 @@ export type PostBillingMetersId = (
   >,
   respond: PostBillingMetersIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingMetersIdDeactivateResponder = {
@@ -3152,10 +3300,12 @@ export type PostBillingMetersIdDeactivate = (
   >,
   respond: PostBillingMetersIdDeactivateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingMetersIdEventSummariesResponder = {
@@ -3177,6 +3327,7 @@ export type GetBillingMetersIdEventSummaries = (
   >,
   respond: GetBillingMetersIdEventSummariesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3189,6 +3340,7 @@ export type GetBillingMetersIdEventSummaries = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingMetersIdReactivateResponder = {
@@ -3205,10 +3357,12 @@ export type PostBillingMetersIdReactivate = (
   >,
   respond: PostBillingMetersIdReactivateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_meter>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingPortalConfigurationsResponder = {
@@ -3230,6 +3384,7 @@ export type GetBillingPortalConfigurations = (
   >,
   respond: GetBillingPortalConfigurationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3242,6 +3397,7 @@ export type GetBillingPortalConfigurations = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingPortalConfigurationsResponder = {
@@ -3253,10 +3409,12 @@ export type PostBillingPortalConfigurations = (
   params: Params<void, void, t_PostBillingPortalConfigurationsBodySchema, void>,
   respond: PostBillingPortalConfigurationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetBillingPortalConfigurationsConfigurationResponder = {
@@ -3273,10 +3431,12 @@ export type GetBillingPortalConfigurationsConfiguration = (
   >,
   respond: GetBillingPortalConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingPortalConfigurationsConfigurationResponder = {
@@ -3293,10 +3453,12 @@ export type PostBillingPortalConfigurationsConfiguration = (
   >,
   respond: PostBillingPortalConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostBillingPortalSessionsResponder = {
@@ -3308,10 +3470,12 @@ export type PostBillingPortalSessions = (
   params: Params<void, void, t_PostBillingPortalSessionsBodySchema, void>,
   respond: PostBillingPortalSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_billing_portal_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetChargesResponder = {
@@ -3333,6 +3497,7 @@ export type GetCharges = (
   >,
   respond: GetChargesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3345,6 +3510,7 @@ export type GetCharges = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesResponder = {
@@ -3356,10 +3522,12 @@ export type PostCharges = (
   params: Params<void, void, t_PostChargesBodySchema | undefined, void>,
   respond: PostChargesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetChargesSearchResponder = {
@@ -3383,6 +3551,7 @@ export type GetChargesSearch = (
   >,
   respond: GetChargesSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3397,6 +3566,7 @@ export type GetChargesSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetChargesChargeResponder = {
@@ -3413,10 +3583,12 @@ export type GetChargesCharge = (
   >,
   respond: GetChargesChargeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeResponder = {
@@ -3433,10 +3605,12 @@ export type PostChargesCharge = (
   >,
   respond: PostChargesChargeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeCaptureResponder = {
@@ -3453,10 +3627,12 @@ export type PostChargesChargeCapture = (
   >,
   respond: PostChargesChargeCaptureResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetChargesChargeDisputeResponder = {
@@ -3473,10 +3649,12 @@ export type GetChargesChargeDispute = (
   >,
   respond: GetChargesChargeDisputeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeDisputeResponder = {
@@ -3493,10 +3671,12 @@ export type PostChargesChargeDispute = (
   >,
   respond: PostChargesChargeDisputeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeDisputeCloseResponder = {
@@ -3513,10 +3693,12 @@ export type PostChargesChargeDisputeClose = (
   >,
   respond: PostChargesChargeDisputeCloseResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeRefundResponder = {
@@ -3533,10 +3715,12 @@ export type PostChargesChargeRefund = (
   >,
   respond: PostChargesChargeRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_charge>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetChargesChargeRefundsResponder = {
@@ -3558,6 +3742,7 @@ export type GetChargesChargeRefunds = (
   >,
   respond: GetChargesChargeRefundsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3570,6 +3755,7 @@ export type GetChargesChargeRefunds = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeRefundsResponder = {
@@ -3586,10 +3772,12 @@ export type PostChargesChargeRefunds = (
   >,
   respond: PostChargesChargeRefundsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetChargesChargeRefundsRefundResponder = {
@@ -3606,10 +3794,12 @@ export type GetChargesChargeRefundsRefund = (
   >,
   respond: GetChargesChargeRefundsRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostChargesChargeRefundsRefundResponder = {
@@ -3626,10 +3816,12 @@ export type PostChargesChargeRefundsRefund = (
   >,
   respond: PostChargesChargeRefundsRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCheckoutSessionsResponder = {
@@ -3651,6 +3843,7 @@ export type GetCheckoutSessions = (
   >,
   respond: GetCheckoutSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3663,6 +3856,7 @@ export type GetCheckoutSessions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCheckoutSessionsResponder = {
@@ -3679,10 +3873,12 @@ export type PostCheckoutSessions = (
   >,
   respond: PostCheckoutSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCheckoutSessionsSessionResponder = {
@@ -3699,10 +3895,12 @@ export type GetCheckoutSessionsSession = (
   >,
   respond: GetCheckoutSessionsSessionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCheckoutSessionsSessionResponder = {
@@ -3719,10 +3917,12 @@ export type PostCheckoutSessionsSession = (
   >,
   respond: PostCheckoutSessionsSessionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCheckoutSessionsSessionExpireResponder = {
@@ -3739,10 +3939,12 @@ export type PostCheckoutSessionsSessionExpire = (
   >,
   respond: PostCheckoutSessionsSessionExpireResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_checkout_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCheckoutSessionsSessionLineItemsResponder = {
@@ -3764,6 +3966,7 @@ export type GetCheckoutSessionsSessionLineItems = (
   >,
   respond: GetCheckoutSessionsSessionLineItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3776,6 +3979,7 @@ export type GetCheckoutSessionsSessionLineItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetClimateOrdersResponder = {
@@ -3797,6 +4001,7 @@ export type GetClimateOrders = (
   >,
   respond: GetClimateOrdersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3809,6 +4014,7 @@ export type GetClimateOrders = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostClimateOrdersResponder = {
@@ -3820,10 +4026,12 @@ export type PostClimateOrders = (
   params: Params<void, void, t_PostClimateOrdersBodySchema, void>,
   respond: PostClimateOrdersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_climate_order>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetClimateOrdersOrderResponder = {
@@ -3840,10 +4048,12 @@ export type GetClimateOrdersOrder = (
   >,
   respond: GetClimateOrdersOrderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_climate_order>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostClimateOrdersOrderResponder = {
@@ -3860,10 +4070,12 @@ export type PostClimateOrdersOrder = (
   >,
   respond: PostClimateOrdersOrderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_climate_order>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostClimateOrdersOrderCancelResponder = {
@@ -3880,10 +4092,12 @@ export type PostClimateOrdersOrderCancel = (
   >,
   respond: PostClimateOrdersOrderCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_climate_order>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetClimateProductsResponder = {
@@ -3905,6 +4119,7 @@ export type GetClimateProducts = (
   >,
   respond: GetClimateProductsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3917,6 +4132,7 @@ export type GetClimateProducts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetClimateProductsProductResponder = {
@@ -3933,10 +4149,12 @@ export type GetClimateProductsProduct = (
   >,
   respond: GetClimateProductsProductResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_climate_product>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetClimateSuppliersResponder = {
@@ -3958,6 +4176,7 @@ export type GetClimateSuppliers = (
   >,
   respond: GetClimateSuppliersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -3970,6 +4189,7 @@ export type GetClimateSuppliers = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetClimateSuppliersSupplierResponder = {
@@ -3986,10 +4206,12 @@ export type GetClimateSuppliersSupplier = (
   >,
   respond: GetClimateSuppliersSupplierResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_climate_supplier>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetConfirmationTokensConfirmationTokenResponder = {
@@ -4006,10 +4228,12 @@ export type GetConfirmationTokensConfirmationToken = (
   >,
   respond: GetConfirmationTokensConfirmationTokenResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_confirmation_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCountrySpecsResponder = {
@@ -4031,6 +4255,7 @@ export type GetCountrySpecs = (
   >,
   respond: GetCountrySpecsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4043,6 +4268,7 @@ export type GetCountrySpecs = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCountrySpecsCountryResponder = {
@@ -4059,10 +4285,12 @@ export type GetCountrySpecsCountry = (
   >,
   respond: GetCountrySpecsCountryResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_country_spec>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCouponsResponder = {
@@ -4084,6 +4312,7 @@ export type GetCoupons = (
   >,
   respond: GetCouponsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4096,6 +4325,7 @@ export type GetCoupons = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCouponsResponder = {
@@ -4107,10 +4337,12 @@ export type PostCoupons = (
   params: Params<void, void, t_PostCouponsBodySchema | undefined, void>,
   respond: PostCouponsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_coupon>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCouponsCouponResponder = {
@@ -4127,10 +4359,12 @@ export type DeleteCouponsCoupon = (
   >,
   respond: DeleteCouponsCouponResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_coupon>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCouponsCouponResponder = {
@@ -4147,10 +4381,12 @@ export type GetCouponsCoupon = (
   >,
   respond: GetCouponsCouponResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_coupon>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCouponsCouponResponder = {
@@ -4167,10 +4403,12 @@ export type PostCouponsCoupon = (
   >,
   respond: PostCouponsCouponResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_coupon>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCreditNotesResponder = {
@@ -4192,6 +4430,7 @@ export type GetCreditNotes = (
   >,
   respond: GetCreditNotesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4204,6 +4443,7 @@ export type GetCreditNotes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCreditNotesResponder = {
@@ -4215,10 +4455,12 @@ export type PostCreditNotes = (
   params: Params<void, void, t_PostCreditNotesBodySchema, void>,
   respond: PostCreditNotesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCreditNotesPreviewResponder = {
@@ -4235,10 +4477,12 @@ export type GetCreditNotesPreview = (
   >,
   respond: GetCreditNotesPreviewResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCreditNotesPreviewLinesResponder = {
@@ -4260,6 +4504,7 @@ export type GetCreditNotesPreviewLines = (
   >,
   respond: GetCreditNotesPreviewLinesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4272,6 +4517,7 @@ export type GetCreditNotesPreviewLines = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCreditNotesCreditNoteLinesResponder = {
@@ -4293,6 +4539,7 @@ export type GetCreditNotesCreditNoteLines = (
   >,
   respond: GetCreditNotesCreditNoteLinesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4305,6 +4552,7 @@ export type GetCreditNotesCreditNoteLines = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCreditNotesIdResponder = {
@@ -4321,10 +4569,12 @@ export type GetCreditNotesId = (
   >,
   respond: GetCreditNotesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCreditNotesIdResponder = {
@@ -4341,10 +4591,12 @@ export type PostCreditNotesId = (
   >,
   respond: PostCreditNotesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCreditNotesIdVoidResponder = {
@@ -4361,10 +4613,12 @@ export type PostCreditNotesIdVoid = (
   >,
   respond: PostCreditNotesIdVoidResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_credit_note>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomerSessionsResponder = {
@@ -4376,10 +4630,12 @@ export type PostCustomerSessions = (
   params: Params<void, void, t_PostCustomerSessionsBodySchema, void>,
   respond: PostCustomerSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersResponder = {
@@ -4401,6 +4657,7 @@ export type GetCustomers = (
   >,
   respond: GetCustomersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4413,6 +4670,7 @@ export type GetCustomers = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersResponder = {
@@ -4424,10 +4682,12 @@ export type PostCustomers = (
   params: Params<void, void, t_PostCustomersBodySchema | undefined, void>,
   respond: PostCustomersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersSearchResponder = {
@@ -4451,6 +4711,7 @@ export type GetCustomersSearch = (
   >,
   respond: GetCustomersSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4465,6 +4726,7 @@ export type GetCustomersSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerResponder = {
@@ -4481,10 +4743,12 @@ export type DeleteCustomersCustomer = (
   >,
   respond: DeleteCustomersCustomerResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_customer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerResponder = {
@@ -4501,10 +4765,12 @@ export type GetCustomersCustomer = (
   >,
   respond: GetCustomersCustomerResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer | t_deleted_customer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerResponder = {
@@ -4521,10 +4787,12 @@ export type PostCustomersCustomer = (
   >,
   respond: PostCustomersCustomerResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerBalanceTransactionsResponder = {
@@ -4546,6 +4814,7 @@ export type GetCustomersCustomerBalanceTransactions = (
   >,
   respond: GetCustomersCustomerBalanceTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4558,6 +4827,7 @@ export type GetCustomersCustomerBalanceTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerBalanceTransactionsResponder = {
@@ -4574,10 +4844,12 @@ export type PostCustomersCustomerBalanceTransactions = (
   >,
   respond: PostCustomersCustomerBalanceTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerBalanceTransactionsTransactionResponder = {
@@ -4594,10 +4866,12 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   >,
   respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerBalanceTransactionsTransactionResponder = {
@@ -4614,10 +4888,12 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
   >,
   respond: PostCustomersCustomerBalanceTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerBankAccountsResponder = {
@@ -4639,6 +4915,7 @@ export type GetCustomersCustomerBankAccounts = (
   >,
   respond: GetCustomersCustomerBankAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4651,6 +4928,7 @@ export type GetCustomersCustomerBankAccounts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerBankAccountsResponder = {
@@ -4667,10 +4945,12 @@ export type PostCustomersCustomerBankAccounts = (
   >,
   respond: PostCustomersCustomerBankAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerBankAccountsIdResponder = {
@@ -4687,10 +4967,12 @@ export type DeleteCustomersCustomerBankAccountsId = (
   >,
   respond: DeleteCustomersCustomerBankAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerBankAccountsIdResponder = {
@@ -4707,10 +4989,12 @@ export type GetCustomersCustomerBankAccountsId = (
   >,
   respond: GetCustomersCustomerBankAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_bank_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerBankAccountsIdResponder = {
@@ -4727,10 +5011,12 @@ export type PostCustomersCustomerBankAccountsId = (
   >,
   respond: PostCustomersCustomerBankAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerBankAccountsIdVerifyResponder = {
@@ -4747,10 +5033,12 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
   >,
   respond: PostCustomersCustomerBankAccountsIdVerifyResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_bank_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerCardsResponder = {
@@ -4772,6 +5060,7 @@ export type GetCustomersCustomerCards = (
   >,
   respond: GetCustomersCustomerCardsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4784,6 +5073,7 @@ export type GetCustomersCustomerCards = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerCardsResponder = {
@@ -4800,10 +5090,12 @@ export type PostCustomersCustomerCards = (
   >,
   respond: PostCustomersCustomerCardsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerCardsIdResponder = {
@@ -4820,10 +5112,12 @@ export type DeleteCustomersCustomerCardsId = (
   >,
   respond: DeleteCustomersCustomerCardsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerCardsIdResponder = {
@@ -4840,10 +5134,12 @@ export type GetCustomersCustomerCardsId = (
   >,
   respond: GetCustomersCustomerCardsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerCardsIdResponder = {
@@ -4860,10 +5156,12 @@ export type PostCustomersCustomerCardsId = (
   >,
   respond: PostCustomersCustomerCardsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerCashBalanceResponder = {
@@ -4880,10 +5178,12 @@ export type GetCustomersCustomerCashBalance = (
   >,
   respond: GetCustomersCustomerCashBalanceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_cash_balance>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerCashBalanceResponder = {
@@ -4900,10 +5200,12 @@ export type PostCustomersCustomerCashBalance = (
   >,
   respond: PostCustomersCustomerCashBalanceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_cash_balance>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerCashBalanceTransactionsResponder = {
@@ -4925,6 +5227,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -4937,6 +5240,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerCashBalanceTransactionsTransactionResponder = {
@@ -4954,10 +5258,12 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_cash_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerDiscountResponder = {
@@ -4974,10 +5280,12 @@ export type DeleteCustomersCustomerDiscount = (
   >,
   respond: DeleteCustomersCustomerDiscountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_discount>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerDiscountResponder = {
@@ -4994,10 +5302,12 @@ export type GetCustomersCustomerDiscount = (
   >,
   respond: GetCustomersCustomerDiscountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_discount>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerFundingInstructionsResponder = {
@@ -5014,10 +5324,12 @@ export type PostCustomersCustomerFundingInstructions = (
   >,
   respond: PostCustomersCustomerFundingInstructionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_funding_instructions>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerPaymentMethodsResponder = {
@@ -5039,6 +5351,7 @@ export type GetCustomersCustomerPaymentMethods = (
   >,
   respond: GetCustomersCustomerPaymentMethodsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5051,6 +5364,7 @@ export type GetCustomersCustomerPaymentMethods = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerPaymentMethodsPaymentMethodResponder = {
@@ -5067,10 +5381,12 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   >,
   respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerSourcesResponder = {
@@ -5092,6 +5408,7 @@ export type GetCustomersCustomerSources = (
   >,
   respond: GetCustomersCustomerSourcesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5104,6 +5421,7 @@ export type GetCustomersCustomerSources = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerSourcesResponder = {
@@ -5120,10 +5438,12 @@ export type PostCustomersCustomerSources = (
   >,
   respond: PostCustomersCustomerSourcesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerSourcesIdResponder = {
@@ -5140,10 +5460,12 @@ export type DeleteCustomersCustomerSourcesId = (
   >,
   respond: DeleteCustomersCustomerSourcesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source | t_deleted_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerSourcesIdResponder = {
@@ -5160,10 +5482,12 @@ export type GetCustomersCustomerSourcesId = (
   >,
   respond: GetCustomersCustomerSourcesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerSourcesIdResponder = {
@@ -5180,10 +5504,12 @@ export type PostCustomersCustomerSourcesId = (
   >,
   respond: PostCustomersCustomerSourcesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_card | t_bank_account | t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerSourcesIdVerifyResponder = {
@@ -5200,10 +5526,12 @@ export type PostCustomersCustomerSourcesIdVerify = (
   >,
   respond: PostCustomersCustomerSourcesIdVerifyResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_bank_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerSubscriptionsResponder = {
@@ -5225,6 +5553,7 @@ export type GetCustomersCustomerSubscriptions = (
   >,
   respond: GetCustomersCustomerSubscriptionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5237,6 +5566,7 @@ export type GetCustomersCustomerSubscriptions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerSubscriptionsResponder = {
@@ -5253,10 +5583,12 @@ export type PostCustomersCustomerSubscriptions = (
   >,
   respond: PostCustomersCustomerSubscriptionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
@@ -5275,10 +5607,12 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   >,
   respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
@@ -5296,10 +5630,12 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder = {
@@ -5317,10 +5653,12 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   >,
   respond: PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
@@ -5340,10 +5678,12 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     >,
     respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
     ctx: RouterContext,
+    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Response<200, t_deleted_discount>
     | Response<StatusCode, t_error>
+    | typeof SkipResponse
   >
 
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
@@ -5362,10 +5702,12 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_discount>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerTaxIdsResponder = {
@@ -5387,6 +5729,7 @@ export type GetCustomersCustomerTaxIds = (
   >,
   respond: GetCustomersCustomerTaxIdsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5399,6 +5742,7 @@ export type GetCustomersCustomerTaxIds = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostCustomersCustomerTaxIdsResponder = {
@@ -5415,10 +5759,12 @@ export type PostCustomersCustomerTaxIds = (
   >,
   respond: PostCustomersCustomerTaxIdsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_id>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteCustomersCustomerTaxIdsIdResponder = {
@@ -5435,10 +5781,12 @@ export type DeleteCustomersCustomerTaxIdsId = (
   >,
   respond: DeleteCustomersCustomerTaxIdsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_tax_id>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetCustomersCustomerTaxIdsIdResponder = {
@@ -5455,10 +5803,12 @@ export type GetCustomersCustomerTaxIdsId = (
   >,
   respond: GetCustomersCustomerTaxIdsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_id>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetDisputesResponder = {
@@ -5480,6 +5830,7 @@ export type GetDisputes = (
   >,
   respond: GetDisputesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5492,6 +5843,7 @@ export type GetDisputes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetDisputesDisputeResponder = {
@@ -5508,10 +5860,12 @@ export type GetDisputesDispute = (
   >,
   respond: GetDisputesDisputeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostDisputesDisputeResponder = {
@@ -5528,10 +5882,12 @@ export type PostDisputesDispute = (
   >,
   respond: PostDisputesDisputeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostDisputesDisputeCloseResponder = {
@@ -5548,10 +5904,12 @@ export type PostDisputesDisputeClose = (
   >,
   respond: PostDisputesDisputeCloseResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetEntitlementsActiveEntitlementsResponder = {
@@ -5573,6 +5931,7 @@ export type GetEntitlementsActiveEntitlements = (
   >,
   respond: GetEntitlementsActiveEntitlementsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5585,6 +5944,7 @@ export type GetEntitlementsActiveEntitlements = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetEntitlementsActiveEntitlementsIdResponder = {
@@ -5601,10 +5961,12 @@ export type GetEntitlementsActiveEntitlementsId = (
   >,
   respond: GetEntitlementsActiveEntitlementsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_entitlements_active_entitlement>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetEntitlementsFeaturesResponder = {
@@ -5626,6 +5988,7 @@ export type GetEntitlementsFeatures = (
   >,
   respond: GetEntitlementsFeaturesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5638,6 +6001,7 @@ export type GetEntitlementsFeatures = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostEntitlementsFeaturesResponder = {
@@ -5649,10 +6013,12 @@ export type PostEntitlementsFeatures = (
   params: Params<void, void, t_PostEntitlementsFeaturesBodySchema, void>,
   respond: PostEntitlementsFeaturesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_entitlements_feature>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetEntitlementsFeaturesIdResponder = {
@@ -5669,10 +6035,12 @@ export type GetEntitlementsFeaturesId = (
   >,
   respond: GetEntitlementsFeaturesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_entitlements_feature>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostEntitlementsFeaturesIdResponder = {
@@ -5689,10 +6057,12 @@ export type PostEntitlementsFeaturesId = (
   >,
   respond: PostEntitlementsFeaturesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_entitlements_feature>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostEphemeralKeysResponder = {
@@ -5704,10 +6074,12 @@ export type PostEphemeralKeys = (
   params: Params<void, void, t_PostEphemeralKeysBodySchema | undefined, void>,
   respond: PostEphemeralKeysResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ephemeral_key>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteEphemeralKeysKeyResponder = {
@@ -5724,10 +6096,12 @@ export type DeleteEphemeralKeysKey = (
   >,
   respond: DeleteEphemeralKeysKeyResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_ephemeral_key>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetEventsResponder = {
@@ -5749,6 +6123,7 @@ export type GetEvents = (
   >,
   respond: GetEventsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5761,6 +6136,7 @@ export type GetEvents = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetEventsIdResponder = {
@@ -5777,10 +6153,12 @@ export type GetEventsId = (
   >,
   respond: GetEventsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_event>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetExchangeRatesResponder = {
@@ -5802,6 +6180,7 @@ export type GetExchangeRates = (
   >,
   respond: GetExchangeRatesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5814,6 +6193,7 @@ export type GetExchangeRates = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetExchangeRatesRateIdResponder = {
@@ -5830,10 +6210,12 @@ export type GetExchangeRatesRateId = (
   >,
   respond: GetExchangeRatesRateIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_exchange_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostExternalAccountsIdResponder = {
@@ -5850,10 +6232,12 @@ export type PostExternalAccountsId = (
   >,
   respond: PostExternalAccountsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_external_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFileLinksResponder = {
@@ -5875,6 +6259,7 @@ export type GetFileLinks = (
   >,
   respond: GetFileLinksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5887,6 +6272,7 @@ export type GetFileLinks = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFileLinksResponder = {
@@ -5898,10 +6284,12 @@ export type PostFileLinks = (
   params: Params<void, void, t_PostFileLinksBodySchema, void>,
   respond: PostFileLinksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFileLinksLinkResponder = {
@@ -5918,10 +6306,12 @@ export type GetFileLinksLink = (
   >,
   respond: GetFileLinksLinkResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFileLinksLinkResponder = {
@@ -5938,10 +6328,12 @@ export type PostFileLinksLink = (
   >,
   respond: PostFileLinksLinkResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFilesResponder = {
@@ -5963,6 +6355,7 @@ export type GetFiles = (
   >,
   respond: GetFilesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -5975,6 +6368,7 @@ export type GetFiles = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFilesResponder = {
@@ -5986,10 +6380,12 @@ export type PostFiles = (
   params: Params<void, void, t_PostFilesBodySchema, void>,
   respond: PostFilesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFilesFileResponder = {
@@ -6006,10 +6402,12 @@ export type GetFilesFile = (
   >,
   respond: GetFilesFileResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_file>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFinancialConnectionsAccountsResponder = {
@@ -6031,6 +6429,7 @@ export type GetFinancialConnectionsAccounts = (
   >,
   respond: GetFinancialConnectionsAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6043,6 +6442,7 @@ export type GetFinancialConnectionsAccounts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFinancialConnectionsAccountsAccountResponder = {
@@ -6059,10 +6459,12 @@ export type GetFinancialConnectionsAccountsAccount = (
   >,
   respond: GetFinancialConnectionsAccountsAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFinancialConnectionsAccountsAccountDisconnectResponder = {
@@ -6079,10 +6481,12 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
   >,
   respond: PostFinancialConnectionsAccountsAccountDisconnectResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFinancialConnectionsAccountsAccountOwnersResponder = {
@@ -6104,6 +6508,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   >,
   respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6116,6 +6521,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFinancialConnectionsAccountsAccountRefreshResponder = {
@@ -6132,10 +6538,12 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
   >,
   respond: PostFinancialConnectionsAccountsAccountRefreshResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFinancialConnectionsAccountsAccountSubscribeResponder = {
@@ -6152,10 +6560,12 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
   >,
   respond: PostFinancialConnectionsAccountsAccountSubscribeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFinancialConnectionsAccountsAccountUnsubscribeResponder = {
@@ -6172,10 +6582,12 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   >,
   respond: PostFinancialConnectionsAccountsAccountUnsubscribeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostFinancialConnectionsSessionsResponder = {
@@ -6192,10 +6604,12 @@ export type PostFinancialConnectionsSessions = (
   >,
   respond: PostFinancialConnectionsSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFinancialConnectionsSessionsSessionResponder = {
@@ -6212,10 +6626,12 @@ export type GetFinancialConnectionsSessionsSession = (
   >,
   respond: GetFinancialConnectionsSessionsSessionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFinancialConnectionsTransactionsResponder = {
@@ -6237,6 +6653,7 @@ export type GetFinancialConnectionsTransactions = (
   >,
   respond: GetFinancialConnectionsTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6249,6 +6666,7 @@ export type GetFinancialConnectionsTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetFinancialConnectionsTransactionsTransactionResponder = {
@@ -6265,10 +6683,12 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   >,
   respond: GetFinancialConnectionsTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetForwardingRequestsResponder = {
@@ -6290,6 +6710,7 @@ export type GetForwardingRequests = (
   >,
   respond: GetForwardingRequestsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6302,6 +6723,7 @@ export type GetForwardingRequests = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostForwardingRequestsResponder = {
@@ -6313,10 +6735,12 @@ export type PostForwardingRequests = (
   params: Params<void, void, t_PostForwardingRequestsBodySchema, void>,
   respond: PostForwardingRequestsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_forwarding_request>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetForwardingRequestsIdResponder = {
@@ -6333,10 +6757,12 @@ export type GetForwardingRequestsId = (
   >,
   respond: GetForwardingRequestsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_forwarding_request>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIdentityVerificationReportsResponder = {
@@ -6358,6 +6784,7 @@ export type GetIdentityVerificationReports = (
   >,
   respond: GetIdentityVerificationReportsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6370,6 +6797,7 @@ export type GetIdentityVerificationReports = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIdentityVerificationReportsReportResponder = {
@@ -6386,10 +6814,12 @@ export type GetIdentityVerificationReportsReport = (
   >,
   respond: GetIdentityVerificationReportsReportResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_report>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIdentityVerificationSessionsResponder = {
@@ -6411,6 +6841,7 @@ export type GetIdentityVerificationSessions = (
   >,
   respond: GetIdentityVerificationSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6423,6 +6854,7 @@ export type GetIdentityVerificationSessions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIdentityVerificationSessionsResponder = {
@@ -6439,10 +6871,12 @@ export type PostIdentityVerificationSessions = (
   >,
   respond: PostIdentityVerificationSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIdentityVerificationSessionsSessionResponder = {
@@ -6459,10 +6893,12 @@ export type GetIdentityVerificationSessionsSession = (
   >,
   respond: GetIdentityVerificationSessionsSessionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIdentityVerificationSessionsSessionResponder = {
@@ -6479,10 +6915,12 @@ export type PostIdentityVerificationSessionsSession = (
   >,
   respond: PostIdentityVerificationSessionsSessionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIdentityVerificationSessionsSessionCancelResponder = {
@@ -6499,10 +6937,12 @@ export type PostIdentityVerificationSessionsSessionCancel = (
   >,
   respond: PostIdentityVerificationSessionsSessionCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIdentityVerificationSessionsSessionRedactResponder = {
@@ -6519,10 +6959,12 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   >,
   respond: PostIdentityVerificationSessionsSessionRedactResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoicePaymentsResponder = {
@@ -6544,6 +6986,7 @@ export type GetInvoicePayments = (
   >,
   respond: GetInvoicePaymentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6556,6 +6999,7 @@ export type GetInvoicePayments = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoicePaymentsInvoicePaymentResponder = {
@@ -6572,10 +7016,12 @@ export type GetInvoicePaymentsInvoicePayment = (
   >,
   respond: GetInvoicePaymentsInvoicePaymentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoiceRenderingTemplatesResponder = {
@@ -6597,6 +7043,7 @@ export type GetInvoiceRenderingTemplates = (
   >,
   respond: GetInvoiceRenderingTemplatesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6609,6 +7056,7 @@ export type GetInvoiceRenderingTemplates = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoiceRenderingTemplatesTemplateResponder = {
@@ -6625,10 +7073,12 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   >,
   respond: GetInvoiceRenderingTemplatesTemplateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice_rendering_template>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoiceRenderingTemplatesTemplateArchiveResponder = {
@@ -6645,10 +7095,12 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
   >,
   respond: PostInvoiceRenderingTemplatesTemplateArchiveResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice_rendering_template>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoiceRenderingTemplatesTemplateUnarchiveResponder = {
@@ -6665,10 +7117,12 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   >,
   respond: PostInvoiceRenderingTemplatesTemplateUnarchiveResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice_rendering_template>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoiceitemsResponder = {
@@ -6690,6 +7144,7 @@ export type GetInvoiceitems = (
   >,
   respond: GetInvoiceitemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6702,6 +7157,7 @@ export type GetInvoiceitems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoiceitemsResponder = {
@@ -6713,10 +7169,12 @@ export type PostInvoiceitems = (
   params: Params<void, void, t_PostInvoiceitemsBodySchema, void>,
   respond: PostInvoiceitemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoiceitem>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteInvoiceitemsInvoiceitemResponder = {
@@ -6733,10 +7191,12 @@ export type DeleteInvoiceitemsInvoiceitem = (
   >,
   respond: DeleteInvoiceitemsInvoiceitemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_invoiceitem>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoiceitemsInvoiceitemResponder = {
@@ -6753,10 +7213,12 @@ export type GetInvoiceitemsInvoiceitem = (
   >,
   respond: GetInvoiceitemsInvoiceitemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoiceitem>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoiceitemsInvoiceitemResponder = {
@@ -6773,10 +7235,12 @@ export type PostInvoiceitemsInvoiceitem = (
   >,
   respond: PostInvoiceitemsInvoiceitemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoiceitem>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoicesResponder = {
@@ -6798,6 +7262,7 @@ export type GetInvoices = (
   >,
   respond: GetInvoicesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6810,6 +7275,7 @@ export type GetInvoices = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesResponder = {
@@ -6821,10 +7287,12 @@ export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesBodySchema | undefined, void>,
   respond: PostInvoicesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesCreatePreviewResponder = {
@@ -6841,10 +7309,12 @@ export type PostInvoicesCreatePreview = (
   >,
   respond: PostInvoicesCreatePreviewResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoicesSearchResponder = {
@@ -6868,6 +7338,7 @@ export type GetInvoicesSearch = (
   >,
   respond: GetInvoicesSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -6882,6 +7353,7 @@ export type GetInvoicesSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteInvoicesInvoiceResponder = {
@@ -6898,10 +7370,12 @@ export type DeleteInvoicesInvoice = (
   >,
   respond: DeleteInvoicesInvoiceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoicesInvoiceResponder = {
@@ -6918,10 +7392,12 @@ export type GetInvoicesInvoice = (
   >,
   respond: GetInvoicesInvoiceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceResponder = {
@@ -6938,10 +7414,12 @@ export type PostInvoicesInvoice = (
   >,
   respond: PostInvoicesInvoiceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceAddLinesResponder = {
@@ -6958,10 +7436,12 @@ export type PostInvoicesInvoiceAddLines = (
   >,
   respond: PostInvoicesInvoiceAddLinesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceFinalizeResponder = {
@@ -6978,10 +7458,12 @@ export type PostInvoicesInvoiceFinalize = (
   >,
   respond: PostInvoicesInvoiceFinalizeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetInvoicesInvoiceLinesResponder = {
@@ -7003,6 +7485,7 @@ export type GetInvoicesInvoiceLines = (
   >,
   respond: GetInvoicesInvoiceLinesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7015,6 +7498,7 @@ export type GetInvoicesInvoiceLines = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceLinesLineItemIdResponder = {
@@ -7031,10 +7515,12 @@ export type PostInvoicesInvoiceLinesLineItemId = (
   >,
   respond: PostInvoicesInvoiceLinesLineItemIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_line_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceMarkUncollectibleResponder = {
@@ -7051,10 +7537,12 @@ export type PostInvoicesInvoiceMarkUncollectible = (
   >,
   respond: PostInvoicesInvoiceMarkUncollectibleResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoicePayResponder = {
@@ -7071,10 +7559,12 @@ export type PostInvoicesInvoicePay = (
   >,
   respond: PostInvoicesInvoicePayResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceRemoveLinesResponder = {
@@ -7091,10 +7581,12 @@ export type PostInvoicesInvoiceRemoveLines = (
   >,
   respond: PostInvoicesInvoiceRemoveLinesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceSendResponder = {
@@ -7111,10 +7603,12 @@ export type PostInvoicesInvoiceSend = (
   >,
   respond: PostInvoicesInvoiceSendResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceUpdateLinesResponder = {
@@ -7131,10 +7625,12 @@ export type PostInvoicesInvoiceUpdateLines = (
   >,
   respond: PostInvoicesInvoiceUpdateLinesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostInvoicesInvoiceVoidResponder = {
@@ -7151,10 +7647,12 @@ export type PostInvoicesInvoiceVoid = (
   >,
   respond: PostInvoicesInvoiceVoidResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_invoice>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingAuthorizationsResponder = {
@@ -7176,6 +7674,7 @@ export type GetIssuingAuthorizations = (
   >,
   respond: GetIssuingAuthorizationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7188,6 +7687,7 @@ export type GetIssuingAuthorizations = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingAuthorizationsAuthorizationResponder = {
@@ -7204,10 +7704,12 @@ export type GetIssuingAuthorizationsAuthorization = (
   >,
   respond: GetIssuingAuthorizationsAuthorizationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingAuthorizationsAuthorizationResponder = {
@@ -7224,10 +7726,12 @@ export type PostIssuingAuthorizationsAuthorization = (
   >,
   respond: PostIssuingAuthorizationsAuthorizationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingAuthorizationsAuthorizationApproveResponder = {
@@ -7244,10 +7748,12 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
   >,
   respond: PostIssuingAuthorizationsAuthorizationApproveResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingAuthorizationsAuthorizationDeclineResponder = {
@@ -7264,10 +7770,12 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
   >,
   respond: PostIssuingAuthorizationsAuthorizationDeclineResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingCardholdersResponder = {
@@ -7289,6 +7797,7 @@ export type GetIssuingCardholders = (
   >,
   respond: GetIssuingCardholdersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7301,6 +7810,7 @@ export type GetIssuingCardholders = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingCardholdersResponder = {
@@ -7312,10 +7822,12 @@ export type PostIssuingCardholders = (
   params: Params<void, void, t_PostIssuingCardholdersBodySchema, void>,
   respond: PostIssuingCardholdersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_cardholder>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingCardholdersCardholderResponder = {
@@ -7332,10 +7844,12 @@ export type GetIssuingCardholdersCardholder = (
   >,
   respond: GetIssuingCardholdersCardholderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_cardholder>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingCardholdersCardholderResponder = {
@@ -7352,10 +7866,12 @@ export type PostIssuingCardholdersCardholder = (
   >,
   respond: PostIssuingCardholdersCardholderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_cardholder>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingCardsResponder = {
@@ -7377,6 +7893,7 @@ export type GetIssuingCards = (
   >,
   respond: GetIssuingCardsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7389,6 +7906,7 @@ export type GetIssuingCards = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingCardsResponder = {
@@ -7400,10 +7918,12 @@ export type PostIssuingCards = (
   params: Params<void, void, t_PostIssuingCardsBodySchema, void>,
   respond: PostIssuingCardsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingCardsCardResponder = {
@@ -7420,10 +7940,12 @@ export type GetIssuingCardsCard = (
   >,
   respond: GetIssuingCardsCardResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingCardsCardResponder = {
@@ -7440,10 +7962,12 @@ export type PostIssuingCardsCard = (
   >,
   respond: PostIssuingCardsCardResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingDisputesResponder = {
@@ -7465,6 +7989,7 @@ export type GetIssuingDisputes = (
   >,
   respond: GetIssuingDisputesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7477,6 +8002,7 @@ export type GetIssuingDisputes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingDisputesResponder = {
@@ -7488,10 +8014,12 @@ export type PostIssuingDisputes = (
   params: Params<void, void, t_PostIssuingDisputesBodySchema | undefined, void>,
   respond: PostIssuingDisputesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingDisputesDisputeResponder = {
@@ -7508,10 +8036,12 @@ export type GetIssuingDisputesDispute = (
   >,
   respond: GetIssuingDisputesDisputeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingDisputesDisputeResponder = {
@@ -7528,10 +8058,12 @@ export type PostIssuingDisputesDispute = (
   >,
   respond: PostIssuingDisputesDisputeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingDisputesDisputeSubmitResponder = {
@@ -7548,10 +8080,12 @@ export type PostIssuingDisputesDisputeSubmit = (
   >,
   respond: PostIssuingDisputesDisputeSubmitResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_dispute>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingPersonalizationDesignsResponder = {
@@ -7573,6 +8107,7 @@ export type GetIssuingPersonalizationDesigns = (
   >,
   respond: GetIssuingPersonalizationDesignsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7585,6 +8120,7 @@ export type GetIssuingPersonalizationDesigns = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingPersonalizationDesignsResponder = {
@@ -7601,10 +8137,12 @@ export type PostIssuingPersonalizationDesigns = (
   >,
   respond: PostIssuingPersonalizationDesignsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_personalization_design>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingPersonalizationDesignsPersonalizationDesignResponder = {
@@ -7622,10 +8160,12 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   >,
   respond: GetIssuingPersonalizationDesignsPersonalizationDesignResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_personalization_design>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingPersonalizationDesignsPersonalizationDesignResponder = {
@@ -7643,10 +8183,12 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   >,
   respond: PostIssuingPersonalizationDesignsPersonalizationDesignResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_personalization_design>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingPhysicalBundlesResponder = {
@@ -7668,6 +8210,7 @@ export type GetIssuingPhysicalBundles = (
   >,
   respond: GetIssuingPhysicalBundlesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7680,6 +8223,7 @@ export type GetIssuingPhysicalBundles = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingPhysicalBundlesPhysicalBundleResponder = {
@@ -7696,10 +8240,12 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   >,
   respond: GetIssuingPhysicalBundlesPhysicalBundleResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_physical_bundle>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingSettlementsSettlementResponder = {
@@ -7716,10 +8262,12 @@ export type GetIssuingSettlementsSettlement = (
   >,
   respond: GetIssuingSettlementsSettlementResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_settlement>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingSettlementsSettlementResponder = {
@@ -7736,10 +8284,12 @@ export type PostIssuingSettlementsSettlement = (
   >,
   respond: PostIssuingSettlementsSettlementResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_settlement>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingTokensResponder = {
@@ -7761,6 +8311,7 @@ export type GetIssuingTokens = (
   >,
   respond: GetIssuingTokensResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7773,6 +8324,7 @@ export type GetIssuingTokens = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingTokensTokenResponder = {
@@ -7789,10 +8341,12 @@ export type GetIssuingTokensToken = (
   >,
   respond: GetIssuingTokensTokenResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingTokensTokenResponder = {
@@ -7809,10 +8363,12 @@ export type PostIssuingTokensToken = (
   >,
   respond: PostIssuingTokensTokenResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingTransactionsResponder = {
@@ -7834,6 +8390,7 @@ export type GetIssuingTransactions = (
   >,
   respond: GetIssuingTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7846,6 +8403,7 @@ export type GetIssuingTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetIssuingTransactionsTransactionResponder = {
@@ -7862,10 +8420,12 @@ export type GetIssuingTransactionsTransaction = (
   >,
   respond: GetIssuingTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostIssuingTransactionsTransactionResponder = {
@@ -7882,10 +8442,12 @@ export type PostIssuingTransactionsTransaction = (
   >,
   respond: PostIssuingTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostLinkAccountSessionsResponder = {
@@ -7897,10 +8459,12 @@ export type PostLinkAccountSessions = (
   params: Params<void, void, t_PostLinkAccountSessionsBodySchema, void>,
   respond: PostLinkAccountSessionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetLinkAccountSessionsSessionResponder = {
@@ -7917,10 +8481,12 @@ export type GetLinkAccountSessionsSession = (
   >,
   respond: GetLinkAccountSessionsSessionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_session>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetLinkedAccountsResponder = {
@@ -7942,6 +8508,7 @@ export type GetLinkedAccounts = (
   >,
   respond: GetLinkedAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -7954,6 +8521,7 @@ export type GetLinkedAccounts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetLinkedAccountsAccountResponder = {
@@ -7970,10 +8538,12 @@ export type GetLinkedAccountsAccount = (
   >,
   respond: GetLinkedAccountsAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostLinkedAccountsAccountDisconnectResponder = {
@@ -7990,10 +8560,12 @@ export type PostLinkedAccountsAccountDisconnect = (
   >,
   respond: PostLinkedAccountsAccountDisconnectResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetLinkedAccountsAccountOwnersResponder = {
@@ -8015,6 +8587,7 @@ export type GetLinkedAccountsAccountOwners = (
   >,
   respond: GetLinkedAccountsAccountOwnersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8027,6 +8600,7 @@ export type GetLinkedAccountsAccountOwners = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostLinkedAccountsAccountRefreshResponder = {
@@ -8043,10 +8617,12 @@ export type PostLinkedAccountsAccountRefresh = (
   >,
   respond: PostLinkedAccountsAccountRefreshResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_financial_connections_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetMandatesMandateResponder = {
@@ -8063,10 +8639,12 @@ export type GetMandatesMandate = (
   >,
   respond: GetMandatesMandateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_mandate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentIntentsResponder = {
@@ -8088,6 +8666,7 @@ export type GetPaymentIntents = (
   >,
   respond: GetPaymentIntentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8100,6 +8679,7 @@ export type GetPaymentIntents = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsResponder = {
@@ -8111,10 +8691,12 @@ export type PostPaymentIntents = (
   params: Params<void, void, t_PostPaymentIntentsBodySchema, void>,
   respond: PostPaymentIntentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentIntentsSearchResponder = {
@@ -8138,6 +8720,7 @@ export type GetPaymentIntentsSearch = (
   >,
   respond: GetPaymentIntentsSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8152,6 +8735,7 @@ export type GetPaymentIntentsSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentIntentsIntentResponder = {
@@ -8168,10 +8752,12 @@ export type GetPaymentIntentsIntent = (
   >,
   respond: GetPaymentIntentsIntentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentResponder = {
@@ -8188,10 +8774,12 @@ export type PostPaymentIntentsIntent = (
   >,
   respond: PostPaymentIntentsIntentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentApplyCustomerBalanceResponder = {
@@ -8208,10 +8796,12 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
   >,
   respond: PostPaymentIntentsIntentApplyCustomerBalanceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentCancelResponder = {
@@ -8228,10 +8818,12 @@ export type PostPaymentIntentsIntentCancel = (
   >,
   respond: PostPaymentIntentsIntentCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentCaptureResponder = {
@@ -8248,10 +8840,12 @@ export type PostPaymentIntentsIntentCapture = (
   >,
   respond: PostPaymentIntentsIntentCaptureResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentConfirmResponder = {
@@ -8268,10 +8862,12 @@ export type PostPaymentIntentsIntentConfirm = (
   >,
   respond: PostPaymentIntentsIntentConfirmResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentIncrementAuthorizationResponder = {
@@ -8288,10 +8884,12 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
   >,
   respond: PostPaymentIntentsIntentIncrementAuthorizationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentIntentsIntentVerifyMicrodepositsResponder = {
@@ -8308,10 +8906,12 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   >,
   respond: PostPaymentIntentsIntentVerifyMicrodepositsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentLinksResponder = {
@@ -8333,6 +8933,7 @@ export type GetPaymentLinks = (
   >,
   respond: GetPaymentLinksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8345,6 +8946,7 @@ export type GetPaymentLinks = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentLinksResponder = {
@@ -8356,10 +8958,12 @@ export type PostPaymentLinks = (
   params: Params<void, void, t_PostPaymentLinksBodySchema, void>,
   respond: PostPaymentLinksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentLinksPaymentLinkResponder = {
@@ -8376,10 +8980,12 @@ export type GetPaymentLinksPaymentLink = (
   >,
   respond: GetPaymentLinksPaymentLinkResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentLinksPaymentLinkResponder = {
@@ -8396,10 +9002,12 @@ export type PostPaymentLinksPaymentLink = (
   >,
   respond: PostPaymentLinksPaymentLinkResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_link>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentLinksPaymentLinkLineItemsResponder = {
@@ -8421,6 +9029,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   >,
   respond: GetPaymentLinksPaymentLinkLineItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8433,6 +9042,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentMethodConfigurationsResponder = {
@@ -8454,6 +9064,7 @@ export type GetPaymentMethodConfigurations = (
   >,
   respond: GetPaymentMethodConfigurationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8466,6 +9077,7 @@ export type GetPaymentMethodConfigurations = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodConfigurationsResponder = {
@@ -8482,10 +9094,12 @@ export type PostPaymentMethodConfigurations = (
   >,
   respond: PostPaymentMethodConfigurationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentMethodConfigurationsConfigurationResponder = {
@@ -8502,10 +9116,12 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   >,
   respond: GetPaymentMethodConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodConfigurationsConfigurationResponder = {
@@ -8522,10 +9138,12 @@ export type PostPaymentMethodConfigurationsConfiguration = (
   >,
   respond: PostPaymentMethodConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentMethodDomainsResponder = {
@@ -8547,6 +9165,7 @@ export type GetPaymentMethodDomains = (
   >,
   respond: GetPaymentMethodDomainsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8559,6 +9178,7 @@ export type GetPaymentMethodDomains = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodDomainsResponder = {
@@ -8570,10 +9190,12 @@ export type PostPaymentMethodDomains = (
   params: Params<void, void, t_PostPaymentMethodDomainsBodySchema, void>,
   respond: PostPaymentMethodDomainsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentMethodDomainsPaymentMethodDomainResponder = {
@@ -8590,10 +9212,12 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   >,
   respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodDomainsPaymentMethodDomainResponder = {
@@ -8610,10 +9234,12 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodDomainsPaymentMethodDomainValidateResponder = {
@@ -8630,10 +9256,12 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   >,
   respond: PostPaymentMethodDomainsPaymentMethodDomainValidateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method_domain>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentMethodsResponder = {
@@ -8655,6 +9283,7 @@ export type GetPaymentMethods = (
   >,
   respond: GetPaymentMethodsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8667,6 +9296,7 @@ export type GetPaymentMethods = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodsResponder = {
@@ -8678,10 +9308,12 @@ export type PostPaymentMethods = (
   params: Params<void, void, t_PostPaymentMethodsBodySchema | undefined, void>,
   respond: PostPaymentMethodsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPaymentMethodsPaymentMethodResponder = {
@@ -8698,10 +9330,12 @@ export type GetPaymentMethodsPaymentMethod = (
   >,
   respond: GetPaymentMethodsPaymentMethodResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodsPaymentMethodResponder = {
@@ -8718,10 +9352,12 @@ export type PostPaymentMethodsPaymentMethod = (
   >,
   respond: PostPaymentMethodsPaymentMethodResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodsPaymentMethodAttachResponder = {
@@ -8738,10 +9374,12 @@ export type PostPaymentMethodsPaymentMethodAttach = (
   >,
   respond: PostPaymentMethodsPaymentMethodAttachResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPaymentMethodsPaymentMethodDetachResponder = {
@@ -8758,10 +9396,12 @@ export type PostPaymentMethodsPaymentMethodDetach = (
   >,
   respond: PostPaymentMethodsPaymentMethodDetachResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payment_method>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPayoutsResponder = {
@@ -8783,6 +9423,7 @@ export type GetPayouts = (
   >,
   respond: GetPayoutsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8795,6 +9436,7 @@ export type GetPayouts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPayoutsResponder = {
@@ -8806,10 +9448,12 @@ export type PostPayouts = (
   params: Params<void, void, t_PostPayoutsBodySchema, void>,
   respond: PostPayoutsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPayoutsPayoutResponder = {
@@ -8826,10 +9470,12 @@ export type GetPayoutsPayout = (
   >,
   respond: GetPayoutsPayoutResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPayoutsPayoutResponder = {
@@ -8846,10 +9492,12 @@ export type PostPayoutsPayout = (
   >,
   respond: PostPayoutsPayoutResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPayoutsPayoutCancelResponder = {
@@ -8866,10 +9514,12 @@ export type PostPayoutsPayoutCancel = (
   >,
   respond: PostPayoutsPayoutCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPayoutsPayoutReverseResponder = {
@@ -8886,10 +9536,12 @@ export type PostPayoutsPayoutReverse = (
   >,
   respond: PostPayoutsPayoutReverseResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_payout>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPlansResponder = {
@@ -8911,6 +9563,7 @@ export type GetPlans = (
   >,
   respond: GetPlansResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -8923,6 +9576,7 @@ export type GetPlans = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPlansResponder = {
@@ -8934,10 +9588,12 @@ export type PostPlans = (
   params: Params<void, void, t_PostPlansBodySchema, void>,
   respond: PostPlansResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_plan>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeletePlansPlanResponder = {
@@ -8954,10 +9610,12 @@ export type DeletePlansPlan = (
   >,
   respond: DeletePlansPlanResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_plan>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPlansPlanResponder = {
@@ -8974,10 +9632,12 @@ export type GetPlansPlan = (
   >,
   respond: GetPlansPlanResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_plan>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPlansPlanResponder = {
@@ -8994,10 +9654,12 @@ export type PostPlansPlan = (
   >,
   respond: PostPlansPlanResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_plan>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPricesResponder = {
@@ -9019,6 +9681,7 @@ export type GetPrices = (
   >,
   respond: GetPricesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9031,6 +9694,7 @@ export type GetPrices = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPricesResponder = {
@@ -9042,10 +9706,12 @@ export type PostPrices = (
   params: Params<void, void, t_PostPricesBodySchema, void>,
   respond: PostPricesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_price>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPricesSearchResponder = {
@@ -9069,6 +9735,7 @@ export type GetPricesSearch = (
   >,
   respond: GetPricesSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9083,6 +9750,7 @@ export type GetPricesSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPricesPriceResponder = {
@@ -9099,10 +9767,12 @@ export type GetPricesPrice = (
   >,
   respond: GetPricesPriceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_price>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPricesPriceResponder = {
@@ -9119,10 +9789,12 @@ export type PostPricesPrice = (
   >,
   respond: PostPricesPriceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_price>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetProductsResponder = {
@@ -9144,6 +9816,7 @@ export type GetProducts = (
   >,
   respond: GetProductsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9156,6 +9829,7 @@ export type GetProducts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostProductsResponder = {
@@ -9167,10 +9841,12 @@ export type PostProducts = (
   params: Params<void, void, t_PostProductsBodySchema, void>,
   respond: PostProductsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetProductsSearchResponder = {
@@ -9194,6 +9870,7 @@ export type GetProductsSearch = (
   >,
   respond: GetProductsSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9208,6 +9885,7 @@ export type GetProductsSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteProductsIdResponder = {
@@ -9224,10 +9902,12 @@ export type DeleteProductsId = (
   >,
   respond: DeleteProductsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_product>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetProductsIdResponder = {
@@ -9244,10 +9924,12 @@ export type GetProductsId = (
   >,
   respond: GetProductsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostProductsIdResponder = {
@@ -9264,10 +9946,12 @@ export type PostProductsId = (
   >,
   respond: PostProductsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetProductsProductFeaturesResponder = {
@@ -9289,6 +9973,7 @@ export type GetProductsProductFeatures = (
   >,
   respond: GetProductsProductFeaturesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9301,6 +9986,7 @@ export type GetProductsProductFeatures = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostProductsProductFeaturesResponder = {
@@ -9317,10 +10003,12 @@ export type PostProductsProductFeatures = (
   >,
   respond: PostProductsProductFeaturesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product_feature>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteProductsProductFeaturesIdResponder = {
@@ -9337,10 +10025,12 @@ export type DeleteProductsProductFeaturesId = (
   >,
   respond: DeleteProductsProductFeaturesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_product_feature>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetProductsProductFeaturesIdResponder = {
@@ -9357,10 +10047,12 @@ export type GetProductsProductFeaturesId = (
   >,
   respond: GetProductsProductFeaturesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_product_feature>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPromotionCodesResponder = {
@@ -9382,6 +10074,7 @@ export type GetPromotionCodes = (
   >,
   respond: GetPromotionCodesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9394,6 +10087,7 @@ export type GetPromotionCodes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPromotionCodesResponder = {
@@ -9405,10 +10099,12 @@ export type PostPromotionCodes = (
   params: Params<void, void, t_PostPromotionCodesBodySchema, void>,
   respond: PostPromotionCodesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_promotion_code>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetPromotionCodesPromotionCodeResponder = {
@@ -9425,10 +10121,12 @@ export type GetPromotionCodesPromotionCode = (
   >,
   respond: GetPromotionCodesPromotionCodeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_promotion_code>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostPromotionCodesPromotionCodeResponder = {
@@ -9445,10 +10143,12 @@ export type PostPromotionCodesPromotionCode = (
   >,
   respond: PostPromotionCodesPromotionCodeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_promotion_code>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetQuotesResponder = {
@@ -9470,6 +10170,7 @@ export type GetQuotes = (
   >,
   respond: GetQuotesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9482,6 +10183,7 @@ export type GetQuotes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostQuotesResponder = {
@@ -9493,10 +10195,12 @@ export type PostQuotes = (
   params: Params<void, void, t_PostQuotesBodySchema | undefined, void>,
   respond: PostQuotesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetQuotesQuoteResponder = {
@@ -9513,10 +10217,12 @@ export type GetQuotesQuote = (
   >,
   respond: GetQuotesQuoteResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostQuotesQuoteResponder = {
@@ -9533,10 +10239,12 @@ export type PostQuotesQuote = (
   >,
   respond: PostQuotesQuoteResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostQuotesQuoteAcceptResponder = {
@@ -9553,10 +10261,12 @@ export type PostQuotesQuoteAccept = (
   >,
   respond: PostQuotesQuoteAcceptResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostQuotesQuoteCancelResponder = {
@@ -9573,10 +10283,12 @@ export type PostQuotesQuoteCancel = (
   >,
   respond: PostQuotesQuoteCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetQuotesQuoteComputedUpfrontLineItemsResponder = {
@@ -9598,6 +10310,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   >,
   respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9610,6 +10323,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostQuotesQuoteFinalizeResponder = {
@@ -9626,10 +10340,12 @@ export type PostQuotesQuoteFinalize = (
   >,
   respond: PostQuotesQuoteFinalizeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_quote>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetQuotesQuoteLineItemsResponder = {
@@ -9651,6 +10367,7 @@ export type GetQuotesQuoteLineItems = (
   >,
   respond: GetQuotesQuoteLineItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9663,6 +10380,7 @@ export type GetQuotesQuoteLineItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetQuotesQuotePdfResponder = {
@@ -9679,10 +10397,12 @@ export type GetQuotesQuotePdf = (
   >,
   respond: GetQuotesQuotePdfResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, string>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRadarEarlyFraudWarningsResponder = {
@@ -9704,6 +10424,7 @@ export type GetRadarEarlyFraudWarnings = (
   >,
   respond: GetRadarEarlyFraudWarningsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9716,6 +10437,7 @@ export type GetRadarEarlyFraudWarnings = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRadarEarlyFraudWarningsEarlyFraudWarningResponder = {
@@ -9732,10 +10454,12 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   >,
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_early_fraud_warning>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRadarValueListItemsResponder = {
@@ -9757,6 +10481,7 @@ export type GetRadarValueListItems = (
   >,
   respond: GetRadarValueListItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9769,6 +10494,7 @@ export type GetRadarValueListItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostRadarValueListItemsResponder = {
@@ -9780,10 +10506,12 @@ export type PostRadarValueListItems = (
   params: Params<void, void, t_PostRadarValueListItemsBodySchema, void>,
   respond: PostRadarValueListItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteRadarValueListItemsItemResponder = {
@@ -9800,10 +10528,12 @@ export type DeleteRadarValueListItemsItem = (
   >,
   respond: DeleteRadarValueListItemsItemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_radar_value_list_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRadarValueListItemsItemResponder = {
@@ -9820,10 +10550,12 @@ export type GetRadarValueListItemsItem = (
   >,
   respond: GetRadarValueListItemsItemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRadarValueListsResponder = {
@@ -9845,6 +10577,7 @@ export type GetRadarValueLists = (
   >,
   respond: GetRadarValueListsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9857,6 +10590,7 @@ export type GetRadarValueLists = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostRadarValueListsResponder = {
@@ -9868,10 +10602,12 @@ export type PostRadarValueLists = (
   params: Params<void, void, t_PostRadarValueListsBodySchema, void>,
   respond: PostRadarValueListsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteRadarValueListsValueListResponder = {
@@ -9888,10 +10624,12 @@ export type DeleteRadarValueListsValueList = (
   >,
   respond: DeleteRadarValueListsValueListResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_radar_value_list>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRadarValueListsValueListResponder = {
@@ -9908,10 +10646,12 @@ export type GetRadarValueListsValueList = (
   >,
   respond: GetRadarValueListsValueListResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostRadarValueListsValueListResponder = {
@@ -9928,10 +10668,12 @@ export type PostRadarValueListsValueList = (
   >,
   respond: PostRadarValueListsValueListResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_radar_value_list>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRefundsResponder = {
@@ -9953,6 +10695,7 @@ export type GetRefunds = (
   >,
   respond: GetRefundsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -9965,6 +10708,7 @@ export type GetRefunds = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostRefundsResponder = {
@@ -9976,10 +10720,12 @@ export type PostRefunds = (
   params: Params<void, void, t_PostRefundsBodySchema | undefined, void>,
   respond: PostRefundsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetRefundsRefundResponder = {
@@ -9996,10 +10742,12 @@ export type GetRefundsRefund = (
   >,
   respond: GetRefundsRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostRefundsRefundResponder = {
@@ -10016,10 +10764,12 @@ export type PostRefundsRefund = (
   >,
   respond: PostRefundsRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostRefundsRefundCancelResponder = {
@@ -10036,10 +10786,12 @@ export type PostRefundsRefundCancel = (
   >,
   respond: PostRefundsRefundCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetReportingReportRunsResponder = {
@@ -10061,6 +10813,7 @@ export type GetReportingReportRuns = (
   >,
   respond: GetReportingReportRunsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10073,6 +10826,7 @@ export type GetReportingReportRuns = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostReportingReportRunsResponder = {
@@ -10084,10 +10838,12 @@ export type PostReportingReportRuns = (
   params: Params<void, void, t_PostReportingReportRunsBodySchema, void>,
   respond: PostReportingReportRunsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reporting_report_run>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetReportingReportRunsReportRunResponder = {
@@ -10104,10 +10860,12 @@ export type GetReportingReportRunsReportRun = (
   >,
   respond: GetReportingReportRunsReportRunResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reporting_report_run>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetReportingReportTypesResponder = {
@@ -10129,6 +10887,7 @@ export type GetReportingReportTypes = (
   >,
   respond: GetReportingReportTypesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10141,6 +10900,7 @@ export type GetReportingReportTypes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetReportingReportTypesReportTypeResponder = {
@@ -10157,10 +10917,12 @@ export type GetReportingReportTypesReportType = (
   >,
   respond: GetReportingReportTypesReportTypeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_reporting_report_type>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetReviewsResponder = {
@@ -10182,6 +10944,7 @@ export type GetReviews = (
   >,
   respond: GetReviewsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10194,6 +10957,7 @@ export type GetReviews = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetReviewsReviewResponder = {
@@ -10210,10 +10974,12 @@ export type GetReviewsReview = (
   >,
   respond: GetReviewsReviewResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_review>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostReviewsReviewApproveResponder = {
@@ -10230,10 +10996,12 @@ export type PostReviewsReviewApprove = (
   >,
   respond: PostReviewsReviewApproveResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_review>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSetupAttemptsResponder = {
@@ -10255,6 +11023,7 @@ export type GetSetupAttempts = (
   >,
   respond: GetSetupAttemptsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10267,6 +11036,7 @@ export type GetSetupAttempts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSetupIntentsResponder = {
@@ -10288,6 +11058,7 @@ export type GetSetupIntents = (
   >,
   respond: GetSetupIntentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10300,6 +11071,7 @@ export type GetSetupIntents = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSetupIntentsResponder = {
@@ -10311,10 +11083,12 @@ export type PostSetupIntents = (
   params: Params<void, void, t_PostSetupIntentsBodySchema | undefined, void>,
   respond: PostSetupIntentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSetupIntentsIntentResponder = {
@@ -10331,10 +11105,12 @@ export type GetSetupIntentsIntent = (
   >,
   respond: GetSetupIntentsIntentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSetupIntentsIntentResponder = {
@@ -10351,10 +11127,12 @@ export type PostSetupIntentsIntent = (
   >,
   respond: PostSetupIntentsIntentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSetupIntentsIntentCancelResponder = {
@@ -10371,10 +11149,12 @@ export type PostSetupIntentsIntentCancel = (
   >,
   respond: PostSetupIntentsIntentCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSetupIntentsIntentConfirmResponder = {
@@ -10391,10 +11171,12 @@ export type PostSetupIntentsIntentConfirm = (
   >,
   respond: PostSetupIntentsIntentConfirmResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSetupIntentsIntentVerifyMicrodepositsResponder = {
@@ -10411,10 +11193,12 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
   >,
   respond: PostSetupIntentsIntentVerifyMicrodepositsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_setup_intent>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetShippingRatesResponder = {
@@ -10436,6 +11220,7 @@ export type GetShippingRates = (
   >,
   respond: GetShippingRatesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10448,6 +11233,7 @@ export type GetShippingRates = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostShippingRatesResponder = {
@@ -10459,10 +11245,12 @@ export type PostShippingRates = (
   params: Params<void, void, t_PostShippingRatesBodySchema, void>,
   respond: PostShippingRatesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_shipping_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetShippingRatesShippingRateTokenResponder = {
@@ -10479,10 +11267,12 @@ export type GetShippingRatesShippingRateToken = (
   >,
   respond: GetShippingRatesShippingRateTokenResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_shipping_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostShippingRatesShippingRateTokenResponder = {
@@ -10499,10 +11289,12 @@ export type PostShippingRatesShippingRateToken = (
   >,
   respond: PostShippingRatesShippingRateTokenResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_shipping_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSigmaSavedQueriesIdResponder = {
@@ -10519,10 +11311,12 @@ export type PostSigmaSavedQueriesId = (
   >,
   respond: PostSigmaSavedQueriesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_sigma_sigma_api_query>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSigmaScheduledQueryRunsResponder = {
@@ -10544,6 +11338,7 @@ export type GetSigmaScheduledQueryRuns = (
   >,
   respond: GetSigmaScheduledQueryRunsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10556,6 +11351,7 @@ export type GetSigmaScheduledQueryRuns = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSigmaScheduledQueryRunsScheduledQueryRunResponder = {
@@ -10572,10 +11368,12 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   >,
   respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_scheduled_query_run>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSourcesResponder = {
@@ -10587,10 +11385,12 @@ export type PostSources = (
   params: Params<void, void, t_PostSourcesBodySchema | undefined, void>,
   respond: PostSourcesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSourcesSourceResponder = {
@@ -10607,10 +11407,12 @@ export type GetSourcesSource = (
   >,
   respond: GetSourcesSourceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSourcesSourceResponder = {
@@ -10627,10 +11429,12 @@ export type PostSourcesSource = (
   >,
   respond: PostSourcesSourceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSourcesSourceMandateNotificationsMandateNotificationResponder = {
@@ -10648,10 +11452,12 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   >,
   respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source_mandate_notification>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSourcesSourceSourceTransactionsResponder = {
@@ -10673,6 +11479,7 @@ export type GetSourcesSourceSourceTransactions = (
   >,
   respond: GetSourcesSourceSourceTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10685,6 +11492,7 @@ export type GetSourcesSourceSourceTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSourcesSourceSourceTransactionsSourceTransactionResponder = {
@@ -10701,10 +11509,12 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   >,
   respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSourcesSourceVerifyResponder = {
@@ -10721,10 +11531,12 @@ export type PostSourcesSourceVerify = (
   >,
   respond: PostSourcesSourceVerifyResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_source>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionItemsResponder = {
@@ -10746,6 +11558,7 @@ export type GetSubscriptionItems = (
   >,
   respond: GetSubscriptionItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10758,6 +11571,7 @@ export type GetSubscriptionItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionItemsResponder = {
@@ -10769,10 +11583,12 @@ export type PostSubscriptionItems = (
   params: Params<void, void, t_PostSubscriptionItemsBodySchema, void>,
   respond: PostSubscriptionItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteSubscriptionItemsItemResponder = {
@@ -10789,10 +11605,12 @@ export type DeleteSubscriptionItemsItem = (
   >,
   respond: DeleteSubscriptionItemsItemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_subscription_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionItemsItemResponder = {
@@ -10809,10 +11627,12 @@ export type GetSubscriptionItemsItem = (
   >,
   respond: GetSubscriptionItemsItemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionItemsItemResponder = {
@@ -10829,10 +11649,12 @@ export type PostSubscriptionItemsItem = (
   >,
   respond: PostSubscriptionItemsItemResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionSchedulesResponder = {
@@ -10854,6 +11676,7 @@ export type GetSubscriptionSchedules = (
   >,
   respond: GetSubscriptionSchedulesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10866,6 +11689,7 @@ export type GetSubscriptionSchedules = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionSchedulesResponder = {
@@ -10882,10 +11706,12 @@ export type PostSubscriptionSchedules = (
   >,
   respond: PostSubscriptionSchedulesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionSchedulesScheduleResponder = {
@@ -10902,10 +11728,12 @@ export type GetSubscriptionSchedulesSchedule = (
   >,
   respond: GetSubscriptionSchedulesScheduleResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionSchedulesScheduleResponder = {
@@ -10922,10 +11750,12 @@ export type PostSubscriptionSchedulesSchedule = (
   >,
   respond: PostSubscriptionSchedulesScheduleResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionSchedulesScheduleCancelResponder = {
@@ -10942,10 +11772,12 @@ export type PostSubscriptionSchedulesScheduleCancel = (
   >,
   respond: PostSubscriptionSchedulesScheduleCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionSchedulesScheduleReleaseResponder = {
@@ -10962,10 +11794,12 @@ export type PostSubscriptionSchedulesScheduleRelease = (
   >,
   respond: PostSubscriptionSchedulesScheduleReleaseResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_schedule>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionsResponder = {
@@ -10987,6 +11821,7 @@ export type GetSubscriptions = (
   >,
   respond: GetSubscriptionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -10999,6 +11834,7 @@ export type GetSubscriptions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionsResponder = {
@@ -11010,10 +11846,12 @@ export type PostSubscriptions = (
   params: Params<void, void, t_PostSubscriptionsBodySchema, void>,
   respond: PostSubscriptionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionsSearchResponder = {
@@ -11037,6 +11875,7 @@ export type GetSubscriptionsSearch = (
   >,
   respond: GetSubscriptionsSearchResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11051,6 +11890,7 @@ export type GetSubscriptionsSearch = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteSubscriptionsSubscriptionExposedIdResponder = {
@@ -11067,10 +11907,12 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetSubscriptionsSubscriptionExposedIdResponder = {
@@ -11087,10 +11929,12 @@ export type GetSubscriptionsSubscriptionExposedId = (
   >,
   respond: GetSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionsSubscriptionExposedIdResponder = {
@@ -11107,10 +11951,12 @@ export type PostSubscriptionsSubscriptionExposedId = (
   >,
   respond: PostSubscriptionsSubscriptionExposedIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteSubscriptionsSubscriptionExposedIdDiscountResponder = {
@@ -11127,10 +11973,12 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_discount>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostSubscriptionsSubscriptionResumeResponder = {
@@ -11147,10 +11995,12 @@ export type PostSubscriptionsSubscriptionResume = (
   >,
   respond: PostSubscriptionsSubscriptionResumeResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxCalculationsResponder = {
@@ -11162,10 +12012,12 @@ export type PostTaxCalculations = (
   params: Params<void, void, t_PostTaxCalculationsBodySchema, void>,
   respond: PostTaxCalculationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_calculation>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxCalculationsCalculationResponder = {
@@ -11182,10 +12034,12 @@ export type GetTaxCalculationsCalculation = (
   >,
   respond: GetTaxCalculationsCalculationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_calculation>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxCalculationsCalculationLineItemsResponder = {
@@ -11207,6 +12061,7 @@ export type GetTaxCalculationsCalculationLineItems = (
   >,
   respond: GetTaxCalculationsCalculationLineItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11219,6 +12074,7 @@ export type GetTaxCalculationsCalculationLineItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxRegistrationsResponder = {
@@ -11240,6 +12096,7 @@ export type GetTaxRegistrations = (
   >,
   respond: GetTaxRegistrationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11252,6 +12109,7 @@ export type GetTaxRegistrations = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxRegistrationsResponder = {
@@ -11263,10 +12121,12 @@ export type PostTaxRegistrations = (
   params: Params<void, void, t_PostTaxRegistrationsBodySchema, void>,
   respond: PostTaxRegistrationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_registration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxRegistrationsIdResponder = {
@@ -11283,10 +12143,12 @@ export type GetTaxRegistrationsId = (
   >,
   respond: GetTaxRegistrationsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_registration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxRegistrationsIdResponder = {
@@ -11303,10 +12165,12 @@ export type PostTaxRegistrationsId = (
   >,
   respond: PostTaxRegistrationsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_registration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxSettingsResponder = {
@@ -11323,10 +12187,12 @@ export type GetTaxSettings = (
   >,
   respond: GetTaxSettingsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_settings>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxSettingsResponder = {
@@ -11338,10 +12204,12 @@ export type PostTaxSettings = (
   params: Params<void, void, t_PostTaxSettingsBodySchema | undefined, void>,
   respond: PostTaxSettingsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_settings>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxTransactionsCreateFromCalculationResponder = {
@@ -11358,10 +12226,12 @@ export type PostTaxTransactionsCreateFromCalculation = (
   >,
   respond: PostTaxTransactionsCreateFromCalculationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxTransactionsCreateReversalResponder = {
@@ -11378,10 +12248,12 @@ export type PostTaxTransactionsCreateReversal = (
   >,
   respond: PostTaxTransactionsCreateReversalResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxTransactionsTransactionResponder = {
@@ -11398,10 +12270,12 @@ export type GetTaxTransactionsTransaction = (
   >,
   respond: GetTaxTransactionsTransactionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxTransactionsTransactionLineItemsResponder = {
@@ -11423,6 +12297,7 @@ export type GetTaxTransactionsTransactionLineItems = (
   >,
   respond: GetTaxTransactionsTransactionLineItemsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11435,6 +12310,7 @@ export type GetTaxTransactionsTransactionLineItems = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxCodesResponder = {
@@ -11456,6 +12332,7 @@ export type GetTaxCodes = (
   >,
   respond: GetTaxCodesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11468,6 +12345,7 @@ export type GetTaxCodes = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxCodesIdResponder = {
@@ -11484,10 +12362,12 @@ export type GetTaxCodesId = (
   >,
   respond: GetTaxCodesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_code>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxIdsResponder = {
@@ -11509,6 +12389,7 @@ export type GetTaxIds = (
   >,
   respond: GetTaxIdsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11521,6 +12402,7 @@ export type GetTaxIds = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxIdsResponder = {
@@ -11532,10 +12414,12 @@ export type PostTaxIds = (
   params: Params<void, void, t_PostTaxIdsBodySchema, void>,
   respond: PostTaxIdsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_id>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteTaxIdsIdResponder = {
@@ -11552,10 +12436,12 @@ export type DeleteTaxIdsId = (
   >,
   respond: DeleteTaxIdsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_tax_id>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxIdsIdResponder = {
@@ -11572,10 +12458,12 @@ export type GetTaxIdsId = (
   >,
   respond: GetTaxIdsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_id>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxRatesResponder = {
@@ -11597,6 +12485,7 @@ export type GetTaxRates = (
   >,
   respond: GetTaxRatesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11609,6 +12498,7 @@ export type GetTaxRates = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxRatesResponder = {
@@ -11620,10 +12510,12 @@ export type PostTaxRates = (
   params: Params<void, void, t_PostTaxRatesBodySchema, void>,
   respond: PostTaxRatesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTaxRatesTaxRateResponder = {
@@ -11640,10 +12532,12 @@ export type GetTaxRatesTaxRate = (
   >,
   respond: GetTaxRatesTaxRateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTaxRatesTaxRateResponder = {
@@ -11660,10 +12554,12 @@ export type PostTaxRatesTaxRate = (
   >,
   respond: PostTaxRatesTaxRateResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_tax_rate>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTerminalConfigurationsResponder = {
@@ -11685,6 +12581,7 @@ export type GetTerminalConfigurations = (
   >,
   respond: GetTerminalConfigurationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11697,6 +12594,7 @@ export type GetTerminalConfigurations = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalConfigurationsResponder = {
@@ -11713,10 +12611,12 @@ export type PostTerminalConfigurations = (
   >,
   respond: PostTerminalConfigurationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteTerminalConfigurationsConfigurationResponder = {
@@ -11733,10 +12633,12 @@ export type DeleteTerminalConfigurationsConfiguration = (
   >,
   respond: DeleteTerminalConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTerminalConfigurationsConfigurationResponder = {
@@ -11755,10 +12657,12 @@ export type GetTerminalConfigurationsConfiguration = (
   >,
   respond: GetTerminalConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalConfigurationsConfigurationResponder = {
@@ -11777,10 +12681,12 @@ export type PostTerminalConfigurationsConfiguration = (
   >,
   respond: PostTerminalConfigurationsConfigurationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_configuration | t_deleted_terminal_configuration>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalConnectionTokensResponder = {
@@ -11797,10 +12703,12 @@ export type PostTerminalConnectionTokens = (
   >,
   respond: PostTerminalConnectionTokensResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_connection_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTerminalLocationsResponder = {
@@ -11822,6 +12730,7 @@ export type GetTerminalLocations = (
   >,
   respond: GetTerminalLocationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11834,6 +12743,7 @@ export type GetTerminalLocations = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalLocationsResponder = {
@@ -11845,10 +12755,12 @@ export type PostTerminalLocations = (
   params: Params<void, void, t_PostTerminalLocationsBodySchema, void>,
   respond: PostTerminalLocationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_location>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteTerminalLocationsLocationResponder = {
@@ -11865,10 +12777,12 @@ export type DeleteTerminalLocationsLocation = (
   >,
   respond: DeleteTerminalLocationsLocationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_terminal_location>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTerminalLocationsLocationResponder = {
@@ -11887,10 +12801,12 @@ export type GetTerminalLocationsLocation = (
   >,
   respond: GetTerminalLocationsLocationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_location | t_deleted_terminal_location>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalLocationsLocationResponder = {
@@ -11909,10 +12825,12 @@ export type PostTerminalLocationsLocation = (
   >,
   respond: PostTerminalLocationsLocationResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_location | t_deleted_terminal_location>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTerminalReadersResponder = {
@@ -11934,6 +12852,7 @@ export type GetTerminalReaders = (
   >,
   respond: GetTerminalReadersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -11946,6 +12865,7 @@ export type GetTerminalReaders = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersResponder = {
@@ -11957,10 +12877,12 @@ export type PostTerminalReaders = (
   params: Params<void, void, t_PostTerminalReadersBodySchema, void>,
   respond: PostTerminalReadersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteTerminalReadersReaderResponder = {
@@ -11977,10 +12899,12 @@ export type DeleteTerminalReadersReader = (
   >,
   respond: DeleteTerminalReadersReaderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTerminalReadersReaderResponder = {
@@ -11997,10 +12921,12 @@ export type GetTerminalReadersReader = (
   >,
   respond: GetTerminalReadersReaderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader | t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersReaderResponder = {
@@ -12017,10 +12943,12 @@ export type PostTerminalReadersReader = (
   >,
   respond: PostTerminalReadersReaderResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader | t_deleted_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersReaderCancelActionResponder = {
@@ -12037,10 +12965,12 @@ export type PostTerminalReadersReaderCancelAction = (
   >,
   respond: PostTerminalReadersReaderCancelActionResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersReaderProcessPaymentIntentResponder = {
@@ -12057,10 +12987,12 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
   >,
   respond: PostTerminalReadersReaderProcessPaymentIntentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersReaderProcessSetupIntentResponder = {
@@ -12077,10 +13009,12 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
   >,
   respond: PostTerminalReadersReaderProcessSetupIntentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersReaderRefundPaymentResponder = {
@@ -12097,10 +13031,12 @@ export type PostTerminalReadersReaderRefundPayment = (
   >,
   respond: PostTerminalReadersReaderRefundPaymentResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTerminalReadersReaderSetReaderDisplayResponder = {
@@ -12117,10 +13053,12 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
   >,
   respond: PostTerminalReadersReaderSetReaderDisplayResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersConfirmationTokensResponder = {
@@ -12137,10 +13075,12 @@ export type PostTestHelpersConfirmationTokens = (
   >,
   respond: PostTestHelpersConfirmationTokensResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_confirmation_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersCustomersCustomerFundCashBalanceResponder = {
@@ -12157,10 +13097,12 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
   >,
   respond: PostTestHelpersCustomersCustomerFundCashBalanceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_customer_cash_balance_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingAuthorizationsResponder = {
@@ -12177,10 +13119,12 @@ export type PostTestHelpersIssuingAuthorizations = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder =
@@ -12199,10 +13143,12 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder = {
@@ -12220,10 +13166,12 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder =
@@ -12241,10 +13189,12 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder =
@@ -12263,10 +13213,12 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
     >,
     respond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
     ctx: RouterContext,
+    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Response<200, t_issuing_authorization>
     | Response<StatusCode, t_error>
+    | typeof SkipResponse
   >
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder =
@@ -12284,10 +13236,12 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder =
@@ -12306,10 +13260,12 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   >,
   respond: PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_authorization>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingCardsCardShippingDeliverResponder = {
@@ -12326,10 +13282,12 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingDeliverResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingCardsCardShippingFailResponder = {
@@ -12346,10 +13304,12 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingFailResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingCardsCardShippingReturnResponder = {
@@ -12366,10 +13326,12 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingReturnResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingCardsCardShippingShipResponder = {
@@ -12386,10 +13348,12 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingShipResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingCardsCardShippingSubmitResponder = {
@@ -12406,10 +13370,12 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   >,
   respond: PostTestHelpersIssuingCardsCardShippingSubmitResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_card>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder =
@@ -12429,10 +13395,12 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder,
     ctx: RouterContext,
+    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Response<200, t_issuing_personalization_design>
     | Response<StatusCode, t_error>
+    | typeof SkipResponse
   >
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder =
@@ -12452,10 +13420,12 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder,
     ctx: RouterContext,
+    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Response<200, t_issuing_personalization_design>
     | Response<StatusCode, t_error>
+    | typeof SkipResponse
   >
 
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder =
@@ -12474,10 +13444,12 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     >,
     respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder,
     ctx: RouterContext,
+    next: Next,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
     | Response<200, t_issuing_personalization_design>
     | Response<StatusCode, t_error>
+    | typeof SkipResponse
   >
 
 export type PostTestHelpersIssuingSettlementsResponder = {
@@ -12494,10 +13466,12 @@ export type PostTestHelpersIssuingSettlements = (
   >,
   respond: PostTestHelpersIssuingSettlementsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_settlement>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingSettlementsSettlementCompleteResponder = {
@@ -12514,10 +13488,12 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   >,
   respond: PostTestHelpersIssuingSettlementsSettlementCompleteResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_settlement>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingTransactionsCreateForceCaptureResponder = {
@@ -12534,10 +13510,12 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   >,
   respond: PostTestHelpersIssuingTransactionsCreateForceCaptureResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder = {
@@ -12554,10 +13532,12 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   >,
   respond: PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersIssuingTransactionsTransactionRefundResponder = {
@@ -12574,10 +13554,12 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   >,
   respond: PostTestHelpersIssuingTransactionsTransactionRefundResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_issuing_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersRefundsRefundExpireResponder = {
@@ -12594,10 +13576,12 @@ export type PostTestHelpersRefundsRefundExpire = (
   >,
   respond: PostTestHelpersRefundsRefundExpireResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_refund>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder =
@@ -12616,10 +13600,12 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   >,
   respond: PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_terminal_reader>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTestHelpersTestClocksResponder = {
@@ -12641,6 +13627,7 @@ export type GetTestHelpersTestClocks = (
   >,
   respond: GetTestHelpersTestClocksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -12653,6 +13640,7 @@ export type GetTestHelpersTestClocks = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTestClocksResponder = {
@@ -12664,10 +13652,12 @@ export type PostTestHelpersTestClocks = (
   params: Params<void, void, t_PostTestHelpersTestClocksBodySchema, void>,
   respond: PostTestHelpersTestClocksResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_test_helpers_test_clock>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteTestHelpersTestClocksTestClockResponder = {
@@ -12684,10 +13674,12 @@ export type DeleteTestHelpersTestClocksTestClock = (
   >,
   respond: DeleteTestHelpersTestClocksTestClockResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_test_helpers_test_clock>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTestHelpersTestClocksTestClockResponder = {
@@ -12704,10 +13696,12 @@ export type GetTestHelpersTestClocksTestClock = (
   >,
   respond: GetTestHelpersTestClocksTestClockResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_test_helpers_test_clock>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTestClocksTestClockAdvanceResponder = {
@@ -12724,10 +13718,12 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
   >,
   respond: PostTestHelpersTestClocksTestClockAdvanceResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_test_helpers_test_clock>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryInboundTransfersIdFailResponder = {
@@ -12744,10 +13740,12 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdFailResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryInboundTransfersIdReturnResponder = {
@@ -12764,10 +13762,12 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdReturnResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryInboundTransfersIdSucceedResponder = {
@@ -12784,10 +13784,12 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   >,
   respond: PostTestHelpersTreasuryInboundTransfersIdSucceedResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdResponder = {
@@ -12804,10 +13806,12 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdFailResponder = {
@@ -12824,10 +13828,12 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdFailResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdPostResponder = {
@@ -12844,10 +13850,12 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdPostResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder = {
@@ -12864,10 +13872,12 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   >,
   respond: PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder =
@@ -12885,10 +13895,12 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder =
@@ -12907,10 +13919,12 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder =
@@ -12929,10 +13943,12 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder =
@@ -12951,10 +13967,12 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   >,
   respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryReceivedCreditsResponder = {
@@ -12971,10 +13989,12 @@ export type PostTestHelpersTreasuryReceivedCredits = (
   >,
   respond: PostTestHelpersTreasuryReceivedCreditsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_credit>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTestHelpersTreasuryReceivedDebitsResponder = {
@@ -12991,10 +14011,12 @@ export type PostTestHelpersTreasuryReceivedDebits = (
   >,
   respond: PostTestHelpersTreasuryReceivedDebitsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_debit>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTokensResponder = {
@@ -13006,10 +14028,12 @@ export type PostTokens = (
   params: Params<void, void, t_PostTokensBodySchema | undefined, void>,
   respond: PostTokensResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTokensTokenResponder = {
@@ -13026,10 +14050,12 @@ export type GetTokensToken = (
   >,
   respond: GetTokensTokenResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_token>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTopupsResponder = {
@@ -13051,6 +14077,7 @@ export type GetTopups = (
   >,
   respond: GetTopupsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13063,6 +14090,7 @@ export type GetTopups = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTopupsResponder = {
@@ -13074,10 +14102,12 @@ export type PostTopups = (
   params: Params<void, void, t_PostTopupsBodySchema, void>,
   respond: PostTopupsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTopupsTopupResponder = {
@@ -13094,10 +14124,12 @@ export type GetTopupsTopup = (
   >,
   respond: GetTopupsTopupResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTopupsTopupResponder = {
@@ -13114,10 +14146,12 @@ export type PostTopupsTopup = (
   >,
   respond: PostTopupsTopupResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTopupsTopupCancelResponder = {
@@ -13134,10 +14168,12 @@ export type PostTopupsTopupCancel = (
   >,
   respond: PostTopupsTopupCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_topup>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTransfersResponder = {
@@ -13159,6 +14195,7 @@ export type GetTransfers = (
   >,
   respond: GetTransfersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13171,6 +14208,7 @@ export type GetTransfers = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTransfersResponder = {
@@ -13182,10 +14220,12 @@ export type PostTransfers = (
   params: Params<void, void, t_PostTransfersBodySchema, void>,
   respond: PostTransfersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTransfersIdReversalsResponder = {
@@ -13207,6 +14247,7 @@ export type GetTransfersIdReversals = (
   >,
   respond: GetTransfersIdReversalsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13219,6 +14260,7 @@ export type GetTransfersIdReversals = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTransfersIdReversalsResponder = {
@@ -13235,10 +14277,12 @@ export type PostTransfersIdReversals = (
   >,
   respond: PostTransfersIdReversalsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTransfersTransferResponder = {
@@ -13255,10 +14299,12 @@ export type GetTransfersTransfer = (
   >,
   respond: GetTransfersTransferResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTransfersTransferResponder = {
@@ -13275,10 +14321,12 @@ export type PostTransfersTransfer = (
   >,
   respond: PostTransfersTransferResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTransfersTransferReversalsIdResponder = {
@@ -13295,10 +14343,12 @@ export type GetTransfersTransferReversalsId = (
   >,
   respond: GetTransfersTransferReversalsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTransfersTransferReversalsIdResponder = {
@@ -13315,10 +14365,12 @@ export type PostTransfersTransferReversalsId = (
   >,
   respond: PostTransfersTransferReversalsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_transfer_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryCreditReversalsResponder = {
@@ -13340,6 +14392,7 @@ export type GetTreasuryCreditReversals = (
   >,
   respond: GetTreasuryCreditReversalsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13352,6 +14405,7 @@ export type GetTreasuryCreditReversals = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryCreditReversalsResponder = {
@@ -13363,10 +14417,12 @@ export type PostTreasuryCreditReversals = (
   params: Params<void, void, t_PostTreasuryCreditReversalsBodySchema, void>,
   respond: PostTreasuryCreditReversalsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_credit_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryCreditReversalsCreditReversalResponder = {
@@ -13383,10 +14439,12 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   >,
   respond: GetTreasuryCreditReversalsCreditReversalResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_credit_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryDebitReversalsResponder = {
@@ -13408,6 +14466,7 @@ export type GetTreasuryDebitReversals = (
   >,
   respond: GetTreasuryDebitReversalsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13420,6 +14479,7 @@ export type GetTreasuryDebitReversals = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryDebitReversalsResponder = {
@@ -13431,10 +14491,12 @@ export type PostTreasuryDebitReversals = (
   params: Params<void, void, t_PostTreasuryDebitReversalsBodySchema, void>,
   respond: PostTreasuryDebitReversalsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_debit_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryDebitReversalsDebitReversalResponder = {
@@ -13451,10 +14513,12 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   >,
   respond: GetTreasuryDebitReversalsDebitReversalResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_debit_reversal>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryFinancialAccountsResponder = {
@@ -13476,6 +14540,7 @@ export type GetTreasuryFinancialAccounts = (
   >,
   respond: GetTreasuryFinancialAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13488,6 +14553,7 @@ export type GetTreasuryFinancialAccounts = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryFinancialAccountsResponder = {
@@ -13499,10 +14565,12 @@ export type PostTreasuryFinancialAccounts = (
   params: Params<void, void, t_PostTreasuryFinancialAccountsBodySchema, void>,
   respond: PostTreasuryFinancialAccountsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryFinancialAccountsFinancialAccountResponder = {
@@ -13519,10 +14587,12 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryFinancialAccountsFinancialAccountResponder = {
@@ -13539,10 +14609,12 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryFinancialAccountsFinancialAccountCloseResponder = {
@@ -13559,10 +14631,12 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountCloseResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder = {
@@ -13580,10 +14654,12 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account_features>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder = {
@@ -13601,10 +14677,12 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   >,
   respond: PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_financial_account_features>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryInboundTransfersResponder = {
@@ -13626,6 +14704,7 @@ export type GetTreasuryInboundTransfers = (
   >,
   respond: GetTreasuryInboundTransfersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13638,6 +14717,7 @@ export type GetTreasuryInboundTransfers = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryInboundTransfersResponder = {
@@ -13649,10 +14729,12 @@ export type PostTreasuryInboundTransfers = (
   params: Params<void, void, t_PostTreasuryInboundTransfersBodySchema, void>,
   respond: PostTreasuryInboundTransfersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryInboundTransfersIdResponder = {
@@ -13669,10 +14751,12 @@ export type GetTreasuryInboundTransfersId = (
   >,
   respond: GetTreasuryInboundTransfersIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryInboundTransfersInboundTransferCancelResponder = {
@@ -13689,10 +14773,12 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
   >,
   respond: PostTreasuryInboundTransfersInboundTransferCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_inbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryOutboundPaymentsResponder = {
@@ -13714,6 +14800,7 @@ export type GetTreasuryOutboundPayments = (
   >,
   respond: GetTreasuryOutboundPaymentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13726,6 +14813,7 @@ export type GetTreasuryOutboundPayments = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryOutboundPaymentsResponder = {
@@ -13737,10 +14825,12 @@ export type PostTreasuryOutboundPayments = (
   params: Params<void, void, t_PostTreasuryOutboundPaymentsBodySchema, void>,
   respond: PostTreasuryOutboundPaymentsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryOutboundPaymentsIdResponder = {
@@ -13757,10 +14847,12 @@ export type GetTreasuryOutboundPaymentsId = (
   >,
   respond: GetTreasuryOutboundPaymentsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryOutboundPaymentsIdCancelResponder = {
@@ -13777,10 +14869,12 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
   >,
   respond: PostTreasuryOutboundPaymentsIdCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryOutboundTransfersResponder = {
@@ -13802,6 +14896,7 @@ export type GetTreasuryOutboundTransfers = (
   >,
   respond: GetTreasuryOutboundTransfersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13814,6 +14909,7 @@ export type GetTreasuryOutboundTransfers = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryOutboundTransfersResponder = {
@@ -13825,10 +14921,12 @@ export type PostTreasuryOutboundTransfers = (
   params: Params<void, void, t_PostTreasuryOutboundTransfersBodySchema, void>,
   respond: PostTreasuryOutboundTransfersResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryOutboundTransfersOutboundTransferResponder = {
@@ -13845,10 +14943,12 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   >,
   respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostTreasuryOutboundTransfersOutboundTransferCancelResponder = {
@@ -13865,10 +14965,12 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   >,
   respond: PostTreasuryOutboundTransfersOutboundTransferCancelResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryReceivedCreditsResponder = {
@@ -13890,6 +14992,7 @@ export type GetTreasuryReceivedCredits = (
   >,
   respond: GetTreasuryReceivedCreditsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13902,6 +15005,7 @@ export type GetTreasuryReceivedCredits = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryReceivedCreditsIdResponder = {
@@ -13918,10 +15022,12 @@ export type GetTreasuryReceivedCreditsId = (
   >,
   respond: GetTreasuryReceivedCreditsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_credit>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryReceivedDebitsResponder = {
@@ -13943,6 +15049,7 @@ export type GetTreasuryReceivedDebits = (
   >,
   respond: GetTreasuryReceivedDebitsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -13955,6 +15062,7 @@ export type GetTreasuryReceivedDebits = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryReceivedDebitsIdResponder = {
@@ -13971,10 +15079,12 @@ export type GetTreasuryReceivedDebitsId = (
   >,
   respond: GetTreasuryReceivedDebitsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_received_debit>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryTransactionEntriesResponder = {
@@ -13996,6 +15106,7 @@ export type GetTreasuryTransactionEntries = (
   >,
   respond: GetTreasuryTransactionEntriesResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -14008,6 +15119,7 @@ export type GetTreasuryTransactionEntries = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryTransactionEntriesIdResponder = {
@@ -14024,10 +15136,12 @@ export type GetTreasuryTransactionEntriesId = (
   >,
   respond: GetTreasuryTransactionEntriesIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_transaction_entry>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryTransactionsResponder = {
@@ -14049,6 +15163,7 @@ export type GetTreasuryTransactions = (
   >,
   respond: GetTreasuryTransactionsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -14061,6 +15176,7 @@ export type GetTreasuryTransactions = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetTreasuryTransactionsIdResponder = {
@@ -14077,10 +15193,12 @@ export type GetTreasuryTransactionsId = (
   >,
   respond: GetTreasuryTransactionsIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_transaction>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetWebhookEndpointsResponder = {
@@ -14102,6 +15220,7 @@ export type GetWebhookEndpoints = (
   >,
   respond: GetWebhookEndpointsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<
@@ -14114,6 +15233,7 @@ export type GetWebhookEndpoints = (
       }
     >
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostWebhookEndpointsResponder = {
@@ -14125,10 +15245,12 @@ export type PostWebhookEndpoints = (
   params: Params<void, void, t_PostWebhookEndpointsBodySchema, void>,
   respond: PostWebhookEndpointsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_webhook_endpoint>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type DeleteWebhookEndpointsWebhookEndpointResponder = {
@@ -14145,10 +15267,12 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   >,
   respond: DeleteWebhookEndpointsWebhookEndpointResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_deleted_webhook_endpoint>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type GetWebhookEndpointsWebhookEndpointResponder = {
@@ -14165,10 +15289,12 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   >,
   respond: GetWebhookEndpointsWebhookEndpointResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_webhook_endpoint>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type PostWebhookEndpointsWebhookEndpointResponder = {
@@ -14185,10 +15311,12 @@ export type PostWebhookEndpointsWebhookEndpoint = (
   >,
   respond: PostWebhookEndpointsWebhookEndpointResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_webhook_endpoint>
   | Response<StatusCode, t_error>
+  | typeof SkipResponse
 >
 
 export type Implementation = {
@@ -14805,10 +15933,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getAccount(input, responder, ctx)
+      .getAccount(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -14863,10 +15996,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postAccountLinks(input, responder, ctx)
+      .postAccountLinks(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -15079,10 +16217,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountSessions(input, responder, ctx)
+        .postAccountSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -15167,10 +16310,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getAccounts(input, responder, ctx)
+      .getAccounts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -15823,10 +16971,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postAccounts(input, responder, ctx)
+      .postAccounts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -15879,10 +17032,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteAccountsAccount(input, responder, ctx)
+        .deleteAccountsAccount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -15949,10 +17107,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccount(input, responder, ctx)
+        .getAccountsAccount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -16580,10 +17743,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccount(input, responder, ctx)
+        .postAccountsAccount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -16666,10 +17834,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountBankAccounts(input, responder, ctx)
+        .postAccountsAccountBankAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -16722,10 +17895,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteAccountsAccountBankAccountsId(input, responder, ctx)
+        .deleteAccountsAccountBankAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -16794,10 +17972,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountBankAccountsId(input, responder, ctx)
+        .getAccountsAccountBankAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -16875,10 +18058,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountBankAccountsId(input, responder, ctx)
+        .postAccountsAccountBankAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -16964,10 +18152,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountCapabilities(input, responder, ctx)
+        .getAccountsAccountCapabilities(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17035,10 +18228,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountCapabilitiesCapability(input, responder, ctx)
+        .getAccountsAccountCapabilitiesCapability(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17099,10 +18297,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountCapabilitiesCapability(input, responder, ctx)
+        .postAccountsAccountCapabilitiesCapability(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17194,10 +18397,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountExternalAccounts(input, responder, ctx)
+        .getAccountsAccountExternalAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17283,10 +18491,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountExternalAccounts(input, responder, ctx)
+        .postAccountsAccountExternalAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17344,10 +18557,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteAccountsAccountExternalAccountsId(input, responder, ctx)
+        .deleteAccountsAccountExternalAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17416,10 +18634,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountExternalAccountsId(input, responder, ctx)
+        .getAccountsAccountExternalAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17500,10 +18723,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountExternalAccountsId(input, responder, ctx)
+        .postAccountsAccountExternalAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17560,10 +18788,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountLoginLinks(input, responder, ctx)
+        .postAccountsAccountLoginLinks(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17658,10 +18891,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountPeople(input, responder, ctx)
+        .getAccountsAccountPeople(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17859,10 +19097,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountPeople(input, responder, ctx)
+        .postAccountsAccountPeople(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17915,10 +19158,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteAccountsAccountPeoplePerson(input, responder, ctx)
+        .deleteAccountsAccountPeoplePerson(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -17987,10 +19235,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountPeoplePerson(input, responder, ctx)
+        .getAccountsAccountPeoplePerson(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18187,10 +19440,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountPeoplePerson(input, responder, ctx)
+        .postAccountsAccountPeoplePerson(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18285,10 +19543,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountPersons(input, responder, ctx)
+        .getAccountsAccountPersons(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18486,10 +19749,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountPersons(input, responder, ctx)
+        .postAccountsAccountPersons(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18542,10 +19810,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteAccountsAccountPersonsPerson(input, responder, ctx)
+        .deleteAccountsAccountPersonsPerson(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18614,10 +19887,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAccountsAccountPersonsPerson(input, responder, ctx)
+        .getAccountsAccountPersonsPerson(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18814,10 +20092,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountPersonsPerson(input, responder, ctx)
+        .postAccountsAccountPersonsPerson(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18874,10 +20157,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAccountsAccountReject(input, responder, ctx)
+        .postAccountsAccountReject(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -18955,10 +20243,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplePayDomains(input, responder, ctx)
+        .getApplePayDomains(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19007,10 +20300,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postApplePayDomains(input, responder, ctx)
+        .postApplePayDomains(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19062,10 +20360,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteApplePayDomainsDomain(input, responder, ctx)
+        .deleteApplePayDomainsDomain(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19132,10 +20435,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplePayDomainsDomain(input, responder, ctx)
+        .getApplePayDomainsDomain(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19224,10 +20532,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplicationFees(input, responder, ctx)
+        .getApplicationFees(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19293,10 +20606,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplicationFeesFeeRefundsId(input, responder, ctx)
+        .getApplicationFeesFeeRefundsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19354,10 +20672,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postApplicationFeesFeeRefundsId(input, responder, ctx)
+        .postApplicationFeesFeeRefundsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19422,10 +20745,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplicationFeesId(input, responder, ctx)
+        .getApplicationFeesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19483,10 +20811,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postApplicationFeesIdRefund(input, responder, ctx)
+        .postApplicationFeesIdRefund(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19572,10 +20905,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getApplicationFeesIdRefunds(input, responder, ctx)
+        .getApplicationFeesIdRefunds(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19633,10 +20971,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postApplicationFeesIdRefunds(input, responder, ctx)
+        .postApplicationFeesIdRefunds(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19714,10 +21057,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getAppsSecrets(input, responder, ctx)
+      .getAppsSecrets(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19768,10 +21116,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postAppsSecrets(input, responder, ctx)
+      .postAppsSecrets(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19823,10 +21176,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postAppsSecretsDelete(input, responder, ctx)
+        .postAppsSecretsDelete(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19890,10 +21248,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getAppsSecretsFind(input, responder, ctx)
+        .getAppsSecretsFind(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -19949,10 +21312,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBalance(input, responder, ctx)
+      .getBalance(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20043,10 +21411,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBalanceHistory(input, responder, ctx)
+      .getBalanceHistory(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20110,10 +21483,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBalanceHistoryId(input, responder, ctx)
+        .getBalanceHistoryId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20208,10 +21586,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBalanceTransactions(input, responder, ctx)
+        .getBalanceTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20278,10 +21661,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBalanceTransactionsId(input, responder, ctx)
+        .getBalanceTransactionsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20357,10 +21745,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBillingAlerts(input, responder, ctx)
+      .getBillingAlerts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20421,10 +21814,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postBillingAlerts(input, responder, ctx)
+      .postBillingAlerts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20488,10 +21886,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingAlertsId(input, responder, ctx)
+        .getBillingAlertsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20545,10 +21948,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingAlertsIdActivate(input, responder, ctx)
+        .postBillingAlertsIdActivate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20604,10 +22012,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingAlertsIdArchive(input, responder, ctx)
+        .postBillingAlertsIdArchive(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20661,10 +22074,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingAlertsIdDeactivate(input, responder, ctx)
+        .postBillingAlertsIdDeactivate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20735,10 +22153,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditBalanceSummary(input, responder, ctx)
+        .getBillingCreditBalanceSummary(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20821,10 +22244,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditBalanceTransactions(input, responder, ctx)
+        .getBillingCreditBalanceTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20899,10 +22327,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditBalanceTransactionsId(input, responder, ctx)
+        .getBillingCreditBalanceTransactionsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -20986,10 +22419,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditGrants(input, responder, ctx)
+        .getBillingCreditGrants(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21056,10 +22494,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingCreditGrants(input, responder, ctx)
+        .postBillingCreditGrants(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21126,10 +22569,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingCreditGrantsId(input, responder, ctx)
+        .getBillingCreditGrantsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21189,10 +22637,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingCreditGrantsId(input, responder, ctx)
+        .postBillingCreditGrantsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21246,10 +22699,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingCreditGrantsIdExpire(input, responder, ctx)
+        .postBillingCreditGrantsIdExpire(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21303,10 +22761,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingCreditGrantsIdVoid(input, responder, ctx)
+        .postBillingCreditGrantsIdVoid(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21358,10 +22821,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMeterEventAdjustments(input, responder, ctx)
+        .postBillingMeterEventAdjustments(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21413,10 +22881,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMeterEvents(input, responder, ctx)
+        .postBillingMeterEvents(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21491,10 +22964,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getBillingMeters(input, responder, ctx)
+      .getBillingMeters(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21553,10 +23031,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postBillingMeters(input, responder, ctx)
+      .postBillingMeters(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21620,10 +23103,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingMetersId(input, responder, ctx)
+        .getBillingMetersId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21680,10 +23168,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMetersId(input, responder, ctx)
+        .postBillingMetersId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21737,10 +23230,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMetersIdDeactivate(input, responder, ctx)
+        .postBillingMetersIdDeactivate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21833,10 +23331,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingMetersIdEventSummaries(input, responder, ctx)
+        .getBillingMetersIdEventSummaries(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21890,10 +23393,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingMetersIdReactivate(input, responder, ctx)
+        .postBillingMetersIdReactivate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -21976,10 +23484,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingPortalConfigurations(input, responder, ctx)
+        .getBillingPortalConfigurations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22132,10 +23645,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingPortalConfigurations(input, responder, ctx)
+        .postBillingPortalConfigurations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22205,10 +23723,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getBillingPortalConfigurationsConfiguration(input, responder, ctx)
+        .getBillingPortalConfigurationsConfiguration(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22382,10 +23910,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingPortalConfigurationsConfiguration(input, responder, ctx)
+        .postBillingPortalConfigurationsConfiguration(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22548,10 +24086,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postBillingPortalSessions(input, responder, ctx)
+        .postBillingPortalSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22639,10 +24182,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCharges(input, responder, ctx)
+      .getCharges(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22756,10 +24304,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCharges(input, responder, ctx)
+      .postCharges(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22836,10 +24389,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getChargesSearch(input, responder, ctx)
+      .getChargesSearch(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22900,10 +24458,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getChargesCharge(input, responder, ctx)
+      .getChargesCharge(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -22981,10 +24544,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postChargesCharge(input, responder, ctx)
+      .postChargesCharge(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23051,10 +24619,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeCapture(input, responder, ctx)
+        .postChargesChargeCapture(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23121,10 +24694,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getChargesChargeDispute(input, responder, ctx)
+        .getChargesChargeDispute(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23323,10 +24901,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeDispute(input, responder, ctx)
+        .postChargesChargeDispute(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23380,10 +24963,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeDisputeClose(input, responder, ctx)
+        .postChargesChargeDisputeClose(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23450,10 +25038,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeRefund(input, responder, ctx)
+        .postChargesChargeRefund(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23536,10 +25129,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getChargesChargeRefunds(input, responder, ctx)
+        .getChargesChargeRefunds(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23609,10 +25207,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeRefunds(input, responder, ctx)
+        .postChargesChargeRefunds(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23678,10 +25281,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getChargesChargeRefundsRefund(input, responder, ctx)
+        .getChargesChargeRefundsRefund(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23739,10 +25347,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postChargesChargeRefundsRefund(input, responder, ctx)
+        .postChargesChargeRefundsRefund(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -23836,10 +25449,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCheckoutSessions(input, responder, ctx)
+        .getCheckoutSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -24962,10 +26580,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCheckoutSessions(input, responder, ctx)
+        .postCheckoutSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25032,10 +26655,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCheckoutSessionsSession(input, responder, ctx)
+        .getCheckoutSessionsSession(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25174,10 +26802,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCheckoutSessionsSession(input, responder, ctx)
+        .postCheckoutSessionsSession(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25231,10 +26864,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCheckoutSessionsSessionExpire(input, responder, ctx)
+        .postCheckoutSessionsSessionExpire(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25323,10 +26961,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCheckoutSessionsSessionLineItems(input, responder, ctx)
+        .getCheckoutSessionsSessionLineItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25403,10 +27046,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getClimateOrders(input, responder, ctx)
+      .getClimateOrders(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25456,10 +27104,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postClimateOrders(input, responder, ctx)
+      .postClimateOrders(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25525,10 +27178,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateOrdersOrder(input, responder, ctx)
+        .getClimateOrdersOrder(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25595,10 +27253,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postClimateOrdersOrder(input, responder, ctx)
+        .postClimateOrdersOrder(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25652,10 +27315,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postClimateOrdersOrderCancel(input, responder, ctx)
+        .postClimateOrdersOrderCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25732,10 +27400,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateProducts(input, responder, ctx)
+        .getClimateProducts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25802,10 +27475,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateProductsProduct(input, responder, ctx)
+        .getClimateProductsProduct(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25882,10 +27560,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateSuppliers(input, responder, ctx)
+        .getClimateSuppliers(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -25950,10 +27633,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getClimateSuppliersSupplier(input, responder, ctx)
+        .getClimateSuppliersSupplier(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26020,10 +27708,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getConfirmationTokensConfirmationToken(input, responder, ctx)
+        .getConfirmationTokensConfirmationToken(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26100,10 +27793,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCountrySpecs(input, responder, ctx)
+      .getCountrySpecs(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26169,10 +27867,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCountrySpecsCountry(input, responder, ctx)
+        .getCountrySpecsCountry(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26257,10 +27960,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCoupons(input, responder, ctx)
+      .getCoupons(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26322,10 +28030,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCoupons(input, responder, ctx)
+      .postCoupons(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26378,10 +28091,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCouponsCoupon(input, responder, ctx)
+        .deleteCouponsCoupon(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26443,10 +28161,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCouponsCoupon(input, responder, ctx)
+      .getCouponsCoupon(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26505,10 +28228,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCouponsCoupon(input, responder, ctx)
+      .postCouponsCoupon(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26594,10 +28322,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCreditNotes(input, responder, ctx)
+      .getCreditNotes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26697,10 +28430,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCreditNotes(input, responder, ctx)
+      .postCreditNotes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26820,10 +28558,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCreditNotesPreview(input, responder, ctx)
+        .getCreditNotesPreview(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -26962,10 +28705,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCreditNotesPreviewLines(input, responder, ctx)
+        .getCreditNotesPreviewLines(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27051,10 +28799,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCreditNotesCreditNoteLines(input, responder, ctx)
+        .getCreditNotesCreditNoteLines(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27116,10 +28869,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCreditNotesId(input, responder, ctx)
+      .getCreditNotesId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27176,10 +28934,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCreditNotesId(input, responder, ctx)
+        .postCreditNotesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27235,10 +28998,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCreditNotesIdVoid(input, responder, ctx)
+        .postCreditNotesIdVoid(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27312,10 +29080,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomerSessions(input, responder, ctx)
+        .postCustomerSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27402,10 +29175,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getCustomers(input, responder, ctx)
+      .getCustomers(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27648,10 +29426,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postCustomers(input, responder, ctx)
+      .postCustomers(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27731,10 +29514,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersSearch(input, responder, ctx)
+        .getCustomersSearch(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27788,10 +29576,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomer(input, responder, ctx)
+        .deleteCustomersCustomer(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -27858,10 +29651,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomer(input, responder, ctx)
+        .getCustomersCustomer(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28045,10 +29843,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomer(input, responder, ctx)
+        .postCustomersCustomer(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28136,10 +29939,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerBalanceTransactions(input, responder, ctx)
+        .getCustomersCustomerBalanceTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28203,10 +30011,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerBalanceTransactions(input, responder, ctx)
+        .postCustomersCustomerBalanceTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28283,10 +30096,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28357,10 +30176,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28450,10 +30275,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerBankAccounts(input, responder, ctx)
+        .getCustomersCustomerBankAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28546,10 +30376,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerBankAccounts(input, responder, ctx)
+        .postCustomersCustomerBankAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28617,10 +30452,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomerBankAccountsId(input, responder, ctx)
+        .deleteCustomersCustomerBankAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28689,10 +30529,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerBankAccountsId(input, responder, ctx)
+        .getCustomersCustomerBankAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28793,10 +30638,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerBankAccountsId(input, responder, ctx)
+        .postCustomersCustomerBankAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28857,10 +30707,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerBankAccountsIdVerify(input, responder, ctx)
+        .postCustomersCustomerBankAccountsIdVerify(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -28948,10 +30803,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerCards(input, responder, ctx)
+        .getCustomersCustomerCards(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29046,10 +30906,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerCards(input, responder, ctx)
+        .postCustomersCustomerCards(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29114,10 +30979,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomerCardsId(input, responder, ctx)
+        .deleteCustomersCustomerCardsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29183,10 +31053,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerCardsId(input, responder, ctx)
+        .getCustomersCustomerCardsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29284,10 +31159,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerCardsId(input, responder, ctx)
+        .postCustomersCustomerCardsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29352,10 +31232,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerCashBalance(input, responder, ctx)
+        .getCustomersCustomerCashBalance(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29418,10 +31303,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerCashBalance(input, responder, ctx)
+        .postCustomersCustomerCashBalance(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29509,10 +31399,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerCashBalanceTransactions(input, responder, ctx)
+        .getCustomersCustomerCashBalanceTransactions(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29591,10 +31491,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29650,10 +31556,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomerDiscount(input, responder, ctx)
+        .deleteCustomersCustomerDiscount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29718,10 +31629,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerDiscount(input, responder, ctx)
+        .getCustomersCustomerDiscount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29790,10 +31706,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerFundingInstructions(input, responder, ctx)
+        .postCustomersCustomerFundingInstructions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -29934,10 +31855,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerPaymentMethods(input, responder, ctx)
+        .getCustomersCustomerPaymentMethods(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30008,10 +31934,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerPaymentMethodsPaymentMethod(input, responder, ctx)
+        .getCustomersCustomerPaymentMethodsPaymentMethod(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30108,10 +32044,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerSources(input, responder, ctx)
+        .getCustomersCustomerSources(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30204,10 +32145,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerSources(input, responder, ctx)
+        .postCustomersCustomerSources(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30272,10 +32218,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomerSourcesId(input, responder, ctx)
+        .deleteCustomersCustomerSourcesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30341,10 +32292,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerSourcesId(input, responder, ctx)
+        .getCustomersCustomerSourcesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30442,10 +32398,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerSourcesId(input, responder, ctx)
+        .postCustomersCustomerSourcesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30503,10 +32464,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerSourcesIdVerify(input, responder, ctx)
+        .postCustomersCustomerSourcesIdVerify(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30595,10 +32561,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerSubscriptions(input, responder, ctx)
+        .getCustomersCustomerSubscriptions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -30994,10 +32965,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerSubscriptions(input, responder, ctx)
+        .postCustomersCustomerSubscriptions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31064,10 +33040,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31145,10 +33127,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31582,10 +33570,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31648,10 +33642,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31728,10 +33728,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31820,10 +33826,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerTaxIds(input, responder, ctx)
+        .getCustomersCustomerTaxIds(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -31980,10 +33991,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postCustomersCustomerTaxIds(input, responder, ctx)
+        .postCustomersCustomerTaxIds(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32036,10 +34052,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteCustomersCustomerTaxIdsId(input, responder, ctx)
+        .deleteCustomersCustomerTaxIdsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32105,10 +34126,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getCustomersCustomerTaxIdsId(input, responder, ctx)
+        .getCustomersCustomerTaxIdsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32195,10 +34221,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getDisputes(input, responder, ctx)
+      .getDisputes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32264,10 +34295,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getDisputesDispute(input, responder, ctx)
+        .getDisputesDispute(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32466,10 +34502,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postDisputesDispute(input, responder, ctx)
+        .postDisputesDispute(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32525,10 +34566,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postDisputesDisputeClose(input, responder, ctx)
+        .postDisputesDisputeClose(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32607,10 +34653,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getEntitlementsActiveEntitlements(input, responder, ctx)
+        .getEntitlementsActiveEntitlements(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32681,10 +34732,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getEntitlementsActiveEntitlementsId(input, responder, ctx)
+        .getEntitlementsActiveEntitlementsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32769,10 +34825,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getEntitlementsFeatures(input, responder, ctx)
+        .getEntitlementsFeatures(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32823,10 +34884,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postEntitlementsFeatures(input, responder, ctx)
+        .postEntitlementsFeatures(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32893,10 +34959,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getEntitlementsFeaturesId(input, responder, ctx)
+        .getEntitlementsFeaturesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -32957,10 +35028,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postEntitlementsFeaturesId(input, responder, ctx)
+        .postEntitlementsFeaturesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33011,10 +35087,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postEphemeralKeys(input, responder, ctx)
+      .postEphemeralKeys(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33069,10 +35150,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteEphemeralKeysKey(input, responder, ctx)
+        .deleteEphemeralKeysKey(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33165,10 +35251,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getEvents(input, responder, ctx)
+      .getEvents(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33229,10 +35320,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getEventsId(input, responder, ctx)
+      .getEventsId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33305,10 +35401,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getExchangeRates(input, responder, ctx)
+      .getExchangeRates(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33374,10 +35475,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getExchangeRatesRateId(input, responder, ctx)
+        .getExchangeRatesRateId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33454,10 +35560,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postExternalAccountsId(input, responder, ctx)
+        .postExternalAccountsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33544,10 +35655,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFileLinks(input, responder, ctx)
+      .getFileLinks(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33594,10 +35710,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postFileLinks(input, responder, ctx)
+      .postFileLinks(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33658,10 +35779,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFileLinksLink(input, responder, ctx)
+      .getFileLinksLink(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33720,10 +35846,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postFileLinksLink(input, responder, ctx)
+        .postFileLinksLink(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33829,10 +35960,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFiles(input, responder, ctx)
+      .getFiles(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33897,10 +36033,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postFiles(input, responder, ctx)
+      .postFiles(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -33961,10 +36102,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getFilesFile(input, responder, ctx)
+      .getFilesFile(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34051,10 +36197,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getFinancialConnectionsAccounts(input, responder, ctx)
+        .getFinancialConnectionsAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34124,10 +36275,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getFinancialConnectionsAccountsAccount(input, responder, ctx)
+        .getFinancialConnectionsAccountsAccount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34191,10 +36347,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34287,10 +36449,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getFinancialConnectionsAccountsAccountOwners(input, responder, ctx)
+        .getFinancialConnectionsAccountsAccountOwners(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34351,10 +36523,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postFinancialConnectionsAccountsAccountRefresh(input, responder, ctx)
+        .postFinancialConnectionsAccountsAccountRefresh(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34416,10 +36598,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postFinancialConnectionsAccountsAccountSubscribe(input, responder, ctx)
+        .postFinancialConnectionsAccountsAccountSubscribe(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34486,10 +36678,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34570,10 +36768,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postFinancialConnectionsSessions(input, responder, ctx)
+        .postFinancialConnectionsSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34643,10 +36846,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getFinancialConnectionsSessionsSession(input, responder, ctx)
+        .getFinancialConnectionsSessionsSession(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34743,10 +36951,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getFinancialConnectionsTransactions(input, responder, ctx)
+        .getFinancialConnectionsTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34821,10 +37034,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getFinancialConnectionsTransactionsTransaction(input, responder, ctx)
+        .getFinancialConnectionsTransactionsTransaction(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34913,10 +37136,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getForwardingRequests(input, responder, ctx)
+        .getForwardingRequests(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -34989,10 +37217,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postForwardingRequests(input, responder, ctx)
+        .postForwardingRequests(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35059,10 +37292,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getForwardingRequestsId(input, responder, ctx)
+        .getForwardingRequestsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35157,10 +37395,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIdentityVerificationReports(input, responder, ctx)
+        .getIdentityVerificationReports(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35228,10 +37471,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIdentityVerificationReportsReport(input, responder, ctx)
+        .getIdentityVerificationReportsReport(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35331,10 +37579,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIdentityVerificationSessions(input, responder, ctx)
+        .getIdentityVerificationSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35411,10 +37664,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIdentityVerificationSessions(input, responder, ctx)
+        .postIdentityVerificationSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35484,10 +37742,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIdentityVerificationSessionsSession(input, responder, ctx)
+        .getIdentityVerificationSessionsSession(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35571,10 +37834,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIdentityVerificationSessionsSession(input, responder, ctx)
+        .postIdentityVerificationSessionsSession(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35634,10 +37902,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIdentityVerificationSessionsSessionCancel(input, responder, ctx)
+        .postIdentityVerificationSessionsSessionCancel(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35697,10 +37975,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIdentityVerificationSessionsSessionRedact(input, responder, ctx)
+        .postIdentityVerificationSessionsSessionRedact(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35788,10 +38076,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicePayments(input, responder, ctx)
+        .getInvoicePayments(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35856,10 +38149,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicePaymentsInvoicePayment(input, responder, ctx)
+        .getInvoicePaymentsInvoicePayment(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -35938,10 +38236,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoiceRenderingTemplates(input, responder, ctx)
+        .getInvoiceRenderingTemplates(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36007,10 +38310,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoiceRenderingTemplatesTemplate(input, responder, ctx)
+        .getInvoiceRenderingTemplatesTemplate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36067,10 +38375,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoiceRenderingTemplatesTemplateArchive(input, responder, ctx)
+        .postInvoiceRenderingTemplatesTemplateArchive(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36127,10 +38445,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoiceRenderingTemplatesTemplateUnarchive(input, responder, ctx)
+        .postInvoiceRenderingTemplatesTemplateUnarchive(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36222,10 +38550,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getInvoiceitems(input, responder, ctx)
+      .getInvoiceitems(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36309,10 +38642,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postInvoiceitems(input, responder, ctx)
+      .postInvoiceitems(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36363,10 +38701,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteInvoiceitemsInvoiceitem(input, responder, ctx)
+        .deleteInvoiceitemsInvoiceitem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36433,10 +38776,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoiceitemsInvoiceitem(input, responder, ctx)
+        .getInvoiceitemsInvoiceitem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36532,10 +38880,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoiceitemsInvoiceitem(input, responder, ctx)
+        .postInvoiceitemsInvoiceitem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -36639,10 +38992,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getInvoices(input, responder, ctx)
+      .getInvoices(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -37010,10 +39368,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postInvoices(input, responder, ctx)
+      .postInvoices(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -37514,10 +39877,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesCreatePreview(input, responder, ctx)
+        .postInvoicesCreatePreview(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -37595,10 +39963,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getInvoicesSearch(input, responder, ctx)
+      .getInvoicesSearch(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -37651,10 +40024,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteInvoicesInvoice(input, responder, ctx)
+        .deleteInvoicesInvoice(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -37721,10 +40099,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicesInvoice(input, responder, ctx)
+        .getInvoicesInvoice(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38108,10 +40491,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoice(input, responder, ctx)
+        .postInvoicesInvoice(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38284,10 +40672,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceAddLines(input, responder, ctx)
+        .postInvoicesInvoiceAddLines(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38344,10 +40737,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceFinalize(input, responder, ctx)
+        .postInvoicesInvoiceFinalize(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38432,10 +40830,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getInvoicesInvoiceLines(input, responder, ctx)
+        .getInvoicesInvoiceLines(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38603,10 +41006,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceLinesLineItemId(input, responder, ctx)
+        .postInvoicesInvoiceLinesLineItemId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38663,10 +41071,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceMarkUncollectible(input, responder, ctx)
+        .postInvoicesInvoiceMarkUncollectible(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38733,10 +41146,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoicePay(input, responder, ctx)
+        .postInvoicesInvoicePay(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38797,10 +41215,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceRemoveLines(input, responder, ctx)
+        .postInvoicesInvoiceRemoveLines(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -38856,10 +41279,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceSend(input, responder, ctx)
+        .postInvoicesInvoiceSend(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39032,10 +41460,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceUpdateLines(input, responder, ctx)
+        .postInvoicesInvoiceUpdateLines(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39091,10 +41524,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postInvoicesInvoiceVoid(input, responder, ctx)
+        .postInvoicesInvoiceVoid(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39188,10 +41626,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingAuthorizations(input, responder, ctx)
+        .getIssuingAuthorizations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39258,10 +41701,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingAuthorizationsAuthorization(input, responder, ctx)
+        .getIssuingAuthorizationsAuthorization(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39321,10 +41769,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingAuthorizationsAuthorization(input, responder, ctx)
+        .postIssuingAuthorizationsAuthorization(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39385,10 +41838,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingAuthorizationsAuthorizationApprove(input, responder, ctx)
+        .postIssuingAuthorizationsAuthorizationApprove(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39448,10 +41911,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingAuthorizationsAuthorizationDecline(input, responder, ctx)
+        .postIssuingAuthorizationsAuthorizationDecline(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -39549,10 +42022,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingCardholders(input, responder, ctx)
+        .getIssuingCardholders(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -40581,10 +43059,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingCardholders(input, responder, ctx)
+        .postIssuingCardholders(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -40649,10 +43132,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingCardholdersCardholder(input, responder, ctx)
+        .getIssuingCardholdersCardholder(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -41689,10 +44177,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingCardholdersCardholder(input, responder, ctx)
+        .postIssuingCardholdersCardholder(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -41784,10 +44277,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getIssuingCards(input, responder, ctx)
+      .getIssuingCards(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -42799,10 +45297,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postIssuingCards(input, responder, ctx)
+      .postIssuingCards(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -42868,10 +45371,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingCardsCard(input, responder, ctx)
+        .getIssuingCardsCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -43889,10 +46397,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingCardsCard(input, responder, ctx)
+        .postIssuingCardsCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -43984,10 +46497,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingDisputes(input, responder, ctx)
+        .getIssuingDisputes(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44219,10 +46737,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingDisputes(input, responder, ctx)
+        .postIssuingDisputes(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44289,10 +46812,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingDisputesDispute(input, responder, ctx)
+        .getIssuingDisputesDispute(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44530,10 +47058,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingDisputesDispute(input, responder, ctx)
+        .postIssuingDisputesDispute(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44590,10 +47123,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingDisputesDisputeSubmit(input, responder, ctx)
+        .postIssuingDisputesDisputeSubmit(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44687,10 +47225,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingPersonalizationDesigns(input, responder, ctx)
+        .getIssuingPersonalizationDesigns(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44754,10 +47297,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingPersonalizationDesigns(input, responder, ctx)
+        .postIssuingPersonalizationDesigns(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44834,10 +47382,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -44929,10 +47483,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45018,10 +47578,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingPhysicalBundles(input, responder, ctx)
+        .getIssuingPhysicalBundles(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45088,10 +47653,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingPhysicalBundlesPhysicalBundle(input, responder, ctx)
+        .getIssuingPhysicalBundlesPhysicalBundle(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45159,10 +47729,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingSettlementsSettlement(input, responder, ctx)
+        .getIssuingSettlementsSettlement(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45219,10 +47794,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingSettlementsSettlement(input, responder, ctx)
+        .postIssuingSettlementsSettlement(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45309,10 +47889,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getIssuingTokens(input, responder, ctx)
+      .getIssuingTokens(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45378,10 +47963,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingTokensToken(input, responder, ctx)
+        .getIssuingTokensToken(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45438,10 +48028,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingTokensToken(input, responder, ctx)
+        .postIssuingTokensToken(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45535,10 +48130,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingTransactions(input, responder, ctx)
+        .getIssuingTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45603,10 +48203,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getIssuingTransactionsTransaction(input, responder, ctx)
+        .getIssuingTransactionsTransaction(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45666,10 +48271,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postIssuingTransactionsTransaction(input, responder, ctx)
+        .postIssuingTransactionsTransaction(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45748,10 +48358,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postLinkAccountSessions(input, responder, ctx)
+        .postLinkAccountSessions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45819,10 +48434,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getLinkAccountSessionsSession(input, responder, ctx)
+        .getLinkAccountSessionsSession(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45906,10 +48526,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getLinkedAccounts(input, responder, ctx)
+      .getLinkedAccounts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -45975,10 +48600,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getLinkedAccountsAccount(input, responder, ctx)
+        .getLinkedAccountsAccount(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -46035,10 +48665,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postLinkedAccountsAccountDisconnect(input, responder, ctx)
+        .postLinkedAccountsAccountDisconnect(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -46128,10 +48763,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getLinkedAccountsAccountOwners(input, responder, ctx)
+        .getLinkedAccountsAccountOwners(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -46189,10 +48829,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postLinkedAccountsAccountRefresh(input, responder, ctx)
+        .postLinkedAccountsAccountRefresh(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -46257,10 +48902,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getMandatesMandate(input, responder, ctx)
+        .getMandatesMandate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -46346,10 +48996,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPaymentIntents(input, responder, ctx)
+      .getPaymentIntents(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -47471,10 +50126,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntents(input, responder, ctx)
+        .postPaymentIntents(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -47555,10 +50215,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentIntentsSearch(input, responder, ctx)
+        .getPaymentIntentsSearch(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -47626,10 +50291,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentIntentsIntent(input, responder, ctx)
+        .getPaymentIntentsIntent(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -48739,10 +51409,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntent(input, responder, ctx)
+        .postPaymentIntentsIntent(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -48800,10 +51475,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntentApplyCustomerBalance(input, responder, ctx)
+        .postPaymentIntentsIntentApplyCustomerBalance(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -48865,10 +51550,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntentCancel(input, responder, ctx)
+        .postPaymentIntentsIntentCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -48933,10 +51623,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntentCapture(input, responder, ctx)
+        .postPaymentIntentsIntentCapture(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -50068,10 +52763,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntentConfirm(input, responder, ctx)
+        .postPaymentIntentsIntentConfirm(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -50133,10 +52833,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntentIncrementAuthorization(input, responder, ctx)
+        .postPaymentIntentsIntentIncrementAuthorization(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -50199,10 +52909,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentIntentsIntentVerifyMicrodeposits(input, responder, ctx)
+        .postPaymentIntentsIntentVerifyMicrodeposits(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -50280,10 +53000,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPaymentLinks(input, responder, ctx)
+      .getPaymentLinks(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -50841,10 +53566,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPaymentLinks(input, responder, ctx)
+      .postPaymentLinks(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -50910,10 +53640,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentLinksPaymentLink(input, responder, ctx)
+        .getPaymentLinksPaymentLink(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -51474,10 +54209,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentLinksPaymentLink(input, responder, ctx)
+        .postPaymentLinksPaymentLink(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -51563,10 +54303,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentLinksPaymentLinkLineItems(input, responder, ctx)
+        .getPaymentLinksPaymentLinkLineItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -51651,10 +54396,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentMethodConfigurations(input, responder, ctx)
+        .getPaymentMethodConfigurations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52029,10 +54779,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodConfigurations(input, responder, ctx)
+        .postPaymentMethodConfigurations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52102,10 +54857,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentMethodConfigurationsConfiguration(input, responder, ctx)
+        .getPaymentMethodConfigurationsConfiguration(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52491,10 +55256,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodConfigurationsConfiguration(input, responder, ctx)
+        .postPaymentMethodConfigurationsConfiguration(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52579,10 +55354,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentMethodDomains(input, responder, ctx)
+        .getPaymentMethodDomains(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52632,10 +55412,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodDomains(input, responder, ctx)
+        .postPaymentMethodDomains(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52702,10 +55487,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentMethodDomainsPaymentMethodDomain(input, responder, ctx)
+        .getPaymentMethodDomainsPaymentMethodDomain(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52765,10 +55555,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodDomainsPaymentMethodDomain(input, responder, ctx)
+        .postPaymentMethodDomainsPaymentMethodDomain(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52828,10 +55628,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -52961,10 +55767,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPaymentMethods(input, responder, ctx)
+      .getPaymentMethods(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53321,10 +56132,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethods(input, responder, ctx)
+        .postPaymentMethods(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53389,10 +56205,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPaymentMethodsPaymentMethod(input, responder, ctx)
+        .getPaymentMethodsPaymentMethod(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53491,10 +56312,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodsPaymentMethod(input, responder, ctx)
+        .postPaymentMethodsPaymentMethod(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53549,10 +56375,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodsPaymentMethodAttach(input, responder, ctx)
+        .postPaymentMethodsPaymentMethodAttach(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53609,10 +56440,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPaymentMethodsPaymentMethodDetach(input, responder, ctx)
+        .postPaymentMethodsPaymentMethodDetach(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53713,10 +56549,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPayouts(input, responder, ctx)
+      .getPayouts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53768,10 +56609,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPayouts(input, responder, ctx)
+      .postPayouts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53832,10 +56678,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPayoutsPayout(input, responder, ctx)
+      .getPayoutsPayout(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53890,10 +56741,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPayoutsPayout(input, responder, ctx)
+      .postPayoutsPayout(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -53948,10 +56804,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPayoutsPayoutCancel(input, responder, ctx)
+        .postPayoutsPayoutCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54010,10 +56871,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPayoutsPayoutReverse(input, responder, ctx)
+        .postPayoutsPayoutReverse(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54100,10 +56966,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPlans(input, responder, ctx)
+      .getPlans(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54189,10 +57060,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPlans(input, responder, ctx)
+      .postPlans(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54240,10 +57116,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deletePlansPlan(input, responder, ctx)
+      .deletePlansPlan(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54304,10 +57185,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPlansPlan(input, responder, ctx)
+      .getPlansPlan(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54364,10 +57250,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPlansPlan(input, responder, ctx)
+      .postPlansPlan(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54468,10 +57359,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPrices(input, responder, ctx)
+      .getPrices(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54598,10 +57494,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPrices(input, responder, ctx)
+      .postPrices(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54678,10 +57579,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPricesSearch(input, responder, ctx)
+      .getPricesSearch(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54742,10 +57648,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPricesPrice(input, responder, ctx)
+      .getPricesPrice(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54838,10 +57749,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postPricesPrice(input, responder, ctx)
+      .postPricesPrice(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -54934,10 +57850,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProducts(input, responder, ctx)
+      .getProducts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55058,10 +57979,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postProducts(input, responder, ctx)
+      .postProducts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55138,10 +58064,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProductsSearch(input, responder, ctx)
+      .getProductsSearch(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55189,10 +58120,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deleteProductsId(input, responder, ctx)
+      .deleteProductsId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55253,10 +58189,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getProductsId(input, responder, ctx)
+      .getProductsId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55336,10 +58277,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postProductsId(input, responder, ctx)
+      .postProductsId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55423,10 +58369,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getProductsProductFeatures(input, responder, ctx)
+        .getProductsProductFeatures(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55481,10 +58432,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postProductsProductFeatures(input, responder, ctx)
+        .postProductsProductFeatures(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55537,10 +58493,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteProductsProductFeaturesId(input, responder, ctx)
+        .deleteProductsProductFeaturesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55606,10 +58567,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getProductsProductFeaturesId(input, responder, ctx)
+        .getProductsProductFeaturesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55698,10 +58664,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getPromotionCodes(input, responder, ctx)
+      .getPromotionCodes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55765,10 +58736,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPromotionCodes(input, responder, ctx)
+        .postPromotionCodes(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55833,10 +58809,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getPromotionCodesPromotionCode(input, responder, ctx)
+        .getPromotionCodesPromotionCode(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55901,10 +58882,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postPromotionCodesPromotionCode(input, responder, ctx)
+        .postPromotionCodesPromotionCode(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -55981,10 +58967,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getQuotes(input, responder, ctx)
+      .getQuotes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56156,10 +59147,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postQuotes(input, responder, ctx)
+      .postQuotes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56220,10 +59216,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getQuotesQuote(input, responder, ctx)
+      .getQuotesQuote(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56395,10 +59396,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postQuotesQuote(input, responder, ctx)
+      .postQuotesQuote(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56453,10 +59459,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postQuotesQuoteAccept(input, responder, ctx)
+        .postQuotesQuoteAccept(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56512,10 +59523,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postQuotesQuoteCancel(input, responder, ctx)
+        .postQuotesQuoteCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56603,10 +59619,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getQuotesQuoteComputedUpfrontLineItems(input, responder, ctx)
+        .getQuotesQuoteComputedUpfrontLineItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56668,10 +59689,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postQuotesQuoteFinalize(input, responder, ctx)
+        .postQuotesQuoteFinalize(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56756,10 +59782,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getQuotesQuoteLineItems(input, responder, ctx)
+        .getQuotesQuoteLineItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56824,10 +59855,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getQuotesQuotePdf(input, responder, ctx)
+        .getQuotesQuotePdf(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56920,10 +59956,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarEarlyFraudWarnings(input, responder, ctx)
+        .getRadarEarlyFraudWarnings(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -56990,10 +60031,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarEarlyFraudWarningsEarlyFraudWarning(input, responder, ctx)
+        .getRadarEarlyFraudWarningsEarlyFraudWarning(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57089,10 +60140,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarValueListItems(input, responder, ctx)
+        .getRadarValueListItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57142,10 +60198,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRadarValueListItems(input, responder, ctx)
+        .postRadarValueListItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57200,10 +60261,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteRadarValueListItemsItem(input, responder, ctx)
+        .deleteRadarValueListItemsItem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57270,10 +60336,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarValueListItemsItem(input, responder, ctx)
+        .getRadarValueListItemsItem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57363,10 +60434,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarValueLists(input, responder, ctx)
+        .getRadarValueLists(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57431,10 +60507,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRadarValueLists(input, responder, ctx)
+        .postRadarValueLists(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57486,10 +60567,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteRadarValueListsValueList(input, responder, ctx)
+        .deleteRadarValueListsValueList(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57554,10 +60640,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getRadarValueListsValueList(input, responder, ctx)
+        .getRadarValueListsValueList(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57616,10 +60707,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRadarValueListsValueList(input, responder, ctx)
+        .postRadarValueListsValueList(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57706,10 +60802,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getRefunds(input, responder, ctx)
+      .getRefunds(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57768,10 +60869,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postRefunds(input, responder, ctx)
+      .postRefunds(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57832,10 +60938,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getRefundsRefund(input, responder, ctx)
+      .getRefundsRefund(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57888,10 +60999,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postRefundsRefund(input, responder, ctx)
+      .postRefundsRefund(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -57944,10 +61060,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postRefundsRefundCancel(input, responder, ctx)
+        .postRefundsRefundCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -58038,10 +61159,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getReportingReportRuns(input, responder, ctx)
+        .getReportingReportRuns(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -58743,10 +61869,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postReportingReportRuns(input, responder, ctx)
+        .postReportingReportRuns(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -58811,10 +61942,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getReportingReportRunsReportRun(input, responder, ctx)
+        .getReportingReportRunsReportRun(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -58888,10 +62024,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getReportingReportTypes(input, responder, ctx)
+        .getReportingReportTypes(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -58956,10 +62097,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getReportingReportTypesReportType(input, responder, ctx)
+        .getReportingReportTypesReportType(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59047,10 +62193,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getReviews(input, responder, ctx)
+      .getReviews(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59111,10 +62262,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getReviewsReview(input, responder, ctx)
+      .getReviewsReview(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59169,10 +62325,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postReviewsReviewApprove(input, responder, ctx)
+        .postReviewsReviewApprove(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59258,10 +62419,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSetupAttempts(input, responder, ctx)
+      .getSetupAttempts(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59348,10 +62514,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSetupIntents(input, responder, ctx)
+      .getSetupIntents(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59895,10 +63066,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSetupIntents(input, responder, ctx)
+      .postSetupIntents(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -59965,10 +63141,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSetupIntentsIntent(input, responder, ctx)
+        .getSetupIntentsIntent(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -60491,10 +63672,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSetupIntentsIntent(input, responder, ctx)
+        .postSetupIntentsIntent(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -60553,10 +63739,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSetupIntentsIntentCancel(input, responder, ctx)
+        .postSetupIntentsIntentCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61101,10 +64292,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSetupIntentsIntentConfirm(input, responder, ctx)
+        .postSetupIntentsIntentConfirm(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61163,10 +64359,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSetupIntentsIntentVerifyMicrodeposits(input, responder, ctx)
+        .postSetupIntentsIntentVerifyMicrodeposits(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61256,10 +64457,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getShippingRates(input, responder, ctx)
+      .getShippingRates(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61340,10 +64546,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postShippingRates(input, responder, ctx)
+      .postShippingRates(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61407,10 +64618,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getShippingRatesShippingRateToken(input, responder, ctx)
+        .getShippingRatesShippingRateToken(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61488,10 +64704,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postShippingRatesShippingRateToken(input, responder, ctx)
+        .postShippingRatesShippingRateToken(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61554,10 +64775,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSigmaSavedQueriesId(input, responder, ctx)
+        .postSigmaSavedQueriesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61637,10 +64863,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSigmaScheduledQueryRuns(input, responder, ctx)
+        .getSigmaScheduledQueryRuns(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61707,10 +64938,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSigmaScheduledQueryRunsScheduledQueryRun(input, responder, ctx)
+        .getSigmaScheduledQueryRunsScheduledQueryRun(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61862,10 +65103,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSources(input, responder, ctx)
+      .postSources(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -61927,10 +65173,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSourcesSource(input, responder, ctx)
+      .getSourcesSource(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62068,10 +65319,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSourcesSource(input, responder, ctx)
+      .postSourcesSource(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62144,10 +65400,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62237,10 +65499,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSourcesSourceSourceTransactions(input, responder, ctx)
+        .getSourcesSourceSourceTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62317,10 +65584,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62381,10 +65654,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSourcesSourceVerify(input, responder, ctx)
+        .postSourcesSourceVerify(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62465,10 +65743,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionItems(input, responder, ctx)
+        .getSubscriptionItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62562,10 +65845,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionItems(input, responder, ctx)
+        .postSubscriptionItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62625,10 +65913,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteSubscriptionItemsItem(input, responder, ctx)
+        .deleteSubscriptionItemsItem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62695,10 +65988,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionItemsItem(input, responder, ctx)
+        .getSubscriptionItemsItem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62802,10 +66100,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionItemsItem(input, responder, ctx)
+        .postSubscriptionItemsItem(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -62931,10 +66234,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionSchedules(input, responder, ctx)
+        .getSubscriptionSchedules(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -63176,10 +66484,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionSchedules(input, responder, ctx)
+        .postSubscriptionSchedules(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -63244,10 +66557,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionSchedulesSchedule(input, responder, ctx)
+        .getSubscriptionSchedulesSchedule(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -63497,10 +66815,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionSchedulesSchedule(input, responder, ctx)
+        .postSubscriptionSchedulesSchedule(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -63561,10 +66884,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionSchedulesScheduleCancel(input, responder, ctx)
+        .postSubscriptionSchedulesScheduleCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -63624,10 +66952,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionSchedulesScheduleRelease(input, responder, ctx)
+        .postSubscriptionSchedulesScheduleRelease(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -63758,10 +67091,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getSubscriptions(input, responder, ctx)
+      .getSubscriptions(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64150,10 +67488,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postSubscriptions(input, responder, ctx)
+      .postSubscriptions(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64233,10 +67576,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionsSearch(input, responder, ctx)
+        .getSubscriptionsSearch(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64312,10 +67660,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteSubscriptionsSubscriptionExposedId(input, responder, ctx)
+        .deleteSubscriptionsSubscriptionExposedId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64385,10 +67738,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getSubscriptionsSubscriptionExposedId(input, responder, ctx)
+        .getSubscriptionsSubscriptionExposedId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64817,10 +68175,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionsSubscriptionExposedId(input, responder, ctx)
+        .postSubscriptionsSubscriptionExposedId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64877,10 +68240,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteSubscriptionsSubscriptionExposedIdDiscount(input, responder, ctx)
+        .deleteSubscriptionsSubscriptionExposedIdDiscount(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -64945,10 +68318,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postSubscriptionsSubscriptionResume(input, responder, ctx)
+        .postSubscriptionsSubscriptionResume(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65162,10 +68540,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxCalculations(input, responder, ctx)
+        .postTaxCalculations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65230,10 +68613,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxCalculationsCalculation(input, responder, ctx)
+        .getTaxCalculationsCalculation(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65324,10 +68712,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxCalculationsCalculationLineItems(input, responder, ctx)
+        .getTaxCalculationsCalculationLineItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65408,10 +68801,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxRegistrations(input, responder, ctx)
+        .getTaxRegistrations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65831,10 +69229,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxRegistrations(input, responder, ctx)
+        .postTaxRegistrations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65901,10 +69304,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxRegistrationsId(input, responder, ctx)
+        .getTaxRegistrationsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -65966,10 +69374,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxRegistrationsId(input, responder, ctx)
+        .postTaxRegistrationsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66025,10 +69438,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxSettings(input, responder, ctx)
+      .getTaxSettings(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66094,10 +69512,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTaxSettings(input, responder, ctx)
+      .postTaxSettings(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66146,10 +69569,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxTransactionsCreateFromCalculation(input, responder, ctx)
+        .postTaxTransactionsCreateFromCalculation(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66218,10 +69646,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxTransactionsCreateReversal(input, responder, ctx)
+        .postTaxTransactionsCreateReversal(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66289,10 +69722,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxTransactionsTransaction(input, responder, ctx)
+        .getTaxTransactionsTransaction(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66383,10 +69821,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxTransactionsTransactionLineItems(input, responder, ctx)
+        .getTaxTransactionsTransactionLineItems(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66463,10 +69906,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxCodes(input, responder, ctx)
+      .getTaxCodes(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66527,10 +69975,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxCodesId(input, responder, ctx)
+      .getTaxCodesId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66610,10 +70063,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxIds(input, responder, ctx)
+      .getTaxIds(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66767,10 +70225,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTaxIds(input, responder, ctx)
+      .postTaxIds(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66818,10 +70281,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deleteTaxIdsId(input, responder, ctx)
+      .deleteTaxIdsId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66882,10 +70350,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxIdsId(input, responder, ctx)
+      .getTaxIdsId(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -66971,10 +70444,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTaxRates(input, responder, ctx)
+      .getTaxRates(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67045,10 +70523,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTaxRates(input, responder, ctx)
+      .postTaxRates(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67114,10 +70597,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTaxRatesTaxRate(input, responder, ctx)
+        .getTaxRatesTaxRate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67200,10 +70688,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTaxRatesTaxRate(input, responder, ctx)
+        .postTaxRatesTaxRate(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67284,10 +70777,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalConfigurations(input, responder, ctx)
+        .getTerminalConfigurations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67513,10 +71011,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalConfigurations(input, responder, ctx)
+        .postTerminalConfigurations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67573,10 +71076,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteTerminalConfigurationsConfiguration(input, responder, ctx)
+        .deleteTerminalConfigurationsConfiguration(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67659,10 +71167,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalConfigurationsConfiguration(input, responder, ctx)
+        .getTerminalConfigurationsConfiguration(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67925,10 +71438,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalConfigurationsConfiguration(input, responder, ctx)
+        .postTerminalConfigurationsConfiguration(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -67980,10 +71498,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalConnectionTokens(input, responder, ctx)
+        .postTerminalConnectionTokens(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68063,10 +71586,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalLocations(input, responder, ctx)
+        .getTerminalLocations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68125,10 +71653,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalLocations(input, responder, ctx)
+        .postTerminalLocations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68180,10 +71713,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteTerminalLocationsLocation(input, responder, ctx)
+        .deleteTerminalLocationsLocation(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68253,10 +71791,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalLocationsLocation(input, responder, ctx)
+        .getTerminalLocationsLocation(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68332,10 +71875,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalLocationsLocation(input, responder, ctx)
+        .postTerminalLocationsLocation(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68427,10 +71975,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalReaders(input, responder, ctx)
+        .getTerminalReaders(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68482,10 +72035,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReaders(input, responder, ctx)
+        .postTerminalReaders(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68537,10 +72095,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteTerminalReadersReader(input, responder, ctx)
+        .deleteTerminalReadersReader(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68614,10 +72177,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTerminalReadersReader(input, responder, ctx)
+        .getTerminalReadersReader(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68684,10 +72252,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReadersReader(input, responder, ctx)
+        .postTerminalReadersReader(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68741,10 +72314,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReadersReaderCancelAction(input, responder, ctx)
+        .postTerminalReadersReaderCancelAction(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68814,10 +72392,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReadersReaderProcessPaymentIntent(input, responder, ctx)
+        .postTerminalReadersReaderProcessPaymentIntent(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68879,10 +72467,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReadersReaderProcessSetupIntent(input, responder, ctx)
+        .postTerminalReadersReaderProcessSetupIntent(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -68950,10 +72548,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReadersReaderRefundPayment(input, responder, ctx)
+        .postTerminalReadersReaderRefundPayment(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -69025,10 +72628,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTerminalReadersReaderSetReaderDisplay(input, responder, ctx)
+        .postTerminalReadersReaderSetReaderDisplay(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -69387,10 +72995,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersConfirmationTokens(input, responder, ctx)
+        .postTestHelpersConfirmationTokens(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -69455,10 +73068,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersCustomersCustomerFundCashBalance(input, responder, ctx)
+        .postTestHelpersCustomersCustomerFundCashBalance(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -69936,10 +73559,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingAuthorizations(input, responder, ctx)
+        .postTestHelpersIssuingAuthorizations(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70111,10 +73739,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70175,10 +73809,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70308,10 +73948,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70374,10 +74020,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70441,10 +74093,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70508,10 +74166,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70569,10 +74233,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingCardsCardShippingDeliver(input, responder, ctx)
+        .postTestHelpersIssuingCardsCardShippingDeliver(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70630,10 +74304,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingCardsCardShippingFail(input, responder, ctx)
+        .postTestHelpersIssuingCardsCardShippingFail(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70690,10 +74374,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingCardsCardShippingReturn(input, responder, ctx)
+        .postTestHelpersIssuingCardsCardShippingReturn(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70750,10 +74444,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingCardsCardShippingShip(input, responder, ctx)
+        .postTestHelpersIssuingCardsCardShippingShip(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70810,10 +74514,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingCardsCardShippingSubmit(input, responder, ctx)
+        .postTestHelpersIssuingCardsCardShippingSubmit(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70875,10 +74589,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -70941,10 +74661,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -71038,10 +74764,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -71100,10 +74832,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersIssuingSettlements(input, responder, ctx)
+        .postTestHelpersIssuingSettlements(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -71163,10 +74900,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -71642,10 +75385,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72121,10 +75870,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72188,10 +75943,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72249,10 +76010,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersRefundsRefundExpire(input, responder, ctx)
+        .postTestHelpersRefundsRefundExpire(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72322,10 +76088,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72409,10 +76181,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTestHelpersTestClocks(input, responder, ctx)
+        .getTestHelpersTestClocks(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72462,10 +76239,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTestClocks(input, responder, ctx)
+        .postTestHelpersTestClocks(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72520,10 +76302,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteTestHelpersTestClocksTestClock(input, responder, ctx)
+        .deleteTestHelpersTestClocksTestClock(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72591,10 +76378,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTestHelpersTestClocksTestClock(input, responder, ctx)
+        .getTestHelpersTestClocksTestClock(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72652,10 +76444,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTestClocksTestClockAdvance(input, responder, ctx)
+        .postTestHelpersTestClocksTestClockAdvance(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72735,10 +76532,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryInboundTransfersIdFail(input, responder, ctx)
+        .postTestHelpersTreasuryInboundTransfersIdFail(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72795,10 +76602,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryInboundTransfersIdReturn(input, responder, ctx)
+        .postTestHelpersTreasuryInboundTransfersIdReturn(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72856,10 +76673,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryInboundTransfersIdSucceed(input, responder, ctx)
+        .postTestHelpersTreasuryInboundTransfersIdSucceed(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72928,10 +76755,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryOutboundPaymentsId(input, responder, ctx)
+        .postTestHelpersTreasuryOutboundPaymentsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -72988,10 +76820,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryOutboundPaymentsIdFail(input, responder, ctx)
+        .postTestHelpersTreasuryOutboundPaymentsIdFail(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73048,10 +76890,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryOutboundPaymentsIdPost(input, responder, ctx)
+        .postTestHelpersTreasuryOutboundPaymentsIdPost(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73128,10 +76980,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryOutboundPaymentsIdReturn(input, responder, ctx)
+        .postTestHelpersTreasuryOutboundPaymentsIdReturn(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73204,10 +77066,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73267,10 +77135,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73330,10 +77204,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73415,10 +77295,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73485,10 +77371,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryReceivedCredits(input, responder, ctx)
+        .postTestHelpersTreasuryReceivedCredits(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -73554,10 +77445,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTestHelpersTreasuryReceivedDebits(input, responder, ctx)
+        .postTestHelpersTreasuryReceivedDebits(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74014,10 +77910,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTokens(input, responder, ctx)
+      .postTokens(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74078,10 +77979,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTokensToken(input, responder, ctx)
+      .getTokensToken(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74177,10 +78083,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTopups(input, responder, ctx)
+      .getTopups(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74231,10 +78142,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTopups(input, responder, ctx)
+      .postTopups(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74295,10 +78211,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTopupsTopup(input, responder, ctx)
+      .getTopupsTopup(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74352,10 +78273,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTopupsTopup(input, responder, ctx)
+      .postTopupsTopup(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74410,10 +78336,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTopupsTopupCancel(input, responder, ctx)
+        .postTopupsTopupCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74500,10 +78431,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .getTransfers(input, responder, ctx)
+      .getTransfers(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74555,10 +78491,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .postTransfers(input, responder, ctx)
+      .postTransfers(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74642,10 +78583,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTransfersIdReversals(input, responder, ctx)
+        .getTransfersIdReversals(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74707,10 +78653,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTransfersIdReversals(input, responder, ctx)
+        .postTransfersIdReversals(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74777,10 +78728,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTransfersTransfer(input, responder, ctx)
+        .getTransfersTransfer(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74840,10 +78796,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTransfersTransfer(input, responder, ctx)
+        .postTransfersTransfer(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74909,10 +78870,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTransfersTransferReversalsId(input, responder, ctx)
+        .getTransfersTransferReversalsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -74970,10 +78936,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTransfersTransferReversalsId(input, responder, ctx)
+        .postTransfersTransferReversalsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75053,10 +79024,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryCreditReversals(input, responder, ctx)
+        .getTreasuryCreditReversals(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75104,10 +79080,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryCreditReversals(input, responder, ctx)
+        .postTreasuryCreditReversals(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75174,10 +79155,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryCreditReversalsCreditReversal(input, responder, ctx)
+        .getTreasuryCreditReversalsCreditReversal(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75261,10 +79247,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryDebitReversals(input, responder, ctx)
+        .getTreasuryDebitReversals(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75314,10 +79305,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryDebitReversals(input, responder, ctx)
+        .postTreasuryDebitReversals(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75384,10 +79380,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryDebitReversalsDebitReversal(input, responder, ctx)
+        .getTreasuryDebitReversalsDebitReversal(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75482,10 +79483,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryFinancialAccounts(input, responder, ctx)
+        .getTreasuryFinancialAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75577,10 +79583,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryFinancialAccounts(input, responder, ctx)
+        .postTreasuryFinancialAccounts(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75647,10 +79658,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryFinancialAccountsFinancialAccount(input, responder, ctx)
+        .getTreasuryFinancialAccountsFinancialAccount(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75761,10 +79782,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryFinancialAccountsFinancialAccount(input, responder, ctx)
+        .postTreasuryFinancialAccountsFinancialAccount(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75833,10 +79864,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -75916,10 +79953,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76012,10 +80055,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76101,10 +80150,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryInboundTransfers(input, responder, ctx)
+        .getTreasuryInboundTransfers(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76157,10 +80211,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryInboundTransfers(input, responder, ctx)
+        .postTreasuryInboundTransfers(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76225,10 +80284,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryInboundTransfersId(input, responder, ctx)
+        .getTreasuryInboundTransfersId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76286,10 +80350,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76390,10 +80460,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryOutboundPayments(input, responder, ctx)
+        .getTreasuryOutboundPayments(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76498,10 +80573,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryOutboundPayments(input, responder, ctx)
+        .postTreasuryOutboundPayments(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76566,10 +80646,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryOutboundPaymentsId(input, responder, ctx)
+        .getTreasuryOutboundPaymentsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76623,10 +80708,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryOutboundPaymentsIdCancel(input, responder, ctx)
+        .postTreasuryOutboundPaymentsIdCancel(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76711,10 +80801,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryOutboundTransfers(input, responder, ctx)
+        .getTreasuryOutboundTransfers(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76785,10 +80880,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postTreasuryOutboundTransfers(input, responder, ctx)
+        .postTreasuryOutboundTransfers(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76855,10 +80955,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryOutboundTransfersOutboundTransfer(input, responder, ctx)
+        .getTreasuryOutboundTransfersOutboundTransfer(
+          input,
+          responder,
+          ctx,
+          next,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -76918,10 +81028,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           input,
           responder,
           ctx,
+          next,
         )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77015,10 +81131,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryReceivedCredits(input, responder, ctx)
+        .getTreasuryReceivedCredits(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77083,10 +81204,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryReceivedCreditsId(input, responder, ctx)
+        .getTreasuryReceivedCreditsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77165,10 +81291,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryReceivedDebits(input, responder, ctx)
+        .getTreasuryReceivedDebits(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77233,10 +81364,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryReceivedDebitsId(input, responder, ctx)
+        .getTreasuryReceivedDebitsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77342,10 +81478,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryTransactionEntries(input, responder, ctx)
+        .getTreasuryTransactionEntries(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77410,10 +81551,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryTransactionEntriesId(input, responder, ctx)
+        .getTreasuryTransactionEntriesId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77519,10 +81665,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryTransactions(input, responder, ctx)
+        .getTreasuryTransactions(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77589,10 +81740,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getTreasuryTransactionsId(input, responder, ctx)
+        .getTreasuryTransactionsId(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -77669,10 +81825,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getWebhookEndpoints(input, responder, ctx)
+        .getWebhookEndpoints(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -78083,10 +82244,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postWebhookEndpoints(input, responder, ctx)
+        .postWebhookEndpoints(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -78140,10 +82306,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .deleteWebhookEndpointsWebhookEndpoint(input, responder, ctx)
+        .deleteWebhookEndpointsWebhookEndpoint(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -78211,10 +82382,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .getWebhookEndpointsWebhookEndpoint(input, responder, ctx)
+        .getWebhookEndpointsWebhookEndpoint(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -78524,10 +82700,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .postWebhookEndpointsWebhookEndpoint(input, responder, ctx)
+        .postWebhookEndpointsWebhookEndpoint(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response

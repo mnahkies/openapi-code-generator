@@ -42,6 +42,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "Params",
         "Response",
         "ServerConfig",
+        "SkipResponse",
         "StatusCode",
         "StatusCode2xx",
         "StatusCode3xx",
@@ -54,6 +55,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       .from("@nahkies/typescript-koa-runtime/errors")
       .add("KoaRuntimeError", "RequestInputType")
 
+    this.imports.from("koa").add("Next")
     this.imports.addModule("KoaRouter", "@koa/router")
     this.imports.from("@koa/router").add("RouterContext")
 
@@ -110,13 +112,15 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
           value: `(
                     params: ${params.type},
                     respond: ${symbols.responderName},
-                    ctx: RouterContext
+                    ctx: RouterContext,
+                    next: Next
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
                       (it) => `Response<${it.statusType}, ${it.type}>`,
                     ),
                     responseSchemas.defaultResponse &&
                       `Response<StatusCode, ${responseSchemas.defaultResponse.type}>`,
+                    "typeof SkipResponse",
                   ]
                     .filter(isDefined)
                     .join(" | ")}>`,
@@ -138,8 +142,13 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
 
    const responder = ${responder.implementation}
 
-   const response = await implementation.${symbols.implPropName}(input, responder, ctx)
+   const response = await implementation.${symbols.implPropName}(input, responder, ctx, next)
     .catch(err => { throw KoaRuntimeError.HandlerError(err) })
+
+   // escape hatch to allow responses to be sent by the implementation handler
+   if(response === SkipResponse) {
+    return
+   }
 
    const { status, body } = response instanceof KoaRuntimeResponse ? response.unpack() : response
 

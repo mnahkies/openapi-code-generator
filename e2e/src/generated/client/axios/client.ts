@@ -171,6 +171,40 @@ export class E2ETestClient extends AbstractAxiosClient {
     return { ...res, data: s_Enumerations.parse(res.data) }
   }
 
+  async getResponses500(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/responses/500`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getEscapeHatchesPlainText(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<string>> {
+    const url = `/escape-hatches/plain-text`
+    const headers = this._headers({}, opts.headers)
+
+    const res = await this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+
+    return { ...res, data: z.string().parse(res.data) }
+  }
+
   async getResponsesEmpty(
     timeout?: number,
     opts: AxiosRequestConfig = {},

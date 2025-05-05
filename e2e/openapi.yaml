@@ -5,6 +5,7 @@ info:
 tags:
   - name: request headers
   - name: validation
+  - name: escape hatches
 servers:
   - url: '{protocol}://{host}:{port}'
     variables:
@@ -91,6 +92,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Enumerations'
+  /responses/500:
+    get:
+      tags:
+      - validation
+      responses:
+        500:
+          description: Internal Server Error
+  /escape-hatches/plain-text:
+    get:
+      tags:
+        - escape hatches
+      responses:
+        200:
+          description: 'ok'
+          content:
+            text/plain:
+              schema:
+                type: string
   /responses/empty:
     get:
       tags:

@@ -1,9 +1,10 @@
 import {
+  type GetResponses500,
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
   createRouter,
-} from "../generated/routes/validation"
+} from "../../generated/server/koa/routes/validation"
 
 const postValidationEnums: PostValidationEnums = async ({body}, respond) => {
   return respond.with200().body(body)
@@ -35,8 +36,14 @@ const getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber =
     return respond.withStatus(404)
   }
 
-const getResponsesEmpty: GetResponsesEmpty = async (_, respond) => {
+const getResponsesEmpty: GetResponsesEmpty = async (_, respond, ctx) => {
+  ctx.set("x-ratelimit-remaining", "100")
+
   return respond.with204()
+}
+
+const getResponses500: GetResponses500 = async () => {
+  throw new Error("something went wrong")
 }
 
 export function createValidationRouter() {
@@ -44,5 +51,6 @@ export function createValidationRouter() {
     postValidationEnums,
     getValidationNumbersRandomNumber,
     getResponsesEmpty,
+    getResponses500,
   })
 }
