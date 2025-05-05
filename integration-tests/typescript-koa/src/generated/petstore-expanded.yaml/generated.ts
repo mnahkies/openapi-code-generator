@@ -22,6 +22,7 @@ import {
   Params,
   Response,
   ServerConfig,
+  SkipResponse,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
@@ -29,6 +30,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
+import { Next } from "koa"
 import { z } from "zod"
 
 export type FindPetsResponder = {
@@ -40,10 +42,12 @@ export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void, void>,
   respond: FindPetsResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Pet[]>
   | Response<StatusCode, t_Error>
+  | typeof SkipResponse
 >
 
 export type AddPetResponder = {
@@ -55,10 +59,12 @@ export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema, void>,
   respond: AddPetResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Pet>
   | Response<StatusCode, t_Error>
+  | typeof SkipResponse
 >
 
 export type FindPetByIdResponder = {
@@ -70,10 +76,12 @@ export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void, void>,
   respond: FindPetByIdResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Pet>
   | Response<StatusCode, t_Error>
+  | typeof SkipResponse
 >
 
 export type DeletePetResponder = {
@@ -85,10 +93,12 @@ export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void, void>,
   respond: DeletePetResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
   | Response<StatusCode, t_Error>
+  | typeof SkipResponse
 >
 
 export type Implementation = {
@@ -141,10 +151,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .findPets(input, responder, ctx)
+      .findPets(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -186,10 +201,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .addPet(input, responder, ctx)
+      .addPet(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -231,10 +251,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .findPetById(input, responder, ctx)
+      .findPetById(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -276,10 +301,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .deletePet(input, responder, ctx)
+      .deletePet(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
