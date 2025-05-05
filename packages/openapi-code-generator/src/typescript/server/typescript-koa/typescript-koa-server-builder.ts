@@ -11,18 +11,7 @@ export class KoaServerBuilder implements ICompilable {
   ) {
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
-      .add(
-        "startServer",
-        "ServerConfig",
-        "Response",
-        "KoaRuntimeResponse",
-        "KoaRuntimeResponder",
-        "StatusCode2xx",
-        "StatusCode3xx",
-        "StatusCode4xx",
-        "StatusCode5xx",
-        "StatusCode",
-      )
+      .add("startServer", "ServerConfig")
   }
 
   toString(): string {

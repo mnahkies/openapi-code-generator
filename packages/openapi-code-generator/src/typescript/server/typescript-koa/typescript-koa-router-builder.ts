@@ -92,7 +92,10 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     }
 
     const responseSchemas = builder.responseSchemas()
-    const responder = builder.responder()
+    const responder = builder.responder(
+      "KoaRuntimeResponder",
+      "KoaRuntimeResponse",
+    )
 
     this.operationTypes.push({
       operationId: builder.operationId,
