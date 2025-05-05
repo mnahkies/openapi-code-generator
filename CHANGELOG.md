@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.2...v0.20.0) (2025-05-05)
+
+### Bug Fixes
+
+- clean tsconfig.tsbuildinfo ([#327](https://github.com/mnahkies/openapi-code-generator/issues/327)) ([a64f9e3](https://github.com/mnahkies/openapi-code-generator/commit/a64f9e3a31a9e981a13594c9aecb27109aca9a3c))
+- don't export aliases if name is ApiClient ([#319](https://github.com/mnahkies/openapi-code-generator/issues/319)) ([f30606c](https://github.com/mnahkies/openapi-code-generator/commit/f30606cec9da9eb37f4b39375632c17ee153e614))
+- parametrize responder generation ([#325](https://github.com/mnahkies/openapi-code-generator/issues/325)) ([eaf41af](https://github.com/mnahkies/openapi-code-generator/commit/eaf41affdd5973e003132bc05ea994367948b0b4))
+- wrap response validation errors when using joi ([#323](https://github.com/mnahkies/openapi-code-generator/issues/323)) ([add7434](https://github.com/mnahkies/openapi-code-generator/commit/add7434d1494e8f9de525ffe2ae5db6462f2200e))
+
+### Features
+
+- improve escape hatches ([#326](https://github.com/mnahkies/openapi-code-generator/issues/326)) ([f529387](https://github.com/mnahkies/openapi-code-generator/commit/f529387de7c7d4bcdf4e96307126d83e2ef5dcaf))
+- typescript-express server template ([#324](https://github.com/mnahkies/openapi-code-generator/issues/324)) ([af9a1e7](https://github.com/mnahkies/openapi-code-generator/commit/af9a1e729782eceff05dee008f5a8719bc835e5c)), closes [#152](https://github.com/mnahkies/openapi-code-generator/issues/152) [#316](https://github.com/mnahkies/openapi-code-generator/issues/316)
+
 ## [0.19.2](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.1...v0.19.2) (2025-04-19)
 
 ### Bug Fixes

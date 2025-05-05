@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.2...v0.20.0) (2025-05-05)
+
+### Bug Fixes
+
+- clean tsconfig.tsbuildinfo ([#327](https://github.com/mnahkies/openapi-code-generator/issues/327)) ([a64f9e3](https://github.com/mnahkies/openapi-code-generator/commit/a64f9e3a31a9e981a13594c9aecb27109aca9a3c))
+- wrap response validation errors when using joi ([#323](https://github.com/mnahkies/openapi-code-generator/issues/323)) ([add7434](https://github.com/mnahkies/openapi-code-generator/commit/add7434d1494e8f9de525ffe2ae5db6462f2200e))
+
+### Features
+
+- improve escape hatches ([#326](https://github.com/mnahkies/openapi-code-generator/issues/326)) ([f529387](https://github.com/mnahkies/openapi-code-generator/commit/f529387de7c7d4bcdf4e96307126d83e2ef5dcaf))
+
 ## [0.19.2](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.1...v0.19.2) (2025-04-19)
 
 **Note:** Version bump only for package @nahkies/typescript-koa-runtime
