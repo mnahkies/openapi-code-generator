@@ -1,0 +1,22 @@
+{
+  "name": "typescript-express",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "author": "Michael Nahkies",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf ./dist && rm -rf ./src/generated",
+    "validate": "tsc -p ./tsconfig.json"
+  },
+  "dependencies": {
+    "@nahkies/typescript-express-runtime": "*",
+    "express": "^5.1.0",
+    "joi": "^17.13.3",
+    "zod": "^3.24.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "typescript": "~5.8.3"
+  }
+}

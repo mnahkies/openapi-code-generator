@@ -18,7 +18,7 @@ import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import type {IdentifierConvention} from "./core/utils"
 import {configSchema, generate} from "./index"
-import type {templates} from "./templates"
+import {templateNames, templates} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
 import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
@@ -87,12 +87,7 @@ const program = new Command()
   .addOption(
     new Option("-t --template <value>", "template to use")
       .env("OPENAPI_TEMPLATE")
-      .choices([
-        "typescript-koa",
-        "typescript-axios",
-        "typescript-fetch",
-        "typescript-angular",
-      ] as const satisfies Readonly<Array<keyof typeof templates>>)
+      .choices(templateNames)
       .makeOptionMandatory(),
   )
   .addOption(

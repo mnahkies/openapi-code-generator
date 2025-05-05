@@ -9,7 +9,7 @@ and API server scaffolding (routing, validation, serialization) from api specifi
 Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/),
 and [TypeSpec](https://typespec.io/) are supported as input specifications.
 
-With typescript templates for [koa](https://openapi-code-generator.nahkies.co.nz/guides/server-templates/typescript-koa), [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch), [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios), and [angular](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-angular) currently available.
+With typescript templates for [koa](https://openapi-code-generator.nahkies.co.nz/guides/server-templates/typescript-koa), [express](https://openapi-code-generator.nahkies.co.nz/guides/server-templates/typescript-express), [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch), [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios), and [angular](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-angular) currently available.
 
 The [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch) and [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios) templates work great in conjunction with [react-query](https://tanstack.com/query/latest)
 
@@ -39,6 +39,7 @@ The repository is structured as a mono repo of several npm packages that work to
 
 - [openapi-code-generator](./packages/openapi-code-generator)
 - [typescript-axios-runtime](./packages/typescript-axios-runtime)
+- [typescript-express-runtime](./packages/typescript-express-runtime)
 - [typescript-fetch-runtime](./packages/typescript-fetch-runtime)
 - [typescript-koa-runtime](./packages/typescript-koa-runtime)
 
