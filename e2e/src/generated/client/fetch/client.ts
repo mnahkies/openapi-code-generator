@@ -158,6 +158,30 @@ export class E2ETestClient extends AbstractFetchClient {
     return responseValidationFactory([["200", s_Enumerations]], undefined)(res)
   }
 
+  async getResponses500(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<500, void>> {
+    const url = this.basePath + `/responses/500`
+    const headers = this._headers({}, opts.headers)
+
+    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+
+    return responseValidationFactory([["500", z.any()]], undefined)(res)
+  }
+
+  async getEscapeHatchesPlainText(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, string>> {
+    const url = this.basePath + `/escape-hatches/plain-text`
+    const headers = this._headers({}, opts.headers)
+
+    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+
+    return responseValidationFactory([["200", z.string()]], undefined)(res)
+  }
+
   async getResponsesEmpty(
     timeout?: number,
     opts: RequestInit = {},

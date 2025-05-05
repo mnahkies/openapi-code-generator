@@ -21,12 +21,14 @@ import {
   KoaRuntimeResponse,
   Params,
   Response,
+  SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
+import { Next } from "koa"
 import { z } from "zod"
 
 export type GetHeadersUndeclaredResponder = {
@@ -37,9 +39,11 @@ export type GetHeadersUndeclared = (
   params: Params<void, void, void, void>,
   respond: GetHeadersUndeclaredResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_getHeadersUndeclaredJson200Response>
+  | typeof SkipResponse
 >
 
 export type GetHeadersRequestResponder = {
@@ -50,9 +54,11 @@ export type GetHeadersRequest = (
   params: Params<void, void, void, t_GetHeadersRequestHeaderSchema>,
   respond: GetHeadersRequestResponder,
   ctx: RouterContext,
+  next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_getHeadersRequestJson200Response>
+  | typeof SkipResponse
 >
 
 export type RequestHeadersImplementation = {
@@ -93,10 +99,15 @@ export function createRequestHeadersRouter(
       }
 
       const response = await implementation
-        .getHeadersUndeclared(input, responder, ctx)
+        .getHeadersUndeclared(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -140,10 +151,15 @@ export function createRequestHeadersRouter(
     }
 
     const response = await implementation
-      .getHeadersRequest(input, responder, ctx)
+      .getHeadersRequest(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response

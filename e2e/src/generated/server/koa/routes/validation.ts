@@ -19,12 +19,14 @@ import {
   KoaRuntimeResponse,
   Params,
   Response,
+  SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
+import { Next } from "koa"
 import { z } from "zod"
 
 export type GetValidationNumbersRandomNumberResponder = {
@@ -40,7 +42,12 @@ export type GetValidationNumbersRandomNumber = (
   >,
   respond: GetValidationNumbersRandomNumberResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_RandomNumber>>
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_RandomNumber>
+  | typeof SkipResponse
+>
 
 export type PostValidationEnumsResponder = {
   with200(): KoaRuntimeResponse<t_Enumerations>
@@ -50,7 +57,25 @@ export type PostValidationEnums = (
   params: Params<void, void, t_PostValidationEnumsBodySchema, void>,
   respond: PostValidationEnumsResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_Enumerations>>
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_Enumerations>
+  | typeof SkipResponse
+>
+
+export type GetResponses500Responder = {
+  with500(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type GetResponses500 = (
+  params: Params<void, void, void, void>,
+  respond: GetResponses500Responder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<500, void> | typeof SkipResponse
+>
 
 export type GetResponsesEmptyResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -60,11 +85,15 @@ export type GetResponsesEmpty = (
   params: Params<void, void, void, void>,
   respond: GetResponsesEmptyResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+  next: Next,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
+>
 
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
   postValidationEnums: PostValidationEnums
+  getResponses500: GetResponses500
   getResponsesEmpty: GetResponsesEmpty
 }
 
@@ -112,10 +141,15 @@ export function createValidationRouter(
       }
 
       const response = await implementation
-        .getValidationNumbersRandomNumber(input, responder, ctx)
+        .getValidationNumbersRandomNumber(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
@@ -155,15 +189,61 @@ export function createValidationRouter(
     }
 
     const response = await implementation
-      .postValidationEnums(input, responder, ctx)
+      .postValidationEnums(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postValidationEnumsResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const getResponses500ResponseValidator = responseValidationFactory(
+    [["500", z.undefined()]],
+    undefined,
+  )
+
+  router.get("getResponses500", "/responses/500", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with500() {
+        return new KoaRuntimeResponse<void>(500)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getResponses500(input, responder, ctx, next)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = getResponses500ResponseValidator(status, body)
     ctx.status = status
     return next()
   })
@@ -191,10 +271,15 @@ export function createValidationRouter(
     }
 
     const response = await implementation
-      .getResponsesEmpty(input, responder, ctx)
+      .getResponsesEmpty(input, responder, ctx, next)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
 
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
