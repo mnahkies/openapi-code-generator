@@ -14,7 +14,12 @@ Cross-file references are also supported, so don't worry about pre-processing th
 
 You can check the version we develop and test against [here](https://github.com/mnahkies/openapi-code-generator/blob/main/.github/workflows/ci.yml#L17).
 
-<Tabs items={[<h2 style={{paddingRight: 20}}>Fetch Client</h2>, <h2 style={{paddingRight: 20}}>Axios Client</h2>, <h2 style={{paddingRight: 20}}>Koa Server</h2>]}>
+<Tabs items={[
+  <h2 style={{paddingRight: 20}}>Fetch Client</h2>,
+  <h2 style={{paddingRight: 20}}>Axios Client</h2>,
+  <h2 style={{paddingRight: 20}}>Koa Server</h2>,
+  <h2 style={{paddingRight: 20}}>Express Server</h2>,
+]}>
   <Tabs.Tab>
     <Steps>
       {<h3>Install dependencies</h3>}
@@ -24,7 +29,8 @@ You can check the version we develop and test against [here](https://github.com/
       npm i @nahkies/typescript-fetch-runtime
       ```
 
-      You could also install the CLI globally if you prefer, but it's best to version it per project.
+      You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
+      version as a `devDependency` per project.
 
       {<h3>Run generation</h3>}
       This will generate the client to `./src/generated/clients/some-service`
@@ -40,7 +46,7 @@ You can check the version we develop and test against [here](https://github.com/
       Use your new type-safe client, and never worry about making a typo in a url or parameter name again.
       Let the typescript compiler take care of checking that for you.
 
-      See [Guide to typescript-fetch client template](../guides/client-templates/typescript-fetch) for more details.
+      See [Guide to typescript-fetch client template](/guides/client-templates/typescript-fetch) for more details.
     </Steps>
   </Tabs.Tab>
 
@@ -52,7 +58,9 @@ You can check the version we develop and test against [here](https://github.com/
       npm i --dev @nahkies/openapi-code-generator
       npm i axios @nahkies/typescript-axios-runtime
       ```
-      You could also install the CLI globally if you prefer, but it's best to version it per project.
+
+      You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
+      version as a `devDependency` per project.
 
       {<h3>Run generation</h3>}
       This will generate the client to `./src/generated/clients/some-service`
@@ -69,7 +77,7 @@ You can check the version we develop and test against [here](https://github.com/
       Use your new type-safe client, and never worry about making a typo in a url or parameter name again.
       Let the typescript compiler take care of checking that for you.
 
-      See [Guide to typescript-axios client template](../guides/client-templates/typescript-axios) for more details.
+      See [Guide to typescript-axios client template](/guides/client-templates/typescript-axios) for more details.
     </Steps>
   </Tabs.Tab>
 
@@ -81,7 +89,9 @@ You can check the version we develop and test against [here](https://github.com/
       npm i --dev @nahkies/openapi-code-generator @types/koa @types/koa__router
       npm i @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
       ```
-      You could also install the CLI globally if you prefer, but it's best to version it per project.
+
+      You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
+      version as a `devDependency` per project.
 
       You can provide either a local file path or url for the input file.
 
@@ -100,7 +110,40 @@ You can check the version we develop and test against [here](https://github.com/
 
       By default the runtime validation is using zod.
 
-      See [Guide to typescript-koa client template](../guides/server-templates/typescript-koa) for more details.
+      See [Guide to typescript-koa client template](/guides/server-templates/typescript-koa) for more details.
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+      {<h3>Install dependencies</h3>}
+      First install the CLI and the required runtime packages to your project:
+      ```sh npm2yarn
+      npm i --dev @nahkies/openapi-code-generator @types/express
+      npm i @nahkies/typescript-express-runtime express zod
+      ```
+
+      You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
+      version as a `devDependency` per project.
+
+      You can provide either a local file path or url for the input file.
+
+      {<h3>Run generation</h3>}
+      This will generate the server router and validation logic to `./src/generated`
+      ```sh npm2yarn
+      npm run openapi-code-generator \
+      --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
+      --output ./src/generated \
+      --template typescript-express
+      ```
+
+      {<h3>Profit</h3>}
+      Implement handlers for your server, and be confident that they match what the client expects. Everything
+      will be strongly typed, so typos are surfaced at development time, not runtime.
+
+      By default the runtime validation is using zod.
+
+      See [Guide to typescript-express client template](/guides/server-templates/typescript-express) for more details.
     </Steps>
   </Tabs.Tab>
 </Tabs>

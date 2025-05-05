@@ -1,0 +1,220 @@
+---
+title: typescript-express
+---
+
+import {Tabs} from 'nextra/components'
+
+# Using the `typescript-express` template
+The `typescript-express` template outputs scaffolding code that handles the following:
+
+- Building an express [Router](https://expressjs.com/en/5x/api.html#express.router) instance with all routes in the openapi specification
+- Generating typescript types and runtime schema parsers for all request parameters/bodies and response bodies, using [zod](https://zod.dev/) or [joi](https://joi.dev/)
+- Generating types for route implementations that receive strongly typed, runtime validated inputs and outputs
+- (Optionally) Actually starting the server and binding to a port
+
+See [integration-tests/typescript-express](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-express) for more samples.
+
+
+### Install dependencies
+First install the CLI and the required runtime packages to your project:
+```sh npm2yarn
+npm i --dev @nahkies/openapi-code-generator @types/express
+npm i @nahkies/typescript-express-runtime express zod
+```
+
+See also [quick start](../../getting-started/quick-start) guide
+
+### Run generation
+<Tabs items={["OpenAPI3", "Typespec"]}>
+
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./openapi.yaml \
+      --input-type openapi3 \
+      --output ./src/generated \
+      --template typescript-express \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./typespec.tsp \
+      --input-type typespec \
+      --output ./src/generated \
+      --template typescript-express \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+
+</Tabs>
+
+### Using the generated code
+Running the above will output three files into `./src/generated`:
+
+- `generated.ts` - exports a `createRouter` and `bootstrap` function, along with associated types used to create your server
+- `models.ts` - exports typescript types for schemas
+- `schemas.ts` - exports runtime schema validators
+
+Once generated usage should look something like this:
+
+```typescript
+import {bootstrap, createRouter, CreateTodoList, GetTodoLists} from "../generated"
+
+// Define your route implementations as async functions implementing the types
+// exported from generated.ts
+const createTodoList: CreateTodoList = async ({body}, respond) => {
+  const list = await prisma.todoList.create({
+    data: {
+      // body is strongly typed and parsed at runtime
+      name: body.name,
+    },
+  })
+
+  // the `respond` parameter is a strongly typed response builder that pattern matches status codes
+  // to the expected response schema.
+  // the response body is validated against the response schema/status code at runtime
+  return respond.with200().body(dbListToApiList(list))
+}
+
+const getTodoLists: GetTodoLists = async ({query}) => {
+  // omitted for brevity
+}
+
+// Starts a server listening on `port`
+bootstrap({
+  router: createRouter({getTodoLists, createTodoList}),
+  port: 8080,
+})
+```
+
+### Multiple routers
+By default, a single router is generated, but for larger API surfaces this can become unwieldy.
+
+You can split the generated routers by using the [--grouping-strategy](/reference/cli-options#--grouping-strategy-value-experimental)
+option to control the strategy to use for splitting output into separate files. Set to none for a single generated.ts file, one of:
+
+- none: don’t split output, yield single generated.ts (default)
+- first-tag: group operations based on their first tag
+- first-slug: group operations based on their first route slug/segment
+
+This can help to organize your codebase and separate concerns.
+
+### Custom Express app
+
+The provided `bootstrap` function has a limited range of options. For more advanced use-cases,
+such as `https` you will need to construct your own Express `app`, and mount the router returned by `createRouter`.
+
+The only real requirement is that you provide body parsing middleware mounted before the `router` that places
+a parsed request body on the `req.body` property.
+
+Eg:
+```typescript
+import {createRouter, CreateTodoList, GetTodoLists} from "../generated"
+
+import express from "express"
+import https from "https"
+import fs from "fs"
+
+const createTodoList: CreateTodoList = async ({body}, respond) => { /*omitted for brevity*/ }
+const getTodoLists: GetTodoLists = async ({query}, respond) => { /*omitted for brevity*/ }
+
+const app = express()
+
+// mount middleware to parse JSON request bodies onto `req.body`
+app.use(express.json())
+
+// mount the generated router with our handler implementations injected
+const router = createRouter({getTodoLists, createTodoList})
+app.use(router)
+
+// create the HTTPS server using the express app
+https
+  .createServer(
+    {
+      key: fs.readFileSync("path/to/key.pem"),
+      cert: fs.readFileSync("path/to/cert.pem"),
+    },
+    app
+  )
+  .listen(433)
+```
+
+### Error Handling
+
+Any errors thrown during the request processing will be wrapped in `ExpressRuntimeError` objects,
+and tagged with the `phase` the error was thrown.
+
+```typescript
+class ExpressRuntimeError extends Error {
+  cause: unknown // the originally thrown exception
+  phase: "request_validation" | "request_handler" | "response_validation"
+}
+```
+
+This allows for implementing catch-all error middleware for common concerns like failed request validation,
+or internal server errors.
+
+Eg:
+```typescript
+import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
+import {Request, Response, NextFunction} from "express"
+
+export async function genericErrorMiddleware(err: Error, req: Request, res: Response, next: NextFunction) {
+    if (res.headersSent) {
+      return next(err)
+    }
+
+    // if the request validation failed, return a 400 and include helpful
+    // information about the problem
+    if (ExpressRuntimeError.isExpressError(err) && err.phase === "request_validation") {
+      res.status(400).json({
+        message: "request validation failed",
+        meta: err.cause instanceof ZodError ? {issues: err.cause.issues} : {},
+      })
+      return
+    }
+
+    // return a 500 and omit information from the response otherwise
+    logger.error("internal server error", err)
+    res.status(500).json({
+      message: "internal server error",
+    })
+}
+```
+
+You can configure the error handler through the `bootstrap` function using the `errorHandler` argument,
+or simplify mount directly to the express `app` yourself.
+
+### Escape Hatches - raw `req` / `res` handling
+For most JSON based API's you shouldn't need to reach for this, but there are sometime situations where the
+code generation tooling doesn't support something you need (see also [roadmap](/overview/roadmap) / [compatibility](/overview/compatibility)).
+
+Eg: response headers are not yet supported.
+
+To account for these situations, we pass the raw express `req`, `res` and `next` objects to your handler implementations,
+allowing you full control where its needed.
+```typescript
+const createTodoList: CreateTodoList = async ({body}, respond, req, res, next) => {
+    res.setHeader("x-ratelimit-remaining", "100")
+    // ...your implementation
+    return respond.with200().body({ /* ... */ })
+  }
+```
+
+It's also possible to skip response processing if needed by returning `SkipResponse` from your implementation.
+This allows you take complete control of the response.
+```typescript
+import {SkipResponse} from '@nahkies/typescript-express-runtime/server'
+
+const getProfileImage: GetProfileImage = async ({body}, respond, req, res, next) => {
+    res.setHeader("x-ratelimit-remaining", "100")
+    res.status(200).send(Buffer.from([/*some binary file*/]))
+
+    return SkipResponse
+  }
+```
+
+It should be seldom that these escape hatches are required, and overtime fewer and fewer situations will
+require them.
