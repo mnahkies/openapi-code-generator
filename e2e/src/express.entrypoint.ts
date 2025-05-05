@@ -1,4 +1,3 @@
-import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {bootstrap} from "./generated/server/express"
 import {createRequestHeadersRouter} from "./routes/express/request-headers"
@@ -26,15 +25,22 @@ export async function startExpressServer() {
       origin: "http://example.com",
     },
     router: createRouter(),
-  })
+    notFoundHandler: (req: Request, res: Response, next: NextFunction) => {
+      res.status(404).json({code: 404, message: "route not found"})
+    },
+    errorHandler: (
+      err: Error,
+      req: Request,
+      res: Response,
+      next: NextFunction,
+    ) => {
+      if (res.headersSent) {
+        return next(err)
+      }
 
-  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    if (res.headersSent) {
-      return next(err)
-    }
-
-    const {status, body} = createErrorResponse(err)
-    res.status(status).json(body)
+      const {status, body} = createErrorResponse(err)
+      res.status(status).json(body)
+    },
   })
 
   return {app, server, address}

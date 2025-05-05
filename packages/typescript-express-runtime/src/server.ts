@@ -4,7 +4,12 @@ import type {AddressInfo} from "node:net"
 
 import type {OptionsJson} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
-import express, {type Express, type RequestHandler, type Router} from "express"
+import express, {
+  type ErrorRequestHandler,
+  type Express,
+  type RequestHandler,
+  type Router,
+} from "express"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -79,9 +84,19 @@ export type ServerConfig = {
 
   /**
    * provide arbitrary express middleware to be mounted before all request handlers
-   * useful for mounting logging, error handlers, alternative body parsers, etc
+   * useful for mounting logging, alternative body parsers, etc
    */
   middleware?: RequestHandler[]
+
+  /**
+   * Provide a custom 404 handler
+   */
+  notFoundHandler?: RequestHandler
+
+  /**
+   * Provide a custom error handler
+   */
+  errorHandler?: ErrorRequestHandler
 
   /**
    * the router to use, normally obtained by calling the generated `createRouter`
@@ -119,6 +134,8 @@ export async function startServer({
   body = undefined,
   port = 0,
   router,
+  notFoundHandler,
+  errorHandler,
 }: ServerConfig): Promise<{
   app: Express
   server: Server
@@ -142,6 +159,14 @@ export async function startServer({
   }
 
   app.use(router)
+
+  if (notFoundHandler) {
+    app.use(notFoundHandler)
+  }
+
+  if (errorHandler) {
+    app.use(errorHandler)
+  }
 
   return new Promise((resolve, reject) => {
     try {
