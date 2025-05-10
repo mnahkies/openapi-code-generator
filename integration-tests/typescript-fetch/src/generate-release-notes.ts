@@ -49,6 +49,7 @@ async function main() {
   const notes = await generateReleaseNotes()
   const result = `---
 title: Release Notes
+description: Changelog of all OpenAPI Code Generator releases, including new features, bug fixes, breaking changes, and upgrade instructions for each version.
 ---
 
 import { Callout, Steps } from 'nextra/components'

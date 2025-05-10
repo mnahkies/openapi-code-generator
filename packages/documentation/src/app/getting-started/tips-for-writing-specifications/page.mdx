@@ -1,5 +1,6 @@
 ---
 title: Tips for writing specifications
+description: Best practices and recommendations for writing high-quality OpenAPI specifications that generate better code and are easier to maintain.
 ---
 
 # Tips for writing a good specification
@@ -82,7 +83,7 @@ Produces something like:
 export type Apple = {}
 export type Pear = {}
 export type Fruit = Apple | Pear
-````
+```
 
 **Intersection Types**
 Using `allOf` of we can combine types / schemas into intersection types. This is often
@@ -107,7 +108,7 @@ Produces something like:
 ```typescript
 export type Profile = {}
 export type FullProfile = Profile & {}
-````
+```
 
 ## Use validation constraints where sensible
 
