@@ -10,13 +10,30 @@ export const metadata: Metadata = {
     default: "OpenAPI Code Generator",
     template: "%s - OpenAPI Code Generator",
   },
+  description:
+    "A code generation tool for openapi 3 / 3.1, and typespec specifications, " +
+    "primarily aimed at generating typescript client SDKs, and server stubs, " +
+    "with an emphasis on compile & runtime safety.",
+  keywords: [
+    "openapi",
+    "openapi3",
+    "typespec",
+    "typescript",
+    "zod",
+    "api",
+    "sdk",
+    "generator",
+    "codegen",
+    "koa",
+    "express",
+    "fetch",
+    "axios",
+    "angular",
+  ],
+  robots: {index: true, follow: true},
   openGraph: {
     url: "https://openapi-code-generator.nahkies.co.nz/",
     siteName: "OpenAPI Code Generator",
-    description:
-      "A code generation tool for openapi 3 / 3.1, and typespec specifications, " +
-      "primarily aimed at generating typescript client SDKs, and server stubs, " +
-      "with an emphasis on compile & runtime safety.",
     locale: "en_US",
     type: "website",
     images: "https://openapi-code-generator.nahkies.co.nz/opengraph_image.jpeg",
