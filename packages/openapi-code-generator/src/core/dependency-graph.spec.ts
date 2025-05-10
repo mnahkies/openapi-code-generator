@@ -21,6 +21,10 @@ describe.each(testVersions)("%s - core/dependency-graph", (version) => {
       graph.order.indexOf("s_AOrdering"),
     )
 
+    expect(graph.order.indexOf("s_AArrayOrdering")).toBeGreaterThan(
+      graph.order.indexOf("s_ZOrdering"),
+    )
+
     expect(graph.order.indexOf("s_ObjectWithRefs")).toBeGreaterThan(
       graph.order.indexOf("s_SimpleObject"),
     )

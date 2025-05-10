@@ -31,6 +31,7 @@ const getDependenciesFromSchema = (
         ? [schema.additionalProperties]
         : [],
     )
+    .concat(schema.type === "array" ? [schema.items] : [])
 
   return allSources.reduce((acc, it) => {
     if (isRef(it)) {

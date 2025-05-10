@@ -152,6 +152,11 @@ components:
         name:
           type: string
 
+    AArrayOrdering:
+      type: array
+      items:
+        $ref: '#/components/schemas/ZOrdering'
+
     AdditionalPropertiesBool:
       type: object
       additionalProperties: true

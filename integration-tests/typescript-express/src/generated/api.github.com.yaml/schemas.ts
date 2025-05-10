@@ -846,13 +846,6 @@ export const s_code_security_configuration = z.object({
   updated_at: z.string().datetime({ offset: true }).optional(),
 })
 
-export const s_code_security_default_configurations = z.array(
-  z.object({
-    default_for_new_repos: z.object({}).optional(),
-    configuration: s_code_security_configuration.optional(),
-  }),
-)
-
 export const s_codeowners_errors = z.object({
   errors: z.array(
     z.object({
@@ -3857,6 +3850,13 @@ export const s_code_security_configuration_for_repository = z.object({
     .optional(),
   configuration: s_code_security_configuration.optional(),
 })
+
+export const s_code_security_default_configurations = z.array(
+  z.object({
+    default_for_new_repos: z.object({}).optional(),
+    configuration: s_code_security_configuration.optional(),
+  }),
+)
 
 export const s_commit = z.object({
   url: z.string(),
