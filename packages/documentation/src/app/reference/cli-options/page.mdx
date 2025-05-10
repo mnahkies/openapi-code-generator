@@ -1,5 +1,6 @@
 ---
 title: CLI Options Reference
+description: Complete reference documentation for all command-line options and environment variables available in the OpenAPI Code Generator, including required parameters and optional configuration flags.
 ---
 
 import {
@@ -8,7 +9,6 @@ import {
 
 ## CLI Configuration Reference
 All CLI options can be provided as command-line parameters, or environment variables as you prefer.
-
 
 ## Generate
 
@@ -43,7 +43,6 @@ Which template you wish to generate, one of:
 - [typescript-axios](../guides/client-templates/typescript-axios)
 - [typescript-angular](../guides/client-templates/typescript-angular)
 
-
 ### Optional Parameters
 
 #### `--input-type <value>`
@@ -53,14 +52,12 @@ What type of input file is being provided, one of:
 - `openapi3` (**default**)
 - `typespec`
 
-
 #### `--override-specification-title <value>`
 As environment variable `OPENAPI_OVERRIDE_SPECIFICATION_TITLE`
 
 Allows overriding the `info.title` field of the input OpenAPI document. This field is used to generate
 some symbol names, and so this is useful when you don't directly control the source specification, and
 wish to customize the output symbol names.
-
 
 #### `-s --schema-builder <value>`
 As environment variable `OPENAPI_SCHEMA_BUILDER`
@@ -69,7 +66,6 @@ Which runtime schema parsing library to use, one of:
 - `zod` (default)
 - `joi`
 
-
 #### `--grouping-strategy <value>` (experimental)
 As environment variable `OPENAPI_GROUPING_STRATEGY`
 
@@ -77,7 +73,6 @@ Strategy to use for splitting output into separate files. Set to none for a sing
 - `none` don't split output, yield single `generated.ts` (default)
 - `first-tag` group operations based on their first `tag`
 - `first-slug` group operations based on their first route slug/segment
-
 
 #### `--enable-runtime-response-validation` (experimental)
 As environment variable `OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION`
@@ -100,7 +95,6 @@ When disabled a plain `string` type is used for these parameters.
 
 See [servers object guide](../guides/concepts/servers-object-handling) for detailed explanation
 of how this is handled.
-
 
 Default: `true`
 
@@ -199,4 +193,3 @@ details of how to use.
 
 #### `-h, --help`
 Displays help text for command
-

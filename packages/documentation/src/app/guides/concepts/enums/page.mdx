@@ -1,5 +1,6 @@
 ---
 title: Enums
+description: Understand how enumerated types are handled in code generation, including the difference between open and closed enums and how to ensure API compatibility when evolving your API.
 ---
 
 # Enumerated Types
@@ -59,6 +60,7 @@ enum:
 ```
 
 ### Server code (closed enum)
+
 For server templates, we just generate the exact `enum` values, meaning that an error will be raised both
 if a client sends us an unknown value, or the server attempts to respond with one.
 
@@ -122,6 +124,7 @@ This is interesting as it means that our server can start returning new enumerat
 updated to explicitly handle them, and it nudges developers to handle the unknown case gracefully.
 
 ## Customizing the behavior
+
 There are two ways you can customize this behavior
 
 - Global CLI option `--enum-extensibility <value>`
@@ -130,6 +133,7 @@ There are two ways you can customize this behavior
 Where `<value>` is either `open` or `closed`.
 
 Example:
+
 ```yaml
 type: string
 x-enum-extensibility: closed

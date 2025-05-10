@@ -1,5 +1,6 @@
 ---
 title: Authenticated input specifications
+description: Learn how to access protected OpenAPI specifications by configuring authentication headers for remote URLs, with examples for Google Cloud IAP proxy and private GitHub repositories.
 ---
 
 # Authenticated input specifications
@@ -48,7 +49,7 @@ uri like `https://example.com` will send headers on any (`https`) request to tha
 such as `https://exmaple.com/some/path/openapi.yaml`
 
 ## Tips for generating the JSON
-Unfortunately it is a little annoying to formulate in shell scripts, so here's some examples to get you started.
+Unfortunately, it is a little annoying to formulate in shell scripts, so here's some examples to get you started.
 
 Typically, in any real use cases the secret values would be coming from other shell variables, eg: storing a
 short-lived access token, etc.
