@@ -58,6 +58,7 @@ export type ServerOperationResponseSchemas = {
 }
 
 export type Parameters = {
+  hasParams: boolean
   type: string
   path: {
     schema: string | undefined
@@ -130,7 +131,16 @@ export class ServerOperationBuilder {
       ${header.type}
     >`
 
-    return {type, path, query, header, body}
+    return {
+      hasParams: Boolean(
+        path.schema || query.schema || header.schema || body.schema,
+      ),
+      type,
+      path,
+      query,
+      header,
+      body,
+    }
   }
 
   responseValidator(): string {
