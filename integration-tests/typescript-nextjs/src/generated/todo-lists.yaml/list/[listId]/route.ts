@@ -25,6 +25,7 @@ import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
+// /list/{listId}
 export type GetTodoListByIdResponder = {
   with200(): KoaRuntimeResponse<t_TodoList>
   withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
@@ -34,7 +35,7 @@ export type GetTodoListByIdResponder = {
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void, void>,
   respond: GetTodoListByIdResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type UpdateTodoListByIdResponder = {
@@ -51,7 +52,7 @@ export type UpdateTodoListById = (
     void
   >,
   respond: UpdateTodoListByIdResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type DeleteTodoListByIdResponder = {
@@ -63,7 +64,7 @@ export type DeleteTodoListByIdResponder = {
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void, void>,
   respond: DeleteTodoListByIdResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const getTodoListByIdParamSchema = z.object({ listId: z.string() })
@@ -72,12 +73,12 @@ export const _GET =
   (implementation: GetTodoListById) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
         getTodoListByIdParamSchema,
-        params,
+        await params,
         RequestInputType.RouteParam,
       ),
       // TODO: this swallows repeated parameters
@@ -101,7 +102,7 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
@@ -120,12 +121,12 @@ export const _PUT =
   (implementation: UpdateTodoListById) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
         updateTodoListByIdParamSchema,
-        params,
+        await params,
         RequestInputType.RouteParam,
       ),
       // TODO: this swallows repeated parameters
@@ -153,7 +154,7 @@ export const _PUT =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
@@ -170,12 +171,12 @@ export const _DELETE =
   (implementation: DeleteTodoListById) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
         deleteTodoListByIdParamSchema,
-        params,
+        await params,
         RequestInputType.RouteParam,
       ),
       // TODO: this swallows repeated parameters
@@ -199,7 +200,7 @@ export const _DELETE =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
