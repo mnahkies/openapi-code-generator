@@ -17,6 +17,7 @@ import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
+// /list
 export type GetTodoListsResponder = {
   with200(): KoaRuntimeResponse<t_TodoList[]>
 } & KoaRuntimeResponder
@@ -24,7 +25,7 @@ export type GetTodoListsResponder = {
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void, void>,
   respond: GetTodoListsResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const getTodoListsQuerySchema = z.object({
@@ -47,7 +48,7 @@ export const _GET =
   (implementation: GetTodoLists) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: undefined,
@@ -70,7 +71,7 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)

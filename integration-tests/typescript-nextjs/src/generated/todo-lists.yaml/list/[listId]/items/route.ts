@@ -21,6 +21,7 @@ import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
+// /list/{listId}/items
 export type GetTodoListItemsResponder = {
   with200(): KoaRuntimeResponse<{
     completedAt?: string
@@ -37,7 +38,7 @@ export type GetTodoListItemsResponder = {
 export type GetTodoListItems = (
   params: Params<t_GetTodoListItemsParamSchema, void, void, void>,
   respond: GetTodoListItemsResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type CreateTodoListItemResponder = {
@@ -52,7 +53,7 @@ export type CreateTodoListItem = (
     void
   >,
   respond: CreateTodoListItemResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const getTodoListItemsParamSchema = z.object({ listId: z.string() })
@@ -61,12 +62,12 @@ export const _GET =
   (implementation: GetTodoListItems) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
         getTodoListItemsParamSchema,
-        params,
+        await params,
         RequestInputType.RouteParam,
       ),
       // TODO: this swallows repeated parameters
@@ -95,7 +96,7 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
@@ -118,12 +119,12 @@ export const _POST =
   (implementation: CreateTodoListItem) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
         createTodoListItemParamSchema,
-        params,
+        await params,
         RequestInputType.RouteParam,
       ),
       // TODO: this swallows repeated parameters
@@ -145,7 +146,7 @@ export const _POST =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
