@@ -1,5 +1,5 @@
 import type {Input} from "../../../core/input"
-import {titleCase} from "../../../core/utils"
+import {isDefined, titleCase} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
 import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
@@ -67,9 +67,6 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
   protected buildOperation(builder: ServerOperationBuilder): string {
     const statements: string[] = []
 
-    const types = this.types
-    const schemaBuilder = this.schemaBuilder
-
     const symbols = this.operationSymbols(builder.operationId)
     const params = builder.parameters(symbols)
 
@@ -107,11 +104,13 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         }),
         buildExport({
           name: symbols.implTypeName,
-          value: `(
-                    params: ${params.type},
-                    respond: ${symbols.responderName},
-                    request: NextRequest,
-                  ) => Promise<KoaRuntimeResponse<unknown>>`,
+          value: `(${[
+            params.hasParams ? `params: ${params.type}` : undefined,
+            `respond: ${symbols.responderName}`,
+            "request: NextRequest",
+          ]
+            .filter(isDefined)
+            .join(",")}) => Promise<KoaRuntimeResponse<unknown>>`,
           kind: "type",
         }),
       ],
@@ -121,7 +120,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
       buildExport({
         name: `_${builder.method.toUpperCase()}`,
         kind: "const",
-        value: `(implementation: ${symbols.implTypeName}) => async (request: NextRequest, {params}: {params: Promise<unknown>}): Promise<Response> => {
+        value: `(implementation: ${symbols.implTypeName}) => async (${["request: NextRequest", params.path.schema ? "{params}: {params: Promise<unknown>}" : undefined].filter(isDefined).join(",")}): Promise<Response> => {
   const input = {
         params: ${
           params.path.schema
@@ -151,7 +150,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
        const {
         status,
         body,
-      } = await implementation(input, responder, request)
+      } = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
           .then(it => it.unpack())
           .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
