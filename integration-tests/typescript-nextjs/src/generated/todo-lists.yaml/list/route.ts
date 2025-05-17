@@ -46,10 +46,7 @@ const getTodoListsQuerySchema = z.object({
 
 export const _GET =
   (implementation: GetTodoLists) =>
-  async (
-    request: NextRequest,
-    { params }: { params: Promise<unknown> },
-  ): Promise<Response> => {
+  async (request: NextRequest): Promise<Response> => {
     const input = {
       params: undefined,
       // TODO: this swallows repeated parameters
