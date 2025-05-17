@@ -105,7 +105,11 @@ export async function generateTypescriptNextJS(
 
         const nextJSAppRouterBuilder = new TypescriptNextjsAppRouterBuilder(
           nextJsAppRouterPath,
+          group.name,
+          input,
           imports,
+          rootTypeBuilder.withImports(imports),
+          rootSchemaBuilder.withImports(imports),
           filename,
           sourceFile,
         )

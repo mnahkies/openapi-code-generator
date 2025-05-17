@@ -4,16 +4,29 @@ import {
   SyntaxKind,
   VariableDeclarationKind,
 } from "ts-morph"
+import type {Input} from "../../../core/input"
 import type {IROperation} from "../../../core/openapi-types-normalized"
-import {type HttpMethod, isDefined, isHttpMethod} from "../../../core/utils"
+import {
+  type HttpMethod,
+  isDefined,
+  isHttpMethod,
+  titleCase,
+} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
 import type {ImportBuilder} from "../../common/import-builder"
-import {requestBodyAsParameter} from "../../common/typescript-common"
+import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
+import type {TypeBuilder} from "../../common/type-builder"
+import type {ServerSymbols} from "../abstract-router-builder"
+import {ServerOperationBuilder} from "../server-operation-builder"
 
 export class TypescriptNextjsAppRouterBuilder implements ICompilable {
   constructor(
-    public readonly filename: string,
+    private readonly filename: string,
+    private readonly name: string,
+    private readonly input: Input,
     private readonly imports: ImportBuilder,
+    private readonly types: TypeBuilder,
+    private readonly schemaBuilder: SchemaBuilder,
     private readonly companionFilename: string,
     private readonly sourceFile: SourceFile,
   ) {}
@@ -21,15 +34,17 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
   private readonly httpMethodsUsed = new Set<HttpMethod>()
 
   add(operation: IROperation): void {
-    const sourceFile = this.sourceFile
-
-    const hasPathParam =
-      operation.parameters.filter((it) => it.in === "path").length > 0
-    const hasQueryParam =
-      operation.parameters.filter((it) => it.in === "query").length > 0
-    const hasBodyParam = Boolean(
-      requestBodyAsParameter(operation).requestBodyParameter,
+    const builder = new ServerOperationBuilder(
+      operation,
+      this.input,
+      this.types,
+      this.schemaBuilder,
     )
+
+    const symbols = this.operationSymbols(builder.operationId)
+    const params = builder.parameters(symbols)
+
+    const sourceFile = this.sourceFile
 
     const wrappingMethod = `_${operation.method.toUpperCase()}`
 
@@ -69,18 +84,35 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       parameter.remove()
     })
 
-    innerFunction?.addParameter({
-      name: `{${[
-        hasPathParam ? "params" : undefined,
-        hasQueryParam ? "query" : undefined,
-        hasBodyParam ? "body" : undefined,
-      ]
-        .filter(isDefined)
-        .join(",")}}`,
-    })
+    if (params.hasParams) {
+      innerFunction?.addParameter({
+        name: `{${[
+          params.path.schema ? "params" : undefined,
+          params.query.schema ? "query" : undefined,
+          params.body.schema ? "body" : undefined,
+          params.header.schema ? "headers" : undefined,
+        ]
+          .filter(isDefined)
+          .join(",")}}`,
+      })
+    }
 
     innerFunction?.addParameter({name: "respond"})
     innerFunction?.addParameter({name: "context"})
+  }
+
+  // TODO: duplication - should be shared with router builder
+  protected operationSymbols(operationId: string): ServerSymbols {
+    return {
+      implPropName: operationId,
+      implTypeName: titleCase(operationId),
+      responderName: `${titleCase(operationId)}Responder`,
+      paramSchema: `${operationId}ParamSchema`,
+      querySchema: `${operationId}QuerySchema`,
+      requestBodySchema: `${operationId}BodySchema`,
+      requestHeaderSchema: `${operationId}HeaderSchema`,
+      responseBodyValidator: `${operationId}ResponseValidator`,
+    }
   }
 
   toString(): string {

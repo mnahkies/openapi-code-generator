@@ -22,7 +22,6 @@ export type ListAttachmentsResponder = {
 } & KoaRuntimeResponder
 
 export type ListAttachments = (
-  params: Params<void, void, void, void>,
   respond: ListAttachmentsResponder,
   request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -39,10 +38,7 @@ export type UploadAttachment = (
 
 export const _GET =
   (implementation: ListAttachments) =>
-  async (
-    request: NextRequest,
-    { params }: { params: Promise<unknown> },
-  ): Promise<Response> => {
+  async (request: NextRequest): Promise<Response> => {
     const input = {
       params: undefined,
       // TODO: this swallows repeated parameters
@@ -60,7 +56,7 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const { status, body } = await implementation(responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
@@ -75,10 +71,7 @@ const uploadAttachmentBodySchema = z.object({ file: z.unknown().optional() })
 
 export const _POST =
   (implementation: UploadAttachment) =>
-  async (
-    request: NextRequest,
-    { params }: { params: Promise<unknown> },
-  ): Promise<Response> => {
+  async (request: NextRequest): Promise<Response> => {
     const input = {
       params: undefined,
       // TODO: this swallows repeated parameters
