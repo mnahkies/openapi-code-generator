@@ -16,6 +16,7 @@ import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
+// /attachments
 export type ListAttachmentsResponder = {
   with200(): KoaRuntimeResponse<t_UnknownObject[]>
 } & KoaRuntimeResponder
@@ -23,7 +24,7 @@ export type ListAttachmentsResponder = {
 export type ListAttachments = (
   params: Params<void, void, void, void>,
   respond: ListAttachmentsResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type UploadAttachmentResponder = {
@@ -33,14 +34,14 @@ export type UploadAttachmentResponder = {
 export type UploadAttachment = (
   params: Params<void, void, t_UploadAttachmentBodySchema, void>,
   respond: UploadAttachmentResponder,
-  ctx: { request: NextRequest },
+  request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export const _GET =
   (implementation: ListAttachments) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: undefined,
@@ -59,7 +60,7 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
@@ -76,7 +77,7 @@ export const _POST =
   (implementation: UploadAttachment) =>
   async (
     request: NextRequest,
-    { params }: { params: unknown },
+    { params }: { params: Promise<unknown> },
   ): Promise<Response> => {
     const input = {
       params: undefined,
@@ -99,7 +100,7 @@ export const _POST =
       },
     }
 
-    const { status, body } = await implementation(input, responder, { request })
+    const { status, body } = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
