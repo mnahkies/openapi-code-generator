@@ -1,0 +1,73 @@
+import * as console from "node:console"
+import path from "node:path"
+import stripJsonComments from "strip-json-comments"
+import type {IFsAdaptor} from "../file-system/fs-adaptor"
+
+export type TypescriptFormatterConfig =
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  | {type: "biome"; config: any}
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  | {type: "prettier"; config: any}
+  | null
+
+export async function loadTypescriptFormatterConfig(
+  searchPath: string,
+  fsAdaptor: IFsAdaptor,
+): Promise<TypescriptFormatterConfig> {
+  const biomeConfigFile = findConfigFile(
+    ["biome.json", "biome.jsonc"],
+    searchPath,
+    (it) => fsAdaptor.existsSync(it),
+  )
+
+  if (biomeConfigFile) {
+    const rawConfig = await fsAdaptor.readFile(biomeConfigFile)
+    return {type: "biome", config: JSON.parse(stripJsonComments(rawConfig))}
+  }
+
+  const prettierConfigFile = findConfigFile(
+    [
+      ".prettierrc.js",
+      "prettier.config.js",
+      ".prettierrc.cjs",
+      "prettier.config.cjs",
+      ".prettierrc",
+      ".prettierrc.json",
+      ".prettierrc.yaml",
+      ".prettierrc.yml",
+    ],
+    searchPath,
+    (it) => fsAdaptor.existsSync(it),
+  )
+
+  if (prettierConfigFile) {
+    const prettier = await import("prettier")
+    // TODO: use prettier.resolveConfig to actually load the config
+    return {
+      type: "prettier",
+      config: (await prettier.resolveConfig(prettierConfigFile)) ?? {},
+    }
+  }
+
+  return null
+}
+
+function findConfigFile(
+  names: string[],
+  searchPath: string,
+  fileExists: (it: string) => boolean,
+) {
+  if (searchPath === "/") {
+    return null
+  }
+
+  for (const name of names) {
+    const fullPath = path.join(searchPath, name)
+    if (fileExists(fullPath)) {
+      console.info(`found ${fullPath} in ${searchPath}`)
+      return fullPath
+    }
+  }
+
+  return findConfigFile(names, path.dirname(searchPath), fileExists)
+}
