@@ -370,6 +370,25 @@ export const s_billing_usage_report = z.object({
     .optional(),
 })
 
+export const s_billing_usage_report_user = z.object({
+  usageItems: z
+    .array(
+      z.object({
+        date: z.string(),
+        product: z.string(),
+        sku: z.string(),
+        quantity: z.coerce.number(),
+        unitType: z.string(),
+        pricePerUnit: z.coerce.number(),
+        grossAmount: z.coerce.number(),
+        discountAmount: z.coerce.number(),
+        netAmount: z.coerce.number(),
+        repositoryName: z.string().optional(),
+      }),
+    )
+    .optional(),
+})
+
 export const s_blob = z.object({
   content: z.string(),
   encoding: z.string(),
@@ -690,6 +709,7 @@ export const s_code_scanning_default_setup = z.object({
   runner_type: z.enum(["standard", "labeled"]).nullable().optional(),
   runner_label: z.string().nullable().optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
+  threat_model: z.enum(["remote", "remote_and_local"]).optional(),
   updated_at: z.string().datetime({ offset: true }).nullable().optional(),
   schedule: z.enum(["weekly"]).nullable().optional(),
 })
@@ -706,6 +726,7 @@ export const s_code_scanning_default_setup_update = z.object({
   runner_type: z.enum(["standard", "labeled"]).optional(),
   runner_label: z.string().nullable().optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
+  threat_model: z.enum(["remote", "remote_and_local"]).optional(),
   languages: z
     .array(
       z.enum([
@@ -2163,7 +2184,7 @@ export const s_org_hook = z.object({
 
 export const s_org_private_registry_configuration = z.object({
   name: z.string(),
-  registry_type: z.enum(["maven_repository"]),
+  registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
   username: z.string().nullable().optional(),
   visibility: z.enum(["all", "private", "selected"]),
   created_at: z.string().datetime({ offset: true }),
@@ -2173,7 +2194,7 @@ export const s_org_private_registry_configuration = z.object({
 export const s_org_private_registry_configuration_with_selected_repositories =
   z.object({
     name: z.string(),
-    registry_type: z.enum(["maven_repository"]),
+    registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
     username: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
@@ -4130,9 +4151,6 @@ export const s_integration = z
     ),
     events: z.array(z.string()),
     installations_count: z.coerce.number().optional(),
-    client_secret: z.string().optional(),
-    webhook_secret: z.string().nullable().optional(),
-    pem: z.string().optional(),
   })
   .nullable()
 
@@ -4367,9 +4385,6 @@ export const s_nullable_integration = z
     ),
     events: z.array(z.string()),
     installations_count: z.coerce.number().optional(),
-    client_secret: z.string().optional(),
-    webhook_secret: z.string().nullable().optional(),
-    pem: z.string().optional(),
   })
   .nullable()
 
@@ -4612,6 +4627,12 @@ export const s_nullable_repository = z
     master_branch: z.string().optional(),
     starred_at: z.string().optional(),
     anonymous_access_enabled: PermissiveBoolean.optional(),
+    code_search_index_status: z
+      .object({
+        lexical_search_ok: PermissiveBoolean.optional(),
+        lexical_commit_sha: z.string().optional(),
+      })
+      .optional(),
   })
   .nullable()
 
@@ -4912,6 +4933,7 @@ export const s_release_asset = z.object({
   state: z.enum(["uploaded", "open"]),
   content_type: z.string(),
   size: z.coerce.number(),
+  digest: z.string().nullable(),
   download_count: z.coerce.number(),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
@@ -5126,6 +5148,12 @@ export const s_repository = z.object({
   master_branch: z.string().optional(),
   starred_at: z.string().optional(),
   anonymous_access_enabled: PermissiveBoolean.optional(),
+  code_search_index_status: z
+    .object({
+      lexical_search_ok: PermissiveBoolean.optional(),
+      lexical_commit_sha: z.string().optional(),
+    })
+    .optional(),
 })
 
 export const s_repository_advisory_create = z.object({
@@ -6433,6 +6461,11 @@ export const s_dependabot_alert_security_advisory = z.object({
   published_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
   withdrawn_at: z.string().datetime({ offset: true }).nullable(),
+})
+
+export const s_dependabot_repository_access_details = z.object({
+  default_level: z.enum(["public", "internal"]).nullable().optional(),
+  accessible_repositories: z.array(s_simple_repository).optional(),
 })
 
 export const s_deployment = z.object({

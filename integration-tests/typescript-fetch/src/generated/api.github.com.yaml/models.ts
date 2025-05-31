@@ -517,6 +517,21 @@ export type t_billing_usage_report = {
   }[]
 }
 
+export type t_billing_usage_report_user = {
+  usageItems?: {
+    date: string
+    discountAmount: number
+    grossAmount: number
+    netAmount: number
+    pricePerUnit: number
+    product: string
+    quantity: number
+    repositoryName?: string
+    sku: string
+    unitType: string
+  }[]
+}
+
 export type t_blob = {
   content: string
   encoding: string
@@ -1157,6 +1172,7 @@ export type t_code_scanning_default_setup = {
   runner_type?: "standard" | "labeled" | UnknownEnumStringValue | null
   schedule?: "weekly" | UnknownEnumStringValue | null
   state?: "configured" | "not-configured" | UnknownEnumStringValue
+  threat_model?: "remote" | "remote_and_local" | UnknownEnumStringValue
   updated_at?: string | null
 }
 
@@ -1182,6 +1198,7 @@ export type t_code_scanning_default_setup_update = {
   runner_label?: string | null
   runner_type?: "standard" | "labeled" | UnknownEnumStringValue
   state?: "configured" | "not-configured" | UnknownEnumStringValue
+  threat_model?: "remote" | "remote_and_local" | UnknownEnumStringValue
 }
 
 export type t_code_scanning_default_setup_update_response = {
@@ -2317,6 +2334,11 @@ export type t_dependabot_public_key = {
   key_id: string
 }
 
+export type t_dependabot_repository_access_details = {
+  accessible_repositories?: t_simple_repository[]
+  default_level?: "public" | "internal" | UnknownEnumStringValue | null
+}
+
 export type t_dependabot_secret = {
   created_at: string
   name: string
@@ -3283,7 +3305,6 @@ export type t_installation_token = {
 
 export type t_integration = {
   client_id?: string
-  client_secret?: string
   created_at: string
   description: string | null
   events: string[]
@@ -3294,7 +3315,6 @@ export type t_integration = {
   name: string
   node_id: string
   owner: t_simple_user | t_enterprise
-  pem?: string
   permissions: {
     checks?: string
     contents?: string
@@ -3305,7 +3325,6 @@ export type t_integration = {
   }
   slug?: string
   updated_at: string
-  webhook_secret?: string | null
 } | null
 
 export type t_integration_installation_request = {
@@ -4085,7 +4104,6 @@ export type t_nullable_git_user = {
 
 export type t_nullable_integration = {
   client_id?: string
-  client_secret?: string
   created_at: string
   description: string | null
   events: string[]
@@ -4096,7 +4114,6 @@ export type t_nullable_integration = {
   name: string
   node_id: string
   owner: t_simple_user | t_enterprise
-  pem?: string
   permissions: {
     checks?: string
     contents?: string
@@ -4107,7 +4124,6 @@ export type t_nullable_integration = {
   }
   slug?: string
   updated_at: string
-  webhook_secret?: string | null
 } | null
 
 export type t_nullable_issue = {
@@ -4330,6 +4346,10 @@ export type t_nullable_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
+  code_search_index_status?: {
+    lexical_commit_sha?: string
+    lexical_search_ok?: boolean
+  }
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -4540,7 +4560,11 @@ export type t_org_membership = {
 export type t_org_private_registry_configuration = {
   created_at: string
   name: string
-  registry_type: "maven_repository" | UnknownEnumStringValue
+  registry_type:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | UnknownEnumStringValue
   updated_at: string
   username?: string | null
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
@@ -4549,7 +4573,11 @@ export type t_org_private_registry_configuration = {
 export type t_org_private_registry_configuration_with_selected_repositories = {
   created_at: string
   name: string
-  registry_type: "maven_repository" | UnknownEnumStringValue
+  registry_type:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | UnknownEnumStringValue
   selected_repository_ids?: number[]
   updated_at: string
   username?: string
@@ -5698,6 +5726,7 @@ export type t_release_asset = {
   browser_download_url: string
   content_type: string
   created_at: string
+  digest: string | null
   download_count: number
   id: number
   label: string | null
@@ -5869,6 +5898,10 @@ export type t_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
+  code_search_index_status?: {
+    lexical_commit_sha?: string
+    lexical_search_ok?: boolean
+  }
   collaborators_url: string
   comments_url: string
   commits_url: string

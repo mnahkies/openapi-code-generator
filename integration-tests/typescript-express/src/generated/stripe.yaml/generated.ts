@@ -901,6 +901,8 @@ import {
   t_PostInvoicesCreatePreviewRequestBodySchema,
   t_PostInvoicesInvoiceAddLinesParamSchema,
   t_PostInvoicesInvoiceAddLinesRequestBodySchema,
+  t_PostInvoicesInvoiceAttachPaymentParamSchema,
+  t_PostInvoicesInvoiceAttachPaymentRequestBodySchema,
   t_PostInvoicesInvoiceFinalizeParamSchema,
   t_PostInvoicesInvoiceFinalizeRequestBodySchema,
   t_PostInvoicesInvoiceLinesLineItemIdParamSchema,
@@ -1080,6 +1082,8 @@ import {
   t_PostTerminalLocationsRequestBodySchema,
   t_PostTerminalReadersReaderCancelActionParamSchema,
   t_PostTerminalReadersReaderCancelActionRequestBodySchema,
+  t_PostTerminalReadersReaderCollectInputsParamSchema,
+  t_PostTerminalReadersReaderCollectInputsRequestBodySchema,
   t_PostTerminalReadersReaderParamSchema,
   t_PostTerminalReadersReaderProcessPaymentIntentParamSchema,
   t_PostTerminalReadersReaderProcessPaymentIntentRequestBodySchema,
@@ -1134,6 +1138,10 @@ import {
   t_PostTestHelpersRefundsRefundExpireRequestBodySchema,
   t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
   t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBodySchema,
+  t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema,
+  t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema,
+  t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema,
+  t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema,
   t_PostTestHelpersTestClocksRequestBodySchema,
   t_PostTestHelpersTestClocksTestClockAdvanceParamSchema,
   t_PostTestHelpersTestClocksTestClockAdvanceRequestBodySchema,
@@ -6044,6 +6052,24 @@ export type PostInvoicesInvoiceAddLines = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostInvoicesInvoiceAttachPaymentResponder = {
+  with200(): ExpressRuntimeResponse<t_invoice>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostInvoicesInvoiceAttachPayment = (
+  params: Params<
+    t_PostInvoicesInvoiceAttachPaymentParamSchema,
+    void,
+    t_PostInvoicesInvoiceAttachPaymentRequestBodySchema | undefined,
+    void
+  >,
+  respond: PostInvoicesInvoiceAttachPaymentResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type PostInvoicesInvoiceFinalizeResponder = {
   with200(): ExpressRuntimeResponse<t_invoice>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -10262,6 +10288,24 @@ export type PostTerminalReadersReaderCancelAction = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostTerminalReadersReaderCollectInputsResponder = {
+  with200(): ExpressRuntimeResponse<t_terminal_reader>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostTerminalReadersReaderCollectInputs = (
+  params: Params<
+    t_PostTerminalReadersReaderCollectInputsParamSchema,
+    void,
+    t_PostTerminalReadersReaderCollectInputsRequestBodySchema,
+    void
+  >,
+  respond: PostTerminalReadersReaderCollectInputsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type PostTerminalReadersReaderProcessPaymentIntentResponder = {
   with200(): ExpressRuntimeResponse<t_terminal_reader>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -10785,6 +10829,46 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
     void
   >,
   respond: PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostTestHelpersTerminalReadersReaderSucceedInputCollectionResponder =
+  {
+    with200(): ExpressRuntimeResponse<t_terminal_reader>
+    withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+  } & ExpressRuntimeResponder
+
+export type PostTestHelpersTerminalReadersReaderSucceedInputCollection = (
+  params: Params<
+    t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema,
+    void,
+    | t_PostTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema
+    | undefined,
+    void
+  >,
+  respond: PostTestHelpersTerminalReadersReaderSucceedInputCollectionResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostTestHelpersTerminalReadersReaderTimeoutInputCollectionResponder =
+  {
+    with200(): ExpressRuntimeResponse<t_terminal_reader>
+    withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+  } & ExpressRuntimeResponder
+
+export type PostTestHelpersTerminalReadersReaderTimeoutInputCollection = (
+  params: Params<
+    t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema,
+    void,
+    | t_PostTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema
+    | undefined,
+    void
+  >,
+  respond: PostTestHelpersTerminalReadersReaderTimeoutInputCollectionResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -12382,6 +12466,7 @@ export type Implementation = {
   getInvoicesInvoice: GetInvoicesInvoice
   postInvoicesInvoice: PostInvoicesInvoice
   postInvoicesInvoiceAddLines: PostInvoicesInvoiceAddLines
+  postInvoicesInvoiceAttachPayment: PostInvoicesInvoiceAttachPayment
   postInvoicesInvoiceFinalize: PostInvoicesInvoiceFinalize
   getInvoicesInvoiceLines: GetInvoicesInvoiceLines
   postInvoicesInvoiceLinesLineItemId: PostInvoicesInvoiceLinesLineItemId
@@ -12607,6 +12692,7 @@ export type Implementation = {
   getTerminalReadersReader: GetTerminalReadersReader
   postTerminalReadersReader: PostTerminalReadersReader
   postTerminalReadersReaderCancelAction: PostTerminalReadersReaderCancelAction
+  postTerminalReadersReaderCollectInputs: PostTerminalReadersReaderCollectInputs
   postTerminalReadersReaderProcessPaymentIntent: PostTerminalReadersReaderProcessPaymentIntent
   postTerminalReadersReaderProcessSetupIntent: PostTerminalReadersReaderProcessSetupIntent
   postTerminalReadersReaderRefundPayment: PostTerminalReadersReaderRefundPayment
@@ -12635,6 +12721,8 @@ export type Implementation = {
   postTestHelpersIssuingTransactionsTransactionRefund: PostTestHelpersIssuingTransactionsTransactionRefund
   postTestHelpersRefundsRefundExpire: PostTestHelpersRefundsRefundExpire
   postTestHelpersTerminalReadersReaderPresentPaymentMethod: PostTestHelpersTerminalReadersReaderPresentPaymentMethod
+  postTestHelpersTerminalReadersReaderSucceedInputCollection: PostTestHelpersTerminalReadersReaderSucceedInputCollection
+  postTestHelpersTerminalReadersReaderTimeoutInputCollection: PostTestHelpersTerminalReadersReaderTimeoutInputCollection
   getTestHelpersTestClocks: GetTestHelpersTestClocks
   postTestHelpersTestClocks: PostTestHelpersTestClocks
   deleteTestHelpersTestClocksTestClock: DeleteTestHelpersTestClocksTestClock
@@ -12904,6 +12992,20 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      disputes_list: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z
+            .object({
+              capture_payments: PermissiveBoolean.optional(),
+              destination_on_behalf_of_charge_management:
+                PermissiveBoolean.optional(),
+              dispute_management: PermissiveBoolean.optional(),
+              refund_management: PermissiveBoolean.optional(),
+            })
+            .optional(),
+        })
+        .optional(),
       documents: z
         .object({
           enabled: PermissiveBoolean,
@@ -12977,6 +13079,19 @@ export function createRouter(implementation: Implementation): Router {
           features: z
             .object({
               capture_payments: PermissiveBoolean.optional(),
+              destination_on_behalf_of_charge_management:
+                PermissiveBoolean.optional(),
+              dispute_management: PermissiveBoolean.optional(),
+              refund_management: PermissiveBoolean.optional(),
+            })
+            .optional(),
+        })
+        .optional(),
+      payment_disputes: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z
+            .object({
               destination_on_behalf_of_charge_management:
                 PermissiveBoolean.optional(),
               dispute_management: PermissiveBoolean.optional(),
@@ -13241,6 +13356,17 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           estimated_worker_count: z.coerce.number().optional(),
           mcc: z.string().max(4).optional(),
+          minority_owned_business_designation: z
+            .array(
+              z.enum([
+                "lgbtqi_owned_business",
+                "minority_owned_business",
+                "none_of_these_apply",
+                "prefer_not_to_answer",
+                "women_owned_business",
+              ]),
+            )
+            .optional(),
           monthly_estimated_revenue: z
             .object({ amount: z.coerce.number(), currency: z.string() })
             .optional(),
@@ -13390,6 +13516,9 @@ export function createRouter(implementation: Implementation): Router {
           paynow_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          pix_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           promptpay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -13504,6 +13633,16 @@ export function createRouter(implementation: Implementation): Router {
             ])
             .optional(),
           phone: z.string().max(5000).optional(),
+          registration_date: z
+            .union([
+              z.object({
+                day: z.coerce.number(),
+                month: z.coerce.number(),
+                year: z.coerce.number(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
           registration_number: z.string().max(5000).optional(),
           structure: z
             .enum([
@@ -14053,6 +14192,17 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           estimated_worker_count: z.coerce.number().optional(),
           mcc: z.string().max(4).optional(),
+          minority_owned_business_designation: z
+            .array(
+              z.enum([
+                "lgbtqi_owned_business",
+                "minority_owned_business",
+                "none_of_these_apply",
+                "prefer_not_to_answer",
+                "women_owned_business",
+              ]),
+            )
+            .optional(),
           monthly_estimated_revenue: z
             .object({ amount: z.coerce.number(), currency: z.string() })
             .optional(),
@@ -14202,6 +14352,9 @@ export function createRouter(implementation: Implementation): Router {
           paynow_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          pix_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           promptpay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -14316,6 +14469,16 @@ export function createRouter(implementation: Implementation): Router {
             ])
             .optional(),
           phone: z.string().max(5000).optional(),
+          registration_date: z
+            .union([
+              z.object({
+                day: z.coerce.number(),
+                month: z.coerce.number(),
+                year: z.coerce.number(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
           registration_number: z.string().max(5000).optional(),
           structure: z
             .enum([
@@ -16167,6 +16330,64 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       ssn_last_4: z.string().optional(),
+      us_cfpb_data: z
+        .object({
+          ethnicity_details: z
+            .object({
+              ethnicity: z
+                .array(
+                  z.enum([
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                  ]),
+                )
+                .optional(),
+              ethnicity_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          race_details: z
+            .object({
+              race: z
+                .array(
+                  z.enum([
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                  ]),
+                )
+                .optional(),
+              race_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          self_identified_gender: z.string().max(5000).optional(),
+        })
+        .optional(),
       verification: z
         .object({
           additional_document: z
@@ -16548,6 +16769,64 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       ssn_last_4: z.string().optional(),
+      us_cfpb_data: z
+        .object({
+          ethnicity_details: z
+            .object({
+              ethnicity: z
+                .array(
+                  z.enum([
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                  ]),
+                )
+                .optional(),
+              ethnicity_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          race_details: z
+            .object({
+              race: z
+                .array(
+                  z.enum([
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                  ]),
+                )
+                .optional(),
+              race_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          self_identified_gender: z.string().max(5000).optional(),
+        })
+        .optional(),
       verification: z
         .object({
           additional_document: z
@@ -16878,6 +17157,64 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       ssn_last_4: z.string().optional(),
+      us_cfpb_data: z
+        .object({
+          ethnicity_details: z
+            .object({
+              ethnicity: z
+                .array(
+                  z.enum([
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                  ]),
+                )
+                .optional(),
+              ethnicity_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          race_details: z
+            .object({
+              race: z
+                .array(
+                  z.enum([
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                  ]),
+                )
+                .optional(),
+              race_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          self_identified_gender: z.string().max(5000).optional(),
+        })
+        .optional(),
       verification: z
         .object({
           additional_document: z
@@ -17261,6 +17598,64 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       ssn_last_4: z.string().optional(),
+      us_cfpb_data: z
+        .object({
+          ethnicity_details: z
+            .object({
+              ethnicity: z
+                .array(
+                  z.enum([
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                  ]),
+                )
+                .optional(),
+              ethnicity_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          race_details: z
+            .object({
+              race: z
+                .array(
+                  z.enum([
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                  ]),
+                )
+                .optional(),
+              race_other: z.string().max(5000).optional(),
+            })
+            .optional(),
+          self_identified_gender: z.string().max(5000).optional(),
+        })
+        .optional(),
       verification: z
         .object({
           additional_document: z
@@ -19261,7 +19656,7 @@ export function createRouter(implementation: Implementation): Router {
           )
           .optional(),
         gte: z.coerce.number(),
-        meter: z.string().max(5000).optional(),
+        meter: z.string().max(5000),
         recurrence: z.enum(["one_time"]),
       })
       .optional(),
@@ -24165,6 +24560,7 @@ export function createRouter(implementation: Implementation): Router {
           allow_redisplay_filters: z
             .array(z.enum(["always", "limited", "unspecified"]))
             .optional(),
+          payment_method_remove: z.enum(["disabled", "enabled"]).optional(),
           payment_method_save: z.enum(["disabled", "enabled"]).optional(),
         })
         .optional(),
@@ -24534,6 +24930,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       ui_mode: z.enum(["custom", "embedded", "hosted"]).optional(),
+      wallet_options: z
+        .object({
+          link: z
+            .object({ display: z.enum(["auto", "never"]).optional() })
+            .optional(),
+        })
+        .optional(),
     })
     .optional()
 
@@ -27672,10 +28075,15 @@ export function createRouter(implementation: Implementation): Router {
               "ar_cuit",
               "au_abn",
               "au_arn",
+              "aw_tin",
+              "az_tin",
               "ba_tin",
               "bb_tin",
+              "bd_bin",
+              "bf_ifu",
               "bg_uic",
               "bh_vat",
+              "bj_ifu",
               "bo_tin",
               "br_cnpj",
               "br_cpf",
@@ -27691,14 +28099,17 @@ export function createRouter(implementation: Implementation): Router {
               "ch_uid",
               "ch_vat",
               "cl_tin",
+              "cm_niu",
               "cn_tin",
               "co_nit",
               "cr_tin",
+              "cv_nif",
               "de_stn",
               "do_rcn",
               "ec_ruc",
               "eg_tin",
               "es_cif",
+              "et_tin",
               "eu_oss_vat",
               "eu_vat",
               "gb_vat",
@@ -27715,9 +28126,11 @@ export function createRouter(implementation: Implementation): Router {
               "jp_rn",
               "jp_trn",
               "ke_pin",
+              "kg_tin",
               "kh_tin",
               "kr_brn",
               "kz_bin",
+              "la_tin",
               "li_uid",
               "li_vat",
               "ma_vat",
@@ -31496,6 +31909,15 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       backdate_start_date: z.coerce.number().optional(),
       billing_cycle_anchor: z.coerce.number().optional(),
+      billing_thresholds: z
+        .union([
+          z.object({
+            amount_gte: z.coerce.number().optional(),
+            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
       cancel_at: z.coerce.number().optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       collection_method: z
@@ -31537,6 +31959,9 @@ export function createRouter(implementation: Implementation): Router {
       items: z
         .array(
           z.object({
+            billing_thresholds: z
+              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .optional(),
             discounts: z
               .union([
                 z.array(
@@ -31711,6 +32136,7 @@ export function createRouter(implementation: Implementation): Router {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "affirm",
                   "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
@@ -32102,6 +32528,15 @@ export function createRouter(implementation: Implementation): Router {
           })
           .optional(),
         billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
+        billing_thresholds: z
+          .union([
+            z.object({
+              amount_gte: z.coerce.number().optional(),
+              reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+            }),
+            z.enum([""]),
+          ])
+          .optional(),
         cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
         cancel_at_period_end: PermissiveBoolean.optional(),
         cancellation_details: z
@@ -32162,6 +32597,12 @@ export function createRouter(implementation: Implementation): Router {
         items: z
           .array(
             z.object({
+              billing_thresholds: z
+                .union([
+                  z.object({ usage_gte: z.coerce.number() }),
+                  z.enum([""]),
+                ])
+                .optional(),
               clear_usage: PermissiveBoolean.optional(),
               deleted: PermissiveBoolean.optional(),
               discounts: z
@@ -32350,6 +32791,7 @@ export function createRouter(implementation: Implementation): Router {
                     "ach_credit_transfer",
                     "ach_debit",
                     "acss_debit",
+                    "affirm",
                     "amazon_pay",
                     "au_becs_debit",
                     "bacs_debit",
@@ -32810,10 +33252,15 @@ export function createRouter(implementation: Implementation): Router {
       "ar_cuit",
       "au_abn",
       "au_arn",
+      "aw_tin",
+      "az_tin",
       "ba_tin",
       "bb_tin",
+      "bd_bin",
+      "bf_ifu",
       "bg_uic",
       "bh_vat",
+      "bj_ifu",
       "bo_tin",
       "br_cnpj",
       "br_cpf",
@@ -32829,14 +33276,17 @@ export function createRouter(implementation: Implementation): Router {
       "ch_uid",
       "ch_vat",
       "cl_tin",
+      "cm_niu",
       "cn_tin",
       "co_nit",
       "cr_tin",
+      "cv_nif",
       "de_stn",
       "do_rcn",
       "ec_ruc",
       "eg_tin",
       "es_cif",
+      "et_tin",
       "eu_oss_vat",
       "eu_vat",
       "gb_vat",
@@ -32853,9 +33303,11 @@ export function createRouter(implementation: Implementation): Router {
       "jp_rn",
       "jp_trn",
       "ke_pin",
+      "kg_tin",
       "kh_tin",
       "kr_brn",
       "kz_bin",
+      "la_tin",
       "li_uid",
       "li_vat",
       "ma_vat",
@@ -38957,6 +39409,7 @@ export function createRouter(implementation: Implementation): Router {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "affirm",
                   "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
@@ -39225,10 +39678,15 @@ export function createRouter(implementation: Implementation): Router {
                   "ar_cuit",
                   "au_abn",
                   "au_arn",
+                  "aw_tin",
+                  "az_tin",
                   "ba_tin",
                   "bb_tin",
+                  "bd_bin",
+                  "bf_ifu",
                   "bg_uic",
                   "bh_vat",
+                  "bj_ifu",
                   "bo_tin",
                   "br_cnpj",
                   "br_cpf",
@@ -39244,14 +39702,17 @@ export function createRouter(implementation: Implementation): Router {
                   "ch_uid",
                   "ch_vat",
                   "cl_tin",
+                  "cm_niu",
                   "cn_tin",
                   "co_nit",
                   "cr_tin",
+                  "cv_nif",
                   "de_stn",
                   "do_rcn",
                   "ec_ruc",
                   "eg_tin",
                   "es_cif",
+                  "et_tin",
                   "eu_oss_vat",
                   "eu_vat",
                   "gb_vat",
@@ -39268,9 +39729,11 @@ export function createRouter(implementation: Implementation): Router {
                   "jp_rn",
                   "jp_trn",
                   "ke_pin",
+                  "kg_tin",
                   "kh_tin",
                   "kr_brn",
                   "kz_bin",
+                  "la_tin",
                   "li_uid",
                   "li_vat",
                   "ma_vat",
@@ -39447,6 +39910,15 @@ export function createRouter(implementation: Implementation): Router {
                 billing_cycle_anchor: z
                   .enum(["automatic", "phase_start"])
                   .optional(),
+                billing_thresholds: z
+                  .union([
+                    z.object({
+                      amount_gte: z.coerce.number().optional(),
+                      reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                    }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
                 collection_method: z
                   .enum(["charge_automatically", "send_invoice"])
                   .optional(),
@@ -39488,6 +39960,12 @@ export function createRouter(implementation: Implementation): Router {
                   .optional(),
                 items: z.array(
                   z.object({
+                    billing_thresholds: z
+                      .union([
+                        z.object({ usage_gte: z.coerce.number() }),
+                        z.enum([""]),
+                      ])
+                      .optional(),
                     discounts: z
                       .union([
                         z.array(
@@ -39565,6 +40043,12 @@ export function createRouter(implementation: Implementation): Router {
           items: z
             .array(
               z.object({
+                billing_thresholds: z
+                  .union([
+                    z.object({ usage_gte: z.coerce.number() }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
                 clear_usage: PermissiveBoolean.optional(),
                 deleted: PermissiveBoolean.optional(),
                 discounts: z
@@ -40122,6 +40606,7 @@ export function createRouter(implementation: Implementation): Router {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "affirm",
                   "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
@@ -40519,6 +41004,83 @@ export function createRouter(implementation: Implementation): Router {
         if (body !== undefined) {
           res.json(
             postInvoicesInvoiceAddLinesResponseBodyValidator(status, body),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postInvoicesInvoiceAttachPaymentParamSchema = z.object({
+    invoice: z.string().max(5000),
+  })
+
+  const postInvoicesInvoiceAttachPaymentRequestBodySchema = z
+    .object({
+      expand: z.array(z.string().max(5000)).optional(),
+      payment_intent: z.string().max(5000).optional(),
+    })
+    .optional()
+
+  const postInvoicesInvoiceAttachPaymentResponseBodyValidator =
+    responseValidationFactory([["200", s_invoice]], s_error)
+
+  // postInvoicesInvoiceAttachPayment
+  router.post(
+    `/v1/invoices/:invoice/attach_payment`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postInvoicesInvoiceAttachPaymentParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postInvoicesInvoiceAttachPaymentRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_invoice>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postInvoicesInvoiceAttachPayment(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postInvoicesInvoiceAttachPaymentResponseBodyValidator(status, body),
           )
         } else {
           res.end()
@@ -49568,6 +50130,7 @@ export function createRouter(implementation: Implementation): Router {
             email: z.union([z.string(), z.enum([""])]).optional(),
             name: z.union([z.string().max(5000), z.enum([""])]).optional(),
             phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+            tax_id: z.string().max(5000).optional(),
           })
           .optional(),
         blik: z.object({}).optional(),
@@ -49922,6 +50485,12 @@ export function createRouter(implementation: Implementation): Router {
                 .enum(["", "none", "off_session"])
                 .optional(),
             }),
+            z.enum([""]),
+          ])
+          .optional(),
+        billie: z
+          .union([
+            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
             z.enum([""]),
           ])
           .optional(),
@@ -50402,6 +50971,12 @@ export function createRouter(implementation: Implementation): Router {
             z.enum([""]),
           ])
           .optional(),
+        satispay: z
+          .union([
+            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.enum([""]),
+          ])
+          .optional(),
         sepa_debit: z
           .union([
             z.object({
@@ -50867,6 +51442,7 @@ export function createRouter(implementation: Implementation): Router {
               email: z.union([z.string(), z.enum([""])]).optional(),
               name: z.union([z.string().max(5000), z.enum([""])]).optional(),
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+              tax_id: z.string().max(5000).optional(),
             })
             .optional(),
           blik: z.object({}).optional(),
@@ -51223,6 +51799,12 @@ export function createRouter(implementation: Implementation): Router {
                   .enum(["", "none", "off_session"])
                   .optional(),
               }),
+              z.enum([""]),
+            ])
+            .optional(),
+          billie: z
+            .union([
+              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -51704,6 +52286,12 @@ export function createRouter(implementation: Implementation): Router {
             ])
             .optional(),
           samsung_pay: z
+            .union([
+              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.enum([""]),
+            ])
+            .optional(),
+          satispay: z
             .union([
               z.object({ capture_method: z.enum(["", "manual"]).optional() }),
               z.enum([""]),
@@ -52269,6 +52857,7 @@ export function createRouter(implementation: Implementation): Router {
               email: z.union([z.string(), z.enum([""])]).optional(),
               name: z.union([z.string().max(5000), z.enum([""])]).optional(),
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+              tax_id: z.string().max(5000).optional(),
             })
             .optional(),
           blik: z.object({}).optional(),
@@ -52625,6 +53214,12 @@ export function createRouter(implementation: Implementation): Router {
                   .enum(["", "none", "off_session"])
                   .optional(),
               }),
+              z.enum([""]),
+            ])
+            .optional(),
+          billie: z
+            .union([
+              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -53106,6 +53701,12 @@ export function createRouter(implementation: Implementation): Router {
             ])
             .optional(),
           samsung_pay: z
+            .union([
+              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.enum([""]),
+            ])
+            .optional(),
+          satispay: z
             .union([
               z.object({ capture_method: z.enum(["", "manual"]).optional() }),
               z.enum([""]),
@@ -55242,6 +55843,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      kakao_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       klarna: z
         .object({
           display_preference: z
@@ -55250,6 +55858,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       konbini: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      kr_card: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -55278,6 +55893,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       name: z.string().max(100).optional(),
+      naver_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       nz_bank_account: z
         .object({
           display_preference: z
@@ -55307,6 +55929,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      payco: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       paynow: z
         .object({
           display_preference: z
@@ -55321,6 +55950,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      pix: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       promptpay: z
         .object({
           display_preference: z
@@ -55329,6 +55965,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       revolut_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      samsung_pay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -55745,6 +56388,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      kakao_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       klarna: z
         .object({
           display_preference: z
@@ -55753,6 +56403,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       konbini: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      kr_card: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -55781,6 +56438,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       name: z.string().max(100).optional(),
+      naver_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       nz_bank_account: z
         .object({
           display_preference: z
@@ -55809,6 +56473,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      payco: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       paynow: z
         .object({
           display_preference: z
@@ -55823,6 +56494,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
+      pix: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       promptpay: z
         .object({
           display_preference: z
@@ -55831,6 +56509,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       revolut_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      samsung_pay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -56601,6 +57286,7 @@ export function createRouter(implementation: Implementation): Router {
           email: z.union([z.string(), z.enum([""])]).optional(),
           name: z.union([z.string().max(5000), z.enum([""])]).optional(),
           phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+          tax_id: z.string().max(5000).optional(),
         })
         .optional(),
       blik: z.object({}).optional(),
@@ -57042,6 +57728,7 @@ export function createRouter(implementation: Implementation): Router {
           email: z.union([z.string(), z.enum([""])]).optional(),
           name: z.union([z.string().max(5000), z.enum([""])]).optional(),
           phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+          tax_id: z.string().max(5000).optional(),
         })
         .optional(),
       card: z
@@ -64290,6 +64977,7 @@ export function createRouter(implementation: Implementation): Router {
               email: z.union([z.string(), z.enum([""])]).optional(),
               name: z.union([z.string().max(5000), z.enum([""])]).optional(),
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+              tax_id: z.string().max(5000).optional(),
             })
             .optional(),
           blik: z.object({}).optional(),
@@ -64919,6 +65607,7 @@ export function createRouter(implementation: Implementation): Router {
               email: z.union([z.string(), z.enum([""])]).optional(),
               name: z.union([z.string().max(5000), z.enum([""])]).optional(),
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+              tax_id: z.string().max(5000).optional(),
             })
             .optional(),
           blik: z.object({}).optional(),
@@ -65562,6 +66251,7 @@ export function createRouter(implementation: Implementation): Router {
               email: z.union([z.string(), z.enum([""])]).optional(),
               name: z.union([z.string().max(5000), z.enum([""])]).optional(),
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+              tax_id: z.string().max(5000).optional(),
             })
             .optional(),
           blik: z.object({}).optional(),
@@ -67698,6 +68388,9 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postSubscriptionItemsRequestBodySchema = z.object({
+    billing_thresholds: z
+      .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+      .optional(),
     discounts: z
       .union([
         z.array(
@@ -67978,6 +68671,9 @@ export function createRouter(implementation: Implementation): Router {
 
   const postSubscriptionItemsItemRequestBodySchema = z
     .object({
+      billing_thresholds: z
+        .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+        .optional(),
       discounts: z
         .union([
           z.array(
@@ -68255,6 +68951,15 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
+          billing_thresholds: z
+            .union([
+              z.object({
+                amount_gte: z.coerce.number().optional(),
+                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
@@ -68339,6 +69044,15 @@ export function createRouter(implementation: Implementation): Router {
             billing_cycle_anchor: z
               .enum(["automatic", "phase_start"])
               .optional(),
+            billing_thresholds: z
+              .union([
+                z.object({
+                  amount_gte: z.coerce.number().optional(),
+                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                }),
+                z.enum([""]),
+              ])
+              .optional(),
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
@@ -68379,6 +69093,12 @@ export function createRouter(implementation: Implementation): Router {
               .optional(),
             items: z.array(
               z.object({
+                billing_thresholds: z
+                  .union([
+                    z.object({ usage_gte: z.coerce.number() }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
                 discounts: z
                   .union([
                     z.array(
@@ -68603,6 +69323,15 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
+          billing_thresholds: z
+            .union([
+              z.object({
+                amount_gte: z.coerce.number().optional(),
+                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
@@ -68686,6 +69415,15 @@ export function createRouter(implementation: Implementation): Router {
             billing_cycle_anchor: z
               .enum(["automatic", "phase_start"])
               .optional(),
+            billing_thresholds: z
+              .union([
+                z.object({
+                  amount_gte: z.coerce.number().optional(),
+                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+                }),
+                z.enum([""]),
+              ])
+              .optional(),
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
@@ -68725,6 +69463,12 @@ export function createRouter(implementation: Implementation): Router {
               .optional(),
             items: z.array(
               z.object({
+                billing_thresholds: z
+                  .union([
+                    z.object({ usage_gte: z.coerce.number() }),
+                    z.enum([""]),
+                  ])
+                  .optional(),
                 discounts: z
                   .union([
                     z.array(
@@ -69234,6 +69978,15 @@ export function createRouter(implementation: Implementation): Router {
         second: z.coerce.number().optional(),
       })
       .optional(),
+    billing_thresholds: z
+      .union([
+        z.object({
+          amount_gte: z.coerce.number().optional(),
+          reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+        }),
+        z.enum([""]),
+      ])
+      .optional(),
     cancel_at: z.coerce.number().optional(),
     cancel_at_period_end: PermissiveBoolean.optional(),
     collection_method: z
@@ -69277,6 +70030,9 @@ export function createRouter(implementation: Implementation): Router {
     items: z
       .array(
         z.object({
+          billing_thresholds: z
+            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+            .optional(),
           discounts: z
             .union([
               z.array(
@@ -69452,6 +70208,7 @@ export function createRouter(implementation: Implementation): Router {
                 "ach_credit_transfer",
                 "ach_debit",
                 "acss_debit",
+                "affirm",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -69940,6 +70697,15 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
+      billing_thresholds: z
+        .union([
+          z.object({
+            amount_gte: z.coerce.number().optional(),
+            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
       cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
@@ -69999,6 +70765,9 @@ export function createRouter(implementation: Implementation): Router {
       items: z
         .array(
           z.object({
+            billing_thresholds: z
+              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .optional(),
             clear_usage: PermissiveBoolean.optional(),
             deleted: PermissiveBoolean.optional(),
             discounts: z
@@ -70186,6 +70955,7 @@ export function createRouter(implementation: Implementation): Router {
                   "ach_credit_transfer",
                   "ach_debit",
                   "acss_debit",
+                  "affirm",
                   "amazon_pay",
                   "au_becs_debit",
                   "bacs_debit",
@@ -70541,10 +71311,15 @@ export function createRouter(implementation: Implementation): Router {
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "aw_tin",
+                "az_tin",
                 "ba_tin",
                 "bb_tin",
+                "bd_bin",
+                "bf_ifu",
                 "bg_uic",
                 "bh_vat",
+                "bj_ifu",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
@@ -70560,14 +71335,17 @@ export function createRouter(implementation: Implementation): Router {
                 "ch_uid",
                 "ch_vat",
                 "cl_tin",
+                "cm_niu",
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "cv_nif",
                 "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
                 "es_cif",
+                "et_tin",
                 "eu_oss_vat",
                 "eu_vat",
                 "gb_vat",
@@ -70584,9 +71362,11 @@ export function createRouter(implementation: Implementation): Router {
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kg_tin",
                 "kh_tin",
                 "kr_brn",
                 "kz_bin",
+                "la_tin",
                 "li_uid",
                 "li_vat",
                 "ma_vat",
@@ -70647,6 +71427,7 @@ export function createRouter(implementation: Implementation): Router {
     line_items: z.array(
       z.object({
         amount: z.coerce.number(),
+        metadata: z.record(z.string()).optional(),
         product: z.string().max(5000).optional(),
         quantity: z.coerce.number().optional(),
         reference: z.string().max(500).optional(),
@@ -71059,8 +71840,11 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       au: z.object({ type: z.enum(["standard"]) }).optional(),
+      aw: z.object({ type: z.enum(["standard"]) }).optional(),
+      az: z.object({ type: z.enum(["simplified"]) }).optional(),
       ba: z.object({ type: z.enum(["standard"]) }).optional(),
       bb: z.object({ type: z.enum(["standard"]) }).optional(),
+      bd: z.object({ type: z.enum(["standard"]) }).optional(),
       be: z
         .object({
           standard: z
@@ -71071,6 +71855,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
+      bf: z.object({ type: z.enum(["standard"]) }).optional(),
       bg: z
         .object({
           standard: z
@@ -71082,6 +71867,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       bh: z.object({ type: z.enum(["standard"]) }).optional(),
+      bj: z.object({ type: z.enum(["simplified"]) }).optional(),
       bs: z.object({ type: z.enum(["standard"]) }).optional(),
       by: z.object({ type: z.enum(["simplified"]) }).optional(),
       ca: z
@@ -71095,8 +71881,10 @@ export function createRouter(implementation: Implementation): Router {
       cd: z.object({ type: z.enum(["standard"]) }).optional(),
       ch: z.object({ type: z.enum(["standard"]) }).optional(),
       cl: z.object({ type: z.enum(["simplified"]) }).optional(),
+      cm: z.object({ type: z.enum(["simplified"]) }).optional(),
       co: z.object({ type: z.enum(["simplified"]) }).optional(),
       cr: z.object({ type: z.enum(["simplified"]) }).optional(),
+      cv: z.object({ type: z.enum(["simplified"]) }).optional(),
       cy: z
         .object({
           standard: z
@@ -71159,6 +71947,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
+      et: z.object({ type: z.enum(["standard"]) }).optional(),
       fi: z
         .object({
           standard: z
@@ -71223,6 +72012,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
+      in: z.object({ type: z.enum(["simplified"]) }).optional(),
       is: z.object({ type: z.enum(["standard"]) }).optional(),
       it: z
         .object({
@@ -71236,9 +72026,11 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       jp: z.object({ type: z.enum(["standard"]) }).optional(),
       ke: z.object({ type: z.enum(["simplified"]) }).optional(),
+      kg: z.object({ type: z.enum(["simplified"]) }).optional(),
       kh: z.object({ type: z.enum(["simplified"]) }).optional(),
       kr: z.object({ type: z.enum(["simplified"]) }).optional(),
       kz: z.object({ type: z.enum(["simplified"]) }).optional(),
+      la: z.object({ type: z.enum(["simplified"]) }).optional(),
       lt: z
         .object({
           standard: z
@@ -71302,6 +72094,7 @@ export function createRouter(implementation: Implementation): Router {
       nz: z.object({ type: z.enum(["standard"]) }).optional(),
       om: z.object({ type: z.enum(["standard"]) }).optional(),
       pe: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ph: z.object({ type: z.enum(["simplified"]) }).optional(),
       pl: z
         .object({
           standard: z
@@ -72479,10 +73272,15 @@ export function createRouter(implementation: Implementation): Router {
       "ar_cuit",
       "au_abn",
       "au_arn",
+      "aw_tin",
+      "az_tin",
       "ba_tin",
       "bb_tin",
+      "bd_bin",
+      "bf_ifu",
       "bg_uic",
       "bh_vat",
+      "bj_ifu",
       "bo_tin",
       "br_cnpj",
       "br_cpf",
@@ -72498,14 +73296,17 @@ export function createRouter(implementation: Implementation): Router {
       "ch_uid",
       "ch_vat",
       "cl_tin",
+      "cm_niu",
       "cn_tin",
       "co_nit",
       "cr_tin",
+      "cv_nif",
       "de_stn",
       "do_rcn",
       "ec_ruc",
       "eg_tin",
       "es_cif",
+      "et_tin",
       "eu_oss_vat",
       "eu_vat",
       "gb_vat",
@@ -72522,9 +73323,11 @@ export function createRouter(implementation: Implementation): Router {
       "jp_rn",
       "jp_trn",
       "ke_pin",
+      "kg_tin",
       "kh_tin",
       "kr_brn",
       "kz_bin",
+      "la_tin",
       "li_uid",
       "li_vat",
       "ma_vat",
@@ -74518,6 +75321,7 @@ export function createRouter(implementation: Implementation): Router {
         "bbpos_wisepad3",
         "bbpos_wisepos_e",
         "mobile_phone_reader",
+        "simulated_stripe_s700",
         "simulated_wisepos_e",
         "stripe_m2",
         "stripe_s700",
@@ -75025,6 +75829,129 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
+  const postTerminalReadersReaderCollectInputsParamSchema = z.object({
+    reader: z.string().max(5000),
+  })
+
+  const postTerminalReadersReaderCollectInputsRequestBodySchema = z.object({
+    expand: z.array(z.string().max(5000)).optional(),
+    inputs: z.array(
+      z.object({
+        custom_text: z.object({
+          description: z.string().max(500).optional(),
+          skip_button: z.string().max(14).optional(),
+          submit_button: z.string().max(30).optional(),
+          title: z.string().max(40),
+        }),
+        required: PermissiveBoolean.optional(),
+        selection: z
+          .object({
+            choices: z.array(
+              z.object({
+                id: z.string().max(50),
+                style: z.enum(["primary", "secondary"]).optional(),
+                text: z.string().max(30),
+              }),
+            ),
+          })
+          .optional(),
+        toggles: z
+          .array(
+            z.object({
+              default_value: z.enum(["disabled", "enabled"]).optional(),
+              description: z.string().max(50).optional(),
+              title: z.string().max(50).optional(),
+            }),
+          )
+          .optional(),
+        type: z.enum([
+          "email",
+          "numeric",
+          "phone",
+          "selection",
+          "signature",
+          "text",
+        ]),
+      }),
+    ),
+    metadata: z.record(z.string()).optional(),
+  })
+
+  const postTerminalReadersReaderCollectInputsResponseBodyValidator =
+    responseValidationFactory([["200", s_terminal_reader]], s_error)
+
+  // postTerminalReadersReaderCollectInputs
+  router.post(
+    `/v1/terminal/readers/:reader/collect_inputs`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postTerminalReadersReaderCollectInputsParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postTerminalReadersReaderCollectInputsRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_reader>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postTerminalReadersReaderCollectInputs(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postTerminalReadersReaderCollectInputsResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const postTerminalReadersReaderProcessPaymentIntentParamSchema = z.object({
     reader: z.string().max(5000),
   })
@@ -75039,6 +75966,7 @@ export function createRouter(implementation: Implementation): Router {
             .enum(["always", "limited", "unspecified"])
             .optional(),
           enable_customer_cancellation: PermissiveBoolean.optional(),
+          return_url: z.string().optional(),
           skip_tipping: PermissiveBoolean.optional(),
           tipping: z
             .object({ amount_eligible: z.coerce.number().optional() })
@@ -75457,6 +76385,7 @@ export function createRouter(implementation: Implementation): Router {
               email: z.union([z.string(), z.enum([""])]).optional(),
               name: z.union([z.string().max(5000), z.enum([""])]).optional(),
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
+              tax_id: z.string().max(5000).optional(),
             })
             .optional(),
           blik: z.object({}).optional(),
@@ -75697,6 +76626,23 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           wechat_pay: z.object({}).optional(),
           zip: z.object({}).optional(),
+        })
+        .optional(),
+      payment_method_options: z
+        .object({
+          card: z
+            .object({
+              installments: z
+                .object({
+                  plan: z.object({
+                    count: z.coerce.number().optional(),
+                    interval: z.enum(["month"]).optional(),
+                    type: z.enum(["fixed_count"]),
+                  }),
+                })
+                .optional(),
+            })
+            .optional(),
         })
         .optional(),
       return_url: z.string().optional(),
@@ -79177,6 +80123,173 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
+  const postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
+    z.object({ reader: z.string().max(5000) })
+
+  const postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema =
+    z
+      .object({
+        expand: z.array(z.string().max(5000)).optional(),
+        skip_non_required_inputs: z.enum(["all", "none"]).optional(),
+      })
+      .optional()
+
+  const postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator =
+    responseValidationFactory([["200", s_terminal_reader]], s_error)
+
+  // postTestHelpersTerminalReadersReaderSucceedInputCollection
+  router.post(
+    `/v1/test_helpers/terminal/readers/:reader/succeed_input_collection`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_reader>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postTestHelpersTerminalReadersReaderSucceedInputCollection(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
+    z.object({ reader: z.string().max(5000) })
+
+  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema =
+    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+
+  const postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator =
+    responseValidationFactory([["200", s_terminal_reader]], s_error)
+
+  // postTestHelpersTerminalReadersReaderTimeoutInputCollection
+  router.post(
+    `/v1/test_helpers/terminal/readers/:reader/timeout_input_collection`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_reader>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postTestHelpersTerminalReadersReaderTimeoutInputCollection(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const getTestHelpersTestClocksQuerySchema = z.object({
     ending_before: z.string().max(5000).optional(),
     expand: z
@@ -80855,6 +81968,16 @@ export function createRouter(implementation: Implementation): Router {
                 ])
                 .optional(),
               phone: z.string().max(5000).optional(),
+              registration_date: z
+                .union([
+                  z.object({
+                    day: z.coerce.number(),
+                    month: z.coerce.number(),
+                    year: z.coerce.number(),
+                  }),
+                  z.enum([""]),
+                ])
+                .optional(),
               registration_number: z.string().max(5000).optional(),
               structure: z
                 .enum([
@@ -81173,6 +82296,64 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           ssn_last_4: z.string().optional(),
+          us_cfpb_data: z
+            .object({
+              ethnicity_details: z
+                .object({
+                  ethnicity: z
+                    .array(
+                      z.enum([
+                        "cuban",
+                        "hispanic_or_latino",
+                        "mexican",
+                        "not_hispanic_or_latino",
+                        "other_hispanic_or_latino",
+                        "prefer_not_to_answer",
+                        "puerto_rican",
+                      ]),
+                    )
+                    .optional(),
+                  ethnicity_other: z.string().max(5000).optional(),
+                })
+                .optional(),
+              race_details: z
+                .object({
+                  race: z
+                    .array(
+                      z.enum([
+                        "african_american",
+                        "american_indian_or_alaska_native",
+                        "asian",
+                        "asian_indian",
+                        "black_or_african_american",
+                        "chinese",
+                        "ethiopian",
+                        "filipino",
+                        "guamanian_or_chamorro",
+                        "haitian",
+                        "jamaican",
+                        "japanese",
+                        "korean",
+                        "native_hawaiian",
+                        "native_hawaiian_or_other_pacific_islander",
+                        "nigerian",
+                        "other_asian",
+                        "other_black_or_african_american",
+                        "other_pacific_islander",
+                        "prefer_not_to_answer",
+                        "samoan",
+                        "somali",
+                        "vietnamese",
+                        "white",
+                      ]),
+                    )
+                    .optional(),
+                  race_other: z.string().max(5000).optional(),
+                })
+                .optional(),
+              self_identified_gender: z.string().max(5000).optional(),
+            })
+            .optional(),
           verification: z
             .object({
               additional_document: z
@@ -85889,6 +87070,8 @@ export function createRouter(implementation: Implementation): Router {
         "2025-02-24.acacia",
         "2025-03-01.dashboard",
         "2025-03-31.basil",
+        "2025-04-30.basil",
+        "2025-05-28.basil",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),
@@ -85995,6 +87178,7 @@ export function createRouter(implementation: Implementation): Router {
         "invoice.updated",
         "invoice.voided",
         "invoice.will_be_due",
+        "invoice_payment.paid",
         "invoiceitem.created",
         "invoiceitem.deleted",
         "issuing_authorization.created",
@@ -86489,6 +87673,7 @@ export function createRouter(implementation: Implementation): Router {
             "invoice.updated",
             "invoice.voided",
             "invoice.will_be_due",
+            "invoice_payment.paid",
             "invoiceitem.created",
             "invoiceitem.deleted",
             "issuing_authorization.created",

@@ -399,6 +399,15 @@ export class StripeApiService {
             standard_payouts?: boolean
           }
         }
+        disputes_list?: {
+          enabled: boolean
+          features?: {
+            capture_payments?: boolean
+            destination_on_behalf_of_charge_management?: boolean
+            dispute_management?: boolean
+            refund_management?: boolean
+          }
+        }
         documents?: {
           enabled: boolean
           features?: EmptyObject
@@ -448,6 +457,14 @@ export class StripeApiService {
           enabled: boolean
           features?: {
             capture_payments?: boolean
+            destination_on_behalf_of_charge_management?: boolean
+            dispute_management?: boolean
+            refund_management?: boolean
+          }
+        }
+        payment_disputes?: {
+          enabled: boolean
+          features?: {
             destination_on_behalf_of_charge_management?: boolean
             dispute_management?: boolean
             refund_management?: boolean
@@ -597,6 +614,14 @@ export class StripeApiService {
           }
           estimated_worker_count?: number
           mcc?: string
+          minority_owned_business_designation?: (
+            | "lgbtqi_owned_business"
+            | "minority_owned_business"
+            | "none_of_these_apply"
+            | "prefer_not_to_answer"
+            | "women_owned_business"
+            | UnknownEnumStringValue
+          )[]
           monthly_estimated_revenue?: {
             amount: number
             currency: string
@@ -746,6 +771,9 @@ export class StripeApiService {
           paynow_payments?: {
             requested?: boolean
           }
+          pix_payments?: {
+            requested?: boolean
+          }
           promptpay_payments?: {
             requested?: boolean
           }
@@ -846,6 +874,14 @@ export class StripeApiService {
             | "qualifies_as_financial_institution"
             | UnknownEnumStringValue
           phone?: string
+          registration_date?:
+            | {
+                day: number
+                month: number
+                year: number
+              }
+            | ""
+            | UnknownEnumStringValue
           registration_number?: string
           structure?:
             | ""
@@ -1191,6 +1227,14 @@ export class StripeApiService {
         }
         estimated_worker_count?: number
         mcc?: string
+        minority_owned_business_designation?: (
+          | "lgbtqi_owned_business"
+          | "minority_owned_business"
+          | "none_of_these_apply"
+          | "prefer_not_to_answer"
+          | "women_owned_business"
+          | UnknownEnumStringValue
+        )[]
         monthly_estimated_revenue?: {
           amount: number
           currency: string
@@ -1340,6 +1384,9 @@ export class StripeApiService {
         paynow_payments?: {
           requested?: boolean
         }
+        pix_payments?: {
+          requested?: boolean
+        }
         promptpay_payments?: {
           requested?: boolean
         }
@@ -1440,6 +1487,14 @@ export class StripeApiService {
           | "qualifies_as_financial_institution"
           | UnknownEnumStringValue
         phone?: string
+        registration_date?:
+          | {
+              day: number
+              month: number
+              year: number
+            }
+          | ""
+          | UnknownEnumStringValue
         registration_number?: string
         structure?:
           | ""
@@ -2365,6 +2420,52 @@ export class StripeApiService {
         title?: string
       }
       ssn_last_4?: string
+      us_cfpb_data?: {
+        ethnicity_details?: {
+          ethnicity?: (
+            | "cuban"
+            | "hispanic_or_latino"
+            | "mexican"
+            | "not_hispanic_or_latino"
+            | "other_hispanic_or_latino"
+            | "prefer_not_to_answer"
+            | "puerto_rican"
+            | UnknownEnumStringValue
+          )[]
+          ethnicity_other?: string
+        }
+        race_details?: {
+          race?: (
+            | "african_american"
+            | "american_indian_or_alaska_native"
+            | "asian"
+            | "asian_indian"
+            | "black_or_african_american"
+            | "chinese"
+            | "ethiopian"
+            | "filipino"
+            | "guamanian_or_chamorro"
+            | "haitian"
+            | "jamaican"
+            | "japanese"
+            | "korean"
+            | "native_hawaiian"
+            | "native_hawaiian_or_other_pacific_islander"
+            | "nigerian"
+            | "other_asian"
+            | "other_black_or_african_american"
+            | "other_pacific_islander"
+            | "prefer_not_to_answer"
+            | "samoan"
+            | "somali"
+            | "vietnamese"
+            | "white"
+            | UnknownEnumStringValue
+          )[]
+          race_other?: string
+        }
+        self_identified_gender?: string
+      }
       verification?: {
         additional_document?: {
           back?: string
@@ -2553,6 +2654,52 @@ export class StripeApiService {
         title?: string
       }
       ssn_last_4?: string
+      us_cfpb_data?: {
+        ethnicity_details?: {
+          ethnicity?: (
+            | "cuban"
+            | "hispanic_or_latino"
+            | "mexican"
+            | "not_hispanic_or_latino"
+            | "other_hispanic_or_latino"
+            | "prefer_not_to_answer"
+            | "puerto_rican"
+            | UnknownEnumStringValue
+          )[]
+          ethnicity_other?: string
+        }
+        race_details?: {
+          race?: (
+            | "african_american"
+            | "american_indian_or_alaska_native"
+            | "asian"
+            | "asian_indian"
+            | "black_or_african_american"
+            | "chinese"
+            | "ethiopian"
+            | "filipino"
+            | "guamanian_or_chamorro"
+            | "haitian"
+            | "jamaican"
+            | "japanese"
+            | "korean"
+            | "native_hawaiian"
+            | "native_hawaiian_or_other_pacific_islander"
+            | "nigerian"
+            | "other_asian"
+            | "other_black_or_african_american"
+            | "other_pacific_islander"
+            | "prefer_not_to_answer"
+            | "samoan"
+            | "somali"
+            | "vietnamese"
+            | "white"
+            | UnknownEnumStringValue
+          )[]
+          race_other?: string
+        }
+        self_identified_gender?: string
+      }
       verification?: {
         additional_document?: {
           back?: string
@@ -2734,6 +2881,52 @@ export class StripeApiService {
         title?: string
       }
       ssn_last_4?: string
+      us_cfpb_data?: {
+        ethnicity_details?: {
+          ethnicity?: (
+            | "cuban"
+            | "hispanic_or_latino"
+            | "mexican"
+            | "not_hispanic_or_latino"
+            | "other_hispanic_or_latino"
+            | "prefer_not_to_answer"
+            | "puerto_rican"
+            | UnknownEnumStringValue
+          )[]
+          ethnicity_other?: string
+        }
+        race_details?: {
+          race?: (
+            | "african_american"
+            | "american_indian_or_alaska_native"
+            | "asian"
+            | "asian_indian"
+            | "black_or_african_american"
+            | "chinese"
+            | "ethiopian"
+            | "filipino"
+            | "guamanian_or_chamorro"
+            | "haitian"
+            | "jamaican"
+            | "japanese"
+            | "korean"
+            | "native_hawaiian"
+            | "native_hawaiian_or_other_pacific_islander"
+            | "nigerian"
+            | "other_asian"
+            | "other_black_or_african_american"
+            | "other_pacific_islander"
+            | "prefer_not_to_answer"
+            | "samoan"
+            | "somali"
+            | "vietnamese"
+            | "white"
+            | UnknownEnumStringValue
+          )[]
+          race_other?: string
+        }
+        self_identified_gender?: string
+      }
       verification?: {
         additional_document?: {
           back?: string
@@ -2922,6 +3115,52 @@ export class StripeApiService {
         title?: string
       }
       ssn_last_4?: string
+      us_cfpb_data?: {
+        ethnicity_details?: {
+          ethnicity?: (
+            | "cuban"
+            | "hispanic_or_latino"
+            | "mexican"
+            | "not_hispanic_or_latino"
+            | "other_hispanic_or_latino"
+            | "prefer_not_to_answer"
+            | "puerto_rican"
+            | UnknownEnumStringValue
+          )[]
+          ethnicity_other?: string
+        }
+        race_details?: {
+          race?: (
+            | "african_american"
+            | "american_indian_or_alaska_native"
+            | "asian"
+            | "asian_indian"
+            | "black_or_african_american"
+            | "chinese"
+            | "ethiopian"
+            | "filipino"
+            | "guamanian_or_chamorro"
+            | "haitian"
+            | "jamaican"
+            | "japanese"
+            | "korean"
+            | "native_hawaiian"
+            | "native_hawaiian_or_other_pacific_islander"
+            | "nigerian"
+            | "other_asian"
+            | "other_black_or_african_american"
+            | "other_pacific_islander"
+            | "prefer_not_to_answer"
+            | "samoan"
+            | "somali"
+            | "vietnamese"
+            | "white"
+            | UnknownEnumStringValue
+          )[]
+          race_other?: string
+        }
+        self_identified_gender?: string
+      }
       verification?: {
         additional_document?: {
           back?: string
@@ -3760,7 +3999,7 @@ export class StripeApiService {
           type: "customer" | UnknownEnumStringValue
         }[]
         gte: number
-        meter?: string
+        meter: string
         recurrence: "one_time" | UnknownEnumStringValue
       }
     }
@@ -6355,6 +6594,10 @@ export class StripeApiService {
             | "unspecified"
             | UnknownEnumStringValue
           )[]
+          payment_method_remove?:
+            | "disabled"
+            | "enabled"
+            | UnknownEnumStringValue
           payment_method_save?: "disabled" | "enabled" | UnknownEnumStringValue
         }
         setup_intent_data?: {
@@ -6709,6 +6952,11 @@ export class StripeApiService {
           required?: "if_supported" | "never" | UnknownEnumStringValue
         }
         ui_mode?: "custom" | "embedded" | "hosted" | UnknownEnumStringValue
+        wallet_options?: {
+          link?: {
+            display?: "auto" | "never" | UnknownEnumStringValue
+          }
+        }
       }
     } = {},
   ): Observable<
@@ -8180,10 +8428,15 @@ export class StripeApiService {
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "aw_tin"
+            | "az_tin"
             | "ba_tin"
             | "bb_tin"
+            | "bd_bin"
+            | "bf_ifu"
             | "bg_uic"
             | "bh_vat"
+            | "bj_ifu"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
@@ -8199,14 +8452,17 @@ export class StripeApiService {
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
+            | "cm_niu"
             | "cn_tin"
             | "co_nit"
             | "cr_tin"
+            | "cv_nif"
             | "de_stn"
             | "do_rcn"
             | "ec_ruc"
             | "eg_tin"
             | "es_cif"
+            | "et_tin"
             | "eu_oss_vat"
             | "eu_vat"
             | "gb_vat"
@@ -8223,9 +8479,11 @@ export class StripeApiService {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kg_tin"
             | "kh_tin"
             | "kr_brn"
             | "kz_bin"
+            | "la_tin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
@@ -9860,6 +10118,13 @@ export class StripeApiService {
       }
       backdate_start_date?: number
       billing_cycle_anchor?: number
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+        | UnknownEnumStringValue
       cancel_at?: number
       cancel_at_period_end?: boolean
       collection_method?:
@@ -9888,6 +10153,12 @@ export class StripeApiService {
         }
       }
       items?: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+          | UnknownEnumStringValue
         discounts?:
           | {
               coupon?: string
@@ -10042,6 +10313,7 @@ export class StripeApiService {
               | "ach_credit_transfer"
               | "ach_debit"
               | "acss_debit"
+              | "affirm"
               | "amazon_pay"
               | "au_becs_debit"
               | "bacs_debit"
@@ -10231,6 +10503,13 @@ export class StripeApiService {
         }
       }
       billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+        | UnknownEnumStringValue
       cancel_at?: number | "" | UnknownEnumStringValue
       cancel_at_period_end?: boolean
       cancellation_details?: {
@@ -10272,6 +10551,12 @@ export class StripeApiService {
         }
       }
       items?: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+          | UnknownEnumStringValue
         clear_usage?: boolean
         deleted?: boolean
         discounts?:
@@ -10443,6 +10728,7 @@ export class StripeApiService {
               | "ach_credit_transfer"
               | "ach_debit"
               | "acss_debit"
+              | "affirm"
               | "amazon_pay"
               | "au_becs_debit"
               | "bacs_debit"
@@ -10652,10 +10938,15 @@ export class StripeApiService {
         | "ar_cuit"
         | "au_abn"
         | "au_arn"
+        | "aw_tin"
+        | "az_tin"
         | "ba_tin"
         | "bb_tin"
+        | "bd_bin"
+        | "bf_ifu"
         | "bg_uic"
         | "bh_vat"
+        | "bj_ifu"
         | "bo_tin"
         | "br_cnpj"
         | "br_cpf"
@@ -10671,14 +10962,17 @@ export class StripeApiService {
         | "ch_uid"
         | "ch_vat"
         | "cl_tin"
+        | "cm_niu"
         | "cn_tin"
         | "co_nit"
         | "cr_tin"
+        | "cv_nif"
         | "de_stn"
         | "do_rcn"
         | "ec_ruc"
         | "eg_tin"
         | "es_cif"
+        | "et_tin"
         | "eu_oss_vat"
         | "eu_vat"
         | "gb_vat"
@@ -10695,9 +10989,11 @@ export class StripeApiService {
         | "jp_rn"
         | "jp_trn"
         | "ke_pin"
+        | "kg_tin"
         | "kh_tin"
         | "kr_brn"
         | "kz_bin"
+        | "la_tin"
         | "li_uid"
         | "li_vat"
         | "ma_vat"
@@ -13415,6 +13711,7 @@ export class StripeApiService {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "affirm"
                 | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
@@ -13624,10 +13921,15 @@ export class StripeApiService {
               | "ar_cuit"
               | "au_abn"
               | "au_arn"
+              | "aw_tin"
+              | "az_tin"
               | "ba_tin"
               | "bb_tin"
+              | "bd_bin"
+              | "bf_ifu"
               | "bg_uic"
               | "bh_vat"
+              | "bj_ifu"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
@@ -13643,14 +13945,17 @@ export class StripeApiService {
               | "ch_uid"
               | "ch_vat"
               | "cl_tin"
+              | "cm_niu"
               | "cn_tin"
               | "co_nit"
               | "cr_tin"
+              | "cv_nif"
               | "de_stn"
               | "do_rcn"
               | "ec_ruc"
               | "eg_tin"
               | "es_cif"
+              | "et_tin"
               | "eu_oss_vat"
               | "eu_vat"
               | "gb_vat"
@@ -13667,9 +13972,11 @@ export class StripeApiService {
               | "jp_rn"
               | "jp_trn"
               | "ke_pin"
+              | "kg_tin"
               | "kh_tin"
               | "kr_brn"
               | "kz_bin"
+              | "la_tin"
               | "li_uid"
               | "li_vat"
               | "ma_vat"
@@ -13819,6 +14126,13 @@ export class StripeApiService {
               | "automatic"
               | "phase_start"
               | UnknownEnumStringValue
+            billing_thresholds?:
+              | {
+                  amount_gte?: number
+                  reset_billing_cycle_anchor?: boolean
+                }
+              | ""
+              | UnknownEnumStringValue
             collection_method?:
               | "charge_automatically"
               | "send_invoice"
@@ -13844,6 +14158,12 @@ export class StripeApiService {
               }
             }
             items: {
+              billing_thresholds?:
+                | {
+                    usage_gte: number
+                  }
+                | ""
+                | UnknownEnumStringValue
               discounts?:
                 | {
                     coupon?: string
@@ -13915,6 +14235,12 @@ export class StripeApiService {
           cancel_now?: boolean
           default_tax_rates?: string[] | "" | UnknownEnumStringValue
           items?: {
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ""
+              | UnknownEnumStringValue
             clear_usage?: boolean
             deleted?: boolean
             discounts?:
@@ -14242,6 +14568,7 @@ export class StripeApiService {
               | "ach_credit_transfer"
               | "ach_debit"
               | "acss_debit"
+              | "affirm"
               | "amazon_pay"
               | "au_becs_debit"
               | "bacs_debit"
@@ -14526,6 +14853,34 @@ export class StripeApiService {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/v1/invoices/${p["invoice"]}/add_lines`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postInvoicesInvoiceAttachPayment(p: {
+    invoice: string
+    requestBody?: {
+      expand?: string[]
+      payment_intent?: string
+    }
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/invoices/${p["invoice"]}/attach_payment`,
       {
         headers,
         body,
@@ -20716,6 +21071,7 @@ export class StripeApiService {
           email?: string | "" | UnknownEnumStringValue
           name?: string | "" | UnknownEnumStringValue
           phone?: string | "" | UnknownEnumStringValue
+          tax_id?: string
         }
         blik?: EmptyObject
         boleto?: {
@@ -21064,6 +21420,12 @@ export class StripeApiService {
                 | "none"
                 | "off_session"
                 | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        billie?:
+          | {
+              capture_method?: "" | "manual" | UnknownEnumStringValue
             }
           | ""
           | UnknownEnumStringValue
@@ -21524,6 +21886,12 @@ export class StripeApiService {
           | ""
           | UnknownEnumStringValue
         samsung_pay?:
+          | {
+              capture_method?: "" | "manual" | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        satispay?:
           | {
               capture_method?: "" | "manual" | UnknownEnumStringValue
             }
@@ -21836,6 +22204,7 @@ export class StripeApiService {
           email?: string | "" | UnknownEnumStringValue
           name?: string | "" | UnknownEnumStringValue
           phone?: string | "" | UnknownEnumStringValue
+          tax_id?: string
         }
         blik?: EmptyObject
         boleto?: {
@@ -22184,6 +22553,12 @@ export class StripeApiService {
                 | "none"
                 | "off_session"
                 | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        billie?:
+          | {
+              capture_method?: "" | "manual" | UnknownEnumStringValue
             }
           | ""
           | UnknownEnumStringValue
@@ -22644,6 +23019,12 @@ export class StripeApiService {
           | ""
           | UnknownEnumStringValue
         samsung_pay?:
+          | {
+              capture_method?: "" | "manual" | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        satispay?:
           | {
               capture_method?: "" | "manual" | UnknownEnumStringValue
             }
@@ -23003,6 +23384,7 @@ export class StripeApiService {
           email?: string | "" | UnknownEnumStringValue
           name?: string | "" | UnknownEnumStringValue
           phone?: string | "" | UnknownEnumStringValue
+          tax_id?: string
         }
         blik?: EmptyObject
         boleto?: {
@@ -23351,6 +23733,12 @@ export class StripeApiService {
                 | "none"
                 | "off_session"
                 | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        billie?:
+          | {
+              capture_method?: "" | "manual" | UnknownEnumStringValue
             }
           | ""
           | UnknownEnumStringValue
@@ -23811,6 +24199,12 @@ export class StripeApiService {
           | ""
           | UnknownEnumStringValue
         samsung_pay?:
+          | {
+              capture_method?: "" | "manual" | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
+        satispay?:
           | {
               capture_method?: "" | "manual" | UnknownEnumStringValue
             }
@@ -25363,12 +25757,22 @@ export class StripeApiService {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
         }
+        kakao_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on" | UnknownEnumStringValue
+          }
+        }
         klarna?: {
           display_preference?: {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
         }
         konbini?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on" | UnknownEnumStringValue
+          }
+        }
+        kr_card?: {
           display_preference?: {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
@@ -25389,6 +25793,11 @@ export class StripeApiService {
           }
         }
         name?: string
+        naver_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on" | UnknownEnumStringValue
+          }
+        }
         nz_bank_account?: {
           display_preference?: {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
@@ -25410,6 +25819,11 @@ export class StripeApiService {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
         }
+        payco?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on" | UnknownEnumStringValue
+          }
+        }
         paynow?: {
           display_preference?: {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
@@ -25420,12 +25834,22 @@ export class StripeApiService {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
         }
+        pix?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on" | UnknownEnumStringValue
+          }
+        }
         promptpay?: {
           display_preference?: {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
         }
         revolut_pay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on" | UnknownEnumStringValue
+          }
+        }
+        samsung_pay?: {
           display_preference?: {
             preference?: "none" | "off" | "on" | UnknownEnumStringValue
           }
@@ -25653,12 +26077,22 @@ export class StripeApiService {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
       }
+      kakao_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on" | UnknownEnumStringValue
+        }
+      }
       klarna?: {
         display_preference?: {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
       }
       konbini?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on" | UnknownEnumStringValue
+        }
+      }
+      kr_card?: {
         display_preference?: {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
@@ -25679,6 +26113,11 @@ export class StripeApiService {
         }
       }
       name?: string
+      naver_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on" | UnknownEnumStringValue
+        }
+      }
       nz_bank_account?: {
         display_preference?: {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
@@ -25699,6 +26138,11 @@ export class StripeApiService {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
       }
+      payco?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on" | UnknownEnumStringValue
+        }
+      }
       paynow?: {
         display_preference?: {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
@@ -25709,12 +26153,22 @@ export class StripeApiService {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
       }
+      pix?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on" | UnknownEnumStringValue
+        }
+      }
       promptpay?: {
         display_preference?: {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
       }
       revolut_pay?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on" | UnknownEnumStringValue
+        }
+      }
+      samsung_pay?: {
         display_preference?: {
           preference?: "none" | "off" | "on" | UnknownEnumStringValue
         }
@@ -26080,6 +26534,7 @@ export class StripeApiService {
           email?: string | "" | UnknownEnumStringValue
           name?: string | "" | UnknownEnumStringValue
           phone?: string | "" | UnknownEnumStringValue
+          tax_id?: string
         }
         blik?: EmptyObject
         boleto?: {
@@ -26409,6 +26864,7 @@ export class StripeApiService {
         email?: string | "" | UnknownEnumStringValue
         name?: string | "" | UnknownEnumStringValue
         phone?: string | "" | UnknownEnumStringValue
+        tax_id?: string
       }
       card?: {
         exp_month?: number
@@ -30080,6 +30536,7 @@ export class StripeApiService {
             email?: string | "" | UnknownEnumStringValue
             name?: string | "" | UnknownEnumStringValue
             phone?: string | "" | UnknownEnumStringValue
+            tax_id?: string
           }
           blik?: EmptyObject
           boleto?: {
@@ -30595,6 +31052,7 @@ export class StripeApiService {
           email?: string | "" | UnknownEnumStringValue
           name?: string | "" | UnknownEnumStringValue
           phone?: string | "" | UnknownEnumStringValue
+          tax_id?: string
         }
         blik?: EmptyObject
         boleto?: {
@@ -31109,6 +31567,7 @@ export class StripeApiService {
           email?: string | "" | UnknownEnumStringValue
           name?: string | "" | UnknownEnumStringValue
           phone?: string | "" | UnknownEnumStringValue
+          tax_id?: string
         }
         blik?: EmptyObject
         boleto?: {
@@ -32313,6 +32772,12 @@ export class StripeApiService {
 
   postSubscriptionItems(p: {
     requestBody: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+        | UnknownEnumStringValue
       discounts?:
         | {
             coupon?: string
@@ -32443,6 +32908,12 @@ export class StripeApiService {
   postSubscriptionItemsItem(p: {
     item: string
     requestBody?: {
+      billing_thresholds?:
+        | {
+            usage_gte: number
+          }
+        | ""
+        | UnknownEnumStringValue
       discounts?:
         | {
             coupon?: string
@@ -32611,6 +33082,13 @@ export class StripeApiService {
             | "automatic"
             | "phase_start"
             | UnknownEnumStringValue
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ""
+            | UnknownEnumStringValue
           collection_method?:
             | "charge_automatically"
             | "send_invoice"
@@ -32682,6 +33160,13 @@ export class StripeApiService {
             | "automatic"
             | "phase_start"
             | UnknownEnumStringValue
+          billing_thresholds?:
+            | {
+                amount_gte?: number
+                reset_billing_cycle_anchor?: boolean
+              }
+            | ""
+            | UnknownEnumStringValue
           collection_method?:
             | "charge_automatically"
             | "send_invoice"
@@ -32708,6 +33193,12 @@ export class StripeApiService {
             }
           }
           items: {
+            billing_thresholds?:
+              | {
+                  usage_gte: number
+                }
+              | ""
+              | UnknownEnumStringValue
             discounts?:
               | {
                   coupon?: string
@@ -32829,6 +33320,13 @@ export class StripeApiService {
           | "automatic"
           | "phase_start"
           | UnknownEnumStringValue
+        billing_thresholds?:
+          | {
+              amount_gte?: number
+              reset_billing_cycle_anchor?: boolean
+            }
+          | ""
+          | UnknownEnumStringValue
         collection_method?:
           | "charge_automatically"
           | "send_invoice"
@@ -32899,6 +33397,13 @@ export class StripeApiService {
           | "automatic"
           | "phase_start"
           | UnknownEnumStringValue
+        billing_thresholds?:
+          | {
+              amount_gte?: number
+              reset_billing_cycle_anchor?: boolean
+            }
+          | ""
+          | UnknownEnumStringValue
         collection_method?:
           | "charge_automatically"
           | "send_invoice"
@@ -32924,6 +33429,12 @@ export class StripeApiService {
           }
         }
         items: {
+          billing_thresholds?:
+            | {
+                usage_gte: number
+              }
+            | ""
+            | UnknownEnumStringValue
           discounts?:
             | {
                 coupon?: string
@@ -33201,6 +33712,13 @@ export class StripeApiService {
         month?: number
         second?: number
       }
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+        | UnknownEnumStringValue
       cancel_at?: number
       cancel_at_period_end?: boolean
       collection_method?:
@@ -33231,6 +33749,12 @@ export class StripeApiService {
         }
       }
       items?: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+          | UnknownEnumStringValue
         discounts?:
           | {
               coupon?: string
@@ -33386,6 +33910,7 @@ export class StripeApiService {
               | "ach_credit_transfer"
               | "ach_debit"
               | "acss_debit"
+              | "affirm"
               | "amazon_pay"
               | "au_becs_debit"
               | "bacs_debit"
@@ -33626,6 +34151,13 @@ export class StripeApiService {
         }
       }
       billing_cycle_anchor?: "now" | "unchanged" | UnknownEnumStringValue
+      billing_thresholds?:
+        | {
+            amount_gte?: number
+            reset_billing_cycle_anchor?: boolean
+          }
+        | ""
+        | UnknownEnumStringValue
       cancel_at?: number | "" | UnknownEnumStringValue
       cancel_at_period_end?: boolean
       cancellation_details?: {
@@ -33668,6 +34200,12 @@ export class StripeApiService {
         }
       }
       items?: {
+        billing_thresholds?:
+          | {
+              usage_gte: number
+            }
+          | ""
+          | UnknownEnumStringValue
         clear_usage?: boolean
         deleted?: boolean
         discounts?:
@@ -33840,6 +34378,7 @@ export class StripeApiService {
               | "ach_credit_transfer"
               | "ach_debit"
               | "acss_debit"
+              | "affirm"
               | "amazon_pay"
               | "au_becs_debit"
               | "bacs_debit"
@@ -34022,10 +34561,15 @@ export class StripeApiService {
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "aw_tin"
+            | "az_tin"
             | "ba_tin"
             | "bb_tin"
+            | "bd_bin"
+            | "bf_ifu"
             | "bg_uic"
             | "bh_vat"
+            | "bj_ifu"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
@@ -34041,14 +34585,17 @@ export class StripeApiService {
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
+            | "cm_niu"
             | "cn_tin"
             | "co_nit"
             | "cr_tin"
+            | "cv_nif"
             | "de_stn"
             | "do_rcn"
             | "ec_ruc"
             | "eg_tin"
             | "es_cif"
+            | "et_tin"
             | "eu_oss_vat"
             | "eu_vat"
             | "gb_vat"
@@ -34065,9 +34612,11 @@ export class StripeApiService {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kg_tin"
             | "kh_tin"
             | "kr_brn"
             | "kz_bin"
+            | "la_tin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
@@ -34126,6 +34675,9 @@ export class StripeApiService {
       expand?: string[]
       line_items: {
         amount: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
         product?: string
         quantity?: number
         reference?: string
@@ -34325,10 +34877,19 @@ export class StripeApiService {
         au?: {
           type: "standard" | UnknownEnumStringValue
         }
+        aw?: {
+          type: "standard" | UnknownEnumStringValue
+        }
+        az?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
         ba?: {
           type: "standard" | UnknownEnumStringValue
         }
         bb?: {
+          type: "standard" | UnknownEnumStringValue
+        }
+        bd?: {
           type: "standard" | UnknownEnumStringValue
         }
         be?: {
@@ -34344,6 +34905,9 @@ export class StripeApiService {
             | "oss_union"
             | "standard"
             | UnknownEnumStringValue
+        }
+        bf?: {
+          type: "standard" | UnknownEnumStringValue
         }
         bg?: {
           standard?: {
@@ -34361,6 +34925,9 @@ export class StripeApiService {
         }
         bh?: {
           type: "standard" | UnknownEnumStringValue
+        }
+        bj?: {
+          type: "simplified" | UnknownEnumStringValue
         }
         bs?: {
           type: "standard" | UnknownEnumStringValue
@@ -34387,10 +34954,16 @@ export class StripeApiService {
         cl?: {
           type: "simplified" | UnknownEnumStringValue
         }
+        cm?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
         co?: {
           type: "simplified" | UnknownEnumStringValue
         }
         cr?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
+        cv?: {
           type: "simplified" | UnknownEnumStringValue
         }
         cy?: {
@@ -34482,6 +35055,9 @@ export class StripeApiService {
             | "oss_union"
             | "standard"
             | UnknownEnumStringValue
+        }
+        et?: {
+          type: "standard" | UnknownEnumStringValue
         }
         fi?: {
           standard?: {
@@ -34579,6 +35155,9 @@ export class StripeApiService {
             | "standard"
             | UnknownEnumStringValue
         }
+        in?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
         is?: {
           type: "standard" | UnknownEnumStringValue
         }
@@ -34602,6 +35181,9 @@ export class StripeApiService {
         ke?: {
           type: "simplified" | UnknownEnumStringValue
         }
+        kg?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
         kh?: {
           type: "simplified" | UnknownEnumStringValue
         }
@@ -34609,6 +35191,9 @@ export class StripeApiService {
           type: "simplified" | UnknownEnumStringValue
         }
         kz?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
+        la?: {
           type: "simplified" | UnknownEnumStringValue
         }
         lt?: {
@@ -34718,6 +35303,9 @@ export class StripeApiService {
           type: "standard" | UnknownEnumStringValue
         }
         pe?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
+        ph?: {
           type: "simplified" | UnknownEnumStringValue
         }
         pl?: {
@@ -35333,10 +35921,15 @@ export class StripeApiService {
         | "ar_cuit"
         | "au_abn"
         | "au_arn"
+        | "aw_tin"
+        | "az_tin"
         | "ba_tin"
         | "bb_tin"
+        | "bd_bin"
+        | "bf_ifu"
         | "bg_uic"
         | "bh_vat"
+        | "bj_ifu"
         | "bo_tin"
         | "br_cnpj"
         | "br_cpf"
@@ -35352,14 +35945,17 @@ export class StripeApiService {
         | "ch_uid"
         | "ch_vat"
         | "cl_tin"
+        | "cm_niu"
         | "cn_tin"
         | "co_nit"
         | "cr_tin"
+        | "cv_nif"
         | "de_stn"
         | "do_rcn"
         | "ec_ruc"
         | "eg_tin"
         | "es_cif"
+        | "et_tin"
         | "eu_oss_vat"
         | "eu_vat"
         | "gb_vat"
@@ -35376,9 +35972,11 @@ export class StripeApiService {
         | "jp_rn"
         | "jp_trn"
         | "ke_pin"
+        | "kg_tin"
         | "kh_tin"
         | "kr_brn"
         | "kz_bin"
+        | "la_tin"
         | "li_uid"
         | "li_vat"
         | "ma_vat"
@@ -36349,6 +36947,7 @@ export class StripeApiService {
         | "bbpos_wisepad3"
         | "bbpos_wisepos_e"
         | "mobile_phone_reader"
+        | "simulated_stripe_s700"
         | "simulated_wisepos_e"
         | "stripe_m2"
         | "stripe_s700"
@@ -36555,6 +37154,66 @@ export class StripeApiService {
     )
   }
 
+  postTerminalReadersReaderCollectInputs(p: {
+    reader: string
+    requestBody: {
+      expand?: string[]
+      inputs: {
+        custom_text: {
+          description?: string
+          skip_button?: string
+          submit_button?: string
+          title: string
+        }
+        required?: boolean
+        selection?: {
+          choices: {
+            id: string
+            style?: "primary" | "secondary" | UnknownEnumStringValue
+            text: string
+          }[]
+        }
+        toggles?: {
+          default_value?: "disabled" | "enabled" | UnknownEnumStringValue
+          description?: string
+          title?: string
+        }[]
+        type:
+          | "email"
+          | "numeric"
+          | "phone"
+          | "selection"
+          | "signature"
+          | "text"
+          | UnknownEnumStringValue
+      }[]
+      metadata?: {
+        [key: string]: string | undefined
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/terminal/readers/${p["reader"]}/collect_inputs`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postTerminalReadersReaderProcessPaymentIntent(p: {
     reader: string
     requestBody: {
@@ -36567,6 +37226,7 @@ export class StripeApiService {
           | "unspecified"
           | UnknownEnumStringValue
         enable_customer_cancellation?: boolean
+        return_url?: string
         skip_tipping?: boolean
         tipping?: {
           amount_eligible?: number
@@ -36757,6 +37417,7 @@ export class StripeApiService {
             email?: string | "" | UnknownEnumStringValue
             name?: string | "" | UnknownEnumStringValue
             phone?: string | "" | UnknownEnumStringValue
+            tax_id?: string
           }
           blik?: EmptyObject
           boleto?: {
@@ -36990,6 +37651,17 @@ export class StripeApiService {
           }
           wechat_pay?: EmptyObject
           zip?: EmptyObject
+        }
+        payment_method_options?: {
+          card?: {
+            installments?: {
+              plan: {
+                count?: number
+                interval?: "month" | UnknownEnumStringValue
+                type: "fixed_count" | UnknownEnumStringValue
+              }
+            }
+          }
         }
         return_url?: string
         setup_future_usage?:
@@ -39053,6 +39725,63 @@ export class StripeApiService {
     )
   }
 
+  postTestHelpersTerminalReadersReaderSucceedInputCollection(p: {
+    reader: string
+    requestBody?: {
+      expand?: string[]
+      skip_non_required_inputs?: "all" | "none" | UnknownEnumStringValue
+    }
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/terminal/readers/${p["reader"]}/succeed_input_collection`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersTerminalReadersReaderTimeoutInputCollection(p: {
+    reader: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/terminal/readers/${p["reader"]}/timeout_input_collection`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getTestHelpersTestClocks(
     p: {
       endingBefore?: string
@@ -39720,6 +40449,14 @@ export class StripeApiService {
               | "qualifies_as_financial_institution"
               | UnknownEnumStringValue
             phone?: string
+            registration_date?:
+              | {
+                  day: number
+                  month: number
+                  year: number
+                }
+              | ""
+              | UnknownEnumStringValue
             registration_number?: string
             structure?:
               | ""
@@ -39980,6 +40717,52 @@ export class StripeApiService {
             title?: string
           }
           ssn_last_4?: string
+          us_cfpb_data?: {
+            ethnicity_details?: {
+              ethnicity?: (
+                | "cuban"
+                | "hispanic_or_latino"
+                | "mexican"
+                | "not_hispanic_or_latino"
+                | "other_hispanic_or_latino"
+                | "prefer_not_to_answer"
+                | "puerto_rican"
+                | UnknownEnumStringValue
+              )[]
+              ethnicity_other?: string
+            }
+            race_details?: {
+              race?: (
+                | "african_american"
+                | "american_indian_or_alaska_native"
+                | "asian"
+                | "asian_indian"
+                | "black_or_african_american"
+                | "chinese"
+                | "ethiopian"
+                | "filipino"
+                | "guamanian_or_chamorro"
+                | "haitian"
+                | "jamaican"
+                | "japanese"
+                | "korean"
+                | "native_hawaiian"
+                | "native_hawaiian_or_other_pacific_islander"
+                | "nigerian"
+                | "other_asian"
+                | "other_black_or_african_american"
+                | "other_pacific_islander"
+                | "prefer_not_to_answer"
+                | "samoan"
+                | "somali"
+                | "vietnamese"
+                | "white"
+                | UnknownEnumStringValue
+              )[]
+              race_other?: string
+            }
+            self_identified_gender?: string
+          }
           verification?: {
             additional_document?: {
               back?: string
@@ -42088,6 +42871,8 @@ export class StripeApiService {
         | "2025-02-24.acacia"
         | "2025-03-01.dashboard"
         | "2025-03-31.basil"
+        | "2025-04-30.basil"
+        | "2025-05-28.basil"
         | UnknownEnumStringValue
       connect?: boolean
       description?: string | "" | UnknownEnumStringValue
@@ -42192,6 +42977,7 @@ export class StripeApiService {
         | "invoice.updated"
         | "invoice.voided"
         | "invoice.will_be_due"
+        | "invoice_payment.paid"
         | "invoiceitem.created"
         | "invoiceitem.deleted"
         | "issuing_authorization.created"
@@ -42525,6 +43311,7 @@ export class StripeApiService {
         | "invoice.updated"
         | "invoice.voided"
         | "invoice.will_be_due"
+        | "invoice_payment.paid"
         | "invoiceitem.created"
         | "invoiceitem.deleted"
         | "issuing_authorization.created"

@@ -332,6 +332,8 @@ import {
   t_BillingGetGithubActionsBillingUserParamSchema,
   t_BillingGetGithubBillingUsageReportOrgParamSchema,
   t_BillingGetGithubBillingUsageReportOrgQuerySchema,
+  t_BillingGetGithubBillingUsageReportUserParamSchema,
+  t_BillingGetGithubBillingUsageReportUserQuerySchema,
   t_BillingGetGithubPackagesBillingOrgParamSchema,
   t_BillingGetGithubPackagesBillingUserParamSchema,
   t_BillingGetSharedStorageBillingOrgParamSchema,
@@ -522,6 +524,7 @@ import {
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
+  t_CredentialsRevokeRequestBodySchema,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretRequestBodySchema,
@@ -547,6 +550,9 @@ import {
   t_DependabotListSelectedReposForOrgSecretParamSchema,
   t_DependabotListSelectedReposForOrgSecretQuerySchema,
   t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
+  t_DependabotRepositoryAccessForOrgParamSchema,
+  t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
+  t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
   t_DependabotSetSelectedReposForOrgSecretRequestBodySchema,
   t_DependabotUpdateAlertParamSchema,
@@ -1342,6 +1348,7 @@ import {
   t_SecretScanningCreatePushProtectionBypassParamSchema,
   t_SecretScanningCreatePushProtectionBypassRequestBodySchema,
   t_SecretScanningGetAlertParamSchema,
+  t_SecretScanningGetAlertQuerySchema,
   t_SecretScanningGetScanHistoryParamSchema,
   t_SecretScanningListAlertsForEnterpriseParamSchema,
   t_SecretScanningListAlertsForEnterpriseQuerySchema,
@@ -1539,6 +1546,7 @@ import {
   t_base_gist,
   t_basic_error,
   t_billing_usage_report,
+  t_billing_usage_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -1612,6 +1620,7 @@ import {
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
+  t_dependabot_repository_access_details,
   t_dependabot_secret,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
@@ -1824,6 +1833,7 @@ import {
   s_base_gist,
   s_basic_error,
   s_billing_usage_report,
+  s_billing_usage_report_user,
   s_blob,
   s_branch_protection,
   s_branch_restriction_policy,
@@ -1915,6 +1925,7 @@ import {
   s_dependabot_alert,
   s_dependabot_alert_with_repository,
   s_dependabot_public_key,
+  s_dependabot_repository_access_details,
   s_dependabot_secret,
   s_dependency_graph_diff,
   s_dependency_graph_spdx_sbom,
@@ -2617,6 +2628,22 @@ export type CodesOfConductGetConductCodeResponder = {
 export type CodesOfConductGetConductCode = (
   params: Params<t_CodesOfConductGetConductCodeParamSchema, void, void, void>,
   respond: CodesOfConductGetConductCodeResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type CredentialsRevokeResponder = {
+  with202(): ExpressRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
+  with422(): ExpressRuntimeResponse<t_validation_error_simple>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type CredentialsRevoke = (
+  params: Params<void, void, t_CredentialsRevokeRequestBodySchema, void>,
+  respond: CredentialsRevokeResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -3673,6 +3700,44 @@ export type OrgsList = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type DependabotRepositoryAccessForOrgResponder = {
+  with200(): ExpressRuntimeResponse<t_dependabot_repository_access_details>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type DependabotRepositoryAccessForOrg = (
+  params: Params<
+    t_DependabotRepositoryAccessForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: DependabotRepositoryAccessForOrgResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type DependabotSetRepositoryAccessDefaultLevelResponder = {
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type DependabotSetRepositoryAccessDefaultLevel = (
+  params: Params<
+    t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
+    void,
+    t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
+    void
+  >,
+  respond: DependabotSetRepositoryAccessDefaultLevelResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type BillingGetGithubBillingUsageReportOrgResponder = {
   with200(): ExpressRuntimeResponse<t_billing_usage_report>
   with400(): ExpressRuntimeResponse<t_scim_error>
@@ -4539,6 +4604,7 @@ export type ActionsGetSelfHostedRunnerForOrg = (
 
 export type ActionsDeleteSelfHostedRunnerFromOrgResponder = {
   with204(): ExpressRuntimeResponse<void>
+  with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
 export type ActionsDeleteSelfHostedRunnerFromOrg = (
@@ -9243,6 +9309,7 @@ export type ReposDeleteResponder = {
     message?: string | undefined
   }>
   with404(): ExpressRuntimeResponse<t_basic_error>
+  with409(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
 export type ReposDelete = (
@@ -9746,6 +9813,7 @@ export type ActionsGetSelfHostedRunnerForRepo = (
 
 export type ActionsDeleteSelfHostedRunnerFromRepoResponder = {
   with204(): ExpressRuntimeResponse<void>
+  with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
 export type ActionsDeleteSelfHostedRunnerFromRepo = (
@@ -11619,6 +11687,7 @@ export type CodeScanningGetAnalysisResponder = {
   }>
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_basic_error>
   with503(): ExpressRuntimeResponse<{
     code?: string | undefined
     documentation_url?: string | undefined
@@ -16453,7 +16522,12 @@ export type SecretScanningGetAlertResponder = {
 } & ExpressRuntimeResponder
 
 export type SecretScanningGetAlert = (
-  params: Params<t_SecretScanningGetAlertParamSchema, void, void, void>,
+  params: Params<
+    t_SecretScanningGetAlertParamSchema,
+    t_SecretScanningGetAlertQuerySchema,
+    void,
+    void
+  >,
   respond: SecretScanningGetAlertResponder,
   req: Request,
   res: Response,
@@ -20293,6 +20367,31 @@ export type BillingGetSharedStorageBillingUser = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type BillingGetGithubBillingUsageReportUserResponder = {
+  with200(): ExpressRuntimeResponse<t_billing_usage_report_user>
+  with400(): ExpressRuntimeResponse<t_scim_error>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with500(): ExpressRuntimeResponse<t_basic_error>
+  with503(): ExpressRuntimeResponse<{
+    code?: string | undefined
+    documentation_url?: string | undefined
+    message?: string | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type BillingGetGithubBillingUsageReportUser = (
+  params: Params<
+    t_BillingGetGithubBillingUsageReportUserParamSchema,
+    t_BillingGetGithubBillingUsageReportUserQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingUsageReportUserResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type UsersListSocialAccountsForUserResponder = {
   with200(): ExpressRuntimeResponse<t_social_account[]>
 } & ExpressRuntimeResponder
@@ -20418,6 +20517,7 @@ export type Implementation = {
   classroomListAssignmentsForAClassroom: ClassroomListAssignmentsForAClassroom
   codesOfConductGetAllCodesOfConduct: CodesOfConductGetAllCodesOfConduct
   codesOfConductGetConductCode: CodesOfConductGetConductCode
+  credentialsRevoke: CredentialsRevoke
   emojisGet: EmojisGet
   codeSecurityGetConfigurationsForEnterprise: CodeSecurityGetConfigurationsForEnterprise
   codeSecurityCreateConfigurationForEnterprise: CodeSecurityCreateConfigurationForEnterprise
@@ -20478,6 +20578,8 @@ export type Implementation = {
   activityDeleteThreadSubscription: ActivityDeleteThreadSubscription
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
+  dependabotRepositoryAccessForOrg: DependabotRepositoryAccessForOrg
+  dependabotSetRepositoryAccessDefaultLevel: DependabotSetRepositoryAccessDefaultLevel
   billingGetGithubBillingUsageReportOrg: BillingGetGithubBillingUsageReportOrg
   orgsGet: OrgsGet
   orgsUpdate: OrgsUpdate
@@ -21407,6 +21509,7 @@ export type Implementation = {
   billingGetGithubActionsBillingUser: BillingGetGithubActionsBillingUser
   billingGetGithubPackagesBillingUser: BillingGetGithubPackagesBillingUser
   billingGetSharedStorageBillingUser: BillingGetSharedStorageBillingUser
+  billingGetGithubBillingUsageReportUser: BillingGetGithubBillingUsageReportUser
   usersListSocialAccountsForUser: UsersListSocialAccountsForUser
   usersListSshSigningKeysForUser: UsersListSshSigningKeysForUser
   activityListReposStarredByUser: ActivityListReposStarredByUser
@@ -23733,6 +23836,81 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
+  const credentialsRevokeRequestBodySchema = z.object({
+    credentials: z.array(z.string()).min(1).max(1000),
+  })
+
+  const credentialsRevokeResponseBodyValidator = responseValidationFactory(
+    [
+      ["202", z.record(z.unknown())],
+      ["422", s_validation_error_simple],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  // credentialsRevoke
+  router.post(
+    `/credentials/revoke`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            credentialsRevokeRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with202() {
+            return new ExpressRuntimeResponse<{
+              [key: string]: unknown | undefined
+            }>(202)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error_simple>(422)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .credentialsRevoke(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(credentialsRevokeResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const emojisGetResponseBodyValidator = responseValidationFactory(
     [
       ["200", z.record(z.string())],
@@ -24790,6 +24968,7 @@ export function createRouter(implementation: Implementation): Router {
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
+    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -24908,6 +25087,7 @@ export function createRouter(implementation: Implementation): Router {
     validity: z.string().optional(),
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
+    hide_secret: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForEnterpriseResponseBodyValidator =
@@ -28803,6 +28983,177 @@ export function createRouter(implementation: Implementation): Router {
 
         if (body !== undefined) {
           res.json(orgsListResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const dependabotRepositoryAccessForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotRepositoryAccessForOrgResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_dependabot_repository_access_details],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // dependabotRepositoryAccessForOrg
+  router.get(
+    `/organizations/:org/dependabot/repository-access`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            dependabotRepositoryAccessForOrgParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_dependabot_repository_access_details>(
+              200,
+            )
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .dependabotRepositoryAccessForOrg(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            dependabotRepositoryAccessForOrgResponseBodyValidator(status, body),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const dependabotSetRepositoryAccessDefaultLevelParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotSetRepositoryAccessDefaultLevelRequestBodySchema = z.object({
+    default_level: z.enum(["public", "internal"]),
+  })
+
+  const dependabotSetRepositoryAccessDefaultLevelResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // dependabotSetRepositoryAccessDefaultLevel
+  router.put(
+    `/organizations/:org/dependabot/repository-access/default-level`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            dependabotSetRepositoryAccessDefaultLevelParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            dependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .dependabotSetRepositoryAccessDefaultLevel(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            dependabotSetRepositoryAccessDefaultLevelResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
         } else {
           res.end()
         }
@@ -32715,7 +33066,13 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsDeleteSelfHostedRunnerFromOrgResponseBodyValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
   // actionsDeleteSelfHostedRunnerFromOrg
   router.delete(
@@ -32736,6 +33093,9 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with204() {
             return new ExpressRuntimeResponse<void>(204)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error_simple>(422)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -38570,6 +38930,7 @@ export function createRouter(implementation: Implementation): Router {
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
+    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -42294,7 +42655,10 @@ export function createRouter(implementation: Implementation): Router {
   const orgsListMembersParamSchema = z.object({ org: z.string() })
 
   const orgsListMembersQuerySchema = z.object({
-    filter: z.enum(["2fa_disabled", "all"]).optional().default("all"),
+    filter: z
+      .enum(["2fa_disabled", "2fa_insecure", "all"])
+      .optional()
+      .default("all"),
     role: z.enum(["all", "admin", "member"]).optional().default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
@@ -44411,7 +44775,10 @@ export function createRouter(implementation: Implementation): Router {
   const orgsListOutsideCollaboratorsParamSchema = z.object({ org: z.string() })
 
   const orgsListOutsideCollaboratorsQuerySchema = z.object({
-    filter: z.enum(["2fa_disabled", "all"]).optional().default("all"),
+    filter: z
+      .enum(["2fa_disabled", "2fa_insecure", "all"])
+      .optional()
+      .default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -46277,7 +46644,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const privateRegistriesCreateOrgPrivateRegistryRequestBodySchema = z.object({
-    registry_type: z.enum(["maven_repository"]),
+    registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -46546,7 +46913,9 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const privateRegistriesUpdateOrgPrivateRegistryRequestBodySchema = z.object({
-    registry_type: z.enum(["maven_repository"]).optional(),
+    registry_type: z
+      .enum(["maven_repository", "nuget_feed", "goproxy_server"])
+      .optional(),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -48722,6 +49091,7 @@ export function createRouter(implementation: Implementation): Router {
     validity: z.string().optional(),
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
+    hide_secret: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForOrgResponseBodyValidator =
@@ -54793,6 +55163,7 @@ export function createRouter(implementation: Implementation): Router {
         }),
       ],
       ["404", s_basic_error],
+      ["409", s_basic_error],
     ],
     undefined,
   )
@@ -54828,6 +55199,9 @@ export function createRouter(implementation: Implementation): Router {
           },
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with409() {
+            return new ExpressRuntimeResponse<t_basic_error>(409)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -57130,7 +57504,13 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const actionsDeleteSelfHostedRunnerFromRepoResponseBodyValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
   // actionsDeleteSelfHostedRunnerFromRepo
   router.delete(
@@ -57151,6 +57531,9 @@ export function createRouter(implementation: Implementation): Router {
         const responder = {
           with204() {
             return new ExpressRuntimeResponse<void>(204)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_validation_error_simple>(422)
           },
           withStatus(status: StatusCode) {
             return new ExpressRuntimeResponse(status)
@@ -66047,6 +66430,7 @@ export function createRouter(implementation: Implementation): Router {
         ["200", z.record(z.unknown())],
         ["403", s_basic_error],
         ["404", s_basic_error],
+        ["422", s_basic_error],
         [
           "503",
           z.object({
@@ -66086,6 +66470,9 @@ export function createRouter(implementation: Implementation): Router {
           },
           with404() {
             return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_basic_error>(422)
           },
           with503() {
             return new ExpressRuntimeResponse<{
@@ -70914,6 +71301,7 @@ export function createRouter(implementation: Implementation): Router {
     package: z.string().optional(),
     manifest: z.string().optional(),
     epss_percentage: z.string().optional(),
+    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -88881,6 +89269,7 @@ export function createRouter(implementation: Implementation): Router {
     validity: z.string().optional(),
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
+    hide_secret: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForRepoResponseBodyValidator =
@@ -88976,6 +89365,10 @@ export function createRouter(implementation: Implementation): Router {
     alert_number: s_alert_number,
   })
 
+  const secretScanningGetAlertQuerySchema = z.object({
+    hide_secret: PermissiveBoolean.optional().default(false),
+  })
+
   const secretScanningGetAlertResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_secret_scanning_alert],
@@ -89004,7 +89397,11 @@ export function createRouter(implementation: Implementation): Router {
             req.params,
             RequestInputType.RouteParam,
           ),
-          query: undefined,
+          query: parseRequestInput(
+            secretScanningGetAlertQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
           body: undefined,
           headers: undefined,
         }
@@ -106831,6 +107228,121 @@ export function createRouter(implementation: Implementation): Router {
         if (body !== undefined) {
           res.json(
             billingGetSharedStorageBillingUserResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const billingGetGithubBillingUsageReportUserParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const billingGetGithubBillingUsageReportUserQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    hour: z.coerce.number().optional(),
+  })
+
+  const billingGetGithubBillingUsageReportUserResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_usage_report_user],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // billingGetGithubBillingUsageReportUser
+  router.get(
+    `/users/:username/settings/billing/usage`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            billingGetGithubBillingUsageReportUserParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            billingGetGithubBillingUsageReportUserQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_billing_usage_report_user>(200)
+          },
+          with400() {
+            return new ExpressRuntimeResponse<t_scim_error>(400)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with500() {
+            return new ExpressRuntimeResponse<t_basic_error>(500)
+          },
+          with503() {
+            return new ExpressRuntimeResponse<{
+              code?: string | undefined
+              documentation_url?: string | undefined
+              message?: string | undefined
+            }>(503)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .billingGetGithubBillingUsageReportUser(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            billingGetGithubBillingUsageReportUserResponseBodyValidator(
               status,
               body,
             ),

@@ -332,6 +332,8 @@ import {
   t_BillingGetGithubActionsBillingUserParamSchema,
   t_BillingGetGithubBillingUsageReportOrgParamSchema,
   t_BillingGetGithubBillingUsageReportOrgQuerySchema,
+  t_BillingGetGithubBillingUsageReportUserParamSchema,
+  t_BillingGetGithubBillingUsageReportUserQuerySchema,
   t_BillingGetGithubPackagesBillingOrgParamSchema,
   t_BillingGetGithubPackagesBillingUserParamSchema,
   t_BillingGetSharedStorageBillingOrgParamSchema,
@@ -522,6 +524,7 @@ import {
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
+  t_CredentialsRevokeBodySchema,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretBodySchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
@@ -547,6 +550,9 @@ import {
   t_DependabotListSelectedReposForOrgSecretParamSchema,
   t_DependabotListSelectedReposForOrgSecretQuerySchema,
   t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
+  t_DependabotRepositoryAccessForOrgParamSchema,
+  t_DependabotSetRepositoryAccessDefaultLevelBodySchema,
+  t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
   t_DependabotSetSelectedReposForOrgSecretBodySchema,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
   t_DependabotUpdateAlertBodySchema,
@@ -1342,6 +1348,7 @@ import {
   t_SecretScanningCreatePushProtectionBypassBodySchema,
   t_SecretScanningCreatePushProtectionBypassParamSchema,
   t_SecretScanningGetAlertParamSchema,
+  t_SecretScanningGetAlertQuerySchema,
   t_SecretScanningGetScanHistoryParamSchema,
   t_SecretScanningListAlertsForEnterpriseParamSchema,
   t_SecretScanningListAlertsForEnterpriseQuerySchema,
@@ -1539,6 +1546,7 @@ import {
   t_base_gist,
   t_basic_error,
   t_billing_usage_report,
+  t_billing_usage_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -1612,6 +1620,7 @@ import {
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
+  t_dependabot_repository_access_details,
   t_dependabot_secret,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
@@ -1824,6 +1833,7 @@ import {
   s_base_gist,
   s_basic_error,
   s_billing_usage_report,
+  s_billing_usage_report_user,
   s_blob,
   s_branch_protection,
   s_branch_restriction_policy,
@@ -1915,6 +1925,7 @@ import {
   s_dependabot_alert,
   s_dependabot_alert_with_repository,
   s_dependabot_public_key,
+  s_dependabot_repository_access_details,
   s_dependabot_secret,
   s_dependency_graph_diff,
   s_dependency_graph_spdx_sbom,
@@ -2759,6 +2770,32 @@ export type CodesOfConductGetConductCode = (
   | Response<200, t_code_of_conduct>
   | Response<304, void>
   | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type CredentialsRevokeResponder = {
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CredentialsRevoke = (
+  params: Params<void, void, t_CredentialsRevokeBodySchema, void>,
+  respond: CredentialsRevokeResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
+  | Response<422, t_validation_error_simple>
+  | Response<500, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -4176,6 +4213,54 @@ export type OrgsList = (
   | typeof SkipResponse
 >
 
+export type DependabotRepositoryAccessForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_dependabot_repository_access_details>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotRepositoryAccessForOrg = (
+  params: Params<
+    t_DependabotRepositoryAccessForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: DependabotRepositoryAccessForOrgResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_dependabot_repository_access_details>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependabotSetRepositoryAccessDefaultLevelResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotSetRepositoryAccessDefaultLevel = (
+  params: Params<
+    t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
+    void,
+    t_DependabotSetRepositoryAccessDefaultLevelBodySchema,
+    void
+  >,
+  respond: DependabotSetRepositoryAccessDefaultLevelResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type BillingGetGithubBillingUsageReportOrgResponder = {
   with200(): KoaRuntimeResponse<t_billing_usage_report>
   with400(): KoaRuntimeResponse<t_scim_error>
@@ -5260,6 +5345,7 @@ export type ActionsGetSelfHostedRunnerForOrg = (
 
 export type ActionsDeleteSelfHostedRunnerFromOrgResponder = {
   with204(): KoaRuntimeResponse<void>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
 export type ActionsDeleteSelfHostedRunnerFromOrg = (
@@ -5273,7 +5359,10 @@ export type ActionsDeleteSelfHostedRunnerFromOrg = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
+  | Response<422, t_validation_error_simple>
+  | typeof SkipResponse
 >
 
 export type ActionsListLabelsForSelfHostedRunnerForOrgResponder = {
@@ -11415,6 +11504,7 @@ export type ReposDeleteResponder = {
     message?: string
   }>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
 export type ReposDelete = (
@@ -11434,6 +11524,7 @@ export type ReposDelete = (
       }
     >
   | Response<404, t_basic_error>
+  | Response<409, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -12040,6 +12131,7 @@ export type ActionsGetSelfHostedRunnerForRepo = (
 
 export type ActionsDeleteSelfHostedRunnerFromRepoResponder = {
   with204(): KoaRuntimeResponse<void>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
 export type ActionsDeleteSelfHostedRunnerFromRepo = (
@@ -12053,7 +12145,10 @@ export type ActionsDeleteSelfHostedRunnerFromRepo = (
   ctx: RouterContext,
   next: Next,
 ) => Promise<
-  KoaRuntimeResponse<unknown> | Response<204, void> | typeof SkipResponse
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
+  | Response<422, t_validation_error_simple>
+  | typeof SkipResponse
 >
 
 export type ActionsListLabelsForSelfHostedRunnerForRepoResponder = {
@@ -14459,6 +14554,7 @@ export type CodeScanningGetAnalysisResponder = {
   }>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
   with503(): KoaRuntimeResponse<{
     code?: string
     documentation_url?: string
@@ -14481,6 +14577,7 @@ export type CodeScanningGetAnalysis = (
     >
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
+  | Response<422, t_basic_error>
   | Response<
       503,
       {
@@ -20806,7 +20903,12 @@ export type SecretScanningGetAlertResponder = {
 } & KoaRuntimeResponder
 
 export type SecretScanningGetAlert = (
-  params: Params<t_SecretScanningGetAlertParamSchema, void, void, void>,
+  params: Params<
+    t_SecretScanningGetAlertParamSchema,
+    t_SecretScanningGetAlertQuerySchema,
+    void,
+    void
+  >,
   respond: SecretScanningGetAlertResponder,
   ctx: RouterContext,
   next: Next,
@@ -25888,6 +25990,45 @@ export type BillingGetSharedStorageBillingUser = (
   | typeof SkipResponse
 >
 
+export type BillingGetGithubBillingUsageReportUserResponder = {
+  with200(): KoaRuntimeResponse<t_billing_usage_report_user>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingGetGithubBillingUsageReportUser = (
+  params: Params<
+    t_BillingGetGithubBillingUsageReportUserParamSchema,
+    t_BillingGetGithubBillingUsageReportUserQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingUsageReportUserResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_usage_report_user>
+  | Response<400, t_scim_error>
+  | Response<403, t_basic_error>
+  | Response<500, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+  | typeof SkipResponse
+>
+
 export type UsersListSocialAccountsForUserResponder = {
   with200(): KoaRuntimeResponse<t_social_account[]>
 } & KoaRuntimeResponder
@@ -26030,6 +26171,7 @@ export type Implementation = {
   classroomListAssignmentsForAClassroom: ClassroomListAssignmentsForAClassroom
   codesOfConductGetAllCodesOfConduct: CodesOfConductGetAllCodesOfConduct
   codesOfConductGetConductCode: CodesOfConductGetConductCode
+  credentialsRevoke: CredentialsRevoke
   emojisGet: EmojisGet
   codeSecurityGetConfigurationsForEnterprise: CodeSecurityGetConfigurationsForEnterprise
   codeSecurityCreateConfigurationForEnterprise: CodeSecurityCreateConfigurationForEnterprise
@@ -26090,6 +26232,8 @@ export type Implementation = {
   activityDeleteThreadSubscription: ActivityDeleteThreadSubscription
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
+  dependabotRepositoryAccessForOrg: DependabotRepositoryAccessForOrg
+  dependabotSetRepositoryAccessDefaultLevel: DependabotSetRepositoryAccessDefaultLevel
   billingGetGithubBillingUsageReportOrg: BillingGetGithubBillingUsageReportOrg
   orgsGet: OrgsGet
   orgsUpdate: OrgsUpdate
@@ -27019,6 +27163,7 @@ export type Implementation = {
   billingGetGithubActionsBillingUser: BillingGetGithubActionsBillingUser
   billingGetGithubPackagesBillingUser: BillingGetGithubPackagesBillingUser
   billingGetSharedStorageBillingUser: BillingGetSharedStorageBillingUser
+  billingGetGithubBillingUsageReportUser: BillingGetGithubBillingUsageReportUser
   usersListSocialAccountsForUser: UsersListSocialAccountsForUser
   usersListSshSigningKeysForUser: UsersListSshSigningKeysForUser
   activityListReposStarredByUser: ActivityListReposStarredByUser
@@ -28977,6 +29122,67 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const credentialsRevokeBodySchema = z.object({
+    credentials: z.array(z.string()).min(1).max(1000),
+  })
+
+  const credentialsRevokeResponseValidator = responseValidationFactory(
+    [
+      ["202", z.record(z.unknown())],
+      ["422", s_validation_error_simple],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post("credentialsRevoke", "/credentials/revoke", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        credentialsRevokeBodySchema,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
+
+    const responder = {
+      with202() {
+        return new KoaRuntimeResponse<{
+          [key: string]: unknown | undefined
+        }>(202)
+      },
+      with422() {
+        return new KoaRuntimeResponse<t_validation_error_simple>(422)
+      },
+      with500() {
+        return new KoaRuntimeResponse<t_basic_error>(500)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .credentialsRevoke(input, responder, ctx, next)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    // escape hatch to allow responses to be sent by the implementation handler
+    if (response === SkipResponse) {
+      return
+    }
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = credentialsRevokeResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
   const emojisGetResponseValidator = responseValidationFactory(
     [
       ["200", z.record(z.string())],
@@ -29884,6 +30090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
+    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -29990,6 +30197,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     validity: z.string().optional(),
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
+    hide_secret: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForEnterpriseResponseValidator =
@@ -33254,6 +33462,147 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
+  const dependabotRepositoryAccessForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotRepositoryAccessForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_dependabot_repository_access_details],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "dependabotRepositoryAccessForOrg",
+    "/organizations/:org/dependabot/repository-access",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotRepositoryAccessForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_dependabot_repository_access_details>(
+            200,
+          )
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .dependabotRepositoryAccessForOrg(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = dependabotRepositoryAccessForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const dependabotSetRepositoryAccessDefaultLevelParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotSetRepositoryAccessDefaultLevelBodySchema = z.object({
+    default_level: z.enum(["public", "internal"]),
+  })
+
+  const dependabotSetRepositoryAccessDefaultLevelResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "dependabotSetRepositoryAccessDefaultLevel",
+    "/organizations/:org/dependabot/repository-access/default-level",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotSetRepositoryAccessDefaultLevelParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          dependabotSetRepositoryAccessDefaultLevelBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .dependabotSetRepositoryAccessDefaultLevel(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = dependabotSetRepositoryAccessDefaultLevelResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const billingGetGithubBillingUsageReportOrgParamSchema = z.object({
     org: z.string(),
   })
@@ -36460,7 +36809,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteSelfHostedRunnerFromOrgResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
   router.delete(
     "actionsDeleteSelfHostedRunnerFromOrg",
@@ -36480,6 +36835,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with204() {
           return new KoaRuntimeResponse<void>(204)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -41448,6 +41806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     epss_percentage: z.string().optional(),
+    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -44615,7 +44974,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsListMembersParamSchema = z.object({ org: z.string() })
 
   const orgsListMembersQuerySchema = z.object({
-    filter: z.enum(["2fa_disabled", "all"]).optional().default("all"),
+    filter: z
+      .enum(["2fa_disabled", "2fa_insecure", "all"])
+      .optional()
+      .default("all"),
     role: z.enum(["all", "admin", "member"]).optional().default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
@@ -46436,7 +46798,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsListOutsideCollaboratorsParamSchema = z.object({ org: z.string() })
 
   const orgsListOutsideCollaboratorsQuerySchema = z.object({
-    filter: z.enum(["2fa_disabled", "all"]).optional().default("all"),
+    filter: z
+      .enum(["2fa_disabled", "2fa_insecure", "all"])
+      .optional()
+      .default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -48050,7 +48415,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const privateRegistriesCreateOrgPrivateRegistryBodySchema = z.object({
-    registry_type: z.enum(["maven_repository"]),
+    registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -48271,7 +48636,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const privateRegistriesUpdateOrgPrivateRegistryBodySchema = z.object({
-    registry_type: z.enum(["maven_repository"]).optional(),
+    registry_type: z
+      .enum(["maven_repository", "nuget_feed", "goproxy_server"])
+      .optional(),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -50131,6 +50498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     validity: z.string().optional(),
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
+    hide_secret: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForOrgResponseValidator =
@@ -55303,6 +55671,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         }),
       ],
       ["404", s_basic_error],
+      ["409", s_basic_error],
     ],
     undefined,
   )
@@ -55334,6 +55703,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      with409() {
+        return new KoaRuntimeResponse<t_basic_error>(409)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
@@ -57238,7 +57610,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsDeleteSelfHostedRunnerFromRepoResponseValidator =
-    responseValidationFactory([["204", z.undefined()]], undefined)
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
   router.delete(
     "actionsDeleteSelfHostedRunnerFromRepo",
@@ -57258,6 +57636,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with204() {
           return new KoaRuntimeResponse<void>(204)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -64860,6 +65241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["200", z.record(z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
+      ["422", s_basic_error],
       [
         "503",
         z.object({
@@ -64898,6 +65280,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
         },
         with503() {
           return new KoaRuntimeResponse<{
@@ -69085,6 +69470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     package: z.string().optional(),
     manifest: z.string().optional(),
     epss_percentage: z.string().optional(),
+    has: z.union([z.string(), z.array(z.enum(["patch"]))]).optional(),
     scope: z.enum(["development", "runtime"]).optional(),
     sort: z
       .enum(["created", "updated", "epss_percentage"])
@@ -84581,6 +84967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     validity: z.string().optional(),
     is_publicly_leaked: PermissiveBoolean.optional().default(false),
     is_multi_repo: PermissiveBoolean.optional().default(false),
+    hide_secret: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForRepoResponseValidator =
@@ -84664,6 +85051,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     alert_number: s_alert_number,
   })
 
+  const secretScanningGetAlertQuerySchema = z.object({
+    hide_secret: PermissiveBoolean.optional().default(false),
+  })
+
   const secretScanningGetAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_secret_scanning_alert],
@@ -84691,7 +85082,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ctx.params,
           RequestInputType.RouteParam,
         ),
-        query: undefined,
+        query: parseRequestInput(
+          secretScanningGetAlertQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
         headers: undefined,
       }
@@ -99708,6 +100103,103 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = billingGetSharedStorageBillingUserResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const billingGetGithubBillingUsageReportUserParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const billingGetGithubBillingUsageReportUserQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    hour: z.coerce.number().optional(),
+  })
+
+  const billingGetGithubBillingUsageReportUserResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_usage_report_user],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "billingGetGithubBillingUsageReportUser",
+    "/users/:username/settings/billing/usage",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubBillingUsageReportUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          billingGetGithubBillingUsageReportUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_usage_report_user>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .billingGetGithubBillingUsageReportUser(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = billingGetGithubBillingUsageReportUserResponseValidator(
         status,
         body,
       )
