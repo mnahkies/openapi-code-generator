@@ -38,12 +38,21 @@ export function responseValidationFactoryFactory<Schema>(
     }
 
     return new Proxy(res, {
-      get(target, prop, receiver) {
+      get(target, prop) {
         if (prop === "json") {
           return json
         }
 
-        return Reflect.get(target, prop, receiver)
+        const result = Reflect.get(target, prop)
+
+        // undici does some mixin magic, where it's important that the `this` context
+        // is correct, or else it'll fail to access #private properties on the response
+        // https://github.com/nodejs/undici/blob/edf9b3ff8bfdf5099826b612d8a55572bb707086/lib/web/fetch/response.js#L310
+        if (typeof result === "function") {
+          return result.bind(target)
+        }
+
+        return result
       },
     })
   }
