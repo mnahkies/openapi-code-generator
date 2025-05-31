@@ -1,4 +1,3 @@
-import {CommonModule} from "@angular/common"
 import {Component} from "@angular/core"
 import {RouterOutlet} from "@angular/router"
 import {GitHubV3RestApiModule} from "../generated/api.github.com.yaml/api.module"
@@ -14,7 +13,6 @@ import {TodoListsExampleApiModule} from "../generated/todo-lists.yaml/api.module
   selector: "app-root",
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
     ContosoProviderHubClientModule,
     ContosoWidgetManagerModule,

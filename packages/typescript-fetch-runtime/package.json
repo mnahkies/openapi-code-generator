@@ -45,10 +45,10 @@
     "zod": "^3.20.6"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.18",
-    "jest": "^30.0.0-alpha.6",
+    "@types/qs": "^6.14.0",
+    "jest": "^30.0.0-beta.5",
     "typescript": "~5.8.3",
-    "zod": "^3.24.3"
+    "zod": "^3.25.42"
   },
   "files": [
     "src",
