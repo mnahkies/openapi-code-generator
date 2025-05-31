@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.0...v0.20.1) (2025-05-31)
+
+### Bug Fixes
+
+- fetch proxy compatible with node 24 ([#333](https://github.com/mnahkies/openapi-code-generator/issues/333)) ([40acade](https://github.com/mnahkies/openapi-code-generator/commit/40acade7b284ca96e4e6c8c07ceddd3117721b90))
+
 # [0.20.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.2...v0.20.0) (2025-05-05)
 
 ### Bug Fixes

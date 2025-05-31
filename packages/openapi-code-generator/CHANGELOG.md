@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.0...v0.20.1) (2025-05-31)
+
+### Bug Fixes
+
+- array schema output order ([#329](https://github.com/mnahkies/openapi-code-generator/issues/329)) ([07fcbe7](https://github.com/mnahkies/openapi-code-generator/commit/07fcbe7c1d54aef801f64e9ab639bd2af71d6b64))
+- error if route placeholder present without matching path parameter ([#331](https://github.com/mnahkies/openapi-code-generator/issues/331)) ([c4ad101](https://github.com/mnahkies/openapi-code-generator/commit/c4ad101f2088450ed124bff492dd9b7b6de472a8)), closes [#330](https://github.com/mnahkies/openapi-code-generator/issues/330)
+
 # [0.20.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.2...v0.20.0) (2025-05-05)
 
 ### Bug Fixes
