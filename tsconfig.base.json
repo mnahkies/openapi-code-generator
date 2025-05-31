@@ -1,5 +1,5 @@
 {
-  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node22/tsconfig"],
+  "extends": ["@tsconfig/strictest/tsconfig", "@tsconfig/node24/tsconfig"],
   "compilerOptions": {
     "composite": true,
     "skipLibCheck": true,
