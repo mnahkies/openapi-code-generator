@@ -16,74 +16,80 @@ function remove(a: Set<unknown>, b: Set<unknown>) {
   }
 }
 
+const getAllSourcesFromSchema = (it: IRModel) => {
+  const allSources: Array<MaybeIRModel> = [it as MaybeIRModel]
+
+  if (it.type === "object") {
+    if (it.oneOf.length > 0) {
+      allSources.push(...it.oneOf)
+    }
+
+    if (it.allOf.length > 0) {
+      allSources.push(...it.allOf)
+    }
+
+    if (it.anyOf.length > 0) {
+      allSources.push(...it.anyOf)
+    }
+
+    if (
+      it.additionalProperties &&
+      typeof it.additionalProperties !== "boolean"
+    ) {
+      allSources.push(it.additionalProperties)
+    }
+  } else if (it.type === "array") {
+    allSources.push(it.items)
+  }
+
+  return allSources
+}
+
 const getDependenciesFromSchema = (
   schema: IRModel,
   getNameForRef: (ref: Reference) => string,
 ): Set<string> => {
-  const allSources: Array<MaybeIRModel> = [schema as MaybeIRModel]
-    .concat(Reflect.get(schema, "oneOf") ?? [])
-    .concat(Reflect.get(schema, "allOf") ?? [])
-    .concat(Reflect.get(schema, "anyOf") ?? [])
-    .concat(
-      schema.type === "object" &&
-        schema.additionalProperties &&
-        typeof schema.additionalProperties !== "boolean"
-        ? [schema.additionalProperties]
-        : [],
-    )
-    .concat(schema.type === "array" ? [schema.items] : [])
+  const allSources = getAllSourcesFromSchema(schema)
+  const result = new Set<string>()
 
-  return allSources.reduce((acc, it) => {
+  for (const it of allSources) {
     if (isRef(it)) {
-      acc.add(getNameForRef(it))
+      result.add(getNameForRef(it))
     } else if (it.type === "object") {
-      // biome-ignore lint/complexity/noForEach: <explanation>
-      Object.values(it.properties)
-        .concat(Reflect.get(schema, "oneOf") ?? [])
-        .concat(Reflect.get(schema, "allOf") ?? [])
-        .concat(Reflect.get(schema, "anyOf") ?? [])
-        .forEach((prop) => {
-          if (isRef(prop)) {
-            acc.add(getNameForRef(prop))
-          } else if (prop.type === "object") {
-            intersect(acc, getDependenciesFromSchema(prop, getNameForRef))
-          } else if (prop.type === "array") {
-            if (isRef(prop.items)) {
-              acc.add(getNameForRef(prop.items))
-            } else {
-              intersect(
-                acc,
-                getDependenciesFromSchema(prop.items, getNameForRef),
-              )
-            }
+      const innerSources = Object.values(it.properties)
+
+      if (it.oneOf.length > 0) {
+        innerSources.push(...it.oneOf)
+      }
+
+      if (it.allOf.length > 0) {
+        innerSources.push(...it.allOf)
+      }
+
+      if (it.anyOf.length > 0) {
+        innerSources.push(...it.anyOf)
+      }
+
+      for (const prop of innerSources) {
+        if (isRef(prop)) {
+          result.add(getNameForRef(prop))
+        } else if (prop.type === "object") {
+          intersect(result, getDependenciesFromSchema(prop, getNameForRef))
+        } else if (prop.type === "array") {
+          if (isRef(prop.items)) {
+            result.add(getNameForRef(prop.items))
+          } else {
+            intersect(
+              result,
+              getDependenciesFromSchema(prop.items, getNameForRef),
+            )
           }
-        })
+        }
+      }
     }
+  }
 
-    return acc
-  }, new Set<string>())
-}
-
-function split<T>(
-  arr: T[],
-  predicate: (it: T) => "left" | "right",
-): [T[], T[]] {
-  const left: T[] = []
-  const right: T[] = []
-
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  arr.forEach((it) => {
-    switch (predicate(it)) {
-      case "left":
-        left.push(it)
-        break
-      case "right":
-        right.push(it)
-        break
-    }
-  })
-
-  return [left, right]
+  return result
 }
 
 export type DependencyGraph = {order: string[]; circular: Set<string>}
@@ -106,19 +112,16 @@ export function buildDependencyGraph(
   /**
    * Create an object mapping name -> Set(direct dependencies)
    */
-  const dependencyGraph = Object.fromEntries(
-    // TODO: this may miss extracted in-line schemas
-    Object.entries(input.allSchemas()).map(([name, schema]) => {
-      return [
-        getNameForRef({$ref: name}),
-        new Set(getDependenciesFromSchema(schema, getNameForRef)),
-      ]
-    }),
-  )
-
+  const remaining = new Map<string, Set<string>>()
   const order: string[] = []
 
-  let remaining = {...dependencyGraph}
+  // TODO: this may miss extracted in-line schemas
+  for (const [name, schema] of Object.entries(input.allSchemas())) {
+    remaining.set(
+      getNameForRef({$ref: name}),
+      getDependenciesFromSchema(schema, getNameForRef),
+    )
+  }
 
   /**
    * While objects with no dependencies remain,
@@ -130,14 +133,22 @@ export function buildDependencyGraph(
    * all the remaining objects reference each other circularly in some
    * way, and therefore can not be ordered correctly at all.
    */
-  while (Object.keys(remaining).length) {
-    const [left, right] = split(Object.entries(remaining), ([, deps]) =>
-      deps.size === 0 ? "left" : "right",
-    )
+  while (remaining.size > 0) {
+    const noDeps = []
+    const noDepsSet = new Set()
 
-    const noDeps = left.map((it) => it[0]).sort()
+    const hasDeps: [string, Set<string>][] = []
 
-    const noDepsSet = new Set(noDeps)
+    for (const [name, deps] of remaining) {
+      if (deps.size === 0) {
+        noDeps.push(name)
+        noDepsSet.add(name)
+      } else {
+        hasDeps.push([name, deps])
+      }
+    }
+
+    noDeps.sort()
 
     order.push(...noDeps)
 
@@ -146,13 +157,14 @@ export function buildDependencyGraph(
       break
     }
 
-    remaining = Object.fromEntries(right)
+    for (const name of noDeps) {
+      remaining.delete(name)
+    }
 
-    // biome-ignore lint/complexity/noForEach: <explanation>
-    right.forEach(([, deps]) => {
+    for (const [, deps] of hasDeps) {
       remove(deps, noDepsSet)
-    })
+    }
   }
 
-  return {order, circular: new Set(Object.keys(remaining))}
+  return {order, circular: new Set(remaining.keys())}
 }
