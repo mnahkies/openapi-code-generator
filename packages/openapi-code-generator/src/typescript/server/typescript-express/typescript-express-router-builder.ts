@@ -1,5 +1,5 @@
 import type {Input} from "../../../core/input"
-import {isDefined, titleCase} from "../../../core/utils"
+import {titleCase} from "../../../core/utils"
 import type {ServerImplementationMethod} from "../../../templates.types"
 import type {ImportBuilder} from "../../common/import-builder"
 import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
@@ -7,10 +7,7 @@ import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
 import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
 import {constStatement, object} from "../../common/type-utils"
-import {
-  buildExport,
-  routeToTemplateString,
-} from "../../common/typescript-common"
+import {buildExport} from "../../common/typescript-common"
 import {
   AbstractRouterBuilder,
   type ServerSymbols,
@@ -126,7 +123,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
 // ${builder.operationId}
-router.${builder.method.toLowerCase()}(\`${route(builder.route)}\`, async (req: Request, res: Response, next: NextFunction) => {
+router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request, res: Response, next: NextFunction) => {
   try {
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, req.params, RequestInputType.RouteParam)` : "undefined"},
@@ -239,12 +236,4 @@ export ${this.implementationMethod === "type" || this.implementationMethod === "
       responseBodyValidator: `${operationId}ResponseBodyValidator`,
     }
   }
-}
-
-function route(route: string): string {
-  const placeholder = /{([^{}]+)}/g
-
-  return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-    return result.replace(match[0], `:${match[1]}`)
-  }, route)
 }

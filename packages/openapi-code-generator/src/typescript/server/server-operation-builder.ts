@@ -91,7 +91,26 @@ export class ServerOperationBuilder {
   }
 
   get route(): string {
-    return this.operation.route
+    const {route, parameters} = this.operation
+
+    const placeholder = /{([^{}]+)}/g
+
+    return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
+      const wholeString = match[0]
+      const placeholderName = match[1]
+
+      const parameter = parameters.find(
+        (it) => it.name === placeholderName && it.in === "path",
+      )
+
+      if (!parameter) {
+        throw new Error(
+          `invalid route ${route}. missing path parameter for '${placeholderName}'`,
+        )
+      }
+
+      return result.replace(wholeString, `:${placeholderName}`)
+    }, route)
   }
 
   get method(): string {

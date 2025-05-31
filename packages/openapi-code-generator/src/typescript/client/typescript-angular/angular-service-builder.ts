@@ -1,9 +1,6 @@
 import type {ImportBuilder} from "../../common/import-builder"
 import {union} from "../../common/type-utils"
-import {
-  buildMethod,
-  routeToTemplateString,
-} from "../../common/typescript-common"
+import {buildMethod} from "../../common/typescript-common"
 import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
@@ -19,7 +16,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method, hasServers} = builder
+    const {operationId, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -35,7 +32,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
       .concat(["HttpResponse<unknown>"])
       .join(" | ")
 
-    const url = routeToTemplateString(route)
+    const url = builder.routeToTemplateString()
 
     const body = `
     ${[

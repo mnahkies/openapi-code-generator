@@ -52,6 +52,38 @@ export class ClientOperationBuilder {
     return this.operation.servers.length > 0
   }
 
+  routeToTemplateString(paramName = "p"): string {
+    const {route, parameters} = this.operation
+    const placeholder = /{([^{}]+)}/g
+
+    return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
+      const wholeString = match[0]
+      const placeholderName = match[1]
+
+      if (!placeholderName) {
+        throw new Error(
+          `invalid route parameter placeholder in route '${placeholder}'`,
+        )
+      }
+
+      const parameter = parameters.find(
+        (it) => it.name === placeholderName && it.in === "path",
+      )
+
+      if (!parameter) {
+        throw new Error(
+          `invalid route ${route}. missing path parameter for '${placeholderName}'`,
+        )
+      }
+
+      return result.replace(
+        wholeString,
+        // TODO: why do we camelCase here? Feels presumptuous
+        `\${${paramName}["${camelCase(placeholderName)}"]}`,
+      )
+    }, route)
+  }
+
   methodParameter(): MethodParameterDefinition | undefined {
     const {parameters} = this.operation
     const {requestBodyParameter} = this.requestBodyAsParameter()

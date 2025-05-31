@@ -132,7 +132,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     statements.push(`
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
-router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builder.route)}', async (ctx, next) => {
+router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.route}', async (ctx, next) => {
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, ctx.query, RequestInputType.QueryString)` : "undefined"},
@@ -240,12 +240,4 @@ export ${this.implementationMethod === "type" || this.implementationMethod === "
 }
 `
   }
-}
-
-function route(route: string): string {
-  const placeholder = /{([^{}]+)}/g
-
-  return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-    return result.replace(match[0], `:${match[1]}`)
-  }, route)
 }
