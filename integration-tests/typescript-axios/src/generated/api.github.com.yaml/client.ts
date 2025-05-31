@@ -38,6 +38,7 @@ import {
   t_autolink,
   t_base_gist,
   t_billing_usage_report,
+  t_billing_usage_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -129,6 +130,7 @@ import {
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
+  t_dependabot_repository_access_details,
   t_dependabot_secret,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
@@ -1115,6 +1117,36 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async credentialsRevoke(
+    p: {
+      requestBody: {
+        credentials: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
+    const url = `/credentials/revoke`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async emojisGet(
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1515,6 +1547,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
+      has?: string | ("patch" | UnknownEnumStringValue)[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -1535,6 +1568,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem: p["ecosystem"],
       package: p["package"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -1568,6 +1602,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity?: string
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1586,6 +1621,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this._request({
@@ -2704,6 +2740,52 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotRepositoryAccessForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
+    const url = `/organizations/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotSetRepositoryAccessDefaultLevel(
+    p: {
+      org: string
+      requestBody: {
+        default_level: "public" | "internal" | UnknownEnumStringValue
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/organizations/${p["org"]}/dependabot/repository-access/default-level`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -5828,6 +5910,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
+      has?: string | ("patch" | UnknownEnumStringValue)[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -5848,6 +5931,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem: p["ecosystem"],
       package: p["package"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -7096,7 +7180,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsListMembers(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+      filter?: "2fa_disabled" | "2fa_insecure" | "all" | UnknownEnumStringValue
       role?: "all" | "admin" | "member" | UnknownEnumStringValue
       perPage?: number
       page?: number
@@ -7709,7 +7793,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsListOutsideCollaborators(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+      filter?: "2fa_disabled" | "2fa_insecure" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8311,7 +8395,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         encrypted_value: string
         key_id: string
-        registry_type: "maven_repository" | UnknownEnumStringValue
+        registry_type:
+          | "maven_repository"
+          | "nuget_feed"
+          | "goproxy_server"
+          | UnknownEnumStringValue
         selected_repository_ids?: number[] | undefined
         username?: (string | null) | undefined
         visibility: "all" | "private" | "selected" | UnknownEnumStringValue
@@ -8391,7 +8479,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         encrypted_value?: string | undefined
         key_id?: string | undefined
         registry_type?:
-          | ("maven_repository" | UnknownEnumStringValue)
+          | (
+              | "maven_repository"
+              | "nuget_feed"
+              | "goproxy_server"
+              | UnknownEnumStringValue
+            )
           | undefined
         selected_repository_ids?: number[] | undefined
         username?: (string | null) | undefined
@@ -9105,6 +9198,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity?: string
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -9124,6 +9218,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this._request({
@@ -16290,6 +16385,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       package?: string
       manifest?: string
       epssPercentage?: string
+      has?: string | ("patch" | UnknownEnumStringValue)[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -16312,6 +16408,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       package: p["package"],
       manifest: p["manifest"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -22352,6 +22449,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity?: string
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22371,6 +22469,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this._request({
@@ -22387,15 +22486,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({}, opts.headers)
+    const query = this._query({ hide_secret: p["hideSecret"] })
 
     return this._request({
-      url: url,
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
@@ -27575,6 +27676,35 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async billingGetGithubBillingUsageReportUser(
+    p: {
+      username: string
+      year?: number
+      month?: number
+      day?: number
+      hour?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_usage_report_user>> {
+    const url = `/users/${p["username"]}/settings/billing/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      hour: p["hour"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,

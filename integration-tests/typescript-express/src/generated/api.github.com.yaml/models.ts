@@ -497,6 +497,23 @@ export type t_billing_usage_report = {
     | undefined
 }
 
+export type t_billing_usage_report_user = {
+  usageItems?:
+    | {
+        date: string
+        discountAmount: number
+        grossAmount: number
+        netAmount: number
+        pricePerUnit: number
+        product: string
+        quantity: number
+        repositoryName?: string | undefined
+        sku: string
+        unitType: string
+      }[]
+    | undefined
+}
+
 export type t_blob = {
   content: string
   encoding: string
@@ -1124,6 +1141,7 @@ export type t_code_scanning_default_setup = {
   runner_type?: ("standard" | "labeled" | null) | undefined
   schedule?: ("weekly" | null) | undefined
   state?: ("configured" | "not-configured") | undefined
+  threat_model?: ("remote" | "remote_and_local") | undefined
   updated_at?: (string | null) | undefined
 }
 
@@ -2181,6 +2199,11 @@ export type t_dependabot_public_key = {
   key_id: string
 }
 
+export type t_dependabot_repository_access_details = {
+  accessible_repositories?: t_simple_repository[] | undefined
+  default_level?: ("public" | "internal" | null) | undefined
+}
+
 export type t_dependabot_secret = {
   created_at: string
   name: string
@@ -3152,7 +3175,6 @@ export type t_installation_token = {
 
 export type t_integration = {
   client_id?: string | undefined
-  client_secret?: string | undefined
   created_at: string
   description: string | null
   events: string[]
@@ -3163,7 +3185,6 @@ export type t_integration = {
   name: string
   node_id: string
   owner: t_simple_user | t_enterprise
-  pem?: string | undefined
   permissions: {
     checks?: string | undefined
     contents?: string | undefined
@@ -3174,7 +3195,6 @@ export type t_integration = {
   }
   slug?: string | undefined
   updated_at: string
-  webhook_secret?: (string | null) | undefined
 } | null
 
 export type t_integration_installation_request = {
@@ -3959,7 +3979,6 @@ export type t_nullable_git_user = {
 
 export type t_nullable_integration = {
   client_id?: string | undefined
-  client_secret?: string | undefined
   created_at: string
   description: string | null
   events: string[]
@@ -3970,7 +3989,6 @@ export type t_nullable_integration = {
   name: string
   node_id: string
   owner: t_simple_user | t_enterprise
-  pem?: string | undefined
   permissions: {
     checks?: string | undefined
     contents?: string | undefined
@@ -3981,7 +3999,6 @@ export type t_nullable_integration = {
   }
   slug?: string | undefined
   updated_at: string
-  webhook_secret?: (string | null) | undefined
 } | null
 
 export type t_nullable_issue = {
@@ -4205,6 +4222,12 @@ export type t_nullable_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
+  code_search_index_status?:
+    | {
+        lexical_commit_sha?: string | undefined
+        lexical_search_ok?: boolean | undefined
+      }
+    | undefined
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -4410,7 +4433,7 @@ export type t_org_membership = {
 export type t_org_private_registry_configuration = {
   created_at: string
   name: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
   updated_at: string
   username?: (string | null) | undefined
   visibility: "all" | "private" | "selected"
@@ -4419,7 +4442,7 @@ export type t_org_private_registry_configuration = {
 export type t_org_private_registry_configuration_with_selected_repositories = {
   created_at: string
   name: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
   selected_repository_ids?: number[] | undefined
   updated_at: string
   username?: string | undefined
@@ -5540,6 +5563,7 @@ export type t_release_asset = {
   browser_download_url: string
   content_type: string
   created_at: string
+  digest: string | null
   download_count: number
   id: number
   label: string | null
@@ -5715,6 +5739,12 @@ export type t_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
+  code_search_index_status?:
+    | {
+        lexical_commit_sha?: string | undefined
+        lexical_search_ok?: boolean | undefined
+      }
+    | undefined
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -9721,6 +9751,17 @@ export type t_BillingGetGithubBillingUsageReportOrgQuerySchema = {
   year?: number | undefined
 }
 
+export type t_BillingGetGithubBillingUsageReportUserParamSchema = {
+  username: string
+}
+
+export type t_BillingGetGithubBillingUsageReportUserQuerySchema = {
+  day?: number | undefined
+  hour?: number | undefined
+  month?: number | undefined
+  year?: number | undefined
+}
+
 export type t_BillingGetGithubPackagesBillingOrgParamSchema = {
   org: string
 }
@@ -10209,6 +10250,7 @@ export type t_CodeScanningUpdateDefaultSetupRequestBodySchema = {
   runner_label?: (string | null) | undefined
   runner_type?: ("standard" | "labeled") | undefined
   state?: ("configured" | "not-configured") | undefined
+  threat_model?: ("remote" | "remote_and_local") | undefined
 }
 
 export type t_CodeScanningUploadSarifParamSchema = {
@@ -11054,6 +11096,10 @@ export type t_CopilotListCopilotSeatsQuerySchema = {
   per_page?: number | undefined
 }
 
+export type t_CredentialsRevokeRequestBodySchema = {
+  credentials: string[]
+}
+
 export type t_DependabotAddSelectedRepoToOrgSecretParamSchema = {
   org: string
   repository_id: number
@@ -11131,6 +11177,7 @@ export type t_DependabotListAlertsForEnterpriseQuerySchema = {
   ecosystem?: string | undefined
   epss_percentage?: string | undefined
   first?: number | undefined
+  has?: (string | "patch"[]) | undefined
   last?: number | undefined
   package?: string | undefined
   per_page?: number | undefined
@@ -11151,6 +11198,7 @@ export type t_DependabotListAlertsForOrgQuerySchema = {
   ecosystem?: string | undefined
   epss_percentage?: string | undefined
   first?: number | undefined
+  has?: (string | "patch"[]) | undefined
   last?: number | undefined
   package?: string | undefined
   per_page?: number | undefined
@@ -11172,6 +11220,7 @@ export type t_DependabotListAlertsForRepoQuerySchema = {
   ecosystem?: string | undefined
   epss_percentage?: string | undefined
   first?: number | undefined
+  has?: (string | "patch"[]) | undefined
   last?: number | undefined
   manifest?: string | undefined
   package?: string | undefined
@@ -11216,6 +11265,18 @@ export type t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema = {
   org: string
   repository_id: number
   secret_name: string
+}
+
+export type t_DependabotRepositoryAccessForOrgParamSchema = {
+  org: string
+}
+
+export type t_DependabotSetRepositoryAccessDefaultLevelParamSchema = {
+  org: string
+}
+
+export type t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema = {
+  default_level: "public" | "internal"
 }
 
 export type t_DependabotSetSelectedReposForOrgSecretParamSchema = {
@@ -12697,7 +12758,7 @@ export type t_OrgsListMembersParamSchema = {
 }
 
 export type t_OrgsListMembersQuerySchema = {
-  filter?: ("2fa_disabled" | "all") | undefined
+  filter?: ("2fa_disabled" | "2fa_insecure" | "all") | undefined
   page?: number | undefined
   per_page?: number | undefined
   role?: ("all" | "admin" | "member") | undefined
@@ -12738,7 +12799,7 @@ export type t_OrgsListOutsideCollaboratorsParamSchema = {
 }
 
 export type t_OrgsListOutsideCollaboratorsQuerySchema = {
-  filter?: ("2fa_disabled" | "all") | undefined
+  filter?: ("2fa_disabled" | "2fa_insecure" | "all") | undefined
   page?: number | undefined
   per_page?: number | undefined
 }
@@ -13274,7 +13335,7 @@ export type t_PrivateRegistriesCreateOrgPrivateRegistryParamSchema = {
 export type t_PrivateRegistriesCreateOrgPrivateRegistryRequestBodySchema = {
   encrypted_value: string
   key_id: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
   selected_repository_ids?: number[] | undefined
   username?: (string | null) | undefined
   visibility: "all" | "private" | "selected"
@@ -13311,7 +13372,9 @@ export type t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema = {
 export type t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBodySchema = {
   encrypted_value?: string | undefined
   key_id?: string | undefined
-  registry_type?: "maven_repository" | undefined
+  registry_type?:
+    | ("maven_repository" | "nuget_feed" | "goproxy_server")
+    | undefined
   selected_repository_ids?: number[] | undefined
   username?: (string | null) | undefined
   visibility?: ("all" | "private" | "selected") | undefined
@@ -16305,6 +16368,10 @@ export type t_SecretScanningGetAlertParamSchema = {
   repo: string
 }
 
+export type t_SecretScanningGetAlertQuerySchema = {
+  hide_secret?: boolean | undefined
+}
+
 export type t_SecretScanningGetScanHistoryParamSchema = {
   owner: string
   repo: string
@@ -16318,6 +16385,7 @@ export type t_SecretScanningListAlertsForEnterpriseQuerySchema = {
   after?: string | undefined
   before?: string | undefined
   direction?: ("asc" | "desc") | undefined
+  hide_secret?: boolean | undefined
   is_multi_repo?: boolean | undefined
   is_publicly_leaked?: boolean | undefined
   per_page?: number | undefined
@@ -16336,6 +16404,7 @@ export type t_SecretScanningListAlertsForOrgQuerySchema = {
   after?: string | undefined
   before?: string | undefined
   direction?: ("asc" | "desc") | undefined
+  hide_secret?: boolean | undefined
   is_multi_repo?: boolean | undefined
   is_publicly_leaked?: boolean | undefined
   page?: number | undefined
@@ -16356,6 +16425,7 @@ export type t_SecretScanningListAlertsForRepoQuerySchema = {
   after?: string | undefined
   before?: string | undefined
   direction?: ("asc" | "desc") | undefined
+  hide_secret?: boolean | undefined
   is_multi_repo?: boolean | undefined
   is_publicly_leaked?: boolean | undefined
   page?: number | undefined

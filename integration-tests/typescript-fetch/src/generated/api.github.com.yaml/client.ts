@@ -39,6 +39,7 @@ import {
   t_base_gist,
   t_basic_error,
   t_billing_usage_report,
+  t_billing_usage_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -130,6 +131,7 @@ import {
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
+  t_dependabot_repository_access_details,
   t_dependabot_secret,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
@@ -1022,6 +1024,34 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
+  async credentialsRevoke(
+    p: {
+      requestBody: {
+        credentials: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        202,
+        {
+          [key: string]: unknown | undefined
+        }
+      >
+    | Res<422, t_validation_error_simple>
+    | Res<500, t_basic_error>
+  > {
+    const url = this.basePath + `/credentials/revoke`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
   async emojisGet(
     timeout?: number,
     opts: RequestInit = {},
@@ -1461,6 +1491,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
+      has?: string | ("patch" | UnknownEnumStringValue)[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -1488,6 +1519,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem: p["ecosystem"],
       package: p["package"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -1519,6 +1551,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity?: string
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1549,6 +1582,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this._fetch(
@@ -2653,6 +2687,48 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async dependabotRepositoryAccessForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_dependabot_repository_access_details>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async dependabotSetRepositoryAccessDefaultLevel(
+    p: {
+      org: string
+      requestBody: {
+        default_level: "public" | "internal" | UnknownEnumStringValue
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/organizations/${p["org"]}/dependabot/repository-access/default-level`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+  }
+
   async billingGetGithubBillingUsageReportOrg(
     p: {
       org: string
@@ -3734,7 +3810,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
+  ): Promise<Res<204, void> | Res<422, t_validation_error_simple>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
     const headers = this._headers({}, opts.headers)
@@ -5636,6 +5712,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
+      has?: string | ("patch" | UnknownEnumStringValue)[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -5663,6 +5740,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem: p["ecosystem"],
       package: p["package"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -6787,7 +6865,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsListMembers(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+      filter?: "2fa_disabled" | "2fa_insecure" | "all" | UnknownEnumStringValue
       role?: "all" | "admin" | "member" | UnknownEnumStringValue
       perPage?: number
       page?: number
@@ -7351,7 +7429,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsListOutsideCollaborators(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+      filter?: "2fa_disabled" | "2fa_insecure" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -7984,7 +8062,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         encrypted_value: string
         key_id: string
-        registry_type: "maven_repository" | UnknownEnumStringValue
+        registry_type:
+          | "maven_repository"
+          | "nuget_feed"
+          | "goproxy_server"
+          | UnknownEnumStringValue
         selected_repository_ids?: number[]
         username?: string | null
         visibility: "all" | "private" | "selected" | UnknownEnumStringValue
@@ -8054,7 +8136,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         encrypted_value?: string
         key_id?: string
-        registry_type?: "maven_repository" | UnknownEnumStringValue
+        registry_type?:
+          | "maven_repository"
+          | "nuget_feed"
+          | "goproxy_server"
+          | UnknownEnumStringValue
         selected_repository_ids?: number[]
         username?: string | null
         visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
@@ -8739,6 +8825,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity?: string
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8769,6 +8856,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this._fetch(
@@ -10620,6 +10708,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         }
       >
     | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers({}, opts.headers)
@@ -11268,7 +11357,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void>> {
+  ): Promise<Res<204, void> | Res<422, t_validation_error_simple>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
@@ -14120,6 +14209,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       >
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
+    | Res<422, t_basic_error>
     | Res<
         503,
         {
@@ -15697,6 +15787,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       package?: string
       manifest?: string
       epssPercentage?: string
+      has?: string | ("patch" | UnknownEnumStringValue)[]
       scope?: "development" | "runtime" | UnknownEnumStringValue
       sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -15727,6 +15818,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       package: p["package"],
       manifest: p["manifest"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -21396,6 +21488,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity?: string
       isPubliclyLeaked?: boolean
       isMultiRepo?: boolean
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21427,6 +21520,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this._fetch(
@@ -21441,6 +21535,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       alertNumber: t_alert_number
+      hideSecret?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21461,8 +21556,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({}, opts.headers)
+    const query = this._query({ hide_secret: p["hideSecret"] })
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async secretScanningUpdateAlert(
@@ -26560,6 +26660,46 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async billingGetGithubBillingUsageReportUser(
+    p: {
+      username: string
+      year?: number
+      month?: number
+      day?: number
+      hour?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_billing_usage_report_user>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<500, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url = this.basePath + `/users/${p["username"]}/settings/billing/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      hour: p["hour"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListSocialAccountsForUser(

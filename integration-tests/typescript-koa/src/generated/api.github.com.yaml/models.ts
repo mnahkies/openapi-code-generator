@@ -483,6 +483,21 @@ export type t_billing_usage_report = {
   }[]
 }
 
+export type t_billing_usage_report_user = {
+  usageItems?: {
+    date: string
+    discountAmount: number
+    grossAmount: number
+    netAmount: number
+    pricePerUnit: number
+    product: string
+    quantity: number
+    repositoryName?: string
+    sku: string
+    unitType: string
+  }[]
+}
+
 export type t_blob = {
   content: string
   encoding: string
@@ -1076,6 +1091,7 @@ export type t_code_scanning_default_setup = {
   runner_type?: "standard" | "labeled" | null
   schedule?: "weekly" | null
   state?: "configured" | "not-configured"
+  threat_model?: "remote" | "remote_and_local"
   updated_at?: string | null
 }
 
@@ -2064,6 +2080,11 @@ export type t_dependabot_public_key = {
   key_id: string
 }
 
+export type t_dependabot_repository_access_details = {
+  accessible_repositories?: t_simple_repository[]
+  default_level?: "public" | "internal" | null
+}
+
 export type t_dependabot_secret = {
   created_at: string
   name: string
@@ -2994,7 +3015,6 @@ export type t_installation_token = {
 
 export type t_integration = {
   client_id?: string
-  client_secret?: string
   created_at: string
   description: string | null
   events: string[]
@@ -3005,7 +3025,6 @@ export type t_integration = {
   name: string
   node_id: string
   owner: t_simple_user | t_enterprise
-  pem?: string
   permissions: {
     checks?: string
     contents?: string
@@ -3016,7 +3035,6 @@ export type t_integration = {
   }
   slug?: string
   updated_at: string
-  webhook_secret?: string | null
 } | null
 
 export type t_integration_installation_request = {
@@ -3776,7 +3794,6 @@ export type t_nullable_git_user = {
 
 export type t_nullable_integration = {
   client_id?: string
-  client_secret?: string
   created_at: string
   description: string | null
   events: string[]
@@ -3787,7 +3804,6 @@ export type t_nullable_integration = {
   name: string
   node_id: string
   owner: t_simple_user | t_enterprise
-  pem?: string
   permissions: {
     checks?: string
     contents?: string
@@ -3798,7 +3814,6 @@ export type t_nullable_integration = {
   }
   slug?: string
   updated_at: string
-  webhook_secret?: string | null
 } | null
 
 export type t_nullable_issue = {
@@ -4016,6 +4031,10 @@ export type t_nullable_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
+  code_search_index_status?: {
+    lexical_commit_sha?: string
+    lexical_search_ok?: boolean
+  }
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -4215,7 +4234,7 @@ export type t_org_membership = {
 export type t_org_private_registry_configuration = {
   created_at: string
   name: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
   updated_at: string
   username?: string | null
   visibility: "all" | "private" | "selected"
@@ -4224,7 +4243,7 @@ export type t_org_private_registry_configuration = {
 export type t_org_private_registry_configuration_with_selected_repositories = {
   created_at: string
   name: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
   selected_repository_ids?: number[]
   updated_at: string
   username?: string
@@ -5280,6 +5299,7 @@ export type t_release_asset = {
   browser_download_url: string
   content_type: string
   created_at: string
+  digest: string | null
   download_count: number
   id: number
   label: string | null
@@ -5451,6 +5471,10 @@ export type t_repository = {
   blobs_url: string
   branches_url: string
   clone_url: string
+  code_search_index_status?: {
+    lexical_commit_sha?: string
+    lexical_search_ok?: boolean
+  }
   collaborators_url: string
   comments_url: string
   commits_url: string
@@ -9301,6 +9325,17 @@ export type t_BillingGetGithubBillingUsageReportOrgQuerySchema = {
   year?: number
 }
 
+export type t_BillingGetGithubBillingUsageReportUserParamSchema = {
+  username: string
+}
+
+export type t_BillingGetGithubBillingUsageReportUserQuerySchema = {
+  day?: number
+  hour?: number
+  month?: number
+  year?: number
+}
+
 export type t_BillingGetGithubPackagesBillingOrgParamSchema = {
   org: string
 }
@@ -9766,6 +9801,7 @@ export type t_CodeScanningUpdateDefaultSetupBodySchema = {
   runner_label?: string | null
   runner_type?: "standard" | "labeled"
   state?: "configured" | "not-configured"
+  threat_model?: "remote" | "remote_and_local"
 }
 
 export type t_CodeScanningUpdateDefaultSetupParamSchema = {
@@ -10526,6 +10562,10 @@ export type t_CopilotListCopilotSeatsQuerySchema = {
   per_page?: number
 }
 
+export type t_CredentialsRevokeBodySchema = {
+  credentials: string[]
+}
+
 export type t_DependabotAddSelectedRepoToOrgSecretParamSchema = {
   org: string
   repository_id: number
@@ -10603,6 +10643,7 @@ export type t_DependabotListAlertsForEnterpriseQuerySchema = {
   ecosystem?: string
   epss_percentage?: string
   first?: number
+  has?: string | "patch"[]
   last?: number
   package?: string
   per_page?: number
@@ -10623,6 +10664,7 @@ export type t_DependabotListAlertsForOrgQuerySchema = {
   ecosystem?: string
   epss_percentage?: string
   first?: number
+  has?: string | "patch"[]
   last?: number
   package?: string
   per_page?: number
@@ -10644,6 +10686,7 @@ export type t_DependabotListAlertsForRepoQuerySchema = {
   ecosystem?: string
   epss_percentage?: string
   first?: number
+  has?: string | "patch"[]
   last?: number
   manifest?: string
   package?: string
@@ -10688,6 +10731,18 @@ export type t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema = {
   org: string
   repository_id: number
   secret_name: string
+}
+
+export type t_DependabotRepositoryAccessForOrgParamSchema = {
+  org: string
+}
+
+export type t_DependabotSetRepositoryAccessDefaultLevelBodySchema = {
+  default_level: "public" | "internal"
+}
+
+export type t_DependabotSetRepositoryAccessDefaultLevelParamSchema = {
+  org: string
 }
 
 export type t_DependabotSetSelectedReposForOrgSecretBodySchema = {
@@ -12134,7 +12189,7 @@ export type t_OrgsListMembersParamSchema = {
 }
 
 export type t_OrgsListMembersQuerySchema = {
-  filter?: "2fa_disabled" | "all"
+  filter?: "2fa_disabled" | "2fa_insecure" | "all"
   page?: number
   per_page?: number
   role?: "all" | "admin" | "member"
@@ -12175,7 +12230,7 @@ export type t_OrgsListOutsideCollaboratorsParamSchema = {
 }
 
 export type t_OrgsListOutsideCollaboratorsQuerySchema = {
-  filter?: "2fa_disabled" | "all"
+  filter?: "2fa_disabled" | "2fa_insecure" | "all"
   page?: number
   per_page?: number
 }
@@ -12699,7 +12754,7 @@ export type t_PackagesRestorePackageVersionForUserParamSchema = {
 export type t_PrivateRegistriesCreateOrgPrivateRegistryBodySchema = {
   encrypted_value: string
   key_id: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
   selected_repository_ids?: number[]
   username?: string | null
   visibility: "all" | "private" | "selected"
@@ -12735,7 +12790,7 @@ export type t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema = {
 export type t_PrivateRegistriesUpdateOrgPrivateRegistryBodySchema = {
   encrypted_value?: string
   key_id?: string
-  registry_type?: "maven_repository"
+  registry_type?: "maven_repository" | "nuget_feed" | "goproxy_server"
   selected_repository_ids?: number[]
   username?: string | null
   visibility?: "all" | "private" | "selected"
@@ -15637,6 +15692,10 @@ export type t_SecretScanningGetAlertParamSchema = {
   repo: string
 }
 
+export type t_SecretScanningGetAlertQuerySchema = {
+  hide_secret?: boolean
+}
+
 export type t_SecretScanningGetScanHistoryParamSchema = {
   owner: string
   repo: string
@@ -15650,6 +15709,7 @@ export type t_SecretScanningListAlertsForEnterpriseQuerySchema = {
   after?: string
   before?: string
   direction?: "asc" | "desc"
+  hide_secret?: boolean
   is_multi_repo?: boolean
   is_publicly_leaked?: boolean
   per_page?: number
@@ -15668,6 +15728,7 @@ export type t_SecretScanningListAlertsForOrgQuerySchema = {
   after?: string
   before?: string
   direction?: "asc" | "desc"
+  hide_secret?: boolean
   is_multi_repo?: boolean
   is_publicly_leaked?: boolean
   page?: number
@@ -15688,6 +15749,7 @@ export type t_SecretScanningListAlertsForRepoQuerySchema = {
   after?: string
   before?: string
   direction?: "asc" | "desc"
+  hide_secret?: boolean
   is_multi_repo?: boolean
   is_publicly_leaked?: boolean
   page?: number
