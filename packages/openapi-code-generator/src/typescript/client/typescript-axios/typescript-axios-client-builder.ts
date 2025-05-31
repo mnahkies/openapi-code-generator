@@ -1,9 +1,6 @@
 import type {ImportBuilder} from "../../common/import-builder"
 import {union} from "../../common/type-utils"
-import {
-  asyncMethod,
-  routeToTemplateString,
-} from "../../common/typescript-common"
+import {asyncMethod} from "../../common/typescript-common"
 import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
@@ -19,7 +16,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method, hasServers} = builder
+    const {operationId, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -64,7 +61,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
       .join(",\n")}})`
 
     const body = `
-    const url = \`${routeToTemplateString(route)}\`
+    const url = \`${builder.routeToTemplateString()}\`
     ${[
       headers
         ? `const headers = this._headers(${headers}, opts.headers)`

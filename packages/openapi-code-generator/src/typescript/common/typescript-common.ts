@@ -60,26 +60,6 @@ export function combineAndDestructureParams(
   }
 }
 
-export function routeToTemplateString(route: string, paramName = "p"): string {
-  const placeholder = /{([^{}]+)}/g
-
-  return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-    const wholeString = match[0]
-    const placeholderName = match[1]
-
-    if (!placeholderName) {
-      throw new Error(
-        `invalid route parameter placeholder in route '${placeholder}'`,
-      )
-    }
-
-    return result.replace(
-      wholeString,
-      `\${${paramName}["${camelCase(placeholderName)}"]}`,
-    )
-  }, route)
-}
-
 export function buildMethod({
   name,
   parameters,
