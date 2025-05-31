@@ -39,6 +39,7 @@ import {
   t_base_gist,
   t_basic_error,
   t_billing_usage_report,
+  t_billing_usage_report_user,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -130,6 +131,7 @@ import {
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
   t_dependabot_public_key,
+  t_dependabot_repository_access_details,
   t_dependabot_secret,
   t_dependency_graph_diff,
   t_dependency_graph_spdx_sbom,
@@ -1165,6 +1167,33 @@ export class GitHubV3RestApiService {
     )
   }
 
+  credentialsRevoke(p: {
+    requestBody: {
+      credentials: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/credentials/revoke`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   emojisGet(): Observable<
     | (HttpResponse<{
         [key: string]: string | undefined
@@ -1596,6 +1625,7 @@ export class GitHubV3RestApiService {
     ecosystem?: string
     package?: string
     epssPercentage?: string
+    has?: string | ("patch" | UnknownEnumStringValue)[]
     scope?: "development" | "runtime" | UnknownEnumStringValue
     sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -1618,6 +1648,7 @@ export class GitHubV3RestApiService {
       ecosystem: p["ecosystem"],
       package: p["package"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -1653,6 +1684,7 @@ export class GitHubV3RestApiService {
     validity?: string
     isPubliclyLeaked?: boolean
     isMultiRepo?: boolean
+    hideSecret?: boolean
   }): Observable<
     | (HttpResponse<t_organization_secret_scanning_alert[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -1675,6 +1707,7 @@ export class GitHubV3RestApiService {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this.httpClient.request<any>(
@@ -2873,6 +2906,52 @@ export class GitHubV3RestApiService {
     )
   }
 
+  dependabotRepositoryAccessForOrg(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<t_dependabot_repository_access_details> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/dependabot/repository-access`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  dependabotSetRepositoryAccessDefaultLevel(p: {
+    org: string
+    requestBody: {
+      default_level: "public" | "internal" | UnknownEnumStringValue
+    }
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/organizations/${p["org"]}/dependabot/repository-access/default-level`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   billingGetGithubBillingUsageReportOrg(p: {
     org: string
     year?: number
@@ -3987,7 +4066,9 @@ export class GitHubV3RestApiService {
     org: string
     runnerId: number
   }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "DELETE",
@@ -5897,6 +5978,7 @@ export class GitHubV3RestApiService {
     ecosystem?: string
     package?: string
     epssPercentage?: string
+    has?: string | ("patch" | UnknownEnumStringValue)[]
     scope?: "development" | "runtime" | UnknownEnumStringValue
     sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -5920,6 +6002,7 @@ export class GitHubV3RestApiService {
       ecosystem: p["ecosystem"],
       package: p["package"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -7130,7 +7213,7 @@ export class GitHubV3RestApiService {
 
   orgsListMembers(p: {
     org: string
-    filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+    filter?: "2fa_disabled" | "2fa_insecure" | "all" | UnknownEnumStringValue
     role?: "all" | "admin" | "member" | UnknownEnumStringValue
     perPage?: number
     page?: number
@@ -7743,7 +7826,7 @@ export class GitHubV3RestApiService {
 
   orgsListOutsideCollaborators(p: {
     org: string
-    filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+    filter?: "2fa_disabled" | "2fa_insecure" | "all" | UnknownEnumStringValue
     perPage?: number
     page?: number
   }): Observable<
@@ -8375,7 +8458,11 @@ export class GitHubV3RestApiService {
     requestBody: {
       encrypted_value: string
       key_id: string
-      registry_type: "maven_repository" | UnknownEnumStringValue
+      registry_type:
+        | "maven_repository"
+        | "nuget_feed"
+        | "goproxy_server"
+        | UnknownEnumStringValue
       selected_repository_ids?: number[]
       username?: string | null
       visibility: "all" | "private" | "selected" | UnknownEnumStringValue
@@ -8448,7 +8535,11 @@ export class GitHubV3RestApiService {
     requestBody: {
       encrypted_value?: string
       key_id?: string
-      registry_type?: "maven_repository" | UnknownEnumStringValue
+      registry_type?:
+        | "maven_repository"
+        | "nuget_feed"
+        | "goproxy_server"
+        | UnknownEnumStringValue
       selected_repository_ids?: number[]
       username?: string | null
       visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
@@ -9154,6 +9245,7 @@ export class GitHubV3RestApiService {
     validity?: string
     isPubliclyLeaked?: boolean
     isMultiRepo?: boolean
+    hideSecret?: boolean
   }): Observable<
     | (HttpResponse<t_organization_secret_scanning_alert[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -9177,6 +9269,7 @@ export class GitHubV3RestApiService {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this.httpClient.request<any>(
@@ -11091,6 +11184,7 @@ export class GitHubV3RestApiService {
         message?: string
       }> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11771,7 +11865,9 @@ export class GitHubV3RestApiService {
     repo: string
     runnerId: number
   }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "DELETE",
@@ -14691,6 +14787,7 @@ export class GitHubV3RestApiService {
       }> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
     | (HttpResponse<{
         code?: string
         documentation_url?: string
@@ -16258,6 +16355,7 @@ export class GitHubV3RestApiService {
     package?: string
     manifest?: string
     epssPercentage?: string
+    has?: string | ("patch" | UnknownEnumStringValue)[]
     scope?: "development" | "runtime" | UnknownEnumStringValue
     sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
@@ -16283,6 +16381,7 @@ export class GitHubV3RestApiService {
       package: p["package"],
       manifest: p["manifest"],
       epss_percentage: p["epssPercentage"],
+      has: p["has"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -22218,6 +22317,7 @@ export class GitHubV3RestApiService {
     validity?: string
     isPubliclyLeaked?: boolean
     isMultiRepo?: boolean
+    hideSecret?: boolean
   }): Observable<
     | (HttpResponse<t_secret_scanning_alert[]> & { status: 200 })
     | (HttpResponse<void> & { status: 404 })
@@ -22241,6 +22341,7 @@ export class GitHubV3RestApiService {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+      hide_secret: p["hideSecret"],
     })
 
     return this.httpClient.request<any>(
@@ -22259,6 +22360,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     alertNumber: t_alert_number
+    hideSecret?: boolean
   }): Observable<
     | (HttpResponse<t_secret_scanning_alert> & { status: 200 })
     | (HttpResponse<void> & { status: 304 })
@@ -22270,11 +22372,14 @@ export class GitHubV3RestApiService {
       }> & { status: 503 })
     | HttpResponse<unknown>
   > {
+    const params = this._queryParams({ hide_secret: p["hideSecret"] })
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`,
       {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -27630,6 +27735,42 @@ export class GitHubV3RestApiService {
       this.config.basePath +
         `/users/${p["username"]}/settings/billing/shared-storage`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  billingGetGithubBillingUsageReportUser(p: {
+    username: string
+    year?: number
+    month?: number
+    day?: number
+    hour?: number
+  }): Observable<
+    | (HttpResponse<t_billing_usage_report_user> & { status: 200 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      hour: p["hour"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/users/${p["username"]}/settings/billing/usage`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },

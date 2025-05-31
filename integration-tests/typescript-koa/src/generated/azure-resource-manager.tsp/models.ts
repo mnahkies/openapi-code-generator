@@ -67,9 +67,6 @@ export type t_Azure_ResourceManager_CommonTypes_SystemData = {
 export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
   t_Azure_ResourceManager_CommonTypes_Resource
 
-export type t_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate =
-  t_Azure_ResourceManager_CommonTypes_Resource
-
 export type t_Azure_ResourceManager_CommonTypes_createdByType =
   | "User"
   | "Application"
@@ -82,6 +79,12 @@ export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource
 export type t_EmployeeListResult = {
   nextLink?: string
   value: t_Employee[]
+}
+
+export type t_EmployeeUpdateProperties = {
+  age?: number
+  city?: string
+  profile?: string
 }
 
 export type t_MoveResponse = {
@@ -168,8 +171,12 @@ export type t_EmployeesMoveQuerySchema = {
   "api-version": string
 }
 
-export type t_EmployeesUpdateBodySchema =
-  t_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate
+export type t_EmployeesUpdateBodySchema = {
+  properties?: t_EmployeeUpdateProperties
+  tags?: {
+    [key: string]: string | undefined
+  }
+}
 
 export type t_EmployeesUpdateParamSchema = {
   employeeName: string

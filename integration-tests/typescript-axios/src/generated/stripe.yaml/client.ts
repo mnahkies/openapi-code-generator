@@ -346,6 +346,21 @@ export class StripeApi extends AbstractAxiosClient {
                   | undefined
               }
             | undefined
+          disputes_list?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
+                      capture_payments?: boolean | undefined
+                      destination_on_behalf_of_charge_management?:
+                        | boolean
+                        | undefined
+                      dispute_management?: boolean | undefined
+                      refund_management?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
           documents?:
             | {
                 enabled: boolean
@@ -419,6 +434,20 @@ export class StripeApi extends AbstractAxiosClient {
                 features?:
                   | {
                       capture_payments?: boolean | undefined
+                      destination_on_behalf_of_charge_management?:
+                        | boolean
+                        | undefined
+                      dispute_management?: boolean | undefined
+                      refund_management?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
+          payment_disputes?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
                       destination_on_behalf_of_charge_management?:
                         | boolean
                         | undefined
@@ -598,6 +627,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               estimated_worker_count?: number | undefined
               mcc?: string | undefined
+              minority_owned_business_designation?:
+                | (
+                    | "lgbtqi_owned_business"
+                    | "minority_owned_business"
+                    | "none_of_these_apply"
+                    | "prefer_not_to_answer"
+                    | "women_owned_business"
+                    | UnknownEnumStringValue
+                  )[]
+                | undefined
               monthly_estimated_revenue?:
                 | {
                     amount: number
@@ -838,6 +877,11 @@ export class StripeApi extends AbstractAxiosClient {
                     requested?: boolean | undefined
                   }
                 | undefined
+              pix_payments?:
+                | {
+                    requested?: boolean | undefined
+                  }
+                | undefined
               promptpay_payments?:
                 | {
                     requested?: boolean | undefined
@@ -985,6 +1029,17 @@ export class StripeApi extends AbstractAxiosClient {
                   )
                 | undefined
               phone?: string | undefined
+              registration_date?:
+                | (
+                    | {
+                        day: number
+                        month: number
+                        year: number
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               registration_number?: string | undefined
               structure?:
                 | (
@@ -1445,6 +1500,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               estimated_worker_count?: number | undefined
               mcc?: string | undefined
+              minority_owned_business_designation?:
+                | (
+                    | "lgbtqi_owned_business"
+                    | "minority_owned_business"
+                    | "none_of_these_apply"
+                    | "prefer_not_to_answer"
+                    | "women_owned_business"
+                    | UnknownEnumStringValue
+                  )[]
+                | undefined
               monthly_estimated_revenue?:
                 | {
                     amount: number
@@ -1685,6 +1750,11 @@ export class StripeApi extends AbstractAxiosClient {
                     requested?: boolean | undefined
                   }
                 | undefined
+              pix_payments?:
+                | {
+                    requested?: boolean | undefined
+                  }
+                | undefined
               promptpay_payments?:
                 | {
                     requested?: boolean | undefined
@@ -1832,6 +1902,17 @@ export class StripeApi extends AbstractAxiosClient {
                   )
                 | undefined
               phone?: string | undefined
+              registration_date?:
+                | (
+                    | {
+                        day: number
+                        month: number
+                        year: number
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               registration_number?: string | undefined
               structure?:
                 | (
@@ -2910,6 +2991,62 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         ssn_last_4?: string | undefined
+        us_cfpb_data?:
+          | {
+              ethnicity_details?:
+                | {
+                    ethnicity?:
+                      | (
+                          | "cuban"
+                          | "hispanic_or_latino"
+                          | "mexican"
+                          | "not_hispanic_or_latino"
+                          | "other_hispanic_or_latino"
+                          | "prefer_not_to_answer"
+                          | "puerto_rican"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    ethnicity_other?: string | undefined
+                  }
+                | undefined
+              race_details?:
+                | {
+                    race?:
+                      | (
+                          | "african_american"
+                          | "american_indian_or_alaska_native"
+                          | "asian"
+                          | "asian_indian"
+                          | "black_or_african_american"
+                          | "chinese"
+                          | "ethiopian"
+                          | "filipino"
+                          | "guamanian_or_chamorro"
+                          | "haitian"
+                          | "jamaican"
+                          | "japanese"
+                          | "korean"
+                          | "native_hawaiian"
+                          | "native_hawaiian_or_other_pacific_islander"
+                          | "nigerian"
+                          | "other_asian"
+                          | "other_black_or_african_american"
+                          | "other_pacific_islander"
+                          | "prefer_not_to_answer"
+                          | "samoan"
+                          | "somali"
+                          | "vietnamese"
+                          | "white"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    race_other?: string | undefined
+                  }
+                | undefined
+              self_identified_gender?: string | undefined
+            }
+          | undefined
         verification?:
           | {
               additional_document?:
@@ -3135,6 +3272,62 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         ssn_last_4?: string | undefined
+        us_cfpb_data?:
+          | {
+              ethnicity_details?:
+                | {
+                    ethnicity?:
+                      | (
+                          | "cuban"
+                          | "hispanic_or_latino"
+                          | "mexican"
+                          | "not_hispanic_or_latino"
+                          | "other_hispanic_or_latino"
+                          | "prefer_not_to_answer"
+                          | "puerto_rican"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    ethnicity_other?: string | undefined
+                  }
+                | undefined
+              race_details?:
+                | {
+                    race?:
+                      | (
+                          | "african_american"
+                          | "american_indian_or_alaska_native"
+                          | "asian"
+                          | "asian_indian"
+                          | "black_or_african_american"
+                          | "chinese"
+                          | "ethiopian"
+                          | "filipino"
+                          | "guamanian_or_chamorro"
+                          | "haitian"
+                          | "jamaican"
+                          | "japanese"
+                          | "korean"
+                          | "native_hawaiian"
+                          | "native_hawaiian_or_other_pacific_islander"
+                          | "nigerian"
+                          | "other_asian"
+                          | "other_black_or_african_american"
+                          | "other_pacific_islander"
+                          | "prefer_not_to_answer"
+                          | "samoan"
+                          | "somali"
+                          | "vietnamese"
+                          | "white"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    race_other?: string | undefined
+                  }
+                | undefined
+              self_identified_gender?: string | undefined
+            }
+          | undefined
         verification?:
           | {
               additional_document?:
@@ -3356,6 +3549,62 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         ssn_last_4?: string | undefined
+        us_cfpb_data?:
+          | {
+              ethnicity_details?:
+                | {
+                    ethnicity?:
+                      | (
+                          | "cuban"
+                          | "hispanic_or_latino"
+                          | "mexican"
+                          | "not_hispanic_or_latino"
+                          | "other_hispanic_or_latino"
+                          | "prefer_not_to_answer"
+                          | "puerto_rican"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    ethnicity_other?: string | undefined
+                  }
+                | undefined
+              race_details?:
+                | {
+                    race?:
+                      | (
+                          | "african_american"
+                          | "american_indian_or_alaska_native"
+                          | "asian"
+                          | "asian_indian"
+                          | "black_or_african_american"
+                          | "chinese"
+                          | "ethiopian"
+                          | "filipino"
+                          | "guamanian_or_chamorro"
+                          | "haitian"
+                          | "jamaican"
+                          | "japanese"
+                          | "korean"
+                          | "native_hawaiian"
+                          | "native_hawaiian_or_other_pacific_islander"
+                          | "nigerian"
+                          | "other_asian"
+                          | "other_black_or_african_american"
+                          | "other_pacific_islander"
+                          | "prefer_not_to_answer"
+                          | "samoan"
+                          | "somali"
+                          | "vietnamese"
+                          | "white"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    race_other?: string | undefined
+                  }
+                | undefined
+              self_identified_gender?: string | undefined
+            }
+          | undefined
         verification?:
           | {
               additional_document?:
@@ -3581,6 +3830,62 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         ssn_last_4?: string | undefined
+        us_cfpb_data?:
+          | {
+              ethnicity_details?:
+                | {
+                    ethnicity?:
+                      | (
+                          | "cuban"
+                          | "hispanic_or_latino"
+                          | "mexican"
+                          | "not_hispanic_or_latino"
+                          | "other_hispanic_or_latino"
+                          | "prefer_not_to_answer"
+                          | "puerto_rican"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    ethnicity_other?: string | undefined
+                  }
+                | undefined
+              race_details?:
+                | {
+                    race?:
+                      | (
+                          | "african_american"
+                          | "american_indian_or_alaska_native"
+                          | "asian"
+                          | "asian_indian"
+                          | "black_or_african_american"
+                          | "chinese"
+                          | "ethiopian"
+                          | "filipino"
+                          | "guamanian_or_chamorro"
+                          | "haitian"
+                          | "jamaican"
+                          | "japanese"
+                          | "korean"
+                          | "native_hawaiian"
+                          | "native_hawaiian_or_other_pacific_islander"
+                          | "nigerian"
+                          | "other_asian"
+                          | "other_black_or_african_american"
+                          | "other_pacific_islander"
+                          | "prefer_not_to_answer"
+                          | "samoan"
+                          | "somali"
+                          | "vietnamese"
+                          | "white"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
+                    race_other?: string | undefined
+                  }
+                | undefined
+              self_identified_gender?: string | undefined
+            }
+          | undefined
         verification?:
           | {
               additional_document?:
@@ -4418,7 +4723,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }[]
                 | undefined
               gte: number
-              meter?: string | undefined
+              meter: string
               recurrence: "one_time" | UnknownEnumStringValue
             }
           | undefined
@@ -7593,6 +7898,9 @@ export class StripeApi extends AbstractAxiosClient {
                     | UnknownEnumStringValue
                   )[]
                 | undefined
+              payment_method_remove?:
+                | ("disabled" | "enabled" | UnknownEnumStringValue)
+                | undefined
               payment_method_save?:
                 | ("disabled" | "enabled" | UnknownEnumStringValue)
                 | undefined
@@ -7997,6 +8305,17 @@ export class StripeApi extends AbstractAxiosClient {
           | undefined
         ui_mode?:
           | ("custom" | "embedded" | "hosted" | UnknownEnumStringValue)
+          | undefined
+        wallet_options?:
+          | {
+              link?:
+                | {
+                    display?:
+                      | ("auto" | "never" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
           | undefined
       }
     } = {},
@@ -9574,10 +9893,15 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ar_cuit"
                 | "au_abn"
                 | "au_arn"
+                | "aw_tin"
+                | "az_tin"
                 | "ba_tin"
                 | "bb_tin"
+                | "bd_bin"
+                | "bf_ifu"
                 | "bg_uic"
                 | "bh_vat"
+                | "bj_ifu"
                 | "bo_tin"
                 | "br_cnpj"
                 | "br_cpf"
@@ -9593,14 +9917,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ch_uid"
                 | "ch_vat"
                 | "cl_tin"
+                | "cm_niu"
                 | "cn_tin"
                 | "co_nit"
                 | "cr_tin"
+                | "cv_nif"
                 | "de_stn"
                 | "do_rcn"
                 | "ec_ruc"
                 | "eg_tin"
                 | "es_cif"
+                | "et_tin"
                 | "eu_oss_vat"
                 | "eu_vat"
                 | "gb_vat"
@@ -9617,9 +9944,11 @@ export class StripeApi extends AbstractAxiosClient {
                 | "jp_rn"
                 | "jp_trn"
                 | "ke_pin"
+                | "kg_tin"
                 | "kh_tin"
                 | "kr_brn"
                 | "kz_bin"
+                | "la_tin"
                 | "li_uid"
                 | "li_vat"
                 | "ma_vat"
@@ -11351,6 +11680,16 @@ export class StripeApi extends AbstractAxiosClient {
           | undefined
         backdate_start_date?: number | undefined
         billing_cycle_anchor?: number | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+              | UnknownEnumStringValue
+            )
+          | undefined
         cancel_at?: number | undefined
         cancel_at_period_end?: boolean | undefined
         collection_method?:
@@ -11388,6 +11727,15 @@ export class StripeApi extends AbstractAxiosClient {
           | undefined
         items?:
           | {
+              billing_thresholds?:
+                | (
+                    | {
+                        usage_gte: number
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               discounts?:
                 | (
                     | {
@@ -11629,6 +11977,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "ach_credit_transfer"
                         | "ach_debit"
                         | "acss_debit"
+                        | "affirm"
                         | "amazon_pay"
                         | "au_becs_debit"
                         | "bacs_debit"
@@ -11849,6 +12198,16 @@ export class StripeApi extends AbstractAxiosClient {
         billing_cycle_anchor?:
           | ("now" | "unchanged" | UnknownEnumStringValue)
           | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+              | UnknownEnumStringValue
+            )
+          | undefined
         cancel_at?: (number | "" | UnknownEnumStringValue) | undefined
         cancel_at_period_end?: boolean | undefined
         cancellation_details?:
@@ -11904,6 +12263,15 @@ export class StripeApi extends AbstractAxiosClient {
           | undefined
         items?:
           | {
+              billing_thresholds?:
+                | (
+                    | {
+                        usage_gte: number
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               clear_usage?: boolean | undefined
               deleted?: boolean | undefined
               discounts?:
@@ -12166,6 +12534,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "ach_credit_transfer"
                         | "ach_debit"
                         | "acss_debit"
+                        | "affirm"
                         | "amazon_pay"
                         | "au_becs_debit"
                         | "bacs_debit"
@@ -12390,10 +12759,15 @@ export class StripeApi extends AbstractAxiosClient {
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "aw_tin"
+          | "az_tin"
           | "ba_tin"
           | "bb_tin"
+          | "bd_bin"
+          | "bf_ifu"
           | "bg_uic"
           | "bh_vat"
+          | "bj_ifu"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
@@ -12409,14 +12783,17 @@ export class StripeApi extends AbstractAxiosClient {
           | "ch_uid"
           | "ch_vat"
           | "cl_tin"
+          | "cm_niu"
           | "cn_tin"
           | "co_nit"
           | "cr_tin"
+          | "cv_nif"
           | "de_stn"
           | "do_rcn"
           | "ec_ruc"
           | "eg_tin"
           | "es_cif"
+          | "et_tin"
           | "eu_oss_vat"
           | "eu_vat"
           | "gb_vat"
@@ -12433,9 +12810,11 @@ export class StripeApi extends AbstractAxiosClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kg_tin"
           | "kh_tin"
           | "kr_brn"
           | "kz_bin"
+          | "la_tin"
           | "li_uid"
           | "li_vat"
           | "ma_vat"
@@ -15381,6 +15760,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "ach_credit_transfer"
                         | "ach_debit"
                         | "acss_debit"
+                        | "affirm"
                         | "amazon_pay"
                         | "au_becs_debit"
                         | "bacs_debit"
@@ -15640,10 +16020,15 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ar_cuit"
                       | "au_abn"
                       | "au_arn"
+                      | "aw_tin"
+                      | "az_tin"
                       | "ba_tin"
                       | "bb_tin"
+                      | "bd_bin"
+                      | "bf_ifu"
                       | "bg_uic"
                       | "bh_vat"
+                      | "bj_ifu"
                       | "bo_tin"
                       | "br_cnpj"
                       | "br_cpf"
@@ -15659,14 +16044,17 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ch_uid"
                       | "ch_vat"
                       | "cl_tin"
+                      | "cm_niu"
                       | "cn_tin"
                       | "co_nit"
                       | "cr_tin"
+                      | "cv_nif"
                       | "de_stn"
                       | "do_rcn"
                       | "ec_ruc"
                       | "eg_tin"
                       | "es_cif"
+                      | "et_tin"
                       | "eu_oss_vat"
                       | "eu_vat"
                       | "gb_vat"
@@ -15683,9 +16071,11 @@ export class StripeApi extends AbstractAxiosClient {
                       | "jp_rn"
                       | "jp_trn"
                       | "ke_pin"
+                      | "kg_tin"
                       | "kh_tin"
                       | "kr_brn"
                       | "kz_bin"
+                      | "la_tin"
                       | "li_uid"
                       | "li_vat"
                       | "ma_vat"
@@ -15883,6 +16273,16 @@ export class StripeApi extends AbstractAxiosClient {
                     billing_cycle_anchor?:
                       | ("automatic" | "phase_start" | UnknownEnumStringValue)
                       | undefined
+                    billing_thresholds?:
+                      | (
+                          | {
+                              amount_gte?: number | undefined
+                              reset_billing_cycle_anchor?: boolean | undefined
+                            }
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
                     collection_method?:
                       | (
                           | "charge_automatically"
@@ -15929,6 +16329,15 @@ export class StripeApi extends AbstractAxiosClient {
                         }
                       | undefined
                     items: {
+                      billing_thresholds?:
+                        | (
+                            | {
+                                usage_gte: number
+                              }
+                            | ""
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
                       discounts?:
                         | (
                             | {
@@ -16030,6 +16439,15 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               items?:
                 | {
+                    billing_thresholds?:
+                      | (
+                          | {
+                              usage_gte: number
+                            }
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
                     clear_usage?: boolean | undefined
                     deleted?: boolean | undefined
                     discounts?:
@@ -16456,6 +16874,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "ach_credit_transfer"
                         | "ach_debit"
                         | "acss_debit"
+                        | "affirm"
                         | "amazon_pay"
                         | "au_becs_debit"
                         | "bacs_debit"
@@ -16811,6 +17230,34 @@ export class StripeApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/add_lines`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postInvoicesInvoiceAttachPayment(
+    p: {
+      invoice: string
+      requestBody?: {
+        expand?: string[] | undefined
+        payment_intent?: string | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_invoice>> {
+    const url = `/v1/invoices/${p["invoice"]}/attach_payment`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -23450,6 +23897,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -23909,6 +24357,17 @@ export class StripeApi extends AbstractAxiosClient {
                               | "off_session"
                               | UnknownEnumStringValue
                             )
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              billie?:
+                | (
+                    | {
+                        capture_method?:
+                          | ("" | "manual" | UnknownEnumStringValue)
                           | undefined
                       }
                     | ""
@@ -24605,6 +25064,17 @@ export class StripeApi extends AbstractAxiosClient {
                   )
                 | undefined
               samsung_pay?:
+                | (
+                    | {
+                        capture_method?:
+                          | ("" | "manual" | UnknownEnumStringValue)
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              satispay?:
                 | (
                     | {
                         capture_method?:
@@ -25026,6 +25496,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -25485,6 +25956,17 @@ export class StripeApi extends AbstractAxiosClient {
                               | "off_session"
                               | UnknownEnumStringValue
                             )
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              billie?:
+                | (
+                    | {
+                        capture_method?:
+                          | ("" | "manual" | UnknownEnumStringValue)
                           | undefined
                       }
                     | ""
@@ -26181,6 +26663,17 @@ export class StripeApi extends AbstractAxiosClient {
                   )
                 | undefined
               samsung_pay?:
+                | (
+                    | {
+                        capture_method?:
+                          | ("" | "manual" | UnknownEnumStringValue)
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              satispay?:
                 | (
                     | {
                         capture_method?:
@@ -26653,6 +27146,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -27112,6 +27606,17 @@ export class StripeApi extends AbstractAxiosClient {
                               | "off_session"
                               | UnknownEnumStringValue
                             )
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              billie?:
+                | (
+                    | {
+                        capture_method?:
+                          | ("" | "manual" | UnknownEnumStringValue)
                           | undefined
                       }
                     | ""
@@ -27808,6 +28313,17 @@ export class StripeApi extends AbstractAxiosClient {
                   )
                 | undefined
               samsung_pay?:
+                | (
+                    | {
+                        capture_method?:
+                          | ("" | "manual" | UnknownEnumStringValue)
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              satispay?:
                 | (
                     | {
                         capture_method?:
@@ -29802,6 +30318,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        kakao_pay?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         klarna?:
           | {
               display_preference?:
@@ -29814,6 +30341,17 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         konbini?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        kr_card?:
           | {
               display_preference?:
                 | {
@@ -29858,6 +30396,17 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         name?: string | undefined
+        naver_pay?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         nz_bank_account?:
           | {
               display_preference?:
@@ -29903,6 +30452,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        payco?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         paynow?:
           | {
               display_preference?:
@@ -29925,6 +30485,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        pix?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         promptpay?:
           | {
               display_preference?:
@@ -29937,6 +30508,17 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         revolut_pay?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        samsung_pay?:
           | {
               display_preference?:
                 | {
@@ -30365,6 +30947,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        kakao_pay?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         klarna?:
           | {
               display_preference?:
@@ -30377,6 +30970,17 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         konbini?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        kr_card?:
           | {
               display_preference?:
                 | {
@@ -30421,6 +31025,17 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         name?: string | undefined
+        naver_pay?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         nz_bank_account?:
           | {
               display_preference?:
@@ -30465,6 +31080,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        payco?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         paynow?:
           | {
               display_preference?:
@@ -30487,6 +31113,17 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        pix?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
         promptpay?:
           | {
               display_preference?:
@@ -30499,6 +31136,17 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         revolut_pay?:
+          | {
+              display_preference?:
+                | {
+                    preference?:
+                      | ("none" | "off" | "on" | UnknownEnumStringValue)
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        samsung_pay?:
           | {
               display_preference?:
                 | {
@@ -30918,6 +31566,7 @@ export class StripeApi extends AbstractAxiosClient {
               email?: (string | "" | UnknownEnumStringValue) | undefined
               name?: (string | "" | UnknownEnumStringValue) | undefined
               phone?: (string | "" | UnknownEnumStringValue) | undefined
+              tax_id?: string | undefined
             }
           | undefined
         blik?: EmptyObject | undefined
@@ -31297,6 +31946,7 @@ export class StripeApi extends AbstractAxiosClient {
               email?: (string | "" | UnknownEnumStringValue) | undefined
               name?: (string | "" | UnknownEnumStringValue) | undefined
               phone?: (string | "" | UnknownEnumStringValue) | undefined
+              tax_id?: string | undefined
             }
           | undefined
         card?:
@@ -35214,6 +35864,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -35880,6 +36531,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -36553,6 +37205,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -37972,6 +38625,15 @@ export class StripeApi extends AbstractAxiosClient {
   async postSubscriptionItems(
     p: {
       requestBody: {
+        billing_thresholds?:
+          | (
+              | {
+                  usage_gte: number
+                }
+              | ""
+              | UnknownEnumStringValue
+            )
+          | undefined
         discounts?:
           | (
               | {
@@ -38125,6 +38787,15 @@ export class StripeApi extends AbstractAxiosClient {
     p: {
       item: string
       requestBody?: {
+        billing_thresholds?:
+          | (
+              | {
+                  usage_gte: number
+                }
+              | ""
+              | UnknownEnumStringValue
+            )
+          | undefined
         discounts?:
           | (
               | {
@@ -38317,6 +38988,16 @@ export class StripeApi extends AbstractAxiosClient {
               billing_cycle_anchor?:
                 | ("automatic" | "phase_start" | UnknownEnumStringValue)
                 | undefined
+              billing_thresholds?:
+                | (
+                    | {
+                        amount_gte?: number | undefined
+                        reset_billing_cycle_anchor?: boolean | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               collection_method?:
                 | (
                     | "charge_automatically"
@@ -38416,6 +39097,16 @@ export class StripeApi extends AbstractAxiosClient {
               billing_cycle_anchor?:
                 | ("automatic" | "phase_start" | UnknownEnumStringValue)
                 | undefined
+              billing_thresholds?:
+                | (
+                    | {
+                        amount_gte?: number | undefined
+                        reset_billing_cycle_anchor?: boolean | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               collection_method?:
                 | (
                     | "charge_automatically"
@@ -38456,6 +39147,15 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               items: {
+                billing_thresholds?:
+                  | (
+                      | {
+                          usage_gte: number
+                        }
+                      | ""
+                      | UnknownEnumStringValue
+                    )
+                  | undefined
                 discounts?:
                   | (
                       | {
@@ -38597,6 +39297,16 @@ export class StripeApi extends AbstractAxiosClient {
               billing_cycle_anchor?:
                 | ("automatic" | "phase_start" | UnknownEnumStringValue)
                 | undefined
+              billing_thresholds?:
+                | (
+                    | {
+                        amount_gte?: number | undefined
+                        reset_billing_cycle_anchor?: boolean | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               collection_method?:
                 | (
                     | "charge_automatically"
@@ -38695,6 +39405,16 @@ export class StripeApi extends AbstractAxiosClient {
               billing_cycle_anchor?:
                 | ("automatic" | "phase_start" | UnknownEnumStringValue)
                 | undefined
+              billing_thresholds?:
+                | (
+                    | {
+                        amount_gte?: number | undefined
+                        reset_billing_cycle_anchor?: boolean | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               collection_method?:
                 | (
                     | "charge_automatically"
@@ -38734,6 +39454,15 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               items: {
+                billing_thresholds?:
+                  | (
+                      | {
+                          usage_gte: number
+                        }
+                      | ""
+                      | UnknownEnumStringValue
+                    )
+                  | undefined
                 discounts?:
                   | (
                       | {
@@ -39046,6 +39775,16 @@ export class StripeApi extends AbstractAxiosClient {
               second?: number | undefined
             }
           | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+              | UnknownEnumStringValue
+            )
+          | undefined
         cancel_at?: number | undefined
         cancel_at_period_end?: boolean | undefined
         collection_method?:
@@ -39085,6 +39824,15 @@ export class StripeApi extends AbstractAxiosClient {
           | undefined
         items?:
           | {
+              billing_thresholds?:
+                | (
+                    | {
+                        usage_gte: number
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               discounts?:
                 | (
                     | {
@@ -39327,6 +40075,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "ach_credit_transfer"
                         | "ach_debit"
                         | "acss_debit"
+                        | "affirm"
                         | "amazon_pay"
                         | "au_becs_debit"
                         | "bacs_debit"
@@ -39606,6 +40355,16 @@ export class StripeApi extends AbstractAxiosClient {
         billing_cycle_anchor?:
           | ("now" | "unchanged" | UnknownEnumStringValue)
           | undefined
+        billing_thresholds?:
+          | (
+              | {
+                  amount_gte?: number | undefined
+                  reset_billing_cycle_anchor?: boolean | undefined
+                }
+              | ""
+              | UnknownEnumStringValue
+            )
+          | undefined
         cancel_at?: (number | "" | UnknownEnumStringValue) | undefined
         cancel_at_period_end?: boolean | undefined
         cancellation_details?:
@@ -39662,6 +40421,15 @@ export class StripeApi extends AbstractAxiosClient {
           | undefined
         items?:
           | {
+              billing_thresholds?:
+                | (
+                    | {
+                        usage_gte: number
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               clear_usage?: boolean | undefined
               deleted?: boolean | undefined
               discounts?:
@@ -39925,6 +40693,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "ach_credit_transfer"
                         | "ach_debit"
                         | "acss_debit"
+                        | "affirm"
                         | "amazon_pay"
                         | "au_becs_debit"
                         | "bacs_debit"
@@ -40137,10 +40906,15 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ar_cuit"
                       | "au_abn"
                       | "au_arn"
+                      | "aw_tin"
+                      | "az_tin"
                       | "ba_tin"
                       | "bb_tin"
+                      | "bd_bin"
+                      | "bf_ifu"
                       | "bg_uic"
                       | "bh_vat"
+                      | "bj_ifu"
                       | "bo_tin"
                       | "br_cnpj"
                       | "br_cpf"
@@ -40156,14 +40930,17 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ch_uid"
                       | "ch_vat"
                       | "cl_tin"
+                      | "cm_niu"
                       | "cn_tin"
                       | "co_nit"
                       | "cr_tin"
+                      | "cv_nif"
                       | "de_stn"
                       | "do_rcn"
                       | "ec_ruc"
                       | "eg_tin"
                       | "es_cif"
+                      | "et_tin"
                       | "eu_oss_vat"
                       | "eu_vat"
                       | "gb_vat"
@@ -40180,9 +40957,11 @@ export class StripeApi extends AbstractAxiosClient {
                       | "jp_rn"
                       | "jp_trn"
                       | "ke_pin"
+                      | "kg_tin"
                       | "kh_tin"
                       | "kr_brn"
                       | "kz_bin"
+                      | "la_tin"
                       | "li_uid"
                       | "li_vat"
                       | "ma_vat"
@@ -40246,6 +41025,11 @@ export class StripeApi extends AbstractAxiosClient {
         expand?: string[] | undefined
         line_items: {
           amount: number
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | undefined
           product?: string | undefined
           quantity?: number | undefined
           reference?: string | undefined
@@ -40465,12 +41249,27 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
+          aw?:
+            | {
+                type: "standard" | UnknownEnumStringValue
+              }
+            | undefined
+          az?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
           ba?:
             | {
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           bb?:
+            | {
+                type: "standard" | UnknownEnumStringValue
+              }
+            | undefined
+          bd?:
             | {
                 type: "standard" | UnknownEnumStringValue
               }
@@ -40491,6 +41290,11 @@ export class StripeApi extends AbstractAxiosClient {
                   | "oss_union"
                   | "standard"
                   | UnknownEnumStringValue
+              }
+            | undefined
+          bf?:
+            | {
+                type: "standard" | UnknownEnumStringValue
               }
             | undefined
           bg?:
@@ -40514,6 +41318,11 @@ export class StripeApi extends AbstractAxiosClient {
           bh?:
             | {
                 type: "standard" | UnknownEnumStringValue
+              }
+            | undefined
+          bj?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
               }
             | undefined
           bs?:
@@ -40555,12 +41364,22 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "simplified" | UnknownEnumStringValue
               }
             | undefined
+          cm?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
           co?:
             | {
                 type: "simplified" | UnknownEnumStringValue
               }
             | undefined
           cr?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
+          cv?:
             | {
                 type: "simplified" | UnknownEnumStringValue
               }
@@ -40681,6 +41500,11 @@ export class StripeApi extends AbstractAxiosClient {
                   | "oss_union"
                   | "standard"
                   | UnknownEnumStringValue
+              }
+            | undefined
+          et?:
+            | {
+                type: "standard" | UnknownEnumStringValue
               }
             | undefined
           fi?:
@@ -40811,6 +41635,11 @@ export class StripeApi extends AbstractAxiosClient {
                   | UnknownEnumStringValue
               }
             | undefined
+          in?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
           is?:
             | {
                 type: "standard" | UnknownEnumStringValue
@@ -40844,6 +41673,11 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "simplified" | UnknownEnumStringValue
               }
             | undefined
+          kg?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
           kh?:
             | {
                 type: "simplified" | UnknownEnumStringValue
@@ -40855,6 +41689,11 @@ export class StripeApi extends AbstractAxiosClient {
               }
             | undefined
           kz?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
+          la?:
             | {
                 type: "simplified" | UnknownEnumStringValue
               }
@@ -41010,6 +41849,11 @@ export class StripeApi extends AbstractAxiosClient {
               }
             | undefined
           pe?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
+          ph?:
             | {
                 type: "simplified" | UnknownEnumStringValue
               }
@@ -41702,10 +42546,15 @@ export class StripeApi extends AbstractAxiosClient {
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "aw_tin"
+          | "az_tin"
           | "ba_tin"
           | "bb_tin"
+          | "bd_bin"
+          | "bf_ifu"
           | "bg_uic"
           | "bh_vat"
+          | "bj_ifu"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
@@ -41721,14 +42570,17 @@ export class StripeApi extends AbstractAxiosClient {
           | "ch_uid"
           | "ch_vat"
           | "cl_tin"
+          | "cm_niu"
           | "cn_tin"
           | "co_nit"
           | "cr_tin"
+          | "cv_nif"
           | "de_stn"
           | "do_rcn"
           | "ec_ruc"
           | "eg_tin"
           | "es_cif"
+          | "et_tin"
           | "eu_oss_vat"
           | "eu_vat"
           | "gb_vat"
@@ -41745,9 +42597,11 @@ export class StripeApi extends AbstractAxiosClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kg_tin"
           | "kh_tin"
           | "kr_brn"
           | "kz_bin"
+          | "la_tin"
           | "li_uid"
           | "li_vat"
           | "ma_vat"
@@ -42840,6 +43694,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "bbpos_wisepad3"
         | "bbpos_wisepos_e"
         | "mobile_phone_reader"
+        | "simulated_stripe_s700"
         | "simulated_wisepos_e"
         | "stripe_m2"
         | "stripe_s700"
@@ -43045,6 +43900,75 @@ export class StripeApi extends AbstractAxiosClient {
     })
   }
 
+  async postTerminalReadersReaderCollectInputs(
+    p: {
+      reader: string
+      requestBody: {
+        expand?: string[] | undefined
+        inputs: {
+          custom_text: {
+            description?: string | undefined
+            skip_button?: string | undefined
+            submit_button?: string | undefined
+            title: string
+          }
+          required?: boolean | undefined
+          selection?:
+            | {
+                choices: {
+                  id: string
+                  style?:
+                    | ("primary" | "secondary" | UnknownEnumStringValue)
+                    | undefined
+                  text: string
+                }[]
+              }
+            | undefined
+          toggles?:
+            | {
+                default_value?:
+                  | ("disabled" | "enabled" | UnknownEnumStringValue)
+                  | undefined
+                description?: string | undefined
+                title?: string | undefined
+              }[]
+            | undefined
+          type:
+            | "email"
+            | "numeric"
+            | "phone"
+            | "selection"
+            | "signature"
+            | "text"
+            | UnknownEnumStringValue
+        }[]
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_reader>> {
+    const url = `/v1/terminal/readers/${p["reader"]}/collect_inputs`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async postTerminalReadersReaderProcessPaymentIntent(
     p: {
       reader: string
@@ -43062,6 +43986,7 @@ export class StripeApi extends AbstractAxiosClient {
                   )
                 | undefined
               enable_customer_cancellation?: boolean | undefined
+              return_url?: string | undefined
               skip_tipping?: boolean | undefined
               tipping?:
                 | {
@@ -43272,6 +44197,7 @@ export class StripeApi extends AbstractAxiosClient {
                     email?: (string | "" | UnknownEnumStringValue) | undefined
                     name?: (string | "" | UnknownEnumStringValue) | undefined
                     phone?: (string | "" | UnknownEnumStringValue) | undefined
+                    tax_id?: string | undefined
                   }
                 | undefined
               blik?: EmptyObject | undefined
@@ -43546,6 +44472,25 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               wechat_pay?: EmptyObject | undefined
               zip?: EmptyObject | undefined
+            }
+          | undefined
+        payment_method_options?:
+          | {
+              card?:
+                | {
+                    installments?:
+                      | {
+                          plan: {
+                            count?: number | undefined
+                            interval?:
+                              | ("month" | UnknownEnumStringValue)
+                              | undefined
+                            type: "fixed_count" | UnknownEnumStringValue
+                          }
+                        }
+                      | undefined
+                  }
+                | undefined
             }
           | undefined
         return_url?: string | undefined
@@ -45802,6 +46747,63 @@ export class StripeApi extends AbstractAxiosClient {
     })
   }
 
+  async postTestHelpersTerminalReadersReaderSucceedInputCollection(
+    p: {
+      reader: string
+      requestBody?: {
+        expand?: string[] | undefined
+        skip_non_required_inputs?:
+          | ("all" | "none" | UnknownEnumStringValue)
+          | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_reader>> {
+    const url = `/v1/test_helpers/terminal/readers/${p["reader"]}/succeed_input_collection`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postTestHelpersTerminalReadersReaderTimeoutInputCollection(
+    p: {
+      reader: string
+      requestBody?: {
+        expand?: string[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_reader>> {
+    const url = `/v1/test_helpers/terminal/readers/${p["reader"]}/timeout_input_collection`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async getTestHelpersTestClocks(
     p: {
       endingBefore?: string
@@ -46504,6 +47506,17 @@ export class StripeApi extends AbstractAxiosClient {
                         )
                       | undefined
                     phone?: string | undefined
+                    registration_date?:
+                      | (
+                          | {
+                              day: number
+                              month: number
+                              year: number
+                            }
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
                     registration_number?: string | undefined
                     structure?:
                       | (
@@ -46860,6 +47873,62 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               ssn_last_4?: string | undefined
+              us_cfpb_data?:
+                | {
+                    ethnicity_details?:
+                      | {
+                          ethnicity?:
+                            | (
+                                | "cuban"
+                                | "hispanic_or_latino"
+                                | "mexican"
+                                | "not_hispanic_or_latino"
+                                | "other_hispanic_or_latino"
+                                | "prefer_not_to_answer"
+                                | "puerto_rican"
+                                | UnknownEnumStringValue
+                              )[]
+                            | undefined
+                          ethnicity_other?: string | undefined
+                        }
+                      | undefined
+                    race_details?:
+                      | {
+                          race?:
+                            | (
+                                | "african_american"
+                                | "american_indian_or_alaska_native"
+                                | "asian"
+                                | "asian_indian"
+                                | "black_or_african_american"
+                                | "chinese"
+                                | "ethiopian"
+                                | "filipino"
+                                | "guamanian_or_chamorro"
+                                | "haitian"
+                                | "jamaican"
+                                | "japanese"
+                                | "korean"
+                                | "native_hawaiian"
+                                | "native_hawaiian_or_other_pacific_islander"
+                                | "nigerian"
+                                | "other_asian"
+                                | "other_black_or_african_american"
+                                | "other_pacific_islander"
+                                | "prefer_not_to_answer"
+                                | "samoan"
+                                | "somali"
+                                | "vietnamese"
+                                | "white"
+                                | UnknownEnumStringValue
+                              )[]
+                            | undefined
+                          race_other?: string | undefined
+                        }
+                      | undefined
+                    self_identified_gender?: string | undefined
+                  }
+                | undefined
               verification?:
                 | {
                     additional_document?:
@@ -49137,6 +50206,8 @@ export class StripeApi extends AbstractAxiosClient {
               | "2025-02-24.acacia"
               | "2025-03-01.dashboard"
               | "2025-03-31.basil"
+              | "2025-04-30.basil"
+              | "2025-05-28.basil"
               | UnknownEnumStringValue
             )
           | undefined
@@ -49243,6 +50314,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "invoice.updated"
           | "invoice.voided"
           | "invoice.will_be_due"
+          | "invoice_payment.paid"
           | "invoiceitem.created"
           | "invoiceitem.deleted"
           | "issuing_authorization.created"
@@ -49579,6 +50651,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "invoice.updated"
               | "invoice.voided"
               | "invoice.will_be_due"
+              | "invoice_payment.paid"
               | "invoiceitem.created"
               | "invoiceitem.deleted"
               | "issuing_authorization.created"
