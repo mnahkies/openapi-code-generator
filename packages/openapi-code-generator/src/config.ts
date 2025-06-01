@@ -17,6 +17,7 @@ export type Config = {
     | "typescript-angular"
     | "typescript-koa"
     | "typescript-express"
+    | "typescript-nextjs"
   schemaBuilder: "zod" | "joi"
   enableRuntimeResponseValidation: boolean
   enableTypedBasePaths: boolean
