@@ -19,6 +19,19 @@ export function getNameFromRef({$ref}: Reference, prefix: string): string {
   return prefix + name.replace(/[-.]+/g, "_")
 }
 
+export function extractPlaceholders(
+  it: string,
+): {wholeString: string; placeholder: string | undefined}[] {
+  const regex = /{([^{}]+)}/g
+
+  return Array.from(it.matchAll(regex)).map((match) => ({
+    // includes the surrounding {}
+    wholeString: match[0],
+    // just the placeholder name
+    placeholder: match[1],
+  }))
+}
+
 export function getTypeNameFromRef(reference: Reference) {
   return getNameFromRef(reference, "t_")
 }

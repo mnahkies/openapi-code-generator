@@ -3,6 +3,8 @@ import type {
   IRServer,
   IRServerVariable,
 } from "../../core/openapi-types-normalized"
+import {extractPlaceholders} from "../../core/openapi-utils"
+import {isDefined} from "../../core/utils"
 import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import type {ImportBuilder} from "../common/import-builder"
 import {quotedStringLiteral, union} from "../common/type-utils"
@@ -32,17 +34,11 @@ export class ClientServersBuilder implements ICompilable {
   }
 
   private validateServer(server: IRServer) {
-    const regex = /\{([^{}]+)}/g
-    const placeholders: string[] = []
-    let match: RegExpExecArray | null
-    // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-    while ((match = regex.exec(server.url)) !== null) {
-      if (match[1]) {
-        placeholders.push(match[1])
-      }
-    }
+    const placeholders = extractPlaceholders(server.url)
+      .map((it) => it.placeholder)
+      .filter(isDefined)
 
-    const variables = Object.keys(server.variables)
+    const variables = server.variables.map((it) => it.name)
 
     for (const placeholder of placeholders) {
       if (!variables.includes(placeholder)) {
@@ -58,40 +54,34 @@ export class ClientServersBuilder implements ICompilable {
           `server '${server.url}' has variable '${variable}' but no placeholder with that name`,
         )
       }
-
-      if (server.variables[variable]?.default === undefined) {
-        throw new Error(
-          `server '${server.url}' has variable '${variable}' with no default value`,
-        )
-      }
     }
   }
 
   private toParams(
-    variables: {
-      [k: string]: IRServerVariable
-    },
+    variables: IRServerVariable[],
     includeDefault = true,
   ): string {
-    return Object.entries(variables)
-      .map(([name, variable]) => {
+    return variables
+      .map((it) => {
         const type = !includeDefault
-          ? `${union(...variable.enum.map(quotedStringLiteral)) || "string"}`
-          : union(...variable.enum.map(quotedStringLiteral))
-        return `${name}${type ? `${!includeDefault ? "?" : ""}:${type}` : ""} ${includeDefault ? `= ${quotedStringLiteral(variable.default)}` : ""}`
+          ? `${union(...it.enum.map(quotedStringLiteral)) || "string"}`
+          : union(...it.enum.map(quotedStringLiteral))
+        return `${it.name}${type ? `${!includeDefault && it.default ? "?" : ""}:${type}` : ""} ${includeDefault && it.default ? `= ${quotedStringLiteral(it.default)}` : ""}`
       })
       .join(",")
   }
 
   private toReplacer(server: IRServer) {
-    const vars = Object.entries(server.variables)
-    return `"${server.url}" ${vars.length ? vars.map(([name]) => `.replace("{${name}}", ${name})`).join("\n") : ""}`
+    return `"${server.url}" ${server.variables.length ? server.variables.map((it) => `.replace("{${it.name}}", ${it.name})`).join("\n") : ""}`
   }
 
   private toDefault() {
     const defaultServer = this.servers[0]
+    const variablesWithoutDefault = defaultServer?.variables.filter(
+      (it) => !it.default,
+    )
 
-    if (!defaultServer) {
+    if (!defaultServer || variablesWithoutDefault?.length) {
       return ""
     }
 
@@ -158,7 +148,7 @@ export class ClientServersBuilder implements ICompilable {
   }
 
   default() {
-    if (this.config.enableTypedBasePaths) {
+    if (this.config.enableTypedBasePaths && this.toDefault() !== "") {
       return `${this.classExportName}.default()`
     }
     return "''"

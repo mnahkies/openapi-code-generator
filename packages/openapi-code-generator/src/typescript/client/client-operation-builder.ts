@@ -4,6 +4,7 @@ import type {
   IRParameter,
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
+import {extractPlaceholders} from "../../core/openapi-utils"
 import {camelCase, isDefined} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
@@ -54,32 +55,29 @@ export class ClientOperationBuilder {
 
   routeToTemplateString(paramName = "p"): string {
     const {route, parameters} = this.operation
-    const placeholder = /{([^{}]+)}/g
+    const placeholders = extractPlaceholders(route)
 
-    return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-      const wholeString = match[0]
-      const placeholderName = match[1]
-
-      if (!placeholderName) {
+    return placeholders.reduce((result, {placeholder, wholeString}) => {
+      if (!placeholder) {
         throw new Error(
-          `invalid route parameter placeholder in route '${placeholder}'`,
+          `invalid route parameter placeholder in route '${route}'`,
         )
       }
 
       const parameter = parameters.find(
-        (it) => it.name === placeholderName && it.in === "path",
+        (it) => it.name === placeholder && it.in === "path",
       )
 
       if (!parameter) {
         throw new Error(
-          `invalid route ${route}. missing path parameter for '${placeholderName}'`,
+          `invalid route ${route}. missing path parameter for '${placeholder}'`,
         )
       }
 
       return result.replace(
         wholeString,
         // TODO: why do we camelCase here? Feels presumptuous
-        `\${${paramName}["${camelCase(placeholderName)}"]}`,
+        `\${${paramName}["${camelCase(placeholder)}"]}`,
       )
     }, route)
   }

@@ -29,11 +29,12 @@ import type {
   IRServerVariable,
   MaybeIRModel,
 } from "./openapi-types-normalized"
-import {isRef} from "./openapi-utils"
+import {extractPlaceholders, isRef} from "./openapi-utils"
 import {
   camelCase,
   coalesce,
   deepEqual,
+  isDefined,
   isHttpMethod,
   mediaTypeToIdentifier,
 } from "./utils"
@@ -233,20 +234,42 @@ export class Input {
   private normalizeServers(servers: Server[]): IRServer[] {
     return servers
       .filter((it) => it.url)
-      .map((it) => ({
-        url: it.url,
-        description: it.description,
-        variables: Object.fromEntries(
-          Object.entries(it.variables ?? {}).map(([key, value]) => [
-            key,
-            {
-              enum: value.enum ?? [],
-              default: value.default,
-              description: value.description,
-            } satisfies IRServerVariable,
-          ]),
-        ),
-      }))
+      .map((it) => {
+        const variables = Object.entries(it.variables ?? {}).map(
+          ([key, value]): IRServerVariable => ({
+            name: key,
+            enum: value.enum ?? [],
+            default: value.default,
+            description: value.description,
+          }),
+        )
+
+        const placeholders = extractPlaceholders(it.url)
+          .map((it) => it.placeholder)
+          .filter(isDefined)
+
+        for (const placeholder of placeholders) {
+          const variable = variables.find((it) => it.name === placeholder)
+
+          if (!variable) {
+            logger.warn(
+              `missing placeholder variable for server url '${it.url}' - inserting variable of type string with no default`,
+            )
+            variables.push({
+              name: placeholder,
+              default: undefined,
+              enum: [],
+              description: undefined,
+            })
+          }
+        }
+
+        return {
+          url: it.url,
+          description: it.description,
+          variables,
+        }
+      })
   }
 
   private normalizeRequestBodyObject(

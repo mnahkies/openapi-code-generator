@@ -106,14 +106,13 @@ export type MaybeIRModel = IRModel | IRRef
 export interface IRServer {
   url: string
   description: string | undefined
-  variables: {
-    [k: string]: IRServerVariable
-  }
+  variables: IRServerVariable[]
 }
 
 export interface IRServerVariable {
+  name: string
   enum: string[]
-  default: string
+  default: string | undefined
   description: string | undefined
 }
 
