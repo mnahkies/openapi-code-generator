@@ -150,7 +150,7 @@ export abstract class AbstractFetchClient {
 
   private headersAsArray(
     headers: HeaderParams | HeadersInit,
-  ): [string, string | number | undefined | null][] {
+  ): [string, string | number | boolean | undefined | null][] {
     if (isMultiDimArray(headers)) {
       return headers.flatMap((it) =>
         isNonEmptyArray(it) ? headerArrayToTuples(it) : [],
@@ -195,9 +195,8 @@ function isNonEmptyArray<T>(it: T[]): it is NonEmptyArray<T> {
   return Array.isArray(it) && it.length > 0
 }
 
-function headerArrayToTuples<T extends string | number | undefined | null>([
-  head,
-  ...rest
-]: [string, ...T[]]): [string, T][] {
+function headerArrayToTuples<
+  T extends string | number | boolean | undefined | null,
+>([head, ...rest]: [string, ...T[]]): [string, T][] {
   return rest.map((value) => [head, value] as const)
 }

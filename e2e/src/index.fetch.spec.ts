@@ -1,5 +1,6 @@
 import type {Server} from "node:http"
 import {beforeAll, describe, expect, it} from "@jest/globals"
+import type {AxiosError} from "axios"
 import {ApiClient, E2ETestClientServers} from "./generated/client/fetch/client"
 import {startServerFunctions} from "./index"
 import {numberBetween} from "./test-utils"
@@ -206,7 +207,33 @@ describe.each(startServerFunctions)(
         })
       })
 
-      it("rejects headers of the wrong type", async () => {
+      it("parses headers correctly", async () => {
+        const res = await client.getHeadersRequest({
+          numberHeader: 12,
+          booleanHeader: true,
+          secondBooleanHeader: false,
+          authorization: "Bearer test",
+        })
+
+        expect(res.status).toBe(200)
+
+        await expect(res.json()).resolves.toEqual({
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer test",
+            "number-header": "12",
+            "boolean-header": "true",
+            "second-boolean-header": "false",
+          }),
+          typedHeaders: {
+            authorization: "Bearer test",
+            "number-header": 12,
+            "boolean-header": true,
+            "second-boolean-header": false,
+          },
+        })
+      })
+
+      it("rejects headers of the wrong type (number)", async () => {
         const res = await client.getHeadersRequest(
           // @ts-expect-error testing validation
           {numberHeader: "i'm not a number"},
@@ -218,6 +245,21 @@ describe.each(startServerFunctions)(
           message: "Request validation failed parsing request header",
           phase: "request_validation",
           cause: expect.stringContaining("Expected number, received nan"),
+        })
+      })
+
+      it("rejects headers of the wrong type (boolean)", async () => {
+        const res = await client.getHeadersRequest(
+          // @ts-expect-error testing validation
+          {booleanHeader: "i'm not a boolean"},
+        )
+
+        expect(res.status).toBe(400)
+
+        await expect(res.json()).resolves.toMatchObject({
+          message: "Request validation failed parsing request header",
+          phase: "request_validation",
+          cause: expect.stringContaining("Expected boolean, received string"),
         })
       })
     })
