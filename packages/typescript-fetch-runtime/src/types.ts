@@ -51,8 +51,8 @@ export type QueryParams = {
 }
 
 export type HeaderParams =
-  | Record<string, string | number | undefined | null>
-  | [string, string | number | undefined | null][]
+  | Record<string, string | number | boolean | undefined | null>
+  | [string, string | number | boolean | undefined | null][]
   | Headers
 
 // fetch HeadersInit type

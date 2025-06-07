@@ -91,6 +91,8 @@ export class E2ETestClient extends AbstractAxiosClient {
     p: {
       routeLevelHeader?: string
       numberHeader?: number
+      booleanHeader?: boolean
+      secondBooleanHeader?: boolean
       authorization?: string
     } = {},
     timeout?: number,
@@ -101,6 +103,8 @@ export class E2ETestClient extends AbstractAxiosClient {
       {
         "Route-Level-Header": p["routeLevelHeader"],
         "Number-Header": p["numberHeader"],
+        "Boolean-Header": p["booleanHeader"],
+        "Second-Boolean-Header": p["secondBooleanHeader"],
         Authorization: p["authorization"],
       },
       opts.headers,

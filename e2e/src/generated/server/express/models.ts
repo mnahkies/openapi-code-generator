@@ -20,8 +20,10 @@ export type t_RandomNumber = {
 
 export type t_GetHeadersRequestRequestHeaderSchema = {
   authorization?: string | undefined
+  "boolean-header"?: boolean | undefined
   "number-header"?: number | undefined
   "route-level-header"?: string | undefined
+  "second-boolean-header"?: boolean | undefined
 }
 
 export type t_getHeadersRequestJson200Response = {

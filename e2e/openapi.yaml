@@ -37,6 +37,14 @@ paths:
           in: header
           schema:
             type: number
+        - name: Boolean-Header
+          in: header
+          schema:
+            type: boolean
+        - name: Second-Boolean-Header
+          in: header
+          schema:
+            type: boolean
         - name: Authorization
           in: header
           schema:

@@ -8,6 +8,7 @@ import {
   t_getHeadersUndeclaredJson200Response,
 } from "../models"
 import {
+  PermissiveBoolean,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
 } from "../schemas"
@@ -123,6 +124,8 @@ export function createRequestHeadersRouter(
   const getHeadersRequestRequestHeaderSchema = z.object({
     "route-level-header": z.string().optional(),
     "number-header": z.coerce.number().optional(),
+    "boolean-header": PermissiveBoolean.optional(),
+    "second-boolean-header": PermissiveBoolean.optional(),
     authorization: z.string().optional(),
   })
 
