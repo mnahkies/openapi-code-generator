@@ -86,6 +86,8 @@ export class E2ETestClient extends AbstractFetchClient {
     p: {
       routeLevelHeader?: string
       numberHeader?: number
+      booleanHeader?: boolean
+      secondBooleanHeader?: boolean
       authorization?: string
     } = {},
     timeout?: number,
@@ -96,6 +98,8 @@ export class E2ETestClient extends AbstractFetchClient {
       {
         "Route-Level-Header": p["routeLevelHeader"],
         "Number-Header": p["numberHeader"],
+        "Boolean-Header": p["booleanHeader"],
+        "Second-Boolean-Header": p["secondBooleanHeader"],
         Authorization: p["authorization"],
       },
       opts.headers,

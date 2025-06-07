@@ -188,7 +188,31 @@ describe.each(startServerFunctions)(
         })
       })
 
-      it("rejects headers of the wrong type", async () => {
+      it("parses headers correctly", async () => {
+        const {data} = await client.getHeadersRequest({
+          numberHeader: 12,
+          booleanHeader: true,
+          secondBooleanHeader: false,
+          authorization: "Bearer test",
+        })
+
+        expect(data).toEqual({
+          rawHeaders: expect.objectContaining({
+            authorization: "Bearer test",
+            "number-header": "12",
+            "boolean-header": "true",
+            "second-boolean-header": "false",
+          }),
+          typedHeaders: {
+            authorization: "Bearer test",
+            "number-header": 12,
+            "boolean-header": true,
+            "second-boolean-header": false,
+          },
+        })
+      })
+
+      it("rejects headers of the wrong type (number)", async () => {
         const err = await client
           .getHeadersRequest(
             // @ts-expect-error testing validation
@@ -207,6 +231,28 @@ describe.each(startServerFunctions)(
           message: "Request validation failed parsing request header",
           phase: "request_validation",
           cause: expect.stringContaining("Expected number, received nan"),
+        })
+      })
+
+      it("rejects headers of the wrong type (boolean)", async () => {
+        const err = await client
+          .getHeadersRequest(
+            // @ts-expect-error testing validation
+            {booleanHeader: "i'm not a boolean"},
+          )
+          .then(
+            () => {
+              throw new Error("expected request to fail")
+            },
+            (err: AxiosError) => err,
+          )
+
+        expect(err.message).toMatch("Request failed with status code 400")
+        expect(err.status).toBe(400)
+        expect(err.response?.data).toMatchObject({
+          message: "Request validation failed parsing request header",
+          phase: "request_validation",
+          cause: expect.stringContaining("Expected boolean, received string"),
         })
       })
     })

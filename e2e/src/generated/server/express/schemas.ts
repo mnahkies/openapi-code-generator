@@ -4,6 +4,15 @@
 
 import { z } from "zod"
 
+export const PermissiveBoolean = z.preprocess((value) => {
+  if (typeof value === "string" && (value === "true" || value === "false")) {
+    return value === "true"
+  } else if (typeof value === "number" && (value === 1 || value === 0)) {
+    return value === 1
+  }
+  return value
+}, z.boolean())
+
 export const s_Enumerations = z.object({
   colors: z.enum(["red", "green", "blue"]),
   starRatings: z.union([z.literal(1), z.literal(2), z.literal(3)]),

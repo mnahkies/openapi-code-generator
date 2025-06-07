@@ -21,8 +21,8 @@ export type QueryParams = {
 }
 
 export type HeaderParams =
-  | Record<string, string | number | undefined | null>
-  | [string, string | number | undefined | null][]
+  | Record<string, string | number | boolean | undefined | null>
+  | [string, string | number | boolean | undefined | null][]
   | Headers
 
 export type Server<T> = string & {__server__: T}
@@ -127,7 +127,7 @@ export abstract class AbstractAxiosClient {
 
   private headersAsArray(
     headers: HeaderParams | AxiosRequestConfig["headers"],
-  ): [string, string | number | undefined | null][] {
+  ): [string, string | number | boolean | undefined | null][] {
     if (Array.isArray(headers)) {
       return headers
     }
