@@ -3661,9 +3661,9 @@ __metadata:
     "@typespec/http": ^1.0.0-rc.1
     "@typespec/openapi": ^1.0.0-rc.1
     "@typespec/openapi3": ^1.0.0-rc.1
-    "@typespec/rest": ^0.69.0
-    "@typespec/versioning": ^0.69.0
-    "@typespec/xml": ^0.69.0
+    "@typespec/rest": ^0.70.0
+    "@typespec/versioning": ^0.70.0
+    "@typespec/xml": ^0.70.0
   peerDependenciesMeta:
     "@typespec/compiler":
       optional: true
@@ -13053,10 +13053,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jasmine-core@npm:~5.7.1":
-  version: 5.7.1
-  resolution: "jasmine-core@npm:5.7.1"
-  checksum: 10/ce61bd518354fd775e99d43243db1eaeeab3089705bcadeef31ee3c675fdac77f7eafbc68911d9900f1d4d7d85bf16fd9d4d917776454085b8f55410657dbe8f
+"jasmine-core@npm:~5.8.0":
+  version: 5.8.0
+  resolution: "jasmine-core@npm:5.8.0"
+  checksum: 10/1b2faba2c1af668fc8223159e7ce59877ce1e967f0b77510b6c3162c092ac6cd41bf62d338a02bda9e7a840ab98b5c8a9a887dbd4d7e14c00443966b0f01ab9e
   languageName: node
   linkType: hard
 
@@ -20750,7 +20750,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^20.0.0"
     "@angular/router": "npm:^20.0.0"
     "@types/jasmine": "npm:~5.1.8"
-    jasmine-core: "npm:~5.7.1"
+    jasmine-core: "npm:~5.8.0"
     karma: "npm:~6.4.4"
     karma-chrome-launcher: "npm:~3.2.0"
     karma-coverage: "npm:~2.2.1"
