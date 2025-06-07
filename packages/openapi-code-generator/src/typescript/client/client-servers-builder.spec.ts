@@ -64,23 +64,25 @@ describe("typescript/common/client-servers-builder", () => {
       result = await runTest([
         {
           url: "{schema}://unit-tests-default.{tenant}.example.com",
-          variables: {
-            schema: {
+          variables: [
+            {
+              name: "schema",
               default: "https",
               enum: ["https", "http"],
               description: "The protocol to use",
             },
-            tenant: {
+            {
+              name: "tenant",
               default: "example",
               enum: [],
               description: "Your tenant slug",
             },
-          },
+          ],
           description: "Default Unit test server",
         },
         {
           url: "https://unit-tests-other.example.com",
-          variables: {},
+          variables: [],
           description: "Secondary Unit test server",
         },
       ])
@@ -148,12 +150,12 @@ describe("typescript/common/client-servers-builder", () => {
         [
           {
             url: "https://unit-tests-default.example.com",
-            variables: {},
+            variables: [],
             description: "Default Unit test server",
           },
           {
             url: "https://unit-tests-other.example.com",
-            variables: {},
+            variables: [],
             description: "Secondary Unit test server",
           },
         ],
@@ -163,18 +165,20 @@ describe("typescript/common/client-servers-builder", () => {
             servers: [
               {
                 url: "{schema}}://test-operation.{tenant}.example.com",
-                variables: {
-                  schema: {
+                variables: [
+                  {
+                    name: "schema",
                     default: "https",
                     enum: ["https", "http"],
                     description: "The protocol to use",
                   },
-                  tenant: {
+                  {
+                    name: "tenant",
                     default: "example",
                     enum: [],
                     description: "Your tenant slug",
                   },
-                },
+                ],
                 description: "Test operation server",
               },
             ],
@@ -184,7 +188,7 @@ describe("typescript/common/client-servers-builder", () => {
             servers: [
               {
                 url: "https://another-test-operation.example.com",
-                variables: {},
+                variables: [],
                 description: "Another test operation server",
               },
             ],

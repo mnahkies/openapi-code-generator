@@ -25,17 +25,13 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ContosoWidgetManagerServiceServers {
-  static default(): Server<"ContosoWidgetManagerService"> {
-    return ContosoWidgetManagerServiceServers.server().build()
-  }
-
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
-    build: (endpoint?: string) => Server<"ContosoWidgetManagerService">
+    build: (endpoint: string) => Server<"ContosoWidgetManagerService">
   } {
     switch (url) {
       case "{endpoint}/widget":
         return {
-          build(endpoint = ""): Server<"ContosoWidgetManagerService"> {
+          build(endpoint): Server<"ContosoWidgetManagerService"> {
             return "{endpoint}/widget".replace(
               "{endpoint}",
               endpoint,
@@ -50,8 +46,7 @@ export class ContosoWidgetManagerServiceServers {
 }
 
 export class ContosoWidgetManagerServiceConfig {
-  basePath: Server<"ContosoWidgetManagerService"> | string =
-    ContosoWidgetManagerServiceServers.default()
+  basePath: Server<"ContosoWidgetManagerService"> | string = ""
   defaultHeaders: Record<string, string> = {}
 }
 

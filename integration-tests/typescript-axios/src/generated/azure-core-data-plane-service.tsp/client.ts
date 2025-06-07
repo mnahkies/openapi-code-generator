@@ -27,17 +27,13 @@ import {
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
 export class ContosoWidgetManagerServers {
-  static default(): Server<"ContosoWidgetManager"> {
-    return ContosoWidgetManagerServers.server().build()
-  }
-
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
-    build: (endpoint?: string) => Server<"ContosoWidgetManager">
+    build: (endpoint: string) => Server<"ContosoWidgetManager">
   } {
     switch (url) {
       case "{endpoint}/widget":
         return {
-          build(endpoint = ""): Server<"ContosoWidgetManager"> {
+          build(endpoint): Server<"ContosoWidgetManager"> {
             return "{endpoint}/widget".replace(
               "{endpoint}",
               endpoint,

@@ -10,7 +10,7 @@ import {Callout} from "nextra/components"
 OpenAPI 3 has a `servers` property that can be used to define the base url for the whole document, or
 specific operations. This guide aims to explain how this is processed.
 
-You can find the specifications definition of the servers object [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1.md#server-object)
+You can find the specification's definition of the servers object [here](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1.md#server-object)
 
 This is fully supported, including placeholder/variable substitution, and overriding.
 
@@ -109,6 +109,20 @@ export class ApiClient {
 
 As you can see the overrides for each operation are exposed as `ApiClientServers.operations.<operationId>()` following
 the same pattern as the root servers.
+
+## Mandatory Variables
+Sometimes there are variables in urls that you can't provide a reasonable default for. A prime example would be
+an organization slug, eg: `https://api.myOrg.someSaas.com`
+
+Whilst the specification doesn't specifically discuss a concept of mandatory variables, we allow these using one
+of two methods:
+- Providing a default of `""` (as `default` is a required property)
+- Omitting the variable entirely from the `variables` map
+
+A warning will be emitted if you omit the variable entirely, so its suggested you use a default of `""` for
+this scenario.
+
+Regardless, any unconsumed/unused variables will trigger an error with the intention of picking up on typos.
 
 ## Configuration
 This behavior is optional, and be turned off by passing:

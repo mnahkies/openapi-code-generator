@@ -4,6 +4,7 @@ import type {
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
+import {extractPlaceholders} from "../../core/openapi-utils"
 import {upperFirst} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
@@ -93,23 +94,26 @@ export class ServerOperationBuilder {
   get route(): string {
     const {route, parameters} = this.operation
 
-    const placeholder = /{([^{}]+)}/g
+    const placeholders = extractPlaceholders(route)
 
-    return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-      const wholeString = match[0]
-      const placeholderName = match[1]
+    return placeholders.reduce((result, {placeholder, wholeString}) => {
+      if (!placeholder) {
+        throw new Error(
+          `invalid route parameter placeholder in route '${route}'`,
+        )
+      }
 
       const parameter = parameters.find(
-        (it) => it.name === placeholderName && it.in === "path",
+        (it) => it.name === placeholder && it.in === "path",
       )
 
       if (!parameter) {
         throw new Error(
-          `invalid route ${route}. missing path parameter for '${placeholderName}'`,
+          `invalid route ${route}. missing path parameter for '${placeholder}'`,
         )
       }
 
-      return result.replace(wholeString, `:${placeholderName}`)
+      return result.replace(wholeString, `:${placeholder}`)
     }, route)
   }
 
