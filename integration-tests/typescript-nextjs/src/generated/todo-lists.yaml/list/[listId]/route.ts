@@ -71,47 +71,54 @@ export type DeleteTodoListById = (
 const getTodoListByIdParamSchema = z.object({listId: z.string()})
 
 export const _GET =
-  (implementation: GetTodoListById) =>
+  (
+    implementation: GetTodoListById,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (
     request: NextRequest,
     {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        getTodoListByIdParamSchema,
-        await params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: undefined,
-      headers: undefined,
+    try {
+      const input = {
+        params: parseRequestInput(
+          getTodoListByIdParamSchema,
+          await params,
+          RequestInputType.RouteParam,
+        ),
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new OpenAPIRuntimeResponse<t_TodoList>(200)
+        },
+        withStatusCode4xx(status: StatusCode4xx) {
+          return new OpenAPIRuntimeResponse<t_Error>(status)
+        },
+        withDefault(status: StatusCode) {
+          return new OpenAPIRuntimeResponse<void>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with200() {
-        return new OpenAPIRuntimeResponse<t_TodoList>(200)
-      },
-      withStatusCode4xx(status: StatusCode4xx) {
-        return new OpenAPIRuntimeResponse<t_Error>(status)
-      },
-      withDefault(status: StatusCode) {
-        return new OpenAPIRuntimeResponse<void>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }
 
 const updateTodoListByIdParamSchema = z.object({listId: z.string()})
@@ -119,95 +126,109 @@ const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
 export const _PUT =
-  (implementation: UpdateTodoListById) =>
+  (
+    implementation: UpdateTodoListById,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (
     request: NextRequest,
     {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        updateTodoListByIdParamSchema,
-        await params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: parseRequestInput(
-        updateTodoListByIdBodySchema,
-        await request.json(),
-        RequestInputType.RequestBody,
-      ),
-      headers: undefined,
+    try {
+      const input = {
+        params: parseRequestInput(
+          updateTodoListByIdParamSchema,
+          await params,
+          RequestInputType.RouteParam,
+        ),
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: parseRequestInput(
+          updateTodoListByIdBodySchema,
+          await request.json(),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new OpenAPIRuntimeResponse<t_TodoList>(200)
+        },
+        withStatusCode4xx(status: StatusCode4xx) {
+          return new OpenAPIRuntimeResponse<t_Error>(status)
+        },
+        withDefault(status: StatusCode) {
+          return new OpenAPIRuntimeResponse<void>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with200() {
-        return new OpenAPIRuntimeResponse<t_TodoList>(200)
-      },
-      withStatusCode4xx(status: StatusCode4xx) {
-        return new OpenAPIRuntimeResponse<t_Error>(status)
-      },
-      withDefault(status: StatusCode) {
-        return new OpenAPIRuntimeResponse<void>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }
 
 const deleteTodoListByIdParamSchema = z.object({listId: z.string()})
 
 export const _DELETE =
-  (implementation: DeleteTodoListById) =>
+  (
+    implementation: DeleteTodoListById,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (
     request: NextRequest,
     {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        deleteTodoListByIdParamSchema,
-        await params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: undefined,
-      headers: undefined,
+    try {
+      const input = {
+        params: parseRequestInput(
+          deleteTodoListByIdParamSchema,
+          await params,
+          RequestInputType.RouteParam,
+        ),
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new OpenAPIRuntimeResponse<void>(204)
+        },
+        withStatusCode4xx(status: StatusCode4xx) {
+          return new OpenAPIRuntimeResponse<t_Error>(status)
+        },
+        withDefault(status: StatusCode) {
+          return new OpenAPIRuntimeResponse<void>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with204() {
-        return new OpenAPIRuntimeResponse<void>(204)
-      },
-      withStatusCode4xx(status: StatusCode4xx) {
-        return new OpenAPIRuntimeResponse<t_Error>(status)
-      },
-      withDefault(status: StatusCode) {
-        return new OpenAPIRuntimeResponse<void>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }

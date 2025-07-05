@@ -60,52 +60,59 @@ export type CreateTodoListItem = (
 const getTodoListItemsParamSchema = z.object({listId: z.string()})
 
 export const _GET =
-  (implementation: GetTodoListItems) =>
+  (
+    implementation: GetTodoListItems,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (
     request: NextRequest,
     {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        getTodoListItemsParamSchema,
-        await params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: undefined,
-      headers: undefined,
+    try {
+      const input = {
+        params: parseRequestInput(
+          getTodoListItemsParamSchema,
+          await params,
+          RequestInputType.RouteParam,
+        ),
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new OpenAPIRuntimeResponse<{
+            completedAt?: string
+            content: string
+            createdAt: string
+            id: string
+          }>(200)
+        },
+        withStatusCode5xx(status: StatusCode5xx) {
+          return new OpenAPIRuntimeResponse<{
+            code: string
+            message: string
+          }>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with200() {
-        return new OpenAPIRuntimeResponse<{
-          completedAt?: string
-          content: string
-          createdAt: string
-          id: string
-        }>(200)
-      },
-      withStatusCode5xx(status: StatusCode5xx) {
-        return new OpenAPIRuntimeResponse<{
-          code: string
-          message: string
-        }>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }
 
 const createTodoListItemParamSchema = z.object({listId: z.string()})
@@ -117,43 +124,50 @@ const createTodoListItemBodySchema = z.object({
 })
 
 export const _POST =
-  (implementation: CreateTodoListItem) =>
+  (
+    implementation: CreateTodoListItem,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (
     request: NextRequest,
     {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        createTodoListItemParamSchema,
-        await params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: parseRequestInput(
-        createTodoListItemBodySchema,
-        await request.json(),
-        RequestInputType.RequestBody,
-      ),
-      headers: undefined,
+    try {
+      const input = {
+        params: parseRequestInput(
+          createTodoListItemParamSchema,
+          await params,
+          RequestInputType.RouteParam,
+        ),
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: parseRequestInput(
+          createTodoListItemBodySchema,
+          await request.json(),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new OpenAPIRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with204() {
-        return new OpenAPIRuntimeResponse<void>(204)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }

@@ -117,7 +117,8 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
       buildExport({
         name: `_${builder.method.toUpperCase()}`,
         kind: "const",
-        value: `(implementation: ${symbols.implTypeName}) => async (${["request: NextRequest", params.path.schema ? "{params}: {params: Promise<unknown>}" : undefined].filter(isDefined).join(",")}): Promise<Response> => {
+        value: `(implementation: ${symbols.implTypeName}, onError: (err: unknown) => Promise<Response>) => async (${["request: NextRequest", params.path.schema ? "{params}: {params: Promise<unknown>}" : undefined].filter(isDefined).join(",")}): Promise<Response> => {
+try {
   const input = {
         params: ${
           params.path.schema
@@ -152,6 +153,9 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
           .catch(err => { throw OpenAPIRuntimeError.HandlerError(err) })
 
   return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
+  } catch (err) {
+    return await onError(err)
+  }
   }`,
       }),
     )

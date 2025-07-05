@@ -8,7 +8,7 @@ import {
   t_Statuses,
   t_TodoList,
   t_UnknownObject,
-} from "../models"
+} from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
