@@ -46,36 +46,43 @@ const getTodoListsQuerySchema = z.object({
 })
 
 export const _GET =
-  (implementation: GetTodoLists) =>
+  (
+    implementation: GetTodoLists,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (request: NextRequest): Promise<Response> => {
-    const input = {
-      params: undefined,
-      // TODO: this swallows repeated parameters
-      query: parseRequestInput(
-        getTodoListsQuerySchema,
-        Object.fromEntries(request.nextUrl.searchParams.entries()),
-        RequestInputType.QueryString,
-      ),
-      body: undefined,
-      headers: undefined,
+    try {
+      const input = {
+        params: undefined,
+        // TODO: this swallows repeated parameters
+        query: parseRequestInput(
+          getTodoListsQuerySchema,
+          Object.fromEntries(request.nextUrl.searchParams.entries()),
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new OpenAPIRuntimeResponse<t_TodoList[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with200() {
-        return new OpenAPIRuntimeResponse<t_TodoList[]>(200)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }

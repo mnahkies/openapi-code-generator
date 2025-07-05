@@ -38,69 +38,83 @@ export type UploadAttachment = (
 ) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 export const _GET =
-  (implementation: ListAttachments) =>
+  (
+    implementation: ListAttachments,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (request: NextRequest): Promise<Response> => {
-    const input = {
-      params: undefined,
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: undefined,
-      headers: undefined,
+    try {
+      const input = {
+        params: undefined,
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new OpenAPIRuntimeResponse<t_UnknownObject[]>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with200() {
-        return new OpenAPIRuntimeResponse<t_UnknownObject[]>(200)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }
 
 const uploadAttachmentBodySchema = z.object({file: z.unknown().optional()})
 
 export const _POST =
-  (implementation: UploadAttachment) =>
+  (
+    implementation: UploadAttachment,
+    onError: (err: unknown) => Promise<Response>,
+  ) =>
   async (request: NextRequest): Promise<Response> => {
-    const input = {
-      params: undefined,
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: parseRequestInput(
-        uploadAttachmentBodySchema,
-        await request.json(),
-        RequestInputType.RequestBody,
-      ),
-      headers: undefined,
+    try {
+      const input = {
+        params: undefined,
+        // TODO: this swallows repeated parameters
+        query: undefined,
+        body: parseRequestInput(
+          uploadAttachmentBodySchema,
+          await request.json(),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with202() {
+          return new OpenAPIRuntimeResponse<void>(202)
+        },
+        withStatus(status: StatusCode) {
+          return new OpenAPIRuntimeResponse(status)
+        },
+      }
+
+      const {status, body} = await implementation(input, responder, request)
+        .then((it) => it.unpack())
+        .catch((err) => {
+          throw OpenAPIRuntimeError.HandlerError(err)
+        })
+
+      return body !== undefined
+        ? Response.json(body, {status})
+        : new Response(undefined, {status})
+    } catch (err) {
+      return await onError(err)
     }
-
-    const responder = {
-      with202() {
-        return new OpenAPIRuntimeResponse<void>(202)
-      },
-      withStatus(status: StatusCode) {
-        return new OpenAPIRuntimeResponse(status)
-      },
-    }
-
-    const {status, body} = await implementation(input, responder, request)
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw OpenAPIRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, {status})
-      : new Response(undefined, {status})
   }

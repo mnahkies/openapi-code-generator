@@ -1,8 +1,8 @@
 import {
   type SourceFile,
   StructureKind,
-  SyntaxKind,
   VariableDeclarationKind,
+  ts,
 } from "ts-morph"
 import type {Input} from "../../../core/input"
 import type {IROperation} from "../../../core/openapi-types-normalized"
@@ -18,6 +18,7 @@ import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
 import type {ServerSymbols} from "../abstract-router-builder"
 import {ServerOperationBuilder} from "../server-operation-builder"
+import SyntaxKind = ts.SyntaxKind
 
 export class TypescriptNextjsAppRouterBuilder implements ICompilable {
   constructor(
@@ -65,6 +66,9 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
             initializer: `${wrappingMethod}(async (input, respond, context) => {
             // TODO: implementation
             return respond.withStatus(501).body({message: "not implemented"} as any)
+          }, async (err) => {
+            // TODO: implementation
+            return new Response(JSON.stringify({message: "not implemented"}), {status: 501})
           })`,
           },
         ],
@@ -73,19 +77,22 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
     // Replace the params based on what inputs we have
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const declarations = variableDeclaration.getDeclarations()[0]!
+    const callExpression = declarations.getInitializerIfKindOrThrow(
+      SyntaxKind.CallExpression,
+    )
+
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    const innerFunction = declarations
-      .getInitializerIfKindOrThrow(SyntaxKind.CallExpression)
+    const implementationFunction = callExpression
       .getArguments()[0]!
       .asKind(SyntaxKind.ArrowFunction)!
 
     // biome-ignore lint/complexity/noForEach: <explanation>
-    innerFunction?.getParameters().forEach((parameter) => {
+    implementationFunction?.getParameters().forEach((parameter) => {
       parameter.remove()
     })
 
     if (params.hasParams) {
-      innerFunction?.addParameter({
+      implementationFunction?.addParameter({
         name: `{${[
           params.path.schema ? "params" : undefined,
           params.query.schema ? "query" : undefined,
@@ -97,8 +104,29 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       })
     }
 
-    innerFunction?.addParameter({name: "respond"})
-    innerFunction?.addParameter({name: "request"})
+    implementationFunction?.addParameter({name: "respond"})
+    implementationFunction?.addParameter({name: "request"})
+
+    const onErrorFunction = callExpression.getArguments()[1]
+
+    if (!onErrorFunction) {
+      callExpression.addArgument(`async (err) => {
+            // TODO: implementation
+            return new Response(JSON.stringify({message: "not implemented"}), {status: 501})
+          }`)
+    } else if (onErrorFunction.getKind() === SyntaxKind.ArrowFunction) {
+      for (const param of onErrorFunction
+        .asKind(SyntaxKind.ArrowFunction)
+        ?.getParameters() ?? []) {
+        param.remove()
+      }
+
+      onErrorFunction
+        ?.asKind(SyntaxKind.ArrowFunction)
+        ?.addParameter({name: "err"})
+    } else if (onErrorFunction.getKind() === SyntaxKind.FunctionExpression) {
+      // todo
+    }
   }
 
   // TODO: duplication - should be shared with router builder
