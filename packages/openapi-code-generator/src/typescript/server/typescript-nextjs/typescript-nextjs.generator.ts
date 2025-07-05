@@ -59,7 +59,7 @@ export async function generateTypescriptNextJS(
     {allowAny},
   )
 
-  const project = new Project()
+  const project = new Project({useInMemoryFileSystem: true})
 
   const serverRouters = (
     await Promise.all(
