@@ -12,37 +12,38 @@ import {
 } from "../../models"
 import {s_CreateUpdateTodoList} from "../../schemas"
 import {
-  KoaRuntimeError,
+  OpenAPIRuntimeError,
   RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
+} from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  KoaRuntimeResponder,
-  KoaRuntimeResponse,
+  OpenAPIRuntimeResponder,
+  OpenAPIRuntimeResponse,
+  Params,
   StatusCode,
   StatusCode4xx,
-} from "@nahkies/typescript-koa-runtime/server"
-import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-nextjs-runtime/server"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
 import {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /list/{listId}
 export type GetTodoListByIdResponder = {
-  with200(): KoaRuntimeResponse<t_TodoList>
-  withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
-  withDefault(status: StatusCode): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
+  with200(): OpenAPIRuntimeResponse<t_TodoList>
+  withStatusCode4xx(status: StatusCode4xx): OpenAPIRuntimeResponse<t_Error>
+  withDefault(status: StatusCode): OpenAPIRuntimeResponse<void>
+} & OpenAPIRuntimeResponder
 
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void, void>,
   respond: GetTodoListByIdResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 export type UpdateTodoListByIdResponder = {
-  with200(): KoaRuntimeResponse<t_TodoList>
-  withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
-  withDefault(status: StatusCode): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
+  with200(): OpenAPIRuntimeResponse<t_TodoList>
+  withStatusCode4xx(status: StatusCode4xx): OpenAPIRuntimeResponse<t_Error>
+  withDefault(status: StatusCode): OpenAPIRuntimeResponse<void>
+} & OpenAPIRuntimeResponder
 
 export type UpdateTodoListById = (
   params: Params<
@@ -53,19 +54,19 @@ export type UpdateTodoListById = (
   >,
   respond: UpdateTodoListByIdResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 export type DeleteTodoListByIdResponder = {
-  with204(): KoaRuntimeResponse<void>
-  withStatusCode4xx(status: StatusCode4xx): KoaRuntimeResponse<t_Error>
-  withDefault(status: StatusCode): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
+  with204(): OpenAPIRuntimeResponse<void>
+  withStatusCode4xx(status: StatusCode4xx): OpenAPIRuntimeResponse<t_Error>
+  withDefault(status: StatusCode): OpenAPIRuntimeResponse<void>
+} & OpenAPIRuntimeResponder
 
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void, void>,
   respond: DeleteTodoListByIdResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 const getTodoListByIdParamSchema = z.object({listId: z.string()})
 
@@ -89,23 +90,23 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_TodoList>(200)
+        return new OpenAPIRuntimeResponse<t_TodoList>(200)
       },
       withStatusCode4xx(status: StatusCode4xx) {
-        return new KoaRuntimeResponse<t_Error>(status)
+        return new OpenAPIRuntimeResponse<t_Error>(status)
       },
       withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<void>(status)
+        return new OpenAPIRuntimeResponse<void>(status)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
@@ -141,23 +142,23 @@ export const _PUT =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_TodoList>(200)
+        return new OpenAPIRuntimeResponse<t_TodoList>(200)
       },
       withStatusCode4xx(status: StatusCode4xx) {
-        return new KoaRuntimeResponse<t_Error>(status)
+        return new OpenAPIRuntimeResponse<t_Error>(status)
       },
       withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<void>(status)
+        return new OpenAPIRuntimeResponse<void>(status)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
@@ -187,23 +188,23 @@ export const _DELETE =
 
     const responder = {
       with204() {
-        return new KoaRuntimeResponse<void>(204)
+        return new OpenAPIRuntimeResponse<void>(204)
       },
       withStatusCode4xx(status: StatusCode4xx) {
-        return new KoaRuntimeResponse<t_Error>(status)
+        return new OpenAPIRuntimeResponse<t_Error>(status)
       },
       withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<void>(status)
+        return new OpenAPIRuntimeResponse<void>(status)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
