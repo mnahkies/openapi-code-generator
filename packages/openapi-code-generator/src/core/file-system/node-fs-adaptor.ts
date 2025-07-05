@@ -1,9 +1,6 @@
-// TODO: webpack shouldn't be including this file?
-// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
-import {existsSync} from "fs"
+import {existsSync} from "node:fs"
 
-// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
-import fs from "fs/promises"
+import fs from "node:fs/promises"
 import type {IFsAdaptor} from "./fs-adaptor"
 
 export class NodeFsAdaptor implements IFsAdaptor {

@@ -1,5 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
-import path from "path"
+import path from "node:path"
 import {normalizeFilename} from "../../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
 import {CompilationUnit} from "../../common/compilation-units"

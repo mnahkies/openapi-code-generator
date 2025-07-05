@@ -1,5 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: webpack doesn't like `node:` prefix
-import path from "path"
+import path from "node:path"
 import yaml from "js-yaml"
 import json5 from "json5"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"

@@ -1,5 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: webpack doesn't like node: prefix
-import path from "path"
+import path from "node:path"
 import _ from "lodash"
 
 export function isDefined<T>(it: T | undefined): it is T {

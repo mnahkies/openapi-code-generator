@@ -1,5 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import path from "path"
+import path from "node:path"
 import stripJsonComments from "strip-json-comments"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
