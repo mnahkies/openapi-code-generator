@@ -10,7 +10,7 @@ import {
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "../../models"
-import { s_CreateUpdateTodoList } from "../../schemas"
+import {s_CreateUpdateTodoList} from "../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -21,9 +21,9 @@ import {
   StatusCode,
   StatusCode4xx,
 } from "@nahkies/typescript-koa-runtime/server"
-import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
-import { NextRequest } from "next/server"
-import { z } from "zod"
+import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+import {NextRequest} from "next/server"
+import {z} from "zod"
 
 // /list/{listId}
 export type GetTodoListByIdResponder = {
@@ -67,13 +67,13 @@ export type DeleteTodoListById = (
   request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
-const getTodoListByIdParamSchema = z.object({ listId: z.string() })
+const getTodoListByIdParamSchema = z.object({listId: z.string()})
 
 export const _GET =
   (implementation: GetTodoListById) =>
   async (
     request: NextRequest,
-    { params }: { params: Promise<unknown> },
+    {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
@@ -102,18 +102,18 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
 
-const updateTodoListByIdParamSchema = z.object({ listId: z.string() })
+const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 
 const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
@@ -121,7 +121,7 @@ export const _PUT =
   (implementation: UpdateTodoListById) =>
   async (
     request: NextRequest,
-    { params }: { params: Promise<unknown> },
+    {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
@@ -154,24 +154,24 @@ export const _PUT =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
 
-const deleteTodoListByIdParamSchema = z.object({ listId: z.string() })
+const deleteTodoListByIdParamSchema = z.object({listId: z.string()})
 
 export const _DELETE =
   (implementation: DeleteTodoListById) =>
   async (
     request: NextRequest,
-    { params }: { params: Promise<unknown> },
+    {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
@@ -200,13 +200,13 @@ export const _DELETE =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
