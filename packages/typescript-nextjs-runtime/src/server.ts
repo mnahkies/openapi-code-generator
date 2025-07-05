@@ -29,8 +29,6 @@ export type Response<Status extends StatusCode, Type> = {
   body: Type
 }
 
-export const SkipResponse = Symbol("skip response processing")
-
 export class OpenAPIRuntimeResponse<Type> {
   private _body?: Type
 
