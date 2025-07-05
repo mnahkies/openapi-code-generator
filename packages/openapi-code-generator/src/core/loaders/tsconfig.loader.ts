@@ -1,5 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
-import path from "path"
+import path from "node:path"
 import json5 from "json5"
 import ts from "typescript"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"

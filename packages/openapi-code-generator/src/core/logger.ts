@@ -1,5 +1,4 @@
-// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
-import util from "util"
+import util from "node:util"
 
 export type LoggerMeta = Record<string, unknown>
 
