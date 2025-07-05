@@ -1,0 +1,173 @@
+import {Tabs} from 'nextra/components'
+
+# Using the `typescript-nextjs` template
+
+> ⚠️ **Alpha Template** ⚠️
+>
+> This template is currently in **alpha**. APIs and features are subject to change.<br/>
+> It might break in unexpected ways, or **mangle** your code.
+>
+> You can see an example of it used on a real project here: <br/>
+> https://github.com/mnahkies/spdx-dependency-track
+
+
+The `typescript-nextjs` template outputs scaffolding code that handles the following:
+
+- Generates route handlers in the Next.js App Router (app/api/.../route.ts) for every operation in your OpenAPI spec
+- Parses and validates request input (query, params, headers, and body) using `zod`, or `joi`
+- Validates response types at runtime before sending them, ensuring they conform to your OpenAPI spec
+- Enforces full type safety for each handler’s inputs and outputs
+- Additionally, emits a [typescript-fetch](../client-templates/typescript-fetch) client for making requests to the routes from your react code
+
+See [integration-tests/typescript-nextjs](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-nextjs) for more samples.
+
+### Install dependencies
+First install the CLI and the required runtime packages to your project:
+```sh npm2yarn
+npm i --dev @nahkies/openapi-code-generator
+npm i @nahkies/typescript-nextjs-runtime next zod
+```
+
+See also [quick start](../../getting-started/quick-start) guide
+
+### Run generation
+<Tabs items={["OpenAPI3", "Typespec"]}>
+
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./openapi.yaml \
+      --input-type openapi3 \
+      --output ./src \
+      --template typescript-nextjs \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./typespec.tsp \
+      --input-type typespec \
+      --output ./src \
+      --template typescript-nextjs \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+
+</Tabs>
+
+### Using the generated code
+Running the above will output a bunch of files into `./src`. Here's an example of the files output for a todo-list api specification:
+```shell
+src
+├── app
+│         ├── api
+│         │         └── list
+│         │             ├── [listId]
+│         │             │         ├── items
+│         │             │         │         └── route.ts
+│         │             │         └── route.ts
+│         │             └── route.ts
+│         ├── layout.tsx
+│         └── page.tsx
+└── generated
+    ├── api
+    │         └── list
+    │             ├── [listId]
+    │             │         ├── items
+    │             │         │         └── route.ts
+    │             │         └── route.ts
+    │             └── route.ts
+    ├── client.ts
+    ├── models.ts
+    └── schemas.ts
+````
+
+`./src/app/../route.ts`
+- a `route.ts` file is generated per operation, following Next.js App Router conventions
+- exports handlers (GET, POST, etc.) for each HTTP method defined
+- safe to edit, your route handler implementations go here
+- calls into `./src/generated/...` for input/output validation logic
+
+`./src/generated/../route.ts`
+- mirror structure of the `./src/app/.../route.ts` files
+- contains glue code that parses input, validates responses, and calls your implementation
+
+`./src/generated/models.ts`
+- exports plain TypeScript types for all schemas in your OpenAPI spec
+
+`./src/generated/schemas.ts`
+- exports runtime schema validators (`zod` / `joi` depending on configuration)
+
+`./src/generated/client.ts`
+- exports a [typescript-fetch](../client-templates/typescript-fetch) client for calling your API from frontend code
+- see [use-with-react-query](../use-with-react-query) for integration with `react-query`
+
+#### Implementing routes
+
+Once generated usage should look something like this:
+
+```typescript
+import {db} from "../../../../../db"
+import {
+  _GET,
+  _POST,
+} from "../../../../../generated/todo-lists.yaml/list/[listId]/items/route"
+
+export const GET = _GET(async ({params}, respond, request) => {
+  const items = db.getTodoItems({listId: params.listId})
+
+  if (items) {
+    return respond.with200().body(items)
+  }
+  return respond
+    .with404()
+    .body({code: "not-found", message: `listId ${params.listId} not found`})
+})
+
+export const POST = _POST(async ({params, body}, respond, request) => {
+  await db.insertTodoItem({
+    listId: params.listId,
+    itemId: body.id,
+    content: body.content,
+    completedAt: body.completedAt,
+  })
+
+  return respond.with204()
+})
+
+```
+
+#### Its safe to regenerate!
+The template uses [ts-morph](https://ts-morph.com/) to **non-destructively generate and update** route.ts files.
+
+This means you can safely add your own logic to the scaffolded files, and future regenerations will preserve your
+implementation code while updating the generated boilerplate.
+
+#### Error Handling
+
+> 🚧 Under construction
+>
+> Errors will be thrown for req/res validation issues, but currently its impossible to catch them.
+> More thought is needed...
+
+### Escape Hatches
+
+> 🚧 Under construction
+>
+> The raw nextjs `request` object is passed to your implementation, however there is not yet
+> a way to skip response processing.
+
+Most APIs won't need this, but in some cases (e.g. unsupported features), you can use escape hatches to drop out of
+the generated scaffolding.
+
+For example, we pass the raw nextjs `request` object to your handler implementations,
+allowing you full control where its needed.
+```typescript
+export const GET = _GET(async ({params}, respond, request) => {
+  console.log(request.nextUrl.buildId)
+  // ...your implementation here
+})
+```
+
+Use sparingly - the goal is to reduce the need for escape hatches over time.

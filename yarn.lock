@@ -2921,6 +2921,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@isaacs/balanced-match@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@isaacs/balanced-match@npm:4.0.1"
+  checksum: 10/102fbc6d2c0d5edf8f6dbf2b3feb21695a21bc850f11bc47c4f06aa83bd8884fde3fe9d6d797d619901d96865fdcb4569ac2a54c937992c48885c5e3d9967fe8
+  languageName: node
+  linkType: hard
+
+"@isaacs/brace-expansion@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "@isaacs/brace-expansion@npm:5.0.0"
+  dependencies:
+    "@isaacs/balanced-match": "npm:^4.0.1"
+  checksum: 10/cf3b7f206aff12128214a1df764ac8cdbc517c110db85249b945282407e3dfc5c6e66286383a7c9391a059fc8e6e6a8ca82262fc9d2590bd615376141fbebd2d
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -3636,13 +3652,13 @@ __metadata:
     gh-pages: "npm:^6.3.0"
     monaco-editor: "npm:^0.52.2"
     monaco-editor-auto-typings: "npm:^0.4.6"
-    next: "npm:15.3.5"
+    next: "npm:^15.3.5"
     nextra: "npm:^4.2.17"
     nextra-theme-docs: "npm:^4.2.17"
     node-polyfill-webpack-plugin: "npm:^4.1.0"
     null-loader: "npm:^4.0.1"
-    react: "npm:19.1.0"
-    react-dom: "npm:19.1.0"
+    react: "npm:^19.1.0"
+    react-dom: "npm:^19.1.0"
     react-hook-form: "npm:^7.60.0"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.8.3"
@@ -3679,6 +3695,7 @@ __metadata:
     json5: "npm:^2.2.3"
     lodash: "npm:^4.17.21"
     source-map-support: "npm:^0.5.21"
+    ts-morph: "npm:^26.0.0"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.8.3"
     zod: "npm:^3.25.74"
@@ -3790,6 +3807,26 @@ __metadata:
     joi:
       optional: true
     koa-body:
+      optional: true
+    zod:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"@nahkies/typescript-nextjs-runtime@npm:*, @nahkies/typescript-nextjs-runtime@workspace:packages/typescript-nextjs-runtime":
+  version: 0.0.0-use.local
+  resolution: "@nahkies/typescript-nextjs-runtime@workspace:packages/typescript-nextjs-runtime"
+  dependencies:
+    jest: "npm:^30.0.4"
+    joi: "npm:^17.13.3"
+    typescript: "npm:~5.8.3"
+    zod: "npm:^3.25.74"
+  peerDependencies:
+    joi: ^17.1.1
+    next: ^15.3.5
+    zod: ^3.20.6
+  peerDependenciesMeta:
+    joi:
       optional: true
     zod:
       optional: true
@@ -5791,6 +5828,17 @@ __metadata:
     npm-to-yarn: "npm:^3.0.0"
     unist-util-visit: "npm:^5.0.0"
   checksum: 10/aa6f4e1ab7e729a8d7e74dbd17867946cd2adaf00a942d9b884a0feec1251169b295735fb46298311cfa1b8bffba076673a07df575365cf2fef821f04d7a3904
+  languageName: node
+  linkType: hard
+
+"@ts-morph/common@npm:~0.27.0":
+  version: 0.27.0
+  resolution: "@ts-morph/common@npm:0.27.0"
+  dependencies:
+    fast-glob: "npm:^3.3.3"
+    minimatch: "npm:^10.0.1"
+    path-browserify: "npm:^1.0.1"
+  checksum: 10/842d8973cb34fa6d7535092e17e6d22c2642af1d9020aa06936cd1e9d6970830a888f9abf8907f60408c0a684b476b3b74316938d1edbad215881f9743f3940a
   languageName: node
   linkType: hard
 
@@ -8646,6 +8694,13 @@ __metadata:
   version: 4.6.0
   resolution: "co@npm:4.6.0"
   checksum: 10/a5d9f37091c70398a269e625cedff5622f200ed0aa0cff22ee7b55ed74a123834b58711776eb0f1dc58eb6ebbc1185aa7567b57bd5979a948c6e4f85073e2c05
+  languageName: node
+  linkType: hard
+
+"code-block-writer@npm:^13.0.3":
+  version: 13.0.3
+  resolution: "code-block-writer@npm:13.0.3"
+  checksum: 10/771546224f38610eecee0598e83c9e0f86dcd600ea316dbf27c2cfebaab4fed51b042325aa460b8e0f131fac5c1de208f6610a1ddbffe4b22e76f9b5256707cb
   languageName: node
   linkType: hard
 
@@ -15852,6 +15907,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimatch@npm:^10.0.1":
+  version: 10.0.3
+  resolution: "minimatch@npm:10.0.3"
+  dependencies:
+    "@isaacs/brace-expansion": "npm:^5.0.0"
+  checksum: 10/d5b8b2538b367f2cfd4aeef27539fddeee58d1efb692102b848e4a968a09780a302c530eb5aacfa8c57f7299155fb4b4e85219ad82664dcef5c66f657111d9b8
+  languageName: node
+  linkType: hard
+
 "minimatch@npm:^3.0.4, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
@@ -16303,7 +16367,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:15.3.5":
+"next@npm:^15.3.5":
   version: 15.3.5
   resolution: "next@npm:15.3.5"
   dependencies:
@@ -18327,7 +18391,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.1.0":
+"react-dom@npm:^19.1.0":
   version: 19.1.0
   resolution: "react-dom@npm:19.1.0"
   dependencies:
@@ -18364,7 +18428,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.1.0":
+"react@npm:^19.1.0":
   version: 19.1.0
   resolution: "react@npm:19.1.0"
   checksum: 10/d0180689826fd9de87e839c365f6f361c561daea397d61d724687cae88f432a307d1c0f53a0ee95ddbe3352c10dac41d7ff1ad85530fb24951b27a39e5398db4
@@ -20821,6 +20885,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-morph@npm:^26.0.0":
+  version: 26.0.0
+  resolution: "ts-morph@npm:26.0.0"
+  dependencies:
+    "@ts-morph/common": "npm:~0.27.0"
+    code-block-writer: "npm:^13.0.3"
+  checksum: 10/0b76beec9f9641bf3304de8f41327db4e563729b4e13b37b546a4231a4310cb760cad0c88fe8d11235bbe6f9de0471dda0992b8c35535a4e4c34033304f22d14
+  languageName: node
+  linkType: hard
+
 "tsconfig-paths@npm:^4.1.2":
   version: 4.2.0
   resolution: "tsconfig-paths@npm:4.2.0"
@@ -21082,6 +21156,21 @@ __metadata:
     koa: "npm:^3.0.0"
     typescript: "npm:~5.8.3"
     zod: "npm:^3.25.74"
+  languageName: unknown
+  linkType: soft
+
+"typescript-nextjs@workspace:integration-tests/typescript-nextjs":
+  version: 0.0.0-use.local
+  resolution: "typescript-nextjs@workspace:integration-tests/typescript-nextjs"
+  dependencies:
+    "@nahkies/typescript-nextjs-runtime": "npm:*"
+    "@types/node": "npm:^22.16.0"
+    "@types/react": "npm:^19.1.8"
+    "@types/react-dom": "npm:^19.1.6"
+    next: "npm:^15.3.5"
+    react: "npm:^19.1.0"
+    react-dom: "npm:^19.1.0"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
