@@ -2,6 +2,7 @@
 import path from "path"
 import stripJsonComments from "strip-json-comments"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"
+import {logger} from "../logger"
 
 export type TypescriptFormatterConfig =
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -45,11 +46,15 @@ export async function loadTypescriptFormatterConfig(
   )
 
   if (prettierConfigFile) {
-    const prettier = await import("prettier")
+    try {
+      const prettier = await import("prettier")
 
-    return {
-      type: "prettier",
-      config: (await prettier.resolveConfig(prettierConfigFile)) ?? {},
+      return {
+        type: "prettier",
+        config: (await prettier.resolveConfig(prettierConfigFile)) ?? {},
+      }
+    } catch (err) {
+      logger.error("failed to load prettier config", {err})
     }
   }
 
@@ -68,7 +73,7 @@ function findConfigFile(
   for (const name of names) {
     const fullPath = path.join(searchPath, name)
     if (fileExists(fullPath)) {
-      console.info(`found ${fullPath} in ${searchPath}`)
+      logger.info(`found ${fullPath} in ${searchPath}`)
       return fullPath
     }
   }
