@@ -1,5 +1,5 @@
-import * as console from "node:console"
-import path from "node:path"
+// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
+import path from "path"
 import stripJsonComments from "strip-json-comments"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"
 
@@ -22,7 +22,11 @@ export async function loadTypescriptFormatterConfig(
 
   if (biomeConfigFile) {
     const rawConfig = await fsAdaptor.readFile(biomeConfigFile)
-    return {type: "biome", config: JSON.parse(stripJsonComments(rawConfig))}
+
+    return {
+      type: "biome",
+      config: JSON.parse(stripJsonComments(rawConfig)),
+    }
   }
 
   const prettierConfigFile = findConfigFile(
@@ -42,7 +46,7 @@ export async function loadTypescriptFormatterConfig(
 
   if (prettierConfigFile) {
     const prettier = await import("prettier")
-    // TODO: use prettier.resolveConfig to actually load the config
+
     return {
       type: "prettier",
       config: (await prettier.resolveConfig(prettierConfigFile)) ?? {},
