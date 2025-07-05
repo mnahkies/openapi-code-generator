@@ -7,6 +7,7 @@
     { "path": "./packages/typescript-axios-runtime" },
     { "path": "./packages/typescript-express-runtime" },
     { "path": "./packages/typescript-fetch-runtime" },
-    { "path": "./packages/typescript-koa-runtime" }
+    { "path": "./packages/typescript-koa-runtime" },
+    { "path": "./packages/typescript-nextjs-runtime" }
   ]
 }

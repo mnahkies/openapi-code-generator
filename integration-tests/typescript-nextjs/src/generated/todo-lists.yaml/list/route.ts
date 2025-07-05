@@ -5,28 +5,29 @@
 import {t_GetTodoListsQuerySchema, t_TodoList} from "../models"
 import {s_Statuses} from "../schemas"
 import {
-  KoaRuntimeError,
+  OpenAPIRuntimeError,
   RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
+} from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  KoaRuntimeResponder,
-  KoaRuntimeResponse,
+  OpenAPIRuntimeResponder,
+  OpenAPIRuntimeResponse,
+  Params,
   StatusCode,
-} from "@nahkies/typescript-koa-runtime/server"
-import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-nextjs-runtime/server"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
 import {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /list
 export type GetTodoListsResponder = {
-  with200(): KoaRuntimeResponse<t_TodoList[]>
-} & KoaRuntimeResponder
+  with200(): OpenAPIRuntimeResponse<t_TodoList[]>
+} & OpenAPIRuntimeResponder
 
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void, void>,
   respond: GetTodoListsResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 const getTodoListsQuerySchema = z.object({
   created: z.string().datetime({offset: true}).optional(),
@@ -61,17 +62,17 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_TodoList[]>(200)
+        return new OpenAPIRuntimeResponse<t_TodoList[]>(200)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined

@@ -8,42 +8,43 @@ import {
   t_GetTodoListItemsParamSchema,
 } from "../../../models"
 import {
-  KoaRuntimeError,
+  OpenAPIRuntimeError,
   RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
+} from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  KoaRuntimeResponder,
-  KoaRuntimeResponse,
+  OpenAPIRuntimeResponder,
+  OpenAPIRuntimeResponse,
+  Params,
   StatusCode,
   StatusCode5xx,
-} from "@nahkies/typescript-koa-runtime/server"
-import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-nextjs-runtime/server"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
 import {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /list/{listId}/items
 export type GetTodoListItemsResponder = {
-  with200(): KoaRuntimeResponse<{
+  with200(): OpenAPIRuntimeResponse<{
     completedAt?: string
     content: string
     createdAt: string
     id: string
   }>
-  withStatusCode5xx(status: StatusCode5xx): KoaRuntimeResponse<{
+  withStatusCode5xx(status: StatusCode5xx): OpenAPIRuntimeResponse<{
     code: string
     message: string
   }>
-} & KoaRuntimeResponder
+} & OpenAPIRuntimeResponder
 
 export type GetTodoListItems = (
   params: Params<t_GetTodoListItemsParamSchema, void, void, void>,
   respond: GetTodoListItemsResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 export type CreateTodoListItemResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
+  with204(): OpenAPIRuntimeResponse<void>
+} & OpenAPIRuntimeResponder
 
 export type CreateTodoListItem = (
   params: Params<
@@ -54,7 +55,7 @@ export type CreateTodoListItem = (
   >,
   respond: CreateTodoListItemResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 const getTodoListItemsParamSchema = z.object({listId: z.string()})
 
@@ -78,7 +79,7 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<{
+        return new OpenAPIRuntimeResponse<{
           completedAt?: string
           content: string
           createdAt: string
@@ -86,20 +87,20 @@ export const _GET =
         }>(200)
       },
       withStatusCode5xx(status: StatusCode5xx) {
-        return new KoaRuntimeResponse<{
+        return new OpenAPIRuntimeResponse<{
           code: string
           message: string
         }>(status)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
@@ -139,17 +140,17 @@ export const _POST =
 
     const responder = {
       with204() {
-        return new KoaRuntimeResponse<void>(204)
+        return new OpenAPIRuntimeResponse<void>(204)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
