@@ -87,5 +87,6 @@ export async function generate(
     filenameConvention: config.filenameConvention,
     allowAny: config.tsAllowAny,
     serverImplementationMethod: config.tsServerImplementationMethod,
+    fsAdaptor,
   })
 }
