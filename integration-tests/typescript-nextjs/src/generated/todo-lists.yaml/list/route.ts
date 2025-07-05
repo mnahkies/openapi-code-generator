@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_GetTodoListsQuerySchema, t_TodoList } from "../models"
-import { s_Statuses } from "../schemas"
+import {t_GetTodoListsQuerySchema, t_TodoList} from "../models"
+import {s_Statuses} from "../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -13,9 +13,9 @@ import {
   KoaRuntimeResponse,
   StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
-import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
-import { NextRequest } from "next/server"
-import { z } from "zod"
+import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+import {NextRequest} from "next/server"
+import {z} from "zod"
 
 // /list
 export type GetTodoListsResponder = {
@@ -29,7 +29,7 @@ export type GetTodoLists = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const getTodoListsQuerySchema = z.object({
-  created: z.string().datetime({ offset: true }).optional(),
+  created: z.string().datetime({offset: true}).optional(),
   statuses: z
     .preprocess(
       (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -68,13 +68,13 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
