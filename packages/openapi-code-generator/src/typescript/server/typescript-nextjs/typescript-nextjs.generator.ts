@@ -1,8 +1,7 @@
 // biome-ignore lint/style/useNodejsImportProtocol: <explanation>
-import fs from "fs"
-// biome-ignore lint/style/useNodejsImportProtocol: <explanation>
 import path from "path"
-import {Project} from "ts-morph"
+import {Project, type SourceFile} from "ts-morph"
+import type {IFsAdaptor} from "../../../core/file-system/fs-adaptor"
 import type {CompilerOptions} from "../../../core/loaders/tsconfig.loader"
 import {isTruthy} from "../../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
@@ -41,6 +40,7 @@ export async function generateTypescriptNextJS(
   const appDirectory = [".", "app", subDirectory]
     .filter(isTruthy)
     .join(path.sep)
+
   const generatedDirectory = [".", "generated", subDirectory]
     .filter(isTruthy)
     .join(path.sep)
@@ -85,23 +85,12 @@ export async function generateTypescriptNextJS(
           routeToNextJSFilepath(group.name),
         )
 
-        const existing = fs.existsSync(
-          path.join(emitter.config.destinationDirectory, nextJsAppRouterPath),
-        )
-          ? fs
-              .readFileSync(
-                path.join(
-                  emitter.config.destinationDirectory,
-                  nextJsAppRouterPath,
-                ),
-                "utf-8",
-              )
-              .toString()
-          : ""
-        const sourceFile = project.createSourceFile(
+        const sourceFile = await loadExistingRouteImplementation({
+          fsAdaptor: config.fsAdaptor,
+          project,
+          destinationDirectory: emitter.config.destinationDirectory,
           nextJsAppRouterPath,
-          existing,
-        )
+        })
 
         const nextJSAppRouterBuilder = new TypescriptNextjsAppRouterBuilder(
           nextJsAppRouterPath,
@@ -156,6 +145,30 @@ export async function generateTypescriptNextJS(
     rootTypeBuilder.toCompilationUnit(),
     rootSchemaBuilder.toCompilationUnit(),
   ])
+}
+
+async function loadExistingRouteImplementation({
+  fsAdaptor,
+  project,
+  destinationDirectory,
+  nextJsAppRouterPath,
+}: {
+  fsAdaptor: IFsAdaptor
+  project: Project
+  destinationDirectory: string
+  nextJsAppRouterPath: string
+}): Promise<SourceFile> {
+  const exists = await fsAdaptor.exists(
+    path.join(destinationDirectory, nextJsAppRouterPath),
+  )
+
+  const source = exists
+    ? await fsAdaptor.readFile(
+        path.join(destinationDirectory, nextJsAppRouterPath),
+      )
+    : ""
+
+  return project.createSourceFile(nextJsAppRouterPath, source)
 }
 
 function routeToNextJSFilepath(route: string): string {
