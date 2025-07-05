@@ -2,10 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
-  ServerConfig,
-  startServer,
-} from "@nahkies/typescript-koa-runtime/server"
+import {ServerConfig, startServer} from "@nahkies/typescript-koa-runtime/server"
 
 export async function bootstrap(config: ServerConfig) {
   // E2E Tests for @nahkies/openapi-code-generator

@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { UnknownEnumNumberValue, UnknownEnumStringValue } from "./models"
-import { z } from "zod"
+import {UnknownEnumNumberValue, UnknownEnumStringValue} from "./models"
+import {z} from "zod"
 
 export const s_Enumerations = z.object({
   colors: z.union([

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ExpressRuntimeError } from "@nahkies/typescript-express-runtime/errors"
+import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import {
   ExpressRuntimeResponder,
   ExpressRuntimeResponse,
@@ -10,9 +10,9 @@ import {
   SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
-import { responseValidationFactory } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type GetEscapeHatchesPlainTextResponder = {
   with200(): ExpressRuntimeResponse<string>
@@ -70,7 +70,7 @@ export function createEscapeHatchesRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -91,5 +91,5 @@ export function createEscapeHatchesRouter(
   return router
 }
 
-export { createEscapeHatchesRouter as createRouter }
-export type { EscapeHatchesImplementation as Implementation }
+export {createEscapeHatchesRouter as createRouter}
+export type {EscapeHatchesImplementation as Implementation}

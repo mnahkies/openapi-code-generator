@@ -12,7 +12,7 @@ import {
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
 } from "../schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -29,8 +29,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): KoaRuntimeResponse<t_getHeadersUndeclaredJson200Response>
@@ -110,7 +110,7 @@ export function createRequestHeadersRouter(
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getHeadersUndeclaredResponseValidator(status, body)
@@ -164,7 +164,7 @@ export function createRequestHeadersRouter(
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getHeadersRequestResponseValidator(status, body)
@@ -175,5 +175,5 @@ export function createRequestHeadersRouter(
   return router
 }
 
-export { createRequestHeadersRouter as createRouter }
-export type { RequestHeadersImplementation as Implementation }
+export {createRequestHeadersRouter as createRouter}
+export type {RequestHeadersImplementation as Implementation}

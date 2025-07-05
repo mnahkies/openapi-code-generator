@@ -8,7 +8,7 @@ import {
   t_PostValidationEnumsRequestBodySchema,
   t_RandomNumber,
 } from "../models"
-import { s_Enumerations, s_RandomNumber } from "../schemas"
+import {s_Enumerations, s_RandomNumber} from "../schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -24,8 +24,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type GetValidationNumbersRandomNumberResponder = {
   with200(): ExpressRuntimeResponse<t_RandomNumber>
@@ -142,7 +142,7 @@ export function createValidationRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -205,7 +205,7 @@ export function createValidationRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -260,7 +260,7 @@ export function createValidationRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -315,7 +315,7 @@ export function createValidationRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -336,5 +336,5 @@ export function createValidationRouter(
   return router
 }
 
-export { createValidationRouter as createRouter }
-export type { ValidationImplementation as Implementation }
+export {createValidationRouter as createRouter}
+export type {ValidationImplementation as Implementation}

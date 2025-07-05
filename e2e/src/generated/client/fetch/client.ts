@@ -20,8 +20,8 @@ import {
   Res,
   Server,
 } from "@nahkies/typescript-fetch-runtime/main"
-import { responseValidationFactory } from "@nahkies/typescript-fetch-runtime/zod"
-import { z } from "zod"
+import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod"
+import {z} from "zod"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {
@@ -74,7 +74,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/headers/undeclared`
     const headers = this._headers({}, opts.headers)
 
-    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory(
       [["200", s_getHeadersUndeclaredJson200Response]],
@@ -105,7 +105,7 @@ export class E2ETestClient extends AbstractFetchClient {
       opts.headers,
     )
 
-    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory(
       [["200", s_getHeadersRequestJson200Response]],
@@ -132,7 +132,7 @@ export class E2ETestClient extends AbstractFetchClient {
 
     const res = this._fetch(
       url + query,
-      { method: "GET", ...opts, headers },
+      {method: "GET", ...opts, headers},
       timeout,
     )
 
@@ -148,14 +148,14 @@ export class E2ETestClient extends AbstractFetchClient {
   ): Promise<Res<200, t_Enumerations>> {
     const url = this.basePath + `/validation/enums`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
     const res = this._fetch(
       url,
-      { method: "POST", body, ...opts, headers },
+      {method: "POST", body, ...opts, headers},
       timeout,
     )
 
@@ -169,7 +169,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/responses/500`
     const headers = this._headers({}, opts.headers)
 
-    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory([["500", z.any()]], undefined)(res)
   }
@@ -181,7 +181,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/escape-hatches/plain-text`
     const headers = this._headers({}, opts.headers)
 
-    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory([["200", z.string()]], undefined)(res)
   }
@@ -193,11 +193,11 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/responses/empty`
     const headers = this._headers({}, opts.headers)
 
-    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory([["204", z.any()]], undefined)(res)
   }
 }
 
-export { E2ETestClient as ApiClient }
-export type { E2ETestClientConfig as ApiClientConfig }
+export {E2ETestClient as ApiClient}
+export type {E2ETestClientConfig as ApiClientConfig}

@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, { RouterContext } from "@koa/router"
-import { KoaRuntimeError } from "@nahkies/typescript-koa-runtime/errors"
+import KoaRouter, {RouterContext} from "@koa/router"
+import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import {
   KoaRuntimeResponder,
   KoaRuntimeResponse,
@@ -12,9 +12,9 @@ import {
   SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
-import { responseValidationFactory } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {responseValidationFactory} from "@nahkies/typescript-koa-runtime/zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetEscapeHatchesPlainTextResponder = {
   with200(): KoaRuntimeResponse<string>
@@ -74,7 +74,7 @@ export function createEscapeHatchesRouter(
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getEscapeHatchesPlainTextResponseValidator(status, body)
@@ -86,5 +86,5 @@ export function createEscapeHatchesRouter(
   return router
 }
 
-export { createEscapeHatchesRouter as createRouter }
-export type { EscapeHatchesImplementation as Implementation }
+export {createEscapeHatchesRouter as createRouter}
+export type {EscapeHatchesImplementation as Implementation}
