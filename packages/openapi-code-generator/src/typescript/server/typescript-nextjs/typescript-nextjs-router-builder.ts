@@ -32,14 +32,12 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
   }
 
   protected buildImports(): void {
-    // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
-      .from("@nahkies/typescript-koa-runtime/server")
+      .from("@nahkies/typescript-nextjs-runtime/server")
       .add(
-        "startServer",
-        "ServerConfig",
-        "KoaRuntimeResponse",
-        "KoaRuntimeResponder",
+        "OpenAPIRuntimeResponse",
+        "OpenAPIRuntimeResponder",
+        "Params",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
@@ -50,17 +48,17 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
     this.imports.from("next/server").add("NextRequest", "NextResponse")
 
     this.imports
-      .from("@nahkies/typescript-koa-runtime/errors")
-      .add("KoaRuntimeError", "RequestInputType")
+      .from("@nahkies/typescript-nextjs-runtime/errors")
+      .add("OpenAPIRuntimeError", "RequestInputType")
 
     if (this.schemaBuilder instanceof ZodBuilder) {
       this.imports
-        .from("@nahkies/typescript-koa-runtime/zod")
-        .add("parseRequestInput", "Params", "responseValidationFactory")
+        .from("@nahkies/typescript-nextjs-runtime/zod")
+        .add("parseRequestInput", "responseValidationFactory")
     } else if (this.schemaBuilder instanceof JoiBuilder) {
       this.imports
-        .from("@nahkies/typescript-koa-runtime/joi")
-        .add("parseRequestInput", "Params", "responseValidationFactory")
+        .from("@nahkies/typescript-nextjs-runtime/joi")
+        .add("parseRequestInput", "responseValidationFactory")
     }
   }
 
@@ -89,9 +87,8 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
 
     const responseSchemas = builder.responseSchemas()
     const responder = builder.responder(
-      // TODO: nextjs types
-      "KoaRuntimeResponder",
-      "KoaRuntimeResponse",
+      "OpenAPIRuntimeResponder",
+      "OpenAPIRuntimeResponse",
     )
 
     this.operationTypes.push({
@@ -110,7 +107,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
             "request: NextRequest",
           ]
             .filter(isDefined)
-            .join(",")}) => Promise<KoaRuntimeResponse<unknown>>`,
+            .join(",")}) => Promise<OpenAPIRuntimeResponse<unknown>>`,
           kind: "type",
         }),
       ],
@@ -152,7 +149,7 @@ export class TypescriptNextjsRouterBuilder extends AbstractRouterBuilder {
         body,
       } = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
           .then(it => it.unpack())
-          .catch(err => { throw KoaRuntimeError.HandlerError(err) })
+          .catch(err => { throw OpenAPIRuntimeError.HandlerError(err) })
 
   return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
   }`,

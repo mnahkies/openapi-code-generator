@@ -4,37 +4,38 @@
 
 import {t_UnknownObject, t_UploadAttachmentBodySchema} from "../models"
 import {
-  KoaRuntimeError,
+  OpenAPIRuntimeError,
   RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
+} from "@nahkies/typescript-nextjs-runtime/errors"
 import {
-  KoaRuntimeResponder,
-  KoaRuntimeResponse,
+  OpenAPIRuntimeResponder,
+  OpenAPIRuntimeResponse,
+  Params,
   StatusCode,
-} from "@nahkies/typescript-koa-runtime/server"
-import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-nextjs-runtime/server"
+import {parseRequestInput} from "@nahkies/typescript-nextjs-runtime/zod"
 import {NextRequest} from "next/server"
 import {z} from "zod"
 
 // /attachments
 export type ListAttachmentsResponder = {
-  with200(): KoaRuntimeResponse<t_UnknownObject[]>
-} & KoaRuntimeResponder
+  with200(): OpenAPIRuntimeResponse<t_UnknownObject[]>
+} & OpenAPIRuntimeResponder
 
 export type ListAttachments = (
   respond: ListAttachmentsResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 export type UploadAttachmentResponder = {
-  with202(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
+  with202(): OpenAPIRuntimeResponse<void>
+} & OpenAPIRuntimeResponder
 
 export type UploadAttachment = (
   params: Params<void, void, t_UploadAttachmentBodySchema, void>,
   respond: UploadAttachmentResponder,
   request: NextRequest,
-) => Promise<KoaRuntimeResponse<unknown>>
+) => Promise<OpenAPIRuntimeResponse<unknown>>
 
 export const _GET =
   (implementation: ListAttachments) =>
@@ -49,17 +50,17 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_UnknownObject[]>(200)
+        return new OpenAPIRuntimeResponse<t_UnknownObject[]>(200)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
@@ -86,17 +87,17 @@ export const _POST =
 
     const responder = {
       with202() {
-        return new KoaRuntimeResponse<void>(202)
+        return new OpenAPIRuntimeResponse<void>(202)
       },
       withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
+        return new OpenAPIRuntimeResponse(status)
       },
     }
 
     const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
+        throw OpenAPIRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
