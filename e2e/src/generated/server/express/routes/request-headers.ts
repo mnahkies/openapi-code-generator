@@ -27,8 +27,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): ExpressRuntimeResponse<t_getHeadersUndeclaredJson200Response>
@@ -103,7 +103,7 @@ export function createRequestHeadersRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -172,7 +172,7 @@ export function createRequestHeadersRouter(
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -193,5 +193,5 @@ export function createRequestHeadersRouter(
   return router
 }
 
-export { createRequestHeadersRouter as createRouter }
-export type { RequestHeadersImplementation as Implementation }
+export {createRequestHeadersRouter as createRouter}
+export type {RequestHeadersImplementation as Implementation}

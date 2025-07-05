@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { z } from "zod"
+import {z} from "zod"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -97,7 +97,7 @@ export const s_EndpointAuthMethod = z.enum([
 
 export const s_Error = z.object({
   errorCauses: z
-    .array(z.object({ errorSummary: z.string().optional() }))
+    .array(z.object({errorSummary: z.string().optional()}))
     .optional(),
   errorCode: z.string().optional(),
   errorId: z.string().optional(),
@@ -257,7 +257,7 @@ export const s_TokenTypeHintRevoke = z.enum([
 ])
 
 export const s_UserInfo = z.intersection(
-  z.object({ sub: z.string().optional() }),
+  z.object({sub: z.string().optional()}),
   z.record(z.unknown()),
 )
 
@@ -385,7 +385,7 @@ export const s_RevokeRequest = z.object({
   token_type_hint: s_TokenTypeHintRevoke.optional(),
 })
 
-export const s_TokenRequest = z.object({ grant_type: s_GrantType.optional() })
+export const s_TokenRequest = z.object({grant_type: s_GrantType.optional()})
 
 export const s_TokenResponse = z.object({
   access_token: z.string().optional(),
@@ -409,7 +409,7 @@ export const s_Client = z.object({
   frontchannel_logout_uri: z.string().nullable().optional(),
   grant_types: z.array(s_GrantType).optional(),
   initiate_login_uri: z.string().optional(),
-  jwks: z.object({ keys: z.array(s_JsonWebKey).optional() }).optional(),
+  jwks: z.object({keys: z.array(s_JsonWebKey).optional()}).optional(),
   jwks_uri: z.string().optional(),
   logo_uri: z.string().nullable().optional(),
   policy_uri: z.string().nullable().optional(),
@@ -421,7 +421,7 @@ export const s_Client = z.object({
   tos_uri: z.string().nullable().optional(),
 })
 
-export const s_OAuthKeys = z.object({ keys: z.array(s_JsonWebKey).optional() })
+export const s_OAuthKeys = z.object({keys: z.array(s_JsonWebKey).optional()})
 
 export const s_OidcMetadata = s_OAuthMetadata.merge(
   z.object({

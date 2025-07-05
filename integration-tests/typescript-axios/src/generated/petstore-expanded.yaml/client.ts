@@ -2,13 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_NewPet, t_Pet } from "./models"
+import {t_NewPet, t_Pet} from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class SwaggerPetstoreServers {
   static default(): Server<"SwaggerPetstore"> {
@@ -17,7 +17,7 @@ export class SwaggerPetstoreServers {
 
   static server(
     url: "https://petstore.swagger.io/v2" = "https://petstore.swagger.io/v2",
-  ): { build: () => Server<"SwaggerPetstore"> } {
+  ): {build: () => Server<"SwaggerPetstore">} {
     switch (url) {
       case "https://petstore.swagger.io/v2":
         return {
@@ -51,12 +51,12 @@ export class SwaggerPetstore extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet[]>> {
     const url = `/pets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ tags: p["tags"], limit: p["limit"] })
+    const query = this._query({tags: p["tags"], limit: p["limit"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -71,7 +71,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -80,7 +80,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -99,7 +99,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -118,12 +118,12 @@ export class SwaggerPetstore extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
   }
 }
 
-export { SwaggerPetstore as ApiClient }
-export type { SwaggerPetstoreConfig as ApiClientConfig }
+export {SwaggerPetstore as ApiClient}
+export type {SwaggerPetstoreConfig as ApiClientConfig}

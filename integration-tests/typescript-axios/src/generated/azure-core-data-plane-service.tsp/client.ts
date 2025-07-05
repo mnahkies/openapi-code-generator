@@ -24,7 +24,7 @@ import {
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class ContosoWidgetManagerServers {
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
@@ -70,15 +70,15 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/service-status`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -109,12 +109,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -150,14 +150,14 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -187,12 +187,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -232,12 +232,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -257,7 +257,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_PagedWidget>> {
     const url = `/widgets`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
     const query = this._query({
@@ -271,7 +271,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -301,12 +301,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -342,14 +342,14 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -373,12 +373,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -421,14 +421,14 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -453,12 +453,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -494,14 +494,14 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -518,15 +518,15 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_PagedWidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -557,12 +557,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -597,12 +597,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -636,14 +636,14 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -667,12 +667,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   > {
     const url = `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -708,14 +708,14 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -745,12 +745,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -790,12 +790,12 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -811,20 +811,20 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_PagedManufacturer>> {
     const url = `/manufacturers`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
   }
 }
 
-export { ContosoWidgetManager as ApiClient }
-export type { ContosoWidgetManagerConfig as ApiClientConfig }
+export {ContosoWidgetManager as ApiClient}
+export type {ContosoWidgetManagerConfig as ApiClientConfig}

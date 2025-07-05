@@ -167,12 +167,12 @@ import {
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class StripeApiServersOperations {
   static postFiles(
     url: "https://files.stripe.com/" = "https://files.stripe.com/",
-  ): { build: () => Server<"postFiles_StripeApi"> } {
+  ): {build: () => Server<"postFiles_StripeApi">} {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -188,7 +188,7 @@ export class StripeApiServersOperations {
 
   static getQuotesQuotePdf(
     url: "https://files.stripe.com/" = "https://files.stripe.com/",
-  ): { build: () => Server<"getQuotesQuotePdf_StripeApi"> } {
+  ): {build: () => Server<"getQuotesQuotePdf_StripeApi">} {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -246,17 +246,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/account`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -290,7 +290,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account_link>> {
     const url = `/v1/account_links`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -299,7 +299,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -513,7 +513,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account_session>> {
     const url = `/v1/account_sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -522,7 +522,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -556,7 +556,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -572,7 +572,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1440,7 +1440,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1449,7 +1449,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1465,7 +1465,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_account>> {
     const url = `/v1/accounts/${p["account"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1474,7 +1474,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1491,17 +1491,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/accounts/${p["account"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2307,7 +2307,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/accounts/${p["account"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2316,7 +2316,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2375,7 +2375,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/bank_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2384,7 +2384,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2401,7 +2401,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_external_account>> {
     const url = `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2410,7 +2410,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2428,17 +2428,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2492,7 +2492,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2501,7 +2501,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2525,17 +2525,17 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/capabilities`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2553,17 +2553,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_capability>> {
     const url = `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2583,7 +2583,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_capability>> {
     const url = `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2592,7 +2592,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2620,7 +2620,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -2636,7 +2636,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2695,7 +2695,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2704,7 +2704,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2721,7 +2721,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_external_account>> {
     const url = `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2730,7 +2730,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2748,17 +2748,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2812,7 +2812,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2821,7 +2821,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2839,7 +2839,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_login_link>> {
     const url = `/v1/accounts/${p["account"]}/login_links`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2848,7 +2848,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2883,7 +2883,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/people`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -2899,7 +2899,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3116,7 +3116,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/people`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3125,7 +3125,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3142,7 +3142,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_person>> {
     const url = `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3151,7 +3151,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3169,17 +3169,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3397,7 +3397,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3406,7 +3406,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3441,7 +3441,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -3457,7 +3457,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3674,7 +3674,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3683,7 +3683,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3700,7 +3700,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_person>> {
     const url = `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3709,7 +3709,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3727,17 +3727,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3955,7 +3955,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_person>> {
     const url = `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3964,7 +3964,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3983,7 +3983,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_account>> {
     const url = `/v1/accounts/${p["account"]}/reject`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3992,7 +3992,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4019,7 +4019,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/apple_pay/domains`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4035,7 +4035,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4053,7 +4053,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apple_pay_domain>> {
     const url = `/v1/apple_pay/domains`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4062,7 +4062,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4078,7 +4078,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_apple_pay_domain>> {
     const url = `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4087,7 +4087,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4104,17 +4104,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apple_pay_domain>> {
     const url = `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4149,7 +4149,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/application_fees`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4166,7 +4166,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4184,17 +4184,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_fee_refund>> {
     const url = `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4222,7 +4222,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_fee_refund>> {
     const url = `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4231,7 +4231,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4248,17 +4248,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_application_fee>> {
     const url = `/v1/application_fees/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4278,7 +4278,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_application_fee>> {
     const url = `/v1/application_fees/${p["id"]}/refund`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4287,7 +4287,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4314,7 +4314,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4329,7 +4329,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4353,7 +4353,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_fee_refund>> {
     const url = `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4362,7 +4362,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4392,7 +4392,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/apps/secrets`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4408,7 +4408,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4432,7 +4432,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apps_secret>> {
     const url = `/v1/apps/secrets`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4441,7 +4441,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4463,7 +4463,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apps_secret>> {
     const url = `/v1/apps/secrets/delete`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4472,7 +4472,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4493,7 +4493,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_apps_secret>> {
     const url = `/v1/apps/secrets/find`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4507,7 +4507,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4523,17 +4523,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_balance>> {
     const url = `/v1/balance`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4571,7 +4571,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/balance/history`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4591,7 +4591,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4608,17 +4608,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_balance_transaction>> {
     const url = `/v1/balance/history/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4656,7 +4656,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/balance_transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4676,7 +4676,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4693,17 +4693,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_balance_transaction>> {
     const url = `/v1/balance_transactions/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4731,7 +4731,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/alerts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4748,7 +4748,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4780,7 +4780,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4789,7 +4789,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4806,17 +4806,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4834,7 +4834,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts/${p["id"]}/activate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4843,7 +4843,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4861,7 +4861,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts/${p["id"]}/archive`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4870,7 +4870,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4888,7 +4888,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts/${p["id"]}/deactivate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4897,7 +4897,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4928,7 +4928,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_balance_summary>> {
     const url = `/v1/billing/credit_balance_summary`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4942,7 +4942,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4970,7 +4970,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/credit_balance_transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -4987,7 +4987,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5004,17 +5004,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_balance_transaction>> {
     const url = `/v1/billing/credit_balance_transactions/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5041,7 +5041,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/credit_grants`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -5057,7 +5057,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5104,7 +5104,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_grant>> {
     const url = `/v1/billing/credit_grants`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5113,7 +5113,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5130,17 +5130,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_grant>> {
     const url = `/v1/billing/credit_grants/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5164,7 +5164,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_grant>> {
     const url = `/v1/billing/credit_grants/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5173,7 +5173,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5191,7 +5191,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_grant>> {
     const url = `/v1/billing/credit_grants/${p["id"]}/expire`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5200,7 +5200,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5218,7 +5218,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_credit_grant>> {
     const url = `/v1/billing/credit_grants/${p["id"]}/void`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5227,7 +5227,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5251,7 +5251,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter_event_adjustment>> {
     const url = `/v1/billing/meter_event_adjustments`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5260,7 +5260,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5283,7 +5283,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter_event>> {
     const url = `/v1/billing/meter_events`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5292,7 +5292,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5319,7 +5319,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/meters`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -5335,7 +5335,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5371,7 +5371,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter>> {
     const url = `/v1/billing/meters`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5380,7 +5380,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5397,17 +5397,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter>> {
     const url = `/v1/billing/meters/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5426,7 +5426,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter>> {
     const url = `/v1/billing/meters/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5435,7 +5435,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5453,7 +5453,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter>> {
     const url = `/v1/billing/meters/${p["id"]}/deactivate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5462,7 +5462,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5493,7 +5493,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing/meters/${p["id"]}/event_summaries`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -5512,7 +5512,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5530,7 +5530,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_meter>> {
     const url = `/v1/billing/meters/${p["id"]}/reactivate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5539,7 +5539,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5567,7 +5567,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/billing_portal/configurations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -5584,7 +5584,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5733,7 +5733,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_portal_configuration>> {
     const url = `/v1/billing_portal/configurations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5742,7 +5742,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5759,17 +5759,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_portal_configuration>> {
     const url = `/v1/billing_portal/configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5941,7 +5941,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_portal_configuration>> {
     const url = `/v1/billing_portal/configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5950,7 +5950,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6086,7 +6086,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_billing_portal_session>> {
     const url = `/v1/billing_portal/sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6095,7 +6095,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6132,7 +6132,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/charges`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -6151,7 +6151,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6250,7 +6250,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_charge>> {
     const url = `/v1/charges`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6259,7 +6259,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6287,7 +6287,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/charges/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -6302,7 +6302,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6319,17 +6319,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_charge>> {
     const url = `/v1/charges/${p["charge"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6381,7 +6381,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_charge>> {
     const url = `/v1/charges/${p["charge"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6390,7 +6390,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6420,7 +6420,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_charge>> {
     const url = `/v1/charges/${p["charge"]}/capture`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6429,7 +6429,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6446,17 +6446,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6676,7 +6676,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6685,7 +6685,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6703,7 +6703,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/charges/${p["charge"]}/dispute/close`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6712,7 +6712,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6752,7 +6752,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_charge>> {
     const url = `/v1/charges/${p["charge"]}/refund`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6761,7 +6761,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6788,7 +6788,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -6803,7 +6803,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6846,7 +6846,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6855,7 +6855,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6873,17 +6873,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6911,7 +6911,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6920,7 +6920,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6962,7 +6962,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/checkout/sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -6984,7 +6984,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8397,7 +8397,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_checkout_session>> {
     const url = `/v1/checkout/sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8406,7 +8406,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8423,17 +8423,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_checkout_session>> {
     const url = `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8559,7 +8559,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_checkout_session>> {
     const url = `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8568,7 +8568,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8586,7 +8586,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_checkout_session>> {
     const url = `/v1/checkout/sessions/${p["session"]}/expire`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8595,7 +8595,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8622,7 +8622,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/checkout/sessions/${p["session"]}/line_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -8637,7 +8637,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8663,7 +8663,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/climate/orders`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -8678,7 +8678,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8709,7 +8709,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_order>> {
     const url = `/v1/climate/orders`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8718,7 +8718,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8735,17 +8735,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_order>> {
     const url = `/v1/climate/orders/${p["order"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8777,7 +8777,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_order>> {
     const url = `/v1/climate/orders/${p["order"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8786,7 +8786,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8804,7 +8804,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_order>> {
     const url = `/v1/climate/orders/${p["order"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8813,7 +8813,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8839,7 +8839,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/climate/products`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -8854,7 +8854,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8871,17 +8871,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_product>> {
     const url = `/v1/climate/products/${p["product"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8907,7 +8907,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/climate/suppliers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -8922,7 +8922,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8939,17 +8939,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_climate_supplier>> {
     const url = `/v1/climate/suppliers/${p["supplier"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8966,17 +8966,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_confirmation_token>> {
     const url = `/v1/confirmation_tokens/${p["confirmationToken"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9002,7 +9002,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/country_specs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9017,7 +9017,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9034,17 +9034,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_country_spec>> {
     const url = `/v1/country_specs/${p["country"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9078,7 +9078,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/coupons`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9094,7 +9094,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9145,7 +9145,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_coupon>> {
     const url = `/v1/coupons`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9154,7 +9154,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9170,7 +9170,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_coupon>> {
     const url = `/v1/coupons/${p["coupon"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9179,7 +9179,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9196,17 +9196,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_coupon>> {
     const url = `/v1/coupons/${p["coupon"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9243,7 +9243,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_coupon>> {
     const url = `/v1/coupons/${p["coupon"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9252,7 +9252,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9288,7 +9288,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/credit_notes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9306,7 +9306,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9384,7 +9384,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9393,7 +9393,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9454,7 +9454,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes/preview`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9479,7 +9479,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9550,7 +9550,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/credit_notes/preview/lines`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9578,7 +9578,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9605,7 +9605,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/credit_notes/${p["creditNote"]}/lines`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9620,7 +9620,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9637,17 +9637,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9671,7 +9671,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9680,7 +9680,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9698,7 +9698,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_credit_note>> {
     const url = `/v1/credit_notes/${p["id"]}/void`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9707,7 +9707,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9771,7 +9771,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_session>> {
     const url = `/v1/customer_sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9780,7 +9780,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9816,7 +9816,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -9834,7 +9834,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10080,7 +10080,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer>> {
     const url = `/v1/customers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10089,7 +10089,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10117,7 +10117,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -10132,7 +10132,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10148,7 +10148,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_customer>> {
     const url = `/v1/customers/${p["customer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10157,7 +10157,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10174,17 +10174,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer | t_deleted_customer>> {
     const url = `/v1/customers/${p["customer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10356,7 +10356,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer>> {
     const url = `/v1/customers/${p["customer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10365,7 +10365,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10392,7 +10392,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/balance_transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -10407,7 +10407,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10437,7 +10437,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_balance_transaction>> {
     const url = `/v1/customers/${p["customer"]}/balance_transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10446,7 +10446,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10464,17 +10464,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_balance_transaction>> {
     const url = `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10503,7 +10503,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_balance_transaction>> {
     const url = `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10512,7 +10512,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10539,7 +10539,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -10554,7 +10554,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10619,7 +10619,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10628,7 +10628,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10647,7 +10647,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source | t_deleted_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10656,7 +10656,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10674,17 +10674,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_bank_account>> {
     const url = `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10742,7 +10742,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_card | t_bank_account | t_source>> {
     const url = `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10751,7 +10751,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10771,7 +10771,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_bank_account>> {
     const url = `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10780,7 +10780,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10807,7 +10807,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -10822,7 +10822,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10887,7 +10887,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10896,7 +10896,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10915,7 +10915,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source | t_deleted_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10924,7 +10924,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10942,17 +10942,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_card>> {
     const url = `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11010,7 +11010,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_card | t_bank_account | t_source>> {
     const url = `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11019,7 +11019,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11036,17 +11036,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_cash_balance>> {
     const url = `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11076,7 +11076,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_cash_balance>> {
     const url = `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11085,7 +11085,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11112,7 +11112,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/cash_balance_transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -11127,7 +11127,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11145,17 +11145,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_cash_balance_transaction>> {
     const url = `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11171,7 +11171,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_discount>> {
     const url = `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11180,7 +11180,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11197,17 +11197,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_discount>> {
     const url = `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11250,7 +11250,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_funding_instructions>> {
     const url = `/v1/customers/${p["customer"]}/funding_instructions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11259,7 +11259,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11341,7 +11341,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/payment_methods`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -11358,7 +11358,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11376,17 +11376,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11414,7 +11414,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -11430,7 +11430,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11495,7 +11495,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11504,7 +11504,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11523,7 +11523,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source | t_deleted_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11532,7 +11532,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11550,17 +11550,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_source>> {
     const url = `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11618,7 +11618,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_card | t_bank_account | t_source>> {
     const url = `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11627,7 +11627,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11647,7 +11647,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_bank_account>> {
     const url = `/v1/customers/${p["customer"]}/sources/${p["id"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11656,7 +11656,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11683,7 +11683,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -11698,7 +11698,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12148,7 +12148,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12157,7 +12157,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12178,7 +12178,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12187,7 +12187,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12205,17 +12205,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12710,7 +12710,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12719,7 +12719,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12736,7 +12736,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_discount>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12745,7 +12745,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12763,17 +12763,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_discount>> {
     const url = `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12800,7 +12800,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -12815,7 +12815,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12946,7 +12946,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_id>> {
     const url = `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12955,7 +12955,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12972,7 +12972,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_tax_id>> {
     const url = `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12981,7 +12981,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12999,17 +12999,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_id>> {
     const url = `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13045,7 +13045,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/disputes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -13063,7 +13063,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13080,17 +13080,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/disputes/${p["dispute"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13310,7 +13310,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/disputes/${p["dispute"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13319,7 +13319,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13337,7 +13337,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dispute>> {
     const url = `/v1/disputes/${p["dispute"]}/close`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13346,7 +13346,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13373,7 +13373,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/entitlements/active_entitlements`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -13389,7 +13389,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13406,17 +13406,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_entitlements_active_entitlement>> {
     const url = `/v1/entitlements/active_entitlements/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13444,7 +13444,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/entitlements/features`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -13461,7 +13461,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13485,7 +13485,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_entitlements_feature>> {
     const url = `/v1/entitlements/features`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13494,7 +13494,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13511,17 +13511,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_entitlements_feature>> {
     const url = `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13550,7 +13550,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_entitlements_feature>> {
     const url = `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13559,7 +13559,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13580,7 +13580,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ephemeral_key>> {
     const url = `/v1/ephemeral_keys`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13589,7 +13589,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13607,7 +13607,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ephemeral_key>> {
     const url = `/v1/ephemeral_keys/${p["key"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13616,7 +13616,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13653,7 +13653,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/events`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -13672,7 +13672,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13689,17 +13689,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event>> {
     const url = `/v1/events/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13725,7 +13725,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/exchange_rates`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -13740,7 +13740,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13757,17 +13757,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_exchange_rate>> {
     const url = `/v1/exchange_rates/${p["rateId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13820,7 +13820,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_external_account>> {
     const url = `/v1/external_accounts/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13829,7 +13829,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13865,7 +13865,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/file_links`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -13883,7 +13883,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13911,7 +13911,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file_link>> {
     const url = `/v1/file_links`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13920,7 +13920,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13937,17 +13937,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file_link>> {
     const url = `/v1/file_links/${p["link"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13975,7 +13975,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file_link>> {
     const url = `/v1/file_links/${p["link"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13984,7 +13984,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14037,7 +14037,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/files`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14054,7 +14054,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14103,7 +14103,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file>> {
     const url = `/v1/files`
     const headers = this._headers(
-      { "Content-Type": "multipart/form-data" },
+      {"Content-Type": "multipart/form-data"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14113,7 +14113,7 @@ export class StripeApi extends AbstractAxiosClient {
       method: "POST",
       data: body,
       baseURL: basePath,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14130,17 +14130,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file>> {
     const url = `/v1/files/${p["file"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14171,7 +14171,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/financial_connections/accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14188,7 +14188,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14205,17 +14205,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/financial_connections/accounts/${p["account"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14233,7 +14233,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/financial_connections/accounts/${p["account"]}/disconnect`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14242,7 +14242,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14270,7 +14270,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/financial_connections/accounts/${p["account"]}/owners`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14286,7 +14286,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14310,7 +14310,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/financial_connections/accounts/${p["account"]}/refresh`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14319,7 +14319,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14338,7 +14338,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/financial_connections/accounts/${p["account"]}/subscribe`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14347,7 +14347,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14366,7 +14366,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/financial_connections/accounts/${p["account"]}/unsubscribe`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14375,7 +14375,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14428,7 +14428,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_session>> {
     const url = `/v1/financial_connections/sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14437,7 +14437,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14454,17 +14454,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_session>> {
     const url = `/v1/financial_connections/sessions/${p["session"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14502,7 +14502,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/financial_connections/transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14520,7 +14520,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14537,17 +14537,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_transaction>> {
     const url = `/v1/financial_connections/transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14579,7 +14579,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/forwarding/requests`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14595,7 +14595,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14638,7 +14638,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_forwarding_request>> {
     const url = `/v1/forwarding/requests`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14647,7 +14647,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14664,17 +14664,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_forwarding_request>> {
     const url = `/v1/forwarding/requests/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14711,7 +14711,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/identity/verification_reports`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14730,7 +14730,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14747,17 +14747,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_report>> {
     const url = `/v1/identity/verification_reports/${p["report"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14799,7 +14799,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/identity/verification_sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -14818,7 +14818,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14880,7 +14880,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_session>> {
     const url = `/v1/identity/verification_sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14889,7 +14889,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14906,17 +14906,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_session>> {
     const url = `/v1/identity/verification_sessions/${p["session"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14969,7 +14969,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_session>> {
     const url = `/v1/identity/verification_sessions/${p["session"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14978,7 +14978,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14996,7 +14996,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_session>> {
     const url = `/v1/identity/verification_sessions/${p["session"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15005,7 +15005,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15023,7 +15023,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_identity_verification_session>> {
     const url = `/v1/identity/verification_sessions/${p["session"]}/redact`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15032,7 +15032,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15064,7 +15064,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoice_payments`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -15082,7 +15082,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15099,17 +15099,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice_payment>> {
     const url = `/v1/invoice_payments/${p["invoicePayment"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15136,7 +15136,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoice_rendering_templates`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -15152,7 +15152,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15170,17 +15170,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice_rendering_template>> {
     const url = `/v1/invoice_rendering_templates/${p["template"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"], version: p["version"] })
+    const query = this._query({expand: p["expand"], version: p["version"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15198,7 +15198,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice_rendering_template>> {
     const url = `/v1/invoice_rendering_templates/${p["template"]}/archive`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15207,7 +15207,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15225,7 +15225,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice_rendering_template>> {
     const url = `/v1/invoice_rendering_templates/${p["template"]}/unarchive`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15234,7 +15234,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15271,7 +15271,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoiceitems`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -15290,7 +15290,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15368,7 +15368,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoiceitem>> {
     const url = `/v1/invoiceitems`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15377,7 +15377,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15393,7 +15393,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_invoiceitem>> {
     const url = `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15402,7 +15402,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15419,17 +15419,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoiceitem>> {
     const url = `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15504,7 +15504,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoiceitem>> {
     const url = `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15513,7 +15513,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15568,7 +15568,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoices`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -15589,7 +15589,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16019,7 +16019,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16028,7 +16028,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16619,7 +16619,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/create_preview`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16628,7 +16628,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16656,7 +16656,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoices/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -16671,7 +16671,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16687,7 +16687,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16696,7 +16696,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16713,17 +16713,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17156,7 +17156,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17165,7 +17165,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17329,7 +17329,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/add_lines`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17338,7 +17338,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17357,7 +17357,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/attach_payment`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17366,7 +17366,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17385,7 +17385,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/finalize`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17394,7 +17394,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17421,7 +17421,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/invoices/${p["invoice"]}/lines`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -17436,7 +17436,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17589,7 +17589,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_line_item>> {
     const url = `/v1/invoices/${p["invoice"]}/lines/${p["lineItemId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17598,7 +17598,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17616,7 +17616,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/mark_uncollectible`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17625,7 +17625,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17649,7 +17649,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/pay`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17658,7 +17658,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17689,7 +17689,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/remove_lines`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17698,7 +17698,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17716,7 +17716,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/send`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17725,7 +17725,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17889,7 +17889,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/update_lines`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17898,7 +17898,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17916,7 +17916,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_invoice>> {
     const url = `/v1/invoices/${p["invoice"]}/void`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17925,7 +17925,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17967,7 +17967,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/authorizations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -17986,7 +17986,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18003,17 +18003,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/issuing/authorizations/${p["authorization"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18040,7 +18040,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/issuing/authorizations/${p["authorization"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18049,7 +18049,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18077,7 +18077,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/issuing/authorizations/${p["authorization"]}/approve`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18086,7 +18086,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18113,7 +18113,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/issuing/authorizations/${p["authorization"]}/decline`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18122,7 +18122,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18160,7 +18160,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/cardholders`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -18180,7 +18180,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19181,7 +19181,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_cardholder>> {
     const url = `/v1/issuing/cardholders`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19190,7 +19190,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19207,17 +19207,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_cardholder>> {
     const url = `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20219,7 +20219,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_cardholder>> {
     const url = `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20228,7 +20228,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20269,7 +20269,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/cards`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -20292,7 +20292,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21284,7 +21284,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/issuing/cards`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21293,7 +21293,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21310,17 +21310,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22313,7 +22313,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22322,7 +22322,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22364,7 +22364,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/disputes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -22382,7 +22382,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22635,7 +22635,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_dispute>> {
     const url = `/v1/issuing/disputes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22644,7 +22644,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22661,17 +22661,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_dispute>> {
     const url = `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22923,7 +22923,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_dispute>> {
     const url = `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22932,7 +22932,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22959,7 +22959,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_dispute>> {
     const url = `/v1/issuing/disputes/${p["dispute"]}/submit`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22968,7 +22968,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23005,7 +23005,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/personalization_designs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23023,7 +23023,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23063,7 +23063,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/issuing/personalization_designs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23072,7 +23072,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23089,17 +23089,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23152,7 +23152,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23161,7 +23161,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23189,7 +23189,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/physical_bundles`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23206,7 +23206,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23223,17 +23223,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_physical_bundle>> {
     const url = `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23250,17 +23250,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_settlement>> {
     const url = `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23283,7 +23283,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_settlement>> {
     const url = `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23292,7 +23292,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23333,7 +23333,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/tokens`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23351,7 +23351,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23368,17 +23368,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_token>> {
     const url = `/v1/issuing/tokens/${p["token"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23397,7 +23397,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_token>> {
     const url = `/v1/issuing/tokens/${p["token"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23406,7 +23406,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23443,7 +23443,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/issuing/transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23462,7 +23462,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23479,17 +23479,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_transaction>> {
     const url = `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23516,7 +23516,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_transaction>> {
     const url = `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23525,7 +23525,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23578,7 +23578,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_session>> {
     const url = `/v1/link_account_sessions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23587,7 +23587,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23604,17 +23604,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_session>> {
     const url = `/v1/link_account_sessions/${p["session"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23645,7 +23645,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/linked_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23662,7 +23662,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23679,17 +23679,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/linked_accounts/${p["account"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23707,7 +23707,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/linked_accounts/${p["account"]}/disconnect`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23716,7 +23716,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23744,7 +23744,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/linked_accounts/${p["account"]}/owners`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23760,7 +23760,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23784,7 +23784,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_financial_connections_account>> {
     const url = `/v1/linked_accounts/${p["account"]}/refresh`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23793,7 +23793,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23810,17 +23810,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_mandate>> {
     const url = `/v1/mandates/${p["mandate"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23855,7 +23855,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_intents`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -23872,7 +23872,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25480,7 +25480,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25489,7 +25489,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25517,7 +25517,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_intents/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -25532,7 +25532,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25550,7 +25550,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -25563,7 +25563,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27136,7 +27136,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -27145,7 +27145,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27165,7 +27165,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}/apply_customer_balance`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -27174,7 +27174,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27201,7 +27201,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -27210,7 +27210,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27247,7 +27247,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}/capture`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -27256,7 +27256,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28846,7 +28846,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}/confirm`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -28855,7 +28855,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28887,7 +28887,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}/increment_authorization`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -28896,7 +28896,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28917,7 +28917,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_intent>> {
     const url = `/v1/payment_intents/${p["intent"]}/verify_microdeposits`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -28926,7 +28926,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28953,7 +28953,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_links`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -28969,7 +28969,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -29584,7 +29584,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_link>> {
     const url = `/v1/payment_links`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -29593,7 +29593,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -29610,17 +29610,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_link>> {
     const url = `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -30220,7 +30220,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_link>> {
     const url = `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -30229,7 +30229,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -30256,7 +30256,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_links/${p["paymentLink"]}/line_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -30271,7 +30271,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -30298,7 +30298,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_method_configurations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -30314,7 +30314,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -30905,7 +30905,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_configuration>> {
     const url = `/v1/payment_method_configurations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -30914,7 +30914,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -30931,17 +30931,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_configuration>> {
     const url = `/v1/payment_method_configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31533,7 +31533,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_configuration>> {
     const url = `/v1/payment_method_configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -31542,7 +31542,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31570,7 +31570,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_method_domains`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -31587,7 +31587,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31606,7 +31606,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_domain>> {
     const url = `/v1/payment_method_domains`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -31615,7 +31615,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31632,17 +31632,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_domain>> {
     const url = `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31661,7 +31661,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_domain>> {
     const url = `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -31670,7 +31670,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31688,7 +31688,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method_domain>> {
     const url = `/v1/payment_method_domains/${p["paymentMethodDomain"]}/validate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -31697,7 +31697,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -31774,7 +31774,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payment_methods`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -31791,7 +31791,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32163,7 +32163,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/payment_methods`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32172,7 +32172,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32189,17 +32189,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32282,7 +32282,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32291,7 +32291,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32310,7 +32310,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/payment_methods/${p["paymentMethod"]}/attach`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32319,7 +32319,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32337,7 +32337,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payment_method>> {
     const url = `/v1/payment_methods/${p["paymentMethod"]}/detach`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32346,7 +32346,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32390,7 +32390,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/payouts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -32409,7 +32409,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32440,7 +32440,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payout>> {
     const url = `/v1/payouts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32449,7 +32449,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32466,17 +32466,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payout>> {
     const url = `/v1/payouts/${p["payout"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32503,7 +32503,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payout>> {
     const url = `/v1/payouts/${p["payout"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32512,7 +32512,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32530,7 +32530,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payout>> {
     const url = `/v1/payouts/${p["payout"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32539,7 +32539,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32562,7 +32562,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_payout>> {
     const url = `/v1/payouts/${p["payout"]}/reverse`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32571,7 +32571,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32607,7 +32607,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/plans`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -32625,7 +32625,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32703,7 +32703,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_plan>> {
     const url = `/v1/plans`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32712,7 +32712,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32728,7 +32728,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_plan>> {
     const url = `/v1/plans/${p["plan"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32737,7 +32737,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32754,17 +32754,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_plan>> {
     const url = `/v1/plans/${p["plan"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32795,7 +32795,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_plan>> {
     const url = `/v1/plans/${p["plan"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -32804,7 +32804,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -32852,7 +32852,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/prices`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -32874,7 +32874,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33001,7 +33001,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_price>> {
     const url = `/v1/prices`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33010,7 +33010,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33038,7 +33038,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/prices/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -33053,7 +33053,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33070,17 +33070,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_price>> {
     const url = `/v1/prices/${p["price"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33153,7 +33153,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_price>> {
     const url = `/v1/prices/${p["price"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33162,7 +33162,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33200,7 +33200,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/products`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -33220,7 +33220,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33339,7 +33339,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product>> {
     const url = `/v1/products`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33348,7 +33348,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33376,7 +33376,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/products/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -33391,7 +33391,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33407,7 +33407,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_product>> {
     const url = `/v1/products/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33416,7 +33416,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33433,17 +33433,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product>> {
     const url = `/v1/products/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33501,7 +33501,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product>> {
     const url = `/v1/products/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33510,7 +33510,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33537,7 +33537,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/products/${p["product"]}/features`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -33552,7 +33552,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33571,7 +33571,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product_feature>> {
     const url = `/v1/products/${p["product"]}/features`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33580,7 +33580,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33597,7 +33597,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_product_feature>> {
     const url = `/v1/products/${p["product"]}/features/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33606,7 +33606,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33624,17 +33624,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_product_feature>> {
     const url = `/v1/products/${p["product"]}/features/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33672,7 +33672,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/promotion_codes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -33692,7 +33692,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33736,7 +33736,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_promotion_code>> {
     const url = `/v1/promotion_codes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33745,7 +33745,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33762,17 +33762,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_promotion_code>> {
     const url = `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33813,7 +33813,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_promotion_code>> {
     const url = `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -33822,7 +33822,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -33856,7 +33856,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/quotes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -33874,7 +33874,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34029,7 +34029,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34038,7 +34038,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34055,17 +34055,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes/${p["quote"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34210,7 +34210,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes/${p["quote"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34219,7 +34219,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34237,7 +34237,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes/${p["quote"]}/accept`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34246,7 +34246,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34264,7 +34264,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes/${p["quote"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34273,7 +34273,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34300,7 +34300,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -34315,7 +34315,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34334,7 +34334,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_quote>> {
     const url = `/v1/quotes/${p["quote"]}/finalize`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34343,7 +34343,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34370,7 +34370,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/quotes/${p["quote"]}/line_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -34385,7 +34385,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34405,10 +34405,10 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -34416,7 +34416,7 @@ export class StripeApi extends AbstractAxiosClient {
       method: "GET",
       data: body,
       baseURL: basePath,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34452,7 +34452,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/radar/early_fraud_warnings`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -34470,7 +34470,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34487,17 +34487,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_early_fraud_warning>> {
     const url = `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34533,7 +34533,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/radar/value_list_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -34551,7 +34551,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34570,7 +34570,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list_item>> {
     const url = `/v1/radar/value_list_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34579,7 +34579,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34595,7 +34595,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_radar_value_list_item>> {
     const url = `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34604,7 +34604,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34621,17 +34621,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list_item>> {
     const url = `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34667,7 +34667,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/radar/value_lists`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -34685,7 +34685,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34724,7 +34724,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list>> {
     const url = `/v1/radar/value_lists`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34733,7 +34733,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34749,7 +34749,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_radar_value_list>> {
     const url = `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34758,7 +34758,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34775,17 +34775,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list>> {
     const url = `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34810,7 +34810,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_radar_value_list>> {
     const url = `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34819,7 +34819,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34855,7 +34855,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/refunds`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -34873,7 +34873,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34916,7 +34916,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/refunds`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34925,7 +34925,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34942,17 +34942,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/refunds/${p["refund"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -34979,7 +34979,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/refunds/${p["refund"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -34988,7 +34988,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35006,7 +35006,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/refunds/${p["refund"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -35015,7 +35015,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35049,7 +35049,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/reporting/report_runs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -35065,7 +35065,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35738,7 +35738,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reporting_report_run>> {
     const url = `/v1/reporting/report_runs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -35747,7 +35747,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35764,17 +35764,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reporting_report_run>> {
     const url = `/v1/reporting/report_runs/${p["reportRun"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35797,17 +35797,17 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/reporting/report_types`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35824,17 +35824,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reporting_report_type>> {
     const url = `/v1/reporting/report_types/${p["reportType"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35868,7 +35868,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/reviews`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -35884,7 +35884,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35901,17 +35901,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_review>> {
     const url = `/v1/reviews/${p["review"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35929,7 +35929,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_review>> {
     const url = `/v1/reviews/${p["review"]}/approve`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -35938,7 +35938,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -35973,7 +35973,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/setup_attempts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -35990,7 +35990,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -36027,7 +36027,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/setup_intents`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -36046,7 +36046,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -36795,7 +36795,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -36804,7 +36804,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -36822,7 +36822,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -36835,7 +36835,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -37548,7 +37548,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -37557,7 +37557,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -37583,7 +37583,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents/${p["intent"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -37592,7 +37592,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38320,7 +38320,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents/${p["intent"]}/confirm`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -38329,7 +38329,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38350,7 +38350,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_setup_intent>> {
     const url = `/v1/setup_intents/${p["intent"]}/verify_microdeposits`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -38359,7 +38359,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38395,7 +38395,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/shipping_rates`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -38413,7 +38413,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38492,7 +38492,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_shipping_rate>> {
     const url = `/v1/shipping_rates`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -38501,7 +38501,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38518,17 +38518,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_shipping_rate>> {
     const url = `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38580,7 +38580,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_shipping_rate>> {
     const url = `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -38589,7 +38589,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38609,7 +38609,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_sigma_sigma_api_query>> {
     const url = `/v1/sigma/saved_queries/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -38618,7 +38618,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38644,7 +38644,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/sigma/scheduled_query_runs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -38659,7 +38659,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38676,17 +38676,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_scheduled_query_run>> {
     const url = `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38844,7 +38844,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source>> {
     const url = `/v1/sources`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -38853,7 +38853,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -38871,7 +38871,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source>> {
     const url = `/v1/sources/${p["source"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -38884,7 +38884,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39019,7 +39019,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source>> {
     const url = `/v1/sources/${p["source"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -39028,7 +39028,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39046,17 +39046,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source_mandate_notification>> {
     const url = `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39083,7 +39083,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/sources/${p["source"]}/source_transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -39098,7 +39098,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39116,17 +39116,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source_transaction>> {
     const url = `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39145,7 +39145,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_source>> {
     const url = `/v1/sources/${p["source"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -39154,7 +39154,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39181,7 +39181,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscription_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -39197,7 +39197,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39286,7 +39286,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_item>> {
     const url = `/v1/subscription_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -39295,7 +39295,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39322,7 +39322,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_subscription_item>> {
     const url = `/v1/subscription_items/${p["item"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -39331,7 +39331,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39348,17 +39348,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_item>> {
     const url = `/v1/subscription_items/${p["item"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39452,7 +39452,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_item>> {
     const url = `/v1/subscription_items/${p["item"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -39461,7 +39461,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39521,7 +39521,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscription_schedules`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -39542,7 +39542,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39820,7 +39820,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_schedule>> {
     const url = `/v1/subscription_schedules`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -39829,7 +39829,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -39846,17 +39846,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_schedule>> {
     const url = `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40135,7 +40135,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_schedule>> {
     const url = `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -40144,7 +40144,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40164,7 +40164,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_schedule>> {
     const url = `/v1/subscription_schedules/${p["schedule"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -40173,7 +40173,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40192,7 +40192,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription_schedule>> {
     const url = `/v1/subscription_schedules/${p["schedule"]}/release`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -40201,7 +40201,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40273,7 +40273,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscriptions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -40297,7 +40297,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40763,7 +40763,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -40772,7 +40772,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40800,7 +40800,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/subscriptions/search`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -40815,7 +40815,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40854,7 +40854,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -40863,7 +40863,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -40880,17 +40880,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41386,7 +41386,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -41395,7 +41395,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41411,7 +41411,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_discount>> {
     const url = `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -41420,7 +41420,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41441,7 +41441,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions/${p["subscription"]}/migrate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -41450,7 +41450,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41480,7 +41480,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_subscription>> {
     const url = `/v1/subscriptions/${p["subscription"]}/resume`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -41489,7 +41489,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41691,7 +41691,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_calculation>> {
     const url = `/v1/tax/calculations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -41700,7 +41700,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41717,17 +41717,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_calculation>> {
     const url = `/v1/tax/calculations/${p["calculation"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41754,7 +41754,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax/calculations/${p["calculation"]}/line_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -41769,7 +41769,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -41801,7 +41801,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax/registrations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -41817,7 +41817,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42723,7 +42723,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_registration>> {
     const url = `/v1/tax/registrations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -42732,7 +42732,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42749,17 +42749,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_registration>> {
     const url = `/v1/tax/registrations/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42779,7 +42779,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_registration>> {
     const url = `/v1/tax/registrations/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -42788,7 +42788,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42804,17 +42804,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_settings>> {
     const url = `/v1/tax/settings`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42856,7 +42856,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_settings>> {
     const url = `/v1/tax/settings`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -42865,7 +42865,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42890,7 +42890,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_transaction>> {
     const url = `/v1/tax/transactions/create_from_calculation`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -42899,7 +42899,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42945,7 +42945,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_transaction>> {
     const url = `/v1/tax/transactions/create_reversal`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -42954,7 +42954,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -42971,17 +42971,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_transaction>> {
     const url = `/v1/tax/transactions/${p["transaction"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43008,7 +43008,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax/transactions/${p["transaction"]}/line_items`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -43023,7 +43023,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43049,7 +43049,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax_codes`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -43064,7 +43064,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43081,17 +43081,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_code>> {
     const url = `/v1/tax_codes/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43127,7 +43127,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax_ids`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -43143,7 +43143,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43285,7 +43285,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_id>> {
     const url = `/v1/tax_ids`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -43294,7 +43294,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43310,7 +43310,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_tax_id>> {
     const url = `/v1/tax_ids/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -43319,7 +43319,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43336,17 +43336,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_id>> {
     const url = `/v1/tax_ids/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43382,7 +43382,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/tax_rates`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -43400,7 +43400,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43449,7 +43449,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_rate>> {
     const url = `/v1/tax_rates`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -43458,7 +43458,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43475,17 +43475,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_rate>> {
     const url = `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43537,7 +43537,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tax_rate>> {
     const url = `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -43546,7 +43546,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43573,7 +43573,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/configurations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -43589,7 +43589,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43793,7 +43793,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_configuration>> {
     const url = `/v1/terminal/configurations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -43802,7 +43802,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43818,7 +43818,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_terminal_configuration>> {
     const url = `/v1/terminal/configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -43827,7 +43827,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -43846,17 +43846,17 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44085,7 +44085,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/configurations/${p["configuration"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44094,7 +44094,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44112,7 +44112,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_connection_token>> {
     const url = `/v1/terminal/connection_tokens`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44121,7 +44121,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44147,7 +44147,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/locations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -44162,7 +44162,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44198,7 +44198,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_location>> {
     const url = `/v1/terminal/locations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44207,7 +44207,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44223,7 +44223,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_terminal_location>> {
     const url = `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44232,7 +44232,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44249,17 +44249,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_location | t_deleted_terminal_location>> {
     const url = `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44300,7 +44300,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_location | t_deleted_terminal_location>> {
     const url = `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44309,7 +44309,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44349,7 +44349,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/terminal/readers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -44368,7 +44368,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44397,7 +44397,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44406,7 +44406,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44422,7 +44422,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44431,7 +44431,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44448,17 +44448,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader | t_deleted_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44486,7 +44486,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader | t_deleted_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44495,7 +44495,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44513,7 +44513,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/cancel_action`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44522,7 +44522,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44582,7 +44582,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/collect_inputs`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44591,7 +44591,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44629,7 +44629,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/collect_payment_method`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44638,7 +44638,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44662,7 +44662,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/confirm_payment_intent`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44671,7 +44671,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44710,7 +44710,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/process_payment_intent`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44719,7 +44719,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44748,7 +44748,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/process_setup_intent`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44757,7 +44757,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44790,7 +44790,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/refund_payment`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44799,7 +44799,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -44830,7 +44830,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/terminal/readers/${p["reader"]}/set_reader_display`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -44839,7 +44839,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -45233,7 +45233,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_confirmation_token>> {
     const url = `/v1/test_helpers/confirmation_tokens`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -45242,7 +45242,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -45263,7 +45263,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_customer_cash_balance_transaction>> {
     const url = `/v1/test_helpers/customers/${p["customer"]}/fund_cash_balance`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -45272,7 +45272,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -45770,7 +45770,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -45779,7 +45779,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -45915,7 +45915,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/capture`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -45924,7 +45924,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -45942,7 +45942,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -45951,7 +45951,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46049,7 +46049,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46058,7 +46058,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46077,7 +46077,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/fraud_challenges/respond`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46086,7 +46086,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46106,7 +46106,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/increment`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46115,7 +46115,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46134,7 +46134,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/reverse`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46143,7 +46143,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46161,7 +46161,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/deliver`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46170,7 +46170,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46188,7 +46188,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/fail`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46197,7 +46197,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46215,7 +46215,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/return`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46224,7 +46224,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46242,7 +46242,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46251,7 +46251,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46269,7 +46269,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/submit`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46278,7 +46278,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46296,7 +46296,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/activate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46305,7 +46305,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46323,7 +46323,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/deactivate`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46332,7 +46332,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46377,7 +46377,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_personalization_design>> {
     const url = `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/reject`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46386,7 +46386,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46412,7 +46412,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_settlement>> {
     const url = `/v1/test_helpers/issuing/settlements`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46421,7 +46421,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46439,7 +46439,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_settlement>> {
     const url = `/v1/test_helpers/issuing/settlements/${p["settlement"]}/complete`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46448,7 +46448,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -46895,7 +46895,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_transaction>> {
     const url = `/v1/test_helpers/issuing/transactions/create_force_capture`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -46904,7 +46904,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47351,7 +47351,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_transaction>> {
     const url = `/v1/test_helpers/issuing/transactions/create_unlinked_refund`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47360,7 +47360,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47379,7 +47379,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issuing_transaction>> {
     const url = `/v1/test_helpers/issuing/transactions/${p["transaction"]}/refund`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47388,7 +47388,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47406,7 +47406,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_refund>> {
     const url = `/v1/test_helpers/refunds/${p["refund"]}/expire`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47415,7 +47415,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47447,7 +47447,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/test_helpers/terminal/readers/${p["reader"]}/present_payment_method`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47456,7 +47456,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47477,7 +47477,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/test_helpers/terminal/readers/${p["reader"]}/succeed_input_collection`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47486,7 +47486,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47504,7 +47504,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_terminal_reader>> {
     const url = `/v1/test_helpers/terminal/readers/${p["reader"]}/timeout_input_collection`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47513,7 +47513,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47539,7 +47539,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/test_helpers/test_clocks`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -47554,7 +47554,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47573,7 +47573,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_test_helpers_test_clock>> {
     const url = `/v1/test_helpers/test_clocks`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47582,7 +47582,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47598,7 +47598,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_test_helpers_test_clock>> {
     const url = `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47607,7 +47607,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47624,17 +47624,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_test_helpers_test_clock>> {
     const url = `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47653,7 +47653,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_test_helpers_test_clock>> {
     const url = `/v1/test_helpers/test_clocks/${p["testClock"]}/advance`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47662,7 +47662,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47702,7 +47702,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/fail`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47711,7 +47711,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47729,7 +47729,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/return`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47738,7 +47738,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47756,7 +47756,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/succeed`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47765,7 +47765,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47798,7 +47798,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/test_helpers/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47807,7 +47807,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47825,7 +47825,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/fail`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47834,7 +47834,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47852,7 +47852,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/post`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47861,7 +47861,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47898,7 +47898,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/return`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47907,7 +47907,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47940,7 +47940,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47949,7 +47949,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47967,7 +47967,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/fail`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -47976,7 +47976,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -47994,7 +47994,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/post`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48003,7 +48003,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48040,7 +48040,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/return`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48049,7 +48049,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48083,7 +48083,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_received_credit>> {
     const url = `/v1/test_helpers/treasury/received_credits`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48092,7 +48092,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48126,7 +48126,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_received_debit>> {
     const url = `/v1/test_helpers/treasury/received_debits`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48135,7 +48135,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48674,7 +48674,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_token>> {
     const url = `/v1/tokens`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48683,7 +48683,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48700,17 +48700,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_token>> {
     const url = `/v1/tokens/${p["token"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48758,7 +48758,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/topups`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -48776,7 +48776,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48808,7 +48808,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topup>> {
     const url = `/v1/topups`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48817,7 +48817,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48834,17 +48834,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topup>> {
     const url = `/v1/topups/${p["topup"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48872,7 +48872,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topup>> {
     const url = `/v1/topups/${p["topup"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48881,7 +48881,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48899,7 +48899,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topup>> {
     const url = `/v1/topups/${p["topup"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -48908,7 +48908,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48944,7 +48944,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/transfers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -48962,7 +48962,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -48993,7 +48993,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer>> {
     const url = `/v1/transfers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49002,7 +49002,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49029,7 +49029,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -49044,7 +49044,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49074,7 +49074,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer_reversal>> {
     const url = `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49083,7 +49083,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49100,17 +49100,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer>> {
     const url = `/v1/transfers/${p["transfer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49138,7 +49138,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer>> {
     const url = `/v1/transfers/${p["transfer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49147,7 +49147,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49165,17 +49165,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer_reversal>> {
     const url = `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49203,7 +49203,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_transfer_reversal>> {
     const url = `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49212,7 +49212,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49241,7 +49241,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/credit_reversals`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -49259,7 +49259,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49282,7 +49282,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_credit_reversal>> {
     const url = `/v1/treasury/credit_reversals`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49291,7 +49291,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49308,17 +49308,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_credit_reversal>> {
     const url = `/v1/treasury/credit_reversals/${p["creditReversal"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49348,7 +49348,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/debit_reversals`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -49367,7 +49367,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49390,7 +49390,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_debit_reversal>> {
     const url = `/v1/treasury/debit_reversals`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49399,7 +49399,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49416,17 +49416,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_debit_reversal>> {
     const url = `/v1/treasury/debit_reversals/${p["debitReversal"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49461,7 +49461,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/financial_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -49478,7 +49478,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49577,7 +49577,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account>> {
     const url = `/v1/treasury/financial_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49586,7 +49586,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49603,17 +49603,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49722,7 +49722,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49731,7 +49731,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49759,7 +49759,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}/close`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49768,7 +49768,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49785,17 +49785,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account_features>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49874,7 +49874,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_financial_account_features>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49883,7 +49883,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49916,7 +49916,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/inbound_transfers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -49933,7 +49933,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49961,7 +49961,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/treasury/inbound_transfers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -49970,7 +49970,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -49987,17 +49987,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/treasury/inbound_transfers/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50015,7 +50015,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_inbound_transfer>> {
     const url = `/v1/treasury/inbound_transfers/${p["inboundTransfer"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -50024,7 +50024,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50067,7 +50067,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/outbound_payments`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50086,7 +50086,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50188,7 +50188,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/treasury/outbound_payments`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -50197,7 +50197,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50214,17 +50214,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50242,7 +50242,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_payment>> {
     const url = `/v1/treasury/outbound_payments/${p["id"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -50251,7 +50251,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50285,7 +50285,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/outbound_transfers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50302,7 +50302,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50355,7 +50355,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/treasury/outbound_transfers`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -50364,7 +50364,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50381,17 +50381,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50409,7 +50409,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_outbound_transfer>> {
     const url = `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}/cancel`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -50418,7 +50418,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50455,7 +50455,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/received_credits`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50473,7 +50473,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50490,17 +50490,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_received_credit>> {
     const url = `/v1/treasury/received_credits/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50528,7 +50528,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/received_debits`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50545,7 +50545,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50562,17 +50562,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_received_debit>> {
     const url = `/v1/treasury/received_debits/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50617,7 +50617,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/transaction_entries`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50637,7 +50637,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50654,17 +50654,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_transaction_entry>> {
     const url = `/v1/treasury/transaction_entries/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50714,7 +50714,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/treasury/transactions`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50734,7 +50734,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50751,17 +50751,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_treasury_transaction>> {
     const url = `/v1/treasury/transactions/${p["id"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -50787,7 +50787,7 @@ export class StripeApi extends AbstractAxiosClient {
   > {
     const url = `/v1/webhook_endpoints`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const query = this._query({
@@ -50802,7 +50802,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -51195,7 +51195,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_endpoint>> {
     const url = `/v1/webhook_endpoints`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -51204,7 +51204,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -51220,7 +51220,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deleted_webhook_endpoint>> {
     const url = `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -51229,7 +51229,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -51246,17 +51246,17 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_endpoint>> {
     const url = `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "GET",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -51534,7 +51534,7 @@ export class StripeApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_endpoint>> {
     const url = `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers(
-      { "Content-Type": "application/x-www-form-urlencoded" },
+      {"Content-Type": "application/x-www-form-urlencoded"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -51543,12 +51543,12 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
   }
 }
 
-export { StripeApi as ApiClient }
-export type { StripeApiConfig as ApiClientConfig }
+export {StripeApi as ApiClient}
+export type {StripeApiConfig as ApiClientConfig}

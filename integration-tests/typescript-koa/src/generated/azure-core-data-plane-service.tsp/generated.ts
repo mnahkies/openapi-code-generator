@@ -96,7 +96,7 @@ import {
   s_WidgetRepairRequest,
   s_WidgetRepairState,
 } from "./schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -115,8 +115,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetServiceStatusResponder = {
   with200(): KoaRuntimeResponse<{
@@ -795,7 +795,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getServiceStatusResponseValidator = responseValidationFactory(
-    [["200", z.object({ statusString: z.string() })]],
+    [["200", z.object({statusString: z.string()})]],
     s_Azure_Core_Foundations_ErrorResponse,
   )
 
@@ -842,7 +842,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getServiceStatusResponseValidator(status, body)
@@ -851,10 +851,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema =
-    z.object({ widgetName: z.string(), operationId: z.string() })
+    z.object({widgetName: z.string(), operationId: z.string()})
 
   const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema =
-    z.object({ "api-version": z.string().min(1) })
+    z.object({"api-version": z.string().min(1)})
 
   const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponseValidator =
     responseValidationFactory(
@@ -940,7 +940,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -1037,7 +1037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetsCreateOrUpdateWidgetResponseValidator(status, body)
@@ -1046,7 +1046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const widgetsGetWidgetParamSchema = z.object({ widgetName: z.string() })
+  const widgetsGetWidgetParamSchema = z.object({widgetName: z.string()})
 
   const widgetsGetWidgetQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -1110,7 +1110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = widgetsGetWidgetResponseValidator(status, body)
@@ -1118,7 +1118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const widgetsDeleteWidgetParamSchema = z.object({ widgetName: z.string() })
+  const widgetsDeleteWidgetParamSchema = z.object({widgetName: z.string()})
 
   const widgetsDeleteWidgetQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -1200,7 +1200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetsDeleteWidgetResponseValidator(status, body)
@@ -1272,7 +1272,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = widgetsListWidgetsResponseValidator(status, body)
@@ -1280,7 +1280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const widgetsGetAnalyticsParamSchema = z.object({ widgetName: z.string() })
+  const widgetsGetAnalyticsParamSchema = z.object({widgetName: z.string()})
 
   const widgetsGetAnalyticsQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -1347,7 +1347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetsGetAnalyticsResponseValidator(status, body)
@@ -1356,7 +1356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const widgetsUpdateAnalyticsParamSchema = z.object({ widgetName: z.string() })
+  const widgetsUpdateAnalyticsParamSchema = z.object({widgetName: z.string()})
 
   const widgetsUpdateAnalyticsQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -1437,7 +1437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetsUpdateAnalyticsResponseValidator(status, body)
@@ -1519,7 +1519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetsGetRepairStatusResponseValidator(status, body)
@@ -1528,7 +1528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const widgetsScheduleRepairsParamSchema = z.object({ widgetName: z.string() })
+  const widgetsScheduleRepairsParamSchema = z.object({widgetName: z.string()})
 
   const widgetsScheduleRepairsQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -1553,10 +1553,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           result: z
             .object({
               requestState: s_WidgetRepairState,
-              scheduledDateTime: z.string().datetime({ offset: true }),
-              createdDateTime: z.string().datetime({ offset: true }),
-              updatedDateTime: z.string().datetime({ offset: true }),
-              completedDateTime: z.string().datetime({ offset: true }),
+              scheduledDateTime: z.string().datetime({offset: true}),
+              createdDateTime: z.string().datetime({offset: true}),
+              updatedDateTime: z.string().datetime({offset: true}),
+              completedDateTime: z.string().datetime({offset: true}),
             })
             .optional(),
         }),
@@ -1628,7 +1628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetsScheduleRepairsResponseValidator(status, body)
@@ -1712,7 +1712,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetPartsGetWidgetPartOperationStatusResponseValidator(
@@ -1802,7 +1802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetPartsCreateWidgetPartResponseValidator(status, body)
@@ -1876,7 +1876,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetPartsListWidgetPartsResponseValidator(status, body)
@@ -1955,7 +1955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetPartsGetWidgetPartResponseValidator(status, body)
@@ -2037,7 +2037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetPartsDeleteWidgetPartResponseValidator(status, body)
@@ -2046,9 +2046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const widgetPartsReorderPartsParamSchema = z.object({
-    widgetName: z.string(),
-  })
+  const widgetPartsReorderPartsParamSchema = z.object({widgetName: z.string()})
 
   const widgetPartsReorderPartsQuerySchema = z.object({
     "api-version": z.string().min(1),
@@ -2132,7 +2130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = widgetPartsReorderPartsResponseValidator(status, body)
@@ -2220,7 +2218,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = manufacturersGetManufacturerOperationStatusResponseValidator(
@@ -2316,7 +2314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = manufacturersCreateOrReplaceManufacturerResponseValidator(
@@ -2398,7 +2396,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = manufacturersGetManufacturerResponseValidator(status, body)
@@ -2492,7 +2490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = manufacturersDeleteManufacturerResponseValidator(status, body)
@@ -2559,7 +2557,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = manufacturersListManufacturersResponseValidator(status, body)

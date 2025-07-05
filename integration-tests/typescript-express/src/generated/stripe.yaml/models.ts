@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
+export type EmptyObject = {[key: string]: never}
 
 export type t_account = {
   business_profile?: (t_account_business_profile | null) | undefined

@@ -10,7 +10,7 @@ import {
   t_FindPetsQuerySchema,
   t_Pet,
 } from "./models"
-import { s_Error, s_NewPet, s_Pet } from "./schemas"
+import {s_Error, s_NewPet, s_Pet} from "./schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -28,8 +28,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type FindPetsResponder = {
   with200(): ExpressRuntimeResponse<t_Pet[]>
@@ -147,7 +147,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -211,7 +211,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -229,7 +229,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const findPetByIdParamSchema = z.object({ id: z.coerce.number() })
+  const findPetByIdParamSchema = z.object({id: z.coerce.number()})
 
   const findPetByIdResponseBodyValidator = responseValidationFactory(
     [["200", s_Pet]],
@@ -275,7 +275,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -293,7 +293,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deletePetParamSchema = z.object({ id: z.coerce.number() })
+  const deletePetParamSchema = z.object({id: z.coerce.number()})
 
   const deletePetResponseBodyValidator = responseValidationFactory(
     [["204", z.undefined()]],
@@ -339,7 +339,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response

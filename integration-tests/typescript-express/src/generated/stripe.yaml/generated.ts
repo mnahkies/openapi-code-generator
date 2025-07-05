@@ -1544,8 +1544,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type GetAccountResponder = {
   with200(): ExpressRuntimeResponse<t_account>
@@ -12921,7 +12921,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -12998,7 +12998,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -13070,10 +13070,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       documents: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
       financial_account: z
         .object({
@@ -13192,22 +13189,13 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       payouts_list: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
       tax_registrations: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
       tax_settings: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
@@ -13257,7 +13245,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -13363,7 +13351,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -13398,7 +13386,7 @@ export function createRouter(implementation: Implementation): Router {
             documents: z
               .object({
                 bank_account_ownership_verification: z
-                  .object({ files: z.array(z.string().max(500)).optional() })
+                  .object({files: z.array(z.string().max(500)).optional()})
                   .optional(),
               })
               .optional(),
@@ -13431,7 +13419,7 @@ export function createRouter(implementation: Implementation): Router {
             )
             .optional(),
           monthly_estimated_revenue: z
-            .object({ amount: z.coerce.number(), currency: z.string() })
+            .object({amount: z.coerce.number(), currency: z.string()})
             .optional(),
           name: z.string().max(5000).optional(),
           product_description: z.string().max(40000).optional(),
@@ -13457,181 +13445,181 @@ export function createRouter(implementation: Implementation): Router {
       capabilities: z
         .object({
           acss_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           affirm_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           afterpay_clearpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           alma_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           amazon_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           au_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bacs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bancontact_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           billie_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           blik_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           boleto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_issuing: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cartes_bancaires_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cashapp_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           crypto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           eps_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           fpx_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           gb_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           giropay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           grabpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           ideal_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           india_international_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jcb_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jp_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kakao_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           klarna_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           konbini_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kr_card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           legacy_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           link_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mobilepay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           multibanco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mx_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           naver_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           nz_bank_account_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           oxxo_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           p24_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pay_by_bank_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           payco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           paynow_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pix_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           promptpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           revolut_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           samsung_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           satispay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sofort_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           swish_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_k: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_misc: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           transfers: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           treasury: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           twint_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_account_ach_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           zip_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
         })
         .optional(),
@@ -13756,14 +13744,14 @@ export function createRouter(implementation: Implementation): Router {
       controller: z
         .object({
           fees: z
-            .object({ payer: z.enum(["account", "application"]).optional() })
+            .object({payer: z.enum(["account", "application"]).optional()})
             .optional(),
           losses: z
-            .object({ payments: z.enum(["application", "stripe"]).optional() })
+            .object({payments: z.enum(["application", "stripe"]).optional()})
             .optional(),
           requirement_collection: z.enum(["application", "stripe"]).optional(),
           stripe_dashboard: z
-            .object({ type: z.enum(["express", "full", "none"]).optional() })
+            .object({type: z.enum(["express", "full", "none"]).optional()})
             .optional(),
         })
         .optional(),
@@ -13772,31 +13760,31 @@ export function createRouter(implementation: Implementation): Router {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_license: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_memorandum_of_association: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_ministerial_decree: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_registration_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_tax_id_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_address: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_registration: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_ultimate_beneficial_ownership: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -13915,7 +13903,7 @@ export function createRouter(implementation: Implementation): Router {
       settings: z
         .object({
           bacs_debit_payments: z
-            .object({ display_name: z.string().optional() })
+            .object({display_name: z.string().optional()})
             .optional(),
           branding: z
             .object({
@@ -14082,7 +14070,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -14154,7 +14142,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -14239,7 +14227,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -14287,7 +14275,7 @@ export function createRouter(implementation: Implementation): Router {
             )
             .optional(),
           monthly_estimated_revenue: z
-            .object({ amount: z.coerce.number(), currency: z.string() })
+            .object({amount: z.coerce.number(), currency: z.string()})
             .optional(),
           name: z.string().max(5000).optional(),
           product_description: z.string().max(40000).optional(),
@@ -14313,181 +14301,181 @@ export function createRouter(implementation: Implementation): Router {
       capabilities: z
         .object({
           acss_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           affirm_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           afterpay_clearpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           alma_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           amazon_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           au_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bacs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bancontact_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           billie_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           blik_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           boleto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_issuing: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cartes_bancaires_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cashapp_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           crypto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           eps_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           fpx_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           gb_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           giropay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           grabpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           ideal_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           india_international_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jcb_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jp_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kakao_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           klarna_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           konbini_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kr_card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           legacy_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           link_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mobilepay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           multibanco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mx_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           naver_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           nz_bank_account_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           oxxo_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           p24_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pay_by_bank_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           payco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           paynow_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pix_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           promptpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           revolut_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           samsung_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           satispay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sofort_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           swish_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_k: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_misc: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           transfers: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           treasury: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           twint_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_account_ach_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           zip_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
         })
         .optional(),
@@ -14613,31 +14601,31 @@ export function createRouter(implementation: Implementation): Router {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_license: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_memorandum_of_association: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_ministerial_decree: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_registration_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_tax_id_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_address: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_registration: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_ultimate_beneficial_ownership: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -14756,7 +14744,7 @@ export function createRouter(implementation: Implementation): Router {
       settings: z
         .object({
           bacs_debit_payments: z
-            .object({ display_name: z.string().optional() })
+            .object({display_name: z.string().optional()})
             .optional(),
           branding: z
             .object({
@@ -14929,7 +14917,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -14967,7 +14955,7 @@ export function createRouter(implementation: Implementation): Router {
             documents: z
               .object({
                 bank_account_ownership_verification: z
-                  .object({ files: z.array(z.string().max(500)).optional() })
+                  .object({files: z.array(z.string().max(500)).optional()})
                   .optional(),
               })
               .optional(),
@@ -15030,7 +15018,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15105,7 +15093,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15196,7 +15184,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15236,7 +15224,7 @@ export function createRouter(implementation: Implementation): Router {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -15294,7 +15282,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15402,7 +15390,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15496,7 +15484,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15583,7 +15571,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15697,7 +15685,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15740,7 +15728,7 @@ export function createRouter(implementation: Implementation): Router {
             documents: z
               .object({
                 bank_account_ownership_verification: z
-                  .object({ files: z.array(z.string().max(500)).optional() })
+                  .object({files: z.array(z.string().max(500)).optional()})
                   .optional(),
               })
               .optional(),
@@ -15803,7 +15791,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15887,7 +15875,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -15984,7 +15972,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16027,7 +16015,7 @@ export function createRouter(implementation: Implementation): Router {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -16091,7 +16079,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16119,7 +16107,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postAccountsAccountLoginLinksRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postAccountsAccountLoginLinksResponseBodyValidator =
@@ -16168,7 +16156,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16284,7 +16272,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16556,7 +16544,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16629,7 +16617,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16720,7 +16708,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -16995,7 +16983,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17111,7 +17099,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17383,7 +17371,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17458,7 +17446,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17549,7 +17537,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17824,7 +17812,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17899,7 +17887,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -17995,7 +17983,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18062,7 +18050,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18132,7 +18120,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18217,7 +18205,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18324,7 +18312,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18410,7 +18398,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18488,7 +18476,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18508,7 +18496,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getApplicationFeesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getApplicationFeesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getApplicationFeesIdQuerySchema = z.object({
     expand: z
@@ -18573,7 +18561,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18649,7 +18637,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18755,7 +18743,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18833,7 +18821,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -18934,7 +18922,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19007,7 +18995,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19078,7 +19066,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19160,7 +19148,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19237,7 +19225,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19350,7 +19338,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19368,7 +19356,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getBalanceHistoryIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getBalanceHistoryIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getBalanceHistoryIdQuerySchema = z.object({
     expand: z
@@ -19433,7 +19421,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19546,7 +19534,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19629,7 +19617,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19726,7 +19714,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19809,7 +19797,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19827,7 +19815,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getBillingAlertsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getBillingAlertsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getBillingAlertsIdQuerySchema = z.object({
     expand: z
@@ -19892,7 +19880,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19915,7 +19903,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingAlertsIdActivateRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingAlertsIdActivateResponseBodyValidator =
@@ -19964,7 +19952,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -19989,7 +19977,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingAlertsIdArchiveRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingAlertsIdArchiveResponseBodyValidator =
@@ -20038,7 +20026,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20063,7 +20051,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingAlertsIdDeactivateRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingAlertsIdDeactivateResponseBodyValidator =
@@ -20112,7 +20100,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20144,7 +20132,7 @@ export function createRouter(implementation: Implementation): Router {
       applicability_scope: z
         .object({
           price_type: z.enum(["metered"]).optional(),
-          prices: z.array(z.object({ id: z.string().max(5000) })).optional(),
+          prices: z.array(z.object({id: z.string().max(5000)})).optional(),
         })
         .optional(),
       credit_grant: z.string().max(5000).optional(),
@@ -20207,7 +20195,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20312,7 +20300,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20413,7 +20401,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20517,7 +20505,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20538,14 +20526,14 @@ export function createRouter(implementation: Implementation): Router {
   const postBillingCreditGrantsRequestBodySchema = z.object({
     amount: z.object({
       monetary: z
-        .object({ currency: z.string(), value: z.coerce.number() })
+        .object({currency: z.string(), value: z.coerce.number()})
         .optional(),
       type: z.enum(["monetary"]),
     }),
     applicability_config: z.object({
       scope: z.object({
         price_type: z.enum(["metered"]).optional(),
-        prices: z.array(z.object({ id: z.string().max(5000) })).optional(),
+        prices: z.array(z.object({id: z.string().max(5000)})).optional(),
       }),
     }),
     category: z.enum(["paid", "promotional"]),
@@ -20600,7 +20588,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20683,7 +20671,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20759,7 +20747,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20782,7 +20770,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingCreditGrantsIdExpireRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingCreditGrantsIdExpireResponseBodyValidator =
@@ -20831,7 +20819,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20856,7 +20844,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingCreditGrantsIdVoidRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingCreditGrantsIdVoidResponseBodyValidator =
@@ -20905,7 +20893,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -20926,7 +20914,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postBillingMeterEventAdjustmentsRequestBodySchema = z.object({
-    cancel: z.object({ identifier: z.string().max(100).optional() }).optional(),
+    cancel: z.object({identifier: z.string().max(100).optional()}).optional(),
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
     type: z.enum(["cancel"]),
@@ -20979,7 +20967,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21051,7 +21039,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21147,7 +21135,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21167,20 +21155,15 @@ export function createRouter(implementation: Implementation): Router {
 
   const postBillingMetersRequestBodySchema = z.object({
     customer_mapping: z
-      .object({
-        event_payload_key: z.string().max(100),
-        type: z.enum(["by_id"]),
-      })
+      .object({event_payload_key: z.string().max(100), type: z.enum(["by_id"])})
       .optional(),
-    default_aggregation: z.object({
-      formula: z.enum(["count", "last", "sum"]),
-    }),
+    default_aggregation: z.object({formula: z.enum(["count", "last", "sum"])}),
     display_name: z.string().max(250),
     event_name: z.string().max(100),
     event_time_window: z.enum(["day", "hour"]).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     value_settings: z
-      .object({ event_payload_key: z.string().max(100) })
+      .object({event_payload_key: z.string().max(100)})
       .optional(),
   })
 
@@ -21228,7 +21211,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21246,7 +21229,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getBillingMetersIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getBillingMetersIdQuerySchema = z.object({
     expand: z
@@ -21311,7 +21294,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21329,7 +21312,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postBillingMetersIdParamSchema = z.object({ id: z.string().max(5000) })
+  const postBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postBillingMetersIdRequestBodySchema = z
     .object({
@@ -21386,7 +21369,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21409,7 +21392,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingMetersIdDeactivateRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingMetersIdDeactivateResponseBodyValidator =
@@ -21458,7 +21441,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21573,7 +21556,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21598,7 +21581,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postBillingMetersIdReactivateRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingMetersIdReactivateResponseBodyValidator =
@@ -21647,7 +21630,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21752,7 +21735,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -21803,10 +21786,8 @@ export function createRouter(implementation: Implementation): Router {
           enabled: PermissiveBoolean,
         })
         .optional(),
-      invoice_history: z.object({ enabled: PermissiveBoolean }).optional(),
-      payment_method_update: z
-        .object({ enabled: PermissiveBoolean })
-        .optional(),
+      invoice_history: z.object({enabled: PermissiveBoolean}).optional(),
+      payment_method_update: z.object({enabled: PermissiveBoolean}).optional(),
       subscription_cancel: z
         .object({
           cancellation_reason: z
@@ -21876,7 +21857,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
     }),
-    login_page: z.object({ enabled: PermissiveBoolean }).optional(),
+    login_page: z.object({enabled: PermissiveBoolean}).optional(),
     metadata: z.record(z.string()).optional(),
   })
 
@@ -21927,7 +21908,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22025,7 +22006,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22086,9 +22067,9 @@ export function createRouter(implementation: Implementation): Router {
               enabled: PermissiveBoolean.optional(),
             })
             .optional(),
-          invoice_history: z.object({ enabled: PermissiveBoolean }).optional(),
+          invoice_history: z.object({enabled: PermissiveBoolean}).optional(),
           payment_method_update: z
-            .object({ enabled: PermissiveBoolean })
+            .object({enabled: PermissiveBoolean})
             .optional(),
           subscription_cancel: z
             .object({
@@ -22165,7 +22146,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      login_page: z.object({ enabled: PermissiveBoolean }).optional(),
+      login_page: z.object({enabled: PermissiveBoolean}).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     })
     .optional()
@@ -22227,7 +22208,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22259,9 +22240,9 @@ export function createRouter(implementation: Implementation): Router {
         after_completion: z
           .object({
             hosted_confirmation: z
-              .object({ custom_message: z.string().max(500).optional() })
+              .object({custom_message: z.string().max(500).optional()})
               .optional(),
-            redirect: z.object({ return_url: z.string() }).optional(),
+            redirect: z.object({return_url: z.string()}).optional(),
             type: z.enum([
               "hosted_confirmation",
               "portal_homepage",
@@ -22273,7 +22254,7 @@ export function createRouter(implementation: Implementation): Router {
           .object({
             retention: z
               .object({
-                coupon_offer: z.object({ coupon: z.string().max(5000) }),
+                coupon_offer: z.object({coupon: z.string().max(5000)}),
                 type: z.enum(["coupon_offer"]),
               })
               .optional(),
@@ -22281,7 +22262,7 @@ export function createRouter(implementation: Implementation): Router {
           })
           .optional(),
         subscription_update: z
-          .object({ subscription: z.string().max(5000) })
+          .object({subscription: z.string().max(5000)})
           .optional(),
         subscription_update_confirm: z
           .object({
@@ -22408,7 +22389,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22517,7 +22498,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22577,7 +22558,7 @@ export function createRouter(implementation: Implementation): Router {
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       on_behalf_of: z.string().max(5000).optional(),
       radar_options: z
-        .object({ session: z.string().max(5000).optional() })
+        .object({session: z.string().max(5000).optional()})
         .optional(),
       receipt_email: z.string().optional(),
       shipping: z
@@ -22653,7 +22634,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22752,7 +22733,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22770,7 +22751,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getChargesChargeParamSchema = z.object({ charge: z.string().max(5000) })
+  const getChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
   const getChargesChargeQuerySchema = z.object({
     expand: z
@@ -22835,7 +22816,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22853,9 +22834,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postChargesChargeParamSchema = z.object({
-    charge: z.string().max(5000),
-  })
+  const postChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
   const postChargesChargeRequestBodySchema = z
     .object({
@@ -22863,7 +22842,7 @@ export function createRouter(implementation: Implementation): Router {
       description: z.string().max(40000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       fraud_details: z
-        .object({ user_report: z.enum(["", "fraudulent", "safe"]) })
+        .object({user_report: z.enum(["", "fraudulent", "safe"])})
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       receipt_email: z.string().max(5000).optional(),
@@ -22935,7 +22914,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -22967,7 +22946,7 @@ export function createRouter(implementation: Implementation): Router {
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
       transfer_group: z.string().optional(),
     })
@@ -23019,7 +22998,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23102,7 +23081,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23243,7 +23222,7 @@ export function createRouter(implementation: Implementation): Router {
                   })
                   .optional(),
                 visa_compliance: z
-                  .object({ fee_acknowledged: PermissiveBoolean.optional() })
+                  .object({fee_acknowledged: PermissiveBoolean.optional()})
                   .optional(),
               }),
               z.enum([""]),
@@ -23317,7 +23296,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23340,7 +23319,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postChargesChargeDisputeCloseRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postChargesChargeDisputeCloseResponseBodyValidator =
@@ -23389,7 +23368,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23474,7 +23453,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23492,7 +23471,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getChargesChargeRefundsParamSchema = z.object({ charge: z.string() })
+  const getChargesChargeRefundsParamSchema = z.object({charge: z.string()})
 
   const getChargesChargeRefundsQuerySchema = z.object({
     ending_before: z.string().optional(),
@@ -23576,7 +23555,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23662,7 +23641,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23746,7 +23725,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23824,7 +23803,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23857,7 +23836,7 @@ export function createRouter(implementation: Implementation): Router {
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
-    customer_details: z.object({ email: z.string() }).optional(),
+    customer_details: z.object({email: z.string()}).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -23938,7 +23917,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -23959,7 +23938,7 @@ export function createRouter(implementation: Implementation): Router {
   const postCheckoutSessionsRequestBodySchema = z
     .object({
       adaptive_pricing: z
-        .object({ enabled: PermissiveBoolean.optional() })
+        .object({enabled: PermissiveBoolean.optional()})
         .optional(),
       after_expiration: z
         .object({
@@ -23989,7 +23968,7 @@ export function createRouter(implementation: Implementation): Router {
       consent_collection: z
         .object({
           payment_method_reuse_agreement: z
-            .object({ position: z.enum(["auto", "hidden"]) })
+            .object({position: z.enum(["auto", "hidden"])})
             .optional(),
           promotions: z.enum(["auto", "none"]).optional(),
           terms_of_service: z.enum(["none", "required"]).optional(),
@@ -24037,16 +24016,16 @@ export function createRouter(implementation: Implementation): Router {
       custom_text: z
         .object({
           after_submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           shipping_address: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           terms_of_service_acceptance: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
         })
         .optional(),
@@ -24294,13 +24273,13 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           affirm: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           afterpay_clearpay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           alipay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           amazon_pay: z
             .object({
@@ -24329,7 +24308,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           bancontact: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           boleto: z
             .object({
@@ -24342,7 +24321,7 @@ export function createRouter(implementation: Implementation): Router {
           card: z
             .object({
               installments: z
-                .object({ enabled: PermissiveBoolean.optional() })
+                .object({enabled: PermissiveBoolean.optional()})
                 .optional(),
               request_extended_authorization: z
                 .enum(["if_available", "never"])
@@ -24390,7 +24369,7 @@ export function createRouter(implementation: Implementation): Router {
               bank_transfer: z
                 .object({
                   eu_bank_transfer: z
-                    .object({ country: z.string().max(5000) })
+                    .object({country: z.string().max(5000)})
                     .optional(),
                   requested_address_types: z
                     .array(
@@ -24419,19 +24398,19 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           eps: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           fpx: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           giropay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           grabpay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           ideal: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           kakao_pay: z
             .object({
@@ -24479,10 +24458,10 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           mobilepay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           multibanco: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           naver_pay: z
             .object({
@@ -24504,10 +24483,10 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           pay_by_bank: z.object({}).optional(),
           payco: z
-            .object({ capture_method: z.enum(["manual"]).optional() })
+            .object({capture_method: z.enum(["manual"]).optional()})
             .optional(),
           paynow: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           paypal: z
             .object({
@@ -24545,7 +24524,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           pix: z
-            .object({ expires_after_seconds: z.coerce.number().optional() })
+            .object({expires_after_seconds: z.coerce.number().optional()})
             .optional(),
           revolut_pay: z
             .object({
@@ -24553,7 +24532,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           samsung_pay: z
-            .object({ capture_method: z.enum(["manual"]).optional() })
+            .object({capture_method: z.enum(["manual"]).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -24571,10 +24550,10 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           sofort: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           swish: z
-            .object({ reference: z.string().max(5000).optional() })
+            .object({reference: z.string().max(5000).optional()})
             .optional(),
           us_bank_account: z
             .object({
@@ -24672,7 +24651,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       phone_number_collection: z
-        .object({ enabled: PermissiveBoolean })
+        .object({enabled: PermissiveBoolean})
         .optional(),
       redirect_on_completion: z
         .enum(["always", "if_required", "never"])
@@ -25010,7 +24989,7 @@ export function createRouter(implementation: Implementation): Router {
           application_fee_percent: z.coerce.number().optional(),
           billing_cycle_anchor: z.coerce.number().optional(),
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           default_tax_rates: z.array(z.string().max(5000)).optional(),
           description: z.string().max(500).optional(),
@@ -25059,7 +25038,7 @@ export function createRouter(implementation: Implementation): Router {
       wallet_options: z
         .object({
           link: z
-            .object({ display: z.enum(["auto", "never"]).optional() })
+            .object({display: z.enum(["auto", "never"]).optional()})
             .optional(),
         })
         .optional(),
@@ -25110,7 +25089,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25193,7 +25172,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25352,7 +25331,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25377,7 +25356,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postCheckoutSessionsSessionExpireRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postCheckoutSessionsSessionExpireResponseBodyValidator =
@@ -25426,7 +25405,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25537,7 +25516,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25637,7 +25616,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25657,7 +25636,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postClimateOrdersRequestBodySchema = z.object({
     amount: z.coerce.number().optional(),
-    beneficiary: z.object({ public_name: z.string().max(5000) }).optional(),
+    beneficiary: z.object({public_name: z.string().max(5000)}).optional(),
     currency: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string()).optional(),
@@ -25709,7 +25688,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25794,7 +25773,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25879,7 +25858,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -25902,7 +25881,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postClimateOrdersOrderCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postClimateOrdersOrderCancelResponseBodyValidator =
@@ -25951,7 +25930,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26048,7 +26027,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26131,7 +26110,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26226,7 +26205,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26309,7 +26288,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26402,7 +26381,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26502,7 +26481,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26587,7 +26566,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26693,7 +26672,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26715,11 +26694,11 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       amount_off: z.coerce.number().optional(),
       applies_to: z
-        .object({ products: z.array(z.string().max(5000)).optional() })
+        .object({products: z.array(z.string().max(5000)).optional()})
         .optional(),
       currency: z.string().optional(),
       currency_options: z
-        .record(z.object({ amount_off: z.coerce.number() }))
+        .record(z.object({amount_off: z.coerce.number()}))
         .optional(),
       duration: z.enum(["forever", "once", "repeating"]).optional(),
       duration_in_months: z.coerce.number().optional(),
@@ -26777,7 +26756,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26849,7 +26828,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26867,7 +26846,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getCouponsCouponParamSchema = z.object({ coupon: z.string().max(5000) })
+  const getCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
   const getCouponsCouponQuerySchema = z.object({
     expand: z
@@ -26932,7 +26911,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -26950,14 +26929,12 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCouponsCouponParamSchema = z.object({
-    coupon: z.string().max(5000),
-  })
+  const postCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
   const postCouponsCouponRequestBodySchema = z
     .object({
       currency_options: z
-        .record(z.object({ amount_off: z.coerce.number() }))
+        .record(z.object({amount_off: z.coerce.number()}))
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
@@ -27013,7 +26990,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27121,7 +27098,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27195,7 +27172,7 @@ export function createRouter(implementation: Implementation): Router {
       )
       .optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.string().max(5000).optional() })
+      .object({shipping_rate: z.string().max(5000).optional()})
       .optional(),
   })
 
@@ -27243,7 +27220,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27328,7 +27305,7 @@ export function createRouter(implementation: Implementation): Router {
       )
       .optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.string().max(5000).optional() })
+      .object({shipping_rate: z.string().max(5000).optional()})
       .optional(),
   })
 
@@ -27382,7 +27359,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27469,7 +27446,7 @@ export function createRouter(implementation: Implementation): Router {
       )
       .optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.string().max(5000).optional() })
+      .object({shipping_rate: z.string().max(5000).optional()})
       .optional(),
     starting_after: z.string().max(5000).optional(),
   })
@@ -27540,7 +27517,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27646,7 +27623,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27666,7 +27643,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getCreditNotesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getCreditNotesIdQuerySchema = z.object({
     expand: z
@@ -27731,7 +27708,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27749,7 +27726,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCreditNotesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const postCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postCreditNotesIdRequestBodySchema = z
     .object({
@@ -27807,7 +27784,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27825,12 +27802,10 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postCreditNotesIdVoidParamSchema = z.object({
-    id: z.string().max(5000),
-  })
+  const postCreditNotesIdVoidParamSchema = z.object({id: z.string().max(5000)})
 
   const postCreditNotesIdVoidRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postCreditNotesIdVoidResponseBodyValidator = responseValidationFactory(
@@ -27881,7 +27856,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -27901,7 +27876,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postCustomerSessionsRequestBodySchema = z.object({
     components: z.object({
-      buy_button: z.object({ enabled: PermissiveBoolean }).optional(),
+      buy_button: z.object({enabled: PermissiveBoolean}).optional(),
       payment_element: z
         .object({
           enabled: PermissiveBoolean,
@@ -27923,7 +27898,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      pricing_table: z.object({ enabled: PermissiveBoolean }).optional(),
+      pricing_table: z.object({enabled: PermissiveBoolean}).optional(),
     }),
     customer: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
@@ -27973,7 +27948,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28081,7 +28056,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28356,7 +28331,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28455,7 +28430,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28525,7 +28500,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28612,7 +28587,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28814,7 +28789,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -28926,7 +28901,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29018,7 +28993,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29042,7 +29017,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const getCustomersCustomerBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.string().max(5000), transaction: z.string() })
+    z.object({customer: z.string().max(5000), transaction: z.string()})
 
   const getCustomersCustomerBalanceTransactionsTransactionQuerySchema =
     z.object({
@@ -29119,7 +29094,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29213,7 +29188,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29324,7 +29299,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29437,7 +29412,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29466,7 +29441,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const deleteCustomersCustomerBankAccountsIdRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteCustomersCustomerBankAccountsIdResponseBodyValidator =
@@ -29531,7 +29506,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29622,7 +29597,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29745,7 +29720,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29832,7 +29807,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -29941,7 +29916,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30052,7 +30027,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30078,7 +30053,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const deleteCustomersCustomerCardsIdRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteCustomersCustomerCardsIdResponseBodyValidator =
@@ -30137,7 +30112,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30223,7 +30198,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30343,7 +30318,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30430,7 +30405,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30513,7 +30488,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30627,7 +30602,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30651,7 +30626,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const getCustomersCustomerCashBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.string().max(5000), transaction: z.string() })
+    z.object({customer: z.string().max(5000), transaction: z.string()})
 
   const getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema =
     z.object({
@@ -30727,7 +30702,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30804,7 +30779,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30889,7 +30864,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -30915,7 +30890,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postCustomersCustomerFundingInstructionsRequestBodySchema = z.object({
     bank_transfer: z.object({
-      eu_bank_transfer: z.object({ country: z.string().max(5000) }).optional(),
+      eu_bank_transfer: z.object({country: z.string().max(5000)}).optional(),
       requested_address_types: z
         .array(z.enum(["iban", "sort_code", "spei", "zengin"]))
         .optional(),
@@ -30984,7 +30959,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31148,7 +31123,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31245,7 +31220,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31361,7 +31336,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31474,7 +31449,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31500,7 +31475,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const deleteCustomersCustomerSourcesIdRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteCustomersCustomerSourcesIdResponseBodyValidator =
@@ -31559,7 +31534,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31645,7 +31620,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31765,7 +31740,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31849,7 +31824,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -31960,7 +31935,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -32087,7 +32062,7 @@ export function createRouter(implementation: Implementation): Router {
         .array(
           z.object({
             billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
               .optional(),
             discounts: z
               .union([
@@ -32206,7 +32181,7 @@ export function createRouter(implementation: Implementation): Router {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -32390,7 +32365,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -32480,7 +32455,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -32578,7 +32553,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -32726,10 +32701,7 @@ export function createRouter(implementation: Implementation): Router {
           .array(
             z.object({
               billing_thresholds: z
-                .union([
-                  z.object({ usage_gte: z.coerce.number() }),
-                  z.enum([""]),
-                ])
+                .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
                 .optional(),
               clear_usage: PermissiveBoolean.optional(),
               deleted: PermissiveBoolean.optional(),
@@ -32862,7 +32834,7 @@ export function createRouter(implementation: Implementation): Router {
                       bank_transfer: z
                         .object({
                           eu_bank_transfer: z
-                            .object({ country: z.string().max(5000) })
+                            .object({country: z.string().max(5000)})
                             .optional(),
                           type: z.string().optional(),
                         })
@@ -33055,7 +33027,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33139,7 +33111,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33237,7 +33209,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33346,7 +33318,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33533,7 +33505,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33608,7 +33580,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33694,7 +33666,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33804,7 +33776,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -33889,7 +33861,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34030,7 +34002,7 @@ export function createRouter(implementation: Implementation): Router {
                   })
                   .optional(),
                 visa_compliance: z
-                  .object({ fee_acknowledged: PermissiveBoolean.optional() })
+                  .object({fee_acknowledged: PermissiveBoolean.optional()})
                   .optional(),
               }),
               z.enum([""]),
@@ -34106,7 +34078,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34129,7 +34101,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postDisputesDisputeCloseRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postDisputesDisputeCloseResponseBodyValidator =
@@ -34178,7 +34150,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34277,7 +34249,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34372,7 +34344,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34478,7 +34450,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34545,7 +34517,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34628,7 +34600,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34705,7 +34677,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34779,7 +34751,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34802,7 +34774,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const deleteEphemeralKeysKeyRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteEphemeralKeysKeyResponseBodyValidator = responseValidationFactory(
@@ -34853,7 +34825,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34967,7 +34939,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -34985,7 +34957,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getEventsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getEventsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getEventsIdQuerySchema = z.object({
     expand: z
@@ -35050,7 +35022,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35145,7 +35117,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35230,7 +35202,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35248,7 +35220,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postExternalAccountsIdParamSchema = z.object({ id: z.string() })
+  const postExternalAccountsIdParamSchema = z.object({id: z.string()})
 
   const postExternalAccountsIdRequestBodySchema = z
     .object({
@@ -35265,7 +35237,7 @@ export function createRouter(implementation: Implementation): Router {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -35325,7 +35297,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35433,7 +35405,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35502,7 +35474,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35520,7 +35492,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getFileLinksLinkParamSchema = z.object({ link: z.string() })
+  const getFileLinksLinkParamSchema = z.object({link: z.string()})
 
   const getFileLinksLinkQuerySchema = z.object({
     expand: z
@@ -35585,7 +35557,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35603,7 +35575,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postFileLinksLinkParamSchema = z.object({ link: z.string() })
+  const postFileLinksLinkParamSchema = z.object({link: z.string()})
 
   const postFileLinksLinkRequestBodySchema = z
     .object({
@@ -35663,7 +35635,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35790,7 +35762,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35877,7 +35849,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -35895,7 +35867,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getFilesFileParamSchema = z.object({ file: z.string().max(5000) })
+  const getFilesFileParamSchema = z.object({file: z.string().max(5000)})
 
   const getFilesFileQuerySchema = z.object({
     expand: z
@@ -35960,7 +35932,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36068,7 +36040,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36166,7 +36138,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36190,11 +36162,11 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectParamSchema = z.object(
-    { account: z.string().max(5000) },
+    {account: z.string().max(5000)},
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postFinancialConnectionsAccountsAccountDisconnectResponseBodyValidator =
@@ -36254,7 +36226,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36372,7 +36344,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36462,7 +36434,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36552,7 +36524,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36576,7 +36548,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postFinancialConnectionsAccountsAccountUnsubscribeParamSchema =
-    z.object({ account: z.string().max(5000) })
+    z.object({account: z.string().max(5000)})
 
   const postFinancialConnectionsAccountsAccountUnsubscribeRequestBodySchema =
     z.object({
@@ -36641,7 +36613,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36743,7 +36715,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36841,7 +36813,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -36886,7 +36858,7 @@ export function createRouter(implementation: Implementation): Router {
         z.coerce.number(),
       ])
       .optional(),
-    transaction_refresh: z.object({ after: z.string().max(5000) }).optional(),
+    transaction_refresh: z.object({after: z.string().max(5000)}).optional(),
   })
 
   const getFinancialConnectionsTransactionsRequestBodySchema = z
@@ -36960,7 +36932,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37061,7 +37033,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37169,7 +37141,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37205,10 +37177,7 @@ export function createRouter(implementation: Implementation): Router {
         body: z.string().max(5000).optional(),
         headers: z
           .array(
-            z.object({
-              name: z.string().max(5000),
-              value: z.string().max(5000),
-            }),
+            z.object({name: z.string().max(5000), value: z.string().max(5000)}),
           )
           .optional(),
       })
@@ -37260,7 +37229,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37343,7 +37312,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37458,7 +37427,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37556,7 +37525,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37678,7 +37647,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37721,11 +37690,11 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       provided_details: z
-        .object({ email: z.string().optional(), phone: z.string().optional() })
+        .object({email: z.string().optional(), phone: z.string().optional()})
         .optional(),
       related_customer: z.string().max(5000).optional(),
       related_person: z
-        .object({ account: z.string().max(5000), person: z.string().max(5000) })
+        .object({account: z.string().max(5000), person: z.string().max(5000)})
         .optional(),
       return_url: z.string().optional(),
       type: z.enum(["document", "id_number"]).optional(),
@@ -37780,7 +37749,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37878,7 +37847,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -37927,7 +37896,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       provided_details: z
-        .object({ email: z.string().optional(), phone: z.string().optional() })
+        .object({email: z.string().optional(), phone: z.string().optional()})
         .optional(),
       type: z.enum(["document", "id_number"]).optional(),
     })
@@ -37990,7 +37959,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38018,7 +37987,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postIdentityVerificationSessionsSessionCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postIdentityVerificationSessionsSessionCancelResponseBodyValidator =
@@ -38078,7 +38047,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38106,7 +38075,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postIdentityVerificationSessionsSessionRedactRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postIdentityVerificationSessionsSessionRedactResponseBodyValidator =
@@ -38166,7 +38135,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38274,7 +38243,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38359,7 +38328,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38458,7 +38427,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38552,7 +38521,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38580,7 +38549,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postInvoiceRenderingTemplatesTemplateArchiveRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoiceRenderingTemplatesTemplateArchiveResponseBodyValidator =
@@ -38635,7 +38604,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38663,7 +38632,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postInvoiceRenderingTemplatesTemplateUnarchiveRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoiceRenderingTemplatesTemplateUnarchiveResponseBodyValidator =
@@ -38718,7 +38687,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38832,7 +38801,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -38872,7 +38841,7 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000).optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     period: z
-      .object({ end: z.coerce.number(), start: z.coerce.number() })
+      .object({end: z.coerce.number(), start: z.coerce.number()})
       .optional(),
     price_data: z
       .object({
@@ -38885,7 +38854,7 @@ export function createRouter(implementation: Implementation): Router {
         unit_amount_decimal: z.string().optional(),
       })
       .optional(),
-    pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
+    pricing: z.object({price: z.string().max(5000).optional()}).optional(),
     quantity: z.coerce.number().optional(),
     subscription: z.string().max(5000).optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
@@ -38938,7 +38907,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -39008,7 +38977,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -39093,7 +39062,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -39137,7 +39106,7 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       period: z
-        .object({ end: z.coerce.number(), start: z.coerce.number() })
+        .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
       price_data: z
         .object({
@@ -39150,7 +39119,7 @@ export function createRouter(implementation: Implementation): Router {
           unit_amount_decimal: z.string().optional(),
         })
         .optional(),
-      pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
+      pricing: z.object({price: z.string().max(5000).optional()}).optional(),
       quantity: z.coerce.number().optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
@@ -39209,7 +39178,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -39336,7 +39305,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -39380,7 +39349,7 @@ export function createRouter(implementation: Implementation): Router {
       custom_fields: z
         .union([
           z.array(
-            z.object({ name: z.string().max(40), value: z.string().max(140) }),
+            z.object({name: z.string().max(40), value: z.string().max(140)}),
           ),
           z.enum([""]),
         ])
@@ -39408,7 +39377,7 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       footer: z.string().max(5000).optional(),
       from_invoice: z
-        .object({ action: z.enum(["revision"]), invoice: z.string().max(5000) })
+        .object({action: z.enum(["revision"]), invoice: z.string().max(5000)})
         .optional(),
       issuer: z
         .object({
@@ -39488,7 +39457,7 @@ export function createRouter(implementation: Implementation): Router {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -39595,7 +39564,7 @@ export function createRouter(implementation: Implementation): Router {
             .enum(["", "exclude_tax", "include_inclusive_tax"])
             .optional(),
           pdf: z
-            .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .object({page_size: z.enum(["a4", "auto", "letter"]).optional()})
             .optional(),
           template: z.string().max(5000).optional(),
           template_version: z
@@ -39680,10 +39649,7 @@ export function createRouter(implementation: Implementation): Router {
       statement_descriptor: z.string().max(22).optional(),
       subscription: z.string().max(5000).optional(),
       transfer_data: z
-        .object({
-          amount: z.coerce.number().optional(),
-          destination: z.string(),
-        })
+        .object({amount: z.coerce.number().optional(), destination: z.string()})
         .optional(),
     })
     .optional()
@@ -39732,7 +39698,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -39959,7 +39925,7 @@ export function createRouter(implementation: Implementation): Router {
             invoiceitem: z.string().max(5000).optional(),
             metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
             period: z
-              .object({ end: z.coerce.number(), start: z.coerce.number() })
+              .object({end: z.coerce.number(), start: z.coerce.number()})
               .optional(),
             price: z.string().max(5000).optional(),
             price_data: z
@@ -39998,7 +39964,7 @@ export function createRouter(implementation: Implementation): Router {
       schedule_details: z
         .object({
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           end_behavior: z.enum(["cancel", "release"]).optional(),
           phases: z
@@ -40102,7 +40068,7 @@ export function createRouter(implementation: Implementation): Router {
                   z.object({
                     billing_thresholds: z
                       .union([
-                        z.object({ usage_gte: z.coerce.number() }),
+                        z.object({usage_gte: z.coerce.number()}),
                         z.enum([""]),
                       ])
                       .optional(),
@@ -40175,7 +40141,7 @@ export function createRouter(implementation: Implementation): Router {
             .union([z.enum(["now", "unchanged"]), z.coerce.number()])
             .optional(),
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
           cancel_at_period_end: PermissiveBoolean.optional(),
@@ -40188,7 +40154,7 @@ export function createRouter(implementation: Implementation): Router {
               z.object({
                 billing_thresholds: z
                   .union([
-                    z.object({ usage_gte: z.coerce.number() }),
+                    z.object({usage_gte: z.coerce.number()}),
                     z.enum([""]),
                   ])
                   .optional(),
@@ -40287,7 +40253,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -40386,7 +40352,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -40458,7 +40424,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -40543,7 +40509,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -40590,7 +40556,7 @@ export function createRouter(implementation: Implementation): Router {
       custom_fields: z
         .union([
           z.array(
-            z.object({ name: z.string().max(40), value: z.string().max(140) }),
+            z.object({name: z.string().max(40), value: z.string().max(140)}),
           ),
           z.enum([""]),
         ])
@@ -40696,7 +40662,7 @@ export function createRouter(implementation: Implementation): Router {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -40802,7 +40768,7 @@ export function createRouter(implementation: Implementation): Router {
             .enum(["", "exclude_tax", "include_inclusive_tax"])
             .optional(),
           pdf: z
-            .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .object({page_size: z.enum(["a4", "auto", "letter"]).optional()})
             .optional(),
           template: z.string().max(5000).optional(),
           template_version: z
@@ -40951,7 +40917,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -40996,7 +40962,7 @@ export function createRouter(implementation: Implementation): Router {
         invoice_item: z.string().max(5000).optional(),
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
         period: z
-          .object({ end: z.coerce.number(), start: z.coerce.number() })
+          .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
         price_data: z
           .object({
@@ -41018,9 +40984,7 @@ export function createRouter(implementation: Implementation): Router {
             unit_amount_decimal: z.string().optional(),
           })
           .optional(),
-        pricing: z
-          .object({ price: z.string().max(5000).optional() })
-          .optional(),
+        pricing: z.object({price: z.string().max(5000).optional()}).optional(),
         quantity: z.coerce.number().optional(),
         tax_amounts: z
           .union([
@@ -41142,7 +41106,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41219,7 +41183,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41296,7 +41260,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41402,7 +41366,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41445,7 +41409,7 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       period: z
-        .object({ end: z.coerce.number(), start: z.coerce.number() })
+        .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
       price_data: z
         .object({
@@ -41467,7 +41431,7 @@ export function createRouter(implementation: Implementation): Router {
           unit_amount_decimal: z.string().optional(),
         })
         .optional(),
-      pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
+      pricing: z.object({price: z.string().max(5000).optional()}).optional(),
       quantity: z.coerce.number().optional(),
       tax_amounts: z
         .union([
@@ -41588,7 +41552,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41616,7 +41580,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postInvoicesInvoiceMarkUncollectibleRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoicesInvoiceMarkUncollectibleResponseBodyValidator =
@@ -41671,7 +41635,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41758,7 +41722,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41837,7 +41801,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41862,7 +41826,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postInvoicesInvoiceSendRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoicesInvoiceSendResponseBodyValidator =
@@ -41911,7 +41875,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -41956,7 +41920,7 @@ export function createRouter(implementation: Implementation): Router {
         id: z.string().max(5000),
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
         period: z
-          .object({ end: z.coerce.number(), start: z.coerce.number() })
+          .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
         price_data: z
           .object({
@@ -41978,9 +41942,7 @@ export function createRouter(implementation: Implementation): Router {
             unit_amount_decimal: z.string().optional(),
           })
           .optional(),
-        pricing: z
-          .object({ price: z.string().max(5000).optional() })
-          .optional(),
+        pricing: z.object({price: z.string().max(5000).optional()}).optional(),
         quantity: z.coerce.number().optional(),
         tax_amounts: z
           .union([
@@ -42102,7 +42064,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42127,7 +42089,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postInvoicesInvoiceVoidRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoicesInvoiceVoidResponseBodyValidator =
@@ -42176,7 +42138,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42289,7 +42251,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42380,7 +42342,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42466,7 +42428,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42553,7 +42515,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42639,7 +42601,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42757,7 +42719,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -42786,7 +42748,7 @@ export function createRouter(implementation: Implementation): Router {
         state: z.string().max(5000).optional(),
       }),
     }),
-    company: z.object({ tax_id: z.string().max(5000).optional() }).optional(),
+    company: z.object({tax_id: z.string().max(5000).optional()}).optional(),
     email: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
     individual: z
@@ -43804,7 +43766,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -43889,7 +43851,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -43927,7 +43889,7 @@ export function createRouter(implementation: Implementation): Router {
           }),
         })
         .optional(),
-      company: z.object({ tax_id: z.string().max(5000).optional() }).optional(),
+      company: z.object({tax_id: z.string().max(5000).optional()}).optional(),
       email: z.string().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       individual: z
@@ -44946,7 +44908,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -45061,7 +45023,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -45087,7 +45049,7 @@ export function createRouter(implementation: Implementation): Router {
     metadata: z.record(z.string()).optional(),
     personalization_design: z.string().max(5000).optional(),
     pin: z
-      .object({ encrypted_number: z.string().max(5000).optional() })
+      .object({encrypted_number: z.string().max(5000).optional()})
       .optional(),
     replacement_for: z.string().max(5000).optional(),
     replacement_reason: z
@@ -45114,7 +45076,7 @@ export function createRouter(implementation: Implementation): Router {
           })
           .optional(),
         customs: z
-          .object({ eori_number: z.string().max(5000).optional() })
+          .object({eori_number: z.string().max(5000).optional()})
           .optional(),
         name: z.string().max(5000),
         phone_number: z.string().optional(),
@@ -46095,7 +46057,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -46113,9 +46075,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getIssuingCardsCardParamSchema = z.object({
-    card: z.string().max(5000),
-  })
+  const getIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
   const getIssuingCardsCardQuerySchema = z.object({
     expand: z
@@ -46180,7 +46140,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -46198,9 +46158,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postIssuingCardsCardParamSchema = z.object({
-    card: z.string().max(5000),
-  })
+  const postIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
   const postIssuingCardsCardRequestBodySchema = z
     .object({
@@ -46209,7 +46167,7 @@ export function createRouter(implementation: Implementation): Router {
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       personalization_design: z.string().max(5000).optional(),
       pin: z
-        .object({ encrypted_number: z.string().max(5000).optional() })
+        .object({encrypted_number: z.string().max(5000).optional()})
         .optional(),
       shipping: z
         .object({
@@ -46231,7 +46189,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           customs: z
-            .object({ eori_number: z.string().max(5000).optional() })
+            .object({eori_number: z.string().max(5000).optional()})
             .optional(),
           name: z.string().max(5000),
           phone_number: z.string().optional(),
@@ -47216,7 +47174,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -47326,7 +47284,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -47528,7 +47486,7 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.record(z.string()).optional(),
       transaction: z.string().max(5000).optional(),
-      treasury: z.object({ received_debit: z.string().max(5000) }).optional(),
+      treasury: z.object({received_debit: z.string().max(5000)}).optional(),
     })
     .optional()
 
@@ -47576,7 +47534,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -47659,7 +47617,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -47913,7 +47871,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -47990,7 +47948,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48106,7 +48064,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48141,7 +48099,7 @@ export function createRouter(implementation: Implementation): Router {
     metadata: z.record(z.string()).optional(),
     name: z.string().max(200).optional(),
     physical_bundle: z.string().max(5000),
-    preferences: z.object({ is_default: PermissiveBoolean }).optional(),
+    preferences: z.object({is_default: PermissiveBoolean}).optional(),
     transfer_lookup_key: PermissiveBoolean.optional(),
   })
 
@@ -48192,7 +48150,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48216,7 +48174,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const getIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const getIssuingPersonalizationDesignsPersonalizationDesignQuerySchema =
     z.object({
@@ -48292,7 +48250,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48316,7 +48274,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema =
     z
@@ -48346,7 +48304,7 @@ export function createRouter(implementation: Implementation): Router {
         metadata: z.record(z.string()).optional(),
         name: z.union([z.string().max(200), z.enum([""])]).optional(),
         physical_bundle: z.string().max(5000).optional(),
-        preferences: z.object({ is_default: PermissiveBoolean }).optional(),
+        preferences: z.object({is_default: PermissiveBoolean}).optional(),
         transfer_lookup_key: PermissiveBoolean.optional(),
       })
       .optional()
@@ -48408,7 +48366,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48514,7 +48472,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48605,7 +48563,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48695,7 +48653,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48772,7 +48730,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48882,7 +48840,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -48967,7 +48925,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49042,7 +49000,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49154,7 +49112,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49239,7 +49197,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49319,7 +49277,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49421,7 +49379,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49509,7 +49467,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49616,7 +49574,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49704,7 +49662,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49727,7 +49685,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postLinkedAccountsAccountDisconnectRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postLinkedAccountsAccountDisconnectResponseBodyValidator =
@@ -49781,7 +49739,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49893,7 +49851,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49973,7 +49931,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -49993,7 +49951,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getMandatesMandateParamSchema = z.object({ mandate: z.string() })
+  const getMandatesMandateParamSchema = z.object({mandate: z.string()})
 
   const getMandatesMandateQuerySchema = z.object({
     expand: z
@@ -50058,7 +50016,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -50165,7 +50123,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -50282,7 +50240,7 @@ export function createRouter(implementation: Implementation): Router {
           })
           .optional(),
         blik: z.object({}).optional(),
-        boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+        boleto: z.object({tax_id: z.string().max(5000)}).optional(),
         cashapp: z.object({}).optional(),
         crypto: z.object({}).optional(),
         customer_balance: z.object({}).optional(),
@@ -50397,7 +50355,7 @@ export function createRouter(implementation: Implementation): Router {
         mobilepay: z.object({}).optional(),
         multibanco: z.object({}).optional(),
         naver_pay: z
-          .object({ funding: z.enum(["card", "points"]).optional() })
+          .object({funding: z.enum(["card", "points"]).optional()})
           .optional(),
         nz_bank_account: z
           .object({
@@ -50451,14 +50409,14 @@ export function createRouter(implementation: Implementation): Router {
         pix: z.object({}).optional(),
         promptpay: z.object({}).optional(),
         radar_options: z
-          .object({ session: z.string().max(5000).optional() })
+          .object({session: z.string().max(5000).optional()})
           .optional(),
         revolut_pay: z.object({}).optional(),
         samsung_pay: z.object({}).optional(),
         satispay: z.object({}).optional(),
-        sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+        sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
         sofort: z
-          .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+          .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
           .optional(),
         swish: z.object({}).optional(),
         twint: z.object({}).optional(),
@@ -50584,7 +50542,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         alma: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50641,7 +50599,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         billie: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50804,7 +50762,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         crypto: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50814,7 +50772,7 @@ export function createRouter(implementation: Implementation): Router {
               bank_transfer: z
                 .object({
                   eu_bank_transfer: z
-                    .object({ country: z.string().max(5000) })
+                    .object({country: z.string().max(5000)})
                     .optional(),
                   requested_address_types: z
                     .array(
@@ -50846,25 +50804,25 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         eps: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         fpx: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         giropay: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         grabpay: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51032,7 +50990,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         multibanco: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51079,13 +51037,13 @@ export function createRouter(implementation: Implementation): Router {
         pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
         payco: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         paynow: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51139,7 +51097,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         promptpay: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51156,13 +51114,13 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         samsung_pay: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         satispay: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51210,7 +51168,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         twint: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51243,7 +51201,7 @@ export function createRouter(implementation: Implementation): Router {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -51278,7 +51236,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         zip: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -51286,7 +51244,7 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     payment_method_types: z.array(z.string().max(5000)).optional(),
     radar_options: z
-      .object({ session: z.string().max(5000).optional() })
+      .object({session: z.string().max(5000).optional()})
       .optional(),
     receipt_email: z.string().optional(),
     return_url: z.string().optional(),
@@ -51310,7 +51268,7 @@ export function createRouter(implementation: Implementation): Router {
     statement_descriptor: z.string().max(22).optional(),
     statement_descriptor_suffix: z.string().max(22).optional(),
     transfer_data: z
-      .object({ amount: z.coerce.number().optional(), destination: z.string() })
+      .object({amount: z.coerce.number().optional(), destination: z.string()})
       .optional(),
     transfer_group: z.string().optional(),
     use_stripe_sdk: PermissiveBoolean.optional(),
@@ -51360,7 +51318,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -51460,7 +51418,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -51544,7 +51502,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -51635,7 +51593,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -51750,7 +51708,7 @@ export function createRouter(implementation: Implementation): Router {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -51804,14 +51762,14 @@ export function createRouter(implementation: Implementation): Router {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -51939,7 +51897,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           alma: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -51996,7 +51954,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           billie: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52163,7 +52121,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           crypto: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52173,7 +52131,7 @@ export function createRouter(implementation: Implementation): Router {
                 bank_transfer: z
                   .object({
                     eu_bank_transfer: z
-                      .object({ country: z.string().max(5000) })
+                      .object({country: z.string().max(5000)})
                       .optional(),
                     requested_address_types: z
                       .array(
@@ -52205,25 +52163,25 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           eps: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           fpx: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           giropay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           grabpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52393,7 +52351,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           multibanco: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52440,13 +52398,13 @@ export function createRouter(implementation: Implementation): Router {
           pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
           payco: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           paynow: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52500,7 +52458,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           promptpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52517,13 +52475,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           samsung_pay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           satispay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52571,7 +52529,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           twint: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52604,9 +52562,7 @@ export function createRouter(implementation: Implementation): Router {
                   })
                   .optional(),
                 mandate_options: z
-                  .object({
-                    collection_method: z.enum(["", "paper"]).optional(),
-                  })
+                  .object({collection_method: z.enum(["", "paper"]).optional()})
                   .optional(),
                 networks: z
                   .object({
@@ -52641,7 +52597,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           zip: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52672,7 +52628,7 @@ export function createRouter(implementation: Implementation): Router {
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
       transfer_group: z.string().optional(),
     })
@@ -52724,7 +52680,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -52806,7 +52762,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -52888,7 +52844,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -52922,7 +52878,7 @@ export function createRouter(implementation: Implementation): Router {
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
     })
     .optional()
@@ -52973,7 +52929,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -53091,7 +53047,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -53206,7 +53162,7 @@ export function createRouter(implementation: Implementation): Router {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -53260,14 +53216,14 @@ export function createRouter(implementation: Implementation): Router {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -53395,7 +53351,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           alma: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53452,7 +53408,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           billie: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53619,7 +53575,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           crypto: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53629,7 +53585,7 @@ export function createRouter(implementation: Implementation): Router {
                 bank_transfer: z
                   .object({
                     eu_bank_transfer: z
-                      .object({ country: z.string().max(5000) })
+                      .object({country: z.string().max(5000)})
                       .optional(),
                     requested_address_types: z
                       .array(
@@ -53661,25 +53617,25 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           eps: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           fpx: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           giropay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           grabpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53849,7 +53805,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           multibanco: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53896,13 +53852,13 @@ export function createRouter(implementation: Implementation): Router {
           pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
           payco: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           paynow: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53956,7 +53912,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           promptpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53973,13 +53929,13 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           samsung_pay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           satispay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -54027,7 +53983,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           twint: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -54060,9 +54016,7 @@ export function createRouter(implementation: Implementation): Router {
                   })
                   .optional(),
                 mandate_options: z
-                  .object({
-                    collection_method: z.enum(["", "paper"]).optional(),
-                  })
+                  .object({collection_method: z.enum(["", "paper"]).optional()})
                   .optional(),
                 networks: z
                   .object({
@@ -54097,7 +54051,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           zip: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -54105,7 +54059,7 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       payment_method_types: z.array(z.string().max(5000)).optional(),
       radar_options: z
-        .object({ session: z.string().max(5000).optional() })
+        .object({session: z.string().max(5000).optional()})
         .optional(),
       receipt_email: z.union([z.string(), z.enum([""])]).optional(),
       return_url: z.string().optional(),
@@ -54179,7 +54133,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -54212,7 +54166,7 @@ export function createRouter(implementation: Implementation): Router {
       metadata: z.record(z.string()).optional(),
       statement_descriptor: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
     })
 
@@ -54268,7 +54222,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -54356,7 +54310,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -54457,7 +54411,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -54479,9 +54433,9 @@ export function createRouter(implementation: Implementation): Router {
     after_completion: z
       .object({
         hosted_confirmation: z
-          .object({ custom_message: z.string().max(500).optional() })
+          .object({custom_message: z.string().max(500).optional()})
           .optional(),
-        redirect: z.object({ url: z.string() }).optional(),
+        redirect: z.object({url: z.string()}).optional(),
         type: z.enum(["hosted_confirmation", "redirect"]),
       })
       .optional(),
@@ -54503,7 +54457,7 @@ export function createRouter(implementation: Implementation): Router {
     consent_collection: z
       .object({
         payment_method_reuse_agreement: z
-          .object({ position: z.enum(["auto", "hidden"]) })
+          .object({position: z.enum(["auto", "hidden"])})
           .optional(),
         promotions: z.enum(["auto", "none"]).optional(),
         terms_of_service: z.enum(["none", "required"]).optional(),
@@ -54551,16 +54505,16 @@ export function createRouter(implementation: Implementation): Router {
     custom_text: z
       .object({
         after_submit: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
         shipping_address: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
         submit: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
         terms_of_service_acceptance: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
       })
       .optional(),
@@ -54696,11 +54650,9 @@ export function createRouter(implementation: Implementation): Router {
         ]),
       )
       .optional(),
-    phone_number_collection: z
-      .object({ enabled: PermissiveBoolean })
-      .optional(),
+    phone_number_collection: z.object({enabled: PermissiveBoolean}).optional(),
     restrictions: z
-      .object({ completed_sessions: z.object({ limit: z.coerce.number() }) })
+      .object({completed_sessions: z.object({limit: z.coerce.number()})})
       .optional(),
     shipping_address_collection: z
       .object({
@@ -54949,7 +54901,7 @@ export function createRouter(implementation: Implementation): Router {
       })
       .optional(),
     shipping_options: z
-      .array(z.object({ shipping_rate: z.string().max(5000).optional() }))
+      .array(z.object({shipping_rate: z.string().max(5000).optional()}))
       .optional(),
     submit_type: z
       .enum(["auto", "book", "donate", "pay", "subscribe"])
@@ -54989,7 +54941,7 @@ export function createRouter(implementation: Implementation): Router {
       })
       .optional(),
     transfer_data: z
-      .object({ amount: z.coerce.number().optional(), destination: z.string() })
+      .object({amount: z.coerce.number().optional(), destination: z.string()})
       .optional(),
   })
 
@@ -55037,7 +54989,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -55120,7 +55072,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -55150,9 +55102,9 @@ export function createRouter(implementation: Implementation): Router {
       after_completion: z
         .object({
           hosted_confirmation: z
-            .object({ custom_message: z.string().max(500).optional() })
+            .object({custom_message: z.string().max(500).optional()})
             .optional(),
-          redirect: z.object({ url: z.string() }).optional(),
+          redirect: z.object({url: z.string()}).optional(),
           type: z.enum(["hosted_confirmation", "redirect"]),
         })
         .optional(),
@@ -55213,16 +55165,16 @@ export function createRouter(implementation: Implementation): Router {
       custom_text: z
         .object({
           after_submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           shipping_address: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           terms_of_service_acceptance: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
         })
         .optional(),
@@ -55352,13 +55304,11 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       phone_number_collection: z
-        .object({ enabled: PermissiveBoolean })
+        .object({enabled: PermissiveBoolean})
         .optional(),
       restrictions: z
         .union([
-          z.object({
-            completed_sessions: z.object({ limit: z.coerce.number() }),
-          }),
+          z.object({completed_sessions: z.object({limit: z.coerce.number()})}),
           z.enum([""]),
         ])
         .optional(),
@@ -55701,7 +55651,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -55809,7 +55759,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -55916,7 +55866,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -55941,133 +55891,133 @@ export function createRouter(implementation: Implementation): Router {
       acss_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       affirm: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       afterpay_clearpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alipay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alma: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       amazon_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay_later: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       au_becs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bacs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bancontact: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       billie: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       blik: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       boleto: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cartes_bancaires: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cashapp: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       customer_balance: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       eps: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56075,91 +56025,91 @@ export function createRouter(implementation: Implementation): Router {
       fpx: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       giropay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       google_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       grabpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       ideal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       jcb: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kakao_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       klarna: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       konbini: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kr_card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       link: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       mobilepay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       multibanco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56167,28 +56117,28 @@ export function createRouter(implementation: Implementation): Router {
       naver_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       nz_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       oxxo: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       p24: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56196,112 +56146,112 @@ export function createRouter(implementation: Implementation): Router {
       pay_by_bank: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       payco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paynow: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paypal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       pix: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       promptpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       revolut_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       samsung_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       satispay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sepa_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sofort: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       swish: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       twint: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       us_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       wechat_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       zip: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56355,7 +56305,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -56453,7 +56403,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -56485,7 +56435,7 @@ export function createRouter(implementation: Implementation): Router {
       acss_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56493,126 +56443,126 @@ export function createRouter(implementation: Implementation): Router {
       affirm: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       afterpay_clearpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alipay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alma: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       amazon_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay_later: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       au_becs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bacs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bancontact: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       billie: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       blik: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       boleto: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cartes_bancaires: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cashapp: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       customer_balance: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       eps: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56620,91 +56570,91 @@ export function createRouter(implementation: Implementation): Router {
       fpx: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       giropay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       google_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       grabpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       ideal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       jcb: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kakao_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       klarna: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       konbini: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kr_card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       link: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       mobilepay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       multibanco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56712,140 +56662,140 @@ export function createRouter(implementation: Implementation): Router {
       naver_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       nz_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       oxxo: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       p24: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       pay_by_bank: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       payco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paynow: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paypal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       pix: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       promptpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       revolut_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       samsung_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       satispay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sepa_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sofort: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       swish: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       twint: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       us_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       wechat_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       zip: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56909,7 +56859,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57015,7 +56965,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57081,7 +57031,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57172,7 +57122,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57258,7 +57208,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57282,10 +57232,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema =
-    z.object({ payment_method_domain: z.string().max(5000) })
+    z.object({payment_method_domain: z.string().max(5000)})
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateResponseBodyValidator =
@@ -57340,7 +57290,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57493,7 +57443,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57562,7 +57512,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       blik: z.object({}).optional(),
-      boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+      boleto: z.object({tax_id: z.string().max(5000)}).optional(),
       card: z
         .union([
           z.object({
@@ -57578,7 +57528,7 @@ export function createRouter(implementation: Implementation): Router {
               .optional(),
             number: z.string().max(5000),
           }),
-          z.object({ token: z.string().max(5000) }),
+          z.object({token: z.string().max(5000)}),
         ])
         .optional(),
       cashapp: z.object({}).optional(),
@@ -57697,7 +57647,7 @@ export function createRouter(implementation: Implementation): Router {
       mobilepay: z.object({}).optional(),
       multibanco: z.object({}).optional(),
       naver_pay: z
-        .object({ funding: z.enum(["card", "points"]).optional() })
+        .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
       nz_bank_account: z
         .object({
@@ -57752,14 +57702,14 @@ export function createRouter(implementation: Implementation): Router {
       pix: z.object({}).optional(),
       promptpay: z.object({}).optional(),
       radar_options: z
-        .object({ session: z.string().max(5000).optional() })
+        .object({session: z.string().max(5000).optional()})
         .optional(),
       revolut_pay: z.object({}).optional(),
       samsung_pay: z.object({}).optional(),
       satispay: z.object({}).optional(),
-      sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+      sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
-        .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+        .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
       swish: z.object({}).optional(),
       twint: z.object({}).optional(),
@@ -57873,7 +57823,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -57958,7 +57908,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58078,7 +58028,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58159,7 +58109,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58187,7 +58137,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postPaymentMethodsPaymentMethodDetachRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postPaymentMethodsPaymentMethodDetachResponseBodyValidator =
@@ -58242,7 +58192,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58366,7 +58316,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58440,7 +58390,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58458,7 +58408,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getPayoutsPayoutParamSchema = z.object({ payout: z.string().max(5000) })
+  const getPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
   const getPayoutsPayoutQuerySchema = z.object({
     expand: z
@@ -58523,7 +58473,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58541,9 +58491,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPayoutsPayoutParamSchema = z.object({
-    payout: z.string().max(5000),
-  })
+  const postPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
   const postPayoutsPayoutRequestBodySchema = z
     .object({
@@ -58600,7 +58548,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58623,7 +58571,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postPayoutsPayoutCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postPayoutsPayoutCancelResponseBodyValidator =
@@ -58672,7 +58620,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58747,7 +58695,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58855,7 +58803,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58913,7 +58861,7 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
     transform_usage: z
-      .object({ divide_by: z.coerce.number(), round: z.enum(["down", "up"]) })
+      .object({divide_by: z.coerce.number(), round: z.enum(["down", "up"])})
       .optional(),
     trial_period_days: z.coerce.number().optional(),
     usage_type: z.enum(["licensed", "metered"]).optional(),
@@ -58963,7 +58911,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -58981,7 +58929,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deletePlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
+  const deletePlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
   const deletePlansPlanRequestBodySchema = z.object({}).optional()
 
@@ -59033,7 +58981,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59051,7 +58999,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getPlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
+  const getPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
   const getPlansPlanQuerySchema = z.object({
     expand: z
@@ -59116,7 +59064,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59134,7 +59082,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
+  const postPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
   const postPlansPlanRequestBodySchema = z
     .object({
@@ -59195,7 +59143,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59318,7 +59266,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59417,7 +59365,7 @@ export function createRouter(implementation: Implementation): Router {
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
     transfer_lookup_key: PermissiveBoolean.optional(),
     transform_quantity: z
-      .object({ divide_by: z.coerce.number(), round: z.enum(["down", "up"]) })
+      .object({divide_by: z.coerce.number(), round: z.enum(["down", "up"])})
       .optional(),
     unit_amount: z.coerce.number().optional(),
     unit_amount_decimal: z.string().optional(),
@@ -59467,7 +59415,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59566,7 +59514,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59584,7 +59532,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getPricesPriceParamSchema = z.object({ price: z.string().max(5000) })
+  const getPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
   const getPricesPriceQuerySchema = z.object({
     expand: z
@@ -59649,7 +59597,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59667,7 +59615,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postPricesPriceParamSchema = z.object({ price: z.string().max(5000) })
+  const postPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
   const postPricesPriceRequestBodySchema = z
     .object({
@@ -59764,7 +59712,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59879,7 +59827,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -59959,7 +59907,7 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000).optional(),
     images: z.array(z.string()).optional(),
     marketing_features: z
-      .array(z.object({ name: z.string().max(5000) }))
+      .array(z.object({name: z.string().max(5000)}))
       .optional(),
     metadata: z.record(z.string()).optional(),
     name: z.string().max(5000),
@@ -60022,7 +59970,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60121,7 +60069,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60139,7 +60087,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deleteProductsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const deleteProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const deleteProductsIdRequestBodySchema = z.object({}).optional()
 
@@ -60191,7 +60139,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60209,7 +60157,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getProductsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getProductsIdQuerySchema = z.object({
     expand: z
@@ -60274,7 +60222,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60292,7 +60240,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postProductsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const postProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postProductsIdRequestBodySchema = z
     .object({
@@ -60302,10 +60250,7 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       images: z.union([z.array(z.string()), z.enum([""])]).optional(),
       marketing_features: z
-        .union([
-          z.array(z.object({ name: z.string().max(5000) })),
-          z.enum([""]),
-        ])
+        .union([z.array(z.object({name: z.string().max(5000)})), z.enum([""])])
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       name: z.string().max(5000).optional(),
@@ -60376,7 +60321,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60480,7 +60425,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60555,7 +60500,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60630,7 +60575,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60716,7 +60661,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60828,7 +60773,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60858,7 +60803,7 @@ export function createRouter(implementation: Implementation): Router {
     restrictions: z
       .object({
         currency_options: z
-          .record(z.object({ minimum_amount: z.coerce.number().optional() }))
+          .record(z.object({minimum_amount: z.coerce.number().optional()}))
           .optional(),
         first_time_transaction: PermissiveBoolean.optional(),
         minimum_amount: z.coerce.number().optional(),
@@ -60911,7 +60856,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -60996,7 +60941,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61028,7 +60973,7 @@ export function createRouter(implementation: Implementation): Router {
       restrictions: z
         .object({
           currency_options: z
-            .record(z.object({ minimum_amount: z.coerce.number().optional() }))
+            .record(z.object({minimum_amount: z.coerce.number().optional()}))
             .optional(),
         })
         .optional(),
@@ -61081,7 +61026,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61181,7 +61126,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61304,7 +61249,7 @@ export function createRouter(implementation: Implementation): Router {
       subscription_data: z
         .object({
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           description: z.string().max(500).optional(),
           effective_date: z
@@ -61378,7 +61323,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61396,7 +61341,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getQuotesQuoteParamSchema = z.object({ quote: z.string().max(5000) })
+  const getQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
   const getQuotesQuoteQuerySchema = z.object({
     expand: z
@@ -61461,7 +61406,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61479,7 +61424,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postQuotesQuoteParamSchema = z.object({ quote: z.string().max(5000) })
+  const postQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
   const postQuotesQuoteRequestBodySchema = z
     .object({
@@ -61655,7 +61600,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61678,7 +61623,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postQuotesQuoteAcceptRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postQuotesQuoteAcceptResponseBodyValidator = responseValidationFactory(
@@ -61729,7 +61674,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61752,7 +61697,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postQuotesQuoteCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postQuotesQuoteCancelResponseBodyValidator = responseValidationFactory(
@@ -61803,7 +61748,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61915,7 +61860,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -61995,7 +61940,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62099,7 +62044,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62117,7 +62062,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getQuotesQuotePdfParamSchema = z.object({ quote: z.string().max(5000) })
+  const getQuotesQuotePdfParamSchema = z.object({quote: z.string().max(5000)})
 
   const getQuotesQuotePdfQuerySchema = z.object({
     expand: z
@@ -62182,7 +62127,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62294,7 +62239,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62387,7 +62332,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62503,7 +62448,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62569,7 +62514,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62644,7 +62589,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62729,7 +62674,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62839,7 +62784,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62922,7 +62867,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -62994,7 +62939,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63079,7 +63024,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63158,7 +63103,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63268,7 +63213,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63349,7 +63294,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63367,7 +63312,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getRefundsRefundParamSchema = z.object({ refund: z.string() })
+  const getRefundsRefundParamSchema = z.object({refund: z.string()})
 
   const getRefundsRefundQuerySchema = z.object({
     expand: z
@@ -63432,7 +63377,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63450,7 +63395,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postRefundsRefundParamSchema = z.object({ refund: z.string() })
+  const postRefundsRefundParamSchema = z.object({refund: z.string()})
 
   const postRefundsRefundRequestBodySchema = z
     .object({
@@ -63507,7 +63452,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63525,10 +63470,10 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postRefundsRefundCancelParamSchema = z.object({ refund: z.string() })
+  const postRefundsRefundCancelParamSchema = z.object({refund: z.string()})
 
   const postRefundsRefundCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postRefundsRefundCancelResponseBodyValidator =
@@ -63577,7 +63522,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -63686,7 +63631,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64404,7 +64349,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64489,7 +64434,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64584,7 +64529,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64669,7 +64614,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64780,7 +64725,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64798,7 +64743,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getReviewsReviewParamSchema = z.object({ review: z.string().max(5000) })
+  const getReviewsReviewParamSchema = z.object({review: z.string().max(5000)})
 
   const getReviewsReviewQuerySchema = z.object({
     expand: z
@@ -64863,7 +64808,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -64886,7 +64831,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postReviewsReviewApproveRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postReviewsReviewApproveResponseBodyValidator =
@@ -64935,7 +64880,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -65042,7 +64987,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -65151,7 +65096,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -65259,7 +65204,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -65374,7 +65319,7 @@ export function createRouter(implementation: Implementation): Router {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -65428,14 +65373,14 @@ export function createRouter(implementation: Implementation): Router {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -65693,7 +65638,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.string().max(5000).optional() })
+            .object({billing_agreement_id: z.string().max(5000).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -65734,7 +65679,7 @@ export function createRouter(implementation: Implementation): Router {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -65753,7 +65698,7 @@ export function createRouter(implementation: Implementation): Router {
       payment_method_types: z.array(z.string().max(5000)).optional(),
       return_url: z.string().optional(),
       single_use: z
-        .object({ amount: z.coerce.number(), currency: z.string() })
+        .object({amount: z.coerce.number(), currency: z.string()})
         .optional(),
       usage: z.enum(["off_session", "on_session"]).optional(),
       use_stripe_sdk: PermissiveBoolean.optional(),
@@ -65804,7 +65749,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -65890,7 +65835,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -65975,7 +65920,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -66090,7 +66035,7 @@ export function createRouter(implementation: Implementation): Router {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -66144,14 +66089,14 @@ export function createRouter(implementation: Implementation): Router {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -66409,7 +66354,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.string().max(5000).optional() })
+            .object({billing_agreement_id: z.string().max(5000).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -66450,7 +66395,7 @@ export function createRouter(implementation: Implementation): Router {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -66518,7 +66463,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -66595,7 +66540,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -66705,7 +66650,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -66820,7 +66765,7 @@ export function createRouter(implementation: Implementation): Router {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -66874,14 +66819,14 @@ export function createRouter(implementation: Implementation): Router {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -67139,7 +67084,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.string().max(5000).optional() })
+            .object({billing_agreement_id: z.string().max(5000).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -67180,7 +67125,7 @@ export function createRouter(implementation: Implementation): Router {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -67247,7 +67192,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67332,7 +67277,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67445,7 +67390,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67548,7 +67493,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67633,7 +67578,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67731,7 +67676,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67812,7 +67757,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -67911,7 +67856,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68004,7 +67949,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68042,7 +67987,7 @@ export function createRouter(implementation: Implementation): Router {
             .object({
               date: z.coerce.number().optional(),
               ip: z.string().optional(),
-              offline: z.object({ contact_email: z.string() }).optional(),
+              offline: z.object({contact_email: z.string()}).optional(),
               online: z
                 .object({
                   date: z.coerce.number().optional(),
@@ -68095,7 +68040,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      redirect: z.object({ return_url: z.string() }).optional(),
+      redirect: z.object({return_url: z.string()}).optional(),
       source_order: z
         .object({
           items: z
@@ -68179,7 +68124,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68197,7 +68142,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getSourcesSourceParamSchema = z.object({ source: z.string().max(5000) })
+  const getSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
   const getSourcesSourceQuerySchema = z.object({
     client_secret: z.string().max(5000).optional(),
@@ -68263,7 +68208,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68281,9 +68226,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postSourcesSourceParamSchema = z.object({
-    source: z.string().max(5000),
-  })
+  const postSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
   const postSourcesSourceRequestBodySchema = z
     .object({
@@ -68295,7 +68238,7 @@ export function createRouter(implementation: Implementation): Router {
             .object({
               date: z.coerce.number().optional(),
               ip: z.string().optional(),
-              offline: z.object({ contact_email: z.string() }).optional(),
+              offline: z.object({contact_email: z.string()}).optional(),
               online: z
                 .object({
                   date: z.coerce.number().optional(),
@@ -68423,7 +68366,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68518,7 +68461,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68629,7 +68572,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68728,7 +68671,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68806,7 +68749,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68905,7 +68848,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -68925,7 +68868,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postSubscriptionItemsRequestBodySchema = z.object({
     billing_thresholds: z
-      .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+      .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
       .optional(),
     discounts: z
       .union([
@@ -69020,7 +68963,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -69098,7 +69041,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -69183,7 +69126,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -69208,7 +69151,7 @@ export function createRouter(implementation: Implementation): Router {
   const postSubscriptionItemsItemRequestBodySchema = z
     .object({
       billing_thresholds: z
-        .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+        .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
         .optional(),
       discounts: z
         .union([
@@ -69306,7 +69249,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -69451,7 +69394,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -69472,7 +69415,7 @@ export function createRouter(implementation: Implementation): Router {
   const postSubscriptionSchedulesRequestBodySchema = z
     .object({
       billing_mode: z
-        .object({ type: z.enum(["classic", "flexible"]) })
+        .object({type: z.enum(["classic", "flexible"])})
         .optional(),
       customer: z.string().max(5000).optional(),
       default_settings: z
@@ -69634,7 +69577,7 @@ export function createRouter(implementation: Implementation): Router {
               z.object({
                 billing_thresholds: z
                   .union([
-                    z.object({ usage_gte: z.coerce.number() }),
+                    z.object({usage_gte: z.coerce.number()}),
                     z.enum([""]),
                   ])
                   .optional(),
@@ -69736,7 +69679,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -69821,7 +69764,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -70004,7 +69947,7 @@ export function createRouter(implementation: Implementation): Router {
               z.object({
                 billing_thresholds: z
                   .union([
-                    z.object({ usage_gte: z.coerce.number() }),
+                    z.object({usage_gte: z.coerce.number()}),
                     z.enum([""]),
                   ])
                   .optional(),
@@ -70115,7 +70058,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -70202,7 +70145,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -70288,7 +70231,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -70312,7 +70255,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const getSubscriptionsQuerySchema = z.object({
-    automatic_tax: z.object({ enabled: PermissiveBoolean }).optional(),
+    automatic_tax: z.object({enabled: PermissiveBoolean}).optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
@@ -70442,7 +70385,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -70517,9 +70460,7 @@ export function createRouter(implementation: Implementation): Router {
         second: z.coerce.number().optional(),
       })
       .optional(),
-    billing_mode: z
-      .object({ type: z.enum(["classic", "flexible"]) })
-      .optional(),
+    billing_mode: z.object({type: z.enum(["classic", "flexible"])}).optional(),
     billing_thresholds: z
       .union([
         z.object({
@@ -70573,7 +70514,7 @@ export function createRouter(implementation: Implementation): Router {
       .array(
         z.object({
           billing_thresholds: z
-            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+            .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
             .optional(),
           discounts: z
             .union([
@@ -70693,7 +70634,7 @@ export function createRouter(implementation: Implementation): Router {
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.string().max(5000) })
+                        .object({country: z.string().max(5000)})
                         .optional(),
                       type: z.string().optional(),
                     })
@@ -70870,7 +70811,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -70969,7 +70910,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -71069,7 +71010,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -71165,7 +71106,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -71309,7 +71250,7 @@ export function createRouter(implementation: Implementation): Router {
         .array(
           z.object({
             billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
               .optional(),
             clear_usage: PermissiveBoolean.optional(),
             deleted: PermissiveBoolean.optional(),
@@ -71441,7 +71382,7 @@ export function createRouter(implementation: Implementation): Router {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -71634,7 +71575,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -71717,7 +71658,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -71745,7 +71686,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postSubscriptionsSubscriptionMigrateRequestBodySchema = z.object({
-    billing_mode: z.object({ type: z.enum(["flexible"]) }),
+    billing_mode: z.object({type: z.enum(["flexible"])}),
     expand: z.array(z.string().max(5000)).optional(),
   })
 
@@ -71801,7 +71742,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -71885,7 +71826,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72130,7 +72071,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72213,7 +72154,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72330,7 +72271,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72431,7 +72372,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72453,10 +72394,10 @@ export function createRouter(implementation: Implementation): Router {
     active_from: z.union([z.enum(["now"]), z.coerce.number()]),
     country: z.string().max(5000),
     country_options: z.object({
-      ae: z.object({ type: z.enum(["standard"]) }).optional(),
-      al: z.object({ type: z.enum(["standard"]) }).optional(),
-      am: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ao: z.object({ type: z.enum(["standard"]) }).optional(),
+      ae: z.object({type: z.enum(["standard"])}).optional(),
+      al: z.object({type: z.enum(["standard"])}).optional(),
+      am: z.object({type: z.enum(["simplified"])}).optional(),
+      ao: z.object({type: z.enum(["standard"])}).optional(),
       at: z
         .object({
           standard: z
@@ -72467,12 +72408,12 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      au: z.object({ type: z.enum(["standard"]) }).optional(),
-      aw: z.object({ type: z.enum(["standard"]) }).optional(),
-      az: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ba: z.object({ type: z.enum(["standard"]) }).optional(),
-      bb: z.object({ type: z.enum(["standard"]) }).optional(),
-      bd: z.object({ type: z.enum(["standard"]) }).optional(),
+      au: z.object({type: z.enum(["standard"])}).optional(),
+      aw: z.object({type: z.enum(["standard"])}).optional(),
+      az: z.object({type: z.enum(["simplified"])}).optional(),
+      ba: z.object({type: z.enum(["standard"])}).optional(),
+      bb: z.object({type: z.enum(["standard"])}).optional(),
+      bd: z.object({type: z.enum(["standard"])}).optional(),
       be: z
         .object({
           standard: z
@@ -72483,7 +72424,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      bf: z.object({ type: z.enum(["standard"]) }).optional(),
+      bf: z.object({type: z.enum(["standard"])}).optional(),
       bg: z
         .object({
           standard: z
@@ -72494,25 +72435,25 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      bh: z.object({ type: z.enum(["standard"]) }).optional(),
-      bj: z.object({ type: z.enum(["simplified"]) }).optional(),
-      bs: z.object({ type: z.enum(["standard"]) }).optional(),
-      by: z.object({ type: z.enum(["simplified"]) }).optional(),
+      bh: z.object({type: z.enum(["standard"])}).optional(),
+      bj: z.object({type: z.enum(["simplified"])}).optional(),
+      bs: z.object({type: z.enum(["standard"])}).optional(),
+      by: z.object({type: z.enum(["simplified"])}).optional(),
       ca: z
         .object({
           province_standard: z
-            .object({ province: z.string().max(5000) })
+            .object({province: z.string().max(5000)})
             .optional(),
           type: z.enum(["province_standard", "simplified", "standard"]),
         })
         .optional(),
-      cd: z.object({ type: z.enum(["standard"]) }).optional(),
-      ch: z.object({ type: z.enum(["standard"]) }).optional(),
-      cl: z.object({ type: z.enum(["simplified"]) }).optional(),
-      cm: z.object({ type: z.enum(["simplified"]) }).optional(),
-      co: z.object({ type: z.enum(["simplified"]) }).optional(),
-      cr: z.object({ type: z.enum(["simplified"]) }).optional(),
-      cv: z.object({ type: z.enum(["simplified"]) }).optional(),
+      cd: z.object({type: z.enum(["standard"])}).optional(),
+      ch: z.object({type: z.enum(["standard"])}).optional(),
+      cl: z.object({type: z.enum(["simplified"])}).optional(),
+      cm: z.object({type: z.enum(["simplified"])}).optional(),
+      co: z.object({type: z.enum(["simplified"])}).optional(),
+      cr: z.object({type: z.enum(["simplified"])}).optional(),
+      cv: z.object({type: z.enum(["simplified"])}).optional(),
       cy: z
         .object({
           standard: z
@@ -72553,7 +72494,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      ec: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ec: z.object({type: z.enum(["simplified"])}).optional(),
       ee: z
         .object({
           standard: z
@@ -72564,7 +72505,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      eg: z.object({ type: z.enum(["simplified"]) }).optional(),
+      eg: z.object({type: z.enum(["simplified"])}).optional(),
       es: z
         .object({
           standard: z
@@ -72575,7 +72516,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      et: z.object({ type: z.enum(["standard"]) }).optional(),
+      et: z.object({type: z.enum(["standard"])}).optional(),
       fi: z
         .object({
           standard: z
@@ -72596,9 +72537,9 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      gb: z.object({ type: z.enum(["standard"]) }).optional(),
-      ge: z.object({ type: z.enum(["simplified"]) }).optional(),
-      gn: z.object({ type: z.enum(["standard"]) }).optional(),
+      gb: z.object({type: z.enum(["standard"])}).optional(),
+      ge: z.object({type: z.enum(["simplified"])}).optional(),
+      gn: z.object({type: z.enum(["standard"])}).optional(),
       gr: z
         .object({
           standard: z
@@ -72629,7 +72570,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      id: z.object({ type: z.enum(["simplified"]) }).optional(),
+      id: z.object({type: z.enum(["simplified"])}).optional(),
       ie: z
         .object({
           standard: z
@@ -72640,8 +72581,8 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      in: z.object({ type: z.enum(["simplified"]) }).optional(),
-      is: z.object({ type: z.enum(["standard"]) }).optional(),
+      in: z.object({type: z.enum(["simplified"])}).optional(),
+      is: z.object({type: z.enum(["standard"])}).optional(),
       it: z
         .object({
           standard: z
@@ -72652,13 +72593,13 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      jp: z.object({ type: z.enum(["standard"]) }).optional(),
-      ke: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kg: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kh: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kr: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kz: z.object({ type: z.enum(["simplified"]) }).optional(),
-      la: z.object({ type: z.enum(["simplified"]) }).optional(),
+      jp: z.object({type: z.enum(["standard"])}).optional(),
+      ke: z.object({type: z.enum(["simplified"])}).optional(),
+      kg: z.object({type: z.enum(["simplified"])}).optional(),
+      kh: z.object({type: z.enum(["simplified"])}).optional(),
+      kr: z.object({type: z.enum(["simplified"])}).optional(),
+      kz: z.object({type: z.enum(["simplified"])}).optional(),
+      la: z.object({type: z.enum(["simplified"])}).optional(),
       lt: z
         .object({
           standard: z
@@ -72689,11 +72630,11 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      ma: z.object({ type: z.enum(["simplified"]) }).optional(),
-      md: z.object({ type: z.enum(["simplified"]) }).optional(),
-      me: z.object({ type: z.enum(["standard"]) }).optional(),
-      mk: z.object({ type: z.enum(["standard"]) }).optional(),
-      mr: z.object({ type: z.enum(["standard"]) }).optional(),
+      ma: z.object({type: z.enum(["simplified"])}).optional(),
+      md: z.object({type: z.enum(["simplified"])}).optional(),
+      me: z.object({type: z.enum(["standard"])}).optional(),
+      mk: z.object({type: z.enum(["standard"])}).optional(),
+      mr: z.object({type: z.enum(["standard"])}).optional(),
       mt: z
         .object({
           standard: z
@@ -72704,9 +72645,9 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      mx: z.object({ type: z.enum(["simplified"]) }).optional(),
-      my: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ng: z.object({ type: z.enum(["simplified"]) }).optional(),
+      mx: z.object({type: z.enum(["simplified"])}).optional(),
+      my: z.object({type: z.enum(["simplified"])}).optional(),
+      ng: z.object({type: z.enum(["simplified"])}).optional(),
       nl: z
         .object({
           standard: z
@@ -72717,12 +72658,12 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      no: z.object({ type: z.enum(["standard"]) }).optional(),
-      np: z.object({ type: z.enum(["simplified"]) }).optional(),
-      nz: z.object({ type: z.enum(["standard"]) }).optional(),
-      om: z.object({ type: z.enum(["standard"]) }).optional(),
-      pe: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ph: z.object({ type: z.enum(["simplified"]) }).optional(),
+      no: z.object({type: z.enum(["standard"])}).optional(),
+      np: z.object({type: z.enum(["simplified"])}).optional(),
+      nz: z.object({type: z.enum(["standard"])}).optional(),
+      om: z.object({type: z.enum(["standard"])}).optional(),
+      pe: z.object({type: z.enum(["simplified"])}).optional(),
+      ph: z.object({type: z.enum(["simplified"])}).optional(),
       pl: z
         .object({
           standard: z
@@ -72753,9 +72694,9 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      rs: z.object({ type: z.enum(["standard"]) }).optional(),
-      ru: z.object({ type: z.enum(["simplified"]) }).optional(),
-      sa: z.object({ type: z.enum(["simplified"]) }).optional(),
+      rs: z.object({type: z.enum(["standard"])}).optional(),
+      ru: z.object({type: z.enum(["simplified"])}).optional(),
+      sa: z.object({type: z.enum(["simplified"])}).optional(),
       se: z
         .object({
           standard: z
@@ -72766,7 +72707,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      sg: z.object({ type: z.enum(["standard"]) }).optional(),
+      sg: z.object({type: z.enum(["standard"])}).optional(),
       si: z
         .object({
           standard: z
@@ -72787,21 +72728,21 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      sn: z.object({ type: z.enum(["simplified"]) }).optional(),
-      sr: z.object({ type: z.enum(["standard"]) }).optional(),
-      th: z.object({ type: z.enum(["simplified"]) }).optional(),
-      tj: z.object({ type: z.enum(["simplified"]) }).optional(),
-      tr: z.object({ type: z.enum(["simplified"]) }).optional(),
-      tz: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ua: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ug: z.object({ type: z.enum(["simplified"]) }).optional(),
+      sn: z.object({type: z.enum(["simplified"])}).optional(),
+      sr: z.object({type: z.enum(["standard"])}).optional(),
+      th: z.object({type: z.enum(["simplified"])}).optional(),
+      tj: z.object({type: z.enum(["simplified"])}).optional(),
+      tr: z.object({type: z.enum(["simplified"])}).optional(),
+      tz: z.object({type: z.enum(["simplified"])}).optional(),
+      ua: z.object({type: z.enum(["simplified"])}).optional(),
+      ug: z.object({type: z.enum(["simplified"])}).optional(),
       us: z
         .object({
           local_amusement_tax: z
-            .object({ jurisdiction: z.string().max(5000) })
+            .object({jurisdiction: z.string().max(5000)})
             .optional(),
           local_lease_tax: z
-            .object({ jurisdiction: z.string().max(5000) })
+            .object({jurisdiction: z.string().max(5000)})
             .optional(),
           state: z.string().max(5000),
           state_sales_tax: z
@@ -72827,12 +72768,12 @@ export function createRouter(implementation: Implementation): Router {
           ]),
         })
         .optional(),
-      uy: z.object({ type: z.enum(["standard"]) }).optional(),
-      uz: z.object({ type: z.enum(["simplified"]) }).optional(),
-      vn: z.object({ type: z.enum(["simplified"]) }).optional(),
-      za: z.object({ type: z.enum(["standard"]) }).optional(),
-      zm: z.object({ type: z.enum(["simplified"]) }).optional(),
-      zw: z.object({ type: z.enum(["standard"]) }).optional(),
+      uy: z.object({type: z.enum(["standard"])}).optional(),
+      uz: z.object({type: z.enum(["simplified"])}).optional(),
+      vn: z.object({type: z.enum(["simplified"])}).optional(),
+      za: z.object({type: z.enum(["standard"])}).optional(),
+      zm: z.object({type: z.enum(["simplified"])}).optional(),
+      zw: z.object({type: z.enum(["standard"])}).optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
@@ -72882,7 +72823,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72900,9 +72841,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTaxRegistrationsIdParamSchema = z.object({
-    id: z.string().max(5000),
-  })
+  const getTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getTaxRegistrationsIdQuerySchema = z.object({
     expand: z
@@ -72967,7 +72906,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -72985,9 +72924,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTaxRegistrationsIdParamSchema = z.object({
-    id: z.string().max(5000),
-  })
+  const postTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postTaxRegistrationsIdRequestBodySchema = z
     .object({
@@ -73047,7 +72984,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73124,7 +73061,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73212,7 +73149,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73286,7 +73223,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73329,7 +73266,7 @@ export function createRouter(implementation: Implementation): Router {
     original_transaction: z.string().max(5000),
     reference: z.string().max(500),
     shipping_cost: z
-      .object({ amount: z.coerce.number(), amount_tax: z.coerce.number() })
+      .object({amount: z.coerce.number(), amount_tax: z.coerce.number()})
       .optional(),
   })
 
@@ -73375,7 +73312,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73463,7 +73400,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73580,7 +73517,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73680,7 +73617,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73698,7 +73635,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTaxCodesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getTaxCodesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getTaxCodesIdQuerySchema = z.object({
     expand: z
@@ -73763,7 +73700,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -73865,7 +73802,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74051,7 +73988,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74069,7 +74006,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deleteTaxIdsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const deleteTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const deleteTaxIdsIdRequestBodySchema = z.object({}).optional()
 
@@ -74121,7 +74058,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74139,7 +74076,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTaxIdsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getTaxIdsIdQuerySchema = z.object({
     expand: z
@@ -74204,7 +74141,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74312,7 +74249,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74405,7 +74342,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74490,7 +74427,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74591,7 +74528,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74691,7 +74628,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -74712,22 +74649,18 @@ export function createRouter(implementation: Implementation): Router {
   const postTerminalConfigurationsRequestBodySchema = z
     .object({
       bbpos_wisepos_e: z
-        .object({
-          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
-        })
+        .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(100).optional(),
       offline: z
-        .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+        .union([z.object({enabled: PermissiveBoolean}), z.enum([""])])
         .optional(),
       reboot_window: z
-        .object({ end_hour: z.coerce.number(), start_hour: z.coerce.number() })
+        .object({end_hour: z.coerce.number(), start_hour: z.coerce.number()})
         .optional(),
       stripe_s700: z
-        .object({
-          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
-        })
+        .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
         .optional(),
       tipping: z
         .union([
@@ -74849,9 +74782,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       verifone_p400: z
-        .object({
-          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
-        })
+        .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
         .optional(),
       wifi: z
         .union([
@@ -74933,7 +74864,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75018,7 +74949,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75127,7 +75058,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75167,7 +75098,7 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(100).optional(),
       offline: z
-        .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+        .union([z.object({enabled: PermissiveBoolean}), z.enum([""])])
         .optional(),
       reboot_window: z
         .union([
@@ -75416,7 +75347,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75488,7 +75419,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75588,7 +75519,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75665,7 +75596,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75737,7 +75668,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75827,7 +75758,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -75923,7 +75854,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76036,7 +75967,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76106,7 +76037,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76176,7 +76107,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76271,7 +76202,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76357,7 +76288,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76380,7 +76311,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTerminalReadersReaderCancelActionRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTerminalReadersReaderCancelActionResponseBodyValidator =
@@ -76435,7 +76366,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76558,7 +76489,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76595,7 +76526,7 @@ export function createRouter(implementation: Implementation): Router {
           enable_customer_cancellation: PermissiveBoolean.optional(),
           skip_tipping: PermissiveBoolean.optional(),
           tipping: z
-            .object({ amount_eligible: z.coerce.number().optional() })
+            .object({amount_eligible: z.coerce.number().optional()})
             .optional(),
         })
         .optional(),
@@ -76655,7 +76586,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76684,9 +76615,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postTerminalReadersReaderConfirmPaymentIntentRequestBodySchema =
     z.object({
-      confirm_config: z
-        .object({ return_url: z.string().optional() })
-        .optional(),
+      confirm_config: z.object({return_url: z.string().optional()}).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       payment_intent: z.string().max(5000),
     })
@@ -76743,7 +76672,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76783,7 +76712,7 @@ export function createRouter(implementation: Implementation): Router {
           return_url: z.string().optional(),
           skip_tipping: PermissiveBoolean.optional(),
           tipping: z
-            .object({ amount_eligible: z.coerce.number().optional() })
+            .object({amount_eligible: z.coerce.number().optional()})
             .optional(),
         })
         .optional(),
@@ -76841,7 +76770,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76873,7 +76802,7 @@ export function createRouter(implementation: Implementation): Router {
       allow_redisplay: z.enum(["always", "limited", "unspecified"]),
       expand: z.array(z.string().max(5000)).optional(),
       process_config: z
-        .object({ enable_customer_cancellation: PermissiveBoolean.optional() })
+        .object({enable_customer_cancellation: PermissiveBoolean.optional()})
         .optional(),
       setup_intent: z.string().max(5000),
     },
@@ -76931,7 +76860,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -76967,7 +76896,7 @@ export function createRouter(implementation: Implementation): Router {
       payment_intent: z.string().max(5000).optional(),
       refund_application_fee: PermissiveBoolean.optional(),
       refund_payment_config: z
-        .object({ enable_customer_cancellation: PermissiveBoolean.optional() })
+        .object({enable_customer_cancellation: PermissiveBoolean.optional()})
         .optional(),
       reverse_transfer: PermissiveBoolean.optional(),
     })
@@ -77025,7 +76954,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -77123,7 +77052,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -77203,7 +77132,7 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -77318,7 +77247,7 @@ export function createRouter(implementation: Implementation): Router {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -77372,14 +77301,14 @@ export function createRouter(implementation: Implementation): Router {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -77523,7 +77452,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -77615,7 +77544,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -77673,10 +77602,10 @@ export function createRouter(implementation: Implementation): Router {
         reported_breakdown: z
           .object({
             fuel: z
-              .object({ gross_amount_decimal: z.string().optional() })
+              .object({gross_amount_decimal: z.string().optional()})
               .optional(),
             non_fuel: z
-              .object({ gross_amount_decimal: z.string().optional() })
+              .object({gross_amount_decimal: z.string().optional()})
               .optional(),
             tax: z
               .object({
@@ -78033,7 +77962,7 @@ export function createRouter(implementation: Implementation): Router {
       })
       .optional(),
     network_data: z
-      .object({ acquiring_institution_id: z.string().max(5000).optional() })
+      .object({acquiring_institution_id: z.string().max(5000).optional()})
       .optional(),
     verification_data: z
       .object({
@@ -78118,7 +78047,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78142,7 +78071,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureRequestBodySchema =
     z
@@ -78173,10 +78102,10 @@ export function createRouter(implementation: Implementation): Router {
                 reported_breakdown: z
                   .object({
                     fuel: z
-                      .object({ gross_amount_decimal: z.string().optional() })
+                      .object({gross_amount_decimal: z.string().optional()})
                       .optional(),
                     non_fuel: z
-                      .object({ gross_amount_decimal: z.string().optional() })
+                      .object({gross_amount_decimal: z.string().optional()})
                       .optional(),
                     tax: z
                       .object({
@@ -78317,7 +78246,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78341,10 +78270,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireRequestBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
@@ -78398,7 +78327,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78422,7 +78351,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountRequestBodySchema =
     z.object({
@@ -78449,10 +78378,10 @@ export function createRouter(implementation: Implementation): Router {
           reported_breakdown: z
             .object({
               fuel: z
-                .object({ gross_amount_decimal: z.string().optional() })
+                .object({gross_amount_decimal: z.string().optional()})
                 .optional(),
               non_fuel: z
-                .object({ gross_amount_decimal: z.string().optional() })
+                .object({gross_amount_decimal: z.string().optional()})
                 .optional(),
               tax: z
                 .object({
@@ -78549,7 +78478,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78573,7 +78502,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondRequestBodySchema =
     z.object({
@@ -78633,7 +78562,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78657,7 +78586,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementRequestBodySchema =
     z.object({
@@ -78718,7 +78647,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78742,7 +78671,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseRequestBodySchema =
     z
@@ -78804,7 +78733,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78832,7 +78761,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersIssuingCardsCardShippingDeliverRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingDeliverResponseBodyValidator =
@@ -78887,7 +78816,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78915,7 +78844,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersIssuingCardsCardShippingFailRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingFailResponseBodyValidator =
@@ -78970,7 +78899,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -78998,7 +78927,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersIssuingCardsCardShippingReturnRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingReturnResponseBodyValidator =
@@ -79053,7 +78982,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79081,7 +79010,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersIssuingCardsCardShippingShipRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingShipResponseBodyValidator =
@@ -79136,7 +79065,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79164,7 +79093,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersIssuingCardsCardShippingSubmitRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingSubmitResponseBodyValidator =
@@ -79219,7 +79148,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79243,10 +79172,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateRequestBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseBodyValidator =
     responseValidationFactory(
@@ -79305,7 +79234,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79329,10 +79258,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateRequestBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseBodyValidator =
     responseValidationFactory(
@@ -79391,7 +79320,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79415,7 +79344,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectRequestBodySchema =
     z.object({
@@ -79508,7 +79437,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79586,7 +79515,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -79610,10 +79539,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingSettlementsSettlementCompleteParamSchema =
-    z.object({ settlement: z.string().max(5000) })
+    z.object({settlement: z.string().max(5000)})
 
   const postTestHelpersIssuingSettlementsSettlementCompleteRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingSettlementsSettlementCompleteResponseBodyValidator =
@@ -79668,7 +79597,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -80030,10 +79959,10 @@ export function createRouter(implementation: Implementation): Router {
               reported_breakdown: z
                 .object({
                   fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   non_fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   tax: z
                     .object({
@@ -80165,7 +80094,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -80527,10 +80456,10 @@ export function createRouter(implementation: Implementation): Router {
               reported_breakdown: z
                 .object({
                   fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   non_fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   tax: z
                     .object({
@@ -80662,7 +80591,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -80686,7 +80615,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersIssuingTransactionsTransactionRefundParamSchema =
-    z.object({ transaction: z.string().max(5000) })
+    z.object({transaction: z.string().max(5000)})
 
   const postTestHelpersIssuingTransactionsTransactionRefundRequestBodySchema = z
     .object({
@@ -80747,7 +80676,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -80775,7 +80704,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersRefundsRefundExpireRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersRefundsRefundExpireResponseBodyValidator =
@@ -80824,7 +80753,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -80848,18 +80777,18 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
-    z.object({ reader: z.string().max(5000) })
+    z.object({reader: z.string().max(5000)})
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodRequestBodySchema =
     z
       .object({
         amount_tip: z.coerce.number().optional(),
         card_present: z
-          .object({ number: z.string().max(5000).optional() })
+          .object({number: z.string().max(5000).optional()})
           .optional(),
         expand: z.array(z.string().max(5000)).optional(),
         interac_present: z
-          .object({ number: z.string().max(5000).optional() })
+          .object({number: z.string().max(5000).optional()})
           .optional(),
         type: z.enum(["card_present", "interac_present"]).optional(),
       })
@@ -80917,7 +80846,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -80941,7 +80870,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
-    z.object({ reader: z.string().max(5000) })
+    z.object({reader: z.string().max(5000)})
 
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionRequestBodySchema =
     z
@@ -81003,7 +80932,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81027,10 +80956,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
-    z.object({ reader: z.string().max(5000) })
+    z.object({reader: z.string().max(5000)})
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionRequestBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator =
     responseValidationFactory([["200", s_terminal_reader]], s_error)
@@ -81084,7 +81013,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81188,7 +81117,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81254,7 +81183,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81337,7 +81266,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81427,7 +81356,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81511,7 +81440,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81617,7 +81546,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81645,7 +81574,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersTreasuryInboundTransfersIdReturnRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryInboundTransfersIdReturnResponseBodyValidator =
@@ -81700,7 +81629,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81728,7 +81657,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedResponseBodyValidator =
@@ -81783,7 +81712,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81813,7 +81742,7 @@ export function createRouter(implementation: Implementation): Router {
   const postTestHelpersTreasuryOutboundPaymentsIdRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     tracking_details: z.object({
-      ach: z.object({ trace_id: z.string().max(5000) }).optional(),
+      ach: z.object({trace_id: z.string().max(5000)}).optional(),
       type: z.enum(["ach", "us_domestic_wire"]),
       us_domestic_wire: z
         .object({
@@ -81877,7 +81806,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81905,7 +81834,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailResponseBodyValidator =
@@ -81960,7 +81889,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -81988,7 +81917,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostResponseBodyValidator =
@@ -82043,7 +81972,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82146,7 +82075,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82170,13 +82099,13 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferRequestBodySchema =
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       tracking_details: z.object({
-        ach: z.object({ trace_id: z.string().max(5000) }).optional(),
+        ach: z.object({trace_id: z.string().max(5000)}).optional(),
         type: z.enum(["ach", "us_domestic_wire"]),
         us_domestic_wire: z
           .object({
@@ -82240,7 +82169,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82264,10 +82193,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailRequestBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
@@ -82321,7 +82250,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82345,10 +82274,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostRequestBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
@@ -82402,7 +82331,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82426,7 +82355,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnRequestBodySchema =
     z
@@ -82505,7 +82434,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82597,7 +82526,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82689,7 +82618,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -82986,7 +82915,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       customer: z.string().max(5000).optional(),
-      cvc_update: z.object({ cvc: z.string().max(5000) }).optional(),
+      cvc_update: z.object({cvc: z.string().max(5000)}).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       person: z
         .object({
@@ -83189,7 +83118,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      pii: z.object({ id_number: z.string().max(5000).optional() }).optional(),
+      pii: z.object({id_number: z.string().max(5000).optional()}).optional(),
     })
     .optional()
 
@@ -83237,7 +83166,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83255,7 +83184,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTokensTokenParamSchema = z.object({ token: z.string().max(5000) })
+  const getTokensTokenParamSchema = z.object({token: z.string().max(5000)})
 
   const getTokensTokenQuerySchema = z.object({
     expand: z
@@ -83320,7 +83249,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83438,7 +83367,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83511,7 +83440,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83529,7 +83458,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTopupsTopupParamSchema = z.object({ topup: z.string().max(5000) })
+  const getTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
   const getTopupsTopupQuerySchema = z.object({
     expand: z
@@ -83594,7 +83523,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83612,7 +83541,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const postTopupsTopupParamSchema = z.object({ topup: z.string().max(5000) })
+  const postTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
   const postTopupsTopupRequestBodySchema = z
     .object({
@@ -83670,7 +83599,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83693,7 +83622,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTopupsTopupCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTopupsTopupCancelResponseBodyValidator = responseValidationFactory(
@@ -83744,7 +83673,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83852,7 +83781,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -83926,7 +83855,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84030,7 +83959,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84108,7 +84037,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84193,7 +84122,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84271,7 +84200,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84357,7 +84286,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84435,7 +84364,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84536,7 +84465,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84604,7 +84533,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84697,7 +84626,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84802,7 +84731,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84868,7 +84797,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -84961,7 +84890,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85077,7 +85006,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85101,36 +85030,28 @@ export function createRouter(implementation: Implementation): Router {
     expand: z.array(z.string().max(5000)).optional(),
     features: z
       .object({
-        card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
-        deposit_insurance: z
-          .object({ requested: PermissiveBoolean })
-          .optional(),
+        card_issuing: z.object({requested: PermissiveBoolean}).optional(),
+        deposit_insurance: z.object({requested: PermissiveBoolean}).optional(),
         financial_addresses: z
-          .object({
-            aba: z.object({ requested: PermissiveBoolean }).optional(),
-          })
+          .object({aba: z.object({requested: PermissiveBoolean}).optional()})
           .optional(),
         inbound_transfers: z
-          .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
-          })
+          .object({ach: z.object({requested: PermissiveBoolean}).optional()})
           .optional(),
-        intra_stripe_flows: z
-          .object({ requested: PermissiveBoolean })
-          .optional(),
+        intra_stripe_flows: z.object({requested: PermissiveBoolean}).optional(),
         outbound_payments: z
           .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
+            ach: z.object({requested: PermissiveBoolean}).optional(),
             us_domestic_wire: z
-              .object({ requested: PermissiveBoolean })
+              .object({requested: PermissiveBoolean})
               .optional(),
           })
           .optional(),
         outbound_transfers: z
           .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
+            ach: z.object({requested: PermissiveBoolean}).optional(),
             us_domestic_wire: z
-              .object({ requested: PermissiveBoolean })
+              .object({requested: PermissiveBoolean})
               .optional(),
           })
           .optional(),
@@ -85189,7 +85110,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85282,7 +85203,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85314,36 +85235,32 @@ export function createRouter(implementation: Implementation): Router {
       expand: z.array(z.string().max(5000)).optional(),
       features: z
         .object({
-          card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
+          card_issuing: z.object({requested: PermissiveBoolean}).optional(),
           deposit_insurance: z
-            .object({ requested: PermissiveBoolean })
+            .object({requested: PermissiveBoolean})
             .optional(),
           financial_addresses: z
-            .object({
-              aba: z.object({ requested: PermissiveBoolean }).optional(),
-            })
+            .object({aba: z.object({requested: PermissiveBoolean}).optional()})
             .optional(),
           inbound_transfers: z
-            .object({
-              ach: z.object({ requested: PermissiveBoolean }).optional(),
-            })
+            .object({ach: z.object({requested: PermissiveBoolean}).optional()})
             .optional(),
           intra_stripe_flows: z
-            .object({ requested: PermissiveBoolean })
+            .object({requested: PermissiveBoolean})
             .optional(),
           outbound_payments: z
             .object({
-              ach: z.object({ requested: PermissiveBoolean }).optional(),
+              ach: z.object({requested: PermissiveBoolean}).optional(),
               us_domestic_wire: z
-                .object({ requested: PermissiveBoolean })
+                .object({requested: PermissiveBoolean})
                 .optional(),
             })
             .optional(),
           outbound_transfers: z
             .object({
-              ach: z.object({ requested: PermissiveBoolean }).optional(),
+              ach: z.object({requested: PermissiveBoolean}).optional(),
               us_domestic_wire: z
-                .object({ requested: PermissiveBoolean })
+                .object({requested: PermissiveBoolean})
                 .optional(),
             })
             .optional(),
@@ -85419,7 +85336,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85443,7 +85360,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTreasuryFinancialAccountsFinancialAccountCloseParamSchema =
-    z.object({ financial_account: z.string().max(5000) })
+    z.object({financial_account: z.string().max(5000)})
 
   const postTreasuryFinancialAccountsFinancialAccountCloseRequestBodySchema = z
     .object({
@@ -85510,7 +85427,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85534,7 +85451,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-    z.object({ financial_account: z.string().max(5000) })
+    z.object({financial_account: z.string().max(5000)})
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema =
     z.object({
@@ -85610,7 +85527,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85634,42 +85551,34 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-    z.object({ financial_account: z.string().max(5000) })
+    z.object({financial_account: z.string().max(5000)})
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema =
     z
       .object({
-        card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
-        deposit_insurance: z
-          .object({ requested: PermissiveBoolean })
-          .optional(),
+        card_issuing: z.object({requested: PermissiveBoolean}).optional(),
+        deposit_insurance: z.object({requested: PermissiveBoolean}).optional(),
         expand: z.array(z.string().max(5000)).optional(),
         financial_addresses: z
-          .object({
-            aba: z.object({ requested: PermissiveBoolean }).optional(),
-          })
+          .object({aba: z.object({requested: PermissiveBoolean}).optional()})
           .optional(),
         inbound_transfers: z
-          .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
-          })
+          .object({ach: z.object({requested: PermissiveBoolean}).optional()})
           .optional(),
-        intra_stripe_flows: z
-          .object({ requested: PermissiveBoolean })
-          .optional(),
+        intra_stripe_flows: z.object({requested: PermissiveBoolean}).optional(),
         outbound_payments: z
           .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
+            ach: z.object({requested: PermissiveBoolean}).optional(),
             us_domestic_wire: z
-              .object({ requested: PermissiveBoolean })
+              .object({requested: PermissiveBoolean})
               .optional(),
           })
           .optional(),
         outbound_transfers: z
           .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
+            ach: z.object({requested: PermissiveBoolean}).optional(),
             us_domestic_wire: z
-              .object({ requested: PermissiveBoolean })
+              .object({requested: PermissiveBoolean})
               .optional(),
           })
           .optional(),
@@ -85733,7 +85642,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85838,7 +85747,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85911,7 +85820,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -85996,7 +85905,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86017,11 +85926,11 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelParamSchema = z.object(
-    { inbound_transfer: z.string().max(5000) },
+    {inbound_transfer: z.string().max(5000)},
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTreasuryInboundTransfersInboundTransferCancelResponseBodyValidator =
@@ -86076,7 +85985,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86196,7 +86105,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86262,16 +86171,14 @@ export function createRouter(implementation: Implementation): Router {
       .object({
         us_bank_account: z
           .union([
-            z.object({
-              network: z.enum(["ach", "us_domestic_wire"]).optional(),
-            }),
+            z.object({network: z.enum(["ach", "us_domestic_wire"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
       })
       .optional(),
     end_user_details: z
-      .object({ ip_address: z.string().optional(), present: PermissiveBoolean })
+      .object({ip_address: z.string().optional(), present: PermissiveBoolean})
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
@@ -86321,7 +86228,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86406,7 +86313,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86431,7 +86338,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const postTreasuryOutboundPaymentsIdCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTreasuryOutboundPaymentsIdCancelResponseBodyValidator =
@@ -86486,7 +86393,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86591,7 +86498,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86626,9 +86533,7 @@ export function createRouter(implementation: Implementation): Router {
       .object({
         us_bank_account: z
           .union([
-            z.object({
-              network: z.enum(["ach", "us_domestic_wire"]).optional(),
-            }),
+            z.object({network: z.enum(["ach", "us_domestic_wire"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -86682,7 +86587,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86775,7 +86680,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86799,10 +86704,10 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTreasuryOutboundTransfersOutboundTransferCancelRequestBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTreasuryOutboundTransfersOutboundTransferCancelResponseBodyValidator =
@@ -86857,7 +86762,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -86971,7 +86876,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87056,7 +86961,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87156,7 +87061,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87239,7 +87144,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87365,7 +87270,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87452,7 +87357,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87579,7 +87484,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87662,7 +87567,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -87757,7 +87662,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -88191,7 +88096,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -88269,7 +88174,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -88359,7 +88264,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -88691,7 +88596,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response

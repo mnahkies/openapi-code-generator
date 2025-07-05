@@ -19,8 +19,8 @@ import {
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
-import { z } from "zod"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
+import {z} from "zod"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {
@@ -76,15 +76,12 @@ export class E2ETestClient extends AbstractAxiosClient {
     const res = await this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
 
-    return {
-      ...res,
-      data: s_getHeadersUndeclaredJson200Response.parse(res.data),
-    }
+    return {...res, data: s_getHeadersUndeclaredJson200Response.parse(res.data)}
   }
 
   async getHeadersRequest(
@@ -113,12 +110,12 @@ export class E2ETestClient extends AbstractAxiosClient {
     const res = await this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
 
-    return { ...res, data: s_getHeadersRequestJson200Response.parse(res.data) }
+    return {...res, data: s_getHeadersRequestJson200Response.parse(res.data)}
   }
 
   async getValidationNumbersRandomNumber(
@@ -141,12 +138,12 @@ export class E2ETestClient extends AbstractAxiosClient {
     const res = await this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
 
-    return { ...res, data: s_RandomNumber.parse(res.data) }
+    return {...res, data: s_RandomNumber.parse(res.data)}
   }
 
   async postValidationEnums(
@@ -158,7 +155,7 @@ export class E2ETestClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Enumerations>> {
     const url = `/validation/enums`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -167,12 +164,12 @@ export class E2ETestClient extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
 
-    return { ...res, data: s_Enumerations.parse(res.data) }
+    return {...res, data: s_Enumerations.parse(res.data)}
   }
 
   async getResponses500(
@@ -185,7 +182,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -201,12 +198,12 @@ export class E2ETestClient extends AbstractAxiosClient {
     const res = await this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
 
-    return { ...res, data: z.string().parse(res.data) }
+    return {...res, data: z.string().parse(res.data)}
   }
 
   async getResponsesEmpty(
@@ -219,14 +216,14 @@ export class E2ETestClient extends AbstractAxiosClient {
     const res = await this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
 
-    return { ...res, data: z.any().parse(res.data) }
+    return {...res, data: z.any().parse(res.data)}
   }
 }
 
-export { E2ETestClient as ApiClient }
-export type { E2ETestClientConfig as ApiClientConfig }
+export {E2ETestClient as ApiClient}
+export type {E2ETestClientConfig as ApiClientConfig}

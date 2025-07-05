@@ -35,9 +35,9 @@ import {
   t_TokenResponse,
   t_UserInfo,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class OktaOpenIdConnectOAuth20ServiceServers {
   static default(): Server<"OktaOpenIdConnectOAuth20Service"> {
@@ -112,7 +112,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -127,7 +127,7 @@ export class OktaOpenIdConnectOAuth20Service {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -155,11 +155,11 @@ export class OktaOpenIdConnectOAuth20Service {
       clientId?: string
     } = {},
   ): Observable<
-    | (HttpResponse<t_OidcMetadata> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
+    | (HttpResponse<t_OidcMetadata> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ client_id: p["clientId"] })
+    const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -194,7 +194,7 @@ export class OktaOpenIdConnectOAuth20Service {
     sessionToken?: string
     state: string
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       acr_values: p["acrValues"],
@@ -233,7 +233,7 @@ export class OktaOpenIdConnectOAuth20Service {
   authorizeWithPost(p: {
     requestBody: t_AuthorizeWithPost
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -255,10 +255,10 @@ export class OktaOpenIdConnectOAuth20Service {
   bcAuthorize(p: {
     requestBody: t_BackchannelAuthorizeRequest
   }): Observable<
-    | (HttpResponse<t_BackchannelAuthorizeResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_BackchannelAuthorizeResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -281,11 +281,11 @@ export class OktaOpenIdConnectOAuth20Service {
   challenge(p: {
     requestBody: t_ChallengeRequest
   }): Observable<
-    | (HttpResponse<t_ChallengeResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_OAuthError> & { status: 403 })
-    | (HttpResponse<t_OAuthError> & { status: 429 })
+    | (HttpResponse<t_ChallengeResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_OAuthError> & {status: 403})
+    | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -312,9 +312,9 @@ export class OktaOpenIdConnectOAuth20Service {
       q?: string
     } = {},
   ): Observable<
-    | (HttpResponse<t_Client[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Client[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -337,13 +337,13 @@ export class OktaOpenIdConnectOAuth20Service {
   createClient(p: {
     requestBody: t_Client
   }): Observable<
-    | (HttpResponse<t_Client> & { status: 201 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Client> & {status: 201})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -361,10 +361,10 @@ export class OktaOpenIdConnectOAuth20Service {
   getClient(p: {
     clientId: string
   }): Observable<
-    | (HttpResponse<t_Client> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Client> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -381,14 +381,14 @@ export class OktaOpenIdConnectOAuth20Service {
     clientId: string
     requestBody: t_Client
   }): Observable<
-    | (HttpResponse<t_Client> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Client> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -406,10 +406,10 @@ export class OktaOpenIdConnectOAuth20Service {
   deleteClient(p: {
     clientId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -425,10 +425,10 @@ export class OktaOpenIdConnectOAuth20Service {
   generateNewClientSecret(p: {
     clientId: string
   }): Observable<
-    | (HttpResponse<t_Client> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Client> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -445,10 +445,10 @@ export class OktaOpenIdConnectOAuth20Service {
   deviceAuthorize(p: {
     requestBody: t_DeviceAuthorizeRequest
   }): Observable<
-    | (HttpResponse<t_DeviceAuthorizeResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_DeviceAuthorizeResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -471,13 +471,13 @@ export class OktaOpenIdConnectOAuth20Service {
   globalTokenRevocation(p: {
     requestBody: t_GlobalTokenRevocationRequest
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -495,10 +495,10 @@ export class OktaOpenIdConnectOAuth20Service {
   introspect(p: {
     requestBody: t_IntrospectionRequest
   }): Observable<
-    | (HttpResponse<t_IntrospectionResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_IntrospectionResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -523,11 +523,11 @@ export class OktaOpenIdConnectOAuth20Service {
       clientId?: string
     } = {},
   ): Observable<
-    | (HttpResponse<t_OAuthKeys> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_OAuthKeys> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ client_id: p["clientId"] })
+    const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -545,8 +545,8 @@ export class OktaOpenIdConnectOAuth20Service {
     postLogoutRedirectUri?: string
     state?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -569,8 +569,8 @@ export class OktaOpenIdConnectOAuth20Service {
   logoutWithPost(p: {
     requestBody: t_LogoutWithPost
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -593,11 +593,11 @@ export class OktaOpenIdConnectOAuth20Service {
   oobAuthenticate(p: {
     requestBody: t_OobAuthenticateRequest
   }): Observable<
-    | (HttpResponse<t_OobAuthenticateResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_OAuthError> & { status: 403 })
-    | (HttpResponse<t_OAuthError> & { status: 429 })
+    | (HttpResponse<t_OobAuthenticateResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_OAuthError> & {status: 403})
+    | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -622,11 +622,11 @@ export class OktaOpenIdConnectOAuth20Service {
       origin?: string
     } = {},
   ): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({Origin: p["origin"]})
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -642,14 +642,14 @@ export class OktaOpenIdConnectOAuth20Service {
   par(p: {
     requestBody: t_ParRequest
   }): Observable<
-    | (HttpResponse<t_ParResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_OAuthError> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_ParResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_OAuthError> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -667,13 +667,13 @@ export class OktaOpenIdConnectOAuth20Service {
   revoke(p: {
     requestBody: t_RevokeRequest
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -693,11 +693,11 @@ export class OktaOpenIdConnectOAuth20Service {
       origin?: string
     } = {},
   ): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({Origin: p["origin"]})
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -713,10 +713,10 @@ export class OktaOpenIdConnectOAuth20Service {
   token(p: {
     requestBody: t_TokenRequest
   }): Observable<
-    | (HttpResponse<t_TokenResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_TokenResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -737,10 +737,10 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   userinfo(): Observable<
-    | (HttpResponse<t_UserInfo> & { status: 200 })
-    | (HttpResponse<void> & { status: 401 })
-    | (HttpResponse<void> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_UserInfo> & {status: 200})
+    | (HttpResponse<void> & {status: 401})
+    | (HttpResponse<void> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -757,12 +757,12 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     clientId?: string
   }): Observable<
-    | (HttpResponse<t_OAuthMetadata> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_OAuthMetadata> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ client_id: p["clientId"] })
+    const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -780,12 +780,12 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     clientId?: string
   }): Observable<
-    | (HttpResponse<t_OidcMetadata> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_OidcMetadata> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ client_id: p["clientId"] })
+    const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -822,7 +822,7 @@ export class OktaOpenIdConnectOAuth20Service {
     sessionToken?: string
     state: string
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       acr_values: p["acrValues"],
@@ -863,7 +863,7 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_AuthorizeWithPost
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -887,10 +887,10 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_BackchannelAuthorizeRequest
   }): Observable<
-    | (HttpResponse<t_BackchannelAuthorizeResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_BackchannelAuthorizeResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -915,11 +915,11 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_ChallengeRequest
   }): Observable<
-    | (HttpResponse<t_ChallengeResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_OAuthError> & { status: 403 })
-    | (HttpResponse<t_OAuthError> & { status: 429 })
+    | (HttpResponse<t_ChallengeResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_OAuthError> & {status: 403})
+    | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -944,10 +944,10 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_DeviceAuthorizeRequest
   }): Observable<
-    | (HttpResponse<t_DeviceAuthorizeResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_DeviceAuthorizeResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -972,10 +972,10 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_IntrospectionRequest
   }): Observable<
-    | (HttpResponse<t_IntrospectionResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_IntrospectionResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -999,8 +999,8 @@ export class OktaOpenIdConnectOAuth20Service {
   oauthKeysCustomAs(p: {
     authorizationServerId: string
   }): Observable<
-    | (HttpResponse<t_OAuthKeys> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_OAuthKeys> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1019,8 +1019,8 @@ export class OktaOpenIdConnectOAuth20Service {
     postLogoutRedirectUri?: string
     state?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1044,8 +1044,8 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_LogoutWithPost
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1069,11 +1069,11 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_OobAuthenticateRequest
   }): Observable<
-    | (HttpResponse<t_OobAuthenticateResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_OAuthError> & { status: 403 })
-    | (HttpResponse<t_OAuthError> & { status: 429 })
+    | (HttpResponse<t_OobAuthenticateResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_OAuthError> & {status: 403})
+    | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1098,11 +1098,11 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     origin?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({Origin: p["origin"]})
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -1119,14 +1119,14 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_ParRequest
   }): Observable<
-    | (HttpResponse<t_ParResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_OAuthError> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_ParResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_OAuthError> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1145,13 +1145,13 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_RevokeRequest
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1170,11 +1170,11 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     origin?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({Origin: p["origin"]})
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -1191,10 +1191,10 @@ export class OktaOpenIdConnectOAuth20Service {
     authorizationServerId: string
     requestBody: t_TokenRequest
   }): Observable<
-    | (HttpResponse<t_TokenResponse> & { status: 200 })
-    | (HttpResponse<t_OAuthError> & { status: 400 })
-    | (HttpResponse<t_OAuthError> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_TokenResponse> & {status: 200})
+    | (HttpResponse<t_OAuthError> & {status: 400})
+    | (HttpResponse<t_OAuthError> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1217,10 +1217,10 @@ export class OktaOpenIdConnectOAuth20Service {
   userinfoCustomAs(p: {
     authorizationServerId: string
   }): Observable<
-    | (HttpResponse<t_UserInfo> & { status: 200 })
-    | (HttpResponse<void> & { status: 401 })
-    | (HttpResponse<void> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_UserInfo> & {status: 200})
+    | (HttpResponse<void> & {status: 401})
+    | (HttpResponse<void> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1235,5 +1235,5 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 }
 
-export { OktaOpenIdConnectOAuth20Service as ApiClient }
-export { OktaOpenIdConnectOAuth20ServiceConfig as ApiClientConfig }
+export {OktaOpenIdConnectOAuth20Service as ApiClient}
+export {OktaOpenIdConnectOAuth20ServiceConfig as ApiClientConfig}

@@ -13,7 +13,7 @@ import {
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class TodoListsExampleApiServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {
@@ -173,7 +173,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -192,7 +192,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -208,7 +208,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -217,7 +217,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -236,7 +236,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -262,7 +262,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -282,7 +282,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}/items`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -291,7 +291,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -313,7 +313,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
       url: url,
       method: "GET",
       baseURL: basePath,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -335,7 +335,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/attachments`
     const headers = this._headers(
-      { "Content-Type": "multipart/form-data" },
+      {"Content-Type": "multipart/form-data"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -345,12 +345,12 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
       method: "POST",
       data: body,
       baseURL: basePath,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
   }
 }
 
-export { TodoListsExampleApi as ApiClient }
-export type { TodoListsExampleApiConfig as ApiClientConfig }
+export {TodoListsExampleApi as ApiClient}
+export type {TodoListsExampleApiConfig as ApiClientConfig}

@@ -1527,7 +1527,7 @@ import {
   s_treasury_transaction_entry,
   s_webhook_endpoint,
 } from "./schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -1546,8 +1546,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetAccountResponder = {
   with200(): KoaRuntimeResponse<t_account>
@@ -16122,7 +16122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getAccountResponseValidator(status, body)
@@ -16185,7 +16185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postAccountLinksResponseValidator(status, body)
@@ -16247,10 +16247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       documents: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
       financial_account: z
         .object({
@@ -16369,22 +16366,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       payouts_list: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
       tax_registrations: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
       tax_settings: z
-        .object({
-          enabled: PermissiveBoolean,
-          features: z.object({}).optional(),
-        })
+        .object({enabled: PermissiveBoolean, features: z.object({}).optional()})
         .optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
@@ -16433,7 +16421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountSessionsResponseValidator(status, body)
@@ -16526,7 +16514,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getAccountsResponseValidator(status, body)
@@ -16551,7 +16539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             documents: z
               .object({
                 bank_account_ownership_verification: z
-                  .object({ files: z.array(z.string().max(500)).optional() })
+                  .object({files: z.array(z.string().max(500)).optional()})
                   .optional(),
               })
               .optional(),
@@ -16584,7 +16572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             )
             .optional(),
           monthly_estimated_revenue: z
-            .object({ amount: z.coerce.number(), currency: z.string() })
+            .object({amount: z.coerce.number(), currency: z.string()})
             .optional(),
           name: z.string().max(5000).optional(),
           product_description: z.string().max(40000).optional(),
@@ -16610,181 +16598,181 @@ export function createRouter(implementation: Implementation): KoaRouter {
       capabilities: z
         .object({
           acss_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           affirm_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           afterpay_clearpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           alma_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           amazon_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           au_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bacs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bancontact_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           billie_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           blik_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           boleto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_issuing: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cartes_bancaires_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cashapp_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           crypto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           eps_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           fpx_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           gb_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           giropay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           grabpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           ideal_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           india_international_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jcb_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jp_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kakao_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           klarna_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           konbini_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kr_card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           legacy_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           link_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mobilepay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           multibanco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mx_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           naver_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           nz_bank_account_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           oxxo_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           p24_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pay_by_bank_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           payco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           paynow_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pix_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           promptpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           revolut_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           samsung_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           satispay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sofort_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           swish_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_k: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_misc: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           transfers: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           treasury: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           twint_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_account_ach_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           zip_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
         })
         .optional(),
@@ -16909,14 +16897,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       controller: z
         .object({
           fees: z
-            .object({ payer: z.enum(["account", "application"]).optional() })
+            .object({payer: z.enum(["account", "application"]).optional()})
             .optional(),
           losses: z
-            .object({ payments: z.enum(["application", "stripe"]).optional() })
+            .object({payments: z.enum(["application", "stripe"]).optional()})
             .optional(),
           requirement_collection: z.enum(["application", "stripe"]).optional(),
           stripe_dashboard: z
-            .object({ type: z.enum(["express", "full", "none"]).optional() })
+            .object({type: z.enum(["express", "full", "none"]).optional()})
             .optional(),
         })
         .optional(),
@@ -16925,31 +16913,31 @@ export function createRouter(implementation: Implementation): KoaRouter {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_license: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_memorandum_of_association: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_ministerial_decree: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_registration_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_tax_id_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_address: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_registration: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_ultimate_beneficial_ownership: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -17068,7 +17056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       settings: z
         .object({
           bacs_debit_payments: z
-            .object({ display_name: z.string().optional() })
+            .object({display_name: z.string().optional()})
             .optional(),
           branding: z
             .object({
@@ -17231,7 +17219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postAccountsResponseValidator(status, body)
@@ -17292,7 +17280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteAccountsAccountResponseValidator(status, body)
@@ -17367,7 +17355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountResponseValidator(status, body)
@@ -17406,7 +17394,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             )
             .optional(),
           monthly_estimated_revenue: z
-            .object({ amount: z.coerce.number(), currency: z.string() })
+            .object({amount: z.coerce.number(), currency: z.string()})
             .optional(),
           name: z.string().max(5000).optional(),
           product_description: z.string().max(40000).optional(),
@@ -17432,181 +17420,181 @@ export function createRouter(implementation: Implementation): KoaRouter {
       capabilities: z
         .object({
           acss_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           affirm_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           afterpay_clearpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           alma_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           amazon_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           au_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bacs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bancontact_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           billie_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           blik_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           boleto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_issuing: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cartes_bancaires_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           cashapp_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           crypto_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           eps_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           fpx_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           gb_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           giropay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           grabpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           ideal_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           india_international_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jcb_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           jp_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kakao_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           klarna_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           konbini_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           kr_card_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           legacy_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           link_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mobilepay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           multibanco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           mx_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           naver_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           nz_bank_account_becs_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           oxxo_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           p24_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pay_by_bank_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           payco_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           paynow_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           pix_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           promptpay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           revolut_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           samsung_pay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           satispay_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sepa_debit_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           sofort_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           swish_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_k: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           tax_reporting_us_1099_misc: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           transfers: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           treasury: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           twint_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_account_ach_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           us_bank_transfer_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
           zip_payments: z
-            .object({ requested: PermissiveBoolean.optional() })
+            .object({requested: PermissiveBoolean.optional()})
             .optional(),
         })
         .optional(),
@@ -17732,31 +17720,31 @@ export function createRouter(implementation: Implementation): KoaRouter {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_license: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_memorandum_of_association: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_ministerial_decree: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_registration_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           company_tax_id_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_address: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_registration: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
           proof_of_ultimate_beneficial_ownership: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -17875,7 +17863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       settings: z
         .object({
           bacs_debit_payments: z
-            .object({ display_name: z.string().optional() })
+            .object({display_name: z.string().optional()})
             .optional(),
           branding: z
             .object({
@@ -18047,7 +18035,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountResponseValidator(status, body)
@@ -18076,7 +18064,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             documents: z
               .object({
                 bank_account_ownership_verification: z
-                  .object({ files: z.array(z.string().max(500)).optional() })
+                  .object({files: z.array(z.string().max(500)).optional()})
                   .optional(),
               })
               .optional(),
@@ -18138,7 +18126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountBankAccountsResponseValidator(status, body)
@@ -18199,7 +18187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteAccountsAccountBankAccountsIdResponseValidator(
@@ -18276,7 +18264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountBankAccountsIdResponseValidator(status, body)
@@ -18305,7 +18293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -18362,7 +18350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountBankAccountsIdResponseValidator(
@@ -18456,7 +18444,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountCapabilitiesResponseValidator(status, body)
@@ -18532,7 +18520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountCapabilitiesCapabilityResponseValidator(
@@ -18601,7 +18589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountCapabilitiesCapabilityResponseValidator(
@@ -18701,7 +18689,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountExternalAccountsResponseValidator(
@@ -18733,7 +18721,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             documents: z
               .object({
                 bank_account_ownership_verification: z
-                  .object({ files: z.array(z.string().max(500)).optional() })
+                  .object({files: z.array(z.string().max(500)).optional()})
                   .optional(),
               })
               .optional(),
@@ -18795,7 +18783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountExternalAccountsResponseValidator(
@@ -18861,7 +18849,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteAccountsAccountExternalAccountsIdResponseValidator(
@@ -18938,7 +18926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountExternalAccountsIdResponseValidator(
@@ -18970,7 +18958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -19027,7 +19015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountExternalAccountsIdResponseValidator(
@@ -19044,7 +19032,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postAccountsAccountLoginLinksBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postAccountsAccountLoginLinksResponseValidator =
@@ -19092,7 +19080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountLoginLinksResponseValidator(status, body)
@@ -19195,7 +19183,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountPeopleResponseValidator(status, body)
@@ -19459,7 +19447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountPeopleResponseValidator(status, body)
@@ -19520,7 +19508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteAccountsAccountPeoplePersonResponseValidator(
@@ -19597,7 +19585,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountPeoplePersonResponseValidator(status, body)
@@ -19860,7 +19848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountPeoplePersonResponseValidator(status, body)
@@ -19963,7 +19951,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountPersonsResponseValidator(status, body)
@@ -20227,7 +20215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountPersonsResponseValidator(status, body)
@@ -20288,7 +20276,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteAccountsAccountPersonsPersonResponseValidator(
@@ -20365,7 +20353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAccountsAccountPersonsPersonResponseValidator(status, body)
@@ -20628,7 +20616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountPersonsPersonResponseValidator(status, body)
@@ -20693,7 +20681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAccountsAccountRejectResponseValidator(status, body)
@@ -20779,7 +20767,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getApplePayDomainsResponseValidator(status, body)
@@ -20836,7 +20824,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postApplePayDomainsResponseValidator(status, body)
@@ -20896,7 +20884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteApplePayDomainsDomainResponseValidator(status, body)
@@ -20971,7 +20959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getApplePayDomainsDomainResponseValidator(status, body)
@@ -21068,7 +21056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getApplicationFeesResponseValidator(status, body)
@@ -21142,7 +21130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getApplicationFeesFeeRefundsIdResponseValidator(status, body)
@@ -21208,7 +21196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postApplicationFeesFeeRefundsIdResponseValidator(status, body)
@@ -21217,7 +21205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getApplicationFeesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getApplicationFeesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getApplicationFeesIdQuerySchema = z.object({
     expand: z
@@ -21281,7 +21269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getApplicationFeesIdResponseValidator(status, body)
@@ -21347,7 +21335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postApplicationFeesIdRefundResponseValidator(status, body)
@@ -21441,7 +21429,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getApplicationFeesIdRefundsResponseValidator(status, body)
@@ -21507,7 +21495,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postApplicationFeesIdRefundsResponseValidator(status, body)
@@ -21593,7 +21581,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getAppsSecretsResponseValidator(status, body)
@@ -21652,7 +21640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postAppsSecretsResponseValidator(status, body)
@@ -21712,7 +21700,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postAppsSecretsDeleteResponseValidator(status, body)
@@ -21784,7 +21772,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getAppsSecretsFindResponseValidator(status, body)
@@ -21848,7 +21836,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getBalanceResponseValidator(status, body)
@@ -21947,7 +21935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getBalanceHistoryResponseValidator(status, body)
@@ -21955,7 +21943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getBalanceHistoryIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getBalanceHistoryIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getBalanceHistoryIdQuerySchema = z.object({
     expand: z
@@ -22019,7 +22007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBalanceHistoryIdResponseValidator(status, body)
@@ -22122,7 +22110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBalanceTransactionsResponseValidator(status, body)
@@ -22197,7 +22185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBalanceTransactionsIdResponseValidator(status, body)
@@ -22281,7 +22269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getBillingAlertsResponseValidator(status, body)
@@ -22350,7 +22338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postBillingAlertsResponseValidator(status, body)
@@ -22358,7 +22346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getBillingAlertsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getBillingAlertsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getBillingAlertsIdQuerySchema = z.object({
     expand: z
@@ -22422,7 +22410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingAlertsIdResponseValidator(status, body)
@@ -22436,7 +22424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingAlertsIdActivateBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingAlertsIdActivateResponseValidator =
@@ -22484,7 +22472,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingAlertsIdActivateResponseValidator(status, body)
@@ -22498,7 +22486,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingAlertsIdArchiveBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingAlertsIdArchiveResponseValidator = responseValidationFactory(
@@ -22548,7 +22536,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingAlertsIdArchiveResponseValidator(status, body)
@@ -22562,7 +22550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingAlertsIdDeactivateBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingAlertsIdDeactivateResponseValidator =
@@ -22610,7 +22598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingAlertsIdDeactivateResponseValidator(status, body)
@@ -22631,7 +22619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       applicability_scope: z
         .object({
           price_type: z.enum(["metered"]).optional(),
-          prices: z.array(z.object({ id: z.string().max(5000) })).optional(),
+          prices: z.array(z.object({id: z.string().max(5000)})).optional(),
         })
         .optional(),
       credit_grant: z.string().max(5000).optional(),
@@ -22689,7 +22677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingCreditBalanceSummaryResponseValidator(status, body)
@@ -22780,7 +22768,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingCreditBalanceTransactionsResponseValidator(
@@ -22863,7 +22851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingCreditBalanceTransactionsIdResponseValidator(
@@ -22955,7 +22943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingCreditGrantsResponseValidator(status, body)
@@ -22967,14 +22955,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postBillingCreditGrantsBodySchema = z.object({
     amount: z.object({
       monetary: z
-        .object({ currency: z.string(), value: z.coerce.number() })
+        .object({currency: z.string(), value: z.coerce.number()})
         .optional(),
       type: z.enum(["monetary"]),
     }),
     applicability_config: z.object({
       scope: z.object({
         price_type: z.enum(["metered"]).optional(),
-        prices: z.array(z.object({ id: z.string().max(5000) })).optional(),
+        prices: z.array(z.object({id: z.string().max(5000)})).optional(),
       }),
     }),
     category: z.enum(["paid", "promotional"]),
@@ -23030,7 +23018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingCreditGrantsResponseValidator(status, body)
@@ -23105,7 +23093,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingCreditGrantsIdResponseValidator(status, body)
@@ -23173,7 +23161,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingCreditGrantsIdResponseValidator(status, body)
@@ -23187,7 +23175,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingCreditGrantsIdExpireBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingCreditGrantsIdExpireResponseValidator =
@@ -23235,7 +23223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingCreditGrantsIdExpireResponseValidator(status, body)
@@ -23249,7 +23237,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingCreditGrantsIdVoidBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingCreditGrantsIdVoidResponseValidator =
@@ -23297,7 +23285,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingCreditGrantsIdVoidResponseValidator(status, body)
@@ -23307,7 +23295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postBillingMeterEventAdjustmentsBodySchema = z.object({
-    cancel: z.object({ identifier: z.string().max(100).optional() }).optional(),
+    cancel: z.object({identifier: z.string().max(100).optional()}).optional(),
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
     type: z.enum(["cancel"]),
@@ -23357,7 +23345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingMeterEventAdjustmentsResponseValidator(status, body)
@@ -23417,7 +23405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingMeterEventsResponseValidator(status, body)
@@ -23500,7 +23488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getBillingMetersResponseValidator(status, body)
@@ -23510,20 +23498,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postBillingMetersBodySchema = z.object({
     customer_mapping: z
-      .object({
-        event_payload_key: z.string().max(100),
-        type: z.enum(["by_id"]),
-      })
+      .object({event_payload_key: z.string().max(100), type: z.enum(["by_id"])})
       .optional(),
-    default_aggregation: z.object({
-      formula: z.enum(["count", "last", "sum"]),
-    }),
+    default_aggregation: z.object({formula: z.enum(["count", "last", "sum"])}),
     display_name: z.string().max(250),
     event_name: z.string().max(100),
     event_time_window: z.enum(["day", "hour"]).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     value_settings: z
-      .object({ event_payload_key: z.string().max(100) })
+      .object({event_payload_key: z.string().max(100)})
       .optional(),
   })
 
@@ -23567,7 +23550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postBillingMetersResponseValidator(status, body)
@@ -23575,7 +23558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getBillingMetersIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getBillingMetersIdQuerySchema = z.object({
     expand: z
@@ -23639,7 +23622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingMetersIdResponseValidator(status, body)
@@ -23648,7 +23631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postBillingMetersIdParamSchema = z.object({ id: z.string().max(5000) })
+  const postBillingMetersIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postBillingMetersIdBodySchema = z
     .object({
@@ -23704,7 +23687,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingMetersIdResponseValidator(status, body)
@@ -23718,7 +23701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingMetersIdDeactivateBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingMetersIdDeactivateResponseValidator =
@@ -23766,7 +23749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingMetersIdDeactivateResponseValidator(status, body)
@@ -23867,7 +23850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingMetersIdEventSummariesResponseValidator(status, body)
@@ -23881,7 +23864,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postBillingMetersIdReactivateBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postBillingMetersIdReactivateResponseValidator =
@@ -23929,7 +23912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingMetersIdReactivateResponseValidator(status, body)
@@ -24020,7 +24003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingPortalConfigurationsResponseValidator(status, body)
@@ -24060,10 +24043,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           enabled: PermissiveBoolean,
         })
         .optional(),
-      invoice_history: z.object({ enabled: PermissiveBoolean }).optional(),
-      payment_method_update: z
-        .object({ enabled: PermissiveBoolean })
-        .optional(),
+      invoice_history: z.object({enabled: PermissiveBoolean}).optional(),
+      payment_method_update: z.object({enabled: PermissiveBoolean}).optional(),
       subscription_cancel: z
         .object({
           cancellation_reason: z
@@ -24133,7 +24114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
     }),
-    login_page: z.object({ enabled: PermissiveBoolean }).optional(),
+    login_page: z.object({enabled: PermissiveBoolean}).optional(),
     metadata: z.record(z.string()).optional(),
   })
 
@@ -24181,7 +24162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingPortalConfigurationsResponseValidator(status, body)
@@ -24264,7 +24245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBillingPortalConfigurationsConfigurationResponseValidator(
@@ -24314,9 +24295,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
               enabled: PermissiveBoolean.optional(),
             })
             .optional(),
-          invoice_history: z.object({ enabled: PermissiveBoolean }).optional(),
+          invoice_history: z.object({enabled: PermissiveBoolean}).optional(),
           payment_method_update: z
-            .object({ enabled: PermissiveBoolean })
+            .object({enabled: PermissiveBoolean})
             .optional(),
           subscription_cancel: z
             .object({
@@ -24393,7 +24374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      login_page: z.object({ enabled: PermissiveBoolean }).optional(),
+      login_page: z.object({enabled: PermissiveBoolean}).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     })
     .optional()
@@ -24451,7 +24432,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingPortalConfigurationsConfigurationResponseValidator(
@@ -24472,9 +24453,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         after_completion: z
           .object({
             hosted_confirmation: z
-              .object({ custom_message: z.string().max(500).optional() })
+              .object({custom_message: z.string().max(500).optional()})
               .optional(),
-            redirect: z.object({ return_url: z.string() }).optional(),
+            redirect: z.object({return_url: z.string()}).optional(),
             type: z.enum([
               "hosted_confirmation",
               "portal_homepage",
@@ -24486,7 +24467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .object({
             retention: z
               .object({
-                coupon_offer: z.object({ coupon: z.string().max(5000) }),
+                coupon_offer: z.object({coupon: z.string().max(5000)}),
                 type: z.enum(["coupon_offer"]),
               })
               .optional(),
@@ -24494,7 +24475,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           })
           .optional(),
         subscription_update: z
-          .object({ subscription: z.string().max(5000) })
+          .object({subscription: z.string().max(5000)})
           .optional(),
         subscription_update_confirm: z
           .object({
@@ -24622,7 +24603,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postBillingPortalSessionsResponseValidator(status, body)
@@ -24718,7 +24699,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getChargesResponseValidator(status, body)
@@ -24768,7 +24749,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       on_behalf_of: z.string().max(5000).optional(),
       radar_options: z
-        .object({ session: z.string().max(5000).optional() })
+        .object({session: z.string().max(5000).optional()})
         .optional(),
       receipt_email: z.string().optional(),
       shipping: z
@@ -24840,7 +24821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postChargesResponseValidator(status, body)
@@ -24925,7 +24906,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getChargesSearchResponseValidator(status, body)
@@ -24933,7 +24914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getChargesChargeParamSchema = z.object({ charge: z.string().max(5000) })
+  const getChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
   const getChargesChargeQuerySchema = z.object({
     expand: z
@@ -24994,7 +24975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getChargesChargeResponseValidator(status, body)
@@ -25002,9 +24983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postChargesChargeParamSchema = z.object({
-    charge: z.string().max(5000),
-  })
+  const postChargesChargeParamSchema = z.object({charge: z.string().max(5000)})
 
   const postChargesChargeBodySchema = z
     .object({
@@ -25012,7 +24991,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       description: z.string().max(40000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       fraud_details: z
-        .object({ user_report: z.enum(["", "fraudulent", "safe"]) })
+        .object({user_report: z.enum(["", "fraudulent", "safe"])})
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       receipt_email: z.string().max(5000).optional(),
@@ -25080,7 +25059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postChargesChargeResponseValidator(status, body)
@@ -25102,7 +25081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
       transfer_group: z.string().optional(),
     })
@@ -25155,7 +25134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postChargesChargeCaptureResponseValidator(status, body)
@@ -25230,7 +25209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getChargesChargeDisputeResponseValidator(status, body)
@@ -25362,7 +25341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   })
                   .optional(),
                 visa_compliance: z
-                  .object({ fee_acknowledged: PermissiveBoolean.optional() })
+                  .object({fee_acknowledged: PermissiveBoolean.optional()})
                   .optional(),
               }),
               z.enum([""]),
@@ -25437,7 +25416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postChargesChargeDisputeResponseValidator(status, body)
@@ -25451,7 +25430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postChargesChargeDisputeCloseBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postChargesChargeDisputeCloseResponseValidator =
@@ -25499,7 +25478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postChargesChargeDisputeCloseResponseValidator(status, body)
@@ -25574,7 +25553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postChargesChargeRefundResponseValidator(status, body)
@@ -25583,7 +25562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getChargesChargeRefundsParamSchema = z.object({ charge: z.string() })
+  const getChargesChargeRefundsParamSchema = z.object({charge: z.string()})
 
   const getChargesChargeRefundsQuerySchema = z.object({
     ending_before: z.string().optional(),
@@ -25665,7 +25644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getChargesChargeRefundsResponseValidator(status, body)
@@ -25743,7 +25722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postChargesChargeRefundsResponseValidator(status, body)
@@ -25817,7 +25796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getChargesChargeRefundsRefundResponseValidator(status, body)
@@ -25883,7 +25862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postChargesChargeRefundsRefundResponseValidator(status, body)
@@ -25905,7 +25884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ])
       .optional(),
     customer: z.string().max(5000).optional(),
-    customer_details: z.object({ email: z.string() }).optional(),
+    customer_details: z.object({email: z.string()}).optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
@@ -25985,7 +25964,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCheckoutSessionsResponseValidator(status, body)
@@ -25997,7 +25976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postCheckoutSessionsBodySchema = z
     .object({
       adaptive_pricing: z
-        .object({ enabled: PermissiveBoolean.optional() })
+        .object({enabled: PermissiveBoolean.optional()})
         .optional(),
       after_expiration: z
         .object({
@@ -26027,7 +26006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       consent_collection: z
         .object({
           payment_method_reuse_agreement: z
-            .object({ position: z.enum(["auto", "hidden"]) })
+            .object({position: z.enum(["auto", "hidden"])})
             .optional(),
           promotions: z.enum(["auto", "none"]).optional(),
           terms_of_service: z.enum(["none", "required"]).optional(),
@@ -26075,16 +26054,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       custom_text: z
         .object({
           after_submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           shipping_address: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           terms_of_service_acceptance: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
         })
         .optional(),
@@ -26332,13 +26311,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           affirm: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           afterpay_clearpay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           alipay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           amazon_pay: z
             .object({
@@ -26367,7 +26346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           boleto: z
             .object({
@@ -26380,7 +26359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           card: z
             .object({
               installments: z
-                .object({ enabled: PermissiveBoolean.optional() })
+                .object({enabled: PermissiveBoolean.optional()})
                 .optional(),
               request_extended_authorization: z
                 .enum(["if_available", "never"])
@@ -26428,7 +26407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               bank_transfer: z
                 .object({
                   eu_bank_transfer: z
-                    .object({ country: z.string().max(5000) })
+                    .object({country: z.string().max(5000)})
                     .optional(),
                   requested_address_types: z
                     .array(
@@ -26457,19 +26436,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           eps: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           fpx: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           giropay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           grabpay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           ideal: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           kakao_pay: z
             .object({
@@ -26517,10 +26496,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           mobilepay: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           multibanco: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           naver_pay: z
             .object({
@@ -26542,10 +26521,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           pay_by_bank: z.object({}).optional(),
           payco: z
-            .object({ capture_method: z.enum(["manual"]).optional() })
+            .object({capture_method: z.enum(["manual"]).optional()})
             .optional(),
           paynow: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           paypal: z
             .object({
@@ -26583,7 +26562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           pix: z
-            .object({ expires_after_seconds: z.coerce.number().optional() })
+            .object({expires_after_seconds: z.coerce.number().optional()})
             .optional(),
           revolut_pay: z
             .object({
@@ -26591,7 +26570,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           samsung_pay: z
-            .object({ capture_method: z.enum(["manual"]).optional() })
+            .object({capture_method: z.enum(["manual"]).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -26609,10 +26588,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           sofort: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({setup_future_usage: z.enum(["none"]).optional()})
             .optional(),
           swish: z
-            .object({ reference: z.string().max(5000).optional() })
+            .object({reference: z.string().max(5000).optional()})
             .optional(),
           us_bank_account: z
             .object({
@@ -26710,7 +26689,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       phone_number_collection: z
-        .object({ enabled: PermissiveBoolean })
+        .object({enabled: PermissiveBoolean})
         .optional(),
       redirect_on_completion: z
         .enum(["always", "if_required", "never"])
@@ -27048,7 +27027,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           application_fee_percent: z.coerce.number().optional(),
           billing_cycle_anchor: z.coerce.number().optional(),
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           default_tax_rates: z.array(z.string().max(5000)).optional(),
           description: z.string().max(500).optional(),
@@ -27097,7 +27076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       wallet_options: z
         .object({
           link: z
-            .object({ display: z.enum(["auto", "never"]).optional() })
+            .object({display: z.enum(["auto", "never"]).optional()})
             .optional(),
         })
         .optional(),
@@ -27147,7 +27126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCheckoutSessionsResponseValidator(status, body)
@@ -27222,7 +27201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCheckoutSessionsSessionResponseValidator(status, body)
@@ -27369,7 +27348,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCheckoutSessionsSessionResponseValidator(status, body)
@@ -27383,7 +27362,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postCheckoutSessionsSessionExpireBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postCheckoutSessionsSessionExpireResponseValidator =
@@ -27431,7 +27410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCheckoutSessionsSessionExpireResponseValidator(
@@ -27528,7 +27507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCheckoutSessionsSessionLineItemsResponseValidator(
@@ -27613,7 +27592,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getClimateOrdersResponseValidator(status, body)
@@ -27623,7 +27602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postClimateOrdersBodySchema = z.object({
     amount: z.coerce.number().optional(),
-    beneficiary: z.object({ public_name: z.string().max(5000) }).optional(),
+    beneficiary: z.object({public_name: z.string().max(5000)}).optional(),
     currency: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string()).optional(),
@@ -27671,7 +27650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postClimateOrdersResponseValidator(status, body)
@@ -27745,7 +27724,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getClimateOrdersOrderResponseValidator(status, body)
@@ -27820,7 +27799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postClimateOrdersOrderResponseValidator(status, body)
@@ -27834,7 +27813,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postClimateOrdersOrderCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postClimateOrdersOrderCancelResponseValidator =
@@ -27882,7 +27861,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postClimateOrdersOrderCancelResponseValidator(status, body)
@@ -27967,7 +27946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getClimateProductsResponseValidator(status, body)
@@ -28042,7 +28021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getClimateProductsProductResponseValidator(status, body)
@@ -28127,7 +28106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getClimateSuppliersResponseValidator(status, body)
@@ -28200,7 +28179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getClimateSuppliersSupplierResponseValidator(status, body)
@@ -28275,7 +28254,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getConfirmationTokensConfirmationTokenResponseValidator(
@@ -28360,7 +28339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getCountrySpecsResponseValidator(status, body)
@@ -28434,7 +28413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCountrySpecsCountryResponseValidator(status, body)
@@ -28527,7 +28506,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getCouponsResponseValidator(status, body)
@@ -28539,11 +28518,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       amount_off: z.coerce.number().optional(),
       applies_to: z
-        .object({ products: z.array(z.string().max(5000)).optional() })
+        .object({products: z.array(z.string().max(5000)).optional()})
         .optional(),
       currency: z.string().optional(),
       currency_options: z
-        .record(z.object({ amount_off: z.coerce.number() }))
+        .record(z.object({amount_off: z.coerce.number()}))
         .optional(),
       duration: z.enum(["forever", "once", "repeating"]).optional(),
       duration_in_months: z.coerce.number().optional(),
@@ -28597,7 +28576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postCouponsResponseValidator(status, body)
@@ -28658,7 +28637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCouponsCouponResponseValidator(status, body)
@@ -28667,7 +28646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getCouponsCouponParamSchema = z.object({ coupon: z.string().max(5000) })
+  const getCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
   const getCouponsCouponQuerySchema = z.object({
     expand: z
@@ -28728,7 +28707,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getCouponsCouponResponseValidator(status, body)
@@ -28736,14 +28715,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCouponsCouponParamSchema = z.object({
-    coupon: z.string().max(5000),
-  })
+  const postCouponsCouponParamSchema = z.object({coupon: z.string().max(5000)})
 
   const postCouponsCouponBodySchema = z
     .object({
       currency_options: z
-        .record(z.object({ amount_off: z.coerce.number() }))
+        .record(z.object({amount_off: z.coerce.number()}))
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
@@ -28795,7 +28772,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postCouponsCouponResponseValidator(status, body)
@@ -28889,7 +28866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getCreditNotesResponseValidator(status, body)
@@ -28953,7 +28930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.string().max(5000).optional() })
+      .object({shipping_rate: z.string().max(5000).optional()})
       .optional(),
   })
 
@@ -28997,7 +28974,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postCreditNotesResponseValidator(status, body)
@@ -29072,7 +29049,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.string().max(5000).optional() })
+      .object({shipping_rate: z.string().max(5000).optional()})
       .optional(),
   })
 
@@ -29125,7 +29102,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCreditNotesPreviewResponseValidator(status, body)
@@ -29203,7 +29180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     shipping_cost: z
-      .object({ shipping_rate: z.string().max(5000).optional() })
+      .object({shipping_rate: z.string().max(5000).optional()})
       .optional(),
     starting_after: z.string().max(5000).optional(),
   })
@@ -29272,7 +29249,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCreditNotesPreviewLinesResponseValidator(status, body)
@@ -29366,7 +29343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCreditNotesCreditNoteLinesResponseValidator(status, body)
@@ -29375,7 +29352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getCreditNotesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getCreditNotesIdQuerySchema = z.object({
     expand: z
@@ -29436,7 +29413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getCreditNotesIdResponseValidator(status, body)
@@ -29444,7 +29421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postCreditNotesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const postCreditNotesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postCreditNotesIdBodySchema = z
     .object({
@@ -29501,7 +29478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCreditNotesIdResponseValidator(status, body)
@@ -29510,12 +29487,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postCreditNotesIdVoidParamSchema = z.object({
-    id: z.string().max(5000),
-  })
+  const postCreditNotesIdVoidParamSchema = z.object({id: z.string().max(5000)})
 
   const postCreditNotesIdVoidBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postCreditNotesIdVoidResponseValidator = responseValidationFactory(
@@ -29565,7 +29540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCreditNotesIdVoidResponseValidator(status, body)
@@ -29576,7 +29551,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCustomerSessionsBodySchema = z.object({
     components: z.object({
-      buy_button: z.object({ enabled: PermissiveBoolean }).optional(),
+      buy_button: z.object({enabled: PermissiveBoolean}).optional(),
       payment_element: z
         .object({
           enabled: PermissiveBoolean,
@@ -29598,7 +29573,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      pricing_table: z.object({ enabled: PermissiveBoolean }).optional(),
+      pricing_table: z.object({enabled: PermissiveBoolean}).optional(),
     }),
     customer: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
@@ -29647,7 +29622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomerSessionsResponseValidator(status, body)
@@ -29742,7 +29717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getCustomersResponseValidator(status, body)
@@ -30003,7 +29978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postCustomersResponseValidator(status, body)
@@ -30091,7 +30066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersSearchResponseValidator(status, body)
@@ -30153,7 +30128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCustomersCustomerResponseValidator(status, body)
@@ -30228,7 +30203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerResponseValidator(status, body)
@@ -30420,7 +30395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerResponseValidator(status, body)
@@ -30516,7 +30491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerBalanceTransactionsResponseValidator(
@@ -30588,7 +30563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerBalanceTransactionsResponseValidator(
@@ -30601,7 +30576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getCustomersCustomerBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.string().max(5000), transaction: z.string() })
+    z.object({customer: z.string().max(5000), transaction: z.string()})
 
   const getCustomersCustomerBalanceTransactionsTransactionQuerySchema =
     z.object({
@@ -30674,7 +30649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -30754,7 +30729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -30852,7 +30827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerBankAccountsResponseValidator(status, body)
@@ -30953,7 +30928,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerBankAccountsResponseValidator(
@@ -30971,7 +30946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const deleteCustomersCustomerBankAccountsIdBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteCustomersCustomerBankAccountsIdResponseValidator =
@@ -31029,7 +31004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCustomersCustomerBankAccountsIdResponseValidator(
@@ -31106,7 +31081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerBankAccountsIdResponseValidator(
@@ -31215,7 +31190,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerBankAccountsIdResponseValidator(
@@ -31284,7 +31259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerBankAccountsIdVerifyResponseValidator(
@@ -31380,7 +31355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerCardsResponseValidator(status, body)
@@ -31483,7 +31458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerCardsResponseValidator(status, body)
@@ -31498,7 +31473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const deleteCustomersCustomerCardsIdBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteCustomersCustomerCardsIdResponseValidator =
@@ -31556,7 +31531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCustomersCustomerCardsIdResponseValidator(status, body)
@@ -31630,7 +31605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerCardsIdResponseValidator(status, body)
@@ -31736,7 +31711,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerCardsIdResponseValidator(status, body)
@@ -31809,7 +31784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerCashBalanceResponseValidator(status, body)
@@ -31880,7 +31855,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerCashBalanceResponseValidator(status, body)
@@ -31981,7 +31956,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerCashBalanceTransactionsResponseValidator(
@@ -31994,7 +31969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getCustomersCustomerCashBalanceTransactionsTransactionParamSchema =
-    z.object({ customer: z.string().max(5000), transaction: z.string() })
+    z.object({customer: z.string().max(5000), transaction: z.string()})
 
   const getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema =
     z.object({
@@ -32069,7 +32044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -32133,7 +32108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCustomersCustomerDiscountResponseValidator(status, body)
@@ -32206,7 +32181,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerDiscountResponseValidator(status, body)
@@ -32221,7 +32196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCustomersCustomerFundingInstructionsBodySchema = z.object({
     bank_transfer: z.object({
-      eu_bank_transfer: z.object({ country: z.string().max(5000) }).optional(),
+      eu_bank_transfer: z.object({country: z.string().max(5000)}).optional(),
       requested_address_types: z
         .array(z.enum(["iban", "sort_code", "spei", "zengin"]))
         .optional(),
@@ -32283,7 +32258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerFundingInstructionsResponseValidator(
@@ -32433,7 +32408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerPaymentMethodsResponseValidator(
@@ -32517,7 +32492,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -32622,7 +32597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerSourcesResponseValidator(status, body)
@@ -32723,7 +32698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerSourcesResponseValidator(status, body)
@@ -32738,7 +32713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const deleteCustomersCustomerSourcesIdBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteCustomersCustomerSourcesIdResponseValidator =
@@ -32796,7 +32771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCustomersCustomerSourcesIdResponseValidator(status, body)
@@ -32870,7 +32845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerSourcesIdResponseValidator(status, body)
@@ -32976,7 +32951,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerSourcesIdResponseValidator(status, body)
@@ -33042,7 +33017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerSourcesIdVerifyResponseValidator(
@@ -33139,7 +33114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerSubscriptionsResponseValidator(
@@ -33255,7 +33230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .array(
           z.object({
             billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
               .optional(),
             discounts: z
               .union([
@@ -33374,7 +33349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -33557,7 +33532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerSubscriptionsResponseValidator(
@@ -33633,7 +33608,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -33720,7 +33695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -33855,7 +33830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .array(
           z.object({
             billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
               .optional(),
             clear_usage: PermissiveBoolean.optional(),
             deleted: PermissiveBoolean.optional(),
@@ -33986,7 +33961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -34177,7 +34152,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -34249,7 +34224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -34335,7 +34310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -34432,7 +34407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerTaxIdsResponseValidator(status, body)
@@ -34607,7 +34582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postCustomersCustomerTaxIdsResponseValidator(status, body)
@@ -34668,7 +34643,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteCustomersCustomerTaxIdsIdResponseValidator(status, body)
@@ -34742,7 +34717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getCustomersCustomerTaxIdsIdResponseValidator(status, body)
@@ -34837,7 +34812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getDisputesResponseValidator(status, body)
@@ -34911,7 +34886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getDisputesDisputeResponseValidator(status, body)
@@ -35043,7 +35018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   })
                   .optional(),
                 visa_compliance: z
-                  .object({ fee_acknowledged: PermissiveBoolean.optional() })
+                  .object({fee_acknowledged: PermissiveBoolean.optional()})
                   .optional(),
               }),
               z.enum([""]),
@@ -35118,7 +35093,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postDisputesDisputeResponseValidator(status, body)
@@ -35132,7 +35107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postDisputesDisputeCloseBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postDisputesDisputeCloseResponseValidator = responseValidationFactory(
@@ -35182,7 +35157,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postDisputesDisputeCloseResponseValidator(status, body)
@@ -35269,7 +35244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getEntitlementsActiveEntitlementsResponseValidator(
@@ -35348,7 +35323,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getEntitlementsActiveEntitlementsIdResponseValidator(
@@ -35441,7 +35416,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getEntitlementsFeaturesResponseValidator(status, body)
@@ -35500,7 +35475,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postEntitlementsFeaturesResponseValidator(status, body)
@@ -35575,7 +35550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getEntitlementsFeaturesIdResponseValidator(status, body)
@@ -35644,7 +35619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postEntitlementsFeaturesIdResponseValidator(status, body)
@@ -35703,7 +35678,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postEphemeralKeysResponseValidator(status, body)
@@ -35716,7 +35691,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const deleteEphemeralKeysKeyBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const deleteEphemeralKeysKeyResponseValidator = responseValidationFactory(
@@ -35766,7 +35741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteEphemeralKeysKeyResponseValidator(status, body)
@@ -35867,7 +35842,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getEventsResponseValidator(status, body)
@@ -35875,7 +35850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getEventsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getEventsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getEventsIdQuerySchema = z.object({
     expand: z
@@ -35936,7 +35911,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getEventsIdResponseValidator(status, body)
@@ -36017,7 +35992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getExchangeRatesResponseValidator(status, body)
@@ -36091,7 +36066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getExchangeRatesRateIdResponseValidator(status, body)
@@ -36100,7 +36075,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postExternalAccountsIdParamSchema = z.object({ id: z.string() })
+  const postExternalAccountsIdParamSchema = z.object({id: z.string()})
 
   const postExternalAccountsIdBodySchema = z
     .object({
@@ -36117,7 +36092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       documents: z
         .object({
           bank_account_ownership_verification: z
-            .object({ files: z.array(z.string().max(500)).optional() })
+            .object({files: z.array(z.string().max(500)).optional()})
             .optional(),
         })
         .optional(),
@@ -36176,7 +36151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postExternalAccountsIdResponseValidator(status, body)
@@ -36271,7 +36246,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getFileLinksResponseValidator(status, body)
@@ -36326,7 +36301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postFileLinksResponseValidator(status, body)
@@ -36334,7 +36309,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getFileLinksLinkParamSchema = z.object({ link: z.string() })
+  const getFileLinksLinkParamSchema = z.object({link: z.string()})
 
   const getFileLinksLinkQuerySchema = z.object({
     expand: z
@@ -36395,7 +36370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getFileLinksLinkResponseValidator(status, body)
@@ -36403,7 +36378,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postFileLinksLinkParamSchema = z.object({ link: z.string() })
+  const postFileLinksLinkParamSchema = z.object({link: z.string()})
 
   const postFileLinksLinkBodySchema = z
     .object({
@@ -36462,7 +36437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postFileLinksLinkResponseValidator(status, body)
@@ -36576,7 +36551,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getFilesResponseValidator(status, body)
@@ -36649,7 +36624,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postFilesResponseValidator(status, body)
@@ -36657,7 +36632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getFilesFileParamSchema = z.object({ file: z.string().max(5000) })
+  const getFilesFileParamSchema = z.object({file: z.string().max(5000)})
 
   const getFilesFileQuerySchema = z.object({
     expand: z
@@ -36718,7 +36693,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getFilesFileResponseValidator(status, body)
@@ -36813,7 +36788,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getFinancialConnectionsAccountsResponseValidator(status, body)
@@ -36891,7 +36866,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getFinancialConnectionsAccountsAccountResponseValidator(
@@ -36904,11 +36879,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectParamSchema = z.object(
-    { account: z.string().max(5000) },
+    {account: z.string().max(5000)},
   )
 
   const postFinancialConnectionsAccountsAccountDisconnectBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postFinancialConnectionsAccountsAccountDisconnectResponseValidator =
@@ -36964,7 +36939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -37070,7 +37045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getFinancialConnectionsAccountsAccountOwnersResponseValidator(
@@ -37144,7 +37119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -37219,7 +37194,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -37233,7 +37208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postFinancialConnectionsAccountsAccountUnsubscribeParamSchema =
-    z.object({ account: z.string().max(5000) })
+    z.object({account: z.string().max(5000)})
 
   const postFinancialConnectionsAccountsAccountUnsubscribeBodySchema = z.object(
     {
@@ -37295,7 +37270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -37384,7 +37359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postFinancialConnectionsSessionsResponseValidator(status, body)
@@ -37462,7 +37437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getFinancialConnectionsSessionsSessionResponseValidator(
@@ -37496,7 +37471,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.coerce.number(),
       ])
       .optional(),
-    transaction_refresh: z.object({ after: z.string().max(5000) }).optional(),
+    transaction_refresh: z.object({after: z.string().max(5000)}).optional(),
   })
 
   const getFinancialConnectionsTransactionsBodySchema = z.object({}).optional()
@@ -37567,7 +37542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getFinancialConnectionsTransactionsResponseValidator(
@@ -37655,7 +37630,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -37752,7 +37727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getForwardingRequestsResponseValidator(status, body)
@@ -37779,10 +37754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         body: z.string().max(5000).optional(),
         headers: z
           .array(
-            z.object({
-              name: z.string().max(5000),
-              value: z.string().max(5000),
-            }),
+            z.object({name: z.string().max(5000), value: z.string().max(5000)}),
           )
           .optional(),
       })
@@ -37833,7 +37805,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postForwardingRequestsResponseValidator(status, body)
@@ -37908,7 +37880,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getForwardingRequestsIdResponseValidator(status, body)
@@ -38011,7 +37983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIdentityVerificationReportsResponseValidator(status, body)
@@ -38087,7 +38059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIdentityVerificationReportsReportResponseValidator(
@@ -38195,7 +38167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIdentityVerificationSessionsResponseValidator(status, body)
@@ -38227,11 +38199,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       provided_details: z
-        .object({ email: z.string().optional(), phone: z.string().optional() })
+        .object({email: z.string().optional(), phone: z.string().optional()})
         .optional(),
       related_customer: z.string().max(5000).optional(),
       related_person: z
-        .object({ account: z.string().max(5000), person: z.string().max(5000) })
+        .object({account: z.string().max(5000), person: z.string().max(5000)})
         .optional(),
       return_url: z.string().optional(),
       type: z.enum(["document", "id_number"]).optional(),
@@ -38283,7 +38255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIdentityVerificationSessionsResponseValidator(status, body)
@@ -38361,7 +38333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIdentityVerificationSessionsSessionResponseValidator(
@@ -38399,7 +38371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       provided_details: z
-        .object({ email: z.string().optional(), phone: z.string().optional() })
+        .object({email: z.string().optional(), phone: z.string().optional()})
         .optional(),
       type: z.enum(["document", "id_number"]).optional(),
     })
@@ -38453,7 +38425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIdentityVerificationSessionsSessionResponseValidator(
@@ -38470,7 +38442,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postIdentityVerificationSessionsSessionCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postIdentityVerificationSessionsSessionCancelResponseValidator =
@@ -38526,7 +38498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIdentityVerificationSessionsSessionCancelResponseValidator(
@@ -38543,7 +38515,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postIdentityVerificationSessionsSessionRedactBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postIdentityVerificationSessionsSessionRedactResponseValidator =
@@ -38599,7 +38571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIdentityVerificationSessionsSessionRedactResponseValidator(
@@ -38695,7 +38667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoicePaymentsResponseValidator(status, body)
@@ -38768,7 +38740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoicePaymentsInvoicePaymentResponseValidator(status, body)
@@ -38855,7 +38827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoiceRenderingTemplatesResponseValidator(status, body)
@@ -38929,7 +38901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoiceRenderingTemplatesTemplateResponseValidator(
@@ -38946,7 +38918,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postInvoiceRenderingTemplatesTemplateArchiveBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoiceRenderingTemplatesTemplateArchiveResponseValidator =
@@ -38999,7 +38971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoiceRenderingTemplatesTemplateArchiveResponseValidator(
@@ -39016,7 +38988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator =
@@ -39069,7 +39041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -39169,7 +39141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getInvoiceitemsResponseValidator(status, body)
@@ -39199,7 +39171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000).optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     period: z
-      .object({ end: z.coerce.number(), start: z.coerce.number() })
+      .object({end: z.coerce.number(), start: z.coerce.number()})
       .optional(),
     price_data: z
       .object({
@@ -39212,7 +39184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         unit_amount_decimal: z.string().optional(),
       })
       .optional(),
-    pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
+    pricing: z.object({price: z.string().max(5000).optional()}).optional(),
     quantity: z.coerce.number().optional(),
     subscription: z.string().max(5000).optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
@@ -39261,7 +39233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postInvoiceitemsResponseValidator(status, body)
@@ -39320,7 +39292,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteInvoiceitemsInvoiceitemResponseValidator(status, body)
@@ -39395,7 +39367,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoiceitemsInvoiceitemResponseValidator(status, body)
@@ -39428,7 +39400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       period: z
-        .object({ end: z.coerce.number(), start: z.coerce.number() })
+        .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
       price_data: z
         .object({
@@ -39441,7 +39413,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           unit_amount_decimal: z.string().optional(),
         })
         .optional(),
-      pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
+      pricing: z.object({price: z.string().max(5000).optional()}).optional(),
       quantity: z.coerce.number().optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
@@ -39499,7 +39471,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoiceitemsInvoiceitemResponseValidator(status, body)
@@ -39611,7 +39583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getInvoicesResponseValidator(status, body)
@@ -39645,7 +39617,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       custom_fields: z
         .union([
           z.array(
-            z.object({ name: z.string().max(40), value: z.string().max(140) }),
+            z.object({name: z.string().max(40), value: z.string().max(140)}),
           ),
           z.enum([""]),
         ])
@@ -39673,7 +39645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       footer: z.string().max(5000).optional(),
       from_invoice: z
-        .object({ action: z.enum(["revision"]), invoice: z.string().max(5000) })
+        .object({action: z.enum(["revision"]), invoice: z.string().max(5000)})
         .optional(),
       issuer: z
         .object({
@@ -39753,7 +39725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -39860,7 +39832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .enum(["", "exclude_tax", "include_inclusive_tax"])
             .optional(),
           pdf: z
-            .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .object({page_size: z.enum(["a4", "auto", "letter"]).optional()})
             .optional(),
           template: z.string().max(5000).optional(),
           template_version: z
@@ -39945,10 +39917,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       statement_descriptor: z.string().max(22).optional(),
       subscription: z.string().max(5000).optional(),
       transfer_data: z
-        .object({
-          amount: z.coerce.number().optional(),
-          destination: z.string(),
-        })
+        .object({amount: z.coerce.number().optional(), destination: z.string()})
         .optional(),
     })
     .optional()
@@ -39993,7 +39962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postInvoicesResponseValidator(status, body)
@@ -40210,7 +40179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             invoiceitem: z.string().max(5000).optional(),
             metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
             period: z
-              .object({ end: z.coerce.number(), start: z.coerce.number() })
+              .object({end: z.coerce.number(), start: z.coerce.number()})
               .optional(),
             price: z.string().max(5000).optional(),
             price_data: z
@@ -40249,7 +40218,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       schedule_details: z
         .object({
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           end_behavior: z.enum(["cancel", "release"]).optional(),
           phases: z
@@ -40353,7 +40322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.object({
                     billing_thresholds: z
                       .union([
-                        z.object({ usage_gte: z.coerce.number() }),
+                        z.object({usage_gte: z.coerce.number()}),
                         z.enum([""]),
                       ])
                       .optional(),
@@ -40426,7 +40395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([z.enum(["now", "unchanged"]), z.coerce.number()])
             .optional(),
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
           cancel_at_period_end: PermissiveBoolean.optional(),
@@ -40439,7 +40408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.object({
                 billing_thresholds: z
                   .union([
-                    z.object({ usage_gte: z.coerce.number() }),
+                    z.object({usage_gte: z.coerce.number()}),
                     z.enum([""]),
                   ])
                   .optional(),
@@ -40539,7 +40508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesCreatePreviewResponseValidator(status, body)
@@ -40625,7 +40594,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getInvoicesSearchResponseValidator(status, body)
@@ -40686,7 +40655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteInvoicesInvoiceResponseValidator(status, body)
@@ -40761,7 +40730,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoicesInvoiceResponseValidator(status, body)
@@ -40799,7 +40768,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       custom_fields: z
         .union([
           z.array(
-            z.object({ name: z.string().max(40), value: z.string().max(140) }),
+            z.object({name: z.string().max(40), value: z.string().max(140)}),
           ),
           z.enum([""]),
         ])
@@ -40905,7 +40874,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -41011,7 +40980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .enum(["", "exclude_tax", "include_inclusive_tax"])
             .optional(),
           pdf: z
-            .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .object({page_size: z.enum(["a4", "auto", "letter"]).optional()})
             .optional(),
           template: z.string().max(5000).optional(),
           template_version: z
@@ -41159,7 +41128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceResponseValidator(status, body)
@@ -41195,7 +41164,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         invoice_item: z.string().max(5000).optional(),
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
         period: z
-          .object({ end: z.coerce.number(), start: z.coerce.number() })
+          .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
         price_data: z
           .object({
@@ -41217,9 +41186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             unit_amount_decimal: z.string().optional(),
           })
           .optional(),
-        pricing: z
-          .object({ price: z.string().max(5000).optional() })
-          .optional(),
+        pricing: z.object({price: z.string().max(5000).optional()}).optional(),
         quantity: z.coerce.number().optional(),
         tax_amounts: z
           .union([
@@ -41340,7 +41307,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceAddLinesResponseValidator(status, body)
@@ -41405,7 +41372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceAttachPaymentResponseValidator(status, body)
@@ -41470,7 +41437,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceFinalizeResponseValidator(status, body)
@@ -41563,7 +41530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getInvoicesInvoiceLinesResponseValidator(status, body)
@@ -41597,7 +41564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       period: z
-        .object({ end: z.coerce.number(), start: z.coerce.number() })
+        .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
       price_data: z
         .object({
@@ -41619,7 +41586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           unit_amount_decimal: z.string().optional(),
         })
         .optional(),
-      pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
+      pricing: z.object({price: z.string().max(5000).optional()}).optional(),
       quantity: z.coerce.number().optional(),
       tax_amounts: z
         .union([
@@ -41739,7 +41706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceLinesLineItemIdResponseValidator(
@@ -41756,7 +41723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postInvoicesInvoiceMarkUncollectibleBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoicesInvoiceMarkUncollectibleResponseValidator =
@@ -41804,7 +41771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceMarkUncollectibleResponseValidator(
@@ -41879,7 +41846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoicePayResponseValidator(status, body)
@@ -41948,7 +41915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceRemoveLinesResponseValidator(status, body)
@@ -41962,7 +41929,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postInvoicesInvoiceSendBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoicesInvoiceSendResponseValidator = responseValidationFactory(
@@ -42012,7 +41979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceSendResponseValidator(status, body)
@@ -42048,7 +42015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         id: z.string().max(5000),
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
         period: z
-          .object({ end: z.coerce.number(), start: z.coerce.number() })
+          .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
         price_data: z
           .object({
@@ -42070,9 +42037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             unit_amount_decimal: z.string().optional(),
           })
           .optional(),
-        pricing: z
-          .object({ price: z.string().max(5000).optional() })
-          .optional(),
+        pricing: z.object({price: z.string().max(5000).optional()}).optional(),
         quantity: z.coerce.number().optional(),
         tax_amounts: z
           .union([
@@ -42193,7 +42158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceUpdateLinesResponseValidator(status, body)
@@ -42207,7 +42172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postInvoicesInvoiceVoidBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postInvoicesInvoiceVoidResponseValidator = responseValidationFactory(
@@ -42257,7 +42222,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postInvoicesInvoiceVoidResponseValidator(status, body)
@@ -42359,7 +42324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingAuthorizationsResponseValidator(status, body)
@@ -42434,7 +42399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingAuthorizationsAuthorizationResponseValidator(
@@ -42502,7 +42467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingAuthorizationsAuthorizationResponseValidator(
@@ -42576,7 +42541,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingAuthorizationsAuthorizationApproveResponseValidator(
@@ -42649,7 +42614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingAuthorizationsAuthorizationDeclineResponseValidator(
@@ -42755,7 +42720,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingCardholdersResponseValidator(status, body)
@@ -42775,7 +42740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         state: z.string().max(5000).optional(),
       }),
     }),
-    company: z.object({ tax_id: z.string().max(5000).optional() }).optional(),
+    company: z.object({tax_id: z.string().max(5000).optional()}).optional(),
     email: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
     individual: z
@@ -43792,7 +43757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingCardholdersResponseValidator(status, body)
@@ -43865,7 +43830,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingCardholdersCardholderResponseValidator(status, body)
@@ -43892,7 +43857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         })
         .optional(),
-      company: z.object({ tax_id: z.string().max(5000).optional() }).optional(),
+      company: z.object({tax_id: z.string().max(5000).optional()}).optional(),
       email: z.string().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       individual: z
@@ -44910,7 +44875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingCardholdersCardholderResponseValidator(status, body)
@@ -45010,7 +44975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getIssuingCardsResponseValidator(status, body)
@@ -45026,7 +44991,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     metadata: z.record(z.string()).optional(),
     personalization_design: z.string().max(5000).optional(),
     pin: z
-      .object({ encrypted_number: z.string().max(5000).optional() })
+      .object({encrypted_number: z.string().max(5000).optional()})
       .optional(),
     replacement_for: z.string().max(5000).optional(),
     replacement_reason: z
@@ -45053,7 +45018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           })
           .optional(),
         customs: z
-          .object({ eori_number: z.string().max(5000).optional() })
+          .object({eori_number: z.string().max(5000).optional()})
           .optional(),
         name: z.string().max(5000),
         phone_number: z.string().optional(),
@@ -46030,7 +45995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postIssuingCardsResponseValidator(status, body)
@@ -46038,9 +46003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getIssuingCardsCardParamSchema = z.object({
-    card: z.string().max(5000),
-  })
+  const getIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
   const getIssuingCardsCardQuerySchema = z.object({
     expand: z
@@ -46104,7 +46067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingCardsCardResponseValidator(status, body)
@@ -46113,9 +46076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postIssuingCardsCardParamSchema = z.object({
-    card: z.string().max(5000),
-  })
+  const postIssuingCardsCardParamSchema = z.object({card: z.string().max(5000)})
 
   const postIssuingCardsCardBodySchema = z
     .object({
@@ -46124,7 +46085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       personalization_design: z.string().max(5000).optional(),
       pin: z
-        .object({ encrypted_number: z.string().max(5000).optional() })
+        .object({encrypted_number: z.string().max(5000).optional()})
         .optional(),
       shipping: z
         .object({
@@ -46146,7 +46107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           customs: z
-            .object({ eori_number: z.string().max(5000).optional() })
+            .object({eori_number: z.string().max(5000).optional()})
             .optional(),
           name: z.string().max(5000),
           phone_number: z.string().optional(),
@@ -47130,7 +47091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingCardsCardResponseValidator(status, body)
@@ -47230,7 +47191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingDisputesResponseValidator(status, body)
@@ -47423,7 +47384,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.record(z.string()).optional(),
       transaction: z.string().max(5000).optional(),
-      treasury: z.object({ received_debit: z.string().max(5000) }).optional(),
+      treasury: z.object({received_debit: z.string().max(5000)}).optional(),
     })
     .optional()
 
@@ -47470,7 +47431,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingDisputesResponseValidator(status, body)
@@ -47545,7 +47506,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingDisputesDisputeResponseValidator(status, body)
@@ -47791,7 +47752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingDisputesDisputeResponseValidator(status, body)
@@ -47856,7 +47817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingDisputesDisputeSubmitResponseValidator(status, body)
@@ -47958,7 +47919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingPersonalizationDesignsResponseValidator(status, body)
@@ -47982,7 +47943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     metadata: z.record(z.string()).optional(),
     name: z.string().max(200).optional(),
     physical_bundle: z.string().max(5000),
-    preferences: z.object({ is_default: PermissiveBoolean }).optional(),
+    preferences: z.object({is_default: PermissiveBoolean}).optional(),
     transfer_lookup_key: PermissiveBoolean.optional(),
   })
 
@@ -48030,7 +47991,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingPersonalizationDesignsResponseValidator(
@@ -48043,7 +48004,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const getIssuingPersonalizationDesignsPersonalizationDesignQuerySchema =
     z.object({
@@ -48116,7 +48077,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -48130,7 +48091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postIssuingPersonalizationDesignsPersonalizationDesignBodySchema = z
     .object({
@@ -48159,7 +48120,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       metadata: z.record(z.string()).optional(),
       name: z.union([z.string().max(200), z.enum([""])]).optional(),
       physical_bundle: z.string().max(5000).optional(),
-      preferences: z.object({ is_default: PermissiveBoolean }).optional(),
+      preferences: z.object({is_default: PermissiveBoolean}).optional(),
       transfer_lookup_key: PermissiveBoolean.optional(),
     })
     .optional()
@@ -48217,7 +48178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -48311,7 +48272,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingPhysicalBundlesResponseValidator(status, body)
@@ -48386,7 +48347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingPhysicalBundlesPhysicalBundleResponseValidator(
@@ -48462,7 +48423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingSettlementsSettlementResponseValidator(status, body)
@@ -48527,7 +48488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingSettlementsSettlementResponseValidator(status, body)
@@ -48622,7 +48583,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getIssuingTokensResponseValidator(status, body)
@@ -48696,7 +48657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingTokensTokenResponseValidator(status, body)
@@ -48761,7 +48722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingTokensTokenResponseValidator(status, body)
@@ -48863,7 +48824,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingTransactionsResponseValidator(status, body)
@@ -48936,7 +48897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getIssuingTransactionsTransactionResponseValidator(
@@ -49004,7 +48965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postIssuingTransactionsTransactionResponseValidator(
@@ -49091,7 +49052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postLinkAccountSessionsResponseValidator(status, body)
@@ -49167,7 +49128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getLinkAccountSessionsSessionResponseValidator(status, body)
@@ -49259,7 +49220,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getLinkedAccountsResponseValidator(status, body)
@@ -49333,7 +49294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getLinkedAccountsAccountResponseValidator(status, body)
@@ -49347,7 +49308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postLinkedAccountsAccountDisconnectBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postLinkedAccountsAccountDisconnectResponseValidator =
@@ -49398,7 +49359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postLinkedAccountsAccountDisconnectResponseValidator(
@@ -49496,7 +49457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getLinkedAccountsAccountOwnersResponseValidator(status, body)
@@ -49562,7 +49523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postLinkedAccountsAccountRefreshResponseValidator(status, body)
@@ -49571,7 +49532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getMandatesMandateParamSchema = z.object({ mandate: z.string() })
+  const getMandatesMandateParamSchema = z.object({mandate: z.string()})
 
   const getMandatesMandateQuerySchema = z.object({
     expand: z
@@ -49635,7 +49596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getMandatesMandateResponseValidator(status, body)
@@ -49729,7 +49690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPaymentIntentsResponseValidator(status, body)
@@ -49836,7 +49797,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           })
           .optional(),
         blik: z.object({}).optional(),
-        boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+        boleto: z.object({tax_id: z.string().max(5000)}).optional(),
         cashapp: z.object({}).optional(),
         crypto: z.object({}).optional(),
         customer_balance: z.object({}).optional(),
@@ -49951,7 +49912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         mobilepay: z.object({}).optional(),
         multibanco: z.object({}).optional(),
         naver_pay: z
-          .object({ funding: z.enum(["card", "points"]).optional() })
+          .object({funding: z.enum(["card", "points"]).optional()})
           .optional(),
         nz_bank_account: z
           .object({
@@ -50005,14 +49966,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         pix: z.object({}).optional(),
         promptpay: z.object({}).optional(),
         radar_options: z
-          .object({ session: z.string().max(5000).optional() })
+          .object({session: z.string().max(5000).optional()})
           .optional(),
         revolut_pay: z.object({}).optional(),
         samsung_pay: z.object({}).optional(),
         satispay: z.object({}).optional(),
-        sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+        sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
         sofort: z
-          .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+          .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
           .optional(),
         swish: z.object({}).optional(),
         twint: z.object({}).optional(),
@@ -50138,7 +50099,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         alma: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50195,7 +50156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         billie: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50358,7 +50319,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         crypto: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50368,7 +50329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               bank_transfer: z
                 .object({
                   eu_bank_transfer: z
-                    .object({ country: z.string().max(5000) })
+                    .object({country: z.string().max(5000)})
                     .optional(),
                   requested_address_types: z
                     .array(
@@ -50400,25 +50361,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         eps: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         fpx: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         giropay: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         grabpay: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50586,7 +50547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         multibanco: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50633,13 +50594,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
         payco: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         paynow: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50693,7 +50654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         promptpay: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50710,13 +50671,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         samsung_pay: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
         satispay: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({capture_method: z.enum(["", "manual"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50764,7 +50725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         twint: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50797,7 +50758,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -50832,7 +50793,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         zip: z
           .union([
-            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.object({setup_future_usage: z.enum(["none"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -50840,7 +50801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     payment_method_types: z.array(z.string().max(5000)).optional(),
     radar_options: z
-      .object({ session: z.string().max(5000).optional() })
+      .object({session: z.string().max(5000).optional()})
       .optional(),
     receipt_email: z.string().optional(),
     return_url: z.string().optional(),
@@ -50864,7 +50825,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     statement_descriptor: z.string().max(22).optional(),
     statement_descriptor_suffix: z.string().max(22).optional(),
     transfer_data: z
-      .object({ amount: z.coerce.number().optional(), destination: z.string() })
+      .object({amount: z.coerce.number().optional(), destination: z.string()})
       .optional(),
     transfer_group: z.string().optional(),
     use_stripe_sdk: PermissiveBoolean.optional(),
@@ -50913,7 +50874,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsResponseValidator(status, body)
@@ -51002,7 +50963,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentIntentsSearchResponseValidator(status, body)
@@ -51078,7 +51039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentIntentsIntentResponseValidator(status, body)
@@ -51160,7 +51121,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -51275,7 +51236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -51329,14 +51290,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -51464,7 +51425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           alma: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -51521,7 +51482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           billie: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -51688,7 +51649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           crypto: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -51698,7 +51659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 bank_transfer: z
                   .object({
                     eu_bank_transfer: z
-                      .object({ country: z.string().max(5000) })
+                      .object({country: z.string().max(5000)})
                       .optional(),
                     requested_address_types: z
                       .array(
@@ -51730,25 +51691,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           eps: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           fpx: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           giropay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           grabpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -51918,7 +51879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           multibanco: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -51965,13 +51926,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
           payco: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           paynow: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52025,7 +51986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           promptpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52042,13 +52003,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           samsung_pay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           satispay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52096,7 +52057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           twint: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52129,9 +52090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   })
                   .optional(),
                 mandate_options: z
-                  .object({
-                    collection_method: z.enum(["", "paper"]).optional(),
-                  })
+                  .object({collection_method: z.enum(["", "paper"]).optional()})
                   .optional(),
                 networks: z
                   .object({
@@ -52166,7 +52125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           zip: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52197,7 +52156,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
       transfer_group: z.string().optional(),
     })
@@ -52250,7 +52209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsIntentResponseValidator(status, body)
@@ -52321,7 +52280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsIntentApplyCustomerBalanceResponseValidator(
@@ -52391,7 +52350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsIntentCancelResponseValidator(status, body)
@@ -52414,7 +52373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
-        .object({ amount: z.coerce.number().optional() })
+        .object({amount: z.coerce.number().optional()})
         .optional(),
     })
     .optional()
@@ -52464,7 +52423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsIntentCaptureResponseValidator(status, body)
@@ -52571,7 +52530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -52686,7 +52645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -52740,14 +52699,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -52875,7 +52834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           alma: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -52932,7 +52891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           billie: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53099,7 +53058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           crypto: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53109,7 +53068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 bank_transfer: z
                   .object({
                     eu_bank_transfer: z
-                      .object({ country: z.string().max(5000) })
+                      .object({country: z.string().max(5000)})
                       .optional(),
                     requested_address_types: z
                       .array(
@@ -53141,25 +53100,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           eps: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           fpx: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           giropay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           grabpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53329,7 +53288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           multibanco: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53376,13 +53335,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
           payco: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           paynow: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53436,7 +53395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           promptpay: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53453,13 +53412,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           samsung_pay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
           satispay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({capture_method: z.enum(["", "manual"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53507,7 +53466,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           twint: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53540,9 +53499,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   })
                   .optional(),
                 mandate_options: z
-                  .object({
-                    collection_method: z.enum(["", "paper"]).optional(),
-                  })
+                  .object({collection_method: z.enum(["", "paper"]).optional()})
                   .optional(),
                 networks: z
                   .object({
@@ -53577,7 +53534,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           zip: z
             .union([
-              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.object({setup_future_usage: z.enum(["none"]).optional()}),
               z.enum([""]),
             ])
             .optional(),
@@ -53585,7 +53542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       payment_method_types: z.array(z.string().max(5000)).optional(),
       radar_options: z
-        .object({ session: z.string().max(5000).optional() })
+        .object({session: z.string().max(5000).optional()})
         .optional(),
       receipt_email: z.union([z.string(), z.enum([""])]).optional(),
       return_url: z.string().optional(),
@@ -53658,7 +53615,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsIntentConfirmResponseValidator(status, body)
@@ -53678,9 +53635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.record(z.string()).optional(),
     statement_descriptor: z.string().max(22).optional(),
-    transfer_data: z
-      .object({ amount: z.coerce.number().optional() })
-      .optional(),
+    transfer_data: z.object({amount: z.coerce.number().optional()}).optional(),
   })
 
   const postPaymentIntentsIntentIncrementAuthorizationResponseValidator =
@@ -53733,7 +53688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -53809,7 +53764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentIntentsIntentVerifyMicrodepositsResponseValidator(
@@ -53895,7 +53850,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPaymentLinksResponseValidator(status, body)
@@ -53907,9 +53862,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     after_completion: z
       .object({
         hosted_confirmation: z
-          .object({ custom_message: z.string().max(500).optional() })
+          .object({custom_message: z.string().max(500).optional()})
           .optional(),
-        redirect: z.object({ url: z.string() }).optional(),
+        redirect: z.object({url: z.string()}).optional(),
         type: z.enum(["hosted_confirmation", "redirect"]),
       })
       .optional(),
@@ -53931,7 +53886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     consent_collection: z
       .object({
         payment_method_reuse_agreement: z
-          .object({ position: z.enum(["auto", "hidden"]) })
+          .object({position: z.enum(["auto", "hidden"])})
           .optional(),
         promotions: z.enum(["auto", "none"]).optional(),
         terms_of_service: z.enum(["none", "required"]).optional(),
@@ -53979,16 +53934,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
     custom_text: z
       .object({
         after_submit: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
         shipping_address: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
         submit: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
         terms_of_service_acceptance: z
-          .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+          .union([z.object({message: z.string().max(1200)}), z.enum([""])])
           .optional(),
       })
       .optional(),
@@ -54124,11 +54079,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ]),
       )
       .optional(),
-    phone_number_collection: z
-      .object({ enabled: PermissiveBoolean })
-      .optional(),
+    phone_number_collection: z.object({enabled: PermissiveBoolean}).optional(),
     restrictions: z
-      .object({ completed_sessions: z.object({ limit: z.coerce.number() }) })
+      .object({completed_sessions: z.object({limit: z.coerce.number()})})
       .optional(),
     shipping_address_collection: z
       .object({
@@ -54377,7 +54330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     shipping_options: z
-      .array(z.object({ shipping_rate: z.string().max(5000).optional() }))
+      .array(z.object({shipping_rate: z.string().max(5000).optional()}))
       .optional(),
     submit_type: z
       .enum(["auto", "book", "donate", "pay", "subscribe"])
@@ -54417,7 +54370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     transfer_data: z
-      .object({ amount: z.coerce.number().optional(), destination: z.string() })
+      .object({amount: z.coerce.number().optional(), destination: z.string()})
       .optional(),
   })
 
@@ -54461,7 +54414,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPaymentLinksResponseValidator(status, body)
@@ -54535,7 +54488,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentLinksPaymentLinkResponseValidator(status, body)
@@ -54554,9 +54507,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       after_completion: z
         .object({
           hosted_confirmation: z
-            .object({ custom_message: z.string().max(500).optional() })
+            .object({custom_message: z.string().max(500).optional()})
             .optional(),
-          redirect: z.object({ url: z.string() }).optional(),
+          redirect: z.object({url: z.string()}).optional(),
           type: z.enum(["hosted_confirmation", "redirect"]),
         })
         .optional(),
@@ -54617,16 +54570,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       custom_text: z
         .object({
           after_submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           shipping_address: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           submit: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
           terms_of_service_acceptance: z
-            .union([z.object({ message: z.string().max(1200) }), z.enum([""])])
+            .union([z.object({message: z.string().max(1200)}), z.enum([""])])
             .optional(),
         })
         .optional(),
@@ -54756,13 +54709,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       phone_number_collection: z
-        .object({ enabled: PermissiveBoolean })
+        .object({enabled: PermissiveBoolean})
         .optional(),
       restrictions: z
         .union([
-          z.object({
-            completed_sessions: z.object({ limit: z.coerce.number() }),
-          }),
+          z.object({completed_sessions: z.object({limit: z.coerce.number()})}),
           z.enum([""]),
         ])
         .optional(),
@@ -55104,7 +55055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentLinksPaymentLinkResponseValidator(status, body)
@@ -55198,7 +55149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentLinksPaymentLinkLineItemsResponseValidator(
@@ -55291,7 +55242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentMethodConfigurationsResponseValidator(status, body)
@@ -55305,133 +55256,133 @@ export function createRouter(implementation: Implementation): KoaRouter {
       acss_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       affirm: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       afterpay_clearpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alipay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alma: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       amazon_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay_later: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       au_becs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bacs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bancontact: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       billie: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       blik: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       boleto: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cartes_bancaires: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cashapp: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       customer_balance: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       eps: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -55439,91 +55390,91 @@ export function createRouter(implementation: Implementation): KoaRouter {
       fpx: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       giropay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       google_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       grabpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       ideal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       jcb: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kakao_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       klarna: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       konbini: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kr_card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       link: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       mobilepay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       multibanco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -55531,28 +55482,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
       naver_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       nz_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       oxxo: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       p24: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -55560,112 +55511,112 @@ export function createRouter(implementation: Implementation): KoaRouter {
       pay_by_bank: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       payco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paynow: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paypal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       pix: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       promptpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       revolut_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       samsung_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       satispay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sepa_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sofort: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       swish: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       twint: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       us_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       wechat_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       zip: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -55716,7 +55667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodConfigurationsResponseValidator(status, body)
@@ -55799,7 +55750,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentMethodConfigurationsConfigurationResponseValidator(
@@ -55820,7 +55771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       acss_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -55828,126 +55779,126 @@ export function createRouter(implementation: Implementation): KoaRouter {
       affirm: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       afterpay_clearpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alipay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       alma: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       amazon_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       apple_pay_later: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       au_becs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bacs_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       bancontact: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       billie: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       blik: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       boleto: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cartes_bancaires: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       cashapp: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       customer_balance: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       eps: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -55955,91 +55906,91 @@ export function createRouter(implementation: Implementation): KoaRouter {
       fpx: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       giropay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       google_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       grabpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       ideal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       jcb: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kakao_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       klarna: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       konbini: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       kr_card: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       link: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       mobilepay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       multibanco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56047,140 +55998,140 @@ export function createRouter(implementation: Implementation): KoaRouter {
       naver_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       nz_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       oxxo: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       p24: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       pay_by_bank: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       payco: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paynow: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       paypal: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       pix: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       promptpay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       revolut_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       samsung_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       satispay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sepa_debit: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       sofort: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       swish: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       twint: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       us_bank_account: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       wechat_pay: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
       zip: z
         .object({
           display_preference: z
-            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .object({preference: z.enum(["none", "off", "on"]).optional()})
             .optional(),
         })
         .optional(),
@@ -56240,7 +56191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodConfigurationsConfigurationResponseValidator(
@@ -56333,7 +56284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentMethodDomainsResponseValidator(status, body)
@@ -56391,7 +56342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodDomainsResponseValidator(status, body)
@@ -56466,7 +56417,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentMethodDomainsPaymentMethodDomainResponseValidator(
@@ -56539,7 +56490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodDomainsPaymentMethodDomainResponseValidator(
@@ -56552,10 +56503,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateParamSchema =
-    z.object({ payment_method_domain: z.string().max(5000) })
+    z.object({payment_method_domain: z.string().max(5000)})
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postPaymentMethodDomainsPaymentMethodDomainValidateResponseValidator =
@@ -56608,7 +56559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -56747,7 +56698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPaymentMethodsResponseValidator(status, body)
@@ -56806,7 +56757,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       blik: z.object({}).optional(),
-      boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+      boleto: z.object({tax_id: z.string().max(5000)}).optional(),
       card: z
         .union([
           z.object({
@@ -56822,7 +56773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
             number: z.string().max(5000),
           }),
-          z.object({ token: z.string().max(5000) }),
+          z.object({token: z.string().max(5000)}),
         ])
         .optional(),
       cashapp: z.object({}).optional(),
@@ -56941,7 +56892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       mobilepay: z.object({}).optional(),
       multibanco: z.object({}).optional(),
       naver_pay: z
-        .object({ funding: z.enum(["card", "points"]).optional() })
+        .object({funding: z.enum(["card", "points"]).optional()})
         .optional(),
       nz_bank_account: z
         .object({
@@ -56996,14 +56947,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       pix: z.object({}).optional(),
       promptpay: z.object({}).optional(),
       radar_options: z
-        .object({ session: z.string().max(5000).optional() })
+        .object({session: z.string().max(5000).optional()})
         .optional(),
       revolut_pay: z.object({}).optional(),
       samsung_pay: z.object({}).optional(),
       satispay: z.object({}).optional(),
-      sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+      sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
       sofort: z
-        .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+        .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
         .optional(),
       swish: z.object({}).optional(),
       twint: z.object({}).optional(),
@@ -57116,7 +57067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodsResponseValidator(status, body)
@@ -57189,7 +57140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPaymentMethodsPaymentMethodResponseValidator(status, body)
@@ -57297,7 +57248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodsPaymentMethodResponseValidator(status, body)
@@ -57360,7 +57311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodsPaymentMethodAttachResponseValidator(
@@ -57377,7 +57328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postPaymentMethodsPaymentMethodDetachBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postPaymentMethodsPaymentMethodDetachResponseValidator =
@@ -57425,7 +57376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPaymentMethodsPaymentMethodDetachResponseValidator(
@@ -57534,7 +57485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPayoutsResponseValidator(status, body)
@@ -57594,7 +57545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPayoutsResponseValidator(status, body)
@@ -57602,7 +57553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getPayoutsPayoutParamSchema = z.object({ payout: z.string().max(5000) })
+  const getPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
   const getPayoutsPayoutQuerySchema = z.object({
     expand: z
@@ -57663,7 +57614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPayoutsPayoutResponseValidator(status, body)
@@ -57671,9 +57622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPayoutsPayoutParamSchema = z.object({
-    payout: z.string().max(5000),
-  })
+  const postPayoutsPayoutParamSchema = z.object({payout: z.string().max(5000)})
 
   const postPayoutsPayoutBodySchema = z
     .object({
@@ -57726,7 +57675,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPayoutsPayoutResponseValidator(status, body)
@@ -57739,7 +57688,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postPayoutsPayoutCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postPayoutsPayoutCancelResponseValidator = responseValidationFactory(
@@ -57789,7 +57738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPayoutsPayoutCancelResponseValidator(status, body)
@@ -57856,7 +57805,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPayoutsPayoutReverseResponseValidator(status, body)
@@ -57951,7 +57900,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPlansResponseValidator(status, body)
@@ -57999,7 +57948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
     transform_usage: z
-      .object({ divide_by: z.coerce.number(), round: z.enum(["down", "up"]) })
+      .object({divide_by: z.coerce.number(), round: z.enum(["down", "up"])})
       .optional(),
     trial_period_days: z.coerce.number().optional(),
     usage_type: z.enum(["licensed", "metered"]).optional(),
@@ -58045,7 +57994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPlansResponseValidator(status, body)
@@ -58053,7 +58002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const deletePlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
+  const deletePlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
   const deletePlansPlanBodySchema = z.object({}).optional()
 
@@ -58101,7 +58050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = deletePlansPlanResponseValidator(status, body)
@@ -58109,7 +58058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getPlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
+  const getPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
   const getPlansPlanQuerySchema = z.object({
     expand: z
@@ -58170,7 +58119,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPlansPlanResponseValidator(status, body)
@@ -58178,7 +58127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
+  const postPlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
   const postPlansPlanBodySchema = z
     .object({
@@ -58235,7 +58184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPlansPlanResponseValidator(status, body)
@@ -58344,7 +58293,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPricesResponseValidator(status, body)
@@ -58433,7 +58382,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     tiers_mode: z.enum(["graduated", "volume"]).optional(),
     transfer_lookup_key: PermissiveBoolean.optional(),
     transform_quantity: z
-      .object({ divide_by: z.coerce.number(), round: z.enum(["down", "up"]) })
+      .object({divide_by: z.coerce.number(), round: z.enum(["down", "up"])})
       .optional(),
     unit_amount: z.coerce.number().optional(),
     unit_amount_decimal: z.string().optional(),
@@ -58479,7 +58428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPricesResponseValidator(status, body)
@@ -58564,7 +58513,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPricesSearchResponseValidator(status, body)
@@ -58572,7 +58521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getPricesPriceParamSchema = z.object({ price: z.string().max(5000) })
+  const getPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
   const getPricesPriceQuerySchema = z.object({
     expand: z
@@ -58633,7 +58582,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPricesPriceResponseValidator(status, body)
@@ -58641,7 +58590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postPricesPriceParamSchema = z.object({ price: z.string().max(5000) })
+  const postPricesPriceParamSchema = z.object({price: z.string().max(5000)})
 
   const postPricesPriceBodySchema = z
     .object({
@@ -58734,7 +58683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postPricesPriceResponseValidator(status, body)
@@ -58835,7 +58784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getProductsResponseValidator(status, body)
@@ -58905,7 +58854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000).optional(),
     images: z.array(z.string()).optional(),
     marketing_features: z
-      .array(z.object({ name: z.string().max(5000) }))
+      .array(z.object({name: z.string().max(5000)}))
       .optional(),
     metadata: z.record(z.string()).optional(),
     name: z.string().max(5000),
@@ -58964,7 +58913,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postProductsResponseValidator(status, body)
@@ -59049,7 +58998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getProductsSearchResponseValidator(status, body)
@@ -59057,7 +59006,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const deleteProductsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const deleteProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const deleteProductsIdBodySchema = z.object({}).optional()
 
@@ -59105,7 +59054,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = deleteProductsIdResponseValidator(status, body)
@@ -59113,7 +59062,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getProductsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getProductsIdQuerySchema = z.object({
     expand: z
@@ -59174,7 +59123,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getProductsIdResponseValidator(status, body)
@@ -59182,7 +59131,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postProductsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const postProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postProductsIdBodySchema = z
     .object({
@@ -59192,10 +59141,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       images: z.union([z.array(z.string()), z.enum([""])]).optional(),
       marketing_features: z
-        .union([
-          z.array(z.object({ name: z.string().max(5000) })),
-          z.enum([""]),
-        ])
+        .union([z.array(z.object({name: z.string().max(5000)})), z.enum([""])])
         .optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       name: z.string().max(5000).optional(),
@@ -59262,7 +59208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postProductsIdResponseValidator(status, body)
@@ -59354,7 +59300,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getProductsProductFeaturesResponseValidator(status, body)
@@ -59417,7 +59363,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postProductsProductFeaturesResponseValidator(status, body)
@@ -59478,7 +59424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteProductsProductFeaturesIdResponseValidator(status, body)
@@ -59552,7 +59498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getProductsProductFeaturesIdResponseValidator(status, body)
@@ -59649,7 +59595,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getPromotionCodesResponseValidator(status, body)
@@ -59669,7 +59615,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     restrictions: z
       .object({
         currency_options: z
-          .record(z.object({ minimum_amount: z.coerce.number().optional() }))
+          .record(z.object({minimum_amount: z.coerce.number().optional()}))
           .optional(),
         first_time_transaction: PermissiveBoolean.optional(),
         minimum_amount: z.coerce.number().optional(),
@@ -59721,7 +59667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPromotionCodesResponseValidator(status, body)
@@ -59794,7 +59740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getPromotionCodesPromotionCodeResponseValidator(status, body)
@@ -59815,7 +59761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       restrictions: z
         .object({
           currency_options: z
-            .record(z.object({ minimum_amount: z.coerce.number().optional() }))
+            .record(z.object({minimum_amount: z.coerce.number().optional()}))
             .optional(),
         })
         .optional(),
@@ -59867,7 +59813,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postPromotionCodesPromotionCodeResponseValidator(status, body)
@@ -59952,7 +59898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getQuotesResponseValidator(status, body)
@@ -60065,7 +60011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       subscription_data: z
         .object({
           billing_mode: z
-            .object({ type: z.enum(["classic", "flexible"]) })
+            .object({type: z.enum(["classic", "flexible"])})
             .optional(),
           description: z.string().max(500).optional(),
           effective_date: z
@@ -60135,7 +60081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postQuotesResponseValidator(status, body)
@@ -60143,7 +60089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getQuotesQuoteParamSchema = z.object({ quote: z.string().max(5000) })
+  const getQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
   const getQuotesQuoteQuerySchema = z.object({
     expand: z
@@ -60204,7 +60150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getQuotesQuoteResponseValidator(status, body)
@@ -60212,7 +60158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postQuotesQuoteParamSchema = z.object({ quote: z.string().max(5000) })
+  const postQuotesQuoteParamSchema = z.object({quote: z.string().max(5000)})
 
   const postQuotesQuoteBodySchema = z
     .object({
@@ -60384,7 +60330,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postQuotesQuoteResponseValidator(status, body)
@@ -60397,7 +60343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postQuotesQuoteAcceptBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postQuotesQuoteAcceptResponseValidator = responseValidationFactory(
@@ -60447,7 +60393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postQuotesQuoteAcceptResponseValidator(status, body)
@@ -60461,7 +60407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postQuotesQuoteCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postQuotesQuoteCancelResponseValidator = responseValidationFactory(
@@ -60511,7 +60457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postQuotesQuoteCancelResponseValidator(status, body)
@@ -60607,7 +60553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getQuotesQuoteComputedUpfrontLineItemsResponseValidator(
@@ -60677,7 +60623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postQuotesQuoteFinalizeResponseValidator(status, body)
@@ -60770,7 +60716,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getQuotesQuoteLineItemsResponseValidator(status, body)
@@ -60779,7 +60725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getQuotesQuotePdfParamSchema = z.object({ quote: z.string().max(5000) })
+  const getQuotesQuotePdfParamSchema = z.object({quote: z.string().max(5000)})
 
   const getQuotesQuotePdfQuerySchema = z.object({
     expand: z
@@ -60843,7 +60789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getQuotesQuotePdfResponseValidator(status, body)
@@ -60944,7 +60890,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getRadarEarlyFraudWarningsResponseValidator(status, body)
@@ -61024,7 +60970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator(
@@ -61128,7 +61074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getRadarValueListItemsResponseValidator(status, body)
@@ -61186,7 +61132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postRadarValueListItemsResponseValidator(status, body)
@@ -61249,7 +61195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteRadarValueListItemsItemResponseValidator(status, body)
@@ -61324,7 +61270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getRadarValueListItemsItemResponseValidator(status, body)
@@ -61422,7 +61368,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getRadarValueListsResponseValidator(status, body)
@@ -61495,7 +61441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postRadarValueListsResponseValidator(status, body)
@@ -61555,7 +61501,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteRadarValueListsValueListResponseValidator(status, body)
@@ -61628,7 +61574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getRadarValueListsValueListResponseValidator(status, body)
@@ -61695,7 +61641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postRadarValueListsValueListResponseValidator(status, body)
@@ -61790,7 +61736,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getRefundsResponseValidator(status, body)
@@ -61857,7 +61803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postRefundsResponseValidator(status, body)
@@ -61865,7 +61811,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getRefundsRefundParamSchema = z.object({ refund: z.string() })
+  const getRefundsRefundParamSchema = z.object({refund: z.string()})
 
   const getRefundsRefundQuerySchema = z.object({
     expand: z
@@ -61926,7 +61872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getRefundsRefundResponseValidator(status, body)
@@ -61934,7 +61880,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postRefundsRefundParamSchema = z.object({ refund: z.string() })
+  const postRefundsRefundParamSchema = z.object({refund: z.string()})
 
   const postRefundsRefundBodySchema = z
     .object({
@@ -61987,7 +61933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postRefundsRefundResponseValidator(status, body)
@@ -61995,10 +61941,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postRefundsRefundCancelParamSchema = z.object({ refund: z.string() })
+  const postRefundsRefundCancelParamSchema = z.object({refund: z.string()})
 
   const postRefundsRefundCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postRefundsRefundCancelResponseValidator = responseValidationFactory(
@@ -62048,7 +61994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postRefundsRefundCancelResponseValidator(status, body)
@@ -62147,7 +62093,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getReportingReportRunsResponseValidator(status, body)
@@ -62857,7 +62803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postReportingReportRunsResponseValidator(status, body)
@@ -62930,7 +62876,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getReportingReportRunsReportRunResponseValidator(status, body)
@@ -63012,7 +62958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getReportingReportTypesResponseValidator(status, body)
@@ -63085,7 +63031,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getReportingReportTypesReportTypeResponseValidator(
@@ -63181,7 +63127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getReviewsResponseValidator(status, body)
@@ -63189,7 +63135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getReviewsReviewParamSchema = z.object({ review: z.string().max(5000) })
+  const getReviewsReviewParamSchema = z.object({review: z.string().max(5000)})
 
   const getReviewsReviewQuerySchema = z.object({
     expand: z
@@ -63250,7 +63196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getReviewsReviewResponseValidator(status, body)
@@ -63263,7 +63209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postReviewsReviewApproveBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postReviewsReviewApproveResponseValidator = responseValidationFactory(
@@ -63313,7 +63259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postReviewsReviewApproveResponseValidator(status, body)
@@ -63407,7 +63353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getSetupAttemptsResponseValidator(status, body)
@@ -63502,7 +63448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getSetupIntentsResponseValidator(status, body)
@@ -63600,7 +63546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -63715,7 +63661,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -63769,14 +63715,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -64034,7 +63980,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.string().max(5000).optional() })
+            .object({billing_agreement_id: z.string().max(5000).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -64075,7 +64021,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -64094,7 +64040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       payment_method_types: z.array(z.string().max(5000)).optional(),
       return_url: z.string().optional(),
       single_use: z
-        .object({ amount: z.coerce.number(), currency: z.string() })
+        .object({amount: z.coerce.number(), currency: z.string()})
         .optional(),
       usage: z.enum(["off_session", "on_session"]).optional(),
       use_stripe_sdk: PermissiveBoolean.optional(),
@@ -64141,7 +64087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postSetupIntentsResponseValidator(status, body)
@@ -64216,7 +64162,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSetupIntentsIntentResponseValidator(status, body)
@@ -64292,7 +64238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -64407,7 +64353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -64461,14 +64407,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -64726,7 +64672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.string().max(5000).optional() })
+            .object({billing_agreement_id: z.string().max(5000).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -64767,7 +64713,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -64834,7 +64780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSetupIntentsIntentResponseValidator(status, body)
@@ -64901,7 +64847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSetupIntentsIntentCancelResponseValidator(status, body)
@@ -65000,7 +64946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -65115,7 +65061,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -65169,14 +65115,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -65434,7 +65380,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           link: z.object({}).optional(),
           paypal: z
-            .object({ billing_agreement_id: z.string().max(5000).optional() })
+            .object({billing_agreement_id: z.string().max(5000).optional()})
             .optional(),
           sepa_debit: z
             .object({
@@ -65475,7 +65421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 })
                 .optional(),
               mandate_options: z
-                .object({ collection_method: z.enum(["", "paper"]).optional() })
+                .object({collection_method: z.enum(["", "paper"]).optional()})
                 .optional(),
               networks: z
                 .object({
@@ -65541,7 +65487,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSetupIntentsIntentConfirmResponseValidator(status, body)
@@ -65608,7 +65554,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSetupIntentsIntentVerifyMicrodepositsResponseValidator(
@@ -65706,7 +65652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getShippingRatesResponseValidator(status, body)
@@ -65795,7 +65741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postShippingRatesResponseValidator(status, body)
@@ -65867,7 +65813,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getShippingRatesShippingRateTokenResponseValidator(
@@ -65953,7 +65899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postShippingRatesShippingRateTokenResponseValidator(
@@ -66024,7 +65970,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSigmaSavedQueriesIdResponseValidator(status, body)
@@ -66112,7 +66058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSigmaScheduledQueryRunsResponseValidator(status, body)
@@ -66192,7 +66138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator(
@@ -66219,7 +66165,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               date: z.coerce.number().optional(),
               ip: z.string().optional(),
-              offline: z.object({ contact_email: z.string() }).optional(),
+              offline: z.object({contact_email: z.string()}).optional(),
               online: z
                 .object({
                   date: z.coerce.number().optional(),
@@ -66272,7 +66218,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      redirect: z.object({ return_url: z.string() }).optional(),
+      redirect: z.object({return_url: z.string()}).optional(),
       source_order: z
         .object({
           items: z
@@ -66352,7 +66298,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postSourcesResponseValidator(status, body)
@@ -66360,7 +66306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getSourcesSourceParamSchema = z.object({ source: z.string().max(5000) })
+  const getSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
   const getSourcesSourceQuerySchema = z.object({
     client_secret: z.string().max(5000).optional(),
@@ -66422,7 +66368,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getSourcesSourceResponseValidator(status, body)
@@ -66430,9 +66376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postSourcesSourceParamSchema = z.object({
-    source: z.string().max(5000),
-  })
+  const postSourcesSourceParamSchema = z.object({source: z.string().max(5000)})
 
   const postSourcesSourceBodySchema = z
     .object({
@@ -66444,7 +66388,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               date: z.coerce.number().optional(),
               ip: z.string().optional(),
-              offline: z.object({ contact_email: z.string() }).optional(),
+              offline: z.object({contact_email: z.string()}).optional(),
               online: z
                 .object({
                   date: z.coerce.number().optional(),
@@ -66568,7 +66512,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postSourcesSourceResponseValidator(status, body)
@@ -66650,7 +66594,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -66748,7 +66692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSourcesSourceSourceTransactionsResponseValidator(
@@ -66834,7 +66778,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -66903,7 +66847,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSourcesSourceVerifyResponseValidator(status, body)
@@ -66992,7 +66936,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSubscriptionItemsResponseValidator(status, body)
@@ -67003,7 +66947,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postSubscriptionItemsBodySchema = z.object({
     billing_thresholds: z
-      .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+      .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
       .optional(),
     discounts: z
       .union([
@@ -67097,7 +67041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionItemsResponseValidator(status, body)
@@ -67165,7 +67109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteSubscriptionItemsItemResponseValidator(status, body)
@@ -67240,7 +67184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSubscriptionItemsItemResponseValidator(status, body)
@@ -67256,7 +67200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postSubscriptionItemsItemBodySchema = z
     .object({
       billing_thresholds: z
-        .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+        .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
         .optional(),
       discounts: z
         .union([
@@ -67355,7 +67299,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionItemsItemResponseValidator(status, body)
@@ -67489,7 +67433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSubscriptionSchedulesResponseValidator(status, body)
@@ -67501,7 +67445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postSubscriptionSchedulesBodySchema = z
     .object({
       billing_mode: z
-        .object({ type: z.enum(["classic", "flexible"]) })
+        .object({type: z.enum(["classic", "flexible"])})
         .optional(),
       customer: z.string().max(5000).optional(),
       default_settings: z
@@ -67663,7 +67607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.object({
                 billing_thresholds: z
                   .union([
-                    z.object({ usage_gte: z.coerce.number() }),
+                    z.object({usage_gte: z.coerce.number()}),
                     z.enum([""]),
                   ])
                   .optional(),
@@ -67766,7 +67710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionSchedulesResponseValidator(status, body)
@@ -67839,7 +67783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSubscriptionSchedulesScheduleResponseValidator(status, body)
@@ -68011,7 +67955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.object({
                 billing_thresholds: z
                   .union([
-                    z.object({ usage_gte: z.coerce.number() }),
+                    z.object({usage_gte: z.coerce.number()}),
                     z.enum([""]),
                   ])
                   .optional(),
@@ -68121,7 +68065,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionSchedulesScheduleResponseValidator(
@@ -68190,7 +68134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionSchedulesScheduleCancelResponseValidator(
@@ -68258,7 +68202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionSchedulesScheduleReleaseResponseValidator(
@@ -68271,7 +68215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getSubscriptionsQuerySchema = z.object({
-    automatic_tax: z.object({ enabled: PermissiveBoolean }).optional(),
+    automatic_tax: z.object({enabled: PermissiveBoolean}).optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
@@ -68397,7 +68341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getSubscriptionsResponseValidator(status, body)
@@ -68462,9 +68406,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         second: z.coerce.number().optional(),
       })
       .optional(),
-    billing_mode: z
-      .object({ type: z.enum(["classic", "flexible"]) })
-      .optional(),
+    billing_mode: z.object({type: z.enum(["classic", "flexible"])}).optional(),
     billing_thresholds: z
       .union([
         z.object({
@@ -68518,7 +68460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .array(
         z.object({
           billing_thresholds: z
-            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+            .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
             .optional(),
           discounts: z
             .union([
@@ -68638,7 +68580,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   bank_transfer: z
                     .object({
                       eu_bank_transfer: z
-                        .object({ country: z.string().max(5000) })
+                        .object({country: z.string().max(5000)})
                         .optional(),
                       type: z.string().optional(),
                     })
@@ -68811,7 +68753,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postSubscriptionsResponseValidator(status, body)
@@ -68899,7 +68841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSubscriptionsSearchResponseValidator(status, body)
@@ -68983,7 +68925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteSubscriptionsSubscriptionExposedIdResponseValidator(
@@ -69061,7 +69003,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getSubscriptionsSubscriptionExposedIdResponseValidator(
@@ -69194,7 +69136,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .array(
           z.object({
             billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+              .union([z.object({usage_gte: z.coerce.number()}), z.enum([""])])
               .optional(),
             clear_usage: PermissiveBoolean.optional(),
             deleted: PermissiveBoolean.optional(),
@@ -69326,7 +69268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     bank_transfer: z
                       .object({
                         eu_bank_transfer: z
-                          .object({ country: z.string().max(5000) })
+                          .object({country: z.string().max(5000)})
                           .optional(),
                         type: z.string().optional(),
                       })
@@ -69512,7 +69454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionsSubscriptionExposedIdResponseValidator(
@@ -69582,7 +69524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -69600,7 +69542,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postSubscriptionsSubscriptionMigrateBodySchema = z.object({
-    billing_mode: z.object({ type: z.enum(["flexible"]) }),
+    billing_mode: z.object({type: z.enum(["flexible"])}),
     expand: z.array(z.string().max(5000)).optional(),
   })
 
@@ -69649,7 +69591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionsSubscriptionMigrateResponseValidator(
@@ -69721,7 +69663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionsSubscriptionResumeResponseValidator(
@@ -69954,7 +69896,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxCalculationsResponseValidator(status, body)
@@ -70027,7 +69969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxCalculationsCalculationResponseValidator(status, body)
@@ -70126,7 +70068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxCalculationsCalculationLineItemsResponseValidator(
@@ -70215,7 +70157,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxRegistrationsResponseValidator(status, body)
@@ -70228,10 +70170,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     active_from: z.union([z.enum(["now"]), z.coerce.number()]),
     country: z.string().max(5000),
     country_options: z.object({
-      ae: z.object({ type: z.enum(["standard"]) }).optional(),
-      al: z.object({ type: z.enum(["standard"]) }).optional(),
-      am: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ao: z.object({ type: z.enum(["standard"]) }).optional(),
+      ae: z.object({type: z.enum(["standard"])}).optional(),
+      al: z.object({type: z.enum(["standard"])}).optional(),
+      am: z.object({type: z.enum(["simplified"])}).optional(),
+      ao: z.object({type: z.enum(["standard"])}).optional(),
       at: z
         .object({
           standard: z
@@ -70242,12 +70184,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      au: z.object({ type: z.enum(["standard"]) }).optional(),
-      aw: z.object({ type: z.enum(["standard"]) }).optional(),
-      az: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ba: z.object({ type: z.enum(["standard"]) }).optional(),
-      bb: z.object({ type: z.enum(["standard"]) }).optional(),
-      bd: z.object({ type: z.enum(["standard"]) }).optional(),
+      au: z.object({type: z.enum(["standard"])}).optional(),
+      aw: z.object({type: z.enum(["standard"])}).optional(),
+      az: z.object({type: z.enum(["simplified"])}).optional(),
+      ba: z.object({type: z.enum(["standard"])}).optional(),
+      bb: z.object({type: z.enum(["standard"])}).optional(),
+      bd: z.object({type: z.enum(["standard"])}).optional(),
       be: z
         .object({
           standard: z
@@ -70258,7 +70200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      bf: z.object({ type: z.enum(["standard"]) }).optional(),
+      bf: z.object({type: z.enum(["standard"])}).optional(),
       bg: z
         .object({
           standard: z
@@ -70269,25 +70211,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      bh: z.object({ type: z.enum(["standard"]) }).optional(),
-      bj: z.object({ type: z.enum(["simplified"]) }).optional(),
-      bs: z.object({ type: z.enum(["standard"]) }).optional(),
-      by: z.object({ type: z.enum(["simplified"]) }).optional(),
+      bh: z.object({type: z.enum(["standard"])}).optional(),
+      bj: z.object({type: z.enum(["simplified"])}).optional(),
+      bs: z.object({type: z.enum(["standard"])}).optional(),
+      by: z.object({type: z.enum(["simplified"])}).optional(),
       ca: z
         .object({
           province_standard: z
-            .object({ province: z.string().max(5000) })
+            .object({province: z.string().max(5000)})
             .optional(),
           type: z.enum(["province_standard", "simplified", "standard"]),
         })
         .optional(),
-      cd: z.object({ type: z.enum(["standard"]) }).optional(),
-      ch: z.object({ type: z.enum(["standard"]) }).optional(),
-      cl: z.object({ type: z.enum(["simplified"]) }).optional(),
-      cm: z.object({ type: z.enum(["simplified"]) }).optional(),
-      co: z.object({ type: z.enum(["simplified"]) }).optional(),
-      cr: z.object({ type: z.enum(["simplified"]) }).optional(),
-      cv: z.object({ type: z.enum(["simplified"]) }).optional(),
+      cd: z.object({type: z.enum(["standard"])}).optional(),
+      ch: z.object({type: z.enum(["standard"])}).optional(),
+      cl: z.object({type: z.enum(["simplified"])}).optional(),
+      cm: z.object({type: z.enum(["simplified"])}).optional(),
+      co: z.object({type: z.enum(["simplified"])}).optional(),
+      cr: z.object({type: z.enum(["simplified"])}).optional(),
+      cv: z.object({type: z.enum(["simplified"])}).optional(),
       cy: z
         .object({
           standard: z
@@ -70328,7 +70270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      ec: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ec: z.object({type: z.enum(["simplified"])}).optional(),
       ee: z
         .object({
           standard: z
@@ -70339,7 +70281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      eg: z.object({ type: z.enum(["simplified"]) }).optional(),
+      eg: z.object({type: z.enum(["simplified"])}).optional(),
       es: z
         .object({
           standard: z
@@ -70350,7 +70292,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      et: z.object({ type: z.enum(["standard"]) }).optional(),
+      et: z.object({type: z.enum(["standard"])}).optional(),
       fi: z
         .object({
           standard: z
@@ -70371,9 +70313,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      gb: z.object({ type: z.enum(["standard"]) }).optional(),
-      ge: z.object({ type: z.enum(["simplified"]) }).optional(),
-      gn: z.object({ type: z.enum(["standard"]) }).optional(),
+      gb: z.object({type: z.enum(["standard"])}).optional(),
+      ge: z.object({type: z.enum(["simplified"])}).optional(),
+      gn: z.object({type: z.enum(["standard"])}).optional(),
       gr: z
         .object({
           standard: z
@@ -70404,7 +70346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      id: z.object({ type: z.enum(["simplified"]) }).optional(),
+      id: z.object({type: z.enum(["simplified"])}).optional(),
       ie: z
         .object({
           standard: z
@@ -70415,8 +70357,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      in: z.object({ type: z.enum(["simplified"]) }).optional(),
-      is: z.object({ type: z.enum(["standard"]) }).optional(),
+      in: z.object({type: z.enum(["simplified"])}).optional(),
+      is: z.object({type: z.enum(["standard"])}).optional(),
       it: z
         .object({
           standard: z
@@ -70427,13 +70369,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      jp: z.object({ type: z.enum(["standard"]) }).optional(),
-      ke: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kg: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kh: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kr: z.object({ type: z.enum(["simplified"]) }).optional(),
-      kz: z.object({ type: z.enum(["simplified"]) }).optional(),
-      la: z.object({ type: z.enum(["simplified"]) }).optional(),
+      jp: z.object({type: z.enum(["standard"])}).optional(),
+      ke: z.object({type: z.enum(["simplified"])}).optional(),
+      kg: z.object({type: z.enum(["simplified"])}).optional(),
+      kh: z.object({type: z.enum(["simplified"])}).optional(),
+      kr: z.object({type: z.enum(["simplified"])}).optional(),
+      kz: z.object({type: z.enum(["simplified"])}).optional(),
+      la: z.object({type: z.enum(["simplified"])}).optional(),
       lt: z
         .object({
           standard: z
@@ -70464,11 +70406,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      ma: z.object({ type: z.enum(["simplified"]) }).optional(),
-      md: z.object({ type: z.enum(["simplified"]) }).optional(),
-      me: z.object({ type: z.enum(["standard"]) }).optional(),
-      mk: z.object({ type: z.enum(["standard"]) }).optional(),
-      mr: z.object({ type: z.enum(["standard"]) }).optional(),
+      ma: z.object({type: z.enum(["simplified"])}).optional(),
+      md: z.object({type: z.enum(["simplified"])}).optional(),
+      me: z.object({type: z.enum(["standard"])}).optional(),
+      mk: z.object({type: z.enum(["standard"])}).optional(),
+      mr: z.object({type: z.enum(["standard"])}).optional(),
       mt: z
         .object({
           standard: z
@@ -70479,9 +70421,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      mx: z.object({ type: z.enum(["simplified"]) }).optional(),
-      my: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ng: z.object({ type: z.enum(["simplified"]) }).optional(),
+      mx: z.object({type: z.enum(["simplified"])}).optional(),
+      my: z.object({type: z.enum(["simplified"])}).optional(),
+      ng: z.object({type: z.enum(["simplified"])}).optional(),
       nl: z
         .object({
           standard: z
@@ -70492,12 +70434,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      no: z.object({ type: z.enum(["standard"]) }).optional(),
-      np: z.object({ type: z.enum(["simplified"]) }).optional(),
-      nz: z.object({ type: z.enum(["standard"]) }).optional(),
-      om: z.object({ type: z.enum(["standard"]) }).optional(),
-      pe: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ph: z.object({ type: z.enum(["simplified"]) }).optional(),
+      no: z.object({type: z.enum(["standard"])}).optional(),
+      np: z.object({type: z.enum(["simplified"])}).optional(),
+      nz: z.object({type: z.enum(["standard"])}).optional(),
+      om: z.object({type: z.enum(["standard"])}).optional(),
+      pe: z.object({type: z.enum(["simplified"])}).optional(),
+      ph: z.object({type: z.enum(["simplified"])}).optional(),
       pl: z
         .object({
           standard: z
@@ -70528,9 +70470,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      rs: z.object({ type: z.enum(["standard"]) }).optional(),
-      ru: z.object({ type: z.enum(["simplified"]) }).optional(),
-      sa: z.object({ type: z.enum(["simplified"]) }).optional(),
+      rs: z.object({type: z.enum(["standard"])}).optional(),
+      ru: z.object({type: z.enum(["simplified"])}).optional(),
+      sa: z.object({type: z.enum(["simplified"])}).optional(),
       se: z
         .object({
           standard: z
@@ -70541,7 +70483,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      sg: z.object({ type: z.enum(["standard"]) }).optional(),
+      sg: z.object({type: z.enum(["standard"])}).optional(),
       si: z
         .object({
           standard: z
@@ -70562,21 +70504,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      sn: z.object({ type: z.enum(["simplified"]) }).optional(),
-      sr: z.object({ type: z.enum(["standard"]) }).optional(),
-      th: z.object({ type: z.enum(["simplified"]) }).optional(),
-      tj: z.object({ type: z.enum(["simplified"]) }).optional(),
-      tr: z.object({ type: z.enum(["simplified"]) }).optional(),
-      tz: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ua: z.object({ type: z.enum(["simplified"]) }).optional(),
-      ug: z.object({ type: z.enum(["simplified"]) }).optional(),
+      sn: z.object({type: z.enum(["simplified"])}).optional(),
+      sr: z.object({type: z.enum(["standard"])}).optional(),
+      th: z.object({type: z.enum(["simplified"])}).optional(),
+      tj: z.object({type: z.enum(["simplified"])}).optional(),
+      tr: z.object({type: z.enum(["simplified"])}).optional(),
+      tz: z.object({type: z.enum(["simplified"])}).optional(),
+      ua: z.object({type: z.enum(["simplified"])}).optional(),
+      ug: z.object({type: z.enum(["simplified"])}).optional(),
       us: z
         .object({
           local_amusement_tax: z
-            .object({ jurisdiction: z.string().max(5000) })
+            .object({jurisdiction: z.string().max(5000)})
             .optional(),
           local_lease_tax: z
-            .object({ jurisdiction: z.string().max(5000) })
+            .object({jurisdiction: z.string().max(5000)})
             .optional(),
           state: z.string().max(5000),
           state_sales_tax: z
@@ -70602,12 +70544,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ]),
         })
         .optional(),
-      uy: z.object({ type: z.enum(["standard"]) }).optional(),
-      uz: z.object({ type: z.enum(["simplified"]) }).optional(),
-      vn: z.object({ type: z.enum(["simplified"]) }).optional(),
-      za: z.object({ type: z.enum(["standard"]) }).optional(),
-      zm: z.object({ type: z.enum(["simplified"]) }).optional(),
-      zw: z.object({ type: z.enum(["standard"]) }).optional(),
+      uy: z.object({type: z.enum(["standard"])}).optional(),
+      uz: z.object({type: z.enum(["simplified"])}).optional(),
+      vn: z.object({type: z.enum(["simplified"])}).optional(),
+      za: z.object({type: z.enum(["standard"])}).optional(),
+      zm: z.object({type: z.enum(["simplified"])}).optional(),
+      zw: z.object({type: z.enum(["standard"])}).optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
@@ -70656,7 +70598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxRegistrationsResponseValidator(status, body)
@@ -70665,9 +70607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getTaxRegistrationsIdParamSchema = z.object({
-    id: z.string().max(5000),
-  })
+  const getTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getTaxRegistrationsIdQuerySchema = z.object({
     expand: z
@@ -70731,7 +70671,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxRegistrationsIdResponseValidator(status, body)
@@ -70740,9 +70680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const postTaxRegistrationsIdParamSchema = z.object({
-    id: z.string().max(5000),
-  })
+  const postTaxRegistrationsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const postTaxRegistrationsIdBodySchema = z
     .object({
@@ -70801,7 +70739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxRegistrationsIdResponseValidator(status, body)
@@ -70865,7 +70803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTaxSettingsResponseValidator(status, body)
@@ -70939,7 +70877,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTaxSettingsResponseValidator(status, body)
@@ -70996,7 +70934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxTransactionsCreateFromCalculationResponseValidator(
@@ -71028,7 +70966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     original_transaction: z.string().max(5000),
     reference: z.string().max(500),
     shipping_cost: z
-      .object({ amount: z.coerce.number(), amount_tax: z.coerce.number() })
+      .object({amount: z.coerce.number(), amount_tax: z.coerce.number()})
       .optional(),
   })
 
@@ -71073,7 +71011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxTransactionsCreateReversalResponseValidator(
@@ -71149,7 +71087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxTransactionsTransactionResponseValidator(status, body)
@@ -71248,7 +71186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxTransactionsTransactionLineItemsResponseValidator(
@@ -71333,7 +71271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTaxCodesResponseValidator(status, body)
@@ -71341,7 +71279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getTaxCodesIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getTaxCodesIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getTaxCodesIdQuerySchema = z.object({
     expand: z
@@ -71402,7 +71340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTaxCodesIdResponseValidator(status, body)
@@ -71490,7 +71428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTaxIdsResponseValidator(status, body)
@@ -71662,7 +71600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTaxIdsResponseValidator(status, body)
@@ -71670,7 +71608,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const deleteTaxIdsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const deleteTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const deleteTaxIdsIdBodySchema = z.object({}).optional()
 
@@ -71718,7 +71656,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = deleteTaxIdsIdResponseValidator(status, body)
@@ -71726,7 +71664,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getTaxIdsIdParamSchema = z.object({ id: z.string().max(5000) })
+  const getTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
 
   const getTaxIdsIdQuerySchema = z.object({
     expand: z
@@ -71787,7 +71725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTaxIdsIdResponseValidator(status, body)
@@ -71881,7 +71819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTaxRatesResponseValidator(status, body)
@@ -71960,7 +71898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTaxRatesResponseValidator(status, body)
@@ -72034,7 +71972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTaxRatesTaxRateResponseValidator(status, body)
@@ -72125,7 +72063,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxRatesTaxRateResponseValidator(status, body)
@@ -72214,7 +72152,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTerminalConfigurationsResponseValidator(status, body)
@@ -72226,22 +72164,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTerminalConfigurationsBodySchema = z
     .object({
       bbpos_wisepos_e: z
-        .object({
-          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
-        })
+        .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(100).optional(),
       offline: z
-        .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+        .union([z.object({enabled: PermissiveBoolean}), z.enum([""])])
         .optional(),
       reboot_window: z
-        .object({ end_hour: z.coerce.number(), start_hour: z.coerce.number() })
+        .object({end_hour: z.coerce.number(), start_hour: z.coerce.number()})
         .optional(),
       stripe_s700: z
-        .object({
-          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
-        })
+        .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
         .optional(),
       tipping: z
         .union([
@@ -72363,9 +72297,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       verifone_p400: z
-        .object({
-          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
-        })
+        .object({splashscreen: z.union([z.string(), z.enum([""])]).optional()})
         .optional(),
       wifi: z
         .union([
@@ -72448,7 +72380,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalConfigurationsResponseValidator(status, body)
@@ -72513,7 +72445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteTerminalConfigurationsConfigurationResponseValidator(
@@ -72604,7 +72536,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTerminalConfigurationsConfigurationResponseValidator(
@@ -72633,7 +72565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       name: z.string().max(100).optional(),
       offline: z
-        .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+        .union([z.object({enabled: PermissiveBoolean}), z.enum([""])])
         .optional(),
       reboot_window: z
         .union([
@@ -72875,7 +72807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalConfigurationsConfigurationResponseValidator(
@@ -72935,7 +72867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalConnectionTokensResponseValidator(status, body)
@@ -73023,7 +72955,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTerminalLocationsResponseValidator(status, body)
@@ -73090,7 +73022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalLocationsResponseValidator(status, body)
@@ -73150,7 +73082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteTerminalLocationsLocationResponseValidator(status, body)
@@ -73228,7 +73160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTerminalLocationsLocationResponseValidator(status, body)
@@ -73312,7 +73244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalLocationsLocationResponseValidator(status, body)
@@ -73413,7 +73345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTerminalReadersResponseValidator(status, body)
@@ -73473,7 +73405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersResponseValidator(status, body)
@@ -73533,7 +73465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteTerminalReadersReaderResponseValidator(status, body)
@@ -73615,7 +73547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTerminalReadersReaderResponseValidator(status, body)
@@ -73690,7 +73622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderResponseValidator(status, body)
@@ -73704,7 +73636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTerminalReadersReaderCancelActionBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTerminalReadersReaderCancelActionResponseValidator =
@@ -73752,7 +73684,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderCancelActionResponseValidator(
@@ -73857,7 +73789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderCollectInputsResponseValidator(
@@ -73882,7 +73814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         enable_customer_cancellation: PermissiveBoolean.optional(),
         skip_tipping: PermissiveBoolean.optional(),
         tipping: z
-          .object({ amount_eligible: z.coerce.number().optional() })
+          .object({amount_eligible: z.coerce.number().optional()})
           .optional(),
       })
       .optional(),
@@ -73940,7 +73872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderCollectPaymentMethodResponseValidator(
@@ -73957,7 +73889,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTerminalReadersReaderConfirmPaymentIntentBodySchema = z.object({
-    confirm_config: z.object({ return_url: z.string().optional() }).optional(),
+    confirm_config: z.object({return_url: z.string().optional()}).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     payment_intent: z.string().max(5000),
   })
@@ -74012,7 +73944,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderConfirmPaymentIntentResponseValidator(
@@ -74040,7 +73972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return_url: z.string().optional(),
         skip_tipping: PermissiveBoolean.optional(),
         tipping: z
-          .object({ amount_eligible: z.coerce.number().optional() })
+          .object({amount_eligible: z.coerce.number().optional()})
           .optional(),
       })
       .optional(),
@@ -74096,7 +74028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderProcessPaymentIntentResponseValidator(
@@ -74116,7 +74048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     allow_redisplay: z.enum(["always", "limited", "unspecified"]),
     expand: z.array(z.string().max(5000)).optional(),
     process_config: z
-      .object({ enable_customer_cancellation: PermissiveBoolean.optional() })
+      .object({enable_customer_cancellation: PermissiveBoolean.optional()})
       .optional(),
     setup_intent: z.string().max(5000),
   })
@@ -74171,7 +74103,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderProcessSetupIntentResponseValidator(
@@ -74196,7 +74128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       payment_intent: z.string().max(5000).optional(),
       refund_application_fee: PermissiveBoolean.optional(),
       refund_payment_config: z
-        .object({ enable_customer_cancellation: PermissiveBoolean.optional() })
+        .object({enable_customer_cancellation: PermissiveBoolean.optional()})
         .optional(),
       reverse_transfer: PermissiveBoolean.optional(),
     })
@@ -74247,7 +74179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderRefundPaymentResponseValidator(
@@ -74327,7 +74259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTerminalReadersReaderSetReaderDisplayResponseValidator(
@@ -74396,7 +74328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           blik: z.object({}).optional(),
-          boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
+          boleto: z.object({tax_id: z.string().max(5000)}).optional(),
           cashapp: z.object({}).optional(),
           crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
@@ -74511,7 +74443,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
-            .object({ funding: z.enum(["card", "points"]).optional() })
+            .object({funding: z.enum(["card", "points"]).optional()})
             .optional(),
           nz_bank_account: z
             .object({
@@ -74565,14 +74497,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pix: z.object({}).optional(),
           promptpay: z.object({}).optional(),
           radar_options: z
-            .object({ session: z.string().max(5000).optional() })
+            .object({session: z.string().max(5000).optional()})
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
           satispay: z.object({}).optional(),
-          sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
+          sepa_debit: z.object({iban: z.string().max(5000)}).optional(),
           sofort: z
-            .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
+            .object({country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"])})
             .optional(),
           swish: z.object({}).optional(),
           twint: z.object({}).optional(),
@@ -74715,7 +74647,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersConfirmationTokensResponseValidator(
@@ -74793,7 +74725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -74841,10 +74773,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         reported_breakdown: z
           .object({
             fuel: z
-              .object({ gross_amount_decimal: z.string().optional() })
+              .object({gross_amount_decimal: z.string().optional()})
               .optional(),
             non_fuel: z
-              .object({ gross_amount_decimal: z.string().optional() })
+              .object({gross_amount_decimal: z.string().optional()})
               .optional(),
             tax: z
               .object({
@@ -75201,7 +75133,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     network_data: z
-      .object({ acquiring_institution_id: z.string().max(5000).optional() })
+      .object({acquiring_institution_id: z.string().max(5000).optional()})
       .optional(),
     verification_data: z
       .object({
@@ -75279,7 +75211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersIssuingAuthorizationsResponseValidator(
@@ -75292,7 +75224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
     .object({
@@ -75322,10 +75254,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               reported_breakdown: z
                 .object({
                   fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   non_fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   tax: z
                     .object({
@@ -75460,7 +75392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75474,10 +75406,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseValidator =
@@ -75530,7 +75462,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75544,7 +75476,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema =
     z.object({
@@ -75571,10 +75503,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           reported_breakdown: z
             .object({
               fuel: z
-                .object({ gross_amount_decimal: z.string().optional() })
+                .object({gross_amount_decimal: z.string().optional()})
                 .optional(),
               non_fuel: z
-                .object({ gross_amount_decimal: z.string().optional() })
+                .object({gross_amount_decimal: z.string().optional()})
                 .optional(),
               tax: z
                 .object({
@@ -75669,7 +75601,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75683,7 +75615,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema =
     z.object({
@@ -75741,7 +75673,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75755,7 +75687,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema =
     z.object({
@@ -75814,7 +75746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75828,7 +75760,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema =
-    z.object({ authorization: z.string().max(5000) })
+    z.object({authorization: z.string().max(5000)})
 
   const postTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema = z
     .object({
@@ -75887,7 +75819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75905,7 +75837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersIssuingCardsCardShippingDeliverBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingDeliverResponseValidator =
@@ -75958,7 +75890,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -75976,7 +75908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersIssuingCardsCardShippingFailBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingFailResponseValidator =
@@ -76029,7 +75961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersIssuingCardsCardShippingFailResponseValidator(
@@ -76046,7 +75978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersIssuingCardsCardShippingReturnBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingReturnResponseValidator =
@@ -76099,7 +76031,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersIssuingCardsCardShippingReturnResponseValidator(
@@ -76116,7 +76048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersIssuingCardsCardShippingShipBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingShipResponseValidator =
@@ -76169,7 +76101,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersIssuingCardsCardShippingShipResponseValidator(
@@ -76186,7 +76118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersIssuingCardsCardShippingSubmitBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingCardsCardShippingSubmitResponseValidator =
@@ -76239,7 +76171,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersIssuingCardsCardShippingSubmitResponseValidator(
@@ -76252,10 +76184,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseValidator =
     responseValidationFactory(
@@ -76310,7 +76242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -76324,10 +76256,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseValidator =
     responseValidationFactory(
@@ -76382,7 +76314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -76396,7 +76328,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema =
-    z.object({ personalization_design: z.string().max(5000) })
+    z.object({personalization_design: z.string().max(5000)})
 
   const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema =
     z.object({
@@ -76485,7 +76417,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -76552,7 +76484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersIssuingSettlementsResponseValidator(
@@ -76565,10 +76497,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingSettlementsSettlementCompleteParamSchema =
-    z.object({ settlement: z.string().max(5000) })
+    z.object({settlement: z.string().max(5000)})
 
   const postTestHelpersIssuingSettlementsSettlementCompleteBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersIssuingSettlementsSettlementCompleteResponseValidator =
@@ -76621,7 +76553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -76973,10 +76905,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               reported_breakdown: z
                 .object({
                   fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   non_fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   tax: z
                     .object({
@@ -77106,7 +77038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -77458,10 +77390,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               reported_breakdown: z
                 .object({
                   fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   non_fuel: z
-                    .object({ gross_amount_decimal: z.string().optional() })
+                    .object({gross_amount_decimal: z.string().optional()})
                     .optional(),
                   tax: z
                     .object({
@@ -77591,7 +77523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -77605,7 +77537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingTransactionsTransactionRefundParamSchema =
-    z.object({ transaction: z.string().max(5000) })
+    z.object({transaction: z.string().max(5000)})
 
   const postTestHelpersIssuingTransactionsTransactionRefundBodySchema = z
     .object({
@@ -77664,7 +77596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -77682,7 +77614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersRefundsRefundExpireBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersRefundsRefundExpireResponseValidator =
@@ -77730,7 +77662,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersRefundsRefundExpireResponseValidator(
@@ -77743,17 +77675,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema =
-    z.object({ reader: z.string().max(5000) })
+    z.object({reader: z.string().max(5000)})
 
   const postTestHelpersTerminalReadersReaderPresentPaymentMethodBodySchema = z
     .object({
       amount_tip: z.coerce.number().optional(),
       card_present: z
-        .object({ number: z.string().max(5000).optional() })
+        .object({number: z.string().max(5000).optional()})
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       interac_present: z
-        .object({ number: z.string().max(5000).optional() })
+        .object({number: z.string().max(5000).optional()})
         .optional(),
       type: z.enum(["card_present", "interac_present"]).optional(),
     })
@@ -77809,7 +77741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -77823,7 +77755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionParamSchema =
-    z.object({ reader: z.string().max(5000) })
+    z.object({reader: z.string().max(5000)})
 
   const postTestHelpersTerminalReadersReaderSucceedInputCollectionBodySchema = z
     .object({
@@ -77882,7 +77814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -77896,10 +77828,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionParamSchema =
-    z.object({ reader: z.string().max(5000) })
+    z.object({reader: z.string().max(5000)})
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseValidator =
@@ -77952,7 +77884,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -78044,7 +77976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTestHelpersTestClocksResponseValidator(status, body)
@@ -78102,7 +78034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTestClocksResponseValidator(status, body)
@@ -78165,7 +78097,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteTestHelpersTestClocksTestClockResponseValidator(
@@ -78241,7 +78173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTestHelpersTestClocksTestClockResponseValidator(
@@ -78307,7 +78239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTestClocksTestClockAdvanceResponseValidator(
@@ -78400,7 +78332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTreasuryInboundTransfersIdFailResponseValidator(
@@ -78417,7 +78349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersTreasuryInboundTransfersIdReturnBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryInboundTransfersIdReturnResponseValidator =
@@ -78470,7 +78402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -78488,7 +78420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryInboundTransfersIdSucceedResponseValidator =
@@ -78541,7 +78473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -78561,7 +78493,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTestHelpersTreasuryOutboundPaymentsIdBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     tracking_details: z.object({
-      ach: z.object({ trace_id: z.string().max(5000) }).optional(),
+      ach: z.object({trace_id: z.string().max(5000)}).optional(),
       type: z.enum(["ach", "us_domestic_wire"]),
       us_domestic_wire: z
         .object({
@@ -78618,7 +78550,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdResponseValidator(
@@ -78635,7 +78567,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator =
@@ -78688,7 +78620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdFailResponseValidator(
@@ -78705,7 +78637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator =
@@ -78758,7 +78690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTreasuryOutboundPaymentsIdPostResponseValidator(
@@ -78848,7 +78780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -78862,13 +78794,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema =
     z.object({
       expand: z.array(z.string().max(5000)).optional(),
       tracking_details: z.object({
-        ach: z.object({ trace_id: z.string().max(5000) }).optional(),
+        ach: z.object({trace_id: z.string().max(5000)}).optional(),
         type: z.enum(["ach", "us_domestic_wire"]),
         us_domestic_wire: z
           .object({
@@ -78930,7 +78862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -78944,10 +78876,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
@@ -78999,7 +78931,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -79013,10 +78945,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema =
-    z.object({ expand: z.array(z.string().max(5000)).optional() }).optional()
+    z.object({expand: z.array(z.string().max(5000)).optional()}).optional()
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
@@ -79068,7 +79000,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -79082,7 +79014,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema =
     z
@@ -79159,7 +79091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -79234,7 +79166,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTreasuryReceivedCreditsResponseValidator(
@@ -79308,7 +79240,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTestHelpersTreasuryReceivedDebitsResponseValidator(
@@ -79594,7 +79526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       customer: z.string().max(5000).optional(),
-      cvc_update: z.object({ cvc: z.string().max(5000) }).optional(),
+      cvc_update: z.object({cvc: z.string().max(5000)}).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       person: z
         .object({
@@ -79797,7 +79729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      pii: z.object({ id_number: z.string().max(5000).optional() }).optional(),
+      pii: z.object({id_number: z.string().max(5000).optional()}).optional(),
     })
     .optional()
 
@@ -79841,7 +79773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTokensResponseValidator(status, body)
@@ -79849,7 +79781,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getTokensTokenParamSchema = z.object({ token: z.string().max(5000) })
+  const getTokensTokenParamSchema = z.object({token: z.string().max(5000)})
 
   const getTokensTokenQuerySchema = z.object({
     expand: z
@@ -79910,7 +79842,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTokensTokenResponseValidator(status, body)
@@ -80014,7 +79946,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTopupsResponseValidator(status, body)
@@ -80073,7 +80005,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTopupsResponseValidator(status, body)
@@ -80081,7 +80013,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getTopupsTopupParamSchema = z.object({ topup: z.string().max(5000) })
+  const getTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
   const getTopupsTopupQuerySchema = z.object({
     expand: z
@@ -80142,7 +80074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTopupsTopupResponseValidator(status, body)
@@ -80150,7 +80082,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const postTopupsTopupParamSchema = z.object({ topup: z.string().max(5000) })
+  const postTopupsTopupParamSchema = z.object({topup: z.string().max(5000)})
 
   const postTopupsTopupBodySchema = z
     .object({
@@ -80204,7 +80136,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTopupsTopupResponseValidator(status, body)
@@ -80217,7 +80149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTopupsTopupCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTopupsTopupCancelResponseValidator = responseValidationFactory(
@@ -80267,7 +80199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTopupsTopupCancelResponseValidator(status, body)
@@ -80362,7 +80294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTransfersResponseValidator(status, body)
@@ -80422,7 +80354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postTransfersResponseValidator(status, body)
@@ -80514,7 +80446,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTransfersIdReversalsResponseValidator(status, body)
@@ -80584,7 +80516,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTransfersIdReversalsResponseValidator(status, body)
@@ -80659,7 +80591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTransfersTransferResponseValidator(status, body)
@@ -80727,7 +80659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTransfersTransferResponseValidator(status, body)
@@ -80801,7 +80733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTransfersTransferReversalsIdResponseValidator(status, body)
@@ -80867,7 +80799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTransfersTransferReversalsIdResponseValidator(status, body)
@@ -80955,7 +80887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryCreditReversalsResponseValidator(status, body)
@@ -81011,7 +80943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryCreditReversalsResponseValidator(status, body)
@@ -81086,7 +81018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryCreditReversalsCreditReversalResponseValidator(
@@ -81178,7 +81110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryDebitReversalsResponseValidator(status, body)
@@ -81236,7 +81168,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryDebitReversalsResponseValidator(status, body)
@@ -81311,7 +81243,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryDebitReversalsDebitReversalResponseValidator(
@@ -81415,7 +81347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryFinancialAccountsResponseValidator(status, body)
@@ -81428,36 +81360,28 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     features: z
       .object({
-        card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
-        deposit_insurance: z
-          .object({ requested: PermissiveBoolean })
-          .optional(),
+        card_issuing: z.object({requested: PermissiveBoolean}).optional(),
+        deposit_insurance: z.object({requested: PermissiveBoolean}).optional(),
         financial_addresses: z
-          .object({
-            aba: z.object({ requested: PermissiveBoolean }).optional(),
-          })
+          .object({aba: z.object({requested: PermissiveBoolean}).optional()})
           .optional(),
         inbound_transfers: z
-          .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
-          })
+          .object({ach: z.object({requested: PermissiveBoolean}).optional()})
           .optional(),
-        intra_stripe_flows: z
-          .object({ requested: PermissiveBoolean })
-          .optional(),
+        intra_stripe_flows: z.object({requested: PermissiveBoolean}).optional(),
         outbound_payments: z
           .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
+            ach: z.object({requested: PermissiveBoolean}).optional(),
             us_domestic_wire: z
-              .object({ requested: PermissiveBoolean })
+              .object({requested: PermissiveBoolean})
               .optional(),
           })
           .optional(),
         outbound_transfers: z
           .object({
-            ach: z.object({ requested: PermissiveBoolean }).optional(),
+            ach: z.object({requested: PermissiveBoolean}).optional(),
             us_domestic_wire: z
-              .object({ requested: PermissiveBoolean })
+              .object({requested: PermissiveBoolean})
               .optional(),
           })
           .optional(),
@@ -81515,7 +81439,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryFinancialAccountsResponseValidator(status, body)
@@ -81595,7 +81519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryFinancialAccountsFinancialAccountResponseValidator(
@@ -81616,36 +81540,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       features: z
         .object({
-          card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
+          card_issuing: z.object({requested: PermissiveBoolean}).optional(),
           deposit_insurance: z
-            .object({ requested: PermissiveBoolean })
+            .object({requested: PermissiveBoolean})
             .optional(),
           financial_addresses: z
-            .object({
-              aba: z.object({ requested: PermissiveBoolean }).optional(),
-            })
+            .object({aba: z.object({requested: PermissiveBoolean}).optional()})
             .optional(),
           inbound_transfers: z
-            .object({
-              ach: z.object({ requested: PermissiveBoolean }).optional(),
-            })
+            .object({ach: z.object({requested: PermissiveBoolean}).optional()})
             .optional(),
           intra_stripe_flows: z
-            .object({ requested: PermissiveBoolean })
+            .object({requested: PermissiveBoolean})
             .optional(),
           outbound_payments: z
             .object({
-              ach: z.object({ requested: PermissiveBoolean }).optional(),
+              ach: z.object({requested: PermissiveBoolean}).optional(),
               us_domestic_wire: z
-                .object({ requested: PermissiveBoolean })
+                .object({requested: PermissiveBoolean})
                 .optional(),
             })
             .optional(),
           outbound_transfers: z
             .object({
-              ach: z.object({ requested: PermissiveBoolean }).optional(),
+              ach: z.object({requested: PermissiveBoolean}).optional(),
               us_domestic_wire: z
-                .object({ requested: PermissiveBoolean })
+                .object({requested: PermissiveBoolean})
                 .optional(),
             })
             .optional(),
@@ -81719,7 +81639,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryFinancialAccountsFinancialAccountResponseValidator(
@@ -81732,7 +81652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTreasuryFinancialAccountsFinancialAccountCloseParamSchema =
-    z.object({ financial_account: z.string().max(5000) })
+    z.object({financial_account: z.string().max(5000)})
 
   const postTreasuryFinancialAccountsFinancialAccountCloseBodySchema = z
     .object({
@@ -81797,7 +81717,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -81811,7 +81731,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-    z.object({ financial_account: z.string().max(5000) })
+    z.object({financial_account: z.string().max(5000)})
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema =
     z.object({
@@ -81886,7 +81806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -81900,34 +81820,30 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
-    z.object({ financial_account: z.string().max(5000) })
+    z.object({financial_account: z.string().max(5000)})
 
   const postTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema = z
     .object({
-      card_issuing: z.object({ requested: PermissiveBoolean }).optional(),
-      deposit_insurance: z.object({ requested: PermissiveBoolean }).optional(),
+      card_issuing: z.object({requested: PermissiveBoolean}).optional(),
+      deposit_insurance: z.object({requested: PermissiveBoolean}).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       financial_addresses: z
-        .object({ aba: z.object({ requested: PermissiveBoolean }).optional() })
+        .object({aba: z.object({requested: PermissiveBoolean}).optional()})
         .optional(),
       inbound_transfers: z
-        .object({ ach: z.object({ requested: PermissiveBoolean }).optional() })
+        .object({ach: z.object({requested: PermissiveBoolean}).optional()})
         .optional(),
-      intra_stripe_flows: z.object({ requested: PermissiveBoolean }).optional(),
+      intra_stripe_flows: z.object({requested: PermissiveBoolean}).optional(),
       outbound_payments: z
         .object({
-          ach: z.object({ requested: PermissiveBoolean }).optional(),
-          us_domestic_wire: z
-            .object({ requested: PermissiveBoolean })
-            .optional(),
+          ach: z.object({requested: PermissiveBoolean}).optional(),
+          us_domestic_wire: z.object({requested: PermissiveBoolean}).optional(),
         })
         .optional(),
       outbound_transfers: z
         .object({
-          ach: z.object({ requested: PermissiveBoolean }).optional(),
-          us_domestic_wire: z
-            .object({ requested: PermissiveBoolean })
-            .optional(),
+          ach: z.object({requested: PermissiveBoolean}).optional(),
+          us_domestic_wire: z.object({requested: PermissiveBoolean}).optional(),
         })
         .optional(),
     })
@@ -81988,7 +81904,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -82082,7 +81998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryInboundTransfersResponseValidator(status, body)
@@ -82143,7 +82059,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryInboundTransfersResponseValidator(status, body)
@@ -82216,7 +82132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryInboundTransfersIdResponseValidator(status, body)
@@ -82226,11 +82142,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelParamSchema = z.object(
-    { inbound_transfer: z.string().max(5000) },
+    {inbound_transfer: z.string().max(5000)},
   )
 
   const postTreasuryInboundTransfersInboundTransferCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTreasuryInboundTransfersInboundTransferCancelResponseValidator =
@@ -82283,7 +82199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -82392,7 +82308,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryOutboundPaymentsResponseValidator(status, body)
@@ -82447,16 +82363,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .object({
         us_bank_account: z
           .union([
-            z.object({
-              network: z.enum(["ach", "us_domestic_wire"]).optional(),
-            }),
+            z.object({network: z.enum(["ach", "us_domestic_wire"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
       })
       .optional(),
     end_user_details: z
-      .object({ ip_address: z.string().optional(), present: PermissiveBoolean })
+      .object({ip_address: z.string().optional(), present: PermissiveBoolean})
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
@@ -82505,7 +82419,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryOutboundPaymentsResponseValidator(status, body)
@@ -82578,7 +82492,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryOutboundPaymentsIdResponseValidator(status, body)
@@ -82592,7 +82506,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTreasuryOutboundPaymentsIdCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTreasuryOutboundPaymentsIdCancelResponseValidator =
@@ -82640,7 +82554,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryOutboundPaymentsIdCancelResponseValidator(
@@ -82733,7 +82647,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryOutboundTransfersResponseValidator(status, body)
@@ -82757,9 +82671,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .object({
         us_bank_account: z
           .union([
-            z.object({
-              network: z.enum(["ach", "us_domestic_wire"]).optional(),
-            }),
+            z.object({network: z.enum(["ach", "us_domestic_wire"]).optional()}),
             z.enum([""]),
           ])
           .optional(),
@@ -82812,7 +82724,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTreasuryOutboundTransfersResponseValidator(status, body)
@@ -82892,7 +82804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryOutboundTransfersOutboundTransferResponseValidator(
@@ -82905,10 +82817,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTreasuryOutboundTransfersOutboundTransferCancelParamSchema =
-    z.object({ outbound_transfer: z.string().max(5000) })
+    z.object({outbound_transfer: z.string().max(5000)})
 
   const postTreasuryOutboundTransfersOutboundTransferCancelBodySchema = z
-    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .object({expand: z.array(z.string().max(5000)).optional()})
     .optional()
 
   const postTreasuryOutboundTransfersOutboundTransferCancelResponseValidator =
@@ -82961,7 +82873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
@@ -83063,7 +82975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryReceivedCreditsResponseValidator(status, body)
@@ -83136,7 +83048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryReceivedCreditsIdResponseValidator(status, body)
@@ -83223,7 +83135,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryReceivedDebitsResponseValidator(status, body)
@@ -83296,7 +83208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryReceivedDebitsIdResponseValidator(status, body)
@@ -83410,7 +83322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryTransactionEntriesResponseValidator(status, body)
@@ -83483,7 +83395,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryTransactionEntriesIdResponseValidator(status, body)
@@ -83597,7 +83509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryTransactionsResponseValidator(status, body)
@@ -83672,7 +83584,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getTreasuryTransactionsIdResponseValidator(status, body)
@@ -83757,7 +83669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWebhookEndpointsResponseValidator(status, body)
@@ -84181,7 +84093,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postWebhookEndpointsResponseValidator(status, body)
@@ -84243,7 +84155,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteWebhookEndpointsWebhookEndpointResponseValidator(
@@ -84319,7 +84231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWebhookEndpointsWebhookEndpointResponseValidator(
@@ -84639,7 +84551,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postWebhookEndpointsWebhookEndpointResponseValidator(

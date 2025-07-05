@@ -20,9 +20,9 @@ import {
   t_WidgetRepairRequest,
   t_WidgetRepairState,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class ContosoWidgetManagerServiceServers {
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
@@ -88,7 +88,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -103,7 +103,7 @@ export class ContosoWidgetManagerService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -132,7 +132,7 @@ export class ContosoWidgetManagerService {
   }): Observable<
     | (HttpResponse<{
         statusString: string
-      }> & { status: 200 })
+      }> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -141,7 +141,7 @@ export class ContosoWidgetManagerService {
     const headers = this._headers({
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -172,13 +172,13 @@ export class ContosoWidgetManagerService {
             id: string
             status: t_Azure_Core_Foundations_OperationState
           }
-      > & { status: 200 })
+      > & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -204,8 +204,8 @@ export class ContosoWidgetManagerService {
     xMsClientRequestId?: t_Azure_Core_uuid
     requestBody: t_WidgetCreateOrUpdate
   }): Observable<
-    | (HttpResponse<t_Widget> & { status: 200 })
-    | (HttpResponse<t_Widget> & { status: 201 })
+    | (HttpResponse<t_Widget> & {status: 200})
+    | (HttpResponse<t_Widget> & {status: 201})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -221,7 +221,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -246,7 +246,7 @@ export class ContosoWidgetManagerService {
     ifModifiedSince?: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_Widget> & { status: 200 })
+    | (HttpResponse<t_Widget> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -259,7 +259,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -288,7 +288,7 @@ export class ContosoWidgetManagerService {
         error?: t_Azure_Core_Foundations_Error
         id: string
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 202 })
+      }> & {status: 202})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -303,7 +303,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -325,7 +325,7 @@ export class ContosoWidgetManagerService {
     select?: string[]
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_PagedWidget> & { status: 200 })
+    | (HttpResponse<t_PagedWidget> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -363,7 +363,7 @@ export class ContosoWidgetManagerService {
     ifModifiedSince?: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_WidgetAnalytics> & { status: 200 })
+    | (HttpResponse<t_WidgetAnalytics> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -376,7 +376,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -402,8 +402,8 @@ export class ContosoWidgetManagerService {
     xMsClientRequestId?: t_Azure_Core_uuid
     requestBody: t_WidgetAnalyticsCreateOrUpdate
   }): Observable<
-    | (HttpResponse<t_WidgetAnalytics> & { status: 200 })
-    | (HttpResponse<t_WidgetAnalytics> & { status: 201 })
+    | (HttpResponse<t_WidgetAnalytics> & {status: 200})
+    | (HttpResponse<t_WidgetAnalytics> & {status: 201})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -419,7 +419,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -445,13 +445,13 @@ export class ContosoWidgetManagerService {
         id: string
         result?: t_WidgetRepairRequest
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 200 })
+      }> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -484,7 +484,7 @@ export class ContosoWidgetManagerService {
           updatedDateTime: string
         }
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 202 })
+      }> & {status: 202})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -496,7 +496,7 @@ export class ContosoWidgetManagerService {
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -523,13 +523,13 @@ export class ContosoWidgetManagerService {
         id: string
         result?: t_WidgetPart
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 200 })
+      }> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -555,7 +555,7 @@ export class ContosoWidgetManagerService {
     xMsClientRequestId?: t_Azure_Core_uuid
     requestBody: t_WidgetPart
   }): Observable<
-    | (HttpResponse<void> & { status: 201 })
+    | (HttpResponse<void> & {status: 201})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -571,7 +571,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -592,7 +592,7 @@ export class ContosoWidgetManagerService {
     widgetName: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_PagedWidgetPart> & { status: 200 })
+    | (HttpResponse<t_PagedWidgetPart> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -601,7 +601,7 @@ export class ContosoWidgetManagerService {
     const headers = this._headers({
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -625,7 +625,7 @@ export class ContosoWidgetManagerService {
     ifModifiedSince?: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_WidgetPart> & { status: 200 })
+    | (HttpResponse<t_WidgetPart> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -638,7 +638,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -665,7 +665,7 @@ export class ContosoWidgetManagerService {
     ifModifiedSince?: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -680,7 +680,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -707,7 +707,7 @@ export class ContosoWidgetManagerService {
         error?: t_Azure_Core_Foundations_Error
         id: string
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 202 })
+      }> & {status: 202})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -719,7 +719,7 @@ export class ContosoWidgetManagerService {
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -745,13 +745,13 @@ export class ContosoWidgetManagerService {
         id: string
         result?: t_Manufacturer
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 200 })
+      }> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -777,8 +777,8 @@ export class ContosoWidgetManagerService {
     xMsClientRequestId?: t_Azure_Core_uuid
     requestBody: t_Manufacturer
   }): Observable<
-    | (HttpResponse<t_Manufacturer> & { status: 200 })
-    | (HttpResponse<t_Manufacturer> & { status: 201 })
+    | (HttpResponse<t_Manufacturer> & {status: 200})
+    | (HttpResponse<t_Manufacturer> & {status: 201})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -794,7 +794,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -819,7 +819,7 @@ export class ContosoWidgetManagerService {
     ifModifiedSince?: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_Manufacturer> & { status: 200 })
+    | (HttpResponse<t_Manufacturer> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -832,7 +832,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -861,7 +861,7 @@ export class ContosoWidgetManagerService {
         error?: t_Azure_Core_Foundations_Error
         id: string
         status: t_Azure_Core_Foundations_OperationState
-      }> & { status: 202 })
+      }> & {status: 202})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -876,7 +876,7 @@ export class ContosoWidgetManagerService {
       "If-Modified-Since": p["ifModifiedSince"],
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -894,7 +894,7 @@ export class ContosoWidgetManagerService {
     apiVersion: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_PagedManufacturer> & { status: 200 })
+    | (HttpResponse<t_PagedManufacturer> & {status: 200})
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
       })
@@ -903,7 +903,7 @@ export class ContosoWidgetManagerService {
     const headers = this._headers({
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -918,5 +918,5 @@ export class ContosoWidgetManagerService {
   }
 }
 
-export { ContosoWidgetManagerService as ApiClient }
-export { ContosoWidgetManagerServiceConfig as ApiClientConfig }
+export {ContosoWidgetManagerService as ApiClient}
+export {ContosoWidgetManagerServiceConfig as ApiClientConfig}

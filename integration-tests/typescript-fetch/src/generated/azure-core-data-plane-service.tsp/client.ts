@@ -76,16 +76,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/service-status`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus(
@@ -117,13 +113,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath +
       `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetsCreateOrUpdateWidget(
@@ -160,12 +152,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PATCH", body, ...opts, headers },
+      {method: "PATCH", body, ...opts, headers},
       timeout,
     )
   }
@@ -196,13 +188,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetsDeleteWidget(
@@ -243,11 +231,11 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...opts, headers },
+      {method: "DELETE", ...opts, headers},
       timeout,
     )
   }
@@ -269,7 +257,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/widgets`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
     const query = this._query({
@@ -280,11 +268,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       select: p["select"],
     })
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetsGetAnalytics(
@@ -314,13 +298,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetsUpdateAnalytics(
@@ -357,12 +337,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PATCH", body, ...opts, headers },
+      {method: "PATCH", body, ...opts, headers},
       timeout,
     )
   }
@@ -390,13 +370,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetsScheduleRepairs(
@@ -438,12 +414,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", body, ...opts, headers },
+      {method: "POST", body, ...opts, headers},
       timeout,
     )
   }
@@ -473,13 +449,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath +
       `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetPartsCreateWidgetPart(
@@ -514,12 +486,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", body, ...opts, headers },
+      {method: "POST", body, ...opts, headers},
       timeout,
     )
   }
@@ -538,16 +510,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetPartsGetWidgetPart(
@@ -579,13 +547,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async widgetPartsDeleteWidgetPart(
@@ -620,11 +584,11 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...opts, headers },
+      {method: "DELETE", ...opts, headers},
       timeout,
     )
   }
@@ -661,12 +625,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", body, ...opts, headers },
+      {method: "POST", body, ...opts, headers},
       timeout,
     )
   }
@@ -695,13 +659,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath +
       `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async manufacturersCreateOrReplaceManufacturer(
@@ -738,12 +698,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PUT", body, ...opts, headers },
+      {method: "PUT", body, ...opts, headers},
       timeout,
     )
   }
@@ -775,13 +735,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async manufacturersDeleteManufacturer(
@@ -822,11 +778,11 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...opts, headers },
+      {method: "DELETE", ...opts, headers},
       timeout,
     )
   }
@@ -844,18 +800,14 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/manufacturers`
     const headers = this._headers(
-      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      {"x-ms-client-request-id": p["xMsClientRequestId"]},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 }
 
-export { ContosoWidgetManager as ApiClient }
-export type { ContosoWidgetManagerConfig as ApiClientConfig }
+export {ContosoWidgetManager as ApiClient}
+export type {ContosoWidgetManagerConfig as ApiClientConfig}

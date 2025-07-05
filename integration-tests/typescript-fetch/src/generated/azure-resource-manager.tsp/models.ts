@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
+export type EmptyObject = {[key: string]: never}
 
 export type UnknownEnumStringValue = string & {
   _brand: "unknown enum string value"

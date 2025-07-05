@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { MyAccountManagementService } from "./client.service"
-import { NgModule } from "@angular/core"
+import {MyAccountManagementService} from "./client.service"
+import {NgModule} from "@angular/core"
 
 @NgModule({
   imports: [],
@@ -13,4 +13,4 @@ import { NgModule } from "@angular/core"
 })
 export class MyAccountManagementModule {}
 
-export { MyAccountManagementModule as ApiModule }
+export {MyAccountManagementModule as ApiModule}

@@ -23,7 +23,7 @@ import {
   s_TodoList,
   s_UnknownObject,
 } from "./schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -44,8 +44,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetTodoListsResponder = {
   with200(): KoaRuntimeResponse<t_TodoList[]>
@@ -224,7 +224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
   const getTodoListsQuerySchema = z.object({
-    created: z.string().datetime({ offset: true }).optional(),
+    created: z.string().datetime({offset: true}).optional(),
     statuses: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -276,7 +276,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTodoListsResponseValidator(status, body)
@@ -284,7 +284,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getTodoListByIdParamSchema = z.object({ listId: z.string() })
+  const getTodoListByIdParamSchema = z.object({listId: z.string()})
 
   const getTodoListByIdResponseValidator = responseValidationFactory(
     [
@@ -332,7 +332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTodoListByIdResponseValidator(status, body)
@@ -340,7 +340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const updateTodoListByIdParamSchema = z.object({ listId: z.string() })
+  const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 
   const updateTodoListByIdBodySchema = s_CreateUpdateTodoList
 
@@ -394,7 +394,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = updateTodoListByIdResponseValidator(status, body)
@@ -402,7 +402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const deleteTodoListByIdParamSchema = z.object({ listId: z.string() })
+  const deleteTodoListByIdParamSchema = z.object({listId: z.string()})
 
   const deleteTodoListByIdResponseValidator = responseValidationFactory(
     [
@@ -450,7 +450,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = deleteTodoListByIdResponseValidator(status, body)
@@ -458,7 +458,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getTodoListItemsParamSchema = z.object({ listId: z.string() })
+  const getTodoListItemsParamSchema = z.object({listId: z.string()})
 
   const getTodoListItemsResponseValidator = responseValidationFactory(
     [
@@ -467,11 +467,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           id: z.string(),
           content: z.string(),
-          createdAt: z.string().datetime({ offset: true }),
-          completedAt: z.string().datetime({ offset: true }).optional(),
+          createdAt: z.string().datetime({offset: true}),
+          completedAt: z.string().datetime({offset: true}).optional(),
         }),
       ],
-      ["5XX", z.object({ message: z.string(), code: z.string() })],
+      ["5XX", z.object({message: z.string(), code: z.string()})],
     ],
     undefined,
   )
@@ -519,7 +519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getTodoListItemsResponseValidator(status, body)
@@ -527,12 +527,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const createTodoListItemParamSchema = z.object({ listId: z.string() })
+  const createTodoListItemParamSchema = z.object({listId: z.string()})
 
   const createTodoListItemBodySchema = z.object({
     id: z.string(),
     content: z.string(),
-    completedAt: z.string().datetime({ offset: true }).optional(),
+    completedAt: z.string().datetime({offset: true}).optional(),
   })
 
   const createTodoListItemResponseValidator = responseValidationFactory(
@@ -579,7 +579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = createTodoListItemResponseValidator(status, body)
@@ -621,7 +621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = listAttachmentsResponseValidator(status, body)
@@ -629,7 +629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const uploadAttachmentBodySchema = z.object({ file: z.unknown().optional() })
+  const uploadAttachmentBodySchema = z.object({file: z.unknown().optional()})
 
   const uploadAttachmentResponseValidator = responseValidationFactory(
     [["202", z.undefined()]],
@@ -668,7 +668,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = uploadAttachmentResponseValidator(status, body)

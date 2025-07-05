@@ -339,14 +339,14 @@ import {
   t_workflow_run_usage,
   t_workflow_usage,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class GitHubV3RestApiServiceServersOperations {
   static reposUploadReleaseAsset(
     url: "https://uploads.github.com" = "https://uploads.github.com",
-  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApiService"> } {
+  ): {build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApiService">} {
     switch (url) {
       case "https://uploads.github.com":
         return {
@@ -429,7 +429,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -444,7 +444,7 @@ export class GitHubV3RestApiService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -468,7 +468,7 @@ export class GitHubV3RestApiService {
   }
 
   metaRoot(): Observable<
-    (HttpResponse<t_root> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_root> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>("GET", this.config.basePath + `/`, {
       observe: "response",
@@ -509,9 +509,9 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     } = {},
   ): Observable<
-    | (HttpResponse<t_global_advisory[]> & { status: 200 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 429 })
+    | (HttpResponse<t_global_advisory[]> & {status: 200})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 429})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -549,8 +549,8 @@ export class GitHubV3RestApiService {
   securityAdvisoriesGetGlobalAdvisory(p: {
     ghsaId: string
   }): Observable<
-    | (HttpResponse<t_global_advisory> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_global_advisory> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -564,7 +564,7 @@ export class GitHubV3RestApiService {
   }
 
   appsGetAuthenticated(): Observable<
-    (HttpResponse<t_integration> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_integration> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>("GET", this.config.basePath + `/app`, {
       observe: "response",
@@ -583,9 +583,9 @@ export class GitHubV3RestApiService {
           webhook_secret: string | null
           [key: string]: unknown | undefined
         }
-      > & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      > & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -599,7 +599,7 @@ export class GitHubV3RestApiService {
   }
 
   appsGetWebhookConfigForApp(): Observable<
-    (HttpResponse<t_webhook_config> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -619,9 +619,9 @@ export class GitHubV3RestApiService {
       url?: t_webhook_config_url
     }
   }): Observable<
-    (HttpResponse<t_webhook_config> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -642,9 +642,9 @@ export class GitHubV3RestApiService {
       cursor?: string
     } = {},
   ): Observable<
-    | (HttpResponse<t_hook_delivery_item[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook_delivery_item[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -666,9 +666,9 @@ export class GitHubV3RestApiService {
   appsGetWebhookDelivery(p: {
     deliveryId: number
   }): Observable<
-    | (HttpResponse<t_hook_delivery> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook_delivery> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -686,9 +686,9 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -707,15 +707,12 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_integration_installation_request[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_integration_installation_request[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -736,7 +733,7 @@ export class GitHubV3RestApiService {
       outdated?: string
     } = {},
   ): Observable<
-    (HttpResponse<t_installation[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_installation[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       per_page: p["perPage"],
@@ -759,8 +756,8 @@ export class GitHubV3RestApiService {
   appsGetInstallation(p: {
     installationId: number
   }): Observable<
-    | (HttpResponse<t_installation> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_installation> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -776,8 +773,8 @@ export class GitHubV3RestApiService {
   appsDeleteInstallation(p: {
     installationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -798,14 +795,14 @@ export class GitHubV3RestApiService {
       repository_ids?: number[]
     }
   }): Observable<
-    | (HttpResponse<t_installation_token> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_installation_token> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -824,8 +821,8 @@ export class GitHubV3RestApiService {
   appsSuspendInstallation(p: {
     installationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -842,8 +839,8 @@ export class GitHubV3RestApiService {
   appsUnsuspendInstallation(p: {
     installationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -863,11 +860,11 @@ export class GitHubV3RestApiService {
       access_token: string
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -888,12 +885,12 @@ export class GitHubV3RestApiService {
       access_token: string
     }
   }): Observable<
-    | (HttpResponse<t_authorization> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_authorization> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -914,11 +911,11 @@ export class GitHubV3RestApiService {
       access_token: string
     }
   }): Observable<
-    | (HttpResponse<t_authorization> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_authorization> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -939,11 +936,11 @@ export class GitHubV3RestApiService {
       access_token: string
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -969,14 +966,14 @@ export class GitHubV3RestApiService {
       target_id?: number
     }
   }): Observable<
-    | (HttpResponse<t_authorization> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_authorization> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -994,9 +991,9 @@ export class GitHubV3RestApiService {
   appsGetBySlug(p: {
     appSlug: string
   }): Observable<
-    | (HttpResponse<t_integration> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_integration> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1012,8 +1009,8 @@ export class GitHubV3RestApiService {
   classroomGetAnAssignment(p: {
     assignmentId: number
   }): Observable<
-    | (HttpResponse<t_classroom_assignment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_classroom_assignment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1031,13 +1028,10 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_classroom_accepted_assignment[]> & { status: 200 })
+    | (HttpResponse<t_classroom_accepted_assignment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -1054,8 +1048,8 @@ export class GitHubV3RestApiService {
   classroomGetAssignmentGrades(p: {
     assignmentId: number
   }): Observable<
-    | (HttpResponse<t_classroom_assignment_grade[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_classroom_assignment_grade[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1074,13 +1068,9 @@ export class GitHubV3RestApiService {
       perPage?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_simple_classroom[]> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_simple_classroom[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -1096,8 +1086,8 @@ export class GitHubV3RestApiService {
   classroomGetAClassroom(p: {
     classroomId: number
   }): Observable<
-    | (HttpResponse<t_classroom> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_classroom> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1115,13 +1105,10 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_simple_classroom_assignment[]> & { status: 200 })
+    | (HttpResponse<t_simple_classroom_assignment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -1135,8 +1122,8 @@ export class GitHubV3RestApiService {
   }
 
   codesOfConductGetAllCodesOfConduct(): Observable<
-    | (HttpResponse<t_code_of_conduct[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_code_of_conduct[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1152,9 +1139,9 @@ export class GitHubV3RestApiService {
   codesOfConductGetConductCode(p: {
     key: string
   }): Observable<
-    | (HttpResponse<t_code_of_conduct> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_of_conduct> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1174,12 +1161,12 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 202})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1197,8 +1184,8 @@ export class GitHubV3RestApiService {
   emojisGet(): Observable<
     | (HttpResponse<{
         [key: string]: string | undefined
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1217,9 +1204,9 @@ export class GitHubV3RestApiService {
     before?: string
     after?: string
   }): Observable<
-    | (HttpResponse<t_code_security_configuration[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_security_configuration[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1323,13 +1310,13 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_code_security_configuration> & { status: 201 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_security_configuration> & {status: 201})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1348,7 +1335,7 @@ export class GitHubV3RestApiService {
   codeSecurityGetDefaultConfigurationsForEnterprise(p: {
     enterprise: string
   }): Observable<
-    | (HttpResponse<t_code_security_default_configurations> & { status: 200 })
+    | (HttpResponse<t_code_security_default_configurations> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1366,10 +1353,10 @@ export class GitHubV3RestApiService {
     enterprise: string
     configurationId: number
   }): Observable<
-    | (HttpResponse<t_code_security_configuration> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_security_configuration> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1467,14 +1454,14 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_code_security_configuration> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_code_security_configuration> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1494,11 +1481,11 @@ export class GitHubV3RestApiService {
     enterprise: string
     configurationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1521,13 +1508,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+      }> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1563,12 +1550,12 @@ export class GitHubV3RestApiService {
           | "private_and_internal"
           | "public"
           | UnknownEnumStringValue
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1595,8 +1582,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_code_security_configuration_repositories[]> & {
         status: 200
       })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1635,11 +1622,11 @@ export class GitHubV3RestApiService {
     last?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_dependabot_alert_with_repository[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_dependabot_alert_with_repository[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1686,13 +1673,13 @@ export class GitHubV3RestApiService {
     isMultiRepo?: boolean
     hideSecret?: boolean
   }): Observable<
-    | (HttpResponse<t_organization_secret_scanning_alert[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_organization_secret_scanning_alert[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1728,20 +1715,17 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_event[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_event[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -1755,7 +1739,7 @@ export class GitHubV3RestApiService {
   }
 
   activityGetFeeds(): Observable<
-    (HttpResponse<t_feed> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_feed> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -1774,9 +1758,9 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_base_gist[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_base_gist[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1809,14 +1793,14 @@ export class GitHubV3RestApiService {
       public?: boolean | "true" | "false" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_gist_simple> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_gist_simple> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1838,10 +1822,10 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_base_gist[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_base_gist[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1868,10 +1852,10 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_base_gist[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_base_gist[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -1894,8 +1878,8 @@ export class GitHubV3RestApiService {
   gistsGet(p: {
     gistId: string
   }): Observable<
-    | (HttpResponse<t_gist_simple> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_gist_simple> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | (HttpResponse<{
         block?: {
           created_at?: string
@@ -1904,8 +1888,8 @@ export class GitHubV3RestApiService {
         }
         documentation_url?: string
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1932,12 +1916,12 @@ export class GitHubV3RestApiService {
       }
     } | null
   }): Observable<
-    | (HttpResponse<t_gist_simple> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_gist_simple> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1955,10 +1939,10 @@ export class GitHubV3RestApiService {
   gistsDelete(p: {
     gistId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -1976,16 +1960,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_gist_comment[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gist_comment[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2004,13 +1985,13 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_gist_comment> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gist_comment> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2029,8 +2010,8 @@ export class GitHubV3RestApiService {
     gistId: string
     commentId: number
   }): Observable<
-    | (HttpResponse<t_gist_comment> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_gist_comment> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | (HttpResponse<{
         block?: {
           created_at?: string
@@ -2039,8 +2020,8 @@ export class GitHubV3RestApiService {
         }
         documentation_url?: string
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2060,11 +2041,11 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_gist_comment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gist_comment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2083,10 +2064,10 @@ export class GitHubV3RestApiService {
     gistId: string
     commentId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2104,16 +2085,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_gist_commit[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gist_commit[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2131,16 +2109,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_gist_simple[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gist_simple[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2156,11 +2131,11 @@ export class GitHubV3RestApiService {
   gistsFork(p: {
     gistId: string
   }): Observable<
-    | (HttpResponse<t_base_gist> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_base_gist> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2176,10 +2151,10 @@ export class GitHubV3RestApiService {
   gistsCheckIsStarred(p: {
     gistId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<EmptyObject> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<EmptyObject> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2195,10 +2170,10 @@ export class GitHubV3RestApiService {
   gistsStar(p: {
     gistId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2214,10 +2189,10 @@ export class GitHubV3RestApiService {
   gistsUnstar(p: {
     gistId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2234,10 +2209,10 @@ export class GitHubV3RestApiService {
     gistId: string
     sha: string
   }): Observable<
-    | (HttpResponse<t_gist_simple> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_gist_simple> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2251,8 +2226,8 @@ export class GitHubV3RestApiService {
   }
 
   gitignoreGetAllTemplates(): Observable<
-    | (HttpResponse<string[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<string[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2268,8 +2243,8 @@ export class GitHubV3RestApiService {
   gitignoreGetTemplate(p: {
     name: string
   }): Observable<
-    | (HttpResponse<t_gitignore_template> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_gitignore_template> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2292,16 +2267,13 @@ export class GitHubV3RestApiService {
         repositories: t_repository[]
         repository_selection?: string
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2315,7 +2287,7 @@ export class GitHubV3RestApiService {
   }
 
   appsRevokeInstallationAccessToken(): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+    (HttpResponse<void> & {status: 204}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "DELETE",
@@ -2350,10 +2322,10 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_issue[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -2389,8 +2361,8 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_license_simple[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_license_simple[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -2413,10 +2385,10 @@ export class GitHubV3RestApiService {
   licensesGet(p: {
     license: string
   }): Observable<
-    | (HttpResponse<t_license> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_license> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2436,11 +2408,11 @@ export class GitHubV3RestApiService {
       text: string
     }
   }): Observable<
-    | (HttpResponse<string> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<string> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2460,11 +2432,11 @@ export class GitHubV3RestApiService {
       requestBody?: string
     } = {},
   ): Observable<
-    | (HttpResponse<string> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<string> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "text/plain" })
+    const headers = this._headers({"Content-Type": "text/plain"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2482,9 +2454,9 @@ export class GitHubV3RestApiService {
   appsGetSubscriptionPlanForAccount(p: {
     accountId: number
   }): Observable<
-    | (HttpResponse<t_marketplace_purchase> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_marketplace_purchase> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2503,15 +2475,12 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_marketplace_listing_plan[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_marketplace_listing_plan[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2531,10 +2500,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_marketplace_purchase[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_marketplace_purchase[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -2559,9 +2528,9 @@ export class GitHubV3RestApiService {
   appsGetSubscriptionPlanForAccountStubbed(p: {
     accountId: number
   }): Observable<
-    | (HttpResponse<t_marketplace_purchase> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_marketplace_purchase> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2581,14 +2550,11 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_marketplace_listing_plan[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_marketplace_listing_plan[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2608,8 +2574,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_marketplace_purchase[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_marketplace_purchase[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -2632,8 +2598,8 @@ export class GitHubV3RestApiService {
   }
 
   metaGet(): Observable<
-    | (HttpResponse<t_api_overview> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_api_overview> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>("GET", this.config.basePath + `/meta`, {
@@ -2648,17 +2614,14 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_event[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_event[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2681,11 +2644,11 @@ export class GitHubV3RestApiService {
       perPage?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_thread[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_thread[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -2718,14 +2681,14 @@ export class GitHubV3RestApiService {
   ): Observable<
     | (HttpResponse<{
         message?: string
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 205 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 205})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2743,10 +2706,10 @@ export class GitHubV3RestApiService {
   activityGetThread(p: {
     threadId: number
   }): Observable<
-    | (HttpResponse<t_thread> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_thread> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2762,9 +2725,9 @@ export class GitHubV3RestApiService {
   activityMarkThreadAsRead(p: {
     threadId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 205 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 205})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2779,9 +2742,7 @@ export class GitHubV3RestApiService {
 
   activityMarkThreadAsDone(p: {
     threadId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
@@ -2795,10 +2756,10 @@ export class GitHubV3RestApiService {
   activityGetThreadSubscriptionForAuthenticatedUser(p: {
     threadId: number
   }): Observable<
-    | (HttpResponse<t_thread_subscription> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_thread_subscription> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2818,13 +2779,13 @@ export class GitHubV3RestApiService {
       ignored?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_thread_subscription> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_thread_subscription> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2843,10 +2804,10 @@ export class GitHubV3RestApiService {
   activityDeleteThreadSubscription(p: {
     threadId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -2865,9 +2826,9 @@ export class GitHubV3RestApiService {
       s?: string
     } = {},
   ): Observable<
-    (HttpResponse<string> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<string> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ s: p["s"] })
+    const params = this._queryParams({s: p["s"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2886,8 +2847,8 @@ export class GitHubV3RestApiService {
       perPage?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_organization_simple[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_organization_simple[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -2911,15 +2872,12 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_dependabot_repository_access_details> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_dependabot_repository_access_details> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -2940,12 +2898,12 @@ export class GitHubV3RestApiService {
       repository_ids_to_remove?: number[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2967,12 +2925,12 @@ export class GitHubV3RestApiService {
       default_level: "public" | "internal" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2995,15 +2953,15 @@ export class GitHubV3RestApiService {
     day?: number
     hour?: number
   }): Observable<
-    | (HttpResponse<t_billing_usage_report> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_billing_usage_report> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -3028,8 +2986,8 @@ export class GitHubV3RestApiService {
   orgsGet(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_organization_full> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_organization_full> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3086,14 +3044,14 @@ export class GitHubV3RestApiService {
       web_commit_signoff_required?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_organization_full> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_organization_full> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | (HttpResponse<t_validation_error | t_validation_error_simple> & {
         status: 422
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3113,9 +3071,9 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3131,7 +3089,7 @@ export class GitHubV3RestApiService {
   actionsGetActionsCacheUsageForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_actions_cache_usage_org_enterprise> & { status: 200 })
+    | (HttpResponse<t_actions_cache_usage_org_enterprise> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3152,13 +3110,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repository_cache_usages: t_actions_cache_usage_by_repository[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -3180,13 +3135,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         runners: t_actions_hosted_runner[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -3213,10 +3165,10 @@ export class GitHubV3RestApiService {
       size: string
     }
   }): Observable<
-    | (HttpResponse<t_actions_hosted_runner> & { status: 201 })
+    | (HttpResponse<t_actions_hosted_runner> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3237,7 +3189,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         images: t_actions_hosted_runner_image[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3257,7 +3209,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         images: t_actions_hosted_runner_image[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3274,7 +3226,7 @@ export class GitHubV3RestApiService {
   actionsGetHostedRunnersLimitsForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_actions_hosted_runner_limits> & { status: 200 })
+    | (HttpResponse<t_actions_hosted_runner_limits> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3293,7 +3245,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         machine_specs: t_actions_hosted_runner_machine_spec[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3313,7 +3265,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         platforms: string[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3331,7 +3283,7 @@ export class GitHubV3RestApiService {
     org: string
     hostedRunnerId: number
   }): Observable<
-    | (HttpResponse<t_actions_hosted_runner> & { status: 200 })
+    | (HttpResponse<t_actions_hosted_runner> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3355,10 +3307,10 @@ export class GitHubV3RestApiService {
       runner_group_id?: number
     }
   }): Observable<
-    | (HttpResponse<t_actions_hosted_runner> & { status: 200 })
+    | (HttpResponse<t_actions_hosted_runner> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3378,7 +3330,7 @@ export class GitHubV3RestApiService {
     org: string
     hostedRunnerId: number
   }): Observable<
-    | (HttpResponse<t_actions_hosted_runner> & { status: 202 })
+    | (HttpResponse<t_actions_hosted_runner> & {status: 202})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3395,7 +3347,7 @@ export class GitHubV3RestApiService {
   oidcGetOidcCustomSubTemplateForOrg(p: {
     org: string
   }): Observable<
-    (HttpResponse<t_oidc_custom_sub> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_oidc_custom_sub> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -3411,12 +3363,12 @@ export class GitHubV3RestApiService {
     org: string
     requestBody: t_oidc_custom_sub
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3434,7 +3386,7 @@ export class GitHubV3RestApiService {
   actionsGetGithubActionsPermissionsOrganization(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_actions_organization_permissions> & { status: 200 })
+    | (HttpResponse<t_actions_organization_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3453,10 +3405,8 @@ export class GitHubV3RestApiService {
       allowed_actions?: t_allowed_actions
       enabled_repositories: t_enabled_repositories
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3479,13 +3429,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_repository[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -3504,10 +3451,8 @@ export class GitHubV3RestApiService {
     requestBody: {
       selected_repository_ids: number[]
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3526,9 +3471,7 @@ export class GitHubV3RestApiService {
   actionsEnableSelectedRepositoryGithubActionsOrganization(p: {
     org: string
     repositoryId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -3543,9 +3486,7 @@ export class GitHubV3RestApiService {
   actionsDisableSelectedRepositoryGithubActionsOrganization(p: {
     org: string
     repositoryId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -3560,7 +3501,7 @@ export class GitHubV3RestApiService {
   actionsGetAllowedActionsOrganization(p: {
     org: string
   }): Observable<
-    (HttpResponse<t_selected_actions> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_selected_actions> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -3576,10 +3517,8 @@ export class GitHubV3RestApiService {
   actionsSetAllowedActionsOrganization(p: {
     org: string
     requestBody?: t_selected_actions
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3598,9 +3537,7 @@ export class GitHubV3RestApiService {
   actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_actions_get_default_workflow_permissions> & {
-        status: 200
-      })
+    | (HttpResponse<t_actions_get_default_workflow_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -3616,10 +3553,8 @@ export class GitHubV3RestApiService {
   actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(p: {
     org: string
     requestBody?: t_actions_set_default_workflow_permissions
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3643,7 +3578,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         runner_groups: t_runner_groups_org[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -3676,10 +3611,9 @@ export class GitHubV3RestApiService {
       visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_runner_groups_org> & { status: 201 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_runner_groups_org> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3698,8 +3632,7 @@ export class GitHubV3RestApiService {
     org: string
     runnerGroupId: number
   }): Observable<
-    | (HttpResponse<t_runner_groups_org> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_runner_groups_org> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -3724,10 +3657,9 @@ export class GitHubV3RestApiService {
       visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_runner_groups_org> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_runner_groups_org> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3746,9 +3678,7 @@ export class GitHubV3RestApiService {
   actionsDeleteSelfHostedRunnerGroupFromOrg(p: {
     org: string
     runnerGroupId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -3769,13 +3699,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         runners: t_actions_hosted_runner[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -3798,13 +3725,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_minimal_repository[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -3824,10 +3748,8 @@ export class GitHubV3RestApiService {
     requestBody: {
       selected_repository_ids: number[]
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3847,9 +3769,7 @@ export class GitHubV3RestApiService {
     org: string
     runnerGroupId: number
     repositoryId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -3865,9 +3785,7 @@ export class GitHubV3RestApiService {
     org: string
     runnerGroupId: number
     repositoryId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -3888,13 +3806,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         runners: t_runner[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -3914,10 +3829,8 @@ export class GitHubV3RestApiService {
     requestBody: {
       runners: number[]
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3937,9 +3850,7 @@ export class GitHubV3RestApiService {
     org: string
     runnerGroupId: number
     runnerId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -3955,9 +3866,7 @@ export class GitHubV3RestApiService {
     org: string
     runnerGroupId: number
     runnerId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -3978,7 +3887,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         runners: t_runner[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -4001,7 +3910,7 @@ export class GitHubV3RestApiService {
   actionsListRunnerApplicationsForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_runner_application[]> & { status: 200 })
+    | (HttpResponse<t_runner_application[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4026,13 +3935,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         encoded_jit_config: string
         runner: t_runner
-      }> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4051,7 +3960,7 @@ export class GitHubV3RestApiService {
   actionsCreateRegistrationTokenForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_authentication_token> & { status: 201 })
+    | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4068,7 +3977,7 @@ export class GitHubV3RestApiService {
   actionsCreateRemoveTokenForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_authentication_token> & { status: 201 })
+    | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4085,7 +3994,7 @@ export class GitHubV3RestApiService {
     org: string
     runnerId: number
   }): Observable<
-    (HttpResponse<t_runner> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_runner> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -4102,8 +4011,8 @@ export class GitHubV3RestApiService {
     org: string
     runnerId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4124,8 +4033,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4149,12 +4058,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4180,12 +4089,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4208,8 +4117,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4231,9 +4140,9 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4255,13 +4164,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_organization_actions_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -4277,8 +4183,7 @@ export class GitHubV3RestApiService {
   actionsGetOrgPublicKey(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_actions_public_key> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_actions_public_key> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -4294,7 +4199,7 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<
-    | (HttpResponse<t_organization_actions_secret> & { status: 200 })
+    | (HttpResponse<t_organization_actions_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4318,11 +4223,11 @@ export class GitHubV3RestApiService {
       visibility: "all" | "private" | "selected" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4341,9 +4246,7 @@ export class GitHubV3RestApiService {
   actionsDeleteOrgSecret(p: {
     org: string
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -4364,13 +4267,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_minimal_repository[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -4390,10 +4290,8 @@ export class GitHubV3RestApiService {
     requestBody: {
       selected_repository_ids: number[]
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4414,8 +4312,8 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4434,8 +4332,8 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4457,13 +4355,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         variables: t_organization_actions_variable[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -4485,9 +4380,9 @@ export class GitHubV3RestApiService {
       visibility: "all" | "private" | "selected" | UnknownEnumStringValue
     }
   }): Observable<
-    (HttpResponse<t_empty_object> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4506,7 +4401,7 @@ export class GitHubV3RestApiService {
     org: string
     name: string
   }): Observable<
-    | (HttpResponse<t_organization_actions_variable> & { status: 200 })
+    | (HttpResponse<t_organization_actions_variable> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4528,10 +4423,8 @@ export class GitHubV3RestApiService {
       value?: string
       visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4549,9 +4442,7 @@ export class GitHubV3RestApiService {
   actionsDeleteOrgVariable(p: {
     org: string
     name: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`,
@@ -4571,14 +4462,11 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_minimal_repository[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 409 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -4599,11 +4487,11 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4624,8 +4512,8 @@ export class GitHubV3RestApiService {
     name: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4644,8 +4532,8 @@ export class GitHubV3RestApiService {
     name: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4696,10 +4584,10 @@ export class GitHubV3RestApiService {
           next?: string
           previous?: string
         }
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -4730,11 +4618,11 @@ export class GitHubV3RestApiService {
           attestation_ids: number[]
         }
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4753,9 +4641,9 @@ export class GitHubV3RestApiService {
     org: string
     subjectDigest: string
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4773,10 +4661,10 @@ export class GitHubV3RestApiService {
     org: string
     attestationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4812,7 +4700,7 @@ export class GitHubV3RestApiService {
           bundle_url?: string
           repository_id?: number
         }[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -4839,12 +4727,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -4861,8 +4746,8 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4879,8 +4764,8 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4896,9 +4781,7 @@ export class GitHubV3RestApiService {
   orgsUnblockUser(p: {
     org: string
     username: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
@@ -4922,13 +4805,13 @@ export class GitHubV3RestApiService {
       | "published"
       | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_campaign_summary[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_campaign_summary[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -4966,19 +4849,19 @@ export class GitHubV3RestApiService {
       team_managers?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_campaign_summary> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
-    | (HttpResponse<void> & { status: 429 })
+    | (HttpResponse<t_campaign_summary> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
+    | (HttpResponse<void> & {status: 429})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4997,14 +4880,14 @@ export class GitHubV3RestApiService {
     org: string
     campaignNumber: number
   }): Observable<
-    | (HttpResponse<t_campaign_summary> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_campaign_summary> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5031,18 +4914,18 @@ export class GitHubV3RestApiService {
       team_managers?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_campaign_summary> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_campaign_summary> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5062,13 +4945,13 @@ export class GitHubV3RestApiService {
     org: string
     campaignNumber: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5095,15 +4978,13 @@ export class GitHubV3RestApiService {
     sort?: "created" | "updated" | UnknownEnumStringValue
     severity?: t_code_scanning_alert_severity
   }): Observable<
-    | (HttpResponse<t_code_scanning_organization_alert_items[]> & {
-        status: 200
-      })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_organization_alert_items[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -5137,9 +5018,9 @@ export class GitHubV3RestApiService {
     before?: string
     after?: string
   }): Observable<
-    | (HttpResponse<t_code_security_configuration[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_security_configuration[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -5254,10 +5135,10 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_code_security_configuration> & { status: 201 })
+    | (HttpResponse<t_code_security_configuration> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5275,10 +5156,10 @@ export class GitHubV3RestApiService {
   codeSecurityGetDefaultConfigurations(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_code_security_default_configurations> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_security_default_configurations> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5298,14 +5179,14 @@ export class GitHubV3RestApiService {
       selected_repository_ids?: number[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5325,10 +5206,10 @@ export class GitHubV3RestApiService {
     org: string
     configurationId: number
   }): Observable<
-    | (HttpResponse<t_code_security_configuration> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_security_configuration> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5437,11 +5318,11 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_code_security_configuration> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_code_security_configuration> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5461,11 +5342,11 @@ export class GitHubV3RestApiService {
     org: string
     configurationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5495,10 +5376,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
+      }> & {status: 202})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5534,12 +5415,12 @@ export class GitHubV3RestApiService {
           | "private_and_internal"
           | "public"
           | UnknownEnumStringValue
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5566,8 +5447,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_code_security_configuration_repositories[]> & {
         status: 200
       })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -5597,18 +5478,15 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         codespaces: t_codespace[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -5633,15 +5511,15 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5662,15 +5540,15 @@ export class GitHubV3RestApiService {
       selected_usernames: string[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5692,15 +5570,15 @@ export class GitHubV3RestApiService {
       selected_usernames: string[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5724,13 +5602,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_codespaces_org_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -5746,7 +5621,7 @@ export class GitHubV3RestApiService {
   codespacesGetOrgPublicKey(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_codespaces_public_key> & { status: 200 })
+    | (HttpResponse<t_codespaces_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5763,7 +5638,7 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<
-    | (HttpResponse<t_codespaces_org_secret> & { status: 200 })
+    | (HttpResponse<t_codespaces_org_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5787,13 +5662,13 @@ export class GitHubV3RestApiService {
       visibility: "all" | "private" | "selected" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5813,8 +5688,8 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5837,14 +5712,11 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_minimal_repository[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -5865,12 +5737,12 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5891,10 +5763,10 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5913,10 +5785,10 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5933,12 +5805,12 @@ export class GitHubV3RestApiService {
   copilotGetCopilotOrganizationDetails(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_copilot_organization_details> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_copilot_organization_details> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5959,17 +5831,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         seats?: t_copilot_seat_details[]
         total_seats?: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -5990,15 +5859,15 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         seats_created: number
-      }> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6021,15 +5890,15 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         seats_cancelled: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6052,15 +5921,15 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         seats_created: number
-      }> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6083,15 +5952,15 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         seats_cancelled: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6113,11 +5982,11 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_copilot_usage_metrics_day[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6155,12 +6024,12 @@ export class GitHubV3RestApiService {
     last?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_dependabot_alert_with_repository[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_dependabot_alert_with_repository[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6199,13 +6068,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_organization_dependabot_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -6221,7 +6087,7 @@ export class GitHubV3RestApiService {
   dependabotGetOrgPublicKey(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_dependabot_public_key> & { status: 200 })
+    | (HttpResponse<t_dependabot_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6238,7 +6104,7 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<
-    | (HttpResponse<t_organization_dependabot_secret> & { status: 200 })
+    | (HttpResponse<t_organization_dependabot_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6262,11 +6128,11 @@ export class GitHubV3RestApiService {
       visibility: "all" | "private" | "selected" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6285,9 +6151,7 @@ export class GitHubV3RestApiService {
   dependabotDeleteOrgSecret(p: {
     org: string
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -6308,13 +6172,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_minimal_repository[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -6334,10 +6195,8 @@ export class GitHubV3RestApiService {
     requestBody: {
       selected_repository_ids: number[]
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6358,8 +6217,8 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6378,8 +6237,8 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6396,9 +6255,9 @@ export class GitHubV3RestApiService {
   packagesListDockerMigrationConflictingPackagesForOrganization(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_package[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_package[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6416,12 +6275,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -6439,14 +6295,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_organization_invitation[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_organization_invitation[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -6464,14 +6317,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_org_hook[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_org_hook[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -6500,12 +6350,12 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_org_hook> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_org_hook> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6524,8 +6374,8 @@ export class GitHubV3RestApiService {
     org: string
     hookId: number
   }): Observable<
-    | (HttpResponse<t_org_hook> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_org_hook> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6553,12 +6403,12 @@ export class GitHubV3RestApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_org_hook> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_org_hook> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6577,8 +6427,8 @@ export class GitHubV3RestApiService {
     org: string
     hookId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6595,7 +6445,7 @@ export class GitHubV3RestApiService {
     org: string
     hookId: number
   }): Observable<
-    (HttpResponse<t_webhook_config> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -6617,9 +6467,9 @@ export class GitHubV3RestApiService {
       url?: t_webhook_config_url
     }
   }): Observable<
-    (HttpResponse<t_webhook_config> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6640,9 +6490,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     cursor?: string
   }): Observable<
-    | (HttpResponse<t_hook_delivery_item[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook_delivery_item[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6667,9 +6517,9 @@ export class GitHubV3RestApiService {
     hookId: number
     deliveryId: number
   }): Observable<
-    | (HttpResponse<t_hook_delivery> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook_delivery> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6690,9 +6540,9 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6710,8 +6560,8 @@ export class GitHubV3RestApiService {
     org: string
     hookId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -6750,7 +6600,7 @@ export class GitHubV3RestApiService {
     )[]
     apiRouteSubstring?: string
   }): Observable<
-    | (HttpResponse<t_api_insights_route_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_route_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6792,7 +6642,7 @@ export class GitHubV3RestApiService {
     )[]
     subjectNameSubstring?: string
   }): Observable<
-    | (HttpResponse<t_api_insights_subject_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_subject_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6821,7 +6671,7 @@ export class GitHubV3RestApiService {
     minTimestamp: string
     maxTimestamp?: string
   }): Observable<
-    | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_summary_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6846,7 +6696,7 @@ export class GitHubV3RestApiService {
     minTimestamp: string
     maxTimestamp?: string
   }): Observable<
-    | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_summary_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6879,7 +6729,7 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     actorId: number
   }): Observable<
-    | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_summary_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6905,7 +6755,7 @@ export class GitHubV3RestApiService {
     maxTimestamp?: string
     timestampIncrement: string
   }): Observable<
-    | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_time_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6932,7 +6782,7 @@ export class GitHubV3RestApiService {
     maxTimestamp?: string
     timestampIncrement: string
   }): Observable<
-    | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_time_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -6967,7 +6817,7 @@ export class GitHubV3RestApiService {
     maxTimestamp?: string
     timestampIncrement: string
   }): Observable<
-    | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_time_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -7006,7 +6856,7 @@ export class GitHubV3RestApiService {
     )[]
     actorNameSubstring?: string
   }): Observable<
-    | (HttpResponse<t_api_insights_user_stats> & { status: 200 })
+    | (HttpResponse<t_api_insights_user_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -7034,7 +6884,7 @@ export class GitHubV3RestApiService {
   appsGetOrgInstallation(p: {
     org: string
   }): Observable<
-    (HttpResponse<t_installation> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_installation> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -7054,13 +6904,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         installations: t_installation[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7076,9 +6923,7 @@ export class GitHubV3RestApiService {
   interactionsGetRestrictionsForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {
-        status: 200
-      })
+    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7095,11 +6940,11 @@ export class GitHubV3RestApiService {
     org: string
     requestBody: t_interaction_limit
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_interaction_limit_response> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7116,9 +6961,7 @@ export class GitHubV3RestApiService {
 
   interactionsRemoveRestrictionsForOrg(p: {
     org: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
@@ -7142,8 +6985,8 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     invitationSource?: "all" | "member" | "scim" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_organization_invitation[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_organization_invitation[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -7178,12 +7021,12 @@ export class GitHubV3RestApiService {
       team_ids?: number[]
     }
   }): Observable<
-    | (HttpResponse<t_organization_invitation> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_organization_invitation> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7202,9 +7045,9 @@ export class GitHubV3RestApiService {
     org: string
     invitationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7224,14 +7067,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7248,8 +7088,8 @@ export class GitHubV3RestApiService {
   orgsListIssueTypes(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_issue_type[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_issue_type[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7266,12 +7106,12 @@ export class GitHubV3RestApiService {
     org: string
     requestBody: t_organization_create_issue_type
   }): Observable<
-    | (HttpResponse<t_issue_type> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_issue_type> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7291,12 +7131,12 @@ export class GitHubV3RestApiService {
     issueTypeId: number
     requestBody: t_organization_update_issue_type
   }): Observable<
-    | (HttpResponse<t_issue_type> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_issue_type> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7316,9 +7156,9 @@ export class GitHubV3RestApiService {
     org: string
     issueTypeId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7351,8 +7191,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_issue[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -7385,8 +7225,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -7411,9 +7251,9 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7430,8 +7270,8 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7453,18 +7293,15 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         codespaces: t_codespace[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7485,12 +7322,12 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7509,12 +7346,12 @@ export class GitHubV3RestApiService {
     username: string
     codespaceName: string
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_codespace> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7532,12 +7369,12 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<t_copilot_seat_details> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_copilot_seat_details> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7555,9 +7392,9 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<t_org_membership> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_org_membership> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7577,12 +7414,12 @@ export class GitHubV3RestApiService {
       role?: "admin" | "member" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_org_membership> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_org_membership> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7601,9 +7438,9 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7622,7 +7459,7 @@ export class GitHubV3RestApiService {
     page?: number
     exclude?: ("repositories" | UnknownEnumStringValue)[]
   }): Observable<
-    (HttpResponse<t_migration[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_migration[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       per_page: p["perPage"],
@@ -7655,12 +7492,12 @@ export class GitHubV3RestApiService {
       repositories: string[]
     }
   }): Observable<
-    | (HttpResponse<t_migration> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_migration> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7680,11 +7517,11 @@ export class GitHubV3RestApiService {
     migrationId: number
     exclude?: ("repositories" | UnknownEnumStringValue)[]
   }): Observable<
-    | (HttpResponse<t_migration> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_migration> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ exclude: p["exclude"] })
+    const params = this._queryParams({exclude: p["exclude"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7701,8 +7538,8 @@ export class GitHubV3RestApiService {
     org: string
     migrationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7720,8 +7557,8 @@ export class GitHubV3RestApiService {
     org: string
     migrationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7740,8 +7577,8 @@ export class GitHubV3RestApiService {
     migrationId: number
     repoName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7761,14 +7598,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7788,9 +7622,9 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         roles?: t_organization_role[]
         total_count?: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7806,9 +7640,7 @@ export class GitHubV3RestApiService {
   orgsRevokeAllOrgRolesTeam(p: {
     org: string
     teamSlug: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -7825,9 +7657,9 @@ export class GitHubV3RestApiService {
     teamSlug: string
     roleId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7845,9 +7677,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     roleId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -7862,9 +7692,7 @@ export class GitHubV3RestApiService {
   orgsRevokeAllOrgRolesUser(p: {
     org: string
     username: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -7881,9 +7709,9 @@ export class GitHubV3RestApiService {
     username: string
     roleId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7901,9 +7729,7 @@ export class GitHubV3RestApiService {
     org: string
     username: string
     roleId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -7919,9 +7745,9 @@ export class GitHubV3RestApiService {
     org: string
     roleId: number
   }): Observable<
-    | (HttpResponse<t_organization_role> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_organization_role> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -7941,15 +7767,12 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team_role_assignment[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_team_role_assignment[]> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7969,15 +7792,12 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_user_role_assignment[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_user_role_assignment[]> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -7997,7 +7817,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       filter: p["filter"],
@@ -8023,13 +7843,13 @@ export class GitHubV3RestApiService {
       async?: boolean
     }
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 202 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<EmptyObject> & {status: 202})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8049,11 +7869,11 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & {status: 204})
     | (HttpResponse<{
         documentation_url?: string
         message?: string
-      }> & { status: 422 })
+      }> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8081,10 +7901,10 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_package[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_package[]> & {status: 200})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -8117,7 +7937,7 @@ export class GitHubV3RestApiService {
     packageName: string
     org: string
   }): Observable<
-    (HttpResponse<t_package> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -8142,10 +7962,10 @@ export class GitHubV3RestApiService {
     packageName: string
     org: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8172,13 +7992,13 @@ export class GitHubV3RestApiService {
     org: string
     token?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ token: p["token"] })
+    const params = this._queryParams({token: p["token"]})
 
     return this.httpClient.request<any>(
       "POST",
@@ -8207,10 +8027,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     state?: "active" | "deleted" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_package_version[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_package_version[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -8244,7 +8064,7 @@ export class GitHubV3RestApiService {
     org: string
     packageVersionId: number
   }): Observable<
-    (HttpResponse<t_package_version> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package_version> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -8270,10 +8090,10 @@ export class GitHubV3RestApiService {
     org: string
     packageVersionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8300,10 +8120,10 @@ export class GitHubV3RestApiService {
     org: string
     packageVersionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8333,10 +8153,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_programmatic_access_grant_request[]> & {
         status: 200
       })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -8373,14 +8193,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8403,14 +8223,14 @@ export class GitHubV3RestApiService {
       reason?: string | null
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8432,16 +8252,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -8468,13 +8285,11 @@ export class GitHubV3RestApiService {
     lastUsedAfter?: string
     tokenId?: string[]
   }): Observable<
-    | (HttpResponse<t_organization_programmatic_access_grant[]> & {
-        status: 200
-      })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_organization_programmatic_access_grant[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -8510,14 +8325,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8539,14 +8354,14 @@ export class GitHubV3RestApiService {
       action: "revoke" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8568,16 +8383,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -8599,15 +8411,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         configurations: t_org_private_registry_configuration[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -8639,11 +8448,11 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_org_private_registry_configuration_with_selected_repositories> & {
         status: 201
       })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8664,8 +8473,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         key: string
         key_id: string
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8682,8 +8491,8 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<
-    | (HttpResponse<t_org_private_registry_configuration> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_org_private_registry_configuration> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8714,12 +8523,12 @@ export class GitHubV3RestApiService {
       visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8739,9 +8548,9 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8761,8 +8570,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_project[]> & { status: 200 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project[]> & {status: 200})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -8789,15 +8598,15 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_project> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8815,9 +8624,9 @@ export class GitHubV3RestApiService {
   orgsGetAllCustomProperties(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_custom_property[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_custom_property[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8836,12 +8645,12 @@ export class GitHubV3RestApiService {
       properties: t_custom_property[]
     }
   }): Observable<
-    | (HttpResponse<t_custom_property[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_custom_property[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8860,9 +8669,9 @@ export class GitHubV3RestApiService {
     org: string
     customPropertyName: string
   }): Observable<
-    | (HttpResponse<t_custom_property> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_custom_property> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8881,12 +8690,12 @@ export class GitHubV3RestApiService {
     customPropertyName: string
     requestBody: t_custom_property_set_payload
   }): Observable<
-    | (HttpResponse<t_custom_property> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_custom_property> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8906,9 +8715,9 @@ export class GitHubV3RestApiService {
     org: string
     customPropertyName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -8928,9 +8737,9 @@ export class GitHubV3RestApiService {
     page?: number
     repositoryQuery?: string
   }): Observable<
-    | (HttpResponse<t_org_repo_custom_property_values[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_org_repo_custom_property_values[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -8957,13 +8766,13 @@ export class GitHubV3RestApiService {
       repository_names: string[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8983,12 +8792,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -9005,8 +8811,8 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9024,8 +8830,8 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9042,9 +8848,7 @@ export class GitHubV3RestApiService {
   orgsRemovePublicMembershipForAuthenticatedUser(p: {
     org: string
     username: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -9076,7 +8880,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -9141,12 +8945,12 @@ export class GitHubV3RestApiService {
       visibility?: "public" | "private" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_full_repository> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_full_repository> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9167,9 +8971,9 @@ export class GitHubV3RestApiService {
     page?: number
     targets?: string
   }): Observable<
-    | (HttpResponse<t_repository_ruleset[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -9200,12 +9004,12 @@ export class GitHubV3RestApiService {
       target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_repository_ruleset> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9235,9 +9039,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_rule_suites> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_rule_suites> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -9265,9 +9069,9 @@ export class GitHubV3RestApiService {
     org: string
     ruleSuiteId: number
   }): Observable<
-    | (HttpResponse<t_rule_suite> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_rule_suite> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9285,9 +9089,9 @@ export class GitHubV3RestApiService {
     org: string
     rulesetId: number
   }): Observable<
-    | (HttpResponse<t_repository_ruleset> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9312,12 +9116,12 @@ export class GitHubV3RestApiService {
       target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_repository_ruleset> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9336,9 +9140,9 @@ export class GitHubV3RestApiService {
     org: string
     rulesetId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9357,15 +9161,12 @@ export class GitHubV3RestApiService {
     page?: number
     rulesetId: number
   }): Observable<
-    | (HttpResponse<t_ruleset_version[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_ruleset_version[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -9384,9 +9185,9 @@ export class GitHubV3RestApiService {
     rulesetId: number
     versionId: number
   }): Observable<
-    | (HttpResponse<t_ruleset_version_with_state> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_ruleset_version_with_state> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9416,13 +9217,13 @@ export class GitHubV3RestApiService {
     isMultiRepo?: boolean
     hideSecret?: boolean
   }): Observable<
-    | (HttpResponse<t_organization_secret_scanning_alert[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_organization_secret_scanning_alert[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -9461,9 +9262,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     state?: "triage" | "draft" | "published" | "closed" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_repository_advisory[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_repository_advisory[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -9489,7 +9290,7 @@ export class GitHubV3RestApiService {
   orgsListSecurityManagerTeams(p: {
     org: string
   }): Observable<
-    (HttpResponse<t_team_simple[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_simple[]> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -9504,9 +9305,7 @@ export class GitHubV3RestApiService {
   orgsAddSecurityManagerTeam(p: {
     org: string
     teamSlug: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -9521,9 +9320,7 @@ export class GitHubV3RestApiService {
   orgsRemoveSecurityManagerTeam(p: {
     org: string
     teamSlug: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -9538,7 +9335,7 @@ export class GitHubV3RestApiService {
   billingGetGithubActionsBillingOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_actions_billing_usage> & { status: 200 })
+    | (HttpResponse<t_actions_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9554,7 +9351,7 @@ export class GitHubV3RestApiService {
   billingGetGithubPackagesBillingOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_packages_billing_usage> & { status: 200 })
+    | (HttpResponse<t_packages_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9570,7 +9367,7 @@ export class GitHubV3RestApiService {
   billingGetSharedStorageBillingOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_combined_billing_usage> & { status: 200 })
+    | (HttpResponse<t_combined_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9592,13 +9389,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         network_configurations: t_network_configuration[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -9620,10 +9414,10 @@ export class GitHubV3RestApiService {
       network_settings_ids: string[]
     }
   }): Observable<
-    | (HttpResponse<t_network_configuration> & { status: 201 })
+    | (HttpResponse<t_network_configuration> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9643,7 +9437,7 @@ export class GitHubV3RestApiService {
     org: string
     networkConfigurationId: string
   }): Observable<
-    | (HttpResponse<t_network_configuration> & { status: 200 })
+    | (HttpResponse<t_network_configuration> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9666,10 +9460,10 @@ export class GitHubV3RestApiService {
       network_settings_ids?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_network_configuration> & { status: 200 })
+    | (HttpResponse<t_network_configuration> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9688,9 +9482,7 @@ export class GitHubV3RestApiService {
   hostedComputeDeleteNetworkConfigurationFromOrg(p: {
     org: string
     networkConfigurationId: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -9706,7 +9498,7 @@ export class GitHubV3RestApiService {
     org: string
     networkSettingsId: string
   }): Observable<
-    (HttpResponse<t_network_settings> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_network_settings> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -9727,11 +9519,11 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_copilot_usage_metrics_day[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -9758,14 +9550,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -9794,12 +9583,12 @@ export class GitHubV3RestApiService {
       repo_names?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_team_full> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team_full> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9818,8 +9607,8 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
   }): Observable<
-    | (HttpResponse<t_team_full> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team_full> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -9847,14 +9636,14 @@ export class GitHubV3RestApiService {
       privacy?: "secret" | "closed" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_team_full> & { status: 200 })
-    | (HttpResponse<t_team_full> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team_full> & {status: 200})
+    | (HttpResponse<t_team_full> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9872,9 +9661,7 @@ export class GitHubV3RestApiService {
   teamsDeleteInOrg(p: {
     org: string
     teamSlug: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
@@ -9893,8 +9680,7 @@ export class GitHubV3RestApiService {
     page?: number
     pinned?: string
   }): Observable<
-    | (HttpResponse<t_team_discussion[]> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       direction: p["direction"],
@@ -9924,9 +9710,9 @@ export class GitHubV3RestApiService {
       title: string
     }
   }): Observable<
-    (HttpResponse<t_team_discussion> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9947,7 +9733,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     discussionNumber: number
   }): Observable<
-    (HttpResponse<t_team_discussion> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -9969,9 +9755,9 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    (HttpResponse<t_team_discussion> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9991,9 +9777,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     discussionNumber: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -10013,7 +9797,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment[]> & { status: 200 })
+    | (HttpResponse<t_team_discussion_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -10042,10 +9826,10 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment> & { status: 201 })
+    | (HttpResponse<t_team_discussion_comment> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10067,7 +9851,7 @@ export class GitHubV3RestApiService {
     discussionNumber: number
     commentNumber: number
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment> & { status: 200 })
+    | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10090,10 +9874,10 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment> & { status: 200 })
+    | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10114,9 +9898,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     discussionNumber: number
     commentNumber: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -10146,7 +9928,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_reaction[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       content: p["content"],
@@ -10184,11 +9966,11 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10210,9 +9992,7 @@ export class GitHubV3RestApiService {
     discussionNumber: number
     commentNumber: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -10241,7 +10021,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_reaction[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       content: p["content"],
@@ -10278,11 +10058,11 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10303,9 +10083,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     discussionNumber: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -10323,13 +10101,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_organization_invitation[]> & { status: 200 })
+    | (HttpResponse<t_organization_invitation[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -10350,7 +10125,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       role: p["role"],
@@ -10374,8 +10149,8 @@ export class GitHubV3RestApiService {
     teamSlug: string
     username: string
   }): Observable<
-    | (HttpResponse<t_team_membership> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_team_membership> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10397,12 +10172,12 @@ export class GitHubV3RestApiService {
       role?: "member" | "maintainer" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_team_membership> & { status: 200 })
-    | (HttpResponse<void> & { status: 403 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_team_membership> & {status: 200})
+    | (HttpResponse<void> & {status: 403})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10423,8 +10198,8 @@ export class GitHubV3RestApiService {
     teamSlug: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10444,12 +10219,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_team_project[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_project[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -10468,8 +10240,8 @@ export class GitHubV3RestApiService {
     teamSlug: string
     projectId: number
   }): Observable<
-    | (HttpResponse<t_team_project> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_team_project> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10491,14 +10263,14 @@ export class GitHubV3RestApiService {
       permission?: "read" | "write" | "admin" | UnknownEnumStringValue
     } | null
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & {status: 204})
     | (HttpResponse<{
         documentation_url?: string
         message?: string
-      }> & { status: 403 })
+      }> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10518,9 +10290,7 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
     projectId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -10538,13 +10308,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -10563,9 +10330,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_team_repository> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_team_repository> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10587,10 +10354,8 @@ export class GitHubV3RestApiService {
     requestBody?: {
       permission?: string
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10611,9 +10376,7 @@ export class GitHubV3RestApiService {
     teamSlug: string
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -10631,12 +10394,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_team[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -10665,11 +10425,11 @@ export class GitHubV3RestApiService {
       query_suite?: "default" | "extended" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10688,11 +10448,11 @@ export class GitHubV3RestApiService {
   projectsGetCard(p: {
     cardId: number
   }): Observable<
-    | (HttpResponse<t_project_card> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_project_card> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10712,15 +10472,15 @@ export class GitHubV3RestApiService {
       note?: string | null
     }
   }): Observable<
-    | (HttpResponse<t_project_card> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project_card> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10738,15 +10498,15 @@ export class GitHubV3RestApiService {
   projectsDeleteCard(p: {
     cardId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<{
         documentation_url?: string
         errors?: string[]
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10766,9 +10526,9 @@ export class GitHubV3RestApiService {
       position: string
     }
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<EmptyObject> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<{
         documentation_url?: string
         errors?: {
@@ -10778,8 +10538,8 @@ export class GitHubV3RestApiService {
           resource?: string
         }[]
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
@@ -10788,10 +10548,10 @@ export class GitHubV3RestApiService {
           message?: string
         }[]
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10809,11 +10569,11 @@ export class GitHubV3RestApiService {
   projectsGetColumn(p: {
     columnId: number
   }): Observable<
-    | (HttpResponse<t_project_column> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_project_column> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10832,13 +10592,13 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_project_column> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_project_column> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10856,10 +10616,10 @@ export class GitHubV3RestApiService {
   projectsDeleteColumn(p: {
     columnId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -10878,10 +10638,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_project_card[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_project_card[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -10912,10 +10672,10 @@ export class GitHubV3RestApiService {
           content_type: string
         }
   }): Observable<
-    | (HttpResponse<t_project_card> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_project_card> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_validation_error | t_validation_error_simple> & {
         status: 422
       })
@@ -10927,10 +10687,10 @@ export class GitHubV3RestApiService {
           message?: string
         }[]
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10951,14 +10711,14 @@ export class GitHubV3RestApiService {
       position: string
     }
   }): Observable<
-    | (HttpResponse<EmptyObject> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<EmptyObject> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10976,10 +10736,10 @@ export class GitHubV3RestApiService {
   projectsGet(p: {
     projectId: number
   }): Observable<
-    | (HttpResponse<t_project> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_project> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11007,20 +10767,20 @@ export class GitHubV3RestApiService {
       state?: string
     }
   }): Observable<
-    | (HttpResponse<t_project> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_project> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<{
         documentation_url?: string
         errors?: string[]
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 403})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11038,16 +10798,16 @@ export class GitHubV3RestApiService {
   projectsDelete(p: {
     projectId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | (HttpResponse<{
         documentation_url?: string
         errors?: string[]
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+      }> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11066,12 +10826,12 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -11098,15 +10858,15 @@ export class GitHubV3RestApiService {
       permission?: "read" | "write" | "admin" | UnknownEnumStringValue
     } | null
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11126,12 +10886,12 @@ export class GitHubV3RestApiService {
     projectId: number
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11149,12 +10909,12 @@ export class GitHubV3RestApiService {
     projectId: number
     username: string
   }): Observable<
-    | (HttpResponse<t_project_collaborator_permission> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_project_collaborator_permission> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11173,16 +10933,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_project_column[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_project_column[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -11201,14 +10958,14 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_project_column> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project_column> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11224,9 +10981,9 @@ export class GitHubV3RestApiService {
   }
 
   rateLimitGet(): Observable<
-    | (HttpResponse<t_rate_limit_overview> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_rate_limit_overview> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11243,10 +11000,10 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_full_repository> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_full_repository> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11320,14 +11077,14 @@ export class GitHubV3RestApiService {
       web_commit_signoff_required?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_full_repository> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 307 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_full_repository> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 307})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11346,14 +11103,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 307 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 307})
     | (HttpResponse<{
         documentation_url?: string
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+      }> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11376,7 +11133,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         artifacts: t_artifact[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -11402,7 +11159,7 @@ export class GitHubV3RestApiService {
     repo: string
     artifactId: number
   }): Observable<
-    (HttpResponse<t_artifact> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_artifact> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -11419,9 +11176,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     artifactId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -11439,8 +11194,8 @@ export class GitHubV3RestApiService {
     artifactId: number
     archiveFormat: string
   }): Observable<
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11458,7 +11213,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_actions_cache_usage_by_repository> & { status: 200 })
+    | (HttpResponse<t_actions_cache_usage_by_repository> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11486,8 +11241,7 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_actions_cache_list> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_actions_cache_list> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       per_page: p["perPage"],
@@ -11515,10 +11269,9 @@ export class GitHubV3RestApiService {
     key: string
     ref?: string
   }): Observable<
-    | (HttpResponse<t_actions_cache_list> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_actions_cache_list> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ key: p["key"], ref: p["ref"] })
+    const params = this._queryParams({key: p["key"], ref: p["ref"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -11535,9 +11288,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     cacheId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -11554,7 +11305,7 @@ export class GitHubV3RestApiService {
     repo: string
     jobId: number
   }): Observable<
-    (HttpResponse<t_job> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_job> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -11571,9 +11322,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     jobId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 302 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -11593,11 +11342,11 @@ export class GitHubV3RestApiService {
       enable_debug_logging?: boolean
     } | null
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11617,9 +11366,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_oidc_custom_sub_repo> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_oidc_custom_sub_repo> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11641,13 +11390,13 @@ export class GitHubV3RestApiService {
       use_default: boolean
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11672,13 +11421,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_actions_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -11701,13 +11447,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         variables: t_actions_variable[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -11725,7 +11468,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_actions_repository_permissions> & { status: 200 })
+    | (HttpResponse<t_actions_repository_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11746,10 +11489,8 @@ export class GitHubV3RestApiService {
       allowed_actions?: t_allowed_actions
       enabled: t_actions_enabled
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11769,7 +11510,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_actions_workflow_access_to_repository> & { status: 200 })
+    | (HttpResponse<t_actions_workflow_access_to_repository> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11787,10 +11528,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     requestBody: t_actions_workflow_access_to_repository
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11810,7 +11549,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    (HttpResponse<t_selected_actions> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_selected_actions> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -11827,10 +11566,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     requestBody?: t_selected_actions
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11850,9 +11587,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_actions_get_default_workflow_permissions> & {
-        status: 200
-      })
+    | (HttpResponse<t_actions_get_default_workflow_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11871,11 +11606,11 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: t_actions_set_default_workflow_permissions
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11901,7 +11636,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         runners: t_runner[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -11926,7 +11661,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_runner_application[]> & { status: 200 })
+    | (HttpResponse<t_runner_application[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11953,13 +11688,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         encoded_jit_config: string
         runner: t_runner
-      }> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11979,7 +11714,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_authentication_token> & { status: 201 })
+    | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -11997,7 +11732,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_authentication_token> & { status: 201 })
+    | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12016,7 +11751,7 @@ export class GitHubV3RestApiService {
     repo: string
     runnerId: number
   }): Observable<
-    (HttpResponse<t_runner> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_runner> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -12034,8 +11769,8 @@ export class GitHubV3RestApiService {
     repo: string
     runnerId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12057,8 +11792,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12083,12 +11818,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12115,12 +11850,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12144,8 +11879,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12168,9 +11903,9 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         labels: t_runner_label[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12216,7 +11951,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         workflow_runs: t_workflow_run[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -12249,7 +11984,7 @@ export class GitHubV3RestApiService {
     runId: number
     excludePullRequests?: boolean
   }): Observable<
-    (HttpResponse<t_workflow_run> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_workflow_run> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       exclude_pull_requests: p["excludePullRequests"],
@@ -12271,9 +12006,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -12290,7 +12023,7 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<t_environment_approvals[]> & { status: 200 })
+    | (HttpResponse<t_environment_approvals[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12309,9 +12042,9 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12336,7 +12069,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         artifacts: t_artifact[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -12364,7 +12097,7 @@ export class GitHubV3RestApiService {
     attemptNumber: number
     excludePullRequests?: boolean
   }): Observable<
-    (HttpResponse<t_workflow_run> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_workflow_run> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       exclude_pull_requests: p["excludePullRequests"],
@@ -12393,14 +12126,11 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         jobs: t_job[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -12419,9 +12149,7 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
     attemptNumber: number
-  }): Observable<
-    (HttpResponse<void> & { status: 302 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -12438,8 +12166,8 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_empty_object> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12460,10 +12188,8 @@ export class GitHubV3RestApiService {
     requestBody:
       | t_review_custom_gates_comment_required
       | t_review_custom_gates_state_required
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12484,8 +12210,8 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_empty_object> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12510,7 +12236,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         jobs: t_job[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -12535,9 +12261,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     runId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 302 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -12554,9 +12278,9 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12575,7 +12299,7 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<t_pending_deployment[]> & { status: 200 })
+    | (HttpResponse<t_pending_deployment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -12599,9 +12323,9 @@ export class GitHubV3RestApiService {
       state: "approved" | "rejected" | UnknownEnumStringValue
     }
   }): Observable<
-    (HttpResponse<t_deployment[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_deployment[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12625,9 +12349,9 @@ export class GitHubV3RestApiService {
       enable_debug_logging?: boolean
     } | null
   }): Observable<
-    (HttpResponse<t_empty_object> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12651,9 +12375,9 @@ export class GitHubV3RestApiService {
       enable_debug_logging?: boolean
     } | null
   }): Observable<
-    (HttpResponse<t_empty_object> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12674,8 +12398,7 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<
-    | (HttpResponse<t_workflow_run_usage> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_workflow_run_usage> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -12697,13 +12420,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_actions_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -12721,8 +12441,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_actions_public_key> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_actions_public_key> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -12740,7 +12459,7 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
   }): Observable<
-    (HttpResponse<t_actions_secret> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_actions_secret> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -12762,11 +12481,11 @@ export class GitHubV3RestApiService {
       key_id: string
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12786,9 +12505,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -12809,13 +12526,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         variables: t_actions_variable[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -12837,9 +12551,9 @@ export class GitHubV3RestApiService {
       value: string
     }
   }): Observable<
-    (HttpResponse<t_empty_object> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12860,7 +12574,7 @@ export class GitHubV3RestApiService {
     repo: string
     name: string
   }): Observable<
-    (HttpResponse<t_actions_variable> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_actions_variable> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -12881,10 +12595,8 @@ export class GitHubV3RestApiService {
       name?: string
       value?: string
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12904,9 +12616,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     name: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -12927,13 +12637,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         workflows: t_workflow[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -12952,7 +12659,7 @@ export class GitHubV3RestApiService {
     repo: string
     workflowId: number | string
   }): Observable<
-    (HttpResponse<t_workflow> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_workflow> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -12969,9 +12676,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     workflowId: number | string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -12993,10 +12698,8 @@ export class GitHubV3RestApiService {
       }
       ref: string
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13016,9 +12719,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     workflowId: number | string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -13063,7 +12764,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         workflow_runs: t_workflow_run[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -13096,7 +12797,7 @@ export class GitHubV3RestApiService {
     repo: string
     workflowId: number | string
   }): Observable<
-    (HttpResponse<t_workflow_usage> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_workflow_usage> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -13134,8 +12835,8 @@ export class GitHubV3RestApiService {
       | "merge_queue_merge"
       | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_activity[]> & { status: 200 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_activity[]> & {status: 200})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -13166,14 +12867,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -13191,8 +12889,8 @@ export class GitHubV3RestApiService {
     repo: string
     assignee: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13223,12 +12921,12 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         id?: number
-      }> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13266,7 +12964,7 @@ export class GitHubV3RestApiService {
           bundle_url?: string
           repository_id?: number
         }[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -13292,7 +12990,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    (HttpResponse<t_autolink[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_autolink[]> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -13313,11 +13011,11 @@ export class GitHubV3RestApiService {
       url_template: string
     }
   }): Observable<
-    | (HttpResponse<t_autolink> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_autolink> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13337,8 +13035,8 @@ export class GitHubV3RestApiService {
     repo: string
     autolinkId: number
   }): Observable<
-    | (HttpResponse<t_autolink> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_autolink> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13357,8 +13055,8 @@ export class GitHubV3RestApiService {
     repo: string
     autolinkId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13376,8 +13074,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_check_automated_security_fixes> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_check_automated_security_fixes> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13394,9 +13092,7 @@ export class GitHubV3RestApiService {
   reposEnableAutomatedSecurityFixes(p: {
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -13411,9 +13107,7 @@ export class GitHubV3RestApiService {
   reposDisableAutomatedSecurityFixes(p: {
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -13432,8 +13126,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_short_branch[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_short_branch[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -13458,9 +13152,9 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_branch_with_protection> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_branch_with_protection> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13479,8 +13173,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_branch_protection> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_branch_protection> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13538,13 +13232,13 @@ export class GitHubV3RestApiService {
       } | null
     }
   }): Observable<
-    | (HttpResponse<t_protected_branch> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_protected_branch> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13565,8 +13259,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13585,7 +13279,7 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_protected_branch_admin_enforced> & { status: 200 })
+    | (HttpResponse<t_protected_branch_admin_enforced> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13604,7 +13298,7 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_protected_branch_admin_enforced> & { status: 200 })
+    | (HttpResponse<t_protected_branch_admin_enforced> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13623,8 +13317,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13643,7 +13337,7 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_protected_branch_pull_request_review> & { status: 200 })
+    | (HttpResponse<t_protected_branch_pull_request_review> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13678,11 +13372,11 @@ export class GitHubV3RestApiService {
       required_approving_review_count?: number
     }
   }): Observable<
-    | (HttpResponse<t_protected_branch_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_protected_branch_pull_request_review> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13703,8 +13397,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13723,8 +13417,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_protected_branch_admin_enforced> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_protected_branch_admin_enforced> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13743,8 +13437,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_protected_branch_admin_enforced> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_protected_branch_admin_enforced> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13763,8 +13457,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13783,8 +13477,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_status_check_policy> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_status_check_policy> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13811,12 +13505,12 @@ export class GitHubV3RestApiService {
       strict?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_status_check_policy> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_status_check_policy> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13836,9 +13530,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -13855,8 +13547,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<string[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<string[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13880,13 +13572,13 @@ export class GitHubV3RestApiService {
         }
       | string[]
   }): Observable<
-    | (HttpResponse<string[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<string[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13912,12 +13604,12 @@ export class GitHubV3RestApiService {
         }
       | string[]
   }): Observable<
-    | (HttpResponse<string[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<string[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13943,12 +13635,12 @@ export class GitHubV3RestApiService {
         }
       | string[]
   }): Observable<
-    | (HttpResponse<string[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<string[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13969,8 +13661,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_branch_restriction_policy> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_branch_restriction_policy> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -13988,9 +13680,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     branch: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -14007,8 +13697,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_integration[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_integration[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14030,11 +13720,11 @@ export class GitHubV3RestApiService {
       apps: string[]
     }
   }): Observable<
-    | (HttpResponse<t_integration[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_integration[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14058,11 +13748,11 @@ export class GitHubV3RestApiService {
       apps: string[]
     }
   }): Observable<
-    | (HttpResponse<t_integration[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_integration[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14086,11 +13776,11 @@ export class GitHubV3RestApiService {
       apps: string[]
     }
   }): Observable<
-    | (HttpResponse<t_integration[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_integration[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14111,8 +13801,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14136,11 +13826,11 @@ export class GitHubV3RestApiService {
         }
       | string[]
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14166,11 +13856,11 @@ export class GitHubV3RestApiService {
         }
       | string[]
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14196,11 +13886,11 @@ export class GitHubV3RestApiService {
         }
       | string[]
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14221,8 +13911,8 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14244,11 +13934,11 @@ export class GitHubV3RestApiService {
       users: string[]
     }
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14272,11 +13962,11 @@ export class GitHubV3RestApiService {
       users: string[]
     }
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14300,11 +13990,11 @@ export class GitHubV3RestApiService {
       users: string[]
     }
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14328,13 +14018,13 @@ export class GitHubV3RestApiService {
       new_name: string
     }
   }): Observable<
-    | (HttpResponse<t_branch_with_protection> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_branch_with_protection> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14363,9 +14053,9 @@ export class GitHubV3RestApiService {
           [key: string]: unknown | undefined
         }
   }): Observable<
-    (HttpResponse<t_check_run> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_check_run> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14385,7 +14075,7 @@ export class GitHubV3RestApiService {
     repo: string
     checkRunId: number
   }): Observable<
-    (HttpResponse<t_check_run> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_check_run> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -14458,9 +14148,9 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    (HttpResponse<t_check_run> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_check_run> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14483,13 +14173,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_check_annotation[]> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_check_annotation[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -14508,10 +14194,10 @@ export class GitHubV3RestApiService {
     repo: string
     checkRunId: number
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14532,11 +14218,11 @@ export class GitHubV3RestApiService {
       head_sha: string
     }
   }): Observable<
-    | (HttpResponse<t_check_suite> & { status: 200 })
-    | (HttpResponse<t_check_suite> & { status: 201 })
+    | (HttpResponse<t_check_suite> & {status: 200})
+    | (HttpResponse<t_check_suite> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14561,10 +14247,10 @@ export class GitHubV3RestApiService {
       }[]
     }
   }): Observable<
-    | (HttpResponse<t_check_suite_preference> & { status: 200 })
+    | (HttpResponse<t_check_suite_preference> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14585,7 +14271,7 @@ export class GitHubV3RestApiService {
     repo: string
     checkSuiteId: number
   }): Observable<
-    (HttpResponse<t_check_suite> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_check_suite> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -14611,7 +14297,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         check_runs: t_check_run[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -14639,7 +14325,7 @@ export class GitHubV3RestApiService {
     repo: string
     checkSuiteId: number
   }): Observable<
-    (HttpResponse<t_empty_object> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "POST",
@@ -14668,15 +14354,15 @@ export class GitHubV3RestApiService {
     state?: t_code_scanning_alert_state_query
     severity?: t_code_scanning_alert_severity
   }): Observable<
-    | (HttpResponse<t_code_scanning_alert_items[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_alert_items[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -14711,15 +14397,15 @@ export class GitHubV3RestApiService {
     repo: string
     alertNumber: t_alert_number
   }): Observable<
-    | (HttpResponse<t_code_scanning_alert> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_alert> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14744,18 +14430,18 @@ export class GitHubV3RestApiService {
       state: t_code_scanning_alert_set_state
     }
   }): Observable<
-    | (HttpResponse<t_code_scanning_alert> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_alert> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14776,15 +14462,15 @@ export class GitHubV3RestApiService {
     repo: string
     alertNumber: t_alert_number
   }): Observable<
-    | (HttpResponse<t_code_scanning_autofix> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_autofix> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14803,17 +14489,17 @@ export class GitHubV3RestApiService {
     repo: string
     alertNumber: t_alert_number
   }): Observable<
-    | (HttpResponse<t_code_scanning_autofix> & { status: 200 })
-    | (HttpResponse<t_code_scanning_autofix> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_code_scanning_autofix> & {status: 200})
+    | (HttpResponse<t_code_scanning_autofix> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14833,19 +14519,19 @@ export class GitHubV3RestApiService {
     alertNumber: t_alert_number
     requestBody?: t_code_scanning_autofix_commits
   }): Observable<
-    | (HttpResponse<t_code_scanning_autofix_commits_response> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_code_scanning_autofix_commits_response> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14870,14 +14556,14 @@ export class GitHubV3RestApiService {
     ref?: t_code_scanning_ref
     pr?: number
   }): Observable<
-    | (HttpResponse<t_code_scanning_alert_instance[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_alert_instance[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -14912,14 +14598,14 @@ export class GitHubV3RestApiService {
     direction?: "asc" | "desc" | UnknownEnumStringValue
     sort?: "created" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_code_scanning_analysis[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_analysis[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -14953,15 +14639,15 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -14981,18 +14667,18 @@ export class GitHubV3RestApiService {
     analysisId: number
     confirmDelete?: string | null
   }): Observable<
-    | (HttpResponse<t_code_scanning_analysis_deletion> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_analysis_deletion> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ confirm_delete: p["confirmDelete"] })
+    const params = this._queryParams({confirm_delete: p["confirmDelete"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -15010,14 +14696,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_code_scanning_codeql_database[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_codeql_database[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15036,15 +14722,15 @@ export class GitHubV3RestApiService {
     repo: string
     language: string
   }): Observable<
-    | (HttpResponse<t_code_scanning_codeql_database> & { status: 200 })
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_codeql_database> & {status: 200})
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15063,14 +14749,14 @@ export class GitHubV3RestApiService {
     repo: string
     language: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15089,17 +14775,17 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: EmptyObject
   }): Observable<
-    | (HttpResponse<t_code_scanning_variant_analysis> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_code_scanning_variant_analysis> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15120,13 +14806,13 @@ export class GitHubV3RestApiService {
     repo: string
     codeqlVariantAnalysisId: number
   }): Observable<
-    | (HttpResponse<t_code_scanning_variant_analysis> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_variant_analysis> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15147,15 +14833,13 @@ export class GitHubV3RestApiService {
     repoOwner: string
     repoName: string
   }): Observable<
-    | (HttpResponse<t_code_scanning_variant_analysis_repo_task> & {
-        status: 200
-      })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_variant_analysis_repo_task> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15173,14 +14857,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_code_scanning_default_setup> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_code_scanning_default_setup> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15199,22 +14883,22 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: t_code_scanning_default_setup_update
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 200 })
+    | (HttpResponse<t_empty_object> & {status: 200})
     | (HttpResponse<t_code_scanning_default_setup_update_response> & {
         status: 202
       })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15243,19 +14927,19 @@ export class GitHubV3RestApiService {
       validate?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_code_scanning_sarifs_receipt> & { status: 202 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 413 })
+    | (HttpResponse<t_code_scanning_sarifs_receipt> & {status: 202})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 413})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15276,14 +14960,14 @@ export class GitHubV3RestApiService {
     repo: string
     sarifId: string
   }): Observable<
-    | (HttpResponse<t_code_scanning_sarifs_status> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_code_scanning_sarifs_status> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15304,10 +14988,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_code_security_configuration_for_repository> & {
         status: 200
       })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15326,11 +15010,11 @@ export class GitHubV3RestApiService {
     repo: string
     ref?: string
   }): Observable<
-    | (HttpResponse<t_codeowners_errors> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_codeowners_errors> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ ref: p["ref"] })
+    const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -15353,17 +15037,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         codespaces: t_codespace[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -15398,20 +15079,20 @@ export class GitHubV3RestApiService {
       working_directory?: string
     } | null
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 201 })
-    | (HttpResponse<t_codespace> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_codespace> & {status: 201})
+    | (HttpResponse<t_codespace> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15439,18 +15120,15 @@ export class GitHubV3RestApiService {
           path: string
         }[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -15474,12 +15152,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         machines: t_codespace_machine[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -15512,16 +15190,13 @@ export class GitHubV3RestApiService {
           devcontainer_path: string | null
           location: string
         }
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      ref: p["ref"],
-      client_ip: p["clientIp"],
-    })
+    const params = this._queryParams({ref: p["ref"], client_ip: p["clientIp"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -15543,15 +15218,15 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_codespaces_permissions_check_for_devcontainer> & {
         status: 200
       })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -15580,13 +15255,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_repo_codespaces_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -15604,7 +15276,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_codespaces_public_key> & { status: 200 })
+    | (HttpResponse<t_codespaces_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15623,7 +15295,7 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
   }): Observable<
-    | (HttpResponse<t_repo_codespaces_secret> & { status: 200 })
+    | (HttpResponse<t_repo_codespaces_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15646,11 +15318,11 @@ export class GitHubV3RestApiService {
       key_id?: string
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15670,9 +15342,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -15698,8 +15368,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_collaborator[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_collaborator[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -15725,8 +15395,8 @@ export class GitHubV3RestApiService {
     repo: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15748,13 +15418,13 @@ export class GitHubV3RestApiService {
       permission?: string
     }
   }): Observable<
-    | (HttpResponse<t_repository_invitation> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_repository_invitation> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15775,9 +15445,9 @@ export class GitHubV3RestApiService {
     repo: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15796,8 +15466,8 @@ export class GitHubV3RestApiService {
     repo: string
     username: string
   }): Observable<
-    | (HttpResponse<t_repository_collaborator_permission> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_repository_collaborator_permission> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15817,12 +15487,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_commit_comment[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_commit_comment[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -15840,8 +15507,8 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
   }): Observable<
-    | (HttpResponse<t_commit_comment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_commit_comment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15863,11 +15530,11 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_commit_comment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_commit_comment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15888,8 +15555,8 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -15920,8 +15587,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_reaction[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_reaction[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -15959,12 +15626,12 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15985,9 +15652,7 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -16011,11 +15676,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_commit[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_commit[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -16045,9 +15710,9 @@ export class GitHubV3RestApiService {
     repo: string
     commitSha: string
   }): Observable<
-    | (HttpResponse<t_branch_short[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_branch_short[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -16068,12 +15733,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_commit_comment[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_commit_comment[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16098,12 +15760,12 @@ export class GitHubV3RestApiService {
       position?: number
     }
   }): Observable<
-    | (HttpResponse<t_commit_comment> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_commit_comment> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16126,14 +15788,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_pull_request_simple[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_pull_request_simple[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16154,22 +15813,19 @@ export class GitHubV3RestApiService {
     perPage?: number
     ref: string
   }): Observable<
-    | (HttpResponse<t_commit> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_commit> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16197,7 +15853,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         check_runs: t_check_run[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -16233,7 +15889,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         check_suites: t_check_suite[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -16262,14 +15918,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_combined_commit_status> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_combined_commit_status> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16290,14 +15943,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_status[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
+    | (HttpResponse<t_status[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16315,8 +15965,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_community_profile> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_community_profile> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -16336,20 +15985,17 @@ export class GitHubV3RestApiService {
     perPage?: number
     basehead: string
   }): Observable<
-    | (HttpResponse<t_commit_comparison> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_commit_comparison> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16374,14 +16020,14 @@ export class GitHubV3RestApiService {
         | t_content_file
         | t_content_symlink
         | t_content_submodule
-      > & { status: 200 })
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      > & {status: 200})
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ ref: p["ref"] })
+    const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16416,16 +16062,16 @@ export class GitHubV3RestApiService {
       sha?: string
     }
   }): Observable<
-    | (HttpResponse<t_file_commit> & { status: 200 })
-    | (HttpResponse<t_file_commit> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_file_commit> & {status: 200})
+    | (HttpResponse<t_file_commit> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<t_basic_error | t_repository_rule_violation_error> & {
         status: 409
       })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16459,18 +16105,18 @@ export class GitHubV3RestApiService {
       sha: string
     }
   }): Observable<
-    | (HttpResponse<t_file_commit> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_file_commit> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16493,10 +16139,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_contributor[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_contributor[]> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -16536,12 +16182,12 @@ export class GitHubV3RestApiService {
     first?: number
     last?: number
   }): Observable<
-    | (HttpResponse<t_dependabot_alert[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_dependabot_alert[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -16580,10 +16226,10 @@ export class GitHubV3RestApiService {
     repo: string
     alertNumber: t_alert_number
   }): Observable<
-    | (HttpResponse<t_dependabot_alert> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_dependabot_alert> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -16613,15 +16259,15 @@ export class GitHubV3RestApiService {
       state: "dismissed" | "open" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_dependabot_alert> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_dependabot_alert> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16646,13 +16292,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_dependabot_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16670,7 +16313,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_dependabot_public_key> & { status: 200 })
+    | (HttpResponse<t_dependabot_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -16689,8 +16332,7 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
   }): Observable<
-    | (HttpResponse<t_dependabot_secret> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_dependabot_secret> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -16712,11 +16354,11 @@ export class GitHubV3RestApiService {
       key_id?: string
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16736,9 +16378,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -16756,12 +16396,12 @@ export class GitHubV3RestApiService {
     basehead: string
     name?: string
   }): Observable<
-    | (HttpResponse<t_dependency_graph_diff> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_dependency_graph_diff> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ name: p["name"] })
+    const params = this._queryParams({name: p["name"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16779,9 +16419,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_dependency_graph_spdx_sbom> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_dependency_graph_spdx_sbom> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -16805,10 +16445,10 @@ export class GitHubV3RestApiService {
         id: number
         message: string
         result: string
-      }> & { status: 201 })
+      }> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16834,7 +16474,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_deployment[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_deployment[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       sha: p["sha"],
@@ -16875,15 +16515,15 @@ export class GitHubV3RestApiService {
       transient_environment?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_deployment> & { status: 201 })
+    | (HttpResponse<t_deployment> & {status: 201})
     | (HttpResponse<{
         message?: string
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16903,8 +16543,8 @@ export class GitHubV3RestApiService {
     repo: string
     deploymentId: number
   }): Observable<
-    | (HttpResponse<t_deployment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_deployment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -16923,9 +16563,9 @@ export class GitHubV3RestApiService {
     repo: string
     deploymentId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -16946,14 +16586,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_deployment_status[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_deployment_status[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -16989,11 +16626,11 @@ export class GitHubV3RestApiService {
       target_url?: string
     }
   }): Observable<
-    | (HttpResponse<t_deployment_status> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_deployment_status> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17015,8 +16652,8 @@ export class GitHubV3RestApiService {
     deploymentId: number
     statusId: number
   }): Observable<
-    | (HttpResponse<t_deployment_status> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_deployment_status> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17040,12 +16677,12 @@ export class GitHubV3RestApiService {
       event_type: string
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17069,13 +16706,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         environments?: t_environment[]
         total_count?: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -17093,7 +16727,7 @@ export class GitHubV3RestApiService {
     repo: string
     environmentName: string
   }): Observable<
-    (HttpResponse<t_environment> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_environment> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -17122,11 +16756,11 @@ export class GitHubV3RestApiService {
       wait_timer?: t_wait_timer
     } | null
   }): Observable<
-    | (HttpResponse<t_environment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_environment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17146,9 +16780,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     environmentName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -17170,13 +16802,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         branch_policies: t_deployment_branch_policy[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -17196,12 +16825,12 @@ export class GitHubV3RestApiService {
     environmentName: string
     requestBody: t_deployment_branch_policy_name_pattern_with_type
   }): Observable<
-    | (HttpResponse<t_deployment_branch_policy> & { status: 200 })
-    | (HttpResponse<void> & { status: 303 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_deployment_branch_policy> & {status: 200})
+    | (HttpResponse<void> & {status: 303})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17223,7 +16852,7 @@ export class GitHubV3RestApiService {
     environmentName: string
     branchPolicyId: number
   }): Observable<
-    | (HttpResponse<t_deployment_branch_policy> & { status: 200 })
+    | (HttpResponse<t_deployment_branch_policy> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17244,10 +16873,10 @@ export class GitHubV3RestApiService {
     branchPolicyId: number
     requestBody: t_deployment_branch_policy_name_pattern
   }): Observable<
-    | (HttpResponse<t_deployment_branch_policy> & { status: 200 })
+    | (HttpResponse<t_deployment_branch_policy> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17268,9 +16897,7 @@ export class GitHubV3RestApiService {
     repo: string
     environmentName: string
     branchPolicyId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -17290,7 +16917,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         custom_deployment_protection_rules?: t_deployment_protection_rule[]
         total_count?: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17312,10 +16939,10 @@ export class GitHubV3RestApiService {
       integration_id?: number
     }
   }): Observable<
-    | (HttpResponse<t_deployment_protection_rule> & { status: 201 })
+    | (HttpResponse<t_deployment_protection_rule> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17341,13 +16968,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
         total_count?: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -17367,7 +16991,7 @@ export class GitHubV3RestApiService {
     environmentName: string
     protectionRuleId: number
   }): Observable<
-    | (HttpResponse<t_deployment_protection_rule> & { status: 200 })
+    | (HttpResponse<t_deployment_protection_rule> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17386,9 +17010,7 @@ export class GitHubV3RestApiService {
     repo: string
     owner: string
     protectionRuleId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -17410,13 +17032,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_actions_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -17435,8 +17054,7 @@ export class GitHubV3RestApiService {
     repo: string
     environmentName: string
   }): Observable<
-    | (HttpResponse<t_actions_public_key> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_actions_public_key> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -17455,7 +17073,7 @@ export class GitHubV3RestApiService {
     environmentName: string
     secretName: string
   }): Observable<
-    (HttpResponse<t_actions_secret> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_actions_secret> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -17478,11 +17096,11 @@ export class GitHubV3RestApiService {
       key_id: string
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17503,9 +17121,7 @@ export class GitHubV3RestApiService {
     repo: string
     environmentName: string
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -17527,13 +17143,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         total_count: number
         variables: t_actions_variable[]
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -17556,9 +17169,9 @@ export class GitHubV3RestApiService {
       value: string
     }
   }): Observable<
-    (HttpResponse<t_empty_object> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17580,7 +17193,7 @@ export class GitHubV3RestApiService {
     environmentName: string
     name: string
   }): Observable<
-    (HttpResponse<t_actions_variable> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_actions_variable> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -17602,10 +17215,8 @@ export class GitHubV3RestApiService {
       name?: string
       value?: string
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17626,9 +17237,7 @@ export class GitHubV3RestApiService {
     repo: string
     name: string
     environmentName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -17646,12 +17255,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -17676,8 +17282,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -17706,14 +17312,14 @@ export class GitHubV3RestApiService {
       organization?: string
     } | null
   }): Observable<
-    | (HttpResponse<t_full_repository> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_full_repository> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17736,16 +17342,16 @@ export class GitHubV3RestApiService {
       encoding?: string
     }
   }): Observable<
-    | (HttpResponse<t_short_blob> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_short_blob> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | (HttpResponse<t_validation_error | t_repository_rule_violation_error> & {
         status: 422
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17765,11 +17371,11 @@ export class GitHubV3RestApiService {
     repo: string
     fileSha: string
   }): Observable<
-    | (HttpResponse<t_blob> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_blob> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17803,13 +17409,13 @@ export class GitHubV3RestApiService {
       tree: string
     }
   }): Observable<
-    | (HttpResponse<t_git_commit> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_git_commit> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17829,9 +17435,9 @@ export class GitHubV3RestApiService {
     repo: string
     commitSha: string
   }): Observable<
-    | (HttpResponse<t_git_commit> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_git_commit> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17850,8 +17456,8 @@ export class GitHubV3RestApiService {
     repo: string
     ref: string
   }): Observable<
-    | (HttpResponse<t_git_ref[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_git_ref[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17870,9 +17476,9 @@ export class GitHubV3RestApiService {
     repo: string
     ref: string
   }): Observable<
-    | (HttpResponse<t_git_ref> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_git_ref> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17894,12 +17500,12 @@ export class GitHubV3RestApiService {
       sha: string
     }
   }): Observable<
-    | (HttpResponse<t_git_ref> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_git_ref> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17923,12 +17529,12 @@ export class GitHubV3RestApiService {
       sha: string
     }
   }): Observable<
-    | (HttpResponse<t_git_ref> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_git_ref> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17949,9 +17555,9 @@ export class GitHubV3RestApiService {
     repo: string
     ref: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -17980,12 +17586,12 @@ export class GitHubV3RestApiService {
       type: "commit" | "tree" | "blob" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_git_tag> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_git_tag> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18005,9 +17611,9 @@ export class GitHubV3RestApiService {
     repo: string
     tagSha: string
   }): Observable<
-    | (HttpResponse<t_git_tag> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_git_tag> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18041,14 +17647,14 @@ export class GitHubV3RestApiService {
       }[]
     }
   }): Observable<
-    | (HttpResponse<t_git_tree> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_git_tree> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18069,13 +17675,13 @@ export class GitHubV3RestApiService {
     treeSha: string
     recursive?: string
   }): Observable<
-    | (HttpResponse<t_git_tree> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_git_tree> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ recursive: p["recursive"] })
+    const params = this._queryParams({recursive: p["recursive"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -18095,14 +17701,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_hook[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_hook[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -18130,13 +17733,13 @@ export class GitHubV3RestApiService {
       name?: string
     } | null
   }): Observable<
-    | (HttpResponse<t_hook> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18156,8 +17759,8 @@ export class GitHubV3RestApiService {
     repo: string
     hookId: number
   }): Observable<
-    | (HttpResponse<t_hook> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_hook> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18183,12 +17786,12 @@ export class GitHubV3RestApiService {
       remove_events?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_hook> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18209,8 +17812,8 @@ export class GitHubV3RestApiService {
     repo: string
     hookId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18229,7 +17832,7 @@ export class GitHubV3RestApiService {
     repo: string
     hookId: number
   }): Observable<
-    (HttpResponse<t_webhook_config> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -18253,9 +17856,9 @@ export class GitHubV3RestApiService {
       url?: t_webhook_config_url
     }
   }): Observable<
-    (HttpResponse<t_webhook_config> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18278,9 +17881,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     cursor?: string
   }): Observable<
-    | (HttpResponse<t_hook_delivery_item[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook_delivery_item[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -18306,9 +17909,9 @@ export class GitHubV3RestApiService {
     hookId: number
     deliveryId: number
   }): Observable<
-    | (HttpResponse<t_hook_delivery> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hook_delivery> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18330,9 +17933,9 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18351,8 +17954,8 @@ export class GitHubV3RestApiService {
     repo: string
     hookId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18371,8 +17974,8 @@ export class GitHubV3RestApiService {
     repo: string
     hookId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18390,9 +17993,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_import> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_import> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18416,13 +18019,13 @@ export class GitHubV3RestApiService {
       vcs_username?: string
     }
   }): Observable<
-    | (HttpResponse<t_import> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_import> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18447,11 +18050,11 @@ export class GitHubV3RestApiService {
       vcs_username?: string
     } | null
   }): Observable<
-    | (HttpResponse<t_import> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_import> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18470,8 +18073,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18489,12 +18092,12 @@ export class GitHubV3RestApiService {
     repo: string
     since?: number
   }): Observable<
-    | (HttpResponse<t_porter_author[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_porter_author[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ since: p["since"] })
+    const params = this._queryParams({since: p["since"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -18516,13 +18119,13 @@ export class GitHubV3RestApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_porter_author> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_porter_author> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18542,8 +18145,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_porter_large_file[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_porter_large_file[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18564,12 +18167,12 @@ export class GitHubV3RestApiService {
       use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_import> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 503 })
+    | (HttpResponse<t_import> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18588,9 +18191,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_installation> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_installation> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18607,9 +18210,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {
-        status: 200
-      })
+    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18628,11 +18229,11 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: t_interaction_limit
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response> & { status: 200 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<t_interaction_limit_response> & {status: 200})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18652,8 +18253,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18673,13 +18274,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_repository_invitation[]> & { status: 200 })
+    | (HttpResponse<t_repository_invitation[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -18706,10 +18304,10 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_repository_invitation> & { status: 200 })
+    | (HttpResponse<t_repository_invitation> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18729,9 +18327,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     invitationId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -18759,10 +18355,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -18812,20 +18408,20 @@ export class GitHubV3RestApiService {
       type?: string | null
     }
   }): Observable<
-    | (HttpResponse<t_issue> & { status: 201 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue> & {status: 201})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18849,9 +18445,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue_comment[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue_comment[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -18879,8 +18475,8 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
   }): Observable<
-    | (HttpResponse<t_issue_comment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_issue_comment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18902,11 +18498,11 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_issue_comment> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue_comment> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18926,9 +18522,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     commentId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -18957,8 +18551,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_reaction[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_reaction[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -18996,12 +18590,12 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19022,9 +18616,7 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -19042,14 +18634,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue_event[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue_event[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19067,10 +18656,10 @@ export class GitHubV3RestApiService {
     repo: string
     eventId: number
   }): Observable<
-    | (HttpResponse<t_issue_event> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_issue_event> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19089,11 +18678,11 @@ export class GitHubV3RestApiService {
     repo: string
     issueNumber: number
   }): Observable<
-    | (HttpResponse<t_issue> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_issue> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19136,20 +18725,20 @@ export class GitHubV3RestApiService {
       type?: string | null
     }
   }): Observable<
-    | (HttpResponse<t_issue> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19173,9 +18762,9 @@ export class GitHubV3RestApiService {
       assignees?: string[]
     }
   }): Observable<
-    (HttpResponse<t_issue> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_issue> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19199,9 +18788,9 @@ export class GitHubV3RestApiService {
       assignees?: string[]
     }
   }): Observable<
-    (HttpResponse<t_issue> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_issue> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19223,8 +18812,8 @@ export class GitHubV3RestApiService {
     issueNumber: number
     assignee: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19246,9 +18835,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue_comment[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_issue_comment[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -19277,14 +18866,14 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_issue_comment> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue_comment> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19307,14 +18896,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue_event_for_issue[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_issue_event_for_issue[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19335,16 +18921,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_label[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_label[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19377,14 +18960,14 @@ export class GitHubV3RestApiService {
         }[]
       | string
   }): Observable<
-    | (HttpResponse<t_label[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_label[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19419,14 +19002,14 @@ export class GitHubV3RestApiService {
         }[]
       | string
   }): Observable<
-    | (HttpResponse<t_label[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_label[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19447,10 +19030,10 @@ export class GitHubV3RestApiService {
     repo: string
     issueNumber: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19470,10 +19053,10 @@ export class GitHubV3RestApiService {
     issueNumber: number
     name: string
   }): Observable<
-    | (HttpResponse<t_label[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 301 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_label[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 301})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19500,14 +19083,14 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     } | null
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19528,9 +19111,9 @@ export class GitHubV3RestApiService {
     repo: string
     issueNumber: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19561,9 +19144,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_reaction[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_reaction[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -19601,12 +19184,12 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19627,9 +19210,7 @@ export class GitHubV3RestApiService {
     repo: string
     issueNumber: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -19649,12 +19230,12 @@ export class GitHubV3RestApiService {
       sub_issue_id: number
     }
   }): Observable<
-    | (HttpResponse<t_issue> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_issue> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19677,15 +19258,12 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_issue[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_issue[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19708,14 +19286,14 @@ export class GitHubV3RestApiService {
       sub_issue_id: number
     }
   }): Observable<
-    | (HttpResponse<t_issue> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_issue> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19741,18 +19319,18 @@ export class GitHubV3RestApiService {
       sub_issue_id: number
     }
   }): Observable<
-    | (HttpResponse<t_issue> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_issue> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19775,15 +19353,12 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_timeline_issue_events[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_timeline_issue_events[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19803,12 +19378,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_deploy_key[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_deploy_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19830,11 +19402,11 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    | (HttpResponse<t_deploy_key> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_deploy_key> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19854,8 +19426,8 @@ export class GitHubV3RestApiService {
     repo: string
     keyId: number
   }): Observable<
-    | (HttpResponse<t_deploy_key> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_deploy_key> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19873,9 +19445,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     keyId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -19893,14 +19463,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_label[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_label[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -19922,12 +19489,12 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_label> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_label> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19947,8 +19514,8 @@ export class GitHubV3RestApiService {
     repo: string
     name: string
   }): Observable<
-    | (HttpResponse<t_label> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_label> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -19972,9 +19539,9 @@ export class GitHubV3RestApiService {
       new_name?: string
     }
   }): Observable<
-    (HttpResponse<t_label> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_label> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19994,9 +19561,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     name: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -20012,7 +19577,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    (HttpResponse<t_language> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_language> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -20029,11 +19594,11 @@ export class GitHubV3RestApiService {
     repo: string
     ref?: t_code_scanning_ref
   }): Observable<
-    | (HttpResponse<t_license_content> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_license_content> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ ref: p["ref"] })
+    const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -20053,12 +19618,12 @@ export class GitHubV3RestApiService {
       branch: string
     }
   }): Observable<
-    | (HttpResponse<t_merged_upstream> & { status: 200 })
-    | (HttpResponse<void> & { status: 409 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_merged_upstream> & {status: 200})
+    | (HttpResponse<void> & {status: 409})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20082,15 +19647,15 @@ export class GitHubV3RestApiService {
       head: string
     }
   }): Observable<
-    | (HttpResponse<t_commit> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_commit> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20114,8 +19679,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_milestone[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_milestone[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -20147,12 +19712,12 @@ export class GitHubV3RestApiService {
       title: string
     }
   }): Observable<
-    | (HttpResponse<t_milestone> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_milestone> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20172,8 +19737,8 @@ export class GitHubV3RestApiService {
     repo: string
     milestoneNumber: number
   }): Observable<
-    | (HttpResponse<t_milestone> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_milestone> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20198,9 +19763,9 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    (HttpResponse<t_milestone> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_milestone> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20221,8 +19786,8 @@ export class GitHubV3RestApiService {
     repo: string
     milestoneNumber: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20243,12 +19808,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_label[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_label[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -20272,7 +19834,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_thread[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_thread[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       all: p["all"],
@@ -20304,11 +19866,11 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         message?: string
         url?: string
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 205 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 205})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20327,8 +19889,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_page> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_page> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20352,12 +19914,12 @@ export class GitHubV3RestApiService {
       }
     } | null
   }): Observable<
-    | (HttpResponse<t_page> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_page> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20390,13 +19952,13 @@ export class GitHubV3RestApiService {
           }
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20415,10 +19977,10 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20437,12 +19999,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_page_build[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_page_build[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -20459,8 +20018,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_page_build_status> & { status: 201 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_page_build_status> & {status: 201}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "POST",
@@ -20476,7 +20034,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    (HttpResponse<t_page_build> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_page_build> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -20494,7 +20052,7 @@ export class GitHubV3RestApiService {
     repo: string
     buildId: number
   }): Observable<
-    (HttpResponse<t_page_build> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_page_build> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -20518,13 +20076,13 @@ export class GitHubV3RestApiService {
       pages_build_version: string
     }
   }): Observable<
-    | (HttpResponse<t_page_deployment> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_page_deployment> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20545,8 +20103,8 @@ export class GitHubV3RestApiService {
     repo: string
     pagesDeploymentId: number | string
   }): Observable<
-    | (HttpResponse<t_pages_deployment_status> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_pages_deployment_status> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20565,8 +20123,8 @@ export class GitHubV3RestApiService {
     repo: string
     pagesDeploymentId: number | string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20584,11 +20142,11 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_pages_health_check> & { status: 200 })
-    | (HttpResponse<t_empty_object> & { status: 202 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_pages_health_check> & {status: 200})
+    | (HttpResponse<t_empty_object> & {status: 202})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20607,8 +20165,8 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         enabled: boolean
-      }> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20626,8 +20184,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20645,8 +20203,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_scim_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_scim_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20667,12 +20225,12 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_project[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -20700,15 +20258,15 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_project> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 410 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 410})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20727,9 +20285,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_custom_property_value[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_custom_property_value[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20750,13 +20308,13 @@ export class GitHubV3RestApiService {
       properties: t_custom_property_value[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20788,9 +20346,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_pull_request_simple[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_pull_request_simple[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -20828,12 +20386,12 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    | (HttpResponse<t_pull_request> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_pull_request> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20857,7 +20415,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review_comment[]> & { status: 200 })
+    | (HttpResponse<t_pull_request_review_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -20884,8 +20442,8 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review_comment> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_pull_request_review_comment> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20907,10 +20465,10 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review_comment> & { status: 200 })
+    | (HttpResponse<t_pull_request_review_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20931,8 +20489,8 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -20963,8 +20521,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_reaction[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_reaction[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -21002,12 +20560,12 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21028,9 +20586,7 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -21047,16 +20603,16 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
   }): Observable<
-    | (HttpResponse<t_pull_request> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 406 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_pull_request> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 406})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21082,12 +20638,12 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    | (HttpResponse<t_pull_request> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_pull_request> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21125,19 +20681,19 @@ export class GitHubV3RestApiService {
       working_directory?: string
     } | null
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 201 })
-    | (HttpResponse<t_codespace> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_codespace> & {status: 201})
+    | (HttpResponse<t_codespace> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21163,7 +20719,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review_comment[]> & { status: 200 })
+    | (HttpResponse<t_pull_request_review_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -21203,12 +20759,12 @@ export class GitHubV3RestApiService {
       subject_type?: "line" | "file" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review_comment> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_pull_request_review_comment> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21233,11 +20789,11 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review_comment> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_pull_request_review_comment> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21260,12 +20816,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_commit[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_commit[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21286,20 +20839,17 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_diff_entry[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_diff_entry[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21318,8 +20868,8 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21344,21 +20894,21 @@ export class GitHubV3RestApiService {
       sha?: string
     } | null
   }): Observable<
-    | (HttpResponse<t_pull_request_merge_result> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_pull_request_merge_result> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         documentation_url?: string
         message?: string
-      }> & { status: 405 })
+      }> & {status: 405})
     | (HttpResponse<{
         documentation_url?: string
         message?: string
-      }> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 409})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21379,7 +20929,7 @@ export class GitHubV3RestApiService {
     repo: string
     pullNumber: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review_request> & { status: 200 })
+    | (HttpResponse<t_pull_request_review_request> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21402,12 +20952,12 @@ export class GitHubV3RestApiService {
       team_reviewers?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_simple> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_pull_request_simple> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21432,11 +20982,11 @@ export class GitHubV3RestApiService {
       team_reviewers?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_simple> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_pull_request_simple> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21459,13 +21009,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review[]> & { status: 200 })
+    | (HttpResponse<t_pull_request_review[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21498,12 +21045,12 @@ export class GitHubV3RestApiService {
       event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_pull_request_review> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21525,8 +21072,8 @@ export class GitHubV3RestApiService {
     pullNumber: number
     reviewId: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_pull_request_review> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21549,11 +21096,11 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_pull_request_review> & {status: 200})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21575,9 +21122,9 @@ export class GitHubV3RestApiService {
     pullNumber: number
     reviewId: number
   }): Observable<
-    | (HttpResponse<t_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_pull_request_review> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21599,14 +21146,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_review_comment[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_review_comment[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21630,12 +21174,12 @@ export class GitHubV3RestApiService {
       message: string
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_pull_request_review> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21661,13 +21205,13 @@ export class GitHubV3RestApiService {
       event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_pull_request_review> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_pull_request_review> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21694,12 +21238,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         message?: string
         url?: string
-      }> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21720,13 +21264,13 @@ export class GitHubV3RestApiService {
     repo: string
     ref?: string
   }): Observable<
-    | (HttpResponse<t_content_file> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_content_file> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ ref: p["ref"] })
+    const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21745,12 +21289,12 @@ export class GitHubV3RestApiService {
     dir: string
     ref?: string
   }): Observable<
-    | (HttpResponse<t_content_file> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_content_file> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ ref: p["ref"] })
+    const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21770,14 +21314,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_release[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_release[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -21805,12 +21346,12 @@ export class GitHubV3RestApiService {
       target_commitish?: string
     }
   }): Observable<
-    | (HttpResponse<t_release> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_release> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21830,9 +21371,9 @@ export class GitHubV3RestApiService {
     repo: string
     assetId: number
   }): Observable<
-    | (HttpResponse<t_release_asset> & { status: 200 })
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_release_asset> & {status: 200})
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21856,9 +21397,9 @@ export class GitHubV3RestApiService {
       state?: string
     }
   }): Observable<
-    (HttpResponse<t_release_asset> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_release_asset> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21878,9 +21419,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     assetId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -21902,11 +21441,11 @@ export class GitHubV3RestApiService {
       target_commitish?: string
     }
   }): Observable<
-    | (HttpResponse<t_release_notes_content> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_release_notes_content> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21926,7 +21465,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    (HttpResponse<t_release> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_release> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -21944,8 +21483,8 @@ export class GitHubV3RestApiService {
     repo: string
     tag: string
   }): Observable<
-    | (HttpResponse<t_release> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_release> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21964,8 +21503,8 @@ export class GitHubV3RestApiService {
     repo: string
     releaseId: number
   }): Observable<
-    | (HttpResponse<t_release> & { status: 200 })
-    | (HttpResponse<void> & { status: 401 })
+    | (HttpResponse<t_release> & {status: 200})
+    | (HttpResponse<void> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -21994,11 +21533,11 @@ export class GitHubV3RestApiService {
       target_commitish?: string
     }
   }): Observable<
-    | (HttpResponse<t_release> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_release> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22018,9 +21557,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     releaseId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -22039,12 +21576,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_release_asset[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_release_asset[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22073,14 +21607,12 @@ export class GitHubV3RestApiService {
       .reposUploadReleaseAsset()
       .build(),
   ): Observable<
-    | (HttpResponse<t_release_asset> & { status: 201 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_release_asset> & {status: 201})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/octet-stream",
-    })
-    const params = this._queryParams({ name: p["name"], label: p["label"] })
+    const headers = this._headers({"Content-Type": "application/octet-stream"})
+    const params = this._queryParams({name: p["name"], label: p["label"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22112,8 +21644,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_reaction[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_reaction[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -22149,12 +21681,12 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_reaction> & { status: 200 })
-    | (HttpResponse<t_reaction> & { status: 201 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_reaction> & {status: 200})
+    | (HttpResponse<t_reaction> & {status: 201})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22175,9 +21707,7 @@ export class GitHubV3RestApiService {
     repo: string
     releaseId: number
     reactionId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -22196,13 +21726,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_repository_rule_detailed[]> & { status: 200 })
+    | (HttpResponse<t_repository_rule_detailed[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22224,9 +21751,9 @@ export class GitHubV3RestApiService {
     includesParents?: boolean
     targets?: string
   }): Observable<
-    | (HttpResponse<t_repository_ruleset[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -22259,12 +21786,12 @@ export class GitHubV3RestApiService {
       target?: "branch" | "tag" | "push" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_repository_ruleset> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22294,9 +21821,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_rule_suites> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_rule_suites> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -22325,9 +21852,9 @@ export class GitHubV3RestApiService {
     repo: string
     ruleSuiteId: number
   }): Observable<
-    | (HttpResponse<t_rule_suite> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_rule_suite> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22347,12 +21874,12 @@ export class GitHubV3RestApiService {
     rulesetId: number
     includesParents?: boolean
   }): Observable<
-    | (HttpResponse<t_repository_ruleset> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ includes_parents: p["includesParents"] })
+    const params = this._queryParams({includes_parents: p["includesParents"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22379,12 +21906,12 @@ export class GitHubV3RestApiService {
       target?: "branch" | "tag" | "push" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_repository_ruleset> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_repository_ruleset> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22405,9 +21932,9 @@ export class GitHubV3RestApiService {
     repo: string
     rulesetId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22428,15 +21955,12 @@ export class GitHubV3RestApiService {
     page?: number
     rulesetId: number
   }): Observable<
-    | (HttpResponse<t_ruleset_version[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_ruleset_version[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22456,9 +21980,9 @@ export class GitHubV3RestApiService {
     rulesetId: number
     versionId: number
   }): Observable<
-    | (HttpResponse<t_ruleset_version_with_state> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_ruleset_version_with_state> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22489,13 +22013,13 @@ export class GitHubV3RestApiService {
     isMultiRepo?: boolean
     hideSecret?: boolean
   }): Observable<
-    | (HttpResponse<t_secret_scanning_alert[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_secret_scanning_alert[]> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -22532,17 +22056,17 @@ export class GitHubV3RestApiService {
     alertNumber: t_alert_number
     hideSecret?: boolean
   }): Observable<
-    | (HttpResponse<t_secret_scanning_alert> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_secret_scanning_alert> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ hide_secret: p["hideSecret"] })
+    const params = this._queryParams({hide_secret: p["hideSecret"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22566,18 +22090,18 @@ export class GitHubV3RestApiService {
       state: t_secret_scanning_alert_state
     }
   }): Observable<
-    | (HttpResponse<t_secret_scanning_alert> & { status: 200 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_secret_scanning_alert> & {status: 200})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22600,19 +22124,16 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_secret_scanning_location[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_secret_scanning_location[]> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22634,18 +22155,18 @@ export class GitHubV3RestApiService {
       reason: t_secret_scanning_push_protection_bypass_reason
     }
   }): Observable<
-    | (HttpResponse<t_secret_scanning_push_protection_bypass> & { status: 200 })
-    | (HttpResponse<void> & { status: 403 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_secret_scanning_push_protection_bypass> & {status: 200})
+    | (HttpResponse<void> & {status: 403})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22665,13 +22186,13 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_secret_scanning_scan_history> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_secret_scanning_scan_history> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22695,9 +22216,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     state?: "triage" | "draft" | "published" | "closed" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_repository_advisory[]> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_repository_advisory[]> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -22726,13 +22247,13 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: t_repository_advisory_create
   }): Observable<
-    | (HttpResponse<t_repository_advisory> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_repository_advisory> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22753,13 +22274,13 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: t_private_vulnerability_report_create
   }): Observable<
-    | (HttpResponse<t_repository_advisory> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_repository_advisory> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22780,9 +22301,9 @@ export class GitHubV3RestApiService {
     repo: string
     ghsaId: string
   }): Observable<
-    | (HttpResponse<t_repository_advisory> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_repository_advisory> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22802,13 +22323,13 @@ export class GitHubV3RestApiService {
     ghsaId: string
     requestBody: t_repository_advisory_update
   }): Observable<
-    | (HttpResponse<t_repository_advisory> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_repository_advisory> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22831,11 +22352,11 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22854,11 +22375,11 @@ export class GitHubV3RestApiService {
     repo: string
     ghsaId: string
   }): Observable<
-    | (HttpResponse<t_full_repository> & { status: 202 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_full_repository> & {status: 202})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22878,14 +22399,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[] | t_stargazer[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_simple_user[] | t_stargazer[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -22902,12 +22420,12 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_code_frequency_stat[]> & { status: 200 })
+    | (HttpResponse<t_code_frequency_stat[]> & {status: 200})
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 422 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22925,11 +22443,11 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_commit_activity[]> & { status: 200 })
+    | (HttpResponse<t_commit_activity[]> & {status: 200})
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 204 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22947,11 +22465,11 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_contributor_activity[]> & { status: 200 })
+    | (HttpResponse<t_contributor_activity[]> & {status: 200})
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 204 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22969,8 +22487,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_participation_stats> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_participation_stats> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22988,8 +22506,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_code_frequency_stat[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_code_frequency_stat[]> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23019,9 +22537,9 @@ export class GitHubV3RestApiService {
       target_url?: string | null
     }
   }): Observable<
-    (HttpResponse<t_status> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_status> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23043,12 +22561,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23065,9 +22580,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_repository_subscription> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_repository_subscription> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23088,10 +22603,10 @@ export class GitHubV3RestApiService {
       subscribed?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_repository_subscription> & { status: 200 })
+    | (HttpResponse<t_repository_subscription> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23109,9 +22624,7 @@ export class GitHubV3RestApiService {
   activityDeleteRepoSubscription(p: {
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
@@ -23128,12 +22641,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_tag[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_tag[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23150,9 +22660,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_tag_protection[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_tag_protection[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23173,12 +22683,12 @@ export class GitHubV3RestApiService {
       pattern: string
     }
   }): Observable<
-    | (HttpResponse<t_tag_protection> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_tag_protection> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23199,9 +22709,9 @@ export class GitHubV3RestApiService {
     repo: string
     tagProtectionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23219,9 +22729,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     ref: string
-  }): Observable<
-    (HttpResponse<void> & { status: 302 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -23239,14 +22747,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23265,14 +22770,11 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_topic> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_topic> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23292,12 +22794,12 @@ export class GitHubV3RestApiService {
       names: string[]
     }
   }): Observable<
-    | (HttpResponse<t_topic> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_topic> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23317,11 +22819,11 @@ export class GitHubV3RestApiService {
     repo: string
     per?: "day" | "week" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_clone_traffic> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_clone_traffic> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ per: p["per"] })
+    const params = this._queryParams({per: p["per"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23338,8 +22840,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_content_traffic[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_content_traffic[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23357,8 +22859,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_referrer_traffic[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_referrer_traffic[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23377,11 +22879,11 @@ export class GitHubV3RestApiService {
     repo: string
     per?: "day" | "week" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_view_traffic> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_view_traffic> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ per: p["per"] })
+    const params = this._queryParams({per: p["per"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23403,10 +22905,9 @@ export class GitHubV3RestApiService {
       team_ids?: number[]
     }
   }): Observable<
-    | (HttpResponse<t_minimal_repository> & { status: 202 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_minimal_repository> & {status: 202}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23425,8 +22926,8 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23443,9 +22944,7 @@ export class GitHubV3RestApiService {
   reposEnableVulnerabilityAlerts(p: {
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
@@ -23460,9 +22959,7 @@ export class GitHubV3RestApiService {
   reposDisableVulnerabilityAlerts(p: {
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -23478,9 +22975,7 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
     ref: string
-  }): Observable<
-    (HttpResponse<void> & { status: 302 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
@@ -23503,9 +22998,9 @@ export class GitHubV3RestApiService {
       private?: boolean
     }
   }): Observable<
-    (HttpResponse<t_full_repository> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_full_repository> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23526,12 +23021,12 @@ export class GitHubV3RestApiService {
       since?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ since: p["since"] })
+    const params = this._queryParams({since: p["since"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -23555,15 +23050,15 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_code_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23596,8 +23091,8 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_commit_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23643,15 +23138,15 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_issue_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23686,11 +23181,11 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_label_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23729,14 +23224,14 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_repo_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23767,8 +23262,8 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_topic_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23799,14 +23294,14 @@ export class GitHubV3RestApiService {
         incomplete_results: boolean
         items: t_user_search_result_item[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -23831,8 +23326,8 @@ export class GitHubV3RestApiService {
   teamsGetLegacy(p: {
     teamId: number
   }): Observable<
-    | (HttpResponse<t_team_full> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team_full> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23859,14 +23354,14 @@ export class GitHubV3RestApiService {
       privacy?: "secret" | "closed" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_team_full> & { status: 200 })
-    | (HttpResponse<t_team_full> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team_full> & {status: 200})
+    | (HttpResponse<t_team_full> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23884,9 +23379,9 @@ export class GitHubV3RestApiService {
   teamsDeleteLegacy(p: {
     teamId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -23905,8 +23400,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team_discussion[]> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       direction: p["direction"],
@@ -23933,9 +23427,9 @@ export class GitHubV3RestApiService {
       title: string
     }
   }): Observable<
-    (HttpResponse<t_team_discussion> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23954,7 +23448,7 @@ export class GitHubV3RestApiService {
     teamId: number
     discussionNumber: number
   }): Observable<
-    (HttpResponse<t_team_discussion> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -23975,9 +23469,9 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    (HttpResponse<t_team_discussion> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23996,9 +23490,7 @@ export class GitHubV3RestApiService {
   teamsDeleteDiscussionLegacy(p: {
     teamId: number
     discussionNumber: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -24017,7 +23509,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment[]> & { status: 200 })
+    | (HttpResponse<t_team_discussion_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -24045,10 +23537,10 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment> & { status: 201 })
+    | (HttpResponse<t_team_discussion_comment> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24069,7 +23561,7 @@ export class GitHubV3RestApiService {
     discussionNumber: number
     commentNumber: number
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment> & { status: 200 })
+    | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24091,10 +23583,10 @@ export class GitHubV3RestApiService {
       body: string
     }
   }): Observable<
-    | (HttpResponse<t_team_discussion_comment> & { status: 200 })
+    | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24114,9 +23606,7 @@ export class GitHubV3RestApiService {
     teamId: number
     discussionNumber: number
     commentNumber: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -24145,7 +23635,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_reaction[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       content: p["content"],
@@ -24182,9 +23672,9 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    (HttpResponse<t_reaction> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_reaction> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24216,7 +23706,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_reaction[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       content: p["content"],
@@ -24252,9 +23742,9 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    (HttpResponse<t_reaction> & { status: 201 }) | HttpResponse<unknown>
+    (HttpResponse<t_reaction> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24275,13 +23765,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_organization_invitation[]> & { status: 200 })
+    | (HttpResponse<t_organization_invitation[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -24300,8 +23787,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -24325,8 +23812,8 @@ export class GitHubV3RestApiService {
     teamId: number
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24343,10 +23830,10 @@ export class GitHubV3RestApiService {
     teamId: number
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<void> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<void> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24363,8 +23850,8 @@ export class GitHubV3RestApiService {
     teamId: number
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24381,8 +23868,8 @@ export class GitHubV3RestApiService {
     teamId: number
     username: string
   }): Observable<
-    | (HttpResponse<t_team_membership> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team_membership> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24403,13 +23890,13 @@ export class GitHubV3RestApiService {
       role?: "member" | "maintainer" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_team_membership> & { status: 200 })
-    | (HttpResponse<void> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<t_team_membership> & {status: 200})
+    | (HttpResponse<void> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24429,8 +23916,8 @@ export class GitHubV3RestApiService {
     teamId: number
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 403 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24449,14 +23936,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team_project[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team_project[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -24473,8 +23957,8 @@ export class GitHubV3RestApiService {
     teamId: number
     projectId: number
   }): Observable<
-    | (HttpResponse<t_team_project> & { status: 200 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_team_project> & {status: 200})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24494,16 +23978,16 @@ export class GitHubV3RestApiService {
       permission?: "read" | "write" | "admin" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & {status: 204})
     | (HttpResponse<{
         documentation_url?: string
         message?: string
-      }> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+      }> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24522,9 +24006,9 @@ export class GitHubV3RestApiService {
     teamId: number
     projectId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24542,14 +24026,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -24567,9 +24048,9 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_team_repository> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_team_repository> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24591,12 +24072,12 @@ export class GitHubV3RestApiService {
       permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24616,9 +24097,7 @@ export class GitHubV3RestApiService {
     teamId: number
     owner: string
     repo: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
@@ -24635,16 +24114,13 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_team[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -24658,10 +24134,10 @@ export class GitHubV3RestApiService {
   }
 
   usersGetAuthenticated(): Observable<
-    | (HttpResponse<t_private_user | t_public_user> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_private_user | t_public_user> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>("GET", this.config.basePath + `/user`, {
@@ -24684,15 +24160,15 @@ export class GitHubV3RestApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_private_user> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_private_user> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24713,17 +24189,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -24739,11 +24212,11 @@ export class GitHubV3RestApiService {
   usersCheckBlocked(p: {
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24759,12 +24232,12 @@ export class GitHubV3RestApiService {
   usersBlock(p: {
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24780,11 +24253,11 @@ export class GitHubV3RestApiService {
   usersUnblock(p: {
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24807,12 +24280,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         codespaces: t_codespace[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -24871,19 +24344,19 @@ export class GitHubV3RestApiService {
           working_directory?: string
         }
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 201 })
-    | (HttpResponse<t_codespace> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_codespace> & {status: 201})
+    | (HttpResponse<t_codespace> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24907,13 +24380,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         secrets: t_codespaces_secret[]
         total_count: number
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -24927,7 +24397,7 @@ export class GitHubV3RestApiService {
   }
 
   codespacesGetPublicKeyForAuthenticatedUser(): Observable<
-    | (HttpResponse<t_codespaces_user_public_key> & { status: 200 })
+    | (HttpResponse<t_codespaces_user_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -24943,8 +24413,7 @@ export class GitHubV3RestApiService {
   codespacesGetSecretForAuthenticatedUser(p: {
     secretName: string
   }): Observable<
-    | (HttpResponse<t_codespaces_secret> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_codespaces_secret> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -24964,13 +24433,13 @@ export class GitHubV3RestApiService {
       selected_repository_ids?: (number | string)[]
     }
   }): Observable<
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24987,9 +24456,7 @@ export class GitHubV3RestApiService {
 
   codespacesDeleteSecretForAuthenticatedUser(p: {
     secretName: string
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/codespaces/secrets/${p["secretName"]}`,
@@ -25006,11 +24473,11 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         repositories: t_minimal_repository[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25030,14 +24497,14 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25057,11 +24524,11 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25079,11 +24546,11 @@ export class GitHubV3RestApiService {
     secretName: string
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25100,12 +24567,12 @@ export class GitHubV3RestApiService {
   codespacesGetForAuthenticatedUser(p: {
     codespaceName: string
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_codespace> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25126,13 +24593,13 @@ export class GitHubV3RestApiService {
       recent_folders?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_codespace> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25152,12 +24619,12 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
-      }> & { status: 202 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 202})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25173,12 +24640,12 @@ export class GitHubV3RestApiService {
   codespacesExportForAuthenticatedUser(p: {
     codespaceName: string
   }): Observable<
-    | (HttpResponse<t_codespace_export_details> & { status: 202 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_codespace_export_details> & {status: 202})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25195,8 +24662,8 @@ export class GitHubV3RestApiService {
     codespaceName: string
     exportId: string
   }): Observable<
-    | (HttpResponse<t_codespace_export_details> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_codespace_export_details> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25216,12 +24683,12 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         machines: t_codespace_machine[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25241,14 +24708,14 @@ export class GitHubV3RestApiService {
       private?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_codespace_with_full_repository> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_codespace_with_full_repository> & {status: 201})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25266,15 +24733,15 @@ export class GitHubV3RestApiService {
   codespacesStartForAuthenticatedUser(p: {
     codespaceName: string
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 402 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_codespace> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 402})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25290,11 +24757,11 @@ export class GitHubV3RestApiService {
   codespacesStopForAuthenticatedUser(p: {
     codespaceName: string
   }): Observable<
-    | (HttpResponse<t_codespace> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_codespace> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25308,7 +24775,7 @@ export class GitHubV3RestApiService {
   }
 
   packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(): Observable<
-    (HttpResponse<t_package[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package[]> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -25325,15 +24792,15 @@ export class GitHubV3RestApiService {
       visibility: "public" | "private" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_email[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_email[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25354,17 +24821,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_email[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_email[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25387,15 +24851,15 @@ export class GitHubV3RestApiService {
         | string
     } = {},
   ): Observable<
-    | (HttpResponse<t_email[]> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_email[]> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25418,15 +24882,15 @@ export class GitHubV3RestApiService {
       | string[]
       | string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25447,16 +24911,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25475,16 +24936,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25500,11 +24958,11 @@ export class GitHubV3RestApiService {
   usersCheckPersonIsFollowedByAuthenticated(p: {
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25520,12 +24978,12 @@ export class GitHubV3RestApiService {
   usersFollow(p: {
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25541,11 +24999,11 @@ export class GitHubV3RestApiService {
   usersUnfollow(p: {
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25564,17 +25022,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_gpg_key[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gpg_key[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25593,15 +25048,15 @@ export class GitHubV3RestApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_gpg_key> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_gpg_key> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25619,11 +25074,11 @@ export class GitHubV3RestApiService {
   usersGetGpgKeyForAuthenticatedUser(p: {
     gpgKeyId: number
   }): Observable<
-    | (HttpResponse<t_gpg_key> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_gpg_key> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25639,12 +25094,12 @@ export class GitHubV3RestApiService {
   usersDeleteGpgKeyForAuthenticatedUser(p: {
     gpgKeyId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25666,16 +25121,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         installations: t_installation[]
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25697,16 +25149,13 @@ export class GitHubV3RestApiService {
         repositories: t_repository[]
         repository_selection?: string
         total_count: number
-      }> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25724,10 +25173,10 @@ export class GitHubV3RestApiService {
     installationId: number
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25745,11 +25194,11 @@ export class GitHubV3RestApiService {
     installationId: number
     repositoryId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25764,10 +25213,8 @@ export class GitHubV3RestApiService {
   }
 
   interactionsGetRestrictionsForAuthenticatedUser(): Observable<
-    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {
-        status: 200
-      })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25783,11 +25230,11 @@ export class GitHubV3RestApiService {
   interactionsSetRestrictionsForAuthenticatedUser(p: {
     requestBody: t_interaction_limit
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_interaction_limit_response> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25803,7 +25250,7 @@ export class GitHubV3RestApiService {
   }
 
   interactionsRemoveRestrictionsForAuthenticatedUser(): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+    (HttpResponse<void> & {status: 204}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "DELETE",
@@ -25834,9 +25281,9 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_issue[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_issue[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -25867,17 +25314,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_key[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_key[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25896,15 +25340,15 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    | (HttpResponse<t_key> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_key> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25922,11 +25366,11 @@ export class GitHubV3RestApiService {
   usersGetPublicSshKeyForAuthenticatedUser(p: {
     keyId: number
   }): Observable<
-    | (HttpResponse<t_key> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_key> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25942,11 +25386,11 @@ export class GitHubV3RestApiService {
   usersDeletePublicSshKeyForAuthenticatedUser(p: {
     keyId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -25965,16 +25409,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_user_marketplace_purchase[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_user_marketplace_purchase[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -25993,15 +25434,12 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_user_marketplace_purchase[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_user_marketplace_purchase[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26021,11 +25459,11 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_org_membership[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_org_membership[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -26048,9 +25486,9 @@ export class GitHubV3RestApiService {
   orgsGetMembershipForAuthenticatedUser(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_org_membership> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_org_membership> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26069,13 +25507,13 @@ export class GitHubV3RestApiService {
       state: "active" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_org_membership> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_org_membership> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26096,16 +25534,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_migration[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_migration[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26131,14 +25566,14 @@ export class GitHubV3RestApiService {
       repositories: string[]
     }
   }): Observable<
-    | (HttpResponse<t_migration> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_migration> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26157,14 +25592,14 @@ export class GitHubV3RestApiService {
     migrationId: number
     exclude?: string[]
   }): Observable<
-    | (HttpResponse<t_migration> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_migration> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ exclude: p["exclude"] })
+    const params = this._queryParams({exclude: p["exclude"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26180,10 +25615,10 @@ export class GitHubV3RestApiService {
   migrationsGetArchiveForAuthenticatedUser(p: {
     migrationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 302 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<void> & {status: 302})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26199,11 +25634,11 @@ export class GitHubV3RestApiService {
   migrationsDeleteArchiveForAuthenticatedUser(p: {
     migrationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26220,11 +25655,11 @@ export class GitHubV3RestApiService {
     migrationId: number
     repoName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26243,14 +25678,11 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26270,16 +25702,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_organization_simple[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_organization_simple[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26305,8 +25734,8 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_package[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 400 })
+    | (HttpResponse<t_package[]> & {status: 200})
+    | (HttpResponse<void> & {status: 400})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -26338,7 +25767,7 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     packageName: string
   }): Observable<
-    (HttpResponse<t_package> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -26362,10 +25791,10 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     packageName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26391,13 +25820,13 @@ export class GitHubV3RestApiService {
     packageName: string
     token?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ token: p["token"] })
+    const params = this._queryParams({token: p["token"]})
 
     return this.httpClient.request<any>(
       "POST",
@@ -26425,10 +25854,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     state?: "active" | "deleted" | UnknownEnumStringValue
   }): Observable<
-    | (HttpResponse<t_package_version[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_package_version[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -26461,7 +25890,7 @@ export class GitHubV3RestApiService {
     packageName: string
     packageVersionId: number
   }): Observable<
-    (HttpResponse<t_package_version> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package_version> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -26486,10 +25915,10 @@ export class GitHubV3RestApiService {
     packageName: string
     packageVersionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26515,10 +25944,10 @@ export class GitHubV3RestApiService {
     packageName: string
     packageVersionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26538,14 +25967,14 @@ export class GitHubV3RestApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_project> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<t_project> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26566,17 +25995,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_email[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_email[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26613,11 +26039,11 @@ export class GitHubV3RestApiService {
       before?: string
     } = {},
   ): Observable<
-    | (HttpResponse<t_repository[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_repository[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -26681,16 +26107,16 @@ export class GitHubV3RestApiService {
       team_id?: number
     }
   }): Observable<
-    | (HttpResponse<t_full_repository> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_full_repository> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26711,17 +26137,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_repository_invitation[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_repository_invitation[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26737,11 +26160,11 @@ export class GitHubV3RestApiService {
   reposAcceptInvitationForAuthenticatedUser(p: {
     invitationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26758,11 +26181,11 @@ export class GitHubV3RestApiService {
   reposDeclineInvitationForAuthenticatedUser(p: {
     invitationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26782,17 +26205,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_social_account[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_social_account[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26810,15 +26230,15 @@ export class GitHubV3RestApiService {
       account_urls: string[]
     }
   }): Observable<
-    | (HttpResponse<t_social_account[]> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_social_account[]> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26838,15 +26258,15 @@ export class GitHubV3RestApiService {
       account_urls: string[]
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26867,17 +26287,14 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_ssh_signing_key[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_ssh_signing_key[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -26896,15 +26313,15 @@ export class GitHubV3RestApiService {
       title?: string
     }
   }): Observable<
-    | (HttpResponse<t_ssh_signing_key> & { status: 201 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_ssh_signing_key> & {status: 201})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26922,11 +26339,11 @@ export class GitHubV3RestApiService {
   usersGetSshSigningKeyForAuthenticatedUser(p: {
     sshSigningKeyId: number
   }): Observable<
-    | (HttpResponse<t_ssh_signing_key> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_ssh_signing_key> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26942,11 +26359,11 @@ export class GitHubV3RestApiService {
   usersDeleteSshSigningKeyForAuthenticatedUser(p: {
     sshSigningKeyId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -26967,10 +26384,10 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_starred_repository[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_starred_repository[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -26995,11 +26412,11 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27016,11 +26433,11 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27037,11 +26454,11 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27060,16 +26477,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27088,16 +26502,13 @@ export class GitHubV3RestApiService {
       page?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_team_full[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_team_full[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27113,8 +26524,8 @@ export class GitHubV3RestApiService {
   usersGetById(p: {
     accountId: number
   }): Observable<
-    | (HttpResponse<t_private_user | t_public_user> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_private_user | t_public_user> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27133,8 +26544,8 @@ export class GitHubV3RestApiService {
       perPage?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_simple_user[]> & {status: 200})
+    | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27156,8 +26567,8 @@ export class GitHubV3RestApiService {
   usersGetByUsername(p: {
     username: string
   }): Observable<
-    | (HttpResponse<t_private_user | t_public_user> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_private_user | t_public_user> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27207,10 +26618,10 @@ export class GitHubV3RestApiService {
           next?: string
           previous?: string
         }
-      }> & { status: 200 })
+      }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -27241,11 +26652,11 @@ export class GitHubV3RestApiService {
           attestation_ids: number[]
         }
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -27265,9 +26676,9 @@ export class GitHubV3RestApiService {
     username: string
     subjectDigest: string
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27285,10 +26696,10 @@ export class GitHubV3RestApiService {
     username: string
     attestationId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27324,10 +26735,10 @@ export class GitHubV3RestApiService {
           bundle_url?: string
           repository_id?: number
         }[]
-      }> & { status: 200 })
-    | (HttpResponse<t_empty_object> & { status: 201 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_empty_object> & {status: 201})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27352,9 +26763,9 @@ export class GitHubV3RestApiService {
   packagesListDockerMigrationConflictingPackagesForUser(p: {
     username: string
   }): Observable<
-    | (HttpResponse<t_package[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_package[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27372,12 +26783,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27396,12 +26804,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27419,12 +26824,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27442,12 +26844,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27465,12 +26864,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_simple_user[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27487,8 +26883,8 @@ export class GitHubV3RestApiService {
     username: string
     targetUser: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27508,8 +26904,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_base_gist[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_base_gist[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27534,12 +26930,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_gpg_key[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_gpg_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27562,9 +26955,9 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     subjectId?: string
   }): Observable<
-    | (HttpResponse<t_hovercard> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_hovercard> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27586,7 +26979,7 @@ export class GitHubV3RestApiService {
   appsGetUserInstallation(p: {
     username: string
   }): Observable<
-    (HttpResponse<t_installation> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_installation> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -27603,12 +26996,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_key_simple[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_key_simple[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27626,13 +27016,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_organization_simple[]> & { status: 200 })
+    | (HttpResponse<t_organization_simple[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27659,10 +27046,10 @@ export class GitHubV3RestApiService {
     page?: number
     perPage?: number
   }): Observable<
-    | (HttpResponse<t_package[]> & { status: 200 })
-    | (HttpResponse<void> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_package[]> & {status: 200})
+    | (HttpResponse<void> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27695,7 +27082,7 @@ export class GitHubV3RestApiService {
     packageName: string
     username: string
   }): Observable<
-    (HttpResponse<t_package> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -27720,10 +27107,10 @@ export class GitHubV3RestApiService {
     packageName: string
     username: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27750,13 +27137,13 @@ export class GitHubV3RestApiService {
     username: string
     token?: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ token: p["token"] })
+    const params = this._queryParams({token: p["token"]})
 
     return this.httpClient.request<any>(
       "POST",
@@ -27782,10 +27169,10 @@ export class GitHubV3RestApiService {
     packageName: string
     username: string
   }): Observable<
-    | (HttpResponse<t_package_version[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_package_version[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27812,7 +27199,7 @@ export class GitHubV3RestApiService {
     packageVersionId: number
     username: string
   }): Observable<
-    (HttpResponse<t_package_version> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_package_version> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
@@ -27838,10 +27225,10 @@ export class GitHubV3RestApiService {
     username: string
     packageVersionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27868,10 +27255,10 @@ export class GitHubV3RestApiService {
     username: string
     packageVersionId: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_basic_error> & {status: 401})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -27891,8 +27278,8 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_project[]> & { status: 200 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_project[]> & {status: 200})
+    | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27917,12 +27304,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27940,12 +27324,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_event[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -27971,7 +27352,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -27996,7 +27377,7 @@ export class GitHubV3RestApiService {
   billingGetGithubActionsBillingUser(p: {
     username: string
   }): Observable<
-    | (HttpResponse<t_actions_billing_usage> & { status: 200 })
+    | (HttpResponse<t_actions_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -28012,7 +27393,7 @@ export class GitHubV3RestApiService {
   billingGetGithubPackagesBillingUser(p: {
     username: string
   }): Observable<
-    | (HttpResponse<t_packages_billing_usage> & { status: 200 })
+    | (HttpResponse<t_packages_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -28029,7 +27410,7 @@ export class GitHubV3RestApiService {
   billingGetSharedStorageBillingUser(p: {
     username: string
   }): Observable<
-    | (HttpResponse<t_combined_billing_usage> & { status: 200 })
+    | (HttpResponse<t_combined_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -28050,15 +27431,15 @@ export class GitHubV3RestApiService {
     day?: number
     hour?: number
   }): Observable<
-    | (HttpResponse<t_billing_usage_report_user> & { status: 200 })
-    | (HttpResponse<t_scim_error> & { status: 400 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<t_billing_usage_report_user> & {status: 200})
+    | (HttpResponse<t_scim_error> & {status: 400})
+    | (HttpResponse<t_basic_error> & {status: 403})
+    | (HttpResponse<t_basic_error> & {status: 500})
     | (HttpResponse<{
         code?: string
         documentation_url?: string
         message?: string
-      }> & { status: 503 })
+      }> & {status: 503})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -28084,12 +27465,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    (HttpResponse<t_social_account[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_social_account[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -28107,13 +27485,9 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_ssh_signing_key[]> & { status: 200 })
-    | HttpResponse<unknown>
+    (HttpResponse<t_ssh_signing_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -28133,7 +27507,7 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_starred_repository[] | t_repository[]> & { status: 200 })
+    | (HttpResponse<t_starred_repository[] | t_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -28159,13 +27533,10 @@ export class GitHubV3RestApiService {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_minimal_repository[]> & { status: 200 })
+    | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      per_page: p["perPage"],
-      page: p["page"],
-    })
+    const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -28179,8 +27550,8 @@ export class GitHubV3RestApiService {
   }
 
   metaGetAllVersions(): Observable<
-    | (HttpResponse<string[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<string[]> & {status: 200})
+    | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -28194,7 +27565,7 @@ export class GitHubV3RestApiService {
   }
 
   metaGetZen(): Observable<
-    (HttpResponse<string> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<string> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>("GET", this.config.basePath + `/zen`, {
       observe: "response",
@@ -28203,5 +27574,5 @@ export class GitHubV3RestApiService {
   }
 }
 
-export { GitHubV3RestApiService as ApiClient }
-export { GitHubV3RestApiServiceConfig as ApiClientConfig }
+export {GitHubV3RestApiService as ApiClient}
+export {GitHubV3RestApiServiceConfig as ApiClientConfig}

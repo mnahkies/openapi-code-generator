@@ -1,32 +1,33 @@
-import {Biome, Distribution} from "@biomejs/js-api"
+import * as console from "node:console"
+import {Biome, type Configuration, Distribution} from "@biomejs/js-api"
 import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 
+const defaultConfiguration = {
+  organizeImports: {
+    enabled: true,
+  },
+  files: {
+    maxSize: 5 * 1024 * 1024,
+  },
+  formatter: {
+    enabled: true,
+    indentWidth: 2,
+    indentStyle: "space",
+  },
+  linter: {
+    enabled: false,
+  },
+  javascript: {
+    formatter: {
+      bracketSpacing: true,
+      semicolons: "asNeeded",
+    },
+  },
+} as const
+
 export class TypescriptFormatterBiome implements IFormatter {
-  private constructor(private readonly biome: Biome) {
-    biome.applyConfiguration({
-      organizeImports: {
-        enabled: true,
-      },
-      files: {
-        maxSize: 5 * 1024 * 1024,
-      },
-      formatter: {
-        enabled: true,
-        indentWidth: 2,
-        indentStyle: "space",
-      },
-      linter: {
-        enabled: false,
-      },
-      javascript: {
-        formatter: {
-          bracketSpacing: true,
-          semicolons: "asNeeded",
-        },
-      },
-    })
-  }
+  private constructor(private readonly biome: Biome) {}
 
   async format(
     filename: string,
@@ -52,9 +53,19 @@ export class TypescriptFormatterBiome implements IFormatter {
     }
   }
 
-  static async createNodeFormatter(): Promise<TypescriptFormatterBiome> {
+  static async createNodeFormatter(
+    configuration?: Configuration,
+  ): Promise<TypescriptFormatterBiome> {
     const biome = await Biome.create({
       distribution: Distribution.NODE,
+    })
+    console.info(configuration)
+    biome.applyConfiguration({
+      ...(configuration ?? defaultConfiguration),
+      files: {
+        maxSize: 5 * 1024 * 1024,
+      },
+      linter: {enabled: false},
     })
 
     return new TypescriptFormatterBiome(biome)
@@ -64,6 +75,7 @@ export class TypescriptFormatterBiome implements IFormatter {
     const biome = await Biome.create({
       distribution: Distribution.WEB,
     })
+    biome.applyConfiguration(defaultConfiguration)
 
     return new TypescriptFormatterBiome(biome)
   }

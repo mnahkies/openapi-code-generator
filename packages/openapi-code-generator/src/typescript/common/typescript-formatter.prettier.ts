@@ -1,3 +1,4 @@
+import {resolveConfig} from "prettier"
 import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 

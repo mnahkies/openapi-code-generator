@@ -13,6 +13,10 @@ import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import type {OperationGroupStrategy} from "./core/input"
 import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
+import {
+  type TypescriptFormatterConfig,
+  loadTypescriptFormatterConfig,
+} from "./core/loaders/typescript-formatter-config.loader"
 import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
@@ -20,7 +24,6 @@ import type {IdentifierConvention} from "./core/utils"
 import {configSchema, generate} from "./index"
 import {templateNames, templates} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
-import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
 export const boolParser = (arg: string): boolean => {
   const TRUTHY_VALUES = ["true", "1", "on"]
@@ -230,12 +233,30 @@ const program = new Command()
   )
   .showHelpAfterError()
 
+async function formatterFactory(config: TypescriptFormatterConfig) {
+  if (config?.type === "prettier") {
+    const {TypescriptFormatterPrettier} = await import(
+      "./typescript/common/typescript-formatter.prettier.js"
+    )
+    return TypescriptFormatterPrettier.create()
+  }
+
+  if (config?.type === "biome" || !config) {
+    const {TypescriptFormatterBiome} = await import(
+      "./typescript/common/typescript-formatter.biome.js"
+    )
+
+    return TypescriptFormatterBiome.createNodeFormatter(config?.config)
+  }
+
+  throw new Error(`unsupported formatter type '${Reflect.get(config, "type")}'`)
+}
+
 async function main() {
   const config = program.parse().opts()
 
   const fsAdaptor = new NodeFsAdaptor()
   // TODO: make switchable with prettier / auto-detect from project?
-  const formatter = await TypescriptFormatterBiome.createNodeFormatter()
   const validator = await OpenapiValidator.create(async (filename: string) => {
     await promptContinue(
       `Found errors validating '${filename}', continue?`,
@@ -252,8 +273,15 @@ async function main() {
     },
   )
 
+  const outputPath = path.join(process.cwd(), config.output)
+  const formatterOptions = await loadTypescriptFormatterConfig(
+    outputPath,
+    fsAdaptor,
+  )
+  const formatter = await formatterFactory(formatterOptions)
+
   const compilerOptions = await loadTsConfigCompilerOptions(
-    path.join(process.cwd(), config.output),
+    outputPath,
     fsAdaptor,
   )
 

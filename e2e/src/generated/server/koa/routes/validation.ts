@@ -8,8 +8,8 @@ import {
   t_PostValidationEnumsBodySchema,
   t_RandomNumber,
 } from "../models"
-import { s_Enumerations, s_RandomNumber } from "../schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import {s_Enumerations, s_RandomNumber} from "../schemas"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -26,8 +26,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetValidationNumbersRandomNumberResponder = {
   with200(): KoaRuntimeResponse<t_RandomNumber>
@@ -151,7 +151,7 @@ export function createValidationRouter(
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getValidationNumbersRandomNumberResponseValidator(status, body)
@@ -199,7 +199,7 @@ export function createValidationRouter(
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = postValidationEnumsResponseValidator(status, body)
@@ -240,7 +240,7 @@ export function createValidationRouter(
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getResponses500ResponseValidator(status, body)
@@ -281,7 +281,7 @@ export function createValidationRouter(
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getResponsesEmptyResponseValidator(status, body)
@@ -292,5 +292,5 @@ export function createValidationRouter(
   return router
 }
 
-export { createValidationRouter as createRouter }
-export type { ValidationImplementation as Implementation }
+export {createValidationRouter as createRouter}
+export type {ValidationImplementation as Implementation}

@@ -109,7 +109,7 @@ import {
   s_TokenResponse,
   s_UserInfo,
 } from "./schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -128,8 +128,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type GetWellKnownOpenIdConfigurationResponder = {
   with200(): KoaRuntimeResponse<t_OidcMetadata>
@@ -1129,7 +1129,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWellKnownOpenIdConfigurationResponseValidator(status, body)
@@ -1198,7 +1198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = authorizeResponseValidator(status, body)
@@ -1248,7 +1248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = authorizeWithPostResponseValidator(status, body)
@@ -1310,7 +1310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = bcAuthorizeResponseValidator(status, body)
@@ -1375,7 +1375,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = challengeResponseValidator(status, body)
@@ -1436,7 +1436,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = listClientsResponseValidator(status, body)
@@ -1497,7 +1497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = createClientResponseValidator(status, body)
@@ -1505,7 +1505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const getClientParamSchema = z.object({ clientId: z.string() })
+  const getClientParamSchema = z.object({clientId: z.string()})
 
   const getClientResponseValidator = responseValidationFactory(
     [
@@ -1558,7 +1558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = getClientResponseValidator(status, body)
@@ -1566,7 +1566,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const replaceClientParamSchema = z.object({ clientId: z.string() })
+  const replaceClientParamSchema = z.object({clientId: z.string()})
 
   const replaceClientBodySchema = s_Client
 
@@ -1632,7 +1632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = replaceClientResponseValidator(status, body)
@@ -1641,7 +1641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const deleteClientParamSchema = z.object({ clientId: z.string() })
+  const deleteClientParamSchema = z.object({clientId: z.string()})
 
   const deleteClientResponseValidator = responseValidationFactory(
     [
@@ -1697,7 +1697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deleteClientResponseValidator(status, body)
@@ -1706,7 +1706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const generateNewClientSecretParamSchema = z.object({ clientId: z.string() })
+  const generateNewClientSecretParamSchema = z.object({clientId: z.string()})
 
   const generateNewClientSecretResponseValidator = responseValidationFactory(
     [
@@ -1762,7 +1762,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = generateNewClientSecretResponseValidator(status, body)
@@ -1827,7 +1827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deviceAuthorizeResponseValidator(status, body)
@@ -1892,7 +1892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = globalTokenRevocationResponseValidator(status, body)
@@ -1954,7 +1954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = introspectResponseValidator(status, body)
@@ -1962,7 +1962,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const oauthKeysQuerySchema = z.object({ client_id: z.string().optional() })
+  const oauthKeysQuerySchema = z.object({client_id: z.string().optional()})
 
   const oauthKeysResponseValidator = responseValidationFactory(
     [
@@ -2007,7 +2007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = oauthKeysResponseValidator(status, body)
@@ -2064,7 +2064,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = logoutResponseValidator(status, body)
@@ -2117,7 +2117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = logoutWithPostResponseValidator(status, body)
@@ -2185,7 +2185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = oobAuthenticateResponseValidator(status, body)
@@ -2194,7 +2194,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const parOptionsHeaderSchema = z.object({ origin: z.string().optional() })
+  const parOptionsHeaderSchema = z.object({origin: z.string().optional()})
 
   const parOptionsResponseValidator = responseValidationFactory(
     [
@@ -2239,7 +2239,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = parOptionsResponseValidator(status, body)
@@ -2304,7 +2304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = parResponseValidator(status, body)
@@ -2365,7 +2365,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = revokeResponseValidator(status, body)
@@ -2373,7 +2373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const tokenOptionsHeaderSchema = z.object({ origin: z.string().optional() })
+  const tokenOptionsHeaderSchema = z.object({origin: z.string().optional()})
 
   const tokenOptionsResponseValidator = responseValidationFactory(
     [
@@ -2418,7 +2418,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = tokenOptionsResponseValidator(status, body)
@@ -2479,7 +2479,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = tokenResponseValidator(status, body)
@@ -2534,7 +2534,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = userinfoResponseValidator(status, body)
@@ -2605,7 +2605,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWellKnownOAuthConfigurationCustomAsResponseValidator(
@@ -2680,7 +2680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getWellKnownOpenIdConfigurationCustomAsResponseValidator(
@@ -2763,7 +2763,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = authorizeCustomAsResponseValidator(status, body)
@@ -2822,7 +2822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = authorizeCustomAsWithPostResponseValidator(status, body)
@@ -2895,7 +2895,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = bcAuthorizeCustomAsResponseValidator(status, body)
@@ -2972,7 +2972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = challengeCustomAsResponseValidator(status, body)
@@ -3045,7 +3045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = deviceAuthorizeCustomAsResponseValidator(status, body)
@@ -3118,7 +3118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = introspectCustomAsResponseValidator(status, body)
@@ -3177,7 +3177,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = oauthKeysCustomAsResponseValidator(status, body)
@@ -3246,7 +3246,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = logoutCustomAsResponseValidator(status, body)
@@ -3311,7 +3311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = logoutCustomAsWithPostResponseValidator(status, body)
@@ -3388,7 +3388,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = oobAuthenticateCustomAsResponseValidator(status, body)
@@ -3455,7 +3455,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = parOptionsCustomAsResponseValidator(status, body)
@@ -3464,7 +3464,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const parCustomAsParamSchema = z.object({ authorizationServerId: z.string() })
+  const parCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
   const parCustomAsBodySchema = s_ParRequest
 
@@ -3530,7 +3530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = parCustomAsResponseValidator(status, body)
@@ -3603,7 +3603,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = revokeCustomAsResponseValidator(status, body)
@@ -3670,7 +3670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = tokenOptionsCustomAsResponseValidator(status, body)
@@ -3679,9 +3679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const tokenCustomAsParamSchema = z.object({
-    authorizationServerId: z.string(),
-  })
+  const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
   const tokenCustomAsBodySchema = s_TokenRequest
 
@@ -3743,7 +3741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = tokenCustomAsResponseValidator(status, body)
@@ -3810,7 +3808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = userinfoCustomAsResponseValidator(status, body)
