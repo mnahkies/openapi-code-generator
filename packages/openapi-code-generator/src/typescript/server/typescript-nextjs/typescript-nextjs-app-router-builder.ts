@@ -98,7 +98,7 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
     }
 
     innerFunction?.addParameter({name: "respond"})
-    innerFunction?.addParameter({name: "context"})
+    innerFunction?.addParameter({name: "request"})
   }
 
   // TODO: duplication - should be shared with router builder

@@ -116,9 +116,7 @@ export async function generateTypescriptNextJS(
     )
   ).flat()
 
-  const clientOutputPath = [generatedDirectory, "clients", "client.ts"].join(
-    path.sep,
-  )
+  const clientOutputPath = [generatedDirectory, "client.ts"].join(path.sep)
   const clientImportBuilder = new ImportBuilder(
     {filename: clientOutputPath},
     importAlias,
