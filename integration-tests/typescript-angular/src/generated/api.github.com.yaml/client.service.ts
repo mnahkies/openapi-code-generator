@@ -2908,17 +2908,53 @@ export class GitHubV3RestApiService {
 
   dependabotRepositoryAccessForOrg(p: {
     org: string
+    page?: number
+    perPage?: number
   }): Observable<
     | (HttpResponse<t_dependabot_repository_access_details> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
   > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/organizations/${p["org"]}/dependabot/repository-access`,
       {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  dependabotUpdateRepositoryAccessForOrg(p: {
+    org: string
+    requestBody: {
+      repository_ids_to_add?: number[]
+      repository_ids_to_remove?: number[]
+    }
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/organizations/${p["org"]}/dependabot/repository-access`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4616,6 +4652,137 @@ export class GitHubV3RestApiService {
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsListAttestationsBulk(p: {
+    perPage?: number
+    before?: string
+    after?: string
+    org: string
+    requestBody: {
+      predicate_type?: string
+      subject_digests: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        attestations_subject_digests?: {
+          [key: string]:
+            | (
+                | {
+                    bundle?: {
+                      dsseEnvelope?: {
+                        [key: string]: unknown | undefined
+                      }
+                      mediaType?: string
+                      verificationMaterial?: {
+                        [key: string]: unknown | undefined
+                      }
+                    }
+                    bundle_url?: string
+                    repository_id?: number
+                  }[]
+                | null
+              )
+            | undefined
+        }
+        page_info?: {
+          has_next?: boolean
+          has_previous?: boolean
+          next?: string
+          previous?: string
+        }
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/attestations/bulk-list`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsDeleteAttestationsBulk(p: {
+    org: string
+    requestBody:
+      | {
+          subject_digests: string[]
+        }
+      | {
+          attestation_ids: number[]
+        }
+  }): Observable<
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/attestations/delete-request`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsDeleteAttestationsBySubjectDigest(p: {
+    org: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/attestations/digest/${p["subjectDigest"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsDeleteAttestationsById(p: {
+    org: string
+    attestationId: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/attestations/${p["attestationId"]}`,
       {
         observe: "response",
         reportProgress: false,
@@ -8464,6 +8631,7 @@ export class GitHubV3RestApiService {
         | "goproxy_server"
         | UnknownEnumStringValue
       selected_repository_ids?: number[]
+      url: string
       username?: string | null
       visibility: "all" | "private" | "selected" | UnknownEnumStringValue
     }
@@ -8541,6 +8709,7 @@ export class GitHubV3RestApiService {
         | "goproxy_server"
         | UnknownEnumStringValue
       selected_repository_ids?: number[]
+      url?: string
       username?: string | null
       visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
     }
@@ -15037,6 +15206,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
     | (HttpResponse<{
         code?: string
         documentation_url?: string
@@ -26993,6 +27163,138 @@ export class GitHubV3RestApiService {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  usersListAttestationsBulk(p: {
+    perPage?: number
+    before?: string
+    after?: string
+    username: string
+    requestBody: {
+      predicate_type?: string
+      subject_digests: string[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        attestations_subject_digests?: {
+          [key: string]:
+            | (
+                | {
+                    bundle?: {
+                      dsseEnvelope?: {
+                        [key: string]: unknown | undefined
+                      }
+                      mediaType?: string
+                      verificationMaterial?: {
+                        [key: string]: unknown | undefined
+                      }
+                    }
+                    bundle_url?: string
+                    repository_id?: number
+                  }[]
+                | null
+              )
+            | undefined
+        }
+        page_info?: {
+          has_next?: boolean
+          has_previous?: boolean
+          next?: string
+          previous?: string
+        }
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/users/${p["username"]}/attestations/bulk-list`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  usersDeleteAttestationsBulk(p: {
+    username: string
+    requestBody:
+      | {
+          subject_digests: string[]
+        }
+      | {
+          attestation_ids: number[]
+        }
+  }): Observable<
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/users/${p["username"]}/attestations/delete-request`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  usersDeleteAttestationsBySubjectDigest(p: {
+    username: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/users/${p["username"]}/attestations/digest/${p["subjectDigest"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  usersDeleteAttestationsById(p: {
+    username: string
+    attestationId: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/users/${p["username"]}/attestations/${p["attestationId"]}`,
       {
         observe: "response",
         reportProgress: false,

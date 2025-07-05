@@ -10,11 +10,11 @@
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
-    "@koa/router": "^13.1.0",
+    "@koa/router": "^13.1.1",
     "@nahkies/typescript-koa-runtime": "*",
     "joi": "^17.13.3",
     "koa": "^3.0.0",
-    "zod": "^3.25.42"
+    "zod": "^3.25.74"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",

@@ -551,12 +551,15 @@ import {
   t_DependabotListSelectedReposForOrgSecretQuerySchema,
   t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
   t_DependabotRepositoryAccessForOrgParamSchema,
+  t_DependabotRepositoryAccessForOrgQuerySchema,
   t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
   t_DependabotSetRepositoryAccessDefaultLevelRequestBodySchema,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
   t_DependabotSetSelectedReposForOrgSecretRequestBodySchema,
   t_DependabotUpdateAlertParamSchema,
   t_DependabotUpdateAlertRequestBodySchema,
+  t_DependabotUpdateRepositoryAccessForOrgParamSchema,
+  t_DependabotUpdateRepositoryAccessForOrgRequestBodySchema,
   t_DependencyGraphCreateRepositorySnapshotParamSchema,
   t_DependencyGraphCreateRepositorySnapshotRequestBodySchema,
   t_DependencyGraphDiffRangeParamSchema,
@@ -766,6 +769,10 @@ import {
   t_OrgsCreateOrUpdateCustomPropertyRequestBodySchema,
   t_OrgsCreateWebhookParamSchema,
   t_OrgsCreateWebhookRequestBodySchema,
+  t_OrgsDeleteAttestationsBulkParamSchema,
+  t_OrgsDeleteAttestationsBulkRequestBodySchema,
+  t_OrgsDeleteAttestationsByIdParamSchema,
+  t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
   t_OrgsDeleteIssueTypeParamSchema,
   t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
@@ -785,6 +792,9 @@ import {
   t_OrgsGetWebhookParamSchema,
   t_OrgsListAppInstallationsParamSchema,
   t_OrgsListAppInstallationsQuerySchema,
+  t_OrgsListAttestationsBulkParamSchema,
+  t_OrgsListAttestationsBulkQuerySchema,
+  t_OrgsListAttestationsBulkRequestBodySchema,
   t_OrgsListAttestationsParamSchema,
   t_OrgsListAttestationsQuerySchema,
   t_OrgsListBlockedUsersParamSchema,
@@ -1476,6 +1486,10 @@ import {
   t_UsersCreateGpgKeyForAuthenticatedUserRequestBodySchema,
   t_UsersCreatePublicSshKeyForAuthenticatedUserRequestBodySchema,
   t_UsersCreateSshSigningKeyForAuthenticatedUserRequestBodySchema,
+  t_UsersDeleteAttestationsBulkParamSchema,
+  t_UsersDeleteAttestationsBulkRequestBodySchema,
+  t_UsersDeleteAttestationsByIdParamSchema,
+  t_UsersDeleteAttestationsBySubjectDigestParamSchema,
   t_UsersDeleteEmailForAuthenticatedUserRequestBodySchema,
   t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
   t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
@@ -1489,6 +1503,9 @@ import {
   t_UsersGetGpgKeyForAuthenticatedUserParamSchema,
   t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema,
   t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
+  t_UsersListAttestationsBulkParamSchema,
+  t_UsersListAttestationsBulkQuerySchema,
+  t_UsersListAttestationsBulkRequestBodySchema,
   t_UsersListAttestationsParamSchema,
   t_UsersListAttestationsQuerySchema,
   t_UsersListBlockedByAuthenticatedUserQuerySchema,
@@ -3709,11 +3726,30 @@ export type DependabotRepositoryAccessForOrgResponder = {
 export type DependabotRepositoryAccessForOrg = (
   params: Params<
     t_DependabotRepositoryAccessForOrgParamSchema,
-    void,
+    t_DependabotRepositoryAccessForOrgQuerySchema,
     void,
     void
   >,
   respond: DependabotRepositoryAccessForOrgResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type DependabotUpdateRepositoryAccessForOrgResponder = {
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type DependabotUpdateRepositoryAccessForOrg = (
+  params: Params<
+    t_DependabotUpdateRepositoryAccessForOrgParamSchema,
+    void,
+    t_DependabotUpdateRepositoryAccessForOrgRequestBodySchema,
+    void
+  >,
+  respond: DependabotUpdateRepositoryAccessForOrgResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -5023,6 +5059,112 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
     void
   >,
   respond: ActionsRemoveSelectedRepoFromOrgVariableResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type OrgsListAttestationsBulkResponder = {
+  with200(): ExpressRuntimeResponse<{
+    attestations_subject_digests?:
+      | {
+          [key: string]:
+            | (
+                | {
+                    bundle?:
+                      | {
+                          dsseEnvelope?:
+                            | {
+                                [key: string]: unknown | undefined
+                              }
+                            | undefined
+                          mediaType?: string | undefined
+                          verificationMaterial?:
+                            | {
+                                [key: string]: unknown | undefined
+                              }
+                            | undefined
+                        }
+                      | undefined
+                    bundle_url?: string | undefined
+                    repository_id?: number | undefined
+                  }[]
+                | null
+              )
+            | undefined
+        }
+      | undefined
+    page_info?:
+      | {
+          has_next?: boolean | undefined
+          has_previous?: boolean | undefined
+          next?: string | undefined
+          previous?: string | undefined
+        }
+      | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type OrgsListAttestationsBulk = (
+  params: Params<
+    t_OrgsListAttestationsBulkParamSchema,
+    t_OrgsListAttestationsBulkQuerySchema,
+    t_OrgsListAttestationsBulkRequestBodySchema,
+    void
+  >,
+  respond: OrgsListAttestationsBulkResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type OrgsDeleteAttestationsBulkResponder = {
+  with200(): ExpressRuntimeResponse<void>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type OrgsDeleteAttestationsBulk = (
+  params: Params<
+    t_OrgsDeleteAttestationsBulkParamSchema,
+    void,
+    t_OrgsDeleteAttestationsBulkRequestBodySchema,
+    void
+  >,
+  respond: OrgsDeleteAttestationsBulkResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type OrgsDeleteAttestationsBySubjectDigestResponder = {
+  with200(): ExpressRuntimeResponse<void>
+  with204(): ExpressRuntimeResponse<void>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type OrgsDeleteAttestationsBySubjectDigest = (
+  params: Params<
+    t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OrgsDeleteAttestationsBySubjectDigestResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type OrgsDeleteAttestationsByIdResponder = {
+  with200(): ExpressRuntimeResponse<void>
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type OrgsDeleteAttestationsById = (
+  params: Params<t_OrgsDeleteAttestationsByIdParamSchema, void, void, void>,
+  respond: OrgsDeleteAttestationsByIdResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -11886,6 +12028,7 @@ export type CodeScanningUpdateDefaultSetupResponder = {
   with403(): ExpressRuntimeResponse<t_basic_error>
   with404(): ExpressRuntimeResponse<t_basic_error>
   with409(): ExpressRuntimeResponse<t_basic_error>
+  with422(): ExpressRuntimeResponse<t_basic_error>
   with503(): ExpressRuntimeResponse<{
     code?: string | undefined
     documentation_url?: string | undefined
@@ -19844,6 +19987,112 @@ export type UsersGetByUsername = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type UsersListAttestationsBulkResponder = {
+  with200(): ExpressRuntimeResponse<{
+    attestations_subject_digests?:
+      | {
+          [key: string]:
+            | (
+                | {
+                    bundle?:
+                      | {
+                          dsseEnvelope?:
+                            | {
+                                [key: string]: unknown | undefined
+                              }
+                            | undefined
+                          mediaType?: string | undefined
+                          verificationMaterial?:
+                            | {
+                                [key: string]: unknown | undefined
+                              }
+                            | undefined
+                        }
+                      | undefined
+                    bundle_url?: string | undefined
+                    repository_id?: number | undefined
+                  }[]
+                | null
+              )
+            | undefined
+        }
+      | undefined
+    page_info?:
+      | {
+          has_next?: boolean | undefined
+          has_previous?: boolean | undefined
+          next?: string | undefined
+          previous?: string | undefined
+        }
+      | undefined
+  }>
+} & ExpressRuntimeResponder
+
+export type UsersListAttestationsBulk = (
+  params: Params<
+    t_UsersListAttestationsBulkParamSchema,
+    t_UsersListAttestationsBulkQuerySchema,
+    t_UsersListAttestationsBulkRequestBodySchema,
+    void
+  >,
+  respond: UsersListAttestationsBulkResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type UsersDeleteAttestationsBulkResponder = {
+  with200(): ExpressRuntimeResponse<void>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type UsersDeleteAttestationsBulk = (
+  params: Params<
+    t_UsersDeleteAttestationsBulkParamSchema,
+    void,
+    t_UsersDeleteAttestationsBulkRequestBodySchema,
+    void
+  >,
+  respond: UsersDeleteAttestationsBulkResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type UsersDeleteAttestationsBySubjectDigestResponder = {
+  with200(): ExpressRuntimeResponse<void>
+  with204(): ExpressRuntimeResponse<void>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type UsersDeleteAttestationsBySubjectDigest = (
+  params: Params<
+    t_UsersDeleteAttestationsBySubjectDigestParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: UsersDeleteAttestationsBySubjectDigestResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type UsersDeleteAttestationsByIdResponder = {
+  with200(): ExpressRuntimeResponse<void>
+  with204(): ExpressRuntimeResponse<void>
+  with403(): ExpressRuntimeResponse<t_basic_error>
+  with404(): ExpressRuntimeResponse<t_basic_error>
+} & ExpressRuntimeResponder
+
+export type UsersDeleteAttestationsById = (
+  params: Params<t_UsersDeleteAttestationsByIdParamSchema, void, void, void>,
+  respond: UsersDeleteAttestationsByIdResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type UsersListAttestationsResponder = {
   with200(): ExpressRuntimeResponse<{
     attestations?:
@@ -20579,6 +20828,7 @@ export type Implementation = {
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
   dependabotRepositoryAccessForOrg: DependabotRepositoryAccessForOrg
+  dependabotUpdateRepositoryAccessForOrg: DependabotUpdateRepositoryAccessForOrg
   dependabotSetRepositoryAccessDefaultLevel: DependabotSetRepositoryAccessDefaultLevel
   billingGetGithubBillingUsageReportOrg: BillingGetGithubBillingUsageReportOrg
   orgsGet: OrgsGet
@@ -20652,6 +20902,10 @@ export type Implementation = {
   actionsSetSelectedReposForOrgVariable: ActionsSetSelectedReposForOrgVariable
   actionsAddSelectedRepoToOrgVariable: ActionsAddSelectedRepoToOrgVariable
   actionsRemoveSelectedRepoFromOrgVariable: ActionsRemoveSelectedRepoFromOrgVariable
+  orgsListAttestationsBulk: OrgsListAttestationsBulk
+  orgsDeleteAttestationsBulk: OrgsDeleteAttestationsBulk
+  orgsDeleteAttestationsBySubjectDigest: OrgsDeleteAttestationsBySubjectDigest
+  orgsDeleteAttestationsById: OrgsDeleteAttestationsById
   orgsListAttestations: OrgsListAttestations
   orgsListBlockedUsers: OrgsListBlockedUsers
   orgsCheckBlockedUser: OrgsCheckBlockedUser
@@ -21480,6 +21734,10 @@ export type Implementation = {
   usersGetById: UsersGetById
   usersList: UsersList
   usersGetByUsername: UsersGetByUsername
+  usersListAttestationsBulk: UsersListAttestationsBulk
+  usersDeleteAttestationsBulk: UsersDeleteAttestationsBulk
+  usersDeleteAttestationsBySubjectDigest: UsersDeleteAttestationsBySubjectDigest
+  usersDeleteAttestationsById: UsersDeleteAttestationsById
   usersListAttestations: UsersListAttestations
   packagesListDockerMigrationConflictingPackagesForUser: PackagesListDockerMigrationConflictingPackagesForUser
   activityListEventsForAuthenticatedUser: ActivityListEventsForAuthenticatedUser
@@ -28996,6 +29254,11 @@ export function createRouter(implementation: Implementation): Router {
     org: z.string(),
   })
 
+  const dependabotRepositoryAccessForOrgQuerySchema = z.object({
+    page: z.coerce.number().min(1).optional().default(1),
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+  })
+
   const dependabotRepositoryAccessForOrgResponseBodyValidator =
     responseValidationFactory(
       [
@@ -29017,7 +29280,11 @@ export function createRouter(implementation: Implementation): Router {
             req.params,
             RequestInputType.RouteParam,
           ),
-          query: undefined,
+          query: parseRequestInput(
+            dependabotRepositoryAccessForOrgQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
           body: undefined,
           headers: undefined,
         }
@@ -29060,6 +29327,100 @@ export function createRouter(implementation: Implementation): Router {
         if (body !== undefined) {
           res.json(
             dependabotRepositoryAccessForOrgResponseBodyValidator(status, body),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const dependabotUpdateRepositoryAccessForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotUpdateRepositoryAccessForOrgRequestBodySchema = z.object({
+    repository_ids_to_add: z.array(z.coerce.number()).optional(),
+    repository_ids_to_remove: z.array(z.coerce.number()).optional(),
+  })
+
+  const dependabotUpdateRepositoryAccessForOrgResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // dependabotUpdateRepositoryAccessForOrg
+  router.patch(
+    `/organizations/:org/dependabot/repository-access`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            dependabotUpdateRepositoryAccessForOrgParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            dependabotUpdateRepositoryAccessForOrgRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .dependabotUpdateRepositoryAccessForOrg(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            dependabotUpdateRepositoryAccessForOrgResponseBodyValidator(
+              status,
+              body,
+            ),
           )
         } else {
           res.end()
@@ -35019,6 +35380,405 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
+  const orgsListAttestationsBulkParamSchema = z.object({ org: z.string() })
+
+  const orgsListAttestationsBulkQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const orgsListAttestationsBulkRequestBodySchema = z.object({
+    subject_digests: z.array(z.string()).min(1).max(1024),
+    predicate_type: z.string().optional(),
+  })
+
+  const orgsListAttestationsBulkResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            attestations_subject_digests: z
+              .record(
+                z
+                  .array(
+                    z.object({
+                      bundle: z
+                        .object({
+                          mediaType: z.string().optional(),
+                          verificationMaterial: z
+                            .record(z.unknown())
+                            .optional(),
+                          dsseEnvelope: z.record(z.unknown()).optional(),
+                        })
+                        .optional(),
+                      repository_id: z.coerce.number().optional(),
+                      bundle_url: z.string().optional(),
+                    }),
+                  )
+                  .nullable(),
+              )
+              .optional(),
+            page_info: z
+              .object({
+                has_next: PermissiveBoolean.optional(),
+                has_previous: PermissiveBoolean.optional(),
+                next: z.string().optional(),
+                previous: z.string().optional(),
+              })
+              .optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // orgsListAttestationsBulk
+  router.post(
+    `/orgs/:org/attestations/bulk-list`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            orgsListAttestationsBulkParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            orgsListAttestationsBulkQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: parseRequestInput(
+            orgsListAttestationsBulkRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<{
+              attestations_subject_digests?:
+                | {
+                    [key: string]:
+                      | (
+                          | {
+                              bundle?:
+                                | {
+                                    dsseEnvelope?:
+                                      | {
+                                          [key: string]: unknown | undefined
+                                        }
+                                      | undefined
+                                    mediaType?: string | undefined
+                                    verificationMaterial?:
+                                      | {
+                                          [key: string]: unknown | undefined
+                                        }
+                                      | undefined
+                                  }
+                                | undefined
+                              bundle_url?: string | undefined
+                              repository_id?: number | undefined
+                            }[]
+                          | null
+                        )
+                      | undefined
+                  }
+                | undefined
+              page_info?:
+                | {
+                    has_next?: boolean | undefined
+                    has_previous?: boolean | undefined
+                    next?: string | undefined
+                    previous?: string | undefined
+                  }
+                | undefined
+            }>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .orgsListAttestationsBulk(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(orgsListAttestationsBulkResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const orgsDeleteAttestationsBulkParamSchema = z.object({ org: z.string() })
+
+  const orgsDeleteAttestationsBulkRequestBodySchema = z.union([
+    z.object({ subject_digests: z.array(z.string()).min(1).max(1024) }),
+    z.object({ attestation_ids: z.array(z.coerce.number()).min(1).max(1024) }),
+  ])
+
+  const orgsDeleteAttestationsBulkResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // orgsDeleteAttestationsBulk
+  router.post(
+    `/orgs/:org/attestations/delete-request`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            orgsDeleteAttestationsBulkParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            orgsDeleteAttestationsBulkRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<void>(200)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .orgsDeleteAttestationsBulk(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            orgsDeleteAttestationsBulkResponseBodyValidator(status, body),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const orgsDeleteAttestationsBySubjectDigestParamSchema = z.object({
+    org: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const orgsDeleteAttestationsBySubjectDigestResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // orgsDeleteAttestationsBySubjectDigest
+  router.delete(
+    `/orgs/:org/attestations/digest/:subject_digest`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            orgsDeleteAttestationsBySubjectDigestParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<void>(200)
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .orgsDeleteAttestationsBySubjectDigest(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            orgsDeleteAttestationsBySubjectDigestResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const orgsDeleteAttestationsByIdParamSchema = z.object({
+    org: z.string(),
+    attestation_id: z.coerce.number(),
+  })
+
+  const orgsDeleteAttestationsByIdResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // orgsDeleteAttestationsById
+  router.delete(
+    `/orgs/:org/attestations/:attestation_id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            orgsDeleteAttestationsByIdParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<void>(200)
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .orgsDeleteAttestationsById(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            orgsDeleteAttestationsByIdResponseBodyValidator(status, body),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const orgsListAttestationsParamSchema = z.object({
     org: z.string(),
     subject_digest: z.string(),
@@ -36361,7 +37121,11 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const codeSecurityDetachConfigurationRequestBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
+    selected_repository_ids: z
+      .array(z.coerce.number())
+      .min(1)
+      .max(1000)
+      .optional(),
   })
 
   const codeSecurityDetachConfigurationResponseBodyValidator =
@@ -46645,6 +47409,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const privateRegistriesCreateOrgPrivateRegistryRequestBodySchema = z.object({
     registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
+    url: z.string(),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -46916,6 +47681,7 @@ export function createRouter(implementation: Implementation): Router {
     registry_type: z
       .enum(["maven_repository", "nuget_feed", "goproxy_server"])
       .optional(),
+    url: z.string().optional(),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -67318,6 +68084,7 @@ export function createRouter(implementation: Implementation): Router {
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["409", s_basic_error],
+        ["422", s_basic_error],
         [
           "503",
           z.object({
@@ -67367,6 +68134,9 @@ export function createRouter(implementation: Implementation): Router {
           },
           with409() {
             return new ExpressRuntimeResponse<t_basic_error>(409)
+          },
+          with422() {
+            return new ExpressRuntimeResponse<t_basic_error>(422)
           },
           with503() {
             return new ExpressRuntimeResponse<{
@@ -104917,6 +105687,409 @@ export function createRouter(implementation: Implementation): Router {
 
         if (body !== undefined) {
           res.json(usersGetByUsernameResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const usersListAttestationsBulkParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const usersListAttestationsBulkQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const usersListAttestationsBulkRequestBodySchema = z.object({
+    subject_digests: z.array(z.string()).min(1).max(1024),
+    predicate_type: z.string().optional(),
+  })
+
+  const usersListAttestationsBulkResponseBodyValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            attestations_subject_digests: z
+              .record(
+                z
+                  .array(
+                    z.object({
+                      bundle: z
+                        .object({
+                          mediaType: z.string().optional(),
+                          verificationMaterial: z
+                            .record(z.unknown())
+                            .optional(),
+                          dsseEnvelope: z.record(z.unknown()).optional(),
+                        })
+                        .optional(),
+                      repository_id: z.coerce.number().optional(),
+                      bundle_url: z.string().optional(),
+                    }),
+                  )
+                  .nullable(),
+              )
+              .optional(),
+            page_info: z
+              .object({
+                has_next: PermissiveBoolean.optional(),
+                has_previous: PermissiveBoolean.optional(),
+                next: z.string().optional(),
+                previous: z.string().optional(),
+              })
+              .optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  // usersListAttestationsBulk
+  router.post(
+    `/users/:username/attestations/bulk-list`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            usersListAttestationsBulkParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: parseRequestInput(
+            usersListAttestationsBulkQuerySchema,
+            req.query,
+            RequestInputType.QueryString,
+          ),
+          body: parseRequestInput(
+            usersListAttestationsBulkRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<{
+              attestations_subject_digests?:
+                | {
+                    [key: string]:
+                      | (
+                          | {
+                              bundle?:
+                                | {
+                                    dsseEnvelope?:
+                                      | {
+                                          [key: string]: unknown | undefined
+                                        }
+                                      | undefined
+                                    mediaType?: string | undefined
+                                    verificationMaterial?:
+                                      | {
+                                          [key: string]: unknown | undefined
+                                        }
+                                      | undefined
+                                  }
+                                | undefined
+                              bundle_url?: string | undefined
+                              repository_id?: number | undefined
+                            }[]
+                          | null
+                        )
+                      | undefined
+                  }
+                | undefined
+              page_info?:
+                | {
+                    has_next?: boolean | undefined
+                    has_previous?: boolean | undefined
+                    next?: string | undefined
+                    previous?: string | undefined
+                  }
+                | undefined
+            }>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .usersListAttestationsBulk(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(usersListAttestationsBulkResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const usersDeleteAttestationsBulkParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const usersDeleteAttestationsBulkRequestBodySchema = z.union([
+    z.object({ subject_digests: z.array(z.string()).min(1).max(1024) }),
+    z.object({ attestation_ids: z.array(z.coerce.number()).min(1).max(1024) }),
+  ])
+
+  const usersDeleteAttestationsBulkResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // usersDeleteAttestationsBulk
+  router.post(
+    `/users/:username/attestations/delete-request`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            usersDeleteAttestationsBulkParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            usersDeleteAttestationsBulkRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<void>(200)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .usersDeleteAttestationsBulk(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            usersDeleteAttestationsBulkResponseBodyValidator(status, body),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const usersDeleteAttestationsBySubjectDigestParamSchema = z.object({
+    username: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const usersDeleteAttestationsBySubjectDigestResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // usersDeleteAttestationsBySubjectDigest
+  router.delete(
+    `/users/:username/attestations/digest/:subject_digest`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            usersDeleteAttestationsBySubjectDigestParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<void>(200)
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .usersDeleteAttestationsBySubjectDigest(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            usersDeleteAttestationsBySubjectDigestResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const usersDeleteAttestationsByIdParamSchema = z.object({
+    username: z.string(),
+    attestation_id: z.coerce.number(),
+  })
+
+  const usersDeleteAttestationsByIdResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  // usersDeleteAttestationsById
+  router.delete(
+    `/users/:username/attestations/:attestation_id`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            usersDeleteAttestationsByIdParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: undefined,
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<void>(200)
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          with403() {
+            return new ExpressRuntimeResponse<t_basic_error>(403)
+          },
+          with404() {
+            return new ExpressRuntimeResponse<t_basic_error>(404)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .usersDeleteAttestationsById(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            usersDeleteAttestationsByIdResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }

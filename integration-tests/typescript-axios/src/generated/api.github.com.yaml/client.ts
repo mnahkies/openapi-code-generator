@@ -2749,16 +2749,47 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async dependabotRepositoryAccessForOrg(
     p: {
       org: string
+      page?: number
+      perPage?: number
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
     const url = `/organizations/${p["org"]}/dependabot/repository-access`
     const headers = this._headers({}, opts.headers)
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async dependabotUpdateRepositoryAccessForOrg(
+    p: {
+      org: string
+      requestBody: {
+        repository_ids_to_add?: number[] | undefined
+        repository_ids_to_remove?: number[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/organizations/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
-      method: "GET",
+      method: "PATCH",
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -4603,6 +4634,152 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsListAttestationsBulk(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      requestBody: {
+        predicate_type?: string | undefined
+        subject_digests: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      attestations_subject_digests?:
+        | {
+            [key: string]:
+              | (
+                  | {
+                      bundle?:
+                        | {
+                            dsseEnvelope?:
+                              | {
+                                  [key: string]: unknown | undefined
+                                }
+                              | undefined
+                            mediaType?: string | undefined
+                            verificationMaterial?:
+                              | {
+                                  [key: string]: unknown | undefined
+                                }
+                              | undefined
+                          }
+                        | undefined
+                      bundle_url?: string | undefined
+                      repository_id?: number | undefined
+                    }[]
+                  | null
+                )
+              | undefined
+          }
+        | undefined
+      page_info?:
+        | {
+            has_next?: boolean | undefined
+            has_previous?: boolean | undefined
+            next?: string | undefined
+            previous?: string | undefined
+          }
+        | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/attestations/bulk-list`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsDeleteAttestationsBulk(
+    p: {
+      org: string
+      requestBody:
+        | {
+            subject_digests: string[]
+          }
+        | {
+            attestation_ids: number[]
+          }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/attestations/delete-request`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsDeleteAttestationsBySubjectDigest(
+    p: {
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/attestations/digest/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsDeleteAttestationsById(
+    p: {
+      org: string
+      attestationId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/attestations/${p["attestationId"]}`
     const headers = this._headers({}, opts.headers)
 
     return this._request({
@@ -8401,6 +8578,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "goproxy_server"
           | UnknownEnumStringValue
         selected_repository_ids?: number[] | undefined
+        url: string
         username?: (string | null) | undefined
         visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
@@ -8487,6 +8665,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             )
           | undefined
         selected_repository_ids?: number[] | undefined
+        url?: string | undefined
         username?: (string | null) | undefined
         visibility?:
           | ("all" | "private" | "selected" | UnknownEnumStringValue)
@@ -26928,6 +27107,152 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async usersListAttestationsBulk(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      username: string
+      requestBody: {
+        predicate_type?: string | undefined
+        subject_digests: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      attestations_subject_digests?:
+        | {
+            [key: string]:
+              | (
+                  | {
+                      bundle?:
+                        | {
+                            dsseEnvelope?:
+                              | {
+                                  [key: string]: unknown | undefined
+                                }
+                              | undefined
+                            mediaType?: string | undefined
+                            verificationMaterial?:
+                              | {
+                                  [key: string]: unknown | undefined
+                                }
+                              | undefined
+                          }
+                        | undefined
+                      bundle_url?: string | undefined
+                      repository_id?: number | undefined
+                    }[]
+                  | null
+                )
+              | undefined
+          }
+        | undefined
+      page_info?:
+        | {
+            has_next?: boolean | undefined
+            has_previous?: boolean | undefined
+            next?: string | undefined
+            previous?: string | undefined
+          }
+        | undefined
+    }>
+  > {
+    const url = `/users/${p["username"]}/attestations/bulk-list`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async usersDeleteAttestationsBulk(
+    p: {
+      username: string
+      requestBody:
+        | {
+            subject_digests: string[]
+          }
+        | {
+            attestation_ids: number[]
+          }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/attestations/delete-request`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async usersDeleteAttestationsBySubjectDigest(
+    p: {
+      username: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/attestations/digest/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async usersDeleteAttestationsById(
+    p: {
+      username: string
+      attestationId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/users/${p["username"]}/attestations/${p["attestationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

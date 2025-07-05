@@ -1060,6 +1060,8 @@ import {
   t_PostSubscriptionsRequestBodySchema,
   t_PostSubscriptionsSubscriptionExposedIdParamSchema,
   t_PostSubscriptionsSubscriptionExposedIdRequestBodySchema,
+  t_PostSubscriptionsSubscriptionMigrateParamSchema,
+  t_PostSubscriptionsSubscriptionMigrateRequestBodySchema,
   t_PostSubscriptionsSubscriptionResumeParamSchema,
   t_PostSubscriptionsSubscriptionResumeRequestBodySchema,
   t_PostTaxCalculationsRequestBodySchema,
@@ -1084,6 +1086,10 @@ import {
   t_PostTerminalReadersReaderCancelActionRequestBodySchema,
   t_PostTerminalReadersReaderCollectInputsParamSchema,
   t_PostTerminalReadersReaderCollectInputsRequestBodySchema,
+  t_PostTerminalReadersReaderCollectPaymentMethodParamSchema,
+  t_PostTerminalReadersReaderCollectPaymentMethodRequestBodySchema,
+  t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema,
+  t_PostTerminalReadersReaderConfirmPaymentIntentRequestBodySchema,
   t_PostTerminalReadersReaderParamSchema,
   t_PostTerminalReadersReaderProcessPaymentIntentParamSchema,
   t_PostTerminalReadersReaderProcessPaymentIntentRequestBodySchema,
@@ -9523,6 +9529,24 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostSubscriptionsSubscriptionMigrateResponder = {
+  with200(): ExpressRuntimeResponse<t_subscription>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostSubscriptionsSubscriptionMigrate = (
+  params: Params<
+    t_PostSubscriptionsSubscriptionMigrateParamSchema,
+    void,
+    t_PostSubscriptionsSubscriptionMigrateRequestBodySchema,
+    void
+  >,
+  respond: PostSubscriptionsSubscriptionMigrateResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type PostSubscriptionsSubscriptionResumeResponder = {
   with200(): ExpressRuntimeResponse<t_subscription>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
@@ -10301,6 +10325,42 @@ export type PostTerminalReadersReaderCollectInputs = (
     void
   >,
   respond: PostTerminalReadersReaderCollectInputsResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostTerminalReadersReaderCollectPaymentMethodResponder = {
+  with200(): ExpressRuntimeResponse<t_terminal_reader>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostTerminalReadersReaderCollectPaymentMethod = (
+  params: Params<
+    t_PostTerminalReadersReaderCollectPaymentMethodParamSchema,
+    void,
+    t_PostTerminalReadersReaderCollectPaymentMethodRequestBodySchema,
+    void
+  >,
+  respond: PostTerminalReadersReaderCollectPaymentMethodResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
+export type PostTerminalReadersReaderConfirmPaymentIntentResponder = {
+  with200(): ExpressRuntimeResponse<t_terminal_reader>
+  withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
+} & ExpressRuntimeResponder
+
+export type PostTerminalReadersReaderConfirmPaymentIntent = (
+  params: Params<
+    t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema,
+    void,
+    t_PostTerminalReadersReaderConfirmPaymentIntentRequestBodySchema,
+    void
+  >,
+  respond: PostTerminalReadersReaderConfirmPaymentIntentResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -12651,6 +12711,7 @@ export type Implementation = {
   getSubscriptionsSubscriptionExposedId: GetSubscriptionsSubscriptionExposedId
   postSubscriptionsSubscriptionExposedId: PostSubscriptionsSubscriptionExposedId
   deleteSubscriptionsSubscriptionExposedIdDiscount: DeleteSubscriptionsSubscriptionExposedIdDiscount
+  postSubscriptionsSubscriptionMigrate: PostSubscriptionsSubscriptionMigrate
   postSubscriptionsSubscriptionResume: PostSubscriptionsSubscriptionResume
   postTaxCalculations: PostTaxCalculations
   getTaxCalculationsCalculation: GetTaxCalculationsCalculation
@@ -12693,6 +12754,8 @@ export type Implementation = {
   postTerminalReadersReader: PostTerminalReadersReader
   postTerminalReadersReaderCancelAction: PostTerminalReadersReaderCancelAction
   postTerminalReadersReaderCollectInputs: PostTerminalReadersReaderCollectInputs
+  postTerminalReadersReaderCollectPaymentMethod: PostTerminalReadersReaderCollectPaymentMethod
+  postTerminalReadersReaderConfirmPaymentIntent: PostTerminalReadersReaderConfirmPaymentIntent
   postTerminalReadersReaderProcessPaymentIntent: PostTerminalReadersReaderProcessPaymentIntent
   postTerminalReadersReaderProcessSetupIntent: PostTerminalReadersReaderProcessSetupIntent
   postTerminalReadersReaderRefundPayment: PostTerminalReadersReaderRefundPayment
@@ -13441,6 +13504,9 @@ export function createRouter(implementation: Implementation): Router {
           cashapp_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          crypto_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           eps_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -13723,6 +13789,9 @@ export function createRouter(implementation: Implementation): Router {
           company_tax_id_verification: z
             .object({ files: z.array(z.string().max(500)).optional() })
             .optional(),
+          proof_of_address: z
+            .object({ files: z.array(z.string().max(500)).optional() })
+            .optional(),
           proof_of_registration: z
             .object({ files: z.array(z.string().max(500)).optional() })
             .optional(),
@@ -13912,6 +13981,7 @@ export function createRouter(implementation: Implementation): Router {
                     .enum(["daily", "manual", "monthly", "weekly"])
                     .optional(),
                   monthly_anchor: z.coerce.number().optional(),
+                  monthly_payout_days: z.array(z.coerce.number()).optional(),
                   weekly_anchor: z
                     .enum([
                       "friday",
@@ -13922,6 +13992,19 @@ export function createRouter(implementation: Implementation): Router {
                       "tuesday",
                       "wednesday",
                     ])
+                    .optional(),
+                  weekly_payout_days: z
+                    .array(
+                      z.enum([
+                        "friday",
+                        "monday",
+                        "saturday",
+                        "sunday",
+                        "thursday",
+                        "tuesday",
+                        "wednesday",
+                      ]),
+                    )
                     .optional(),
                 })
                 .optional(),
@@ -14277,6 +14360,9 @@ export function createRouter(implementation: Implementation): Router {
           cashapp_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          crypto_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           eps_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -14544,6 +14630,9 @@ export function createRouter(implementation: Implementation): Router {
           company_tax_id_verification: z
             .object({ files: z.array(z.string().max(500)).optional() })
             .optional(),
+          proof_of_address: z
+            .object({ files: z.array(z.string().max(500)).optional() })
+            .optional(),
           proof_of_registration: z
             .object({ files: z.array(z.string().max(500)).optional() })
             .optional(),
@@ -14736,6 +14825,7 @@ export function createRouter(implementation: Implementation): Router {
                     .enum(["daily", "manual", "monthly", "weekly"])
                     .optional(),
                   monthly_anchor: z.coerce.number().optional(),
+                  monthly_payout_days: z.array(z.coerce.number()).optional(),
                   weekly_anchor: z
                     .enum([
                       "friday",
@@ -14746,6 +14836,19 @@ export function createRouter(implementation: Implementation): Router {
                       "tuesday",
                       "wednesday",
                     ])
+                    .optional(),
+                  weekly_payout_days: z
+                    .array(
+                      z.enum([
+                        "friday",
+                        "monday",
+                        "saturday",
+                        "sunday",
+                        "thursday",
+                        "tuesday",
+                        "wednesday",
+                      ]),
+                    )
                     .optional(),
                 })
                 .optional(),
@@ -23881,7 +23984,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       billing_address_collection: z.enum(["auto", "required"]).optional(),
-      cancel_url: z.string().max(5000).optional(),
+      cancel_url: z.string().optional(),
       client_reference_id: z.string().max(200).optional(),
       consent_collection: z
         .object({
@@ -24337,7 +24440,26 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           klarna: z
-            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .object({
+              setup_future_usage: z.enum(["none"]).optional(),
+              subscriptions: z
+                .union([
+                  z.array(
+                    z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                      name: z.string().max(255).optional(),
+                      next_billing: z.object({
+                        amount: z.coerce.number(),
+                        date: z.string().max(5000),
+                      }),
+                      reference: z.string().max(255),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+            })
             .optional(),
           konbini: z
             .object({
@@ -24506,6 +24628,7 @@ export function createRouter(implementation: Implementation): Router {
             "boleto",
             "card",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -24554,7 +24677,7 @@ export function createRouter(implementation: Implementation): Router {
       redirect_on_completion: z
         .enum(["always", "if_required", "never"])
         .optional(),
-      return_url: z.string().max(5000).optional(),
+      return_url: z.string().optional(),
       saved_payment_method_options: z
         .object({
           allow_redisplay_filters: z
@@ -24886,6 +25009,9 @@ export function createRouter(implementation: Implementation): Router {
         .object({
           application_fee_percent: z.coerce.number().optional(),
           billing_cycle_anchor: z.coerce.number().optional(),
+          billing_mode: z
+            .object({ type: z.enum(["classic", "flexible"]) })
+            .optional(),
           default_tax_rates: z.array(z.string().max(5000)).optional(),
           description: z.string().max(500).optional(),
           invoice_settings: z
@@ -24922,7 +25048,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      success_url: z.string().max(5000).optional(),
+      success_url: z.string().optional(),
       tax_id_collection: z
         .object({
           enabled: PermissiveBoolean,
@@ -30912,6 +31038,7 @@ export function createRouter(implementation: Implementation): Router {
         "boleto",
         "card",
         "cashapp",
+        "crypto",
         "customer_balance",
         "eps",
         "fpx",
@@ -32144,6 +32271,7 @@ export function createRouter(implementation: Implementation): Router {
                   "boleto",
                   "card",
                   "cashapp",
+                  "crypto",
                   "customer_balance",
                   "eps",
                   "fpx",
@@ -32799,6 +32927,7 @@ export function createRouter(implementation: Implementation): Router {
                     "boleto",
                     "card",
                     "cashapp",
+                    "crypto",
                     "customer_balance",
                     "eps",
                     "fpx",
@@ -37595,6 +37724,9 @@ export function createRouter(implementation: Implementation): Router {
         .object({ email: z.string().optional(), phone: z.string().optional() })
         .optional(),
       related_customer: z.string().max(5000).optional(),
+      related_person: z
+        .object({ account: z.string().max(5000), person: z.string().max(5000) })
+        .optional(),
       return_url: z.string().optional(),
       type: z.enum(["document", "id_number"]).optional(),
       verification_flow: z.string().max(5000).optional(),
@@ -39332,7 +39464,11 @@ export function createRouter(implementation: Implementation): Router {
                             z.object({
                               count: z.coerce.number().optional(),
                               interval: z.enum(["month"]).optional(),
-                              type: z.enum(["fixed_count"]),
+                              type: z.enum([
+                                "bonus",
+                                "fixed_count",
+                                "revolving",
+                              ]),
                             }),
                             z.enum([""]),
                           ])
@@ -39417,6 +39553,7 @@ export function createRouter(implementation: Implementation): Router {
                   "boleto",
                   "card",
                   "cashapp",
+                  "crypto",
                   "customer_balance",
                   "eps",
                   "fpx",
@@ -39860,6 +39997,9 @@ export function createRouter(implementation: Implementation): Router {
       schedule: z.string().max(5000).optional(),
       schedule_details: z
         .object({
+          billing_mode: z
+            .object({ type: z.enum(["classic", "flexible"]) })
+            .optional(),
           end_behavior: z.enum(["cancel", "release"]).optional(),
           phases: z
             .array(
@@ -40033,6 +40173,9 @@ export function createRouter(implementation: Implementation): Router {
         .object({
           billing_cycle_anchor: z
             .union([z.enum(["now", "unchanged"]), z.coerce.number()])
+            .optional(),
+          billing_mode: z
+            .object({ type: z.enum(["classic", "flexible"]) })
             .optional(),
           cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
           cancel_at_period_end: PermissiveBoolean.optional(),
@@ -40529,7 +40672,11 @@ export function createRouter(implementation: Implementation): Router {
                             z.object({
                               count: z.coerce.number().optional(),
                               interval: z.enum(["month"]).optional(),
-                              type: z.enum(["fixed_count"]),
+                              type: z.enum([
+                                "bonus",
+                                "fixed_count",
+                                "revolving",
+                              ]),
                             }),
                             z.enum([""]),
                           ])
@@ -40614,6 +40761,7 @@ export function createRouter(implementation: Implementation): Router {
                   "boleto",
                   "card",
                   "cashapp",
+                  "crypto",
                   "customer_balance",
                   "eps",
                   "fpx",
@@ -50136,6 +50284,7 @@ export function createRouter(implementation: Implementation): Router {
         blik: z.object({}).optional(),
         boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
         cashapp: z.object({}).optional(),
+        crypto: z.object({}).optional(),
         customer_balance: z.object({}).optional(),
         eps: z
           .object({
@@ -50210,6 +50359,7 @@ export function createRouter(implementation: Implementation): Router {
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -50326,6 +50476,7 @@ export function createRouter(implementation: Implementation): Router {
           "blik",
           "boleto",
           "cashapp",
+          "crypto",
           "customer_balance",
           "eps",
           "fpx",
@@ -50527,7 +50678,7 @@ export function createRouter(implementation: Implementation): Router {
                       z.object({
                         count: z.coerce.number().optional(),
                         interval: z.enum(["month"]).optional(),
-                        type: z.enum(["fixed_count"]),
+                        type: z.enum(["bonus", "fixed_count", "revolving"]),
                       }),
                       z.enum([""]),
                     ])
@@ -50651,6 +50802,12 @@ export function createRouter(implementation: Implementation): Router {
             z.enum([""]),
           ])
           .optional(),
+        crypto: z
+          .union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ])
+          .optional(),
         customer_balance: z
           .union([
             z.object({
@@ -50737,6 +50894,17 @@ export function createRouter(implementation: Implementation): Router {
           .union([
             z.object({
               capture_method: z.enum(["", "manual"]).optional(),
+              on_demand: z
+                .object({
+                  average_amount: z.coerce.number().optional(),
+                  maximum_amount: z.coerce.number().optional(),
+                  minimum_amount: z.coerce.number().optional(),
+                  purchase_interval: z
+                    .enum(["day", "month", "week", "year"])
+                    .optional(),
+                  purchase_interval_count: z.coerce.number().optional(),
+                })
+                .optional(),
               preferred_locale: z
                 .enum([
                   "cs-CZ",
@@ -50787,7 +50955,28 @@ export function createRouter(implementation: Implementation): Router {
                   "sv-SE",
                 ])
                 .optional(),
-              setup_future_usage: z.enum(["none"]).optional(),
+              setup_future_usage: z
+                .enum(["none", "off_session", "on_session"])
+                .optional(),
+              subscriptions: z
+                .union([
+                  z.array(
+                    z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                      name: z.string().max(255).optional(),
+                      next_billing: z
+                        .object({
+                          amount: z.coerce.number(),
+                          date: z.string().max(5000),
+                        })
+                        .optional(),
+                      reference: z.string().max(255),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
             }),
             z.enum([""]),
           ])
@@ -51448,6 +51637,7 @@ export function createRouter(implementation: Implementation): Router {
           blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
           cashapp: z.object({}).optional(),
+          crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
             .object({
@@ -51522,6 +51712,7 @@ export function createRouter(implementation: Implementation): Router {
                   "abn_amro",
                   "asn_bank",
                   "bunq",
+                  "buut",
                   "handelsbanken",
                   "ing",
                   "knab",
@@ -51638,6 +51829,7 @@ export function createRouter(implementation: Implementation): Router {
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -51841,7 +52033,7 @@ export function createRouter(implementation: Implementation): Router {
                         z.object({
                           count: z.coerce.number().optional(),
                           interval: z.enum(["month"]).optional(),
-                          type: z.enum(["fixed_count"]),
+                          type: z.enum(["bonus", "fixed_count", "revolving"]),
                         }),
                         z.enum([""]),
                       ])
@@ -51969,6 +52161,12 @@ export function createRouter(implementation: Implementation): Router {
               z.enum([""]),
             ])
             .optional(),
+          crypto: z
+            .union([
+              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.enum([""]),
+            ])
+            .optional(),
           customer_balance: z
             .union([
               z.object({
@@ -52055,6 +52253,17 @@ export function createRouter(implementation: Implementation): Router {
             .union([
               z.object({
                 capture_method: z.enum(["", "manual"]).optional(),
+                on_demand: z
+                  .object({
+                    average_amount: z.coerce.number().optional(),
+                    maximum_amount: z.coerce.number().optional(),
+                    minimum_amount: z.coerce.number().optional(),
+                    purchase_interval: z
+                      .enum(["day", "month", "week", "year"])
+                      .optional(),
+                    purchase_interval_count: z.coerce.number().optional(),
+                  })
+                  .optional(),
                 preferred_locale: z
                   .enum([
                     "cs-CZ",
@@ -52105,7 +52314,28 @@ export function createRouter(implementation: Implementation): Router {
                     "sv-SE",
                   ])
                   .optional(),
-                setup_future_usage: z.enum(["none"]).optional(),
+                setup_future_usage: z
+                  .enum(["none", "off_session", "on_session"])
+                  .optional(),
+                subscriptions: z
+                  .union([
+                    z.array(
+                      z.object({
+                        interval: z.enum(["day", "month", "week", "year"]),
+                        interval_count: z.coerce.number().optional(),
+                        name: z.string().max(255).optional(),
+                        next_billing: z
+                          .object({
+                            amount: z.coerce.number(),
+                            date: z.string().max(5000),
+                          })
+                          .optional(),
+                        reference: z.string().max(255),
+                      }),
+                    ),
+                    z.enum([""]),
+                  ])
+                  .optional(),
               }),
               z.enum([""]),
             ])
@@ -52863,6 +53093,7 @@ export function createRouter(implementation: Implementation): Router {
           blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
           cashapp: z.object({}).optional(),
+          crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
             .object({
@@ -52937,6 +53168,7 @@ export function createRouter(implementation: Implementation): Router {
                   "abn_amro",
                   "asn_bank",
                   "bunq",
+                  "buut",
                   "handelsbanken",
                   "ing",
                   "knab",
@@ -53053,6 +53285,7 @@ export function createRouter(implementation: Implementation): Router {
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -53256,7 +53489,7 @@ export function createRouter(implementation: Implementation): Router {
                         z.object({
                           count: z.coerce.number().optional(),
                           interval: z.enum(["month"]).optional(),
-                          type: z.enum(["fixed_count"]),
+                          type: z.enum(["bonus", "fixed_count", "revolving"]),
                         }),
                         z.enum([""]),
                       ])
@@ -53384,6 +53617,12 @@ export function createRouter(implementation: Implementation): Router {
               z.enum([""]),
             ])
             .optional(),
+          crypto: z
+            .union([
+              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+              z.enum([""]),
+            ])
+            .optional(),
           customer_balance: z
             .union([
               z.object({
@@ -53470,6 +53709,17 @@ export function createRouter(implementation: Implementation): Router {
             .union([
               z.object({
                 capture_method: z.enum(["", "manual"]).optional(),
+                on_demand: z
+                  .object({
+                    average_amount: z.coerce.number().optional(),
+                    maximum_amount: z.coerce.number().optional(),
+                    minimum_amount: z.coerce.number().optional(),
+                    purchase_interval: z
+                      .enum(["day", "month", "week", "year"])
+                      .optional(),
+                    purchase_interval_count: z.coerce.number().optional(),
+                  })
+                  .optional(),
                 preferred_locale: z
                   .enum([
                     "cs-CZ",
@@ -53520,7 +53770,28 @@ export function createRouter(implementation: Implementation): Router {
                     "sv-SE",
                   ])
                   .optional(),
-                setup_future_usage: z.enum(["none"]).optional(),
+                setup_future_usage: z
+                  .enum(["none", "off_session", "on_session"])
+                  .optional(),
+                subscriptions: z
+                  .union([
+                    z.array(
+                      z.object({
+                        interval: z.enum(["day", "month", "week", "year"]),
+                        interval_count: z.coerce.number().optional(),
+                        name: z.string().max(255).optional(),
+                        next_billing: z
+                          .object({
+                            amount: z.coerce.number(),
+                            date: z.string().max(5000),
+                          })
+                          .optional(),
+                        reference: z.string().max(255),
+                      }),
+                    ),
+                    z.enum([""]),
+                  ])
+                  .optional(),
               }),
               z.enum([""]),
             ])
@@ -54210,7 +54481,7 @@ export function createRouter(implementation: Implementation): Router {
         hosted_confirmation: z
           .object({ custom_message: z.string().max(500).optional() })
           .optional(),
-        redirect: z.object({ url: z.string().max(2048) }).optional(),
+        redirect: z.object({ url: z.string() }).optional(),
         type: z.enum(["hosted_confirmation", "redirect"]),
       })
       .optional(),
@@ -54881,7 +55152,7 @@ export function createRouter(implementation: Implementation): Router {
           hosted_confirmation: z
             .object({ custom_message: z.string().max(500).optional() })
             .optional(),
-          redirect: z.object({ url: z.string().max(2048) }).optional(),
+          redirect: z.object({ url: z.string() }).optional(),
           type: z.enum(["hosted_confirmation", "redirect"]),
         })
         .optional(),
@@ -57119,6 +57390,7 @@ export function createRouter(implementation: Implementation): Router {
         "boleto",
         "card",
         "cashapp",
+        "crypto",
         "customer_balance",
         "eps",
         "fpx",
@@ -57310,6 +57582,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       cashapp: z.object({}).optional(),
+      crypto: z.object({}).optional(),
       customer: z.string().max(5000).optional(),
       customer_balance: z.object({}).optional(),
       eps: z
@@ -57386,6 +57659,7 @@ export function createRouter(implementation: Implementation): Router {
               "abn_amro",
               "asn_bank",
               "bunq",
+              "buut",
               "handelsbanken",
               "ing",
               "knab",
@@ -57505,6 +57779,7 @@ export function createRouter(implementation: Implementation): Router {
           "boleto",
           "card",
           "cashapp",
+          "crypto",
           "customer_balance",
           "eps",
           "fpx",
@@ -61028,6 +61303,9 @@ export function createRouter(implementation: Implementation): Router {
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       subscription_data: z
         .object({
+          billing_mode: z
+            .object({ type: z.enum(["classic", "flexible"]) })
+            .optional(),
           description: z.string().max(500).optional(),
           effective_date: z
             .union([
@@ -64983,6 +65261,7 @@ export function createRouter(implementation: Implementation): Router {
           blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
           cashapp: z.object({}).optional(),
+          crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
             .object({
@@ -65057,6 +65336,7 @@ export function createRouter(implementation: Implementation): Router {
                   "abn_amro",
                   "asn_bank",
                   "bunq",
+                  "buut",
                   "handelsbanken",
                   "ing",
                   "knab",
@@ -65173,6 +65453,7 @@ export function createRouter(implementation: Implementation): Router {
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -65327,6 +65608,89 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           card_present: z.object({}).optional(),
+          klarna: z
+            .object({
+              currency: z.string().optional(),
+              on_demand: z
+                .object({
+                  average_amount: z.coerce.number().optional(),
+                  maximum_amount: z.coerce.number().optional(),
+                  minimum_amount: z.coerce.number().optional(),
+                  purchase_interval: z
+                    .enum(["day", "month", "week", "year"])
+                    .optional(),
+                  purchase_interval_count: z.coerce.number().optional(),
+                })
+                .optional(),
+              preferred_locale: z
+                .enum([
+                  "cs-CZ",
+                  "da-DK",
+                  "de-AT",
+                  "de-CH",
+                  "de-DE",
+                  "el-GR",
+                  "en-AT",
+                  "en-AU",
+                  "en-BE",
+                  "en-CA",
+                  "en-CH",
+                  "en-CZ",
+                  "en-DE",
+                  "en-DK",
+                  "en-ES",
+                  "en-FI",
+                  "en-FR",
+                  "en-GB",
+                  "en-GR",
+                  "en-IE",
+                  "en-IT",
+                  "en-NL",
+                  "en-NO",
+                  "en-NZ",
+                  "en-PL",
+                  "en-PT",
+                  "en-RO",
+                  "en-SE",
+                  "en-US",
+                  "es-ES",
+                  "es-US",
+                  "fi-FI",
+                  "fr-BE",
+                  "fr-CA",
+                  "fr-CH",
+                  "fr-FR",
+                  "it-CH",
+                  "it-IT",
+                  "nb-NO",
+                  "nl-BE",
+                  "nl-NL",
+                  "pl-PL",
+                  "pt-PT",
+                  "ro-RO",
+                  "sv-FI",
+                  "sv-SE",
+                ])
+                .optional(),
+              subscriptions: z
+                .union([
+                  z.array(
+                    z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                      name: z.string().max(255).optional(),
+                      next_billing: z.object({
+                        amount: z.coerce.number(),
+                        date: z.string().max(5000),
+                      }),
+                      reference: z.string().max(255),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+            })
+            .optional(),
           link: z.object({}).optional(),
           paypal: z
             .object({ billing_agreement_id: z.string().max(5000).optional() })
@@ -65613,6 +65977,7 @@ export function createRouter(implementation: Implementation): Router {
           blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
           cashapp: z.object({}).optional(),
+          crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
             .object({
@@ -65687,6 +66052,7 @@ export function createRouter(implementation: Implementation): Router {
                   "abn_amro",
                   "asn_bank",
                   "bunq",
+                  "buut",
                   "handelsbanken",
                   "ing",
                   "knab",
@@ -65803,6 +66169,7 @@ export function createRouter(implementation: Implementation): Router {
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -65957,6 +66324,89 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           card_present: z.object({}).optional(),
+          klarna: z
+            .object({
+              currency: z.string().optional(),
+              on_demand: z
+                .object({
+                  average_amount: z.coerce.number().optional(),
+                  maximum_amount: z.coerce.number().optional(),
+                  minimum_amount: z.coerce.number().optional(),
+                  purchase_interval: z
+                    .enum(["day", "month", "week", "year"])
+                    .optional(),
+                  purchase_interval_count: z.coerce.number().optional(),
+                })
+                .optional(),
+              preferred_locale: z
+                .enum([
+                  "cs-CZ",
+                  "da-DK",
+                  "de-AT",
+                  "de-CH",
+                  "de-DE",
+                  "el-GR",
+                  "en-AT",
+                  "en-AU",
+                  "en-BE",
+                  "en-CA",
+                  "en-CH",
+                  "en-CZ",
+                  "en-DE",
+                  "en-DK",
+                  "en-ES",
+                  "en-FI",
+                  "en-FR",
+                  "en-GB",
+                  "en-GR",
+                  "en-IE",
+                  "en-IT",
+                  "en-NL",
+                  "en-NO",
+                  "en-NZ",
+                  "en-PL",
+                  "en-PT",
+                  "en-RO",
+                  "en-SE",
+                  "en-US",
+                  "es-ES",
+                  "es-US",
+                  "fi-FI",
+                  "fr-BE",
+                  "fr-CA",
+                  "fr-CH",
+                  "fr-FR",
+                  "it-CH",
+                  "it-IT",
+                  "nb-NO",
+                  "nl-BE",
+                  "nl-NL",
+                  "pl-PL",
+                  "pt-PT",
+                  "ro-RO",
+                  "sv-FI",
+                  "sv-SE",
+                ])
+                .optional(),
+              subscriptions: z
+                .union([
+                  z.array(
+                    z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                      name: z.string().max(255).optional(),
+                      next_billing: z.object({
+                        amount: z.coerce.number(),
+                        date: z.string().max(5000),
+                      }),
+                      reference: z.string().max(255),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+            })
+            .optional(),
           link: z.object({}).optional(),
           paypal: z
             .object({ billing_agreement_id: z.string().max(5000).optional() })
@@ -66257,6 +66707,7 @@ export function createRouter(implementation: Implementation): Router {
           blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
           cashapp: z.object({}).optional(),
+          crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
             .object({
@@ -66331,6 +66782,7 @@ export function createRouter(implementation: Implementation): Router {
                   "abn_amro",
                   "asn_bank",
                   "bunq",
+                  "buut",
                   "handelsbanken",
                   "ing",
                   "knab",
@@ -66447,6 +66899,7 @@ export function createRouter(implementation: Implementation): Router {
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -66601,6 +67054,89 @@ export function createRouter(implementation: Implementation): Router {
             })
             .optional(),
           card_present: z.object({}).optional(),
+          klarna: z
+            .object({
+              currency: z.string().optional(),
+              on_demand: z
+                .object({
+                  average_amount: z.coerce.number().optional(),
+                  maximum_amount: z.coerce.number().optional(),
+                  minimum_amount: z.coerce.number().optional(),
+                  purchase_interval: z
+                    .enum(["day", "month", "week", "year"])
+                    .optional(),
+                  purchase_interval_count: z.coerce.number().optional(),
+                })
+                .optional(),
+              preferred_locale: z
+                .enum([
+                  "cs-CZ",
+                  "da-DK",
+                  "de-AT",
+                  "de-CH",
+                  "de-DE",
+                  "el-GR",
+                  "en-AT",
+                  "en-AU",
+                  "en-BE",
+                  "en-CA",
+                  "en-CH",
+                  "en-CZ",
+                  "en-DE",
+                  "en-DK",
+                  "en-ES",
+                  "en-FI",
+                  "en-FR",
+                  "en-GB",
+                  "en-GR",
+                  "en-IE",
+                  "en-IT",
+                  "en-NL",
+                  "en-NO",
+                  "en-NZ",
+                  "en-PL",
+                  "en-PT",
+                  "en-RO",
+                  "en-SE",
+                  "en-US",
+                  "es-ES",
+                  "es-US",
+                  "fi-FI",
+                  "fr-BE",
+                  "fr-CA",
+                  "fr-CH",
+                  "fr-FR",
+                  "it-CH",
+                  "it-IT",
+                  "nb-NO",
+                  "nl-BE",
+                  "nl-NL",
+                  "pl-PL",
+                  "pt-PT",
+                  "ro-RO",
+                  "sv-FI",
+                  "sv-SE",
+                ])
+                .optional(),
+              subscriptions: z
+                .union([
+                  z.array(
+                    z.object({
+                      interval: z.enum(["day", "month", "week", "year"]),
+                      interval_count: z.coerce.number().optional(),
+                      name: z.string().max(255).optional(),
+                      next_billing: z.object({
+                        amount: z.coerce.number(),
+                        date: z.string().max(5000),
+                      }),
+                      reference: z.string().max(255),
+                    }),
+                  ),
+                  z.enum([""]),
+                ])
+                .optional(),
+            })
+            .optional(),
           link: z.object({}).optional(),
           paypal: z
             .object({ billing_agreement_id: z.string().max(5000).optional() })
@@ -68935,6 +69471,9 @@ export function createRouter(implementation: Implementation): Router {
 
   const postSubscriptionSchedulesRequestBodySchema = z
     .object({
+      billing_mode: z
+        .object({ type: z.enum(["classic", "flexible"]) })
+        .optional(),
       customer: z.string().max(5000).optional(),
       default_settings: z
         .object({
@@ -69978,6 +70517,9 @@ export function createRouter(implementation: Implementation): Router {
         second: z.coerce.number().optional(),
       })
       .optional(),
+    billing_mode: z
+      .object({ type: z.enum(["classic", "flexible"]) })
+      .optional(),
     billing_thresholds: z
       .union([
         z.object({
@@ -70216,6 +70758,7 @@ export function createRouter(implementation: Implementation): Router {
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -70963,6 +71506,7 @@ export function createRouter(implementation: Implementation): Router {
                   "boleto",
                   "card",
                   "cashapp",
+                  "crypto",
                   "customer_balance",
                   "eps",
                   "fpx",
@@ -71183,6 +71727,90 @@ export function createRouter(implementation: Implementation): Router {
         if (body !== undefined) {
           res.json(
             deleteSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postSubscriptionsSubscriptionMigrateParamSchema = z.object({
+    subscription: z.string().max(5000),
+  })
+
+  const postSubscriptionsSubscriptionMigrateRequestBodySchema = z.object({
+    billing_mode: z.object({ type: z.enum(["flexible"]) }),
+    expand: z.array(z.string().max(5000)).optional(),
+  })
+
+  const postSubscriptionsSubscriptionMigrateResponseBodyValidator =
+    responseValidationFactory([["200", s_subscription]], s_error)
+
+  // postSubscriptionsSubscriptionMigrate
+  router.post(
+    `/v1/subscriptions/:subscription/migrate`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postSubscriptionsSubscriptionMigrateParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postSubscriptionsSubscriptionMigrateRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_subscription>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postSubscriptionsSubscriptionMigrate(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postSubscriptionsSubscriptionMigrateResponseBodyValidator(
               status,
               body,
             ),
@@ -72165,6 +72793,7 @@ export function createRouter(implementation: Implementation): Router {
       tj: z.object({ type: z.enum(["simplified"]) }).optional(),
       tr: z.object({ type: z.enum(["simplified"]) }).optional(),
       tz: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ua: z.object({ type: z.enum(["simplified"]) }).optional(),
       ug: z.object({ type: z.enum(["simplified"]) }).optional(),
       us: z
         .object({
@@ -75237,7 +75866,7 @@ export function createRouter(implementation: Implementation): Router {
       configuration_overrides: z
         .union([z.string().max(1000), z.enum([""])])
         .optional(),
-      display_name: z.string().max(1000).optional(),
+      display_name: z.union([z.string().max(1000), z.enum([""])]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     })
@@ -75952,6 +76581,191 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
+  const postTerminalReadersReaderCollectPaymentMethodParamSchema = z.object({
+    reader: z.string().max(5000),
+  })
+
+  const postTerminalReadersReaderCollectPaymentMethodRequestBodySchema =
+    z.object({
+      collect_config: z
+        .object({
+          allow_redisplay: z
+            .enum(["always", "limited", "unspecified"])
+            .optional(),
+          enable_customer_cancellation: PermissiveBoolean.optional(),
+          skip_tipping: PermissiveBoolean.optional(),
+          tipping: z
+            .object({ amount_eligible: z.coerce.number().optional() })
+            .optional(),
+        })
+        .optional(),
+      expand: z.array(z.string().max(5000)).optional(),
+      payment_intent: z.string().max(5000),
+    })
+
+  const postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator =
+    responseValidationFactory([["200", s_terminal_reader]], s_error)
+
+  // postTerminalReadersReaderCollectPaymentMethod
+  router.post(
+    `/v1/terminal/readers/:reader/collect_payment_method`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postTerminalReadersReaderCollectPaymentMethodParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postTerminalReadersReaderCollectPaymentMethodRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_reader>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postTerminalReadersReaderCollectPaymentMethod(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postTerminalReadersReaderConfirmPaymentIntentParamSchema = z.object({
+    reader: z.string().max(5000),
+  })
+
+  const postTerminalReadersReaderConfirmPaymentIntentRequestBodySchema =
+    z.object({
+      confirm_config: z
+        .object({ return_url: z.string().optional() })
+        .optional(),
+      expand: z.array(z.string().max(5000)).optional(),
+      payment_intent: z.string().max(5000),
+    })
+
+  const postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator =
+    responseValidationFactory([["200", s_terminal_reader]], s_error)
+
+  // postTerminalReadersReaderConfirmPaymentIntent
+  router.post(
+    `/v1/terminal/readers/:reader/confirm_payment_intent`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: parseRequestInput(
+            postTerminalReadersReaderConfirmPaymentIntentParamSchema,
+            req.params,
+            RequestInputType.RouteParam,
+          ),
+          query: undefined,
+          body: parseRequestInput(
+            postTerminalReadersReaderConfirmPaymentIntentRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_terminal_reader>(200)
+          },
+          withDefault(status: StatusCode) {
+            return new ExpressRuntimeResponse<t_error>(status)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postTerminalReadersReaderConfirmPaymentIntent(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const { status, body } =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator(
+              status,
+              body,
+            ),
+          )
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
   const postTerminalReadersReaderProcessPaymentIntentParamSchema = z.object({
     reader: z.string().max(5000),
   })
@@ -76391,6 +77205,7 @@ export function createRouter(implementation: Implementation): Router {
           blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
           cashapp: z.object({}).optional(),
+          crypto: z.object({}).optional(),
           customer_balance: z.object({}).optional(),
           eps: z
             .object({
@@ -76465,6 +77280,7 @@ export function createRouter(implementation: Implementation): Router {
                   "abn_amro",
                   "asn_bank",
                   "bunq",
+                  "buut",
                   "handelsbanken",
                   "ing",
                   "knab",
@@ -76581,6 +77397,7 @@ export function createRouter(implementation: Implementation): Router {
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -76637,7 +77454,7 @@ export function createRouter(implementation: Implementation): Router {
                   plan: z.object({
                     count: z.coerce.number().optional(),
                     interval: z.enum(["month"]).optional(),
-                    type: z.enum(["fixed_count"]),
+                    type: z.enum(["bonus", "fixed_count", "revolving"]),
                   }),
                 })
                 .optional(),
@@ -84188,6 +85005,7 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().max(5000).optional(),
+    status: z.enum(["closed", "open"]).optional(),
   })
 
   const getTreasuryFinancialAccountsRequestBodySchema = z.object({}).optional()
@@ -87072,6 +87890,7 @@ export function createRouter(implementation: Implementation): Router {
         "2025-03-31.basil",
         "2025-04-30.basil",
         "2025-05-28.basil",
+        "2025-06-30.basil",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),
@@ -87277,6 +88096,7 @@ export function createRouter(implementation: Implementation): Router {
         "tax_rate.updated",
         "terminal.reader.action_failed",
         "terminal.reader.action_succeeded",
+        "terminal.reader.action_updated",
         "test_helpers.test_clock.advancing",
         "test_helpers.test_clock.created",
         "test_helpers.test_clock.deleted",
@@ -87772,6 +88592,7 @@ export function createRouter(implementation: Implementation): Router {
             "tax_rate.updated",
             "terminal.reader.action_failed",
             "terminal.reader.action_succeeded",
+            "terminal.reader.action_updated",
             "test_helpers.test_clock.advancing",
             "test_helpers.test_clock.created",
             "test_helpers.test_clock.deleted",

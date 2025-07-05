@@ -104,6 +104,7 @@ export type t_account_capabilities = {
   card_payments?: ("active" | "inactive" | "pending") | undefined
   cartes_bancaires_payments?: ("active" | "inactive" | "pending") | undefined
   cashapp_payments?: ("active" | "inactive" | "pending") | undefined
+  crypto_payments?: ("active" | "inactive" | "pending") | undefined
   eps_payments?: ("active" | "inactive" | "pending") | undefined
   fpx_payments?: ("active" | "inactive" | "pending") | undefined
   gb_bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
@@ -2011,6 +2012,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   card?: t_payment_method_card | undefined
   card_present?: t_payment_method_card_present | undefined
   cashapp?: t_payment_method_cashapp | undefined
+  crypto?: t_payment_method_crypto | undefined
   customer?: (string | t_customer | null) | undefined
   customer_balance?: t_payment_method_customer_balance | undefined
   eps?: t_payment_method_eps | undefined
@@ -2059,6 +2061,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "card"
     | "card_present"
     | "cashapp"
+    | "crypto"
     | "customer_balance"
     | "eps"
     | "fpx"
@@ -2904,7 +2907,10 @@ export type t_dispute = {
   charge: string | t_charge
   created: number
   currency: string
-  enhanced_eligibility_types: "visa_compelling_evidence_3"[]
+  enhanced_eligibility_types: (
+    | "visa_compelling_evidence_3"
+    | "visa_compliance"
+  )[]
   evidence: t_dispute_evidence
   evidence_details: t_dispute_evidence_details
   id: string
@@ -3020,7 +3026,7 @@ export type t_dispute_payment_method_details_amazon_pay = {
 
 export type t_dispute_payment_method_details_card = {
   brand: string
-  case_type: "chargeback" | "inquiry"
+  case_type: "chargeback" | "compliance" | "inquiry"
   network_reason_code?: (string | null) | undefined
 }
 
@@ -3572,6 +3578,11 @@ export type t_gelato_provided_details = {
   phone?: string | undefined
 }
 
+export type t_gelato_related_person = {
+  account?: string | undefined
+  person?: string | undefined
+}
+
 export type t_gelato_report_document_options = {
   allowed_types?: ("driving_license" | "id_card" | "passport")[] | undefined
   require_id_number?: boolean | undefined
@@ -3642,6 +3653,11 @@ export type t_gelato_session_last_error = {
   reason?: (string | null) | undefined
 }
 
+export type t_gelato_session_matching_options = {
+  dob?: ("none" | "similar") | undefined
+  name?: ("none" | "similar") | undefined
+}
+
 export type t_gelato_session_phone_options = {
   require_verification?: boolean | undefined
 }
@@ -3655,6 +3671,7 @@ export type t_gelato_verification_session_options = {
   document?: t_gelato_session_document_options | undefined
   email?: t_gelato_session_email_options | undefined
   id_number?: t_gelato_session_id_number_options | undefined
+  matching?: t_gelato_session_matching_options | undefined
   phone?: t_gelato_session_phone_options | undefined
 }
 
@@ -3707,6 +3724,7 @@ export type t_identity_verification_session = {
   provided_details?: (t_gelato_provided_details | null) | undefined
   redaction?: (t_verification_session_redaction | null) | undefined
   related_customer?: (string | null) | undefined
+  related_person?: t_gelato_related_person | undefined
   status: "canceled" | "processing" | "requires_input" | "verified"
   type: "document" | "id_number" | "verification_flow"
   url?: (string | null) | undefined
@@ -4103,6 +4121,7 @@ export type t_invoices_payment_settings = {
             | "boleto"
             | "card"
             | "cashapp"
+            | "crypto"
             | "customer_balance"
             | "eps"
             | "fpx"
@@ -7300,6 +7319,8 @@ export type t_mandate_cashapp = EmptyObject
 
 export type t_mandate_kakao_pay = EmptyObject
 
+export type t_mandate_klarna = EmptyObject
+
 export type t_mandate_kr_card = EmptyObject
 
 export type t_mandate_link = EmptyObject
@@ -7318,6 +7339,7 @@ export type t_mandate_payment_method_details = {
   card?: t_card_mandate_payment_method_details | undefined
   cashapp?: t_mandate_cashapp | undefined
   kakao_pay?: t_mandate_kakao_pay | undefined
+  klarna?: t_mandate_klarna | undefined
   kr_card?: t_mandate_kr_card | undefined
   link?: t_mandate_link | undefined
   naver_pay?: t_mandate_naver_pay | undefined
@@ -7533,7 +7555,7 @@ export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_o
   }
 
 export type t_payment_intent = {
-  amount: number
+  amount?: number | undefined
   amount_capturable?: number | undefined
   amount_details?:
     | (t_payment_flows_amount_details | t_payment_flows_amount_details_client)
@@ -7558,11 +7580,11 @@ export type t_payment_intent = {
         | null
       )
     | undefined
-  capture_method: "automatic" | "automatic_async" | "manual"
+  capture_method?: ("automatic" | "automatic_async" | "manual") | undefined
   client_secret?: (string | null) | undefined
-  confirmation_method: "automatic" | "manual"
+  confirmation_method?: ("automatic" | "manual") | undefined
   created: number
-  currency: string
+  currency?: string | undefined
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
   description?: (string | null) | undefined
   id: string
@@ -7584,7 +7606,7 @@ export type t_payment_intent = {
   payment_method_options?:
     | (t_payment_intent_payment_method_options | null)
     | undefined
-  payment_method_types: string[]
+  payment_method_types?: string[] | undefined
   presentment_details?:
     | t_payment_flows_payment_intent_presentment_details
     | undefined
@@ -7916,6 +7938,12 @@ export type t_payment_intent_payment_method_options = {
   cashapp?:
     | (
         | t_payment_method_options_cashapp
+        | t_payment_intent_type_specific_payment_method_options_client
+      )
+    | undefined
+  crypto?:
+    | (
+        | t_payment_method_options_crypto
         | t_payment_intent_type_specific_payment_method_options_client
       )
     | undefined
@@ -8814,6 +8842,7 @@ export type t_payment_method = {
   card_present?: t_payment_method_card_present | undefined
   cashapp?: t_payment_method_cashapp | undefined
   created: number
+  crypto?: t_payment_method_crypto | undefined
   customer?: (string | t_customer | null) | undefined
   customer_balance?: t_payment_method_customer_balance | undefined
   eps?: t_payment_method_eps | undefined
@@ -8871,6 +8900,7 @@ export type t_payment_method = {
     | "card"
     | "card_present"
     | "cashapp"
+    | "crypto"
     | "customer_balance"
     | "eps"
     | "fpx"
@@ -9214,6 +9244,8 @@ export type t_payment_method_configuration = {
   zip?: t_payment_method_config_resource_payment_method_properties | undefined
 }
 
+export type t_payment_method_crypto = EmptyObject
+
 export type t_payment_method_customer_balance = EmptyObject
 
 export type t_payment_method_details = {
@@ -9234,6 +9266,7 @@ export type t_payment_method_details = {
   card?: t_payment_method_details_card | undefined
   card_present?: t_payment_method_details_card_present | undefined
   cashapp?: t_payment_method_details_cashapp | undefined
+  crypto?: t_payment_method_details_crypto | undefined
   customer_balance?: t_payment_method_details_customer_balance | undefined
   eps?: t_payment_method_details_eps | undefined
   fpx?: t_payment_method_details_fpx | undefined
@@ -9399,7 +9432,7 @@ export type t_payment_method_details_card_installments = {
 export type t_payment_method_details_card_installments_plan = {
   count?: (number | null) | undefined
   interval?: ("month" | null) | undefined
-  type: "fixed_count"
+  type: "bonus" | "fixed_count" | "revolving"
 }
 
 export type t_payment_method_details_card_network_token = {
@@ -9512,6 +9545,13 @@ export type t_payment_method_details_cashapp = {
   cashtag?: (string | null) | undefined
 }
 
+export type t_payment_method_details_crypto = {
+  buyer_address?: string | undefined
+  network?: ("base" | "ethereum" | "polygon") | undefined
+  token_currency?: ("usdc" | "usdg" | "usdp") | undefined
+  transaction_hash?: string | undefined
+}
+
 export type t_payment_method_details_customer_balance = EmptyObject
 
 export type t_payment_method_details_eps = {
@@ -9595,6 +9635,7 @@ export type t_payment_method_details_ideal = {
         | "abn_amro"
         | "asn_bank"
         | "bunq"
+        | "buut"
         | "handelsbanken"
         | "ing"
         | "knab"
@@ -9617,6 +9658,7 @@ export type t_payment_method_details_ideal = {
         | "ASNBNL21"
         | "BITSNL2A"
         | "BUNQNL2A"
+        | "BUUTNL2A"
         | "FVLBNL22"
         | "HANDNL2A"
         | "INGBNL2A"
@@ -9999,6 +10041,7 @@ export type t_payment_method_ideal = {
         | "abn_amro"
         | "asn_bank"
         | "bunq"
+        | "buut"
         | "handelsbanken"
         | "ing"
         | "knab"
@@ -10021,6 +10064,7 @@ export type t_payment_method_ideal = {
         | "ASNBNL21"
         | "BITSNL2A"
         | "BUNQNL2A"
+        | "BUUTNL2A"
         | "FVLBNL22"
         | "HANDNL2A"
         | "INGBNL2A"
@@ -10199,6 +10243,10 @@ export type t_payment_method_options_cashapp = {
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
 }
 
+export type t_payment_method_options_crypto = {
+  setup_future_usage?: "none" | undefined
+}
+
 export type t_payment_method_options_customer_balance = {
   bank_transfer?:
     | t_payment_method_options_customer_balance_bank_transfer
@@ -10251,7 +10299,7 @@ export type t_payment_method_options_interac_present = EmptyObject
 export type t_payment_method_options_klarna = {
   capture_method?: "manual" | undefined
   preferred_locale?: (string | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
 }
 
 export type t_payment_method_options_konbini = {
@@ -11634,7 +11682,12 @@ export type t_quotes_resource_status_transitions = {
   finalized_at?: (number | null) | undefined
 }
 
+export type t_quotes_resource_subscription_data_billing_mode = {
+  type: "classic" | "flexible"
+}
+
 export type t_quotes_resource_subscription_data_subscription_data = {
+  billing_mode: t_quotes_resource_subscription_data_billing_mode
   description?: (string | null) | undefined
   effective_date?: (number | null) | undefined
   metadata?:
@@ -12128,6 +12181,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
         | "abn_amro"
         | "asn_bank"
         | "bunq"
+        | "buut"
         | "handelsbanken"
         | "ing"
         | "knab"
@@ -12150,6 +12204,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
         | "ASNBNL21"
         | "BITSNL2A"
         | "BUNQNL2A"
+        | "BUUTNL2A"
         | "FVLBNL22"
         | "HANDNL2A"
         | "INGBNL2A"
@@ -12305,6 +12360,12 @@ export type t_setup_intent_payment_method_options = {
         | t_setup_intent_type_specific_payment_method_options_client
       )
     | undefined
+  klarna?:
+    | (
+        | t_setup_intent_payment_method_options_klarna
+        | t_setup_intent_type_specific_payment_method_options_client
+      )
+    | undefined
   link?:
     | (
         | t_setup_intent_payment_method_options_link
@@ -12388,6 +12449,11 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
 }
 
 export type t_setup_intent_payment_method_options_card_present = EmptyObject
+
+export type t_setup_intent_payment_method_options_klarna = {
+  currency?: (string | null) | undefined
+  preferred_locale?: (string | null) | undefined
+}
 
 export type t_setup_intent_payment_method_options_link = EmptyObject
 
@@ -12928,6 +12994,7 @@ export type t_subscription = {
   billing_cycle_anchor_config?:
     | (t_subscriptions_resource_billing_cycle_anchor_config | null)
     | undefined
+  billing_mode: t_subscriptions_resource_billing_mode
   billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   cancel_at?: (number | null) | undefined
   cancel_at_period_end: boolean
@@ -13061,6 +13128,7 @@ export type t_subscription_schedule = {
   application?:
     | (string | t_application | t_deleted_application | null)
     | undefined
+  billing_mode: t_subscriptions_resource_billing_mode
   canceled_at?: (number | null) | undefined
   completed_at?: (number | null) | undefined
   created: number
@@ -13178,6 +13246,11 @@ export type t_subscriptions_resource_billing_cycle_anchor_config = {
   second?: (number | null) | undefined
 }
 
+export type t_subscriptions_resource_billing_mode = {
+  type: "classic" | "flexible"
+  updated_at?: number | undefined
+}
+
 export type t_subscriptions_resource_pause_collection = {
   behavior: "keep_as_draft" | "mark_uncollectible" | "void"
   resumes_at?: (number | null) | undefined
@@ -13215,6 +13288,7 @@ export type t_subscriptions_resource_payment_settings = {
             | "boleto"
             | "card"
             | "cashapp"
+            | "crypto"
             | "customer_balance"
             | "eps"
             | "fpx"
@@ -13730,6 +13804,9 @@ export type t_tax_product_registrations_resource_country_options = {
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   tz?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  ua?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   ug?:
@@ -14368,6 +14445,12 @@ export type t_terminal_reader_reader_resource_choice = {
   text: string
 }
 
+export type t_terminal_reader_reader_resource_collect_config = {
+  enable_customer_cancellation?: boolean | undefined
+  skip_tipping?: boolean | undefined
+  tipping?: t_terminal_reader_reader_resource_tipping_config | undefined
+}
+
 export type t_terminal_reader_reader_resource_collect_inputs_action = {
   inputs: t_terminal_reader_reader_resource_input[]
   metadata?:
@@ -14375,6 +14458,21 @@ export type t_terminal_reader_reader_resource_collect_inputs_action = {
         [key: string]: string | undefined
       } | null)
     | undefined
+}
+
+export type t_terminal_reader_reader_resource_collect_payment_method_action = {
+  collect_config?: t_terminal_reader_reader_resource_collect_config | undefined
+  payment_intent: string | t_payment_intent
+  payment_method?: t_payment_method | undefined
+}
+
+export type t_terminal_reader_reader_resource_confirm_config = {
+  return_url?: string | undefined
+}
+
+export type t_terminal_reader_reader_resource_confirm_payment_intent_action = {
+  confirm_config?: t_terminal_reader_reader_resource_confirm_config | undefined
+  payment_intent: string | t_payment_intent
 }
 
 export type t_terminal_reader_reader_resource_custom_text = {
@@ -14446,6 +14544,12 @@ export type t_terminal_reader_reader_resource_reader_action = {
   collect_inputs?:
     | t_terminal_reader_reader_resource_collect_inputs_action
     | undefined
+  collect_payment_method?:
+    | t_terminal_reader_reader_resource_collect_payment_method_action
+    | undefined
+  confirm_payment_intent?:
+    | t_terminal_reader_reader_resource_confirm_payment_intent_action
+    | undefined
   failure_code?: (string | null) | undefined
   failure_message?: (string | null) | undefined
   process_payment_intent?:
@@ -14463,6 +14567,8 @@ export type t_terminal_reader_reader_resource_reader_action = {
   status: "failed" | "in_progress" | "succeeded"
   type:
     | "collect_inputs"
+    | "collect_payment_method"
+    | "confirm_payment_intent"
     | "process_payment_intent"
     | "process_setup_intent"
     | "refund_payment"
@@ -14705,7 +14811,19 @@ export type t_transfer_schedule = {
   delay_days: number
   interval: string
   monthly_anchor?: number | undefined
+  monthly_payout_days?: number[] | undefined
   weekly_anchor?: string | undefined
+  weekly_payout_days?:
+    | (
+        | "friday"
+        | "monday"
+        | "saturday"
+        | "sunday"
+        | "thursday"
+        | "tuesday"
+        | "wednesday"
+      )[]
+    | undefined
 }
 
 export type t_transform_quantity = {
@@ -16802,6 +16920,7 @@ export type t_GetCustomersCustomerPaymentMethodsQuerySchema = {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -17961,6 +18080,7 @@ export type t_GetPaymentMethodsQuerySchema = {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -19244,6 +19364,7 @@ export type t_GetTreasuryFinancialAccountsQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
+  status?: ("closed" | "open") | undefined
 }
 
 export type t_GetTreasuryFinancialAccountsRequestBodySchema = EmptyObject
@@ -19880,6 +20001,11 @@ export type t_PostAccountsRequestBodySchema = {
               requested?: boolean | undefined
             }
           | undefined
+        crypto_payments?:
+          | {
+              requested?: boolean | undefined
+            }
+          | undefined
         eps_payments?:
           | {
               requested?: boolean | undefined
@@ -20264,6 +20390,11 @@ export type t_PostAccountsRequestBodySchema = {
               files?: string[] | undefined
             }
           | undefined
+        proof_of_address?:
+          | {
+              files?: string[] | undefined
+            }
+          | undefined
         proof_of_registration?:
           | {
               files?: string[] | undefined
@@ -20459,6 +20590,7 @@ export type t_PostAccountsRequestBodySchema = {
                       | ("daily" | "manual" | "monthly" | "weekly")
                       | undefined
                     monthly_anchor?: number | undefined
+                    monthly_payout_days?: number[] | undefined
                     weekly_anchor?:
                       | (
                           | "friday"
@@ -20469,6 +20601,17 @@ export type t_PostAccountsRequestBodySchema = {
                           | "tuesday"
                           | "wednesday"
                         )
+                      | undefined
+                    weekly_payout_days?:
+                      | (
+                          | "friday"
+                          | "monday"
+                          | "saturday"
+                          | "sunday"
+                          | "thursday"
+                          | "tuesday"
+                          | "wednesday"
+                        )[]
                       | undefined
                   }
                 | undefined
@@ -20630,6 +20773,11 @@ export type t_PostAccountsAccountRequestBodySchema = {
             }
           | undefined
         cashapp_payments?:
+          | {
+              requested?: boolean | undefined
+            }
+          | undefined
+        crypto_payments?:
           | {
               requested?: boolean | undefined
             }
@@ -20997,6 +21145,11 @@ export type t_PostAccountsAccountRequestBodySchema = {
               files?: string[] | undefined
             }
           | undefined
+        proof_of_address?:
+          | {
+              files?: string[] | undefined
+            }
+          | undefined
         proof_of_registration?:
           | {
               files?: string[] | undefined
@@ -21193,6 +21346,7 @@ export type t_PostAccountsAccountRequestBodySchema = {
                       | ("daily" | "manual" | "monthly" | "weekly")
                       | undefined
                     monthly_anchor?: number | undefined
+                    monthly_payout_days?: number[] | undefined
                     weekly_anchor?:
                       | (
                           | "friday"
@@ -21203,6 +21357,17 @@ export type t_PostAccountsAccountRequestBodySchema = {
                           | "tuesday"
                           | "wednesday"
                         )
+                      | undefined
+                    weekly_payout_days?:
+                      | (
+                          | "friday"
+                          | "monday"
+                          | "saturday"
+                          | "sunday"
+                          | "thursday"
+                          | "tuesday"
+                          | "wednesday"
+                        )[]
                       | undefined
                   }
                 | undefined
@@ -23644,6 +23809,21 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
         klarna?:
           | {
               setup_future_usage?: "none" | undefined
+              subscriptions?:
+                | (
+                    | {
+                        interval: "day" | "month" | "week" | "year"
+                        interval_count?: number | undefined
+                        name?: string | undefined
+                        next_billing: {
+                          amount: number
+                          date: string
+                        }
+                        reference: string
+                      }[]
+                    | ""
+                  )
+                | undefined
             }
           | undefined
         konbini?:
@@ -23822,6 +24002,7 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -24201,6 +24382,11 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
     | {
         application_fee_percent?: number | undefined
         billing_cycle_anchor?: number | undefined
+        billing_mode?:
+          | {
+              type: "classic" | "flexible"
+            }
+          | undefined
         default_tax_rates?: string[] | undefined
         description?: string | undefined
         invoice_settings?:
@@ -25612,6 +25798,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBodySchema = {
                   | "boleto"
                   | "card"
                   | "cashapp"
+                  | "crypto"
                   | "customer_balance"
                   | "eps"
                   | "fpx"
@@ -25992,6 +26179,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
                     | "boleto"
                     | "card"
                     | "cashapp"
+                    | "crypto"
                     | "customer_balance"
                     | "eps"
                     | "fpx"
@@ -26562,6 +26750,12 @@ export type t_PostIdentityVerificationSessionsRequestBodySchema = {
       }
     | undefined
   related_customer?: string | undefined
+  related_person?:
+    | {
+        account: string
+        person: string
+      }
+    | undefined
   return_url?: string | undefined
   type?: ("document" | "id_number") | undefined
   verification_flow?: string | undefined
@@ -26857,7 +27051,10 @@ export type t_PostInvoicesRequestBodySchema = {
                                     | {
                                         count?: number | undefined
                                         interval?: "month" | undefined
-                                        type: "fixed_count"
+                                        type:
+                                          | "bonus"
+                                          | "fixed_count"
+                                          | "revolving"
                                       }
                                     | ""
                                   )
@@ -26939,6 +27136,7 @@ export type t_PostInvoicesRequestBodySchema = {
                   | "boleto"
                   | "card"
                   | "cashapp"
+                  | "crypto"
                   | "customer_balance"
                   | "eps"
                   | "fpx"
@@ -27318,6 +27516,11 @@ export type t_PostInvoicesCreatePreviewRequestBodySchema = {
   schedule?: string | undefined
   schedule_details?:
     | {
+        billing_mode?:
+          | {
+              type: "classic" | "flexible"
+            }
+          | undefined
         end_behavior?: ("cancel" | "release") | undefined
         phases?:
           | {
@@ -27470,6 +27673,11 @@ export type t_PostInvoicesCreatePreviewRequestBodySchema = {
   subscription_details?:
     | {
         billing_cycle_anchor?: ("now" | "unchanged" | number) | undefined
+        billing_mode?:
+          | {
+              type: "classic" | "flexible"
+            }
+          | undefined
         cancel_at?: (number | "") | undefined
         cancel_at_period_end?: boolean | undefined
         cancel_now?: boolean | undefined
@@ -27644,7 +27852,10 @@ export type t_PostInvoicesInvoiceRequestBodySchema = {
                                     | {
                                         count?: number | undefined
                                         interval?: "month" | undefined
-                                        type: "fixed_count"
+                                        type:
+                                          | "bonus"
+                                          | "fixed_count"
+                                          | "revolving"
                                       }
                                     | ""
                                   )
@@ -27726,6 +27937,7 @@ export type t_PostInvoicesInvoiceRequestBodySchema = {
                   | "boleto"
                   | "card"
                   | "cashapp"
+                  | "crypto"
                   | "customer_balance"
                   | "eps"
                   | "fpx"
@@ -32837,6 +33049,7 @@ export type t_PostPaymentIntentsRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -32910,6 +33123,7 @@ export type t_PostPaymentIntentsRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -33040,6 +33254,7 @@ export type t_PostPaymentIntentsRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -33234,7 +33449,7 @@ export type t_PostPaymentIntentsRequestBodySchema = {
                               | {
                                   count?: number | undefined
                                   interval?: "month" | undefined
-                                  type: "fixed_count"
+                                  type: "bonus" | "fixed_count" | "revolving"
                                 }
                               | ""
                             )
@@ -33347,6 +33562,14 @@ export type t_PostPaymentIntentsRequestBodySchema = {
               | ""
             )
           | undefined
+        crypto?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
         customer_balance?:
           | (
               | {
@@ -33436,6 +33659,17 @@ export type t_PostPaymentIntentsRequestBodySchema = {
           | (
               | {
                   capture_method?: ("" | "manual") | undefined
+                  on_demand?:
+                    | {
+                        average_amount?: number | undefined
+                        maximum_amount?: number | undefined
+                        minimum_amount?: number | undefined
+                        purchase_interval?:
+                          | ("day" | "month" | "week" | "year")
+                          | undefined
+                        purchase_interval_count?: number | undefined
+                      }
+                    | undefined
                   preferred_locale?:
                     | (
                         | "cs-CZ"
@@ -33486,7 +33720,26 @@ export type t_PostPaymentIntentsRequestBodySchema = {
                         | "sv-SE"
                       )
                     | undefined
-                  setup_future_usage?: "none" | undefined
+                  setup_future_usage?:
+                    | ("none" | "off_session" | "on_session")
+                    | undefined
+                  subscriptions?:
+                    | (
+                        | {
+                            interval: "day" | "month" | "week" | "year"
+                            interval_count?: number | undefined
+                            name?: string | undefined
+                            next_billing?:
+                              | {
+                                  amount: number
+                                  date: string
+                                }
+                              | undefined
+                            reference: string
+                          }[]
+                        | ""
+                      )
+                    | undefined
                 }
               | ""
             )
@@ -33902,6 +34155,7 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -33975,6 +34229,7 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -34105,6 +34360,7 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -34299,7 +34555,7 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
                               | {
                                   count?: number | undefined
                                   interval?: "month" | undefined
-                                  type: "fixed_count"
+                                  type: "bonus" | "fixed_count" | "revolving"
                                 }
                               | ""
                             )
@@ -34412,6 +34668,14 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
               | ""
             )
           | undefined
+        crypto?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
         customer_balance?:
           | (
               | {
@@ -34501,6 +34765,17 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
           | (
               | {
                   capture_method?: ("" | "manual") | undefined
+                  on_demand?:
+                    | {
+                        average_amount?: number | undefined
+                        maximum_amount?: number | undefined
+                        minimum_amount?: number | undefined
+                        purchase_interval?:
+                          | ("day" | "month" | "week" | "year")
+                          | undefined
+                        purchase_interval_count?: number | undefined
+                      }
+                    | undefined
                   preferred_locale?:
                     | (
                         | "cs-CZ"
@@ -34551,7 +34826,26 @@ export type t_PostPaymentIntentsIntentRequestBodySchema = {
                         | "sv-SE"
                       )
                     | undefined
-                  setup_future_usage?: "none" | undefined
+                  setup_future_usage?:
+                    | ("none" | "off_session" | "on_session")
+                    | undefined
+                  subscriptions?:
+                    | (
+                        | {
+                            interval: "day" | "month" | "week" | "year"
+                            interval_count?: number | undefined
+                            name?: string | undefined
+                            next_billing?:
+                              | {
+                                  amount: number
+                                  date: string
+                                }
+                              | undefined
+                            reference: string
+                          }[]
+                        | ""
+                      )
+                    | undefined
                 }
               | ""
             )
@@ -35027,6 +35321,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -35100,6 +35395,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -35230,6 +35526,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -35424,7 +35721,7 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
                               | {
                                   count?: number | undefined
                                   interval?: "month" | undefined
-                                  type: "fixed_count"
+                                  type: "bonus" | "fixed_count" | "revolving"
                                 }
                               | ""
                             )
@@ -35537,6 +35834,14 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
               | ""
             )
           | undefined
+        crypto?:
+          | (
+              | {
+                  setup_future_usage?: "none" | undefined
+                }
+              | ""
+            )
+          | undefined
         customer_balance?:
           | (
               | {
@@ -35626,6 +35931,17 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
           | (
               | {
                   capture_method?: ("" | "manual") | undefined
+                  on_demand?:
+                    | {
+                        average_amount?: number | undefined
+                        maximum_amount?: number | undefined
+                        minimum_amount?: number | undefined
+                        purchase_interval?:
+                          | ("day" | "month" | "week" | "year")
+                          | undefined
+                        purchase_interval_count?: number | undefined
+                      }
+                    | undefined
                   preferred_locale?:
                     | (
                         | "cs-CZ"
@@ -35676,7 +35992,26 @@ export type t_PostPaymentIntentsIntentConfirmRequestBodySchema = {
                         | "sv-SE"
                       )
                     | undefined
-                  setup_future_usage?: "none" | undefined
+                  setup_future_usage?:
+                    | ("none" | "off_session" | "on_session")
+                    | undefined
+                  subscriptions?:
+                    | (
+                        | {
+                            interval: "day" | "month" | "week" | "year"
+                            interval_count?: number | undefined
+                            name?: string | undefined
+                            next_billing?:
+                              | {
+                                  amount: number
+                                  date: string
+                                }
+                              | undefined
+                            reference: string
+                          }[]
+                        | ""
+                      )
+                    | undefined
                 }
               | ""
             )
@@ -38188,6 +38523,7 @@ export type t_PostPaymentMethodsRequestBodySchema = {
       )
     | undefined
   cashapp?: EmptyObject | undefined
+  crypto?: EmptyObject | undefined
   customer?: string | undefined
   customer_balance?: EmptyObject | undefined
   eps?:
@@ -38263,6 +38599,7 @@ export type t_PostPaymentMethodsRequestBodySchema = {
               | "abn_amro"
               | "asn_bank"
               | "bunq"
+              | "buut"
               | "handelsbanken"
               | "ing"
               | "knab"
@@ -38396,6 +38733,7 @@ export type t_PostPaymentMethodsRequestBodySchema = {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -39096,6 +39434,11 @@ export type t_PostQuotesRequestBodySchema = {
   on_behalf_of?: (string | "") | undefined
   subscription_data?:
     | {
+        billing_mode?:
+          | {
+              type: "classic" | "flexible"
+            }
+          | undefined
         description?: string | undefined
         effective_date?: ("current_period_end" | number | "") | undefined
         metadata?:
@@ -40111,6 +40454,7 @@ export type t_PostSetupIntentsRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -40184,6 +40528,7 @@ export type t_PostSetupIntentsRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -40314,6 +40659,7 @@ export type t_PostSetupIntentsRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -40455,6 +40801,87 @@ export type t_PostSetupIntentsRequestBodySchema = {
             }
           | undefined
         card_present?: EmptyObject | undefined
+        klarna?:
+          | {
+              currency?: string | undefined
+              on_demand?:
+                | {
+                    average_amount?: number | undefined
+                    maximum_amount?: number | undefined
+                    minimum_amount?: number | undefined
+                    purchase_interval?:
+                      | ("day" | "month" | "week" | "year")
+                      | undefined
+                    purchase_interval_count?: number | undefined
+                  }
+                | undefined
+              preferred_locale?:
+                | (
+                    | "cs-CZ"
+                    | "da-DK"
+                    | "de-AT"
+                    | "de-CH"
+                    | "de-DE"
+                    | "el-GR"
+                    | "en-AT"
+                    | "en-AU"
+                    | "en-BE"
+                    | "en-CA"
+                    | "en-CH"
+                    | "en-CZ"
+                    | "en-DE"
+                    | "en-DK"
+                    | "en-ES"
+                    | "en-FI"
+                    | "en-FR"
+                    | "en-GB"
+                    | "en-GR"
+                    | "en-IE"
+                    | "en-IT"
+                    | "en-NL"
+                    | "en-NO"
+                    | "en-NZ"
+                    | "en-PL"
+                    | "en-PT"
+                    | "en-RO"
+                    | "en-SE"
+                    | "en-US"
+                    | "es-ES"
+                    | "es-US"
+                    | "fi-FI"
+                    | "fr-BE"
+                    | "fr-CA"
+                    | "fr-CH"
+                    | "fr-FR"
+                    | "it-CH"
+                    | "it-IT"
+                    | "nb-NO"
+                    | "nl-BE"
+                    | "nl-NL"
+                    | "pl-PL"
+                    | "pt-PT"
+                    | "ro-RO"
+                    | "sv-FI"
+                    | "sv-SE"
+                  )
+                | undefined
+              subscriptions?:
+                | (
+                    | {
+                        interval: "day" | "month" | "week" | "year"
+                        interval_count?: number | undefined
+                        name?: string | undefined
+                        next_billing: {
+                          amount: number
+                          date: string
+                        }
+                        reference: string
+                      }[]
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
         link?: EmptyObject | undefined
         paypal?:
           | {
@@ -40601,6 +41028,7 @@ export type t_PostSetupIntentsIntentRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -40674,6 +41102,7 @@ export type t_PostSetupIntentsIntentRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -40804,6 +41233,7 @@ export type t_PostSetupIntentsIntentRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -40945,6 +41375,87 @@ export type t_PostSetupIntentsIntentRequestBodySchema = {
             }
           | undefined
         card_present?: EmptyObject | undefined
+        klarna?:
+          | {
+              currency?: string | undefined
+              on_demand?:
+                | {
+                    average_amount?: number | undefined
+                    maximum_amount?: number | undefined
+                    minimum_amount?: number | undefined
+                    purchase_interval?:
+                      | ("day" | "month" | "week" | "year")
+                      | undefined
+                    purchase_interval_count?: number | undefined
+                  }
+                | undefined
+              preferred_locale?:
+                | (
+                    | "cs-CZ"
+                    | "da-DK"
+                    | "de-AT"
+                    | "de-CH"
+                    | "de-DE"
+                    | "el-GR"
+                    | "en-AT"
+                    | "en-AU"
+                    | "en-BE"
+                    | "en-CA"
+                    | "en-CH"
+                    | "en-CZ"
+                    | "en-DE"
+                    | "en-DK"
+                    | "en-ES"
+                    | "en-FI"
+                    | "en-FR"
+                    | "en-GB"
+                    | "en-GR"
+                    | "en-IE"
+                    | "en-IT"
+                    | "en-NL"
+                    | "en-NO"
+                    | "en-NZ"
+                    | "en-PL"
+                    | "en-PT"
+                    | "en-RO"
+                    | "en-SE"
+                    | "en-US"
+                    | "es-ES"
+                    | "es-US"
+                    | "fi-FI"
+                    | "fr-BE"
+                    | "fr-CA"
+                    | "fr-CH"
+                    | "fr-FR"
+                    | "it-CH"
+                    | "it-IT"
+                    | "nb-NO"
+                    | "nl-BE"
+                    | "nl-NL"
+                    | "pl-PL"
+                    | "pt-PT"
+                    | "ro-RO"
+                    | "sv-FI"
+                    | "sv-SE"
+                  )
+                | undefined
+              subscriptions?:
+                | (
+                    | {
+                        interval: "day" | "month" | "week" | "year"
+                        interval_count?: number | undefined
+                        name?: string | undefined
+                        next_billing: {
+                          amount: number
+                          date: string
+                        }
+                        reference: string
+                      }[]
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
         link?: EmptyObject | undefined
         paypal?:
           | {
@@ -41109,6 +41620,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -41182,6 +41694,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -41312,6 +41825,7 @@ export type t_PostSetupIntentsIntentConfirmRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -41453,6 +41967,87 @@ export type t_PostSetupIntentsIntentConfirmRequestBodySchema = {
             }
           | undefined
         card_present?: EmptyObject | undefined
+        klarna?:
+          | {
+              currency?: string | undefined
+              on_demand?:
+                | {
+                    average_amount?: number | undefined
+                    maximum_amount?: number | undefined
+                    minimum_amount?: number | undefined
+                    purchase_interval?:
+                      | ("day" | "month" | "week" | "year")
+                      | undefined
+                    purchase_interval_count?: number | undefined
+                  }
+                | undefined
+              preferred_locale?:
+                | (
+                    | "cs-CZ"
+                    | "da-DK"
+                    | "de-AT"
+                    | "de-CH"
+                    | "de-DE"
+                    | "el-GR"
+                    | "en-AT"
+                    | "en-AU"
+                    | "en-BE"
+                    | "en-CA"
+                    | "en-CH"
+                    | "en-CZ"
+                    | "en-DE"
+                    | "en-DK"
+                    | "en-ES"
+                    | "en-FI"
+                    | "en-FR"
+                    | "en-GB"
+                    | "en-GR"
+                    | "en-IE"
+                    | "en-IT"
+                    | "en-NL"
+                    | "en-NO"
+                    | "en-NZ"
+                    | "en-PL"
+                    | "en-PT"
+                    | "en-RO"
+                    | "en-SE"
+                    | "en-US"
+                    | "es-ES"
+                    | "es-US"
+                    | "fi-FI"
+                    | "fr-BE"
+                    | "fr-CA"
+                    | "fr-CH"
+                    | "fr-FR"
+                    | "it-CH"
+                    | "it-IT"
+                    | "nb-NO"
+                    | "nl-BE"
+                    | "nl-NL"
+                    | "pl-PL"
+                    | "pt-PT"
+                    | "ro-RO"
+                    | "sv-FI"
+                    | "sv-SE"
+                  )
+                | undefined
+              subscriptions?:
+                | (
+                    | {
+                        interval: "day" | "month" | "week" | "year"
+                        interval_count?: number | undefined
+                        name?: string | undefined
+                        next_billing: {
+                          amount: number
+                          date: string
+                        }
+                        reference: string
+                      }[]
+                    | ""
+                  )
+                | undefined
+            }
+          | undefined
         link?: EmptyObject | undefined
         paypal?:
           | {
@@ -41946,6 +42541,11 @@ export type t_PostSubscriptionItemsItemRequestBodySchema = {
 }
 
 export type t_PostSubscriptionSchedulesRequestBodySchema = {
+  billing_mode?:
+    | {
+        type: "classic" | "flexible"
+      }
+    | undefined
   customer?: string | undefined
   default_settings?:
     | {
@@ -42439,6 +43039,11 @@ export type t_PostSubscriptionsRequestBodySchema = {
         second?: number | undefined
       }
     | undefined
+  billing_mode?:
+    | {
+        type: "classic" | "flexible"
+      }
+    | undefined
   billing_thresholds?:
     | (
         | {
@@ -42676,6 +43281,7 @@ export type t_PostSubscriptionsRequestBodySchema = {
                   | "boleto"
                   | "card"
                   | "cashapp"
+                  | "crypto"
                   | "customer_balance"
                   | "eps"
                   | "fpx"
@@ -43051,6 +43657,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBodySchema = {
                   | "boleto"
                   | "card"
                   | "cashapp"
+                  | "crypto"
                   | "customer_balance"
                   | "eps"
                   | "fpx"
@@ -43116,6 +43723,17 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBodySchema = {
         }
       }
     | undefined
+}
+
+export type t_PostSubscriptionsSubscriptionMigrateParamSchema = {
+  subscription: string
+}
+
+export type t_PostSubscriptionsSubscriptionMigrateRequestBodySchema = {
+  billing_mode: {
+    type: "flexible"
+  }
+  expand?: string[] | undefined
 }
 
 export type t_PostSubscriptionsSubscriptionResumeParamSchema = {
@@ -44098,6 +44716,11 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
           type: "simplified"
         }
       | undefined
+    ua?:
+      | {
+          type: "simplified"
+        }
+      | undefined
     ug?:
       | {
           type: "simplified"
@@ -44676,7 +45299,7 @@ export type t_PostTerminalLocationsLocationRequestBodySchema = {
       }
     | undefined
   configuration_overrides?: (string | "") | undefined
-  display_name?: string | undefined
+  display_name?: (string | "") | undefined
   expand?: string[] | undefined
   metadata?:
     | (
@@ -44765,6 +45388,41 @@ export type t_PostTerminalReadersReaderCollectInputsRequestBodySchema = {
         [key: string]: string | undefined
       }
     | undefined
+}
+
+export type t_PostTerminalReadersReaderCollectPaymentMethodParamSchema = {
+  reader: string
+}
+
+export type t_PostTerminalReadersReaderCollectPaymentMethodRequestBodySchema = {
+  collect_config?:
+    | {
+        allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+        enable_customer_cancellation?: boolean | undefined
+        skip_tipping?: boolean | undefined
+        tipping?:
+          | {
+              amount_eligible?: number | undefined
+            }
+          | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  payment_intent: string
+}
+
+export type t_PostTerminalReadersReaderConfirmPaymentIntentParamSchema = {
+  reader: string
+}
+
+export type t_PostTerminalReadersReaderConfirmPaymentIntentRequestBodySchema = {
+  confirm_config?:
+    | {
+        return_url?: string | undefined
+      }
+    | undefined
+  expand?: string[] | undefined
+  payment_intent: string
 }
 
 export type t_PostTerminalReadersReaderProcessPaymentIntentParamSchema = {
@@ -44908,6 +45566,7 @@ export type t_PostTestHelpersConfirmationTokensRequestBodySchema = {
             }
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
           | {
@@ -44981,6 +45640,7 @@ export type t_PostTestHelpersConfirmationTokensRequestBodySchema = {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -45111,6 +45771,7 @@ export type t_PostTestHelpersConfirmationTokensRequestBodySchema = {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -45166,7 +45827,7 @@ export type t_PostTestHelpersConfirmationTokensRequestBodySchema = {
                     plan: {
                       count?: number | undefined
                       interval?: "month" | undefined
-                      type: "fixed_count"
+                      type: "bonus" | "fixed_count" | "revolving"
                     }
                   }
                 | undefined
@@ -48292,6 +48953,7 @@ export type t_PostWebhookEndpointsRequestBodySchema = {
         | "2025-03-31.basil"
         | "2025-04-30.basil"
         | "2025-05-28.basil"
+        | "2025-06-30.basil"
       )
     | undefined
   connect?: boolean | undefined
@@ -48496,6 +49158,7 @@ export type t_PostWebhookEndpointsRequestBodySchema = {
     | "tax_rate.updated"
     | "terminal.reader.action_failed"
     | "terminal.reader.action_succeeded"
+    | "terminal.reader.action_updated"
     | "test_helpers.test_clock.advancing"
     | "test_helpers.test_clock.created"
     | "test_helpers.test_clock.deleted"
@@ -48760,6 +49423,7 @@ export type t_PostWebhookEndpointsWebhookEndpointRequestBodySchema = {
         | "tax_rate.updated"
         | "terminal.reader.action_failed"
         | "terminal.reader.action_succeeded"
+        | "terminal.reader.action_updated"
         | "test_helpers.test_clock.advancing"
         | "test_helpers.test_clock.created"
         | "test_helpers.test_clock.deleted"

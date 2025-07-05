@@ -551,12 +551,15 @@ import {
   t_DependabotListSelectedReposForOrgSecretQuerySchema,
   t_DependabotRemoveSelectedRepoFromOrgSecretParamSchema,
   t_DependabotRepositoryAccessForOrgParamSchema,
+  t_DependabotRepositoryAccessForOrgQuerySchema,
   t_DependabotSetRepositoryAccessDefaultLevelBodySchema,
   t_DependabotSetRepositoryAccessDefaultLevelParamSchema,
   t_DependabotSetSelectedReposForOrgSecretBodySchema,
   t_DependabotSetSelectedReposForOrgSecretParamSchema,
   t_DependabotUpdateAlertBodySchema,
   t_DependabotUpdateAlertParamSchema,
+  t_DependabotUpdateRepositoryAccessForOrgBodySchema,
+  t_DependabotUpdateRepositoryAccessForOrgParamSchema,
   t_DependencyGraphCreateRepositorySnapshotBodySchema,
   t_DependencyGraphCreateRepositorySnapshotParamSchema,
   t_DependencyGraphDiffRangeParamSchema,
@@ -766,6 +769,10 @@ import {
   t_OrgsCreateOrUpdateCustomPropertyParamSchema,
   t_OrgsCreateWebhookBodySchema,
   t_OrgsCreateWebhookParamSchema,
+  t_OrgsDeleteAttestationsBulkBodySchema,
+  t_OrgsDeleteAttestationsBulkParamSchema,
+  t_OrgsDeleteAttestationsByIdParamSchema,
+  t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
   t_OrgsDeleteIssueTypeParamSchema,
   t_OrgsDeleteParamSchema,
   t_OrgsDeleteWebhookParamSchema,
@@ -785,6 +792,9 @@ import {
   t_OrgsGetWebhookParamSchema,
   t_OrgsListAppInstallationsParamSchema,
   t_OrgsListAppInstallationsQuerySchema,
+  t_OrgsListAttestationsBulkBodySchema,
+  t_OrgsListAttestationsBulkParamSchema,
+  t_OrgsListAttestationsBulkQuerySchema,
   t_OrgsListAttestationsParamSchema,
   t_OrgsListAttestationsQuerySchema,
   t_OrgsListBlockedUsersParamSchema,
@@ -1476,6 +1486,10 @@ import {
   t_UsersCreateGpgKeyForAuthenticatedUserBodySchema,
   t_UsersCreatePublicSshKeyForAuthenticatedUserBodySchema,
   t_UsersCreateSshSigningKeyForAuthenticatedUserBodySchema,
+  t_UsersDeleteAttestationsBulkBodySchema,
+  t_UsersDeleteAttestationsBulkParamSchema,
+  t_UsersDeleteAttestationsByIdParamSchema,
+  t_UsersDeleteAttestationsBySubjectDigestParamSchema,
   t_UsersDeleteEmailForAuthenticatedUserBodySchema,
   t_UsersDeleteGpgKeyForAuthenticatedUserParamSchema,
   t_UsersDeletePublicSshKeyForAuthenticatedUserParamSchema,
@@ -1489,6 +1503,9 @@ import {
   t_UsersGetGpgKeyForAuthenticatedUserParamSchema,
   t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema,
   t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
+  t_UsersListAttestationsBulkBodySchema,
+  t_UsersListAttestationsBulkParamSchema,
+  t_UsersListAttestationsBulkQuerySchema,
   t_UsersListAttestationsParamSchema,
   t_UsersListAttestationsQuerySchema,
   t_UsersListBlockedByAuthenticatedUserQuerySchema,
@@ -4222,7 +4239,7 @@ export type DependabotRepositoryAccessForOrgResponder = {
 export type DependabotRepositoryAccessForOrg = (
   params: Params<
     t_DependabotRepositoryAccessForOrgParamSchema,
-    void,
+    t_DependabotRepositoryAccessForOrgQuerySchema,
     void,
     void
   >,
@@ -4232,6 +4249,30 @@ export type DependabotRepositoryAccessForOrg = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_dependabot_repository_access_details>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type DependabotUpdateRepositoryAccessForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type DependabotUpdateRepositoryAccessForOrg = (
+  params: Params<
+    t_DependabotUpdateRepositoryAccessForOrgParamSchema,
+    void,
+    t_DependabotUpdateRepositoryAccessForOrgBodySchema,
+    void
+  >,
+  respond: DependabotUpdateRepositoryAccessForOrgResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | typeof SkipResponse
@@ -5900,6 +5941,150 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
   | Response<409, void>
+  | typeof SkipResponse
+>
+
+export type OrgsListAttestationsBulkResponder = {
+  with200(): KoaRuntimeResponse<{
+    attestations_subject_digests?: {
+      [key: string]:
+        | (
+            | {
+                bundle?: {
+                  dsseEnvelope?: {
+                    [key: string]: unknown | undefined
+                  }
+                  mediaType?: string
+                  verificationMaterial?: {
+                    [key: string]: unknown | undefined
+                  }
+                }
+                bundle_url?: string
+                repository_id?: number
+              }[]
+            | null
+          )
+        | undefined
+    }
+    page_info?: {
+      has_next?: boolean
+      has_previous?: boolean
+      next?: string
+      previous?: string
+    }
+  }>
+} & KoaRuntimeResponder
+
+export type OrgsListAttestationsBulk = (
+  params: Params<
+    t_OrgsListAttestationsBulkParamSchema,
+    t_OrgsListAttestationsBulkQuerySchema,
+    t_OrgsListAttestationsBulkBodySchema,
+    void
+  >,
+  respond: OrgsListAttestationsBulkResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        attestations_subject_digests?: {
+          [key: string]:
+            | (
+                | {
+                    bundle?: {
+                      dsseEnvelope?: {
+                        [key: string]: unknown | undefined
+                      }
+                      mediaType?: string
+                      verificationMaterial?: {
+                        [key: string]: unknown | undefined
+                      }
+                    }
+                    bundle_url?: string
+                    repository_id?: number
+                  }[]
+                | null
+              )
+            | undefined
+        }
+        page_info?: {
+          has_next?: boolean
+          has_previous?: boolean
+          next?: string
+          previous?: string
+        }
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type OrgsDeleteAttestationsBulkResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsDeleteAttestationsBulk = (
+  params: Params<
+    t_OrgsDeleteAttestationsBulkParamSchema,
+    void,
+    t_OrgsDeleteAttestationsBulkBodySchema,
+    void
+  >,
+  respond: OrgsDeleteAttestationsBulkResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, void>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsDeleteAttestationsBySubjectDigestResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsDeleteAttestationsBySubjectDigest = (
+  params: Params<
+    t_OrgsDeleteAttestationsBySubjectDigestParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: OrgsDeleteAttestationsBySubjectDigestResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, void>
+  | Response<204, void>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type OrgsDeleteAttestationsByIdResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsDeleteAttestationsById = (
+  params: Params<t_OrgsDeleteAttestationsByIdParamSchema, void, void, void>,
+  respond: OrgsDeleteAttestationsByIdResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, void>
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
   | typeof SkipResponse
 >
 
@@ -14876,6 +15061,7 @@ export type CodeScanningUpdateDefaultSetupResponder = {
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with409(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
   with503(): KoaRuntimeResponse<{
     code?: string
     documentation_url?: string
@@ -14900,6 +15086,7 @@ export type CodeScanningUpdateDefaultSetup = (
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<409, t_basic_error>
+  | Response<422, t_basic_error>
   | Response<
       503,
       {
@@ -25357,6 +25544,150 @@ export type UsersGetByUsername = (
   | typeof SkipResponse
 >
 
+export type UsersListAttestationsBulkResponder = {
+  with200(): KoaRuntimeResponse<{
+    attestations_subject_digests?: {
+      [key: string]:
+        | (
+            | {
+                bundle?: {
+                  dsseEnvelope?: {
+                    [key: string]: unknown | undefined
+                  }
+                  mediaType?: string
+                  verificationMaterial?: {
+                    [key: string]: unknown | undefined
+                  }
+                }
+                bundle_url?: string
+                repository_id?: number
+              }[]
+            | null
+          )
+        | undefined
+    }
+    page_info?: {
+      has_next?: boolean
+      has_previous?: boolean
+      next?: string
+      previous?: string
+    }
+  }>
+} & KoaRuntimeResponder
+
+export type UsersListAttestationsBulk = (
+  params: Params<
+    t_UsersListAttestationsBulkParamSchema,
+    t_UsersListAttestationsBulkQuerySchema,
+    t_UsersListAttestationsBulkBodySchema,
+    void
+  >,
+  respond: UsersListAttestationsBulkResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        attestations_subject_digests?: {
+          [key: string]:
+            | (
+                | {
+                    bundle?: {
+                      dsseEnvelope?: {
+                        [key: string]: unknown | undefined
+                      }
+                      mediaType?: string
+                      verificationMaterial?: {
+                        [key: string]: unknown | undefined
+                      }
+                    }
+                    bundle_url?: string
+                    repository_id?: number
+                  }[]
+                | null
+              )
+            | undefined
+        }
+        page_info?: {
+          has_next?: boolean
+          has_previous?: boolean
+          next?: string
+          previous?: string
+        }
+      }
+    >
+  | typeof SkipResponse
+>
+
+export type UsersDeleteAttestationsBulkResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type UsersDeleteAttestationsBulk = (
+  params: Params<
+    t_UsersDeleteAttestationsBulkParamSchema,
+    void,
+    t_UsersDeleteAttestationsBulkBodySchema,
+    void
+  >,
+  respond: UsersDeleteAttestationsBulkResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, void>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type UsersDeleteAttestationsBySubjectDigestResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type UsersDeleteAttestationsBySubjectDigest = (
+  params: Params<
+    t_UsersDeleteAttestationsBySubjectDigestParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: UsersDeleteAttestationsBySubjectDigestResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, void>
+  | Response<204, void>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
+export type UsersDeleteAttestationsByIdResponder = {
+  with200(): KoaRuntimeResponse<void>
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type UsersDeleteAttestationsById = (
+  params: Params<t_UsersDeleteAttestationsByIdParamSchema, void, void, void>,
+  respond: UsersDeleteAttestationsByIdResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, void>
+  | Response<204, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | typeof SkipResponse
+>
+
 export type UsersListAttestationsResponder = {
   with200(): KoaRuntimeResponse<{
     attestations?: {
@@ -26233,6 +26564,7 @@ export type Implementation = {
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
   dependabotRepositoryAccessForOrg: DependabotRepositoryAccessForOrg
+  dependabotUpdateRepositoryAccessForOrg: DependabotUpdateRepositoryAccessForOrg
   dependabotSetRepositoryAccessDefaultLevel: DependabotSetRepositoryAccessDefaultLevel
   billingGetGithubBillingUsageReportOrg: BillingGetGithubBillingUsageReportOrg
   orgsGet: OrgsGet
@@ -26306,6 +26638,10 @@ export type Implementation = {
   actionsSetSelectedReposForOrgVariable: ActionsSetSelectedReposForOrgVariable
   actionsAddSelectedRepoToOrgVariable: ActionsAddSelectedRepoToOrgVariable
   actionsRemoveSelectedRepoFromOrgVariable: ActionsRemoveSelectedRepoFromOrgVariable
+  orgsListAttestationsBulk: OrgsListAttestationsBulk
+  orgsDeleteAttestationsBulk: OrgsDeleteAttestationsBulk
+  orgsDeleteAttestationsBySubjectDigest: OrgsDeleteAttestationsBySubjectDigest
+  orgsDeleteAttestationsById: OrgsDeleteAttestationsById
   orgsListAttestations: OrgsListAttestations
   orgsListBlockedUsers: OrgsListBlockedUsers
   orgsCheckBlockedUser: OrgsCheckBlockedUser
@@ -27134,6 +27470,10 @@ export type Implementation = {
   usersGetById: UsersGetById
   usersList: UsersList
   usersGetByUsername: UsersGetByUsername
+  usersListAttestationsBulk: UsersListAttestationsBulk
+  usersDeleteAttestationsBulk: UsersDeleteAttestationsBulk
+  usersDeleteAttestationsBySubjectDigest: UsersDeleteAttestationsBySubjectDigest
+  usersDeleteAttestationsById: UsersDeleteAttestationsById
   usersListAttestations: UsersListAttestations
   packagesListDockerMigrationConflictingPackagesForUser: PackagesListDockerMigrationConflictingPackagesForUser
   activityListEventsForAuthenticatedUser: ActivityListEventsForAuthenticatedUser
@@ -33466,6 +33806,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     org: z.string(),
   })
 
+  const dependabotRepositoryAccessForOrgQuerySchema = z.object({
+    page: z.coerce.number().min(1).optional().default(1),
+    per_page: z.coerce.number().min(1).max(100).optional().default(30),
+  })
+
   const dependabotRepositoryAccessForOrgResponseValidator =
     responseValidationFactory(
       [
@@ -33486,7 +33831,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ctx.params,
           RequestInputType.RouteParam,
         ),
-        query: undefined,
+        query: parseRequestInput(
+          dependabotRepositoryAccessForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
         body: undefined,
         headers: undefined,
       }
@@ -33523,6 +33872,82 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = dependabotRepositoryAccessForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const dependabotUpdateRepositoryAccessForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const dependabotUpdateRepositoryAccessForOrgBodySchema = z.object({
+    repository_ids_to_add: z.array(z.coerce.number()).optional(),
+    repository_ids_to_remove: z.array(z.coerce.number()).optional(),
+  })
+
+  const dependabotUpdateRepositoryAccessForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.patch(
+    "dependabotUpdateRepositoryAccessForOrg",
+    "/organizations/:org/dependabot/repository-access",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          dependabotUpdateRepositoryAccessForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          dependabotUpdateRepositoryAccessForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .dependabotUpdateRepositoryAccessForOrg(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = dependabotUpdateRepositoryAccessForOrgResponseValidator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
@@ -38453,6 +38878,338 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const orgsListAttestationsBulkParamSchema = z.object({ org: z.string() })
+
+  const orgsListAttestationsBulkQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const orgsListAttestationsBulkBodySchema = z.object({
+    subject_digests: z.array(z.string()).min(1).max(1024),
+    predicate_type: z.string().optional(),
+  })
+
+  const orgsListAttestationsBulkResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          attestations_subject_digests: z
+            .record(
+              z
+                .array(
+                  z.object({
+                    bundle: z
+                      .object({
+                        mediaType: z.string().optional(),
+                        verificationMaterial: z.record(z.unknown()).optional(),
+                        dsseEnvelope: z.record(z.unknown()).optional(),
+                      })
+                      .optional(),
+                    repository_id: z.coerce.number().optional(),
+                    bundle_url: z.string().optional(),
+                  }),
+                )
+                .nullable(),
+            )
+            .optional(),
+          page_info: z
+            .object({
+              has_next: PermissiveBoolean.optional(),
+              has_previous: PermissiveBoolean.optional(),
+              next: z.string().optional(),
+              previous: z.string().optional(),
+            })
+            .optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "orgsListAttestationsBulk",
+    "/orgs/:org/attestations/bulk-list",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListAttestationsBulkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsListAttestationsBulkQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          orgsListAttestationsBulkBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            attestations_subject_digests?: {
+              [key: string]:
+                | (
+                    | {
+                        bundle?: {
+                          dsseEnvelope?: {
+                            [key: string]: unknown | undefined
+                          }
+                          mediaType?: string
+                          verificationMaterial?: {
+                            [key: string]: unknown | undefined
+                          }
+                        }
+                        bundle_url?: string
+                        repository_id?: number
+                      }[]
+                    | null
+                  )
+                | undefined
+            }
+            page_info?: {
+              has_next?: boolean
+              has_previous?: boolean
+              next?: string
+              previous?: string
+            }
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsListAttestationsBulk(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsListAttestationsBulkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsDeleteAttestationsBulkParamSchema = z.object({ org: z.string() })
+
+  const orgsDeleteAttestationsBulkBodySchema = z.union([
+    z.object({ subject_digests: z.array(z.string()).min(1).max(1024) }),
+    z.object({ attestation_ids: z.array(z.coerce.number()).min(1).max(1024) }),
+  ])
+
+  const orgsDeleteAttestationsBulkResponseValidator = responseValidationFactory(
+    [
+      ["200", z.undefined()],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "orgsDeleteAttestationsBulk",
+    "/orgs/:org/attestations/delete-request",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsDeleteAttestationsBulkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          orgsDeleteAttestationsBulkBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsDeleteAttestationsBulk(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsDeleteAttestationsBulkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsDeleteAttestationsBySubjectDigestParamSchema = z.object({
+    org: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const orgsDeleteAttestationsBySubjectDigestResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "orgsDeleteAttestationsBySubjectDigest",
+    "/orgs/:org/attestations/digest/:subject_digest",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsDeleteAttestationsBySubjectDigestParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsDeleteAttestationsBySubjectDigest(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsDeleteAttestationsBySubjectDigestResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsDeleteAttestationsByIdParamSchema = z.object({
+    org: z.string(),
+    attestation_id: z.coerce.number(),
+  })
+
+  const orgsDeleteAttestationsByIdResponseValidator = responseValidationFactory(
+    [
+      ["200", z.undefined()],
+      ["204", z.undefined()],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "orgsDeleteAttestationsById",
+    "/orgs/:org/attestations/:attestation_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsDeleteAttestationsByIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsDeleteAttestationsById(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsDeleteAttestationsByIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const orgsListAttestationsParamSchema = z.object({
     org: z.string(),
     subject_digest: z.string(),
@@ -39619,7 +40376,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codeSecurityDetachConfigurationBodySchema = z.object({
-    selected_repository_ids: z.array(z.coerce.number()).optional(),
+    selected_repository_ids: z
+      .array(z.coerce.number())
+      .min(1)
+      .max(1000)
+      .optional(),
   })
 
   const codeSecurityDetachConfigurationResponseValidator =
@@ -48416,6 +49177,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const privateRegistriesCreateOrgPrivateRegistryBodySchema = z.object({
     registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
+    url: z.string(),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -48639,6 +49401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     registry_type: z
       .enum(["maven_repository", "nuget_feed", "goproxy_server"])
       .optional(),
+    url: z.string().optional(),
     username: z.string().nullable().optional(),
     encrypted_value: z
       .string()
@@ -66004,6 +66767,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["409", s_basic_error],
+        ["422", s_basic_error],
         [
           "503",
           z.object({
@@ -66052,6 +66816,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
         with409() {
           return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
         },
         with503() {
           return new KoaRuntimeResponse<{
@@ -98146,6 +98913,344 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const usersListAttestationsBulkParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const usersListAttestationsBulkQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const usersListAttestationsBulkBodySchema = z.object({
+    subject_digests: z.array(z.string()).min(1).max(1024),
+    predicate_type: z.string().optional(),
+  })
+
+  const usersListAttestationsBulkResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          attestations_subject_digests: z
+            .record(
+              z
+                .array(
+                  z.object({
+                    bundle: z
+                      .object({
+                        mediaType: z.string().optional(),
+                        verificationMaterial: z.record(z.unknown()).optional(),
+                        dsseEnvelope: z.record(z.unknown()).optional(),
+                      })
+                      .optional(),
+                    repository_id: z.coerce.number().optional(),
+                    bundle_url: z.string().optional(),
+                  }),
+                )
+                .nullable(),
+            )
+            .optional(),
+          page_info: z
+            .object({
+              has_next: PermissiveBoolean.optional(),
+              has_previous: PermissiveBoolean.optional(),
+              next: z.string().optional(),
+              previous: z.string().optional(),
+            })
+            .optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "usersListAttestationsBulk",
+    "/users/:username/attestations/bulk-list",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          usersListAttestationsBulkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          usersListAttestationsBulkQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          usersListAttestationsBulkBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            attestations_subject_digests?: {
+              [key: string]:
+                | (
+                    | {
+                        bundle?: {
+                          dsseEnvelope?: {
+                            [key: string]: unknown | undefined
+                          }
+                          mediaType?: string
+                          verificationMaterial?: {
+                            [key: string]: unknown | undefined
+                          }
+                        }
+                        bundle_url?: string
+                        repository_id?: number
+                      }[]
+                    | null
+                  )
+                | undefined
+            }
+            page_info?: {
+              has_next?: boolean
+              has_previous?: boolean
+              next?: string
+              previous?: string
+            }
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .usersListAttestationsBulk(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = usersListAttestationsBulkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const usersDeleteAttestationsBulkParamSchema = z.object({
+    username: z.string(),
+  })
+
+  const usersDeleteAttestationsBulkBodySchema = z.union([
+    z.object({ subject_digests: z.array(z.string()).min(1).max(1024) }),
+    z.object({ attestation_ids: z.array(z.coerce.number()).min(1).max(1024) }),
+  ])
+
+  const usersDeleteAttestationsBulkResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "usersDeleteAttestationsBulk",
+    "/users/:username/attestations/delete-request",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          usersDeleteAttestationsBulkParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          usersDeleteAttestationsBulkBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .usersDeleteAttestationsBulk(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = usersDeleteAttestationsBulkResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const usersDeleteAttestationsBySubjectDigestParamSchema = z.object({
+    username: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const usersDeleteAttestationsBySubjectDigestResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "usersDeleteAttestationsBySubjectDigest",
+    "/users/:username/attestations/digest/:subject_digest",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          usersDeleteAttestationsBySubjectDigestParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .usersDeleteAttestationsBySubjectDigest(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = usersDeleteAttestationsBySubjectDigestResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const usersDeleteAttestationsByIdParamSchema = z.object({
+    username: z.string(),
+    attestation_id: z.coerce.number(),
+  })
+
+  const usersDeleteAttestationsByIdResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.undefined()],
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "usersDeleteAttestationsById",
+    "/users/:username/attestations/:attestation_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          usersDeleteAttestationsByIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .usersDeleteAttestationsById(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = usersDeleteAttestationsByIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const usersListAttestationsParamSchema = z.object({
     username: z.string(),

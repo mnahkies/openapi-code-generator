@@ -2690,6 +2690,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async dependabotRepositoryAccessForOrg(
     p: {
       org: string
+      page?: number
+      perPage?: number
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -2701,8 +2703,41 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/organizations/${p["org"]}/dependabot/repository-access`
     const headers = this._headers({}, opts.headers)
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async dependabotUpdateRepositoryAccessForOrg(
+    p: {
+      org: string
+      requestBody: {
+        repository_ids_to_add?: number[]
+        repository_ids_to_remove?: number[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/dependabot/repository-access`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotSetRepositoryAccessDefaultLevel(
@@ -4339,6 +4374,131 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async orgsListAttestationsBulk(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      requestBody: {
+        predicate_type?: string
+        subject_digests: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        attestations_subject_digests?: {
+          [key: string]:
+            | (
+                | {
+                    bundle?: {
+                      dsseEnvelope?: {
+                        [key: string]: unknown | undefined
+                      }
+                      mediaType?: string
+                      verificationMaterial?: {
+                        [key: string]: unknown | undefined
+                      }
+                    }
+                    bundle_url?: string
+                    repository_id?: number
+                  }[]
+                | null
+              )
+            | undefined
+        }
+        page_info?: {
+          has_next?: boolean
+          has_previous?: boolean
+          next?: string
+          previous?: string
+        }
+      }
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/attestations/bulk-list`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "POST", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async orgsDeleteAttestationsBulk(
+    p: {
+      org: string
+      requestBody:
+        | {
+            subject_digests: string[]
+          }
+        | {
+            attestation_ids: number[]
+          }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<404, t_basic_error>> {
+    const url = this.basePath + `/orgs/${p["org"]}/attestations/delete-request`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async orgsDeleteAttestationsBySubjectDigest(
+    p: {
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<204, void> | Res<404, t_basic_error>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/attestations/digest/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async orgsDeleteAttestationsById(
+    p: {
+      org: string
+      attestationId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, void>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/attestations/${p["attestationId"]}`
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
@@ -8068,6 +8228,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "goproxy_server"
           | UnknownEnumStringValue
         selected_repository_ids?: number[]
+        url: string
         username?: string | null
         visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
@@ -8142,6 +8303,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "goproxy_server"
           | UnknownEnumStringValue
         selected_repository_ids?: number[]
+        url?: string
         username?: string | null
         visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
       }
@@ -14483,6 +14645,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
+    | Res<422, t_basic_error>
     | Res<
         503,
         {
@@ -25964,6 +26127,133 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async usersListAttestationsBulk(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      username: string
+      requestBody: {
+        predicate_type?: string
+        subject_digests: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        attestations_subject_digests?: {
+          [key: string]:
+            | (
+                | {
+                    bundle?: {
+                      dsseEnvelope?: {
+                        [key: string]: unknown | undefined
+                      }
+                      mediaType?: string
+                      verificationMaterial?: {
+                        [key: string]: unknown | undefined
+                      }
+                    }
+                    bundle_url?: string
+                    repository_id?: number
+                  }[]
+                | null
+              )
+            | undefined
+        }
+        page_info?: {
+          has_next?: boolean
+          has_previous?: boolean
+          next?: string
+          previous?: string
+        }
+      }
+    >
+  > {
+    const url = this.basePath + `/users/${p["username"]}/attestations/bulk-list`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "POST", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async usersDeleteAttestationsBulk(
+    p: {
+      username: string
+      requestBody:
+        | {
+            subject_digests: string[]
+          }
+        | {
+            attestation_ids: number[]
+          }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<404, t_basic_error>> {
+    const url =
+      this.basePath + `/users/${p["username"]}/attestations/delete-request`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async usersDeleteAttestationsBySubjectDigest(
+    p: {
+      username: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<204, void> | Res<404, t_basic_error>> {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/attestations/digest/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async usersDeleteAttestationsById(
+    p: {
+      username: string
+      attestationId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, void>
+    | Res<204, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/attestations/${p["attestationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async usersListAttestations(

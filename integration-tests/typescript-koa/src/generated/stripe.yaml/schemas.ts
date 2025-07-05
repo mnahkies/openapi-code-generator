@@ -172,6 +172,8 @@ import {
   t_terminal_configuration,
   t_terminal_configuration_configuration_resource_device_type_specific_config,
   t_terminal_reader,
+  t_terminal_reader_reader_resource_collect_payment_method_action,
+  t_terminal_reader_reader_resource_confirm_payment_intent_action,
   t_terminal_reader_reader_resource_process_payment_intent_action,
   t_terminal_reader_reader_resource_process_setup_intent_action,
   t_terminal_reader_reader_resource_reader_action,
@@ -241,6 +243,7 @@ export const s_account_capabilities = z.object({
     .enum(["active", "inactive", "pending"])
     .optional(),
   cashapp_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  crypto_payments: z.enum(["active", "inactive", "pending"]).optional(),
   eps_payments: z.enum(["active", "inactive", "pending"]).optional(),
   fpx_payments: z.enum(["active", "inactive", "pending"]).optional(),
   gb_bank_transfer_payments: z
@@ -1154,7 +1157,7 @@ export const s_dispute_payment_method_details_amazon_pay = z.object({
 
 export const s_dispute_payment_method_details_card = z.object({
   brand: z.string().max(5000),
-  case_type: z.enum(["chargeback", "inquiry"]),
+  case_type: z.enum(["chargeback", "compliance", "inquiry"]),
   network_reason_code: z.string().max(5000).nullable().optional(),
 })
 
@@ -1323,6 +1326,11 @@ export const s_gelato_provided_details = z.object({
   phone: z.string().max(5000).optional(),
 })
 
+export const s_gelato_related_person = z.object({
+  account: z.string().max(5000).optional(),
+  person: z.string().max(5000).optional(),
+})
+
 export const s_gelato_report_document_options = z.object({
   allowed_types: z
     .array(z.enum(["driving_license", "id_card", "passport"]))
@@ -1388,6 +1396,11 @@ export const s_gelato_session_last_error = z.object({
     .nullable()
     .optional(),
   reason: z.string().max(5000).nullable().optional(),
+})
+
+export const s_gelato_session_matching_options = z.object({
+  dob: z.enum(["none", "similar"]).optional(),
+  name: z.enum(["none", "similar"]).optional(),
 })
 
 export const s_gelato_session_phone_options = z.object({
@@ -2665,6 +2678,8 @@ export const s_mandate_cashapp = z.object({})
 
 export const s_mandate_kakao_pay = z.object({})
 
+export const s_mandate_klarna = z.object({})
+
 export const s_mandate_kr_card = z.object({})
 
 export const s_mandate_link = z.object({})
@@ -3388,6 +3403,8 @@ export const s_payment_method_config_resource_display_preference = z.object({
   value: z.enum(["off", "on"]),
 })
 
+export const s_payment_method_crypto = z.object({})
+
 export const s_payment_method_customer_balance = z.object({})
 
 export const s_payment_method_details_ach_credit_transfer = z.object({
@@ -3461,7 +3478,7 @@ export const s_payment_method_details_card_checks = z.object({
 export const s_payment_method_details_card_installments_plan = z.object({
   count: z.coerce.number().nullable().optional(),
   interval: z.enum(["month"]).nullable().optional(),
-  type: z.enum(["fixed_count"]),
+  type: z.enum(["bonus", "fixed_count", "revolving"]),
 })
 
 export const s_payment_method_details_card_network_token = z.object({
@@ -3499,6 +3516,13 @@ export const s_payment_method_details_card_wallet_samsung_pay = z.object({})
 export const s_payment_method_details_cashapp = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
   cashtag: z.string().max(5000).nullable().optional(),
+})
+
+export const s_payment_method_details_crypto = z.object({
+  buyer_address: z.string().max(5000).optional(),
+  network: z.enum(["base", "ethereum", "polygon"]).optional(),
+  token_currency: z.enum(["usdc", "usdg", "usdp"]).optional(),
+  transaction_hash: z.string().max(5000).optional(),
 })
 
 export const s_payment_method_details_customer_balance = z.object({})
@@ -3835,6 +3859,7 @@ export const s_payment_method_ideal = z.object({
       "abn_amro",
       "asn_bank",
       "bunq",
+      "buut",
       "handelsbanken",
       "ing",
       "knab",
@@ -3857,6 +3882,7 @@ export const s_payment_method_ideal = z.object({
       "ASNBNL21",
       "BITSNL2A",
       "BUNQNL2A",
+      "BUUTNL2A",
       "FVLBNL22",
       "HANDNL2A",
       "INGBNL2A",
@@ -3998,6 +4024,10 @@ export const s_payment_method_options_cashapp = z.object({
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
 })
 
+export const s_payment_method_options_crypto = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
 export const s_payment_method_options_customer_balance_eu_bank_account =
   z.object({ country: z.enum(["BE", "DE", "ES", "FR", "IE", "NL"]) })
 
@@ -4022,7 +4052,7 @@ export const s_payment_method_options_interac_present = z.object({})
 export const s_payment_method_options_klarna = z.object({
   capture_method: z.enum(["manual"]).optional(),
   preferred_locale: z.string().max(5000).nullable().optional(),
-  setup_future_usage: z.enum(["none"]).optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
 })
 
 export const s_payment_method_options_konbini = z.object({
@@ -4870,11 +4900,8 @@ export const s_quotes_resource_status_transitions = z.object({
   finalized_at: z.coerce.number().nullable().optional(),
 })
 
-export const s_quotes_resource_subscription_data_subscription_data = z.object({
-  description: z.string().max(5000).nullable().optional(),
-  effective_date: z.coerce.number().nullable().optional(),
-  metadata: z.record(z.string().max(500)).nullable().optional(),
-  trial_period_days: z.coerce.number().nullable().optional(),
+export const s_quotes_resource_subscription_data_billing_mode = z.object({
+  type: z.enum(["classic", "flexible"]),
 })
 
 export const s_radar_radar_options = z.object({
@@ -5095,6 +5122,11 @@ export const s_setup_intent_payment_method_options_card_mandate_options =
   })
 
 export const s_setup_intent_payment_method_options_card_present = z.object({})
+
+export const s_setup_intent_payment_method_options_klarna = z.object({
+  currency: z.string().nullable().optional(),
+  preferred_locale: z.string().max(5000).nullable().optional(),
+})
 
 export const s_setup_intent_payment_method_options_link = z.object({})
 
@@ -5465,6 +5497,11 @@ export const s_subscriptions_resource_billing_cycle_anchor_config = z.object({
   second: z.coerce.number().nullable().optional(),
 })
 
+export const s_subscriptions_resource_billing_mode = z.object({
+  type: z.enum(["classic", "flexible"]),
+  updated_at: z.coerce.number().optional(),
+})
+
 export const s_subscriptions_resource_pause_collection = z.object({
   behavior: z.enum(["keep_as_draft", "mark_uncollectible", "void"]),
   resumes_at: z.coerce.number().nullable().optional(),
@@ -5762,6 +5799,10 @@ export const s_terminal_reader_reader_resource_choice = z.object({
   text: z.string().max(5000),
 })
 
+export const s_terminal_reader_reader_resource_confirm_config = z.object({
+  return_url: z.string().max(5000).optional(),
+})
+
 export const s_terminal_reader_reader_resource_custom_text = z.object({
   description: z.string().max(5000).nullable().optional(),
   skip_button: z.string().max(5000).nullable().optional(),
@@ -5898,7 +5939,21 @@ export const s_transfer_schedule = z.object({
   delay_days: z.coerce.number(),
   interval: z.string().max(5000),
   monthly_anchor: z.coerce.number().optional(),
+  monthly_payout_days: z.array(z.coerce.number()).optional(),
   weekly_anchor: z.string().max(5000).optional(),
+  weekly_payout_days: z
+    .array(
+      z.enum([
+        "friday",
+        "monday",
+        "saturday",
+        "sunday",
+        "thursday",
+        "tuesday",
+        "wednesday",
+      ]),
+    )
+    .optional(),
 })
 
 export const s_transform_quantity = z.object({
@@ -6945,6 +7000,7 @@ export const s_gelato_verification_session_options = z.object({
   document: s_gelato_session_document_options.optional(),
   email: s_gelato_session_email_options.optional(),
   id_number: s_gelato_session_id_number_options.optional(),
+  matching: s_gelato_session_matching_options.optional(),
   phone: s_gelato_session_phone_options.optional(),
 })
 
@@ -8445,6 +8501,7 @@ export const s_mandate_payment_method_details = z.object({
   card: s_card_mandate_payment_method_details.optional(),
   cashapp: s_mandate_cashapp.optional(),
   kakao_pay: s_mandate_kakao_pay.optional(),
+  klarna: s_mandate_klarna.optional(),
   kr_card: s_mandate_kr_card.optional(),
   link: s_mandate_link.optional(),
   naver_pay: s_mandate_naver_pay.optional(),
@@ -8942,6 +8999,14 @@ export const s_promotion_codes_resource_restrictions = z.object({
   minimum_amount_currency: z.string().max(5000).nullable().optional(),
 })
 
+export const s_quotes_resource_subscription_data_subscription_data = z.object({
+  billing_mode: s_quotes_resource_subscription_data_billing_mode,
+  description: z.string().max(5000).nullable().optional(),
+  effective_date: z.coerce.number().nullable().optional(),
+  metadata: z.record(z.string().max(500)).nullable().optional(),
+  trial_period_days: z.coerce.number().nullable().optional(),
+})
+
 export const s_radar_value_list = z.object({
   alias: z.string().max(5000),
   created: z.coerce.number(),
@@ -9374,6 +9439,12 @@ export const s_terminal_reader_reader_resource_cart = z.object({
   line_items: z.array(s_terminal_reader_reader_resource_line_item),
   tax: z.coerce.number().nullable().optional(),
   total: z.coerce.number(),
+})
+
+export const s_terminal_reader_reader_resource_collect_config = z.object({
+  enable_customer_cancellation: PermissiveBoolean.optional(),
+  skip_tipping: PermissiveBoolean.optional(),
+  tipping: s_terminal_reader_reader_resource_tipping_config.optional(),
 })
 
 export const s_terminal_reader_reader_resource_process_config = z.object({
@@ -10509,6 +10580,7 @@ export const s_identity_verification_session = z.object({
   provided_details: s_gelato_provided_details.nullable().optional(),
   redaction: s_verification_session_redaction.nullable().optional(),
   related_customer: z.string().max(5000).nullable().optional(),
+  related_person: s_gelato_related_person.optional(),
   status: z.enum(["canceled", "processing", "requires_input", "verified"]),
   type: z.enum(["document", "id_number", "verification_flow"]),
   url: z.string().max(5000).nullable().optional(),
@@ -10656,6 +10728,12 @@ export const s_payment_intent_payment_method_options = z.object({
   cashapp: z
     .union([
       s_payment_method_options_cashapp,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  crypto: z
+    .union([
+      s_payment_method_options_crypto,
       s_payment_intent_type_specific_payment_method_options_client,
     ])
     .optional(),
@@ -10978,6 +11056,12 @@ export const s_setup_intent_payment_method_options = z.object({
       s_setup_intent_type_specific_payment_method_options_client,
     ])
     .optional(),
+  klarna: z
+    .union([
+      s_setup_intent_payment_method_options_klarna,
+      s_setup_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
   link: z
     .union([
       s_setup_intent_payment_method_options_link,
@@ -11205,6 +11289,7 @@ export const s_tax_product_registrations_resource_country_options = z.object({
   tj: s_tax_product_registrations_resource_country_options_simplified.optional(),
   tr: s_tax_product_registrations_resource_country_options_simplified.optional(),
   tz: s_tax_product_registrations_resource_country_options_simplified.optional(),
+  ua: s_tax_product_registrations_resource_country_options_simplified.optional(),
   ug: s_tax_product_registrations_resource_country_options_simplified.optional(),
   us: s_tax_product_registrations_resource_country_options_united_states.optional(),
   uy: s_tax_product_registrations_resource_country_options_default.optional(),
@@ -11286,6 +11371,7 @@ export const s_invoices_payment_settings = z.object({
         "boleto",
         "card",
         "cashapp",
+        "crypto",
         "customer_balance",
         "eps",
         "fpx",
@@ -11388,6 +11474,7 @@ export const s_subscriptions_resource_payment_settings = z.object({
         "boleto",
         "card",
         "cashapp",
+        "crypto",
         "customer_balance",
         "eps",
         "fpx",
@@ -12084,7 +12171,9 @@ export const s_dispute: z.ZodType<t_dispute, z.ZodTypeDef, unknown> = z.object({
   charge: z.union([z.string().max(5000), z.lazy(() => s_charge)]),
   created: z.coerce.number(),
   currency: z.string(),
-  enhanced_eligibility_types: z.array(z.enum(["visa_compelling_evidence_3"])),
+  enhanced_eligibility_types: z.array(
+    z.enum(["visa_compelling_evidence_3", "visa_compliance"]),
+  ),
   evidence: z.lazy(() => s_dispute_evidence),
   evidence_details: s_dispute_evidence_details,
   id: z.string().max(5000),
@@ -12745,6 +12834,7 @@ export const s_payment_method: z.ZodType<
   card_present: s_payment_method_card_present.optional(),
   cashapp: s_payment_method_cashapp.optional(),
   created: z.coerce.number(),
+  crypto: s_payment_method_crypto.optional(),
   customer: z
     .union([z.string().max(5000), z.lazy(() => s_customer)])
     .nullable()
@@ -12801,6 +12891,7 @@ export const s_payment_method: z.ZodType<
     "card",
     "card_present",
     "cashapp",
+    "crypto",
     "customer_balance",
     "eps",
     "fpx",
@@ -12854,6 +12945,7 @@ export const s_subscription: z.ZodType<t_subscription, z.ZodTypeDef, unknown> =
       s_subscriptions_resource_billing_cycle_anchor_config
         .nullable()
         .optional(),
+    billing_mode: s_subscriptions_resource_billing_mode,
     billing_thresholds: s_subscription_billing_thresholds.nullable().optional(),
     cancel_at: z.coerce.number().nullable().optional(),
     cancel_at_period_end: PermissiveBoolean,
@@ -13784,7 +13876,7 @@ export const s_payment_intent: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  amount: z.coerce.number(),
+  amount: z.coerce.number().optional(),
   amount_capturable: z.coerce.number().optional(),
   amount_details: z
     .union([
@@ -13816,11 +13908,11 @@ export const s_payment_intent: z.ZodType<
     ])
     .nullable()
     .optional(),
-  capture_method: z.enum(["automatic", "automatic_async", "manual"]),
+  capture_method: z.enum(["automatic", "automatic_async", "manual"]).optional(),
   client_secret: z.string().max(5000).nullable().optional(),
-  confirmation_method: z.enum(["automatic", "manual"]),
+  confirmation_method: z.enum(["automatic", "manual"]).optional(),
   created: z.coerce.number(),
-  currency: z.string(),
+  currency: z.string().optional(),
   customer: z
     .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
@@ -13851,7 +13943,7 @@ export const s_payment_intent: z.ZodType<
   payment_method_options: s_payment_intent_payment_method_options
     .nullable()
     .optional(),
-  payment_method_types: z.array(z.string().max(5000)),
+  payment_method_types: z.array(z.string().max(5000)).optional(),
   presentment_details:
     s_payment_flows_payment_intent_presentment_details.optional(),
   processing: s_payment_intent_processing.nullable().optional(),
@@ -14446,6 +14538,7 @@ export const s_subscription_schedule: z.ZodType<
     .union([z.string().max(5000), s_application, s_deleted_application])
     .nullable()
     .optional(),
+  billing_mode: s_subscriptions_resource_billing_mode,
   canceled_at: z.coerce.number().nullable().optional(),
   completed_at: z.coerce.number().nullable().optional(),
   created: z.coerce.number(),
@@ -15187,6 +15280,7 @@ export const s_payment_method_details: z.ZodType<
   card: s_payment_method_details_card.optional(),
   card_present: s_payment_method_details_card_present.optional(),
   cashapp: s_payment_method_details_cashapp.optional(),
+  crypto: s_payment_method_details_crypto.optional(),
   customer_balance: s_payment_method_details_customer_balance.optional(),
   eps: s_payment_method_details_eps.optional(),
   fpx: s_payment_method_details_fpx.optional(),
@@ -15378,6 +15472,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
   card: z.lazy(() => s_payment_method_card.optional()),
   card_present: s_payment_method_card_present.optional(),
   cashapp: s_payment_method_cashapp.optional(),
+  crypto: s_payment_method_crypto.optional(),
   customer: z
     .union([z.string().max(5000), z.lazy(() => s_customer)])
     .nullable()
@@ -15429,6 +15524,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
     "card",
     "card_present",
     "cashapp",
+    "crypto",
     "customer_balance",
     "eps",
     "fpx",
@@ -16083,6 +16179,12 @@ export const s_terminal_reader_reader_resource_reader_action: z.ZodType<
 > = z.object({
   collect_inputs:
     s_terminal_reader_reader_resource_collect_inputs_action.optional(),
+  collect_payment_method: z.lazy(() =>
+    s_terminal_reader_reader_resource_collect_payment_method_action.optional(),
+  ),
+  confirm_payment_intent: z.lazy(() =>
+    s_terminal_reader_reader_resource_confirm_payment_intent_action.optional(),
+  ),
   failure_code: z.string().max(5000).nullable().optional(),
   failure_message: z.string().max(5000).nullable().optional(),
   process_payment_intent: z.lazy(() =>
@@ -16099,6 +16201,8 @@ export const s_terminal_reader_reader_resource_reader_action: z.ZodType<
   status: z.enum(["failed", "in_progress", "succeeded"]),
   type: z.enum([
     "collect_inputs",
+    "collect_payment_method",
+    "confirm_payment_intent",
     "process_payment_intent",
     "process_setup_intent",
     "refund_payment",
@@ -16353,6 +16457,7 @@ export const s_payment_method_details_ideal: z.ZodType<
       "abn_amro",
       "asn_bank",
       "bunq",
+      "buut",
       "handelsbanken",
       "ing",
       "knab",
@@ -16375,6 +16480,7 @@ export const s_payment_method_details_ideal: z.ZodType<
       "ASNBNL21",
       "BITSNL2A",
       "BUNQNL2A",
+      "BUUTNL2A",
       "FVLBNL22",
       "HANDNL2A",
       "INGBNL2A",
@@ -16767,6 +16873,7 @@ export const s_setup_attempt_payment_method_details_ideal: z.ZodType<
       "abn_amro",
       "asn_bank",
       "bunq",
+      "buut",
       "handelsbanken",
       "ing",
       "knab",
@@ -16789,6 +16896,7 @@ export const s_setup_attempt_payment_method_details_ideal: z.ZodType<
       "ASNBNL21",
       "BITSNL2A",
       "BUNQNL2A",
+      "BUUTNL2A",
       "FVLBNL22",
       "HANDNL2A",
       "INGBNL2A",
@@ -16939,6 +17047,31 @@ export const s_subscription_schedule_configuration_item: z.ZodType<
   ]),
   quantity: z.coerce.number().optional(),
   tax_rates: z.array(s_tax_rate).nullable().optional(),
+})
+
+export const s_terminal_reader_reader_resource_collect_payment_method_action: z.ZodType<
+  t_terminal_reader_reader_resource_collect_payment_method_action,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  collect_config: s_terminal_reader_reader_resource_collect_config.optional(),
+  payment_intent: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_payment_intent),
+  ]),
+  payment_method: z.lazy(() => s_payment_method.optional()),
+})
+
+export const s_terminal_reader_reader_resource_confirm_payment_intent_action: z.ZodType<
+  t_terminal_reader_reader_resource_confirm_payment_intent_action,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  confirm_config: s_terminal_reader_reader_resource_confirm_config.optional(),
+  payment_intent: z.union([
+    z.string().max(5000),
+    z.lazy(() => s_payment_intent),
+  ]),
 })
 
 export const s_terminal_reader_reader_resource_process_payment_intent_action: z.ZodType<
