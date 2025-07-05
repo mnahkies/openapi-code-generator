@@ -73,15 +73,22 @@ export const _GET =
         },
       }
 
-      const {status, body} = await implementation(input, responder, request)
-        .then((it) => it.unpack())
+      const res = await implementation(input, responder, request)
+        .then((it) => {
+          if (it instanceof Response) {
+            return it
+          }
+          const {status, body} = it.unpack()
+
+          return body !== undefined
+            ? Response.json(body, {status})
+            : new Response(undefined, {status})
+        })
         .catch((err) => {
           throw OpenAPIRuntimeError.HandlerError(err)
         })
 
-      return body !== undefined
-        ? Response.json(body, {status})
-        : new Response(undefined, {status})
+      return res
     } catch (err) {
       return await onError(err)
     }

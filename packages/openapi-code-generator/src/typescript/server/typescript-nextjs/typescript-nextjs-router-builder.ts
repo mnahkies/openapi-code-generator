@@ -145,14 +145,18 @@ try {
 
        const responder = ${responder.implementation}
 
-       const {
-        status,
-        body,
-      } = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
-          .then(it => it.unpack())
+       const res = await implementation(${[params.hasParams ? "input" : undefined, "responder", "request"].filter(isDefined).join(",")})
+          .then(it => {
+            if(it instanceof Response) {
+              return it
+            }
+            const {status, body} = it.unpack()
+
+           return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
+          })
           .catch(err => { throw OpenAPIRuntimeError.HandlerError(err) })
 
-  return body !== undefined ? Response.json(body, {status}) : new Response(undefined, {status})
+    return res
   } catch (err) {
     return await onError(err)
   }
