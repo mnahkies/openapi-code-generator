@@ -163,14 +163,14 @@ import {
   t_treasury_transaction_entry,
   t_webhook_endpoint,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class StripeApiServiceServersOperations {
   static postFiles(
     url: "https://files.stripe.com/" = "https://files.stripe.com/",
-  ): { build: () => Server<"postFiles_StripeApiService"> } {
+  ): {build: () => Server<"postFiles_StripeApiService">} {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -186,7 +186,7 @@ export class StripeApiServiceServersOperations {
 
   static getQuotesQuotePdf(
     url: "https://files.stripe.com/" = "https://files.stripe.com/",
-  ): { build: () => Server<"getQuotesQuotePdf_StripeApiService"> } {
+  ): {build: () => Server<"getQuotesQuotePdf_StripeApiService">} {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -269,7 +269,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -284,7 +284,7 @@ export class StripeApiService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -313,14 +313,14 @@ export class StripeApiService {
       requestBody?: EmptyObject
     } = {},
   ): Observable<
-    | (HttpResponse<t_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -350,8 +350,8 @@ export class StripeApiService {
       type: "account_onboarding" | "account_update" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_account_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -505,8 +505,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_account_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -548,8 +548,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1158,8 +1158,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1183,8 +1183,8 @@ export class StripeApiService {
     account: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1209,14 +1209,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1771,8 +1771,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1828,8 +1828,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1854,8 +1854,8 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1882,14 +1882,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1946,8 +1946,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -1978,14 +1978,14 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2007,14 +2007,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_capability> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_capability> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2039,8 +2039,8 @@ export class StripeApiService {
       requested?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_capability> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_capability> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2075,8 +2075,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2140,8 +2140,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2166,8 +2166,8 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2194,14 +2194,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2258,8 +2258,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2286,8 +2286,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_login_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_login_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2328,8 +2328,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2512,8 +2512,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2538,8 +2538,8 @@ export class StripeApiService {
     person: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2566,14 +2566,14 @@ export class StripeApiService {
     person: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2746,8 +2746,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2789,8 +2789,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2973,8 +2973,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -2999,8 +2999,8 @@ export class StripeApiService {
     person: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3027,14 +3027,14 @@ export class StripeApiService {
     person: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3207,8 +3207,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_person> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_person> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3236,8 +3236,8 @@ export class StripeApiService {
       reason: string
     }
   }): Observable<
-    | (HttpResponse<t_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3272,8 +3272,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3307,8 +3307,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_apple_pay_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_apple_pay_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3332,8 +3332,8 @@ export class StripeApiService {
     domain: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_apple_pay_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_apple_pay_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3358,14 +3358,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_apple_pay_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_apple_pay_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3404,8 +3404,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3440,14 +3440,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_fee_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_fee_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3477,8 +3477,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_fee_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_fee_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3504,14 +3504,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_application_fee> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_application_fee> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3535,8 +3535,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_application_fee> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_application_fee> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3569,8 +3569,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3607,8 +3607,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_fee_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_fee_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3644,8 +3644,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3685,8 +3685,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_apps_secret> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_apps_secret> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3716,8 +3716,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_apps_secret> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_apps_secret> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3746,8 +3746,8 @@ export class StripeApiService {
     }
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_apps_secret> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_apps_secret> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3779,14 +3779,14 @@ export class StripeApiService {
       requestBody?: EmptyObject
     } = {},
   ): Observable<
-    | (HttpResponse<t_balance> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_balance> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3828,8 +3828,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3866,14 +3866,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3915,8 +3915,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -3953,14 +3953,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3992,8 +3992,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4038,8 +4038,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_billing_alert> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_alert> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4064,14 +4064,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_billing_alert> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_alert> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4093,8 +4093,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_alert> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_alert> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4120,8 +4120,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_alert> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_alert> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4147,8 +4147,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_alert> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_alert> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4183,8 +4183,8 @@ export class StripeApiService {
     }
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_billing_credit_balance_summary> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_balance_summary> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4224,8 +4224,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4259,14 +4259,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_billing_credit_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4298,8 +4298,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4356,8 +4356,8 @@ export class StripeApiService {
       priority?: number
     }
   }): Observable<
-    | (HttpResponse<t_billing_credit_grant> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_grant> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4382,14 +4382,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_billing_credit_grant> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_grant> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4415,8 +4415,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_billing_credit_grant> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_grant> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4442,8 +4442,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_credit_grant> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_grant> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4469,8 +4469,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_credit_grant> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_credit_grant> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4500,8 +4500,8 @@ export class StripeApiService {
       type: "cancel" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_billing_meter_event_adjustment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter_event_adjustment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4532,8 +4532,8 @@ export class StripeApiService {
       timestamp?: number
     }
   }): Observable<
-    | (HttpResponse<t_billing_meter_event> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter_event> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4568,8 +4568,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4615,8 +4615,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_billing_meter> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4641,14 +4641,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_billing_meter> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4671,8 +4671,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_meter> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4698,8 +4698,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_meter> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4736,8 +4736,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4774,8 +4774,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_billing_meter> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_meter> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4811,8 +4811,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4939,8 +4939,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_portal_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -4965,14 +4965,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_portal_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5095,8 +5095,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_portal_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5220,8 +5220,8 @@ export class StripeApiService {
       return_url?: string
     }
   }): Observable<
-    | (HttpResponse<t_billing_portal_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_billing_portal_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5266,8 +5266,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5370,8 +5370,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_charge> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_charge> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5405,8 +5405,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5438,14 +5438,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_charge> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_charge> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5494,8 +5494,8 @@ export class StripeApiService {
       transfer_group?: string
     }
   }): Observable<
-    | (HttpResponse<t_charge> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_charge> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5531,8 +5531,8 @@ export class StripeApiService {
       transfer_group?: string
     }
   }): Observable<
-    | (HttpResponse<t_charge> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_charge> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5557,14 +5557,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5675,8 +5675,8 @@ export class StripeApiService {
       submit?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5702,8 +5702,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5745,8 +5745,8 @@ export class StripeApiService {
       reverse_transfer?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_charge> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_charge> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5779,8 +5779,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5832,8 +5832,8 @@ export class StripeApiService {
       reverse_transfer?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5859,14 +5859,14 @@ export class StripeApiService {
     refund: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5896,8 +5896,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -5948,8 +5948,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7016,8 +7016,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_checkout_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_checkout_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7042,14 +7042,14 @@ export class StripeApiService {
     session: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_checkout_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_checkout_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7147,8 +7147,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_checkout_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_checkout_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7174,8 +7174,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_checkout_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_checkout_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7208,8 +7208,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7250,8 +7250,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7293,8 +7293,8 @@ export class StripeApiService {
       product: string
     }
   }): Observable<
-    | (HttpResponse<t_climate_order> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_climate_order> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7319,14 +7319,14 @@ export class StripeApiService {
     order: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_climate_order> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_climate_order> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7357,8 +7357,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_climate_order> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_climate_order> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7384,8 +7384,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_climate_order> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_climate_order> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7419,8 +7419,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7452,14 +7452,14 @@ export class StripeApiService {
     product: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_climate_product> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_climate_product> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7489,8 +7489,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7522,14 +7522,14 @@ export class StripeApiService {
     supplier: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_climate_supplier> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_climate_supplier> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7550,14 +7550,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_confirmation_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_confirmation_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7588,8 +7588,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7621,14 +7621,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_country_spec> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_country_spec> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7666,8 +7666,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7727,8 +7727,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_coupon> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_coupon> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7752,8 +7752,8 @@ export class StripeApiService {
     coupon: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_coupon> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_coupon> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7778,14 +7778,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_coupon> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_coupon> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7821,8 +7821,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_coupon> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_coupon> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7866,8 +7866,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -7944,8 +7944,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_credit_note> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_credit_note> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8011,8 +8011,8 @@ export class StripeApiService {
     }
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_credit_note> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_credit_note> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8103,8 +8103,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8157,8 +8157,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8190,14 +8190,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_credit_note> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_credit_note> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8223,8 +8223,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_credit_note> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_credit_note> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8250,8 +8250,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_credit_note> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_credit_note> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8313,8 +8313,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_customer_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8358,8 +8358,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8593,8 +8593,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_customer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8628,8 +8628,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8660,8 +8660,8 @@ export class StripeApiService {
     customer: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_customer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_customer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8686,14 +8686,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_customer | t_deleted_customer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer | t_deleted_customer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8833,8 +8833,8 @@ export class StripeApiService {
       tax_exempt?: "" | "exempt" | "none" | "reverse" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_customer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8867,8 +8867,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8911,8 +8911,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -8939,14 +8939,14 @@ export class StripeApiService {
     transaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8977,8 +8977,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9012,8 +9012,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9084,8 +9084,8 @@ export class StripeApiService {
       source?: string
     }
   }): Observable<
-    | (HttpResponse<t_payment_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9115,7 +9115,7 @@ export class StripeApiService {
     | (HttpResponse<t_payment_source | t_deleted_payment_source> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9142,14 +9142,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_bank_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_bank_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9203,8 +9203,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_card | t_bank_account | t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_card | t_bank_account | t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9233,8 +9233,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_bank_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_bank_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9268,8 +9268,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9340,8 +9340,8 @@ export class StripeApiService {
       source?: string
     }
   }): Observable<
-    | (HttpResponse<t_payment_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9371,7 +9371,7 @@ export class StripeApiService {
     | (HttpResponse<t_payment_source | t_deleted_payment_source> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9397,14 +9397,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9457,8 +9457,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_card | t_bank_account | t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_card | t_bank_account | t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9483,14 +9483,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_cash_balance> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_cash_balance> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9519,8 +9519,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_cash_balance> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_cash_balance> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9553,8 +9553,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9588,14 +9588,14 @@ export class StripeApiService {
     transaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_customer_cash_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer_cash_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9616,8 +9616,8 @@ export class StripeApiService {
     customer: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_discount> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_discount> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9642,14 +9642,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_discount> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_discount> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9692,8 +9692,8 @@ export class StripeApiService {
       funding_type: "bank_transfer" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_funding_instructions> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_funding_instructions> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9782,8 +9782,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9818,14 +9818,14 @@ export class StripeApiService {
     paymentMethod: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_method> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9856,8 +9856,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9929,8 +9929,8 @@ export class StripeApiService {
       source?: string
     }
   }): Observable<
-    | (HttpResponse<t_payment_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9960,7 +9960,7 @@ export class StripeApiService {
     | (HttpResponse<t_payment_source | t_deleted_payment_source> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -9987,14 +9987,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10048,8 +10048,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_card | t_bank_account | t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_card | t_bank_account | t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10078,8 +10078,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_bank_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_bank_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10113,8 +10113,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10445,8 +10445,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10475,8 +10475,8 @@ export class StripeApiService {
       prorate?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10503,14 +10503,14 @@ export class StripeApiService {
     subscriptionExposedId: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10864,8 +10864,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10891,8 +10891,8 @@ export class StripeApiService {
     subscriptionExposedId: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_discount> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_discount> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -10919,14 +10919,14 @@ export class StripeApiService {
     subscriptionExposedId: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_discount> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_discount> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10956,8 +10956,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11103,8 +11103,8 @@ export class StripeApiService {
       value: string
     }
   }): Observable<
-    | (HttpResponse<t_tax_id> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_id> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11129,8 +11129,8 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_tax_id> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_tax_id> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11157,14 +11157,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_id> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_id> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11205,8 +11205,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11241,14 +11241,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11359,8 +11359,8 @@ export class StripeApiService {
       submit?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11386,8 +11386,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11420,8 +11420,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11454,14 +11454,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_entitlements_active_entitlement> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_entitlements_active_entitlement> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11493,8 +11493,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11533,8 +11533,8 @@ export class StripeApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_entitlements_feature> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_entitlements_feature> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11559,14 +11559,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_entitlements_feature> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_entitlements_feature> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11596,8 +11596,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_entitlements_feature> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_entitlements_feature> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11628,8 +11628,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_ephemeral_key> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_ephemeral_key> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11655,8 +11655,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_ephemeral_key> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_ephemeral_key> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11701,8 +11701,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11738,14 +11738,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_event> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_event> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11775,8 +11775,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11808,14 +11808,14 @@ export class StripeApiService {
     rateId: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_exchange_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_exchange_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11870,8 +11870,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_external_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_external_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11915,8 +11915,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11959,8 +11959,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_file_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_file_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -11985,14 +11985,14 @@ export class StripeApiService {
     link: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_file_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_file_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12021,8 +12021,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_file_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_file_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12083,8 +12083,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12147,11 +12147,11 @@ export class StripeApiService {
       | Server<"postFiles_StripeApiService">
       | string = StripeApiServiceServers.operations.postFiles().build(),
   ): Observable<
-    | (HttpResponse<t_file> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_file> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "multipart/form-data" })
+    const headers = this._headers({"Content-Type": "multipart/form-data"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>("POST", basePath + `/v1/files`, {
@@ -12167,14 +12167,14 @@ export class StripeApiService {
     file: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_file> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_file> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12209,8 +12209,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12244,14 +12244,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12274,8 +12274,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12310,8 +12310,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12352,8 +12352,8 @@ export class StripeApiService {
       )[]
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12381,8 +12381,8 @@ export class StripeApiService {
       features: ("transactions" | UnknownEnumStringValue)[]
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12410,8 +12410,8 @@ export class StripeApiService {
       features: ("transactions" | UnknownEnumStringValue)[]
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12467,8 +12467,8 @@ export class StripeApiService {
       return_url?: string
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12493,14 +12493,14 @@ export class StripeApiService {
     session: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_financial_connections_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12541,8 +12541,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12577,14 +12577,14 @@ export class StripeApiService {
     transaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_financial_connections_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12621,8 +12621,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12675,8 +12675,8 @@ export class StripeApiService {
       url: string
     }
   }): Observable<
-    | (HttpResponse<t_forwarding_request> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_forwarding_request> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12701,14 +12701,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_forwarding_request> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_forwarding_request> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12749,8 +12749,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12786,14 +12786,14 @@ export class StripeApiService {
     report: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_identity_verification_report> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_identity_verification_report> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12839,8 +12839,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12910,8 +12910,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_identity_verification_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_identity_verification_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -12936,14 +12936,14 @@ export class StripeApiService {
     session: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_identity_verification_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_identity_verification_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12990,8 +12990,8 @@ export class StripeApiService {
       type?: "document" | "id_number" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_identity_verification_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_identity_verification_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13018,8 +13018,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_identity_verification_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_identity_verification_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13046,8 +13046,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_identity_verification_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_identity_verification_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13088,8 +13088,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13124,14 +13124,14 @@ export class StripeApiService {
     invoicePayment: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_invoice_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13162,8 +13162,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13197,8 +13197,8 @@ export class StripeApiService {
     version?: number
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_invoice_rendering_template> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice_rendering_template> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13229,8 +13229,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice_rendering_template> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice_rendering_template> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13257,8 +13257,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice_rendering_template> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice_rendering_template> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13304,8 +13304,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13389,8 +13389,8 @@ export class StripeApiService {
       unit_amount_decimal?: string
     }
   }): Observable<
-    | (HttpResponse<t_invoiceitem> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoiceitem> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13414,8 +13414,8 @@ export class StripeApiService {
     invoiceitem: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_invoiceitem> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_invoiceitem> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13440,14 +13440,14 @@ export class StripeApiService {
     invoiceitem: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_invoiceitem> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoiceitem> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13513,8 +13513,8 @@ export class StripeApiService {
       unit_amount_decimal?: string
     }
   }): Observable<
-    | (HttpResponse<t_invoiceitem> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoiceitem> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13577,8 +13577,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -13910,8 +13910,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14369,8 +14369,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14404,8 +14404,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14436,8 +14436,8 @@ export class StripeApiService {
     invoice: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14462,14 +14462,14 @@ export class StripeApiService {
     invoice: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14781,8 +14781,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14920,8 +14920,8 @@ export class StripeApiService {
       }[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14948,8 +14948,8 @@ export class StripeApiService {
       payment_intent?: string
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -14976,8 +14976,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15010,8 +15010,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15148,8 +15148,8 @@ export class StripeApiService {
       tax_rates?: string[] | "" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_line_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_line_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15176,8 +15176,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15209,8 +15209,8 @@ export class StripeApiService {
       source?: string
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15246,8 +15246,8 @@ export class StripeApiService {
       }[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15273,8 +15273,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15412,8 +15412,8 @@ export class StripeApiService {
       }[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15439,8 +15439,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_invoice> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_invoice> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15490,8 +15490,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15527,14 +15527,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15562,8 +15562,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15596,8 +15596,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15630,8 +15630,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -15678,8 +15678,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -16677,8 +16677,8 @@ export class StripeApiService {
       type?: "company" | "individual" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_cardholder> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_cardholder> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -16703,14 +16703,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_cardholder> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_cardholder> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17691,8 +17691,8 @@ export class StripeApiService {
       status?: "active" | "inactive" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_cardholder> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_cardholder> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -17741,8 +17741,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -18736,8 +18736,8 @@ export class StripeApiService {
       type: "physical" | "virtual" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -18762,14 +18762,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19737,8 +19737,8 @@ export class StripeApiService {
       status?: "active" | "canceled" | "inactive" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -19788,8 +19788,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -19949,8 +19949,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_issuing_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -19975,14 +19975,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20126,8 +20126,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20159,8 +20159,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_dispute> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_dispute> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20205,8 +20205,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20258,8 +20258,8 @@ export class StripeApiService {
       transfer_lookup_key?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_personalization_design> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20284,14 +20284,14 @@ export class StripeApiService {
     personalizationDesign: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_personalization_design> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20334,8 +20334,8 @@ export class StripeApiService {
       transfer_lookup_key?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_personalization_design> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20372,8 +20372,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20407,14 +20407,14 @@ export class StripeApiService {
     physicalBundle: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_physical_bundle> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_physical_bundle> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20436,14 +20436,14 @@ export class StripeApiService {
     settlement: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_settlement> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_settlement> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20468,8 +20468,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_issuing_settlement> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_settlement> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20516,8 +20516,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20552,14 +20552,14 @@ export class StripeApiService {
     token: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20582,8 +20582,8 @@ export class StripeApiService {
       status: "active" | "deleted" | "suspended" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20628,8 +20628,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20665,14 +20665,14 @@ export class StripeApiService {
     transaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_issuing_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20700,8 +20700,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20756,8 +20756,8 @@ export class StripeApiService {
       return_url?: string
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20782,14 +20782,14 @@ export class StripeApiService {
     session: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_financial_connections_session> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_session> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20824,8 +20824,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20859,14 +20859,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20888,8 +20888,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20923,8 +20923,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20964,8 +20964,8 @@ export class StripeApiService {
       )[]
     }
   }): Observable<
-    | (HttpResponse<t_financial_connections_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_financial_connections_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -20990,14 +20990,14 @@ export class StripeApiService {
     mandate: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_mandate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_mandate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21036,8 +21036,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -22172,8 +22172,8 @@ export class StripeApiService {
       use_stripe_sdk?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -22207,8 +22207,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -22241,8 +22241,8 @@ export class StripeApiService {
     intent: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -23353,8 +23353,8 @@ export class StripeApiService {
       transfer_group?: string
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -23382,8 +23382,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -23416,8 +23416,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -23457,8 +23457,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -24579,8 +24579,8 @@ export class StripeApiService {
       use_stripe_sdk?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -24616,8 +24616,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -24647,8 +24647,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -24684,8 +24684,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -25210,8 +25210,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payment_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -25236,14 +25236,14 @@ export class StripeApiService {
     paymentLink: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25742,8 +25742,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payment_link> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_link> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -25776,8 +25776,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -25819,8 +25819,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26117,8 +26117,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_payment_method_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26143,14 +26143,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_method_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26435,8 +26435,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payment_method_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26473,8 +26473,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26510,8 +26510,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_method_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26536,14 +26536,14 @@ export class StripeApiService {
     paymentMethodDomain: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_method_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26567,8 +26567,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_method_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26595,8 +26595,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_method_domain> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method_domain> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -26682,8 +26682,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27016,8 +27016,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_payment_method> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27042,14 +27042,14 @@ export class StripeApiService {
     paymentMethod: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payment_method> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -27117,8 +27117,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payment_method> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27145,8 +27145,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_method> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27172,8 +27172,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payment_method> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payment_method> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27225,8 +27225,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27272,8 +27272,8 @@ export class StripeApiService {
       statement_descriptor?: string
     }
   }): Observable<
-    | (HttpResponse<t_payout> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payout> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27298,14 +27298,14 @@ export class StripeApiService {
     payout: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_payout> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payout> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -27333,8 +27333,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_payout> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payout> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27360,8 +27360,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_payout> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payout> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27390,8 +27390,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_payout> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_payout> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27435,8 +27435,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27514,8 +27514,8 @@ export class StripeApiService {
       usage_type?: "licensed" | "metered" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_plan> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_plan> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27539,8 +27539,8 @@ export class StripeApiService {
     plan: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_plan> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_plan> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27565,14 +27565,14 @@ export class StripeApiService {
     plan: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_plan> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_plan> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -27604,8 +27604,8 @@ export class StripeApiService {
       trial_period_days?: number
     }
   }): Observable<
-    | (HttpResponse<t_plan> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_plan> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27657,8 +27657,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27775,8 +27775,8 @@ export class StripeApiService {
       unit_amount_decimal?: string
     }
   }): Observable<
-    | (HttpResponse<t_price> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_price> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27810,8 +27810,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27843,14 +27843,14 @@ export class StripeApiService {
     price: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_price> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_price> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -27916,8 +27916,8 @@ export class StripeApiService {
       transfer_lookup_key?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_price> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_price> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -27963,8 +27963,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28072,8 +28072,8 @@ export class StripeApiService {
       url?: string
     }
   }): Observable<
-    | (HttpResponse<t_product> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_product> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28107,8 +28107,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28139,8 +28139,8 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_product> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_product> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28165,14 +28165,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_product> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_product> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -28225,8 +28225,8 @@ export class StripeApiService {
       url?: string | "" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_product> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_product> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28259,8 +28259,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28294,8 +28294,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_product_feature> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_product_feature> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28320,8 +28320,8 @@ export class StripeApiService {
     product: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_product_feature> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_product_feature> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28347,14 +28347,14 @@ export class StripeApiService {
     product: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_product_feature> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_product_feature> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -28396,8 +28396,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28455,8 +28455,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_promotion_code> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_promotion_code> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28481,14 +28481,14 @@ export class StripeApiService {
     promotionCode: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_promotion_code> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_promotion_code> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -28526,8 +28526,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_promotion_code> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_promotion_code> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28569,8 +28569,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28706,8 +28706,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_quote> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_quote> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28732,14 +28732,14 @@ export class StripeApiService {
     quote: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_quote> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_quote> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -28848,8 +28848,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_quote> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_quote> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28875,8 +28875,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_quote> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_quote> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28902,8 +28902,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_quote> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_quote> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28936,8 +28936,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -28972,8 +28972,8 @@ export class StripeApiService {
       expires_at?: number
     }
   }): Observable<
-    | (HttpResponse<t_quote> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_quote> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29006,8 +29006,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29044,14 +29044,14 @@ export class StripeApiService {
       | Server<"getQuotesQuotePdf_StripeApiService">
       | string = StripeApiServiceServers.operations.getQuotesQuotePdf().build(),
   ): Observable<
-    | (HttpResponse<string> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<string> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -29091,8 +29091,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29127,14 +29127,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_radar_early_fraud_warning> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_radar_early_fraud_warning> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -29173,8 +29173,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29211,8 +29211,8 @@ export class StripeApiService {
       value_list: string
     }
   }): Observable<
-    | (HttpResponse<t_radar_value_list_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_radar_value_list_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29236,8 +29236,8 @@ export class StripeApiService {
     item: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_radar_value_list_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_radar_value_list_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29262,14 +29262,14 @@ export class StripeApiService {
     item: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_radar_value_list_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_radar_value_list_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -29309,8 +29309,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29362,8 +29362,8 @@ export class StripeApiService {
       name: string
     }
   }): Observable<
-    | (HttpResponse<t_radar_value_list> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_radar_value_list> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29387,8 +29387,8 @@ export class StripeApiService {
     valueList: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_radar_value_list> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_radar_value_list> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29413,14 +29413,14 @@ export class StripeApiService {
     valueList: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_radar_value_list> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_radar_value_list> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -29447,8 +29447,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_radar_value_list> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_radar_value_list> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29492,8 +29492,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29550,8 +29550,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29576,14 +29576,14 @@ export class StripeApiService {
     refund: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -29611,8 +29611,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29638,8 +29638,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -29681,8 +29681,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -30363,8 +30363,8 @@ export class StripeApiService {
       report_type: string
     }
   }): Observable<
-    | (HttpResponse<t_reporting_report_run> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_reporting_report_run> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -30389,14 +30389,14 @@ export class StripeApiService {
     reportRun: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_reporting_report_run> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_reporting_report_run> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -30423,14 +30423,14 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -30451,14 +30451,14 @@ export class StripeApiService {
     reportType: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_reporting_report_type> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_reporting_report_type> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -30496,8 +30496,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -30530,14 +30530,14 @@ export class StripeApiService {
     review: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_review> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_review> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -30559,8 +30559,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_review> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_review> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -30601,8 +30601,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -30656,8 +30656,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -31253,8 +31253,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_setup_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_setup_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -31280,8 +31280,8 @@ export class StripeApiService {
     intent: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_setup_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_setup_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -31838,8 +31838,8 @@ export class StripeApiService {
       payment_method_types?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_setup_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_setup_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -31870,8 +31870,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_setup_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_setup_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32438,8 +32438,8 @@ export class StripeApiService {
       use_stripe_sdk?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_setup_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_setup_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32468,8 +32468,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_setup_intent> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_setup_intent> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32514,8 +32514,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32599,8 +32599,8 @@ export class StripeApiService {
       type?: "fixed_amount" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_shipping_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_shipping_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32625,14 +32625,14 @@ export class StripeApiService {
     shippingRateToken: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_shipping_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_shipping_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -32680,8 +32680,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_shipping_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_shipping_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32709,8 +32709,8 @@ export class StripeApiService {
       sql?: string
     }
   }): Observable<
-    | (HttpResponse<t_sigma_sigma_api_query> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_sigma_sigma_api_query> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32744,8 +32744,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32777,14 +32777,14 @@ export class StripeApiService {
     scheduledQueryRun: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_scheduled_query_run> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_scheduled_query_run> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -32913,8 +32913,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -32940,8 +32940,8 @@ export class StripeApiService {
     source: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33057,8 +33057,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33084,14 +33084,14 @@ export class StripeApiService {
     source: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_source_mandate_notification> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_source_mandate_notification> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -33121,8 +33121,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33155,14 +33155,14 @@ export class StripeApiService {
     sourceTransaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_source_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_source_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -33186,8 +33186,8 @@ export class StripeApiService {
       values: string[]
     }
   }): Observable<
-    | (HttpResponse<t_source> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_source> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33220,8 +33220,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33302,8 +33302,8 @@ export class StripeApiService {
       tax_rates?: string[] | "" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_subscription_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33335,8 +33335,8 @@ export class StripeApiService {
       proration_date?: number
     }
   }): Observable<
-    | (HttpResponse<t_deleted_subscription_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_subscription_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33361,14 +33361,14 @@ export class StripeApiService {
     item: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_subscription_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -33441,8 +33441,8 @@ export class StripeApiService {
       tax_rates?: string[] | "" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_subscription_item> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_item> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33510,8 +33510,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33737,8 +33737,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_subscription_schedule> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_schedule> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -33763,14 +33763,14 @@ export class StripeApiService {
     schedule: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_subscription_schedule> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_schedule> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -33977,8 +33977,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_subscription_schedule> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_schedule> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34006,8 +34006,8 @@ export class StripeApiService {
       prorate?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_subscription_schedule> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_schedule> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34035,8 +34035,8 @@ export class StripeApiService {
       preserve_cancel_date?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_subscription_schedule> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription_schedule> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34117,8 +34117,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34470,8 +34470,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34505,8 +34505,8 @@ export class StripeApiService {
         object: "search_result" | UnknownEnumStringValue
         total_count?: number
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34555,8 +34555,8 @@ export class StripeApiService {
       prorate?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34581,14 +34581,14 @@ export class StripeApiService {
     subscriptionExposedId: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -34942,8 +34942,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34967,8 +34967,8 @@ export class StripeApiService {
     subscriptionExposedId: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_discount> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_discount> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -34998,8 +34998,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -35032,8 +35032,8 @@ export class StripeApiService {
       proration_date?: number
     }
   }): Observable<
-    | (HttpResponse<t_subscription> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_subscription> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -35220,8 +35220,8 @@ export class StripeApiService {
       tax_date?: number
     }
   }): Observable<
-    | (HttpResponse<t_tax_calculation> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_calculation> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -35246,14 +35246,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_calculation> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_calculation> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -35282,8 +35282,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -35331,8 +35331,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -35994,8 +35994,8 @@ export class StripeApiService {
       expires_at?: number
     }
   }): Observable<
-    | (HttpResponse<t_tax_registration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_registration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36020,14 +36020,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_registration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_registration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -36051,8 +36051,8 @@ export class StripeApiService {
       expires_at?: "now" | UnknownEnumStringValue | number | ""
     }
   }): Observable<
-    | (HttpResponse<t_tax_registration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_registration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36078,14 +36078,14 @@ export class StripeApiService {
       requestBody?: EmptyObject
     } = {},
   ): Observable<
-    | (HttpResponse<t_tax_settings> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_settings> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -36126,8 +36126,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_tax_settings> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_settings> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36158,8 +36158,8 @@ export class StripeApiService {
       reference: string
     }
   }): Observable<
-    | (HttpResponse<t_tax_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36205,8 +36205,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_tax_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36231,14 +36231,14 @@ export class StripeApiService {
     transaction: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -36267,8 +36267,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36310,8 +36310,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36343,14 +36343,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_code> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_code> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -36390,8 +36390,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36547,8 +36547,8 @@ export class StripeApiService {
       value: string
     }
   }): Observable<
-    | (HttpResponse<t_tax_id> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_id> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36572,8 +36572,8 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_tax_id> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_tax_id> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36598,14 +36598,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_id> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_id> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -36645,8 +36645,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36708,8 +36708,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_tax_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36734,14 +36734,14 @@ export class StripeApiService {
     taxRate: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_tax_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -36791,8 +36791,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_tax_rate> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_tax_rate> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36827,8 +36827,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -36995,8 +36995,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_terminal_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37020,8 +37020,8 @@ export class StripeApiService {
     configuration: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_terminal_configuration> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_terminal_configuration> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37049,14 +37049,14 @@ export class StripeApiService {
   }): Observable<
     | (HttpResponse<
         t_terminal_configuration | t_deleted_terminal_configuration
-      > & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      > & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -37225,8 +37225,8 @@ export class StripeApiService {
   }): Observable<
     | (HttpResponse<
         t_terminal_configuration | t_deleted_terminal_configuration
-      > & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      > & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37255,8 +37255,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_terminal_connection_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_connection_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37290,8 +37290,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37339,8 +37339,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_terminal_location> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_location> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37364,8 +37364,8 @@ export class StripeApiService {
     location: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_terminal_location> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_terminal_location> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37393,13 +37393,13 @@ export class StripeApiService {
     | (HttpResponse<t_terminal_location | t_deleted_terminal_location> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -37440,7 +37440,7 @@ export class StripeApiService {
     | (HttpResponse<t_terminal_location | t_deleted_terminal_location> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37488,8 +37488,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37534,8 +37534,8 @@ export class StripeApiService {
       registration_code: string
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37559,8 +37559,8 @@ export class StripeApiService {
     reader: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37588,13 +37588,13 @@ export class StripeApiService {
     | (HttpResponse<t_terminal_reader | t_deleted_terminal_reader> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -37626,7 +37626,7 @@ export class StripeApiService {
     | (HttpResponse<t_terminal_reader | t_deleted_terminal_reader> & {
         status: 200
       })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37652,8 +37652,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37712,8 +37712,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37753,8 +37753,8 @@ export class StripeApiService {
       payment_intent: string
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37785,8 +37785,8 @@ export class StripeApiService {
       payment_intent: string
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37827,8 +37827,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37864,8 +37864,8 @@ export class StripeApiService {
       setup_intent: string
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37903,8 +37903,8 @@ export class StripeApiService {
       reverse_transfer?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -37942,8 +37942,8 @@ export class StripeApiService {
       type: "cart" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -38283,8 +38283,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_confirmation_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_confirmation_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -38313,8 +38313,8 @@ export class StripeApiService {
       reference?: string
     }
   }): Observable<
-    | (HttpResponse<t_customer_cash_balance_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_customer_cash_balance_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -38762,8 +38762,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -38871,8 +38871,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -38899,8 +38899,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -38981,8 +38981,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39010,8 +39010,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39040,8 +39040,8 @@ export class StripeApiService {
       is_amount_controllable?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39069,8 +39069,8 @@ export class StripeApiService {
       reverse_amount?: number
     }
   }): Observable<
-    | (HttpResponse<t_issuing_authorization> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_authorization> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39097,8 +39097,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39125,8 +39125,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39153,8 +39153,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39181,8 +39181,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39209,8 +39209,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_card> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_card> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39237,8 +39237,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_personalization_design> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39265,8 +39265,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_personalization_design> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39316,8 +39316,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_personalization_design> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39352,8 +39352,8 @@ export class StripeApiService {
       transaction_count?: number
     }
   }): Observable<
-    | (HttpResponse<t_issuing_settlement> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_settlement> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39379,8 +39379,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_issuing_settlement> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_settlement> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -39795,8 +39795,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_issuing_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40211,8 +40211,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_issuing_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40240,8 +40240,8 @@ export class StripeApiService {
       refund_amount?: number
     }
   }): Observable<
-    | (HttpResponse<t_issuing_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_issuing_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40268,8 +40268,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_refund> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_refund> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40303,8 +40303,8 @@ export class StripeApiService {
       type?: "card_present" | "interac_present" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40332,8 +40332,8 @@ export class StripeApiService {
       skip_non_required_inputs?: "all" | "none" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40360,8 +40360,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_terminal_reader> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_terminal_reader> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40396,8 +40396,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40431,8 +40431,8 @@ export class StripeApiService {
       name?: string
     }
   }): Observable<
-    | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_test_helpers_test_clock> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40456,8 +40456,8 @@ export class StripeApiService {
     testClock: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_test_helpers_test_clock> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_test_helpers_test_clock> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40482,14 +40482,14 @@ export class StripeApiService {
     testClock: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_test_helpers_test_clock> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -40512,8 +40512,8 @@ export class StripeApiService {
       frozen_time: number
     }
   }): Observable<
-    | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_test_helpers_test_clock> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40557,8 +40557,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40585,8 +40585,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40613,8 +40613,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40652,8 +40652,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40680,8 +40680,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40708,8 +40708,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40750,8 +40750,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40789,8 +40789,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40817,8 +40817,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40845,8 +40845,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40887,8 +40887,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40927,8 +40927,8 @@ export class StripeApiService {
       network: "ach" | "us_domestic_wire" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_treasury_received_credit> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_received_credit> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -40966,8 +40966,8 @@ export class StripeApiService {
       network: "ach" | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_treasury_received_debit> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_received_debit> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41380,8 +41380,8 @@ export class StripeApiService {
       }
     } = {},
   ): Observable<
-    | (HttpResponse<t_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41406,14 +41406,14 @@ export class StripeApiService {
     token: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_token> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_token> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -41465,8 +41465,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41513,8 +41513,8 @@ export class StripeApiService {
       transfer_group?: string
     }
   }): Observable<
-    | (HttpResponse<t_topup> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_topup> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41539,14 +41539,14 @@ export class StripeApiService {
     topup: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_topup> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_topup> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -41575,8 +41575,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_topup> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_topup> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41602,8 +41602,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_topup> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_topup> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41647,8 +41647,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41693,8 +41693,8 @@ export class StripeApiService {
       transfer_group?: string
     }
   }): Observable<
-    | (HttpResponse<t_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41727,8 +41727,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41770,8 +41770,8 @@ export class StripeApiService {
       refund_application_fee?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_transfer_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_transfer_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41796,14 +41796,14 @@ export class StripeApiService {
     transfer: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -41832,8 +41832,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41859,14 +41859,14 @@ export class StripeApiService {
     transfer: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_transfer_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_transfer_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -41896,8 +41896,8 @@ export class StripeApiService {
         | UnknownEnumStringValue
     }
   }): Observable<
-    | (HttpResponse<t_transfer_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_transfer_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41933,8 +41933,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41973,8 +41973,8 @@ export class StripeApiService {
       received_credit: string
     }
   }): Observable<
-    | (HttpResponse<t_treasury_credit_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_credit_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -41999,14 +41999,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_credit_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_credit_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42039,8 +42039,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42080,8 +42080,8 @@ export class StripeApiService {
       received_debit: string
     }
   }): Observable<
-    | (HttpResponse<t_treasury_debit_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_debit_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42106,14 +42106,14 @@ export class StripeApiService {
     expand?: string[]
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_debit_reversal> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_debit_reversal> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42153,8 +42153,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42234,8 +42234,8 @@ export class StripeApiService {
       supported_currencies: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_financial_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42260,14 +42260,14 @@ export class StripeApiService {
     financialAccount: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_financial_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42340,8 +42340,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_financial_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42373,8 +42373,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_financial_account> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_financial_account> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42400,14 +42400,14 @@ export class StripeApiService {
     financialAccount: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_financial_account_features> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_financial_account_features> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42465,8 +42465,8 @@ export class StripeApiService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_treasury_financial_account_features> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_financial_account_features> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42506,8 +42506,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42550,8 +42550,8 @@ export class StripeApiService {
       statement_descriptor?: string
     }
   }): Observable<
-    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42576,14 +42576,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42605,8 +42605,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42656,8 +42656,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42748,8 +42748,8 @@ export class StripeApiService {
       statement_descriptor?: string
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42774,14 +42774,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42803,8 +42803,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42844,8 +42844,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42900,8 +42900,8 @@ export class StripeApiService {
       statement_descriptor?: string
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -42926,14 +42926,14 @@ export class StripeApiService {
     outboundTransfer: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -42956,8 +42956,8 @@ export class StripeApiService {
       expand?: string[]
     }
   }): Observable<
-    | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43001,8 +43001,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43037,14 +43037,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_received_credit> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_received_credit> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -43074,8 +43074,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43109,14 +43109,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_received_debit> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_received_debit> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -43163,8 +43163,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43201,14 +43201,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_transaction_entry> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_transaction_entry> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -43257,8 +43257,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43295,14 +43295,14 @@ export class StripeApiService {
     id: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_treasury_transaction> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_treasury_transaction> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -43332,8 +43332,8 @@ export class StripeApiService {
         has_more: boolean
         object: "list" | UnknownEnumStringValue
         url: string
-      }> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+      }> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43735,8 +43735,8 @@ export class StripeApiService {
       url: string
     }
   }): Observable<
-    | (HttpResponse<t_webhook_endpoint> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_webhook_endpoint> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43760,8 +43760,8 @@ export class StripeApiService {
     webhookEndpoint: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_deleted_webhook_endpoint> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_deleted_webhook_endpoint> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -43786,14 +43786,14 @@ export class StripeApiService {
     webhookEndpoint: string
     requestBody?: EmptyObject
   }): Observable<
-    | (HttpResponse<t_webhook_endpoint> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_webhook_endpoint> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -44070,8 +44070,8 @@ export class StripeApiService {
       url?: string
     }
   }): Observable<
-    | (HttpResponse<t_webhook_endpoint> & { status: 200 })
-    | (HttpResponse<t_error> & { status: StatusCode })
+    | (HttpResponse<t_webhook_endpoint> & {status: 200})
+    | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -44092,5 +44092,5 @@ export class StripeApiService {
   }
 }
 
-export { StripeApiService as ApiClient }
-export { StripeApiServiceConfig as ApiClientConfig }
+export {StripeApiService as ApiClient}
+export {StripeApiServiceConfig as ApiClientConfig}

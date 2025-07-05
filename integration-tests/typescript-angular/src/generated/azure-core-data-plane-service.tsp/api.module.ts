@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ContosoWidgetManagerService } from "./client.service"
-import { NgModule } from "@angular/core"
+import {ContosoWidgetManagerService} from "./client.service"
+import {NgModule} from "@angular/core"
 
 @NgModule({
   imports: [],
@@ -13,4 +13,4 @@ import { NgModule } from "@angular/core"
 })
 export class ContosoWidgetManagerModule {}
 
-export { ContosoWidgetManagerModule as ApiModule }
+export {ContosoWidgetManagerModule as ApiModule}

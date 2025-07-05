@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_Error, t_NewPet, t_Pet } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {t_Error, t_NewPet, t_Pet} from "./models"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class SwaggerPetstoreServiceServers {
   static default(): Server<"SwaggerPetstoreService"> {
@@ -14,7 +14,7 @@ export class SwaggerPetstoreServiceServers {
 
   static server(
     url: "https://petstore.swagger.io/v2" = "https://petstore.swagger.io/v2",
-  ): { build: () => Server<"SwaggerPetstoreService"> } {
+  ): {build: () => Server<"SwaggerPetstoreService">} {
     switch (url) {
       case "https://petstore.swagger.io/v2":
         return {
@@ -73,7 +73,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -88,7 +88,7 @@ export class SwaggerPetstoreService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -117,11 +117,11 @@ export class SwaggerPetstoreService {
       limit?: number
     } = {},
   ): Observable<
-    | (HttpResponse<t_Pet[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: StatusCode })
+    | (HttpResponse<t_Pet[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ tags: p["tags"], limit: p["limit"] })
+    const params = this._queryParams({tags: p["tags"], limit: p["limit"]})
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/pets`, {
       params,
@@ -133,11 +133,11 @@ export class SwaggerPetstoreService {
   addPet(p: {
     requestBody: t_NewPet
   }): Observable<
-    | (HttpResponse<t_Pet> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: StatusCode })
+    | (HttpResponse<t_Pet> & {status: 200})
+    | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -155,8 +155,8 @@ export class SwaggerPetstoreService {
   findPetById(p: {
     id: number
   }): Observable<
-    | (HttpResponse<t_Pet> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: StatusCode })
+    | (HttpResponse<t_Pet> & {status: 200})
+    | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -172,8 +172,8 @@ export class SwaggerPetstoreService {
   deletePet(p: {
     id: number
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: StatusCode })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -187,5 +187,5 @@ export class SwaggerPetstoreService {
   }
 }
 
-export { SwaggerPetstoreService as ApiClient }
-export { SwaggerPetstoreServiceConfig as ApiClientConfig }
+export {SwaggerPetstoreService as ApiClient}
+export {SwaggerPetstoreServiceConfig as ApiClientConfig}

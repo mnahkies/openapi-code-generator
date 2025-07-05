@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { z } from "zod"
+import {z} from "zod"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -15,25 +15,25 @@ export const PermissiveBoolean = z.preprocess((value) => {
 
 export const s_AppAuthenticatorEnrollment = z.object({
   authenticatorId: z.string().optional(),
-  createdDate: z.string().datetime({ offset: true }).optional(),
+  createdDate: z.string().datetime({offset: true}).optional(),
   device: z
     .object({
       id: z.string().optional(),
       status: z.enum(["ACTIVE"]).optional(),
-      createdDate: z.string().datetime({ offset: true }).optional(),
-      lastUpdated: z.string().datetime({ offset: true }).optional(),
+      createdDate: z.string().datetime({offset: true}).optional(),
+      lastUpdated: z.string().datetime({offset: true}).optional(),
       clientInstanceId: z.string().optional(),
     })
     .optional(),
   id: z.string().optional(),
-  lastUpdated: z.string().datetime({ offset: true }).optional(),
+  lastUpdated: z.string().datetime({offset: true}).optional(),
   links: z
     .object({
       self: z
         .object({
           href: z.string().min(1).optional(),
           hints: z
-            .object({ allow: z.array(z.enum(["PATCH", "DELETE"])).optional() })
+            .object({allow: z.array(z.enum(["PATCH", "DELETE"])).optional()})
             .optional(),
         })
         .optional(),
@@ -44,15 +44,15 @@ export const s_AppAuthenticatorEnrollment = z.object({
       push: z
         .object({
           id: z.string().optional(),
-          createdDate: z.string().datetime({ offset: true }).optional(),
-          lastUpdated: z.string().datetime({ offset: true }).optional(),
+          createdDate: z.string().datetime({offset: true}).optional(),
+          lastUpdated: z.string().datetime({offset: true}).optional(),
           links: z
             .object({
               pending: z
                 .object({
                   href: z.string().min(1).optional(),
                   hints: z
-                    .object({ allow: z.array(z.enum(["GET"])).optional() })
+                    .object({allow: z.array(z.enum(["GET"])).optional()})
                     .optional(),
                 })
                 .optional(),
@@ -63,7 +63,7 @@ export const s_AppAuthenticatorEnrollment = z.object({
     })
     .optional(),
   user: z
-    .object({ id: z.string().optional(), username: z.string().optional() })
+    .object({id: z.string().optional(), username: z.string().optional()})
     .optional(),
 })
 
@@ -91,7 +91,7 @@ export const s_AuthenticatorKey = z.enum([
 
 export const s_Email = z.object({
   id: z.string().min(1),
-  profile: z.object({ email: z.string().min(1) }),
+  profile: z.object({email: z.string().min(1)}),
   roles: z.array(z.enum(["PRIMARY", "SECONDARY"])),
   status: z.enum(["VERIFIED", "UNVERIFIED"]),
   _links: z
@@ -148,7 +148,7 @@ export const s_Email = z.object({
 
 export const s_Error = z.object({
   errorCauses: z
-    .array(z.object({ errorSummary: z.string().optional() }))
+    .array(z.object({errorSummary: z.string().optional()}))
     .optional(),
   errorCode: z.string().optional(),
   errorId: z.string().optional(),
@@ -192,7 +192,7 @@ export const s_Organization = z.object({
         .object({
           href: z.string().min(1).optional(),
           hints: z
-            .object({ allow: z.array(z.enum(["GET"])).optional() })
+            .object({allow: z.array(z.enum(["GET"])).optional()})
             .optional(),
         })
         .optional(),
@@ -223,7 +223,7 @@ export const s_PasswordResponse = z.object({
 
 export const s_Phone = z.object({
   id: z.string().min(1),
-  profile: z.object({ phoneNumber: z.string().min(1) }),
+  profile: z.object({phoneNumber: z.string().min(1)}),
   status: z.enum(["VERIFIED", "UNVERIFIED"]),
   _links: z
     .object({
@@ -266,13 +266,13 @@ export const s_Phone = z.object({
 })
 
 export const s_Profile = z.object({
-  createdAt: z.string().datetime({ offset: true }).optional(),
-  modifiedAt: z.string().datetime({ offset: true }).optional(),
+  createdAt: z.string().datetime({offset: true}).optional(),
+  modifiedAt: z.string().datetime({offset: true}).optional(),
   profile: z.object({}).optional(),
   _links: z
     .object({
-      self: z.object({ href: z.string().optional() }).optional(),
-      describedBy: z.object({ href: z.string().optional() }).optional(),
+      self: z.object({href: z.string().optional()}).optional(),
+      describedBy: z.object({href: z.string().optional()}).optional(),
     })
     .optional(),
 })
@@ -291,8 +291,8 @@ export const s_Schema = z.object({
   properties: z.object({}).optional(),
   _links: z
     .object({
-      self: z.object({ href: z.string().optional() }).optional(),
-      user: z.object({ href: z.string().optional() }).optional(),
+      self: z.object({href: z.string().optional()}).optional(),
+      user: z.object({href: z.string().optional()}).optional(),
     })
     .optional(),
 })
@@ -302,7 +302,7 @@ export const s_UpdateAuthenticatorEnrollmentRequest = z.object({
 })
 
 export const s_HrefObject = z.object({
-  hints: z.object({ allow: z.array(s_HttpMethod).optional() }).optional(),
+  hints: z.object({allow: z.array(s_HttpMethod).optional()}).optional(),
   href: z.string(),
   name: z.string().optional(),
   type: z.string().optional(),
@@ -364,9 +364,7 @@ export const s_UpdateAppAuthenticatorEnrollmentRequest = z.object({
       push: z
         .object({
           pushToken: z.string().optional(),
-          keys: z
-            .object({ userVerification: s_KeyObject.optional() })
-            .optional(),
+          keys: z.object({userVerification: s_KeyObject.optional()}).optional(),
           capabilities: s_AppAuthenticatorMethodCapabilities.optional(),
         })
         .optional(),
@@ -380,7 +378,7 @@ export const s_Authenticator = z.object({
   key: s_AuthenticatorKey.optional(),
   name: z.string().optional(),
   _embedded: z
-    .object({ enrollments: z.array(s_AuthenticatorEnrollment).optional() })
+    .object({enrollments: z.array(s_AuthenticatorEnrollment).optional()})
     .optional(),
   _links: z
     .object({

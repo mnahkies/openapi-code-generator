@@ -9,9 +9,9 @@ import {
   t_TodoList,
   t_UnknownObject,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class TodoListsExampleApiServiceServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {
@@ -189,7 +189,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -204,7 +204,7 @@ export class TodoListsExampleApiService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -234,7 +234,7 @@ export class TodoListsExampleApiService {
       tags?: string[]
     } = {},
   ): Observable<
-    (HttpResponse<t_TodoList[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_TodoList[]> & {status: 200}) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       created: p["created"],
@@ -252,9 +252,9 @@ export class TodoListsExampleApiService {
   getTodoListById(p: {
     listId: string
   }): Observable<
-    | (HttpResponse<t_TodoList> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: StatusCode4xx })
-    | (HttpResponse<void> & { status: StatusCode })
+    | (HttpResponse<t_TodoList> & {status: 200})
+    | (HttpResponse<t_Error> & {status: StatusCode4xx})
+    | (HttpResponse<void> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -271,12 +271,12 @@ export class TodoListsExampleApiService {
     listId: string
     requestBody: t_CreateUpdateTodoList
   }): Observable<
-    | (HttpResponse<t_TodoList> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: StatusCode4xx })
-    | (HttpResponse<void> & { status: StatusCode })
+    | (HttpResponse<t_TodoList> & {status: 200})
+    | (HttpResponse<t_Error> & {status: StatusCode4xx})
+    | (HttpResponse<void> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -294,9 +294,9 @@ export class TodoListsExampleApiService {
   deleteTodoListById(p: {
     listId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: StatusCode4xx })
-    | (HttpResponse<void> & { status: StatusCode })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: StatusCode4xx})
+    | (HttpResponse<void> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -317,11 +317,11 @@ export class TodoListsExampleApiService {
         content: string
         createdAt: string
         id: string
-      }> & { status: 200 })
+      }> & {status: 200})
     | (HttpResponse<{
         code: string
         message: string
-      }> & { status: StatusCode5xx })
+      }> & {status: StatusCode5xx})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -341,10 +341,8 @@ export class TodoListsExampleApiService {
       content: string
       id: string
     }
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+  }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -366,7 +364,7 @@ export class TodoListsExampleApiService {
       .listAttachments()
       .build(),
   ): Observable<
-    (HttpResponse<t_UnknownObject[]> & { status: 200 }) | HttpResponse<unknown>
+    (HttpResponse<t_UnknownObject[]> & {status: 200}) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>("GET", basePath + `/attachments`, {
       observe: "response",
@@ -385,10 +383,8 @@ export class TodoListsExampleApiService {
       | string = TodoListsExampleApiServiceServers.operations
       .uploadAttachment()
       .build(),
-  ): Observable<
-    (HttpResponse<void> & { status: 202 }) | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "multipart/form-data" })
+  ): Observable<(HttpResponse<void> & {status: 202}) | HttpResponse<unknown>> {
+    const headers = this._headers({"Content-Type": "multipart/form-data"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>("POST", basePath + `/attachments`, {
@@ -400,5 +396,5 @@ export class TodoListsExampleApiService {
   }
 }
 
-export { TodoListsExampleApiService as ApiClient }
-export { TodoListsExampleApiServiceConfig as ApiClientConfig }
+export {TodoListsExampleApiService as ApiClient}
+export {TodoListsExampleApiServiceConfig as ApiClientConfig}

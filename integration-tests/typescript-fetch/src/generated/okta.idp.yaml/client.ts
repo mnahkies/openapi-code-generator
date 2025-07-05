@@ -80,12 +80,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/app-authenticators`
     const headers = this._headers(
-      { "Content-Type": "application/json, okta-version=1.0.0" },
+      {"Content-Type": "application/json, okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async verifyAppAuthenticatorPushNotificationChallenge(
@@ -100,12 +100,12 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/json;okta-version=1.0.0" },
+      {"Content-Type": "application/json;okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async updateAppAuthenticatorEnrollment(
@@ -124,16 +124,12 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      {"Content-Type": "application/merge-patch+json;okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PATCH", body, ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
   async deleteAppAuthenticatorEnrollment(
@@ -149,7 +145,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async listAppAuthenticatorPendingPushNotificationChallenges(
@@ -164,7 +160,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async listAuthenticators(
@@ -178,13 +174,9 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/authenticators`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async getAuthenticator(
@@ -203,13 +195,9 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath + `/idp/myaccount/authenticators/${p["authenticatorId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async listEnrollments(
@@ -229,7 +217,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async getEnrollment(
@@ -250,7 +238,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async updateEnrollment(
@@ -271,16 +259,12 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      {"Content-Type": "application/merge-patch+json;okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PATCH", body, ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
   async listEmails(
@@ -290,7 +274,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/emails`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async createEmail(
@@ -315,12 +299,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/emails`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async getEmail(
@@ -333,7 +317,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async deleteEmail(
@@ -348,7 +332,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async sendEmailChallenge(
@@ -392,12 +376,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}/challenge`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async pollChallengeForEmailMagicLink(
@@ -453,7 +437,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async verifyEmailOtp(
@@ -473,12 +457,12 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async listOktaApplications(
@@ -488,7 +472,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/okta-applications`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async getOrganization(
@@ -498,7 +482,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/organization`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async getPassword(
@@ -508,7 +492,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async createPassword(
@@ -529,12 +513,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async replacePassword(
@@ -555,12 +539,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
   async deletePassword(
@@ -570,7 +554,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async listPhones(
@@ -580,7 +564,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/phones`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async createPhone(
@@ -605,12 +589,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async getPhone(
@@ -623,7 +607,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async deletePhone(
@@ -638,7 +622,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async sendPhoneChallenge(
@@ -673,12 +657,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/challenge`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async verifyPhoneChallenge(
@@ -700,12 +684,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async getProfile(
@@ -715,7 +699,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async replaceProfile(
@@ -729,12 +713,12 @@ export class MyAccountManagement extends AbstractFetchClient {
   ): Promise<Res<200, t_Profile> | Res<400, t_Error> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
   async getProfileSchema(
@@ -744,7 +728,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/profile/schema`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async deleteSessions(
@@ -754,9 +738,9 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/sessions`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 }
 
-export { MyAccountManagement as ApiClient }
-export type { MyAccountManagementConfig as ApiClientConfig }
+export {MyAccountManagement as ApiClient}
+export type {MyAccountManagementConfig as ApiClientConfig}

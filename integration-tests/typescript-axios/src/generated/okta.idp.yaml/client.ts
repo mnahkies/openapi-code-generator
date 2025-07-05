@@ -26,7 +26,7 @@ import {
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class MyAccountManagementServers {
   static default(): Server<"MyAccountManagement"> {
@@ -73,7 +73,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators`
     const headers = this._headers(
-      { "Content-Type": "application/json, okta-version=1.0.0" },
+      {"Content-Type": "application/json, okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -82,7 +82,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -98,7 +98,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/json;okta-version=1.0.0" },
+      {"Content-Type": "application/json;okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -107,7 +107,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -123,7 +123,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      {"Content-Type": "application/merge-patch+json;okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -132,7 +132,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -151,7 +151,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -170,7 +170,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -185,12 +185,12 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Authenticator[]>> {
     const url = `/idp/myaccount/authenticators`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -206,12 +206,12 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Authenticator>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ expand: p["expand"] })
+    const query = this._query({expand: p["expand"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -230,7 +230,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -250,7 +250,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -267,7 +267,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_AuthenticatorEnrollment>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      {"Content-Type": "application/merge-patch+json;okta-version=1.0.0"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -276,7 +276,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -292,7 +292,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -314,7 +314,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Email>> {
     const url = `/idp/myaccount/emails`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -323,7 +323,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -342,7 +342,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -361,7 +361,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -402,7 +402,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -411,7 +411,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -466,7 +466,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -485,7 +485,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -494,7 +494,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -510,7 +510,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -526,7 +526,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -542,7 +542,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -561,7 +561,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -570,7 +570,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -589,7 +589,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -598,7 +598,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -614,7 +614,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -630,7 +630,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -651,7 +651,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Phone>> {
     const url = `/idp/myaccount/phones`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -660,7 +660,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -679,7 +679,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -698,7 +698,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -732,7 +732,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   > {
     const url = `/idp/myaccount/phones/${p["id"]}/challenge`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -741,7 +741,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -759,7 +759,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/phones/${p["id"]}/verify`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -768,7 +768,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -784,7 +784,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -801,7 +801,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Profile>> {
     const url = `/idp/myaccount/profile`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -810,7 +810,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -826,7 +826,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -842,12 +842,12 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
   }
 }
 
-export { MyAccountManagement as ApiClient }
-export type { MyAccountManagementConfig as ApiClientConfig }
+export {MyAccountManagement as ApiClient}
+export type {MyAccountManagementConfig as ApiClientConfig}

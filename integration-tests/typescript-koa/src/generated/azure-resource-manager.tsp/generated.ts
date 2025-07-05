@@ -39,7 +39,7 @@ import {
   s_MoveResponse,
   s_OperationListResult,
 } from "./schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -58,8 +58,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type OperationsListResponder = {
   with200(): KoaRuntimeResponse<t_OperationListResult>
@@ -293,9 +293,7 @@ export type Implementation = {
 export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
-  const operationsListQuerySchema = z.object({
-    "api-version": z.string().min(1),
-  })
+  const operationsListQuerySchema = z.object({"api-version": z.string().min(1)})
 
   const operationsListResponseValidator = responseValidationFactory(
     [["200", s_OperationListResult]],
@@ -342,7 +340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = operationsListResponseValidator(status, body)
@@ -361,7 +359,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     employeeName: z.string().regex(new RegExp("^[a-zA-Z0-9-]{3,24}$")),
   })
 
-  const employeesGetQuerySchema = z.object({ "api-version": z.string().min(1) })
+  const employeesGetQuerySchema = z.object({"api-version": z.string().min(1)})
 
   const employeesGetResponseValidator = responseValidationFactory(
     [["200", s_Employee]],
@@ -412,7 +410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesGetResponseValidator(status, body)
@@ -496,7 +494,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesCreateOrUpdateResponseValidator(status, body)
@@ -574,7 +572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesUpdateResponseValidator(status, body)
@@ -652,7 +650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesDeleteResponseValidator(status, body)
@@ -730,7 +728,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesCheckExistenceResponseValidator(status, body)
@@ -802,7 +800,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesListByResourceGroupResponseValidator(status, body)
@@ -869,7 +867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesListBySubscriptionResponseValidator(status, body)
@@ -888,9 +886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     employeeName: z.string().regex(new RegExp("^[a-zA-Z0-9-]{3,24}$")),
   })
 
-  const employeesMoveQuerySchema = z.object({
-    "api-version": z.string().min(1),
-  })
+  const employeesMoveQuerySchema = z.object({"api-version": z.string().min(1)})
 
   const employeesMoveBodySchema = s_MoveRequest
 
@@ -947,7 +943,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         return
       }
 
-      const { status, body } =
+      const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesMoveResponseValidator(status, body)

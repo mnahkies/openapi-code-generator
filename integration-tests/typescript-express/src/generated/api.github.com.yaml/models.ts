@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
+export type EmptyObject = {[key: string]: never}
 
 export type t_actions_billing_usage = {
   included_minutes: number

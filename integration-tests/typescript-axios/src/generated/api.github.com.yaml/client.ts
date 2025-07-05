@@ -339,12 +339,12 @@ import {
   AbstractAxiosConfig,
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import { AxiosRequestConfig, AxiosResponse } from "axios"
+import {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class GitHubV3RestApiServersOperations {
   static reposUploadReleaseAsset(
     url: "https://uploads.github.com" = "https://uploads.github.com",
-  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi"> } {
+  ): {build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi">} {
     switch (url) {
       case "https://uploads.github.com":
         return {
@@ -402,7 +402,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -469,7 +469,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -488,7 +488,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -504,7 +504,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -533,7 +533,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -549,7 +549,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -569,7 +569,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/app/hook/config`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -578,7 +578,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -594,12 +594,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/app/hook/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
+    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -618,7 +618,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -641,7 +641,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -657,12 +657,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration_installation_request[]>> {
     const url = `/app/installation-requests`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -690,7 +690,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -709,7 +709,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -728,7 +728,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -748,7 +748,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation_token>> {
     const url = `/app/installations/${p["installationId"]}/access_tokens`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -757,7 +757,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -776,7 +776,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -795,7 +795,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -813,7 +813,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/applications/${p["clientId"]}/grant`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -822,7 +822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -840,7 +840,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authorization>> {
     const url = `/applications/${p["clientId"]}/token`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -849,7 +849,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -867,7 +867,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authorization>> {
     const url = `/applications/${p["clientId"]}/token`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -876,7 +876,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -894,7 +894,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/applications/${p["clientId"]}/token`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -903,7 +903,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -926,7 +926,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authorization>> {
     const url = `/applications/${p["clientId"]}/token/scoped`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -935,7 +935,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -954,7 +954,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -973,7 +973,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -990,12 +990,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_accepted_assignment[]>> {
     const url = `/assignments/${p["assignmentId"]}/accepted_assignments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1014,7 +1014,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1030,12 +1030,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_classroom[]>> {
     const url = `/classrooms`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1054,7 +1054,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1071,12 +1071,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_classroom_assignment[]>> {
     const url = `/classrooms/${p["classroomId"]}/assignments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1092,7 +1092,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1111,7 +1111,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1132,7 +1132,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/credentials/revoke`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1141,7 +1141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1161,7 +1161,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1188,7 +1188,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1266,7 +1266,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_security_configuration>> {
     const url = `/enterprises/${p["enterprise"]}/code-security/configurations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1275,7 +1275,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1294,7 +1294,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1314,7 +1314,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1393,7 +1393,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_security_configuration>> {
     const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1402,7 +1402,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1422,7 +1422,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1445,7 +1445,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/attach`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1454,7 +1454,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1494,7 +1494,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/defaults`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1503,7 +1503,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1533,7 +1533,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1582,7 +1582,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1627,7 +1627,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1643,12 +1643,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1664,7 +1664,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1690,7 +1690,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1717,7 +1717,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1726,7 +1726,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1752,7 +1752,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1778,7 +1778,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1797,7 +1797,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1825,7 +1825,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1834,7 +1834,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1853,7 +1853,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1870,12 +1870,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment[]>> {
     const url = `/gists/${p["gistId"]}/comments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1893,7 +1893,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment>> {
     const url = `/gists/${p["gistId"]}/comments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1902,7 +1902,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1922,7 +1922,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1941,7 +1941,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -1950,7 +1950,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1970,7 +1970,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -1987,12 +1987,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_commit[]>> {
     const url = `/gists/${p["gistId"]}/commits`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2009,12 +2009,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple[]>> {
     const url = `/gists/${p["gistId"]}/forks`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2033,7 +2033,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2052,7 +2052,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2071,7 +2071,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2090,7 +2090,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2110,7 +2110,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2126,7 +2126,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2145,7 +2145,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2167,12 +2167,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/installation/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2188,7 +2188,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2239,7 +2239,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2265,7 +2265,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2284,7 +2284,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2303,7 +2303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/markdown`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2312,7 +2312,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2326,17 +2326,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {
     const url = `/markdown/raw`
-    const headers = this._headers(
-      { "Content-Type": "text/plain" },
-      opts.headers,
-    )
+    const headers = this._headers({"Content-Type": "text/plain"}, opts.headers)
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2355,7 +2352,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2371,12 +2368,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_listing_plan[]>> {
     const url = `/marketplace_listing/plans`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2405,7 +2402,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2424,7 +2421,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2440,12 +2437,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_listing_plan[]>> {
     const url = `/marketplace_listing/stubbed/plans`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2474,7 +2471,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2490,7 +2487,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2508,12 +2505,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/networks/${p["owner"]}/${p["repo"]}/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2545,7 +2542,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2568,7 +2565,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/notifications`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2577,7 +2574,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2596,7 +2593,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2615,7 +2612,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PATCH",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2634,7 +2631,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2653,7 +2650,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2671,7 +2668,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread_subscription>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2680,7 +2677,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2699,7 +2696,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2714,12 +2711,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/octocat`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ s: p["s"] })
+    const query = this._query({s: p["s"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2735,12 +2732,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_simple[]>> {
     const url = `/organizations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ since: p["since"], per_page: p["perPage"] })
+    const query = this._query({since: p["since"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2757,12 +2754,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_repository_access_details>> {
     const url = `/organizations/${p["org"]}/dependabot/repository-access`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2781,7 +2778,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/organizations/${p["org"]}/dependabot/repository-access`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2790,7 +2787,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2808,7 +2805,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/organizations/${p["org"]}/dependabot/repository-access/default-level`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2817,7 +2814,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2846,7 +2843,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2865,7 +2862,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2922,7 +2919,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_full>> {
     const url = `/orgs/${p["org"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -2931,7 +2928,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2954,7 +2951,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2973,7 +2970,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -2995,12 +2992,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3022,12 +3019,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/hosted-runners`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3055,7 +3052,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_hosted_runner>> {
     const url = `/orgs/${p["org"]}/actions/hosted-runners`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3064,7 +3061,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3088,7 +3085,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3112,7 +3109,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3131,7 +3128,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3155,7 +3152,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3179,7 +3176,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3199,7 +3196,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3221,7 +3218,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_hosted_runner>> {
     const url = `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3230,7 +3227,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3250,7 +3247,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3269,7 +3266,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3285,7 +3282,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/orgs/${p["org"]}/actions/oidc/customization/sub`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3294,7 +3291,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3313,7 +3310,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3332,7 +3329,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3341,7 +3338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3363,12 +3360,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3386,7 +3383,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3395,7 +3392,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3415,7 +3412,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3435,7 +3432,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3454,7 +3451,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3470,7 +3467,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/selected-actions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3479,7 +3476,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3498,7 +3495,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3514,7 +3511,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/workflow`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3523,7 +3520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3555,7 +3552,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3582,7 +3579,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_groups_org>> {
     const url = `/orgs/${p["org"]}/actions/runner-groups`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3591,7 +3588,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3611,7 +3608,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3637,7 +3634,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_groups_org>> {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3646,7 +3643,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3666,7 +3663,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3689,12 +3686,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3717,12 +3714,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3741,7 +3738,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3750,7 +3747,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3771,7 +3768,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3792,7 +3789,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3815,12 +3812,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3839,7 +3836,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3848,7 +3845,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3869,7 +3866,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3890,7 +3887,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3922,7 +3919,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3941,7 +3938,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3967,7 +3964,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/generate-jitconfig`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -3976,7 +3973,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -3995,7 +3992,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4014,7 +4011,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4034,7 +4031,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4054,7 +4051,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4079,7 +4076,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4103,7 +4100,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4112,7 +4109,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4136,7 +4133,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4145,7 +4142,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4170,7 +4167,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4196,7 +4193,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4218,12 +4215,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4242,7 +4239,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4262,7 +4259,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4284,7 +4281,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4293,7 +4290,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4313,7 +4310,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4336,12 +4333,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4360,7 +4357,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4369,7 +4366,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4390,7 +4387,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4411,7 +4408,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4433,12 +4430,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/variables`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4459,7 +4456,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/orgs/${p["org"]}/actions/variables`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4468,7 +4465,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4488,7 +4485,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4512,7 +4509,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4521,7 +4518,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4541,7 +4538,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4564,12 +4561,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4588,7 +4585,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4597,7 +4594,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4618,7 +4615,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4639,7 +4636,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4700,7 +4697,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/attestations/bulk-list`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const query = this._query({
@@ -4714,7 +4711,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url + query,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4736,7 +4733,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/attestations/delete-request`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4745,7 +4742,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4765,7 +4762,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4785,7 +4782,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4839,7 +4836,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4856,12 +4853,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/orgs/${p["org"]}/blocks`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4881,7 +4878,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4901,7 +4898,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4921,7 +4918,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4957,7 +4954,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -4985,7 +4982,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_campaign_summary>> {
     const url = `/orgs/${p["org"]}/campaigns`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -4994,7 +4991,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5014,7 +5011,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5039,7 +5036,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_campaign_summary>> {
     const url = `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5048,7 +5045,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5068,7 +5065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5109,7 +5106,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5138,7 +5135,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5229,7 +5226,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_security_configuration>> {
     const url = `/orgs/${p["org"]}/code-security/configurations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5238,7 +5235,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5257,7 +5254,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5275,7 +5272,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/code-security/configurations/detach`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5284,7 +5281,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5304,7 +5301,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5398,7 +5395,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5407,7 +5404,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5427,7 +5424,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5457,7 +5454,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5466,7 +5463,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5506,7 +5503,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/defaults`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5515,7 +5512,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5545,7 +5542,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5567,12 +5564,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/codespaces`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5596,7 +5593,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/access`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5605,7 +5602,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5623,7 +5620,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/access/selected_users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5632,7 +5629,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5650,7 +5647,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/access/selected_users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5659,7 +5656,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5681,12 +5678,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/codespaces/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5705,7 +5702,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5725,7 +5722,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5747,7 +5744,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5756,7 +5753,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5776,7 +5773,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5799,12 +5796,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5823,7 +5820,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5832,7 +5829,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5853,7 +5850,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5874,7 +5871,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5893,7 +5890,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5915,12 +5912,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/seats`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5942,7 +5939,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/selected_teams`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5951,7 +5948,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -5973,7 +5970,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/selected_teams`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -5982,7 +5979,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6004,7 +6001,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/selected_users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6013,7 +6010,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6035,7 +6032,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/selected_users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6044,7 +6041,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6073,7 +6070,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6122,7 +6119,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6144,12 +6141,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/dependabot/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6168,7 +6165,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6188,7 +6185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6210,7 +6207,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6219,7 +6216,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6239,7 +6236,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6262,12 +6259,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6286,7 +6283,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6295,7 +6292,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6316,7 +6313,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6337,7 +6334,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6356,7 +6353,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6373,12 +6370,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/orgs/${p["org"]}/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6395,12 +6392,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation[]>> {
     const url = `/orgs/${p["org"]}/failed_invitations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6417,12 +6414,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook[]>> {
     const url = `/orgs/${p["org"]}/hooks`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6450,7 +6447,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook>> {
     const url = `/orgs/${p["org"]}/hooks`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6459,7 +6456,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6479,7 +6476,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6508,7 +6505,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6517,7 +6514,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6537,7 +6534,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6557,7 +6554,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6579,7 +6576,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -6588,7 +6585,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6606,12 +6603,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
+    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6632,7 +6629,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6657,7 +6654,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6677,7 +6674,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6728,7 +6725,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6770,7 +6767,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6795,7 +6792,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6821,7 +6818,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6854,7 +6851,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6881,7 +6878,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6909,7 +6906,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6944,7 +6941,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -6987,7 +6984,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7006,7 +7003,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7028,12 +7025,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/installations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7052,7 +7049,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7068,7 +7065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -7077,7 +7074,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7096,7 +7093,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7131,7 +7128,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7160,7 +7157,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation>> {
     const url = `/orgs/${p["org"]}/invitations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -7169,7 +7166,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7189,7 +7186,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7207,12 +7204,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7231,7 +7228,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7247,7 +7244,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_type>> {
     const url = `/orgs/${p["org"]}/issue-types`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -7256,7 +7253,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7273,7 +7270,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_type>> {
     const url = `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -7282,7 +7279,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7302,7 +7299,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7348,7 +7345,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7377,7 +7374,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7397,7 +7394,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7417,7 +7414,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7440,12 +7437,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7470,7 +7467,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7491,7 +7488,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7511,7 +7508,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7531,7 +7528,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7550,7 +7547,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -7559,7 +7556,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7579,7 +7576,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7606,7 +7603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7632,7 +7629,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration>> {
     const url = `/orgs/${p["org"]}/migrations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -7641,7 +7638,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7658,12 +7655,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ exclude: p["exclude"] })
+    const query = this._query({exclude: p["exclude"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7683,7 +7680,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7703,7 +7700,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7724,7 +7721,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7742,12 +7739,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7771,7 +7768,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7791,7 +7788,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7812,7 +7809,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7833,7 +7830,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7853,7 +7850,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7874,7 +7871,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7895,7 +7892,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7915,7 +7912,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7933,12 +7930,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_role_assignment[]>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7956,12 +7953,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_user_role_assignment[]>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -7988,7 +7985,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8007,7 +8004,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8016,7 +8013,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8036,7 +8033,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8072,7 +8069,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8100,7 +8097,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8128,7 +8125,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8153,12 +8150,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ token: p["token"] })
+    const query = this._query({token: p["token"]})
 
     return this._request({
       url: url + query,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8194,7 +8191,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8223,7 +8220,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8252,7 +8249,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8281,7 +8278,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8324,7 +8321,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8348,7 +8345,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/personal-access-token-requests`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8357,7 +8354,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8377,7 +8374,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8386,7 +8383,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8404,12 +8401,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8450,7 +8447,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8473,7 +8470,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/personal-access-tokens`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8482,7 +8479,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8501,7 +8498,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8510,7 +8507,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8528,12 +8525,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8555,12 +8552,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/private-registries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8590,7 +8587,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/private-registries`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8599,7 +8596,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8623,7 +8620,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8643,7 +8640,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8677,7 +8674,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8686,7 +8683,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8706,7 +8703,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8733,7 +8730,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8752,7 +8749,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/orgs/${p["org"]}/projects`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8761,7 +8758,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8780,7 +8777,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8798,7 +8795,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_custom_property[]>> {
     const url = `/orgs/${p["org"]}/properties/schema`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8807,7 +8804,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8827,7 +8824,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8844,7 +8841,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_custom_property>> {
     const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8853,7 +8850,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8873,7 +8870,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8900,7 +8897,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8919,7 +8916,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/properties/values`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -8928,7 +8925,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8945,12 +8942,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/orgs/${p["org"]}/public_members`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8970,7 +8967,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -8990,7 +8987,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9010,7 +9007,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9053,7 +9050,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9107,7 +9104,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/orgs/${p["org"]}/repos`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9116,7 +9113,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9143,7 +9140,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9168,7 +9165,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/orgs/${p["org"]}/rulesets`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9177,7 +9174,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9217,7 +9214,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9237,7 +9234,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9257,7 +9254,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9283,7 +9280,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9292,7 +9289,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9312,7 +9309,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9330,12 +9327,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ruleset_version[]>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9356,7 +9353,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9403,7 +9400,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9441,7 +9438,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9460,7 +9457,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9480,7 +9477,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9500,7 +9497,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9519,7 +9516,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9538,7 +9535,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9557,7 +9554,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9579,12 +9576,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/settings/network-configurations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9606,7 +9603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_network_configuration>> {
     const url = `/orgs/${p["org"]}/settings/network-configurations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9615,7 +9612,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9635,7 +9632,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9658,7 +9655,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_network_configuration>> {
     const url = `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9667,7 +9664,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9687,7 +9684,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9707,7 +9704,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9737,7 +9734,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9754,12 +9751,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9790,7 +9787,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/orgs/${p["org"]}/teams`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9799,7 +9796,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9819,7 +9816,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9851,7 +9848,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9860,7 +9857,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9880,7 +9877,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9910,7 +9907,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9931,7 +9928,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9940,7 +9937,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9961,7 +9958,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -9982,7 +9979,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -9991,7 +9988,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10012,7 +10009,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10041,7 +10038,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10061,7 +10058,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10070,7 +10067,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10092,7 +10089,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10113,7 +10110,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10122,7 +10119,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10144,7 +10141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10183,7 +10180,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10213,7 +10210,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10222,7 +10219,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10245,7 +10242,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10283,7 +10280,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10312,7 +10309,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10321,7 +10318,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10343,7 +10340,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10361,12 +10358,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10394,7 +10391,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10415,7 +10412,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10435,7 +10432,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10444,7 +10441,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10465,7 +10462,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10483,12 +10480,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10509,7 +10506,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10531,7 +10528,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10540,7 +10537,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10561,7 +10558,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10579,12 +10576,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10606,7 +10603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10627,7 +10624,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10636,7 +10633,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10658,7 +10655,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10676,12 +10673,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10711,7 +10708,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10720,7 +10717,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10739,7 +10736,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10758,7 +10755,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_card>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10767,7 +10764,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10786,7 +10783,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10805,7 +10802,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/projects/columns/cards/${p["cardId"]}/moves`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10814,7 +10811,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10833,7 +10830,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10851,7 +10848,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column>> {
     const url = `/projects/columns/${p["columnId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10860,7 +10857,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10879,7 +10876,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10910,7 +10907,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10933,7 +10930,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_card>> {
     const url = `/projects/columns/${p["columnId"]}/cards`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10942,7 +10939,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10960,7 +10957,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject>> {
     const url = `/projects/columns/${p["columnId"]}/moves`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -10969,7 +10966,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -10988,7 +10985,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11012,7 +11009,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/projects/${p["projectId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11021,7 +11018,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11040,7 +11037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11067,7 +11064,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11088,7 +11085,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11097,7 +11094,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11117,7 +11114,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11137,7 +11134,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11154,12 +11151,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column[]>> {
     const url = `/projects/${p["projectId"]}/columns`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11177,7 +11174,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column>> {
     const url = `/projects/${p["projectId"]}/columns`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11186,7 +11183,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11202,7 +11199,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11222,7 +11219,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11306,7 +11303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11315,7 +11312,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11335,7 +11332,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11368,7 +11365,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11389,7 +11386,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11410,7 +11407,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11432,7 +11429,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11452,7 +11449,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11490,7 +11487,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11508,12 +11505,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_list>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ key: p["key"], ref: p["ref"] })
+    const query = this._query({key: p["key"], ref: p["ref"]})
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11534,7 +11531,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11555,7 +11552,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11576,7 +11573,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11596,7 +11593,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11605,7 +11602,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11625,7 +11622,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11645,7 +11642,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11654,7 +11651,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11677,12 +11674,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11705,12 +11702,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11730,7 +11727,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11750,7 +11747,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11759,7 +11756,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11779,7 +11776,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11796,7 +11793,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11805,7 +11802,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11825,7 +11822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11842,7 +11839,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11851,7 +11848,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11871,7 +11868,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11888,7 +11885,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11897,7 +11894,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11930,7 +11927,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11950,7 +11947,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -11977,7 +11974,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/generate-jitconfig`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -11986,7 +11983,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12006,7 +12003,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12026,7 +12023,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12047,7 +12044,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12068,7 +12065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12094,7 +12091,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12119,7 +12116,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12128,7 +12125,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12153,7 +12150,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12162,7 +12159,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12188,7 +12185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12215,7 +12212,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12277,7 +12274,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12295,14 +12292,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      exclude_pull_requests: p["excludePullRequests"],
-    })
+    const query = this._query({exclude_pull_requests: p["excludePullRequests"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12323,7 +12318,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12344,7 +12339,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12365,7 +12360,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12399,7 +12394,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12418,14 +12413,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      exclude_pull_requests: p["excludePullRequests"],
-    })
+    const query = this._query({exclude_pull_requests: p["excludePullRequests"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12450,12 +12443,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12477,7 +12470,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12498,7 +12491,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12518,7 +12511,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/deployment_protection_rule`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12527,7 +12520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12548,7 +12541,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12582,7 +12575,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12603,7 +12596,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12624,7 +12617,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12645,7 +12638,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12667,7 +12660,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12676,7 +12669,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12696,7 +12689,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12705,7 +12698,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12725,7 +12718,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12734,7 +12727,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12755,7 +12748,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12778,12 +12771,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12803,7 +12796,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12824,7 +12817,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12845,7 +12838,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12854,7 +12847,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12875,7 +12868,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12898,12 +12891,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12923,7 +12916,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12932,7 +12925,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12953,7 +12946,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -12974,7 +12967,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -12983,7 +12976,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13004,7 +12997,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13027,12 +13020,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13053,7 +13046,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13074,7 +13067,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13099,7 +13092,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13108,7 +13101,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13129,7 +13122,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13192,7 +13185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13213,7 +13206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13264,7 +13257,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13282,12 +13275,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13308,7 +13301,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13343,7 +13336,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/attestations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13352,7 +13345,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13407,7 +13400,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13427,7 +13420,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13448,7 +13441,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_autolink>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13457,7 +13450,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13478,7 +13471,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13499,7 +13492,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13519,7 +13512,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13539,7 +13532,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13559,7 +13552,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13587,7 +13580,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13608,7 +13601,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13629,7 +13622,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13691,7 +13684,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13700,7 +13693,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13721,7 +13714,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13742,7 +13735,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13763,7 +13756,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13784,7 +13777,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13805,7 +13798,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13842,7 +13835,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13851,7 +13844,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13872,7 +13865,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13893,7 +13886,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13914,7 +13907,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13935,7 +13928,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13956,7 +13949,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -13983,7 +13976,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status_check_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -13992,7 +13985,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14013,7 +14006,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14034,7 +14027,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14056,7 +14049,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14065,7 +14058,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14087,7 +14080,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14096,7 +14089,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14118,7 +14111,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14127,7 +14120,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14148,7 +14141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14169,7 +14162,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14190,7 +14183,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14210,7 +14203,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14219,7 +14212,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14239,7 +14232,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14248,7 +14241,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14268,7 +14261,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14277,7 +14270,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14298,7 +14291,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14320,7 +14313,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14329,7 +14322,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14351,7 +14344,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14360,7 +14353,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14382,7 +14375,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14391,7 +14384,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14412,7 +14405,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14432,7 +14425,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14441,7 +14434,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14461,7 +14454,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14470,7 +14463,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14490,7 +14483,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14499,7 +14492,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14519,7 +14512,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_with_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/rename`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14528,7 +14521,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14553,7 +14546,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14562,7 +14555,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14583,7 +14576,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14669,7 +14662,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14678,7 +14671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14697,12 +14690,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_annotation[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14723,7 +14716,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14742,7 +14735,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_suite>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14751,7 +14744,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14775,7 +14768,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_suite_preference>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14784,7 +14777,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14805,7 +14798,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14843,7 +14836,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14864,7 +14857,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14910,7 +14903,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14931,7 +14924,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14954,7 +14947,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -14963,7 +14956,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -14984,7 +14977,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15005,7 +14998,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15023,7 +15016,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_autofix_commits_response>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix/commits`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15032,7 +15025,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15063,7 +15056,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15103,7 +15096,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15128,7 +15121,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15146,12 +15139,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_analysis_deletion>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ confirm_delete: p["confirmDelete"] })
+    const query = this._query({confirm_delete: p["confirmDelete"]})
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15171,7 +15164,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15192,7 +15185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15213,7 +15206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15230,7 +15223,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_variant_analysis>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15239,7 +15232,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15260,7 +15253,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15283,7 +15276,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15303,7 +15296,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15323,7 +15316,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15332,7 +15325,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15357,7 +15350,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_sarifs_receipt>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15366,7 +15359,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15387,7 +15380,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15410,7 +15403,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15427,12 +15420,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codeowners_errors>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ ref: p["ref"] })
+    const query = this._query({ref: p["ref"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15455,12 +15448,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15497,7 +15490,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15506,7 +15499,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15533,12 +15526,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15571,7 +15564,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15599,12 +15592,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
+    const query = this._query({ref: p["ref"], client_ip: p["clientIp"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15630,7 +15623,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15653,12 +15646,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15678,7 +15671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15699,7 +15692,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15720,7 +15713,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15729,7 +15722,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15750,7 +15743,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15786,7 +15779,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15807,7 +15800,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15827,7 +15820,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15836,7 +15829,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15857,7 +15850,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15878,7 +15871,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15896,12 +15889,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15922,7 +15915,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15942,7 +15935,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -15951,7 +15944,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -15972,7 +15965,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16010,7 +16003,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16039,7 +16032,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16048,7 +16041,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16070,7 +16063,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16108,7 +16101,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16129,7 +16122,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16148,12 +16141,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16176,7 +16169,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16185,7 +16178,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16204,12 +16197,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_simple[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16228,12 +16221,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16273,7 +16266,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16309,7 +16302,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16328,12 +16321,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_commit_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16352,12 +16345,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16377,7 +16370,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16396,12 +16389,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comparison>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16426,12 +16419,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ ref: p["ref"] })
+    const query = this._query({ref: p["ref"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16468,7 +16461,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16477,7 +16470,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16511,7 +16504,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_file_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16520,7 +16513,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16548,7 +16541,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16602,7 +16595,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16623,7 +16616,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16654,7 +16647,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16663,7 +16656,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16686,12 +16679,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16711,7 +16704,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16732,7 +16725,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16753,7 +16746,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16762,7 +16755,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16783,7 +16776,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16801,12 +16794,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependency_graph_diff>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ name: p["name"] })
+    const query = this._query({name: p["name"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16826,7 +16819,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16850,7 +16843,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/snapshots`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16859,7 +16852,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16893,7 +16886,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16932,7 +16925,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -16941,7 +16934,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16962,7 +16955,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -16983,7 +16976,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17002,12 +16995,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_status[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17041,7 +17034,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17050,7 +17043,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17072,7 +17065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17096,7 +17089,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dispatches`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17105,7 +17098,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17128,12 +17121,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17154,7 +17147,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17187,7 +17180,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17196,7 +17189,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17217,7 +17210,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17241,12 +17234,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17264,7 +17257,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_branch_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17273,7 +17266,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17295,7 +17288,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17314,7 +17307,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_branch_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17323,7 +17316,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17345,7 +17338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17373,7 +17366,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17393,7 +17386,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_protection_rule>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17402,7 +17395,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17428,12 +17421,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17455,7 +17448,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17477,7 +17470,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17501,12 +17494,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17527,7 +17520,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17549,7 +17542,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17571,7 +17564,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17580,7 +17573,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17602,7 +17595,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17626,12 +17619,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17652,7 +17645,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17661,7 +17654,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17683,7 +17676,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17705,7 +17698,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17714,7 +17707,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17736,7 +17729,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17754,12 +17747,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17792,7 +17785,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17813,7 +17806,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/forks`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17822,7 +17815,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17842,7 +17835,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_short_blob>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/blobs`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17851,7 +17844,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17872,7 +17865,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17908,7 +17901,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/commits`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -17917,7 +17910,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17938,7 +17931,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17959,7 +17952,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -17980,7 +17973,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18000,7 +17993,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/refs`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18009,7 +18002,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18030,7 +18023,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18039,7 +18032,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18060,7 +18053,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18089,7 +18082,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tag>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/tags`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18098,7 +18091,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18119,7 +18112,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18156,7 +18149,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tree>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/trees`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18165,7 +18158,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18183,12 +18176,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tree>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ recursive: p["recursive"] })
+    const query = this._query({recursive: p["recursive"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18206,12 +18199,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18240,7 +18233,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18249,7 +18242,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18270,7 +18263,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18294,7 +18287,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18303,7 +18296,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18324,7 +18317,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18345,7 +18338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18368,7 +18361,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18377,7 +18370,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18396,12 +18389,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
+    const query = this._query({per_page: p["perPage"], cursor: p["cursor"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18423,7 +18416,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18449,7 +18442,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18470,7 +18463,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18491,7 +18484,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18511,7 +18504,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18542,7 +18535,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18551,7 +18544,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18581,7 +18574,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18590,7 +18583,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18610,7 +18603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18627,12 +18620,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_author[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ since: p["since"] })
+    const query = this._query({since: p["since"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18653,7 +18646,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_author>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18662,7 +18655,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18682,7 +18675,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18701,7 +18694,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/lfs`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18710,7 +18703,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18730,7 +18723,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18750,7 +18743,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18767,7 +18760,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18776,7 +18769,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18796,7 +18789,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18814,12 +18807,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18848,7 +18841,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18857,7 +18850,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18878,7 +18871,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18924,7 +18917,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -18959,7 +18952,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -18968,7 +18961,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19000,7 +18993,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19021,7 +19014,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19041,7 +19034,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19050,7 +19043,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19071,7 +19064,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19109,7 +19102,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19138,7 +19131,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19147,7 +19140,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19169,7 +19162,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19187,12 +19180,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19213,7 +19206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19234,7 +19227,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19280,7 +19273,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19289,7 +19282,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19309,7 +19302,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19318,7 +19311,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19338,7 +19331,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19347,7 +19340,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19369,7 +19362,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19398,7 +19391,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19418,7 +19411,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19427,7 +19420,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19446,12 +19439,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event_for_issue[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19470,12 +19463,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19508,7 +19501,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19517,7 +19510,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19550,7 +19543,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19559,7 +19552,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19580,7 +19573,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19602,7 +19595,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19630,7 +19623,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19639,7 +19632,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19660,7 +19653,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19698,7 +19691,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19727,7 +19720,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19736,7 +19729,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19758,7 +19751,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19778,7 +19771,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issue`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19787,7 +19780,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19806,12 +19799,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19832,7 +19825,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19841,7 +19834,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19863,7 +19856,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues/priority`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19872,7 +19865,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19891,12 +19884,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_timeline_issue_events[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19914,12 +19907,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deploy_key[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19940,7 +19933,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deploy_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -19949,7 +19942,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19970,7 +19963,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -19991,7 +19984,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20009,12 +20002,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20035,7 +20028,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20044,7 +20037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20065,7 +20058,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20087,7 +20080,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20096,7 +20089,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20117,7 +20110,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20137,7 +20130,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20154,12 +20147,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license_content>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/license`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ ref: p["ref"] })
+    const query = this._query({ref: p["ref"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20178,7 +20171,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_merged_upstream>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/merge-upstream`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20187,7 +20180,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20208,7 +20201,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/merges`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20217,7 +20210,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20249,7 +20242,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20271,7 +20264,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_milestone>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20280,7 +20273,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20301,7 +20294,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20324,7 +20317,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_milestone>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20333,7 +20326,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20354,7 +20347,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20373,12 +20366,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20412,7 +20405,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20437,7 +20430,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20446,7 +20439,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20466,7 +20459,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20493,7 +20486,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20502,7 +20495,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20537,7 +20530,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20546,7 +20539,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20566,7 +20559,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20584,12 +20577,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20609,7 +20602,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20629,7 +20622,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20650,7 +20643,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20673,7 +20666,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_deployment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20682,7 +20675,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20703,7 +20696,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20724,7 +20717,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20746,7 +20739,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20770,7 +20763,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20790,7 +20783,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20810,7 +20803,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20838,7 +20831,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20858,7 +20851,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/projects`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20867,7 +20860,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20887,7 +20880,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20906,7 +20899,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/properties/values`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20915,7 +20908,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20956,7 +20949,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -20982,7 +20975,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -20991,7 +20984,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21023,7 +21016,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21044,7 +21037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21064,7 +21057,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21073,7 +21066,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21094,7 +21087,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21132,7 +21125,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21161,7 +21154,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21170,7 +21163,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21192,7 +21185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21213,7 +21206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21237,7 +21230,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21246,7 +21239,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21283,7 +21276,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/codespaces`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21292,7 +21285,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21325,7 +21318,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21356,7 +21349,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21365,7 +21358,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21386,7 +21379,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21395,7 +21388,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21414,12 +21407,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21438,12 +21431,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_diff_entry[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21464,7 +21457,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21489,7 +21482,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_merge_result>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21498,7 +21491,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21519,7 +21512,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21540,7 +21533,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_simple>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21549,7 +21542,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21570,7 +21563,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_simple>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21579,7 +21572,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21598,12 +21591,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21638,7 +21631,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21647,7 +21640,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21669,7 +21662,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21690,7 +21683,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21699,7 +21692,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21721,7 +21714,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21741,12 +21734,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_review_comment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21768,7 +21761,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21777,7 +21770,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21803,7 +21796,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21812,7 +21805,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21837,7 +21830,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21846,7 +21839,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21863,12 +21856,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_file>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ ref: p["ref"] })
+    const query = this._query({ref: p["ref"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21886,12 +21879,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_file>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ ref: p["ref"] })
+    const query = this._query({ref: p["ref"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21909,12 +21902,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21943,7 +21936,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -21952,7 +21945,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21973,7 +21966,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -21995,7 +21988,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22004,7 +21997,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22025,7 +22018,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22047,7 +22040,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_notes_content>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/generate-notes`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22056,7 +22049,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22076,7 +22069,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22097,7 +22090,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22118,7 +22111,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22147,7 +22140,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22156,7 +22149,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22177,7 +22170,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22196,12 +22189,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22226,10 +22219,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers(
-      { "Content-Type": "application/octet-stream" },
+      {"Content-Type": "application/octet-stream"},
       opts.headers,
     )
-    const query = this._query({ name: p["name"], label: p["label"] })
+    const query = this._query({name: p["name"], label: p["label"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -22237,7 +22230,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       method: "POST",
       data: body,
       baseURL: basePath,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22273,7 +22266,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22300,7 +22293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22309,7 +22302,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22331,7 +22324,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22350,12 +22343,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_rule_detailed[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22385,7 +22378,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22411,7 +22404,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22420,7 +22413,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22459,7 +22452,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22480,7 +22473,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22498,12 +22491,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ includes_parents: p["includesParents"] })
+    const query = this._query({includes_parents: p["includesParents"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22530,7 +22523,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22539,7 +22532,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22560,7 +22553,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22579,12 +22572,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ruleset_version[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22606,7 +22599,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22654,7 +22647,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22672,12 +22665,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ hide_secret: p["hideSecret"] })
+    const query = this._query({hide_secret: p["hideSecret"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22701,7 +22694,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22710,7 +22703,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22729,12 +22722,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_location[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22754,7 +22747,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_push_protection_bypass>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/push-protection-bypasses`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22763,7 +22756,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22783,7 +22776,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22822,7 +22815,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22839,7 +22832,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_advisory>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22848,7 +22841,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22865,7 +22858,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_advisory>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/reports`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22874,7 +22867,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22895,7 +22888,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22913,7 +22906,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_advisory>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -22922,7 +22915,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22947,7 +22940,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22968,7 +22961,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -22986,12 +22979,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[] | t_stargazer[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23017,7 +23010,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23043,7 +23036,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23069,7 +23062,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23089,7 +23082,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23109,7 +23102,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23137,7 +23130,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23146,7 +23139,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23164,12 +23157,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23189,7 +23182,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23209,7 +23202,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_subscription>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23218,7 +23211,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23238,7 +23231,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23256,12 +23249,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tag[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23281,7 +23274,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23300,7 +23293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tag_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23309,7 +23302,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23330,7 +23323,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23351,7 +23344,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23369,12 +23362,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23392,12 +23385,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/topics`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const query = this._query({page: p["page"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23416,7 +23409,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_topic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/topics`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23425,7 +23418,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23442,12 +23435,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_clone_traffic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per: p["per"] })
+    const query = this._query({per: p["per"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23467,7 +23460,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23487,7 +23480,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23504,12 +23497,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_view_traffic>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per: p["per"] })
+    const query = this._query({per: p["per"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23530,7 +23523,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/transfer`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23539,7 +23532,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23559,7 +23552,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23579,7 +23572,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23599,7 +23592,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23620,7 +23613,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23643,7 +23636,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -23652,7 +23645,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23667,12 +23660,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ since: p["since"] })
+    const query = this._query({since: p["since"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23708,7 +23701,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23744,7 +23737,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23794,7 +23787,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23832,7 +23825,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23873,7 +23866,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23905,7 +23898,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23941,7 +23934,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23960,7 +23953,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -23991,7 +23984,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/teams/${p["teamId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24000,7 +23993,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24019,7 +24012,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24046,7 +24039,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24066,7 +24059,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/teams/${p["teamId"]}/discussions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24075,7 +24068,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24095,7 +24088,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24115,7 +24108,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24124,7 +24117,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24144,7 +24137,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24172,7 +24165,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24191,7 +24184,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24200,7 +24193,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24221,7 +24214,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24241,7 +24234,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24250,7 +24243,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24271,7 +24264,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24309,7 +24302,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24338,7 +24331,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24347,7 +24340,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24384,7 +24377,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24412,7 +24405,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_reaction>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24421,7 +24414,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24438,12 +24431,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation[]>> {
     const url = `/teams/${p["teamId"]}/invitations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24470,7 +24463,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24490,7 +24483,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24510,7 +24503,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24530,7 +24523,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24550,7 +24543,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24569,7 +24562,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24578,7 +24571,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24598,7 +24591,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24615,12 +24608,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project[]>> {
     const url = `/teams/${p["teamId"]}/projects`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24640,7 +24633,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24661,7 +24654,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24670,7 +24663,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24690,7 +24683,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24707,12 +24700,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/teams/${p["teamId"]}/repos`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24733,7 +24726,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24755,7 +24748,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24764,7 +24757,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24785,7 +24778,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24802,12 +24795,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/teams/${p["teamId"]}/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24823,7 +24816,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24847,7 +24840,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user>> {
     const url = `/user`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -24856,7 +24849,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24872,12 +24865,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/user/blocks`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24896,7 +24889,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24915,7 +24908,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24934,7 +24927,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -24965,7 +24958,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25022,7 +25015,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25031,7 +25024,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25052,12 +25045,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/secrets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25073,7 +25066,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25092,7 +25085,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25112,7 +25105,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object> | AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25121,7 +25114,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25140,7 +25133,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25164,7 +25157,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25182,7 +25175,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25191,7 +25184,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25211,7 +25204,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25231,7 +25224,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25250,7 +25243,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25270,7 +25263,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25279,7 +25272,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25302,7 +25295,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25321,7 +25314,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25341,7 +25334,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25365,7 +25358,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25384,7 +25377,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_with_full_repository>> {
     const url = `/user/codespaces/${p["codespaceName"]}/publish`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25393,7 +25386,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25412,7 +25405,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25431,7 +25424,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25447,7 +25440,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25464,7 +25457,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/email/visibility`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25473,7 +25466,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25489,12 +25482,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/emails`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25514,7 +25507,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/emails`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25523,7 +25516,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25543,7 +25536,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/emails`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25552,7 +25545,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25568,12 +25561,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/user/followers`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25589,12 +25582,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/user/following`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25613,7 +25606,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25632,7 +25625,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25651,7 +25644,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25667,12 +25660,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key[]>> {
     const url = `/user/gpg_keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25690,7 +25683,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key>> {
     const url = `/user/gpg_keys`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25699,7 +25692,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25718,7 +25711,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25737,7 +25730,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25758,12 +25751,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/user/installations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25786,12 +25779,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/user/installations/${p["installationId"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25811,7 +25804,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25831,7 +25824,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25850,7 +25843,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25865,7 +25858,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response>> {
     const url = `/user/interaction-limits`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25874,7 +25867,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PUT",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25890,7 +25883,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25933,7 +25926,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25949,12 +25942,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key[]>> {
     const url = `/user/keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -25972,7 +25965,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key>> {
     const url = `/user/keys`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -25981,7 +25974,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26000,7 +25993,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26019,7 +26012,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26035,12 +26028,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_user_marketplace_purchase[]>> {
     const url = `/user/marketplace_purchases`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26056,12 +26049,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_user_marketplace_purchase[]>> {
     const url = `/user/marketplace_purchases/stubbed`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26087,7 +26080,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26106,7 +26099,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26124,7 +26117,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/user/memberships/orgs/${p["org"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26133,7 +26126,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "PATCH",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26149,12 +26142,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration[]>> {
     const url = `/user/migrations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26179,7 +26172,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration>> {
     const url = `/user/migrations`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26188,7 +26181,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26204,12 +26197,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_migration>> {
     const url = `/user/migrations/${p["migrationId"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ exclude: p["exclude"] })
+    const query = this._query({exclude: p["exclude"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26228,7 +26221,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26247,7 +26240,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26267,7 +26260,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26284,12 +26277,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/user/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26305,12 +26298,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_simple[]>> {
     const url = `/user/orgs`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26345,7 +26338,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26372,7 +26365,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26399,7 +26392,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26423,12 +26416,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ token: p["token"] })
+    const query = this._query({token: p["token"]})
 
     return this._request({
       url: url + query,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26463,7 +26456,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26491,7 +26484,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26519,7 +26512,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26547,7 +26540,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26565,7 +26558,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/user/projects`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26574,7 +26567,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26590,12 +26583,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/public_emails`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26644,7 +26637,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26691,7 +26684,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/user/repos`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26700,7 +26693,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26716,12 +26709,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation[]>> {
     const url = `/user/repository_invitations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26740,7 +26733,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PATCH",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26759,7 +26752,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26775,12 +26768,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_social_account[]>> {
     const url = `/user/social_accounts`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26797,7 +26790,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_social_account[]>> {
     const url = `/user/social_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26806,7 +26799,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26823,7 +26816,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/social_accounts`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26832,7 +26825,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26848,12 +26841,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key[]>> {
     const url = `/user/ssh_signing_keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26871,7 +26864,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key>> {
     const url = `/user/ssh_signing_keys`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -26880,7 +26873,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26899,7 +26892,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26918,7 +26911,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26946,7 +26939,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26966,7 +26959,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -26986,7 +26979,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PUT",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27006,7 +26999,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27022,12 +27015,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/user/subscriptions`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27043,12 +27036,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full[]>> {
     const url = `/user/teams`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27067,7 +27060,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27083,12 +27076,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/users`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ since: p["since"], per_page: p["perPage"] })
+    const query = this._query({since: p["since"], per_page: p["perPage"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27107,7 +27100,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27168,7 +27161,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/users/${p["username"]}/attestations/bulk-list`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const query = this._query({
@@ -27182,7 +27175,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url + query,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27204,7 +27197,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/attestations/delete-request`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -27213,7 +27206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27233,7 +27226,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27253,7 +27246,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27309,7 +27302,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27328,7 +27321,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27345,12 +27338,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27368,12 +27361,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/events/orgs/${p["org"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27390,12 +27383,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/events/public`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27412,12 +27405,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/users/${p["username"]}/followers`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27434,12 +27427,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/users/${p["username"]}/following`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27459,7 +27452,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27486,7 +27479,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27503,12 +27496,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key[]>> {
     const url = `/users/${p["username"]}/gpg_keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27538,7 +27531,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27557,7 +27550,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27574,12 +27567,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key_simple[]>> {
     const url = `/users/${p["username"]}/keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27596,12 +27589,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_simple[]>> {
     const url = `/users/${p["username"]}/orgs`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27637,7 +27630,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27665,7 +27658,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27693,7 +27686,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27718,12 +27711,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ token: p["token"] })
+    const query = this._query({token: p["token"]})
 
     return this._request({
       url: url + query,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27751,7 +27744,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27780,7 +27773,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27809,7 +27802,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27838,7 +27831,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27865,7 +27858,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27882,12 +27875,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/received_events`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27904,12 +27897,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_event[]>> {
     const url = `/users/${p["username"]}/received_events/public`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27945,7 +27938,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27964,7 +27957,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -27983,7 +27976,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28002,7 +27995,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28031,7 +28024,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28048,12 +28041,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_social_account[]>> {
     const url = `/users/${p["username"]}/social_accounts`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28070,12 +28063,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key[]>> {
     const url = `/users/${p["username"]}/ssh_signing_keys`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28104,7 +28097,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28121,12 +28114,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_minimal_repository[]>> {
     const url = `/users/${p["username"]}/subscriptions`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({per_page: p["perPage"], page: p["page"]})
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28142,7 +28135,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
@@ -28158,12 +28151,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
+      ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
     })
   }
 }
 
-export { GitHubV3RestApi as ApiClient }
-export type { GitHubV3RestApiConfig as ApiClientConfig }
+export {GitHubV3RestApi as ApiClient}
+export type {GitHubV3RestApiConfig as ApiClientConfig}

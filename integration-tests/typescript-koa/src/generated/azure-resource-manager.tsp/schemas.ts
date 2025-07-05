@@ -6,7 +6,7 @@ import {
   t_Azure_ResourceManager_CommonTypes_ErrorDetail,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
 } from "./models"
-import { z } from "zod"
+import {z} from "zod"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -27,7 +27,7 @@ export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
 ])
 
 export const s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = z.object(
-  { type: z.string().optional(), info: z.object({}).optional() },
+  {type: z.string().optional(), info: z.object({}).optional()},
 )
 
 export const s_Azure_ResourceManager_CommonTypes_OperationDisplay = z.object({
@@ -53,9 +53,9 @@ export const s_EmployeeUpdateProperties = z.object({
   profile: z.string().optional(),
 })
 
-export const s_MoveRequest = z.object({ from: z.string(), to: z.string() })
+export const s_MoveRequest = z.object({from: z.string(), to: z.string()})
 
-export const s_MoveResponse = z.object({ movingStatus: z.string() })
+export const s_MoveResponse = z.object({movingStatus: z.string()})
 
 export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
   name: z.string().optional(),
@@ -68,11 +68,11 @@ export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
 export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
   createdBy: z.string().optional(),
   createdByType: s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
-  createdAt: z.string().datetime({ offset: true }).optional(),
+  createdAt: z.string().datetime({offset: true}).optional(),
   lastModifiedBy: z.string().optional(),
   lastModifiedByType:
     s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
-  lastModifiedAt: z.string().datetime({ offset: true }).optional(),
+  lastModifiedAt: z.string().datetime({offset: true}).optional(),
 })
 
 export const s_EmployeeUpdate = z.object({

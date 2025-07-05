@@ -126,8 +126,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type GetWellKnownOpenIdConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_OidcMetadata>
@@ -919,7 +919,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1003,7 +1003,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1064,7 +1064,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1141,7 +1141,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1220,7 +1220,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1295,7 +1295,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1370,7 +1370,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1388,7 +1388,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getClientParamSchema = z.object({ clientId: z.string() })
+  const getClientParamSchema = z.object({clientId: z.string()})
 
   const getClientResponseBodyValidator = responseValidationFactory(
     [
@@ -1445,7 +1445,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1463,7 +1463,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const replaceClientParamSchema = z.object({ clientId: z.string() })
+  const replaceClientParamSchema = z.object({clientId: z.string()})
 
   const replaceClientRequestBodySchema = s_Client
 
@@ -1530,7 +1530,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1548,7 +1548,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deleteClientParamSchema = z.object({ clientId: z.string() })
+  const deleteClientParamSchema = z.object({clientId: z.string()})
 
   const deleteClientResponseBodyValidator = responseValidationFactory(
     [
@@ -1605,7 +1605,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1623,7 +1623,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const generateNewClientSecretParamSchema = z.object({ clientId: z.string() })
+  const generateNewClientSecretParamSchema = z.object({clientId: z.string()})
 
   const generateNewClientSecretResponseBodyValidator =
     responseValidationFactory(
@@ -1681,7 +1681,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1756,7 +1756,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1831,7 +1831,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1906,7 +1906,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1924,7 +1924,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const oauthKeysQuerySchema = z.object({ client_id: z.string().optional() })
+  const oauthKeysQuerySchema = z.object({client_id: z.string().optional()})
 
   const oauthKeysResponseBodyValidator = responseValidationFactory(
     [
@@ -1973,7 +1973,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2044,7 +2044,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2111,7 +2111,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2190,7 +2190,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2259,7 +2259,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2338,7 +2338,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2413,7 +2413,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2482,7 +2482,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2557,7 +2557,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2626,7 +2626,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2714,7 +2714,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2807,7 +2807,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2902,7 +2902,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2969,7 +2969,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3054,7 +3054,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3141,7 +3141,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3225,7 +3225,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3308,7 +3308,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3377,7 +3377,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3456,7 +3456,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3531,7 +3531,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3619,7 +3619,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3696,7 +3696,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3714,7 +3714,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const parCustomAsParamSchema = z.object({ authorizationServerId: z.string() })
+  const parCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
   const parCustomAsRequestBodySchema = s_ParRequest
 
@@ -3781,7 +3781,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3864,7 +3864,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3941,7 +3941,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3959,9 +3959,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const tokenCustomAsParamSchema = z.object({
-    authorizationServerId: z.string(),
-  })
+  const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
   const tokenCustomAsRequestBodySchema = s_TokenRequest
 
@@ -4024,7 +4022,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -4101,7 +4099,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response

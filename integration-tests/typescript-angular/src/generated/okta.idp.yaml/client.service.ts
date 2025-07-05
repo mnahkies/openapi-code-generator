@@ -22,9 +22,9 @@ import {
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class MyAccountManagementServiceServers {
   static default(): Server<"MyAccountManagementService"> {
@@ -97,7 +97,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -112,7 +112,7 @@ export class MyAccountManagementService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -138,11 +138,11 @@ export class MyAccountManagementService {
   createAppAuthenticatorEnrollment(p: {
     requestBody: t_AppAuthenticatorEnrollmentRequest
   }): Observable<
-    | (HttpResponse<t_AppAuthenticatorEnrollment> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_AppAuthenticatorEnrollment> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -166,9 +166,9 @@ export class MyAccountManagementService {
     challengeId: string
     requestBody: t_PushNotificationVerification
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 400 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 400})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -193,10 +193,10 @@ export class MyAccountManagementService {
     enrollmentId: string
     requestBody: t_UpdateAppAuthenticatorEnrollmentRequest
   }): Observable<
-    | (HttpResponse<t_AppAuthenticatorEnrollment> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_AppAuthenticatorEnrollment> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -220,10 +220,10 @@ export class MyAccountManagementService {
   deleteAppAuthenticatorEnrollment(p: {
     enrollmentId: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -240,8 +240,8 @@ export class MyAccountManagementService {
   listAppAuthenticatorPendingPushNotificationChallenges(p: {
     enrollmentId: string
   }): Observable<
-    | (HttpResponse<t_PushNotificationChallenge[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_PushNotificationChallenge[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -260,12 +260,12 @@ export class MyAccountManagementService {
       expand?: string
     } = {},
   ): Observable<
-    | (HttpResponse<t_Authenticator[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Authenticator[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -282,13 +282,13 @@ export class MyAccountManagementService {
     authenticatorId: string
     expand?: string
   }): Observable<
-    | (HttpResponse<t_Authenticator> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_Authenticator> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ expand: p["expand"] })
+    const params = this._queryParams({expand: p["expand"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -305,10 +305,10 @@ export class MyAccountManagementService {
   listEnrollments(p: {
     authenticatorId: string
   }): Observable<
-    | (HttpResponse<t_AuthenticatorEnrollment[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_AuthenticatorEnrollment[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -326,10 +326,10 @@ export class MyAccountManagementService {
     authenticatorId: string
     enrollmentId: string
   }): Observable<
-    | (HttpResponse<t_AuthenticatorEnrollment> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 429 })
+    | (HttpResponse<t_AuthenticatorEnrollment> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -348,10 +348,10 @@ export class MyAccountManagementService {
     enrollmentId: string
     requestBody: t_UpdateAuthenticatorEnrollmentRequest
   }): Observable<
-    | (HttpResponse<t_AuthenticatorEnrollment> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_AuthenticatorEnrollment> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
@@ -373,8 +373,8 @@ export class MyAccountManagementService {
   }
 
   listEmails(): Observable<
-    | (HttpResponse<t_Email[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Email[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -397,14 +397,14 @@ export class MyAccountManagementService {
       state?: string
     }
   }): Observable<
-    | (HttpResponse<t_Email> & { status: 201 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 409 })
+    | (HttpResponse<t_Email> & {status: 201})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -422,8 +422,8 @@ export class MyAccountManagementService {
   getEmail(p: {
     id: string
   }): Observable<
-    | (HttpResponse<t_Email> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Email> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -439,10 +439,10 @@ export class MyAccountManagementService {
   deleteEmail(p: {
     id: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -482,13 +482,13 @@ export class MyAccountManagementService {
           email: string
         }
         status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
-      }> & { status: 201 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+      }> & {status: 201})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -540,9 +540,9 @@ export class MyAccountManagementService {
           email: string
         }
         status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
-      }> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 404 })
+      }> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -563,13 +563,13 @@ export class MyAccountManagementService {
       verificationCode: string
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<void> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -586,8 +586,8 @@ export class MyAccountManagementService {
   }
 
   listOktaApplications(): Observable<
-    | (HttpResponse<t_OktaApplication[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
+    | (HttpResponse<t_OktaApplication[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -601,8 +601,8 @@ export class MyAccountManagementService {
   }
 
   getOrganization(): Observable<
-    | (HttpResponse<t_Organization> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Organization> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -616,8 +616,8 @@ export class MyAccountManagementService {
   }
 
   getPassword(): Observable<
-    | (HttpResponse<t_PasswordResponse> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_PasswordResponse> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -637,13 +637,13 @@ export class MyAccountManagementService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_PasswordResponse> & { status: 201 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_PasswordResponse> & {status: 201})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -665,13 +665,13 @@ export class MyAccountManagementService {
       }
     }
   }): Observable<
-    | (HttpResponse<t_PasswordResponse> & { status: 201 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_PasswordResponse> & {status: 201})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -687,9 +687,9 @@ export class MyAccountManagementService {
   }
 
   deletePassword(): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -703,8 +703,8 @@ export class MyAccountManagementService {
   }
 
   listPhones(): Observable<
-    | (HttpResponse<t_Phone[]> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Phone[]> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -726,15 +726,15 @@ export class MyAccountManagementService {
       sendCode?: boolean
     }
   }): Observable<
-    | (HttpResponse<t_Phone> & { status: 201 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 409 })
-    | (HttpResponse<t_Error> & { status: 500 })
+    | (HttpResponse<t_Phone> & {status: 201})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 409})
+    | (HttpResponse<t_Error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -752,9 +752,9 @@ export class MyAccountManagementService {
   getPhone(p: {
     id: string
   }): Observable<
-    | (HttpResponse<t_Phone> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_Phone> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -770,10 +770,10 @@ export class MyAccountManagementService {
   deletePhone(p: {
     id: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -802,15 +802,15 @@ export class MyAccountManagementService {
             href: string
           }
         }
-      }> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 500 })
+      }> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -831,15 +831,15 @@ export class MyAccountManagementService {
       verificationCode: string
     }
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
-    | (HttpResponse<t_Error> & { status: 404 })
-    | (HttpResponse<t_Error> & { status: 409 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 403})
+    | (HttpResponse<t_Error> & {status: 404})
+    | (HttpResponse<t_Error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -855,8 +855,8 @@ export class MyAccountManagementService {
   }
 
   getProfile(): Observable<
-    | (HttpResponse<t_Profile> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Profile> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -874,12 +874,12 @@ export class MyAccountManagementService {
       profile?: EmptyObject
     }
   }): Observable<
-    | (HttpResponse<t_Profile> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 400 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Profile> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 400})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({"Content-Type": "application/json"})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -895,8 +895,8 @@ export class MyAccountManagementService {
   }
 
   getProfileSchema(): Observable<
-    | (HttpResponse<t_Schema> & { status: 200 })
-    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Schema> & {status: 200})
+    | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -910,9 +910,9 @@ export class MyAccountManagementService {
   }
 
   deleteSessions(): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<t_Error> & {status: 401})
+    | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -926,5 +926,5 @@ export class MyAccountManagementService {
   }
 }
 
-export { MyAccountManagementService as ApiClient }
-export { MyAccountManagementServiceConfig as ApiClientConfig }
+export {MyAccountManagementService as ApiClient}
+export {MyAccountManagementServiceConfig as ApiClientConfig}

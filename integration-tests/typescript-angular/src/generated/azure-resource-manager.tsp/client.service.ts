@@ -12,9 +12,9 @@ import {
   t_MoveResponse,
   t_OperationListResult,
 } from "./models"
-import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
-import { Injectable } from "@angular/core"
-import { Observable } from "rxjs"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import {Observable} from "rxjs"
 
 export class ContosoProviderHubClientServiceServers {
   static default(): Server<"ContosoProviderHubClientService"> {
@@ -23,7 +23,7 @@ export class ContosoProviderHubClientServiceServers {
 
   static server(
     url: "https://management.azure.com" = "https://management.azure.com",
-  ): { build: () => Server<"ContosoProviderHubClientService"> } {
+  ): {build: () => Server<"ContosoProviderHubClientService">} {
     switch (url) {
       case "https://management.azure.com":
         return {
@@ -82,7 +82,7 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type Server<T> = string & { __server__: T }
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: "root",
@@ -97,7 +97,7 @@ export class ContosoProviderHubClientService {
     headers: Record<string, string | undefined>,
   ): Record<string, string> {
     return Object.fromEntries(
-      Object.entries({ ...this.config.defaultHeaders, ...headers }).filter(
+      Object.entries({...this.config.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
       ),
     )
@@ -123,13 +123,13 @@ export class ContosoProviderHubClientService {
   operationsList(p: {
     apiVersion: string
   }): Observable<
-    | (HttpResponse<t_OperationListResult> & { status: 200 })
+    | (HttpResponse<t_OperationListResult> & {status: 200})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -149,13 +149,13 @@ export class ContosoProviderHubClientService {
     resourceGroupName: string
     employeeName: string
   }): Observable<
-    | (HttpResponse<t_Employee> & { status: 200 })
+    | (HttpResponse<t_Employee> & {status: 200})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -176,15 +176,15 @@ export class ContosoProviderHubClientService {
     employeeName: string
     requestBody: t_Employee
   }): Observable<
-    | (HttpResponse<t_Employee> & { status: 200 })
-    | (HttpResponse<t_Employee> & { status: 201 })
+    | (HttpResponse<t_Employee> & {status: 200})
+    | (HttpResponse<t_Employee> & {status: 201})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const headers = this._headers({"Content-Type": "application/json"})
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -208,14 +208,14 @@ export class ContosoProviderHubClientService {
     employeeName: string
     requestBody: t_EmployeeUpdate
   }): Observable<
-    | (HttpResponse<t_Employee> & { status: 200 })
+    | (HttpResponse<t_Employee> & {status: 200})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const headers = this._headers({"Content-Type": "application/json"})
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -238,14 +238,14 @@ export class ContosoProviderHubClientService {
     resourceGroupName: string
     employeeName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 202 })
-    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & {status: 202})
+    | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "DELETE",
@@ -265,14 +265,14 @@ export class ContosoProviderHubClientService {
     resourceGroupName: string
     employeeName: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & {status: 204})
+    | (HttpResponse<void> & {status: 404})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "HEAD",
@@ -291,13 +291,13 @@ export class ContosoProviderHubClientService {
     subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
   }): Observable<
-    | (HttpResponse<t_EmployeeListResult> & { status: 200 })
+    | (HttpResponse<t_EmployeeListResult> & {status: 200})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -315,13 +315,13 @@ export class ContosoProviderHubClientService {
     apiVersion: string
     subscriptionId: t_Azure_Core_uuid
   }): Observable<
-    | (HttpResponse<t_EmployeeListResult> & { status: 200 })
+    | (HttpResponse<t_EmployeeListResult> & {status: 200})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
       "GET",
@@ -342,14 +342,14 @@ export class ContosoProviderHubClientService {
     employeeName: string
     requestBody: t_MoveRequest
   }): Observable<
-    | (HttpResponse<t_MoveResponse> & { status: 200 })
+    | (HttpResponse<t_MoveResponse> & {status: 200})
     | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const params = this._queryParams({ "api-version": p["apiVersion"] })
+    const headers = this._headers({"Content-Type": "application/json"})
+    const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -367,5 +367,5 @@ export class ContosoProviderHubClientService {
   }
 }
 
-export { ContosoProviderHubClientService as ApiClient }
-export { ContosoProviderHubClientServiceConfig as ApiClientConfig }
+export {ContosoProviderHubClientService as ApiClient}
+export {ContosoProviderHubClientServiceConfig as ApiClientConfig}

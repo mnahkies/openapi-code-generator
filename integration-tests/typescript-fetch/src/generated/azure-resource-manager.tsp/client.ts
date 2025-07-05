@@ -27,7 +27,7 @@ export class ContosoProviderHubClientServers {
 
   static server(
     url: "https://management.azure.com" = "https://management.azure.com",
-  ): { build: () => Server<"ContosoProviderHubClient"> } {
+  ): {build: () => Server<"ContosoProviderHubClient">} {
     switch (url) {
       case "https://management.azure.com":
         return {
@@ -65,13 +65,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     const url =
       this.basePath + `/providers/Microsoft.ContosoProviderHub/operations`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async employeesGet(
@@ -91,13 +87,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async employeesCreateOrUpdate(
@@ -119,15 +111,15 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PUT", body, ...opts, headers },
+      {method: "PUT", body, ...opts, headers},
       timeout,
     )
   }
@@ -150,15 +142,15 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PATCH", body, ...opts, headers },
+      {method: "PATCH", body, ...opts, headers},
       timeout,
     )
   }
@@ -181,11 +173,11 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...opts, headers },
+      {method: "DELETE", ...opts, headers},
       timeout,
     )
   }
@@ -208,13 +200,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "HEAD", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "HEAD", ...opts, headers}, timeout)
   }
 
   async employeesListByResourceGroup(
@@ -233,13 +221,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async employeesListBySubscription(
@@ -257,13 +241,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async employeesMove(
@@ -284,19 +264,19 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}/move`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
-    const query = this._query({ "api-version": p["apiVersion"] })
+    const query = this._query({"api-version": p["apiVersion"]})
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", body, ...opts, headers },
+      {method: "POST", body, ...opts, headers},
       timeout,
     )
   }
 }
 
-export { ContosoProviderHubClient as ApiClient }
-export type { ContosoProviderHubClientConfig as ApiClientConfig }
+export {ContosoProviderHubClient as ApiClient}
+export type {ContosoProviderHubClientConfig as ApiClientConfig}

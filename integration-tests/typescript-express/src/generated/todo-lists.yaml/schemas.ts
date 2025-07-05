@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { z } from "zod"
+import {z} from "zod"
 
-export const s_CreateUpdateTodoList = z.object({ name: z.string() })
+export const s_CreateUpdateTodoList = z.object({name: z.string()})
 
 export const s_Error = z.object({
   message: z.string().optional(),
@@ -18,8 +18,8 @@ export const s_TodoList = z.object({
   name: z.string(),
   totalItemCount: z.coerce.number(),
   incompleteItemCount: z.coerce.number(),
-  created: z.string().datetime({ offset: true }),
-  updated: z.string().datetime({ offset: true }),
+  created: z.string().datetime({offset: true}),
+  updated: z.string().datetime({offset: true}),
 })
 
 export const s_UnknownObject = z.record(z.unknown())

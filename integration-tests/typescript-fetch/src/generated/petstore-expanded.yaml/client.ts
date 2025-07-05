@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_Error, t_NewPet, t_Pet } from "./models"
+import {t_Error, t_NewPet, t_Pet} from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
@@ -18,7 +18,7 @@ export class SwaggerPetstoreServers {
 
   static server(
     url: "https://petstore.swagger.io/v2" = "https://petstore.swagger.io/v2",
-  ): { build: () => Server<"SwaggerPetstore"> } {
+  ): {build: () => Server<"SwaggerPetstore">} {
     switch (url) {
       case "https://petstore.swagger.io/v2":
         return {
@@ -52,13 +52,9 @@ export class SwaggerPetstore extends AbstractFetchClient {
   ): Promise<Res<200, t_Pet[]> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ tags: p["tags"], limit: p["limit"] })
+    const query = this._query({tags: p["tags"], limit: p["limit"]})
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async addPet(
@@ -70,12 +66,12 @@ export class SwaggerPetstore extends AbstractFetchClient {
   ): Promise<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async findPetById(
@@ -88,7 +84,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     const url = this.basePath + `/pets/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async deletePet(
@@ -101,9 +97,9 @@ export class SwaggerPetstore extends AbstractFetchClient {
     const url = this.basePath + `/pets/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 }
 
-export { SwaggerPetstore as ApiClient }
-export type { SwaggerPetstoreConfig as ApiClientConfig }
+export {SwaggerPetstore as ApiClient}
+export type {SwaggerPetstoreConfig as ApiClientConfig}

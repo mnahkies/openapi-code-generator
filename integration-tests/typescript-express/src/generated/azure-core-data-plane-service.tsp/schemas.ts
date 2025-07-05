@@ -7,7 +7,7 @@ import {
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_InnerError,
 } from "./models"
-import { z } from "zod"
+import {z} from "zod"
 
 export const s_Azure_Core_Foundations_OperationState = z.union([
   z.enum(["NotStarted", "Running", "Succeeded", "Failed", "Canceled"]),
@@ -34,7 +34,7 @@ export const s_WidgetColor = z.union([
   z.enum(["Black", "White", "Red", "Green", "Blue"]),
 ])
 
-export const s_WidgetPartReorderRequest = z.object({ signedOffBy: z.string() })
+export const s_WidgetPartReorderRequest = z.object({signedOffBy: z.string()})
 
 export const s_WidgetRepairState = z.union([
   z.string(),
@@ -69,10 +69,10 @@ export const s_WidgetPart = z.object({
 
 export const s_WidgetRepairRequest = z.object({
   requestState: s_WidgetRepairState,
-  scheduledDateTime: z.string().datetime({ offset: true }),
-  createdDateTime: z.string().datetime({ offset: true }),
-  updatedDateTime: z.string().datetime({ offset: true }),
-  completedDateTime: z.string().datetime({ offset: true }),
+  scheduledDateTime: z.string().datetime({offset: true}),
+  createdDateTime: z.string().datetime({offset: true}),
+  updatedDateTime: z.string().datetime({offset: true}),
+  completedDateTime: z.string().datetime({offset: true}),
 })
 
 export const s_PagedManufacturer = z.object({
@@ -94,7 +94,7 @@ export const s_Azure_Core_Foundations_ErrorResponse: z.ZodType<
   t_Azure_Core_Foundations_ErrorResponse,
   z.ZodTypeDef,
   unknown
-> = z.object({ error: z.lazy(() => s_Azure_Core_Foundations_Error) })
+> = z.object({error: z.lazy(() => s_Azure_Core_Foundations_Error)})
 
 export const s_Azure_Core_Foundations_Error: z.ZodType<
   t_Azure_Core_Foundations_Error,

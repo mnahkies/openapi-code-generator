@@ -42,8 +42,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type GetTodoListsResponder = {
   with200(): ExpressRuntimeResponse<t_TodoList[]>
@@ -181,7 +181,7 @@ export function createRouter(implementation: Implementation): Router {
   const router = Router()
 
   const getTodoListsQuerySchema = z.object({
-    created: z.string().datetime({ offset: true }).optional(),
+    created: z.string().datetime({offset: true}).optional(),
     statuses: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -237,7 +237,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -255,7 +255,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTodoListByIdParamSchema = z.object({ listId: z.string() })
+  const getTodoListByIdParamSchema = z.object({listId: z.string()})
 
   const getTodoListByIdResponseBodyValidator = responseValidationFactory(
     [
@@ -307,7 +307,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -325,7 +325,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const updateTodoListByIdParamSchema = z.object({ listId: z.string() })
+  const updateTodoListByIdParamSchema = z.object({listId: z.string()})
 
   const updateTodoListByIdRequestBodySchema = s_CreateUpdateTodoList
 
@@ -383,7 +383,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -401,7 +401,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deleteTodoListByIdParamSchema = z.object({ listId: z.string() })
+  const deleteTodoListByIdParamSchema = z.object({listId: z.string()})
 
   const deleteTodoListByIdResponseBodyValidator = responseValidationFactory(
     [
@@ -453,7 +453,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -471,7 +471,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getTodoListItemsParamSchema = z.object({ listId: z.string() })
+  const getTodoListItemsParamSchema = z.object({listId: z.string()})
 
   const getTodoListItemsResponseBodyValidator = responseValidationFactory(
     [
@@ -480,11 +480,11 @@ export function createRouter(implementation: Implementation): Router {
         z.object({
           id: z.string(),
           content: z.string(),
-          createdAt: z.string().datetime({ offset: true }),
-          completedAt: z.string().datetime({ offset: true }).optional(),
+          createdAt: z.string().datetime({offset: true}),
+          completedAt: z.string().datetime({offset: true}).optional(),
         }),
       ],
-      ["5XX", z.object({ message: z.string(), code: z.string() })],
+      ["5XX", z.object({message: z.string(), code: z.string()})],
     ],
     undefined,
   )
@@ -536,7 +536,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -554,12 +554,12 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const createTodoListItemParamSchema = z.object({ listId: z.string() })
+  const createTodoListItemParamSchema = z.object({listId: z.string()})
 
   const createTodoListItemRequestBodySchema = z.object({
     id: z.string(),
     content: z.string(),
-    completedAt: z.string().datetime({ offset: true }).optional(),
+    completedAt: z.string().datetime({offset: true}).optional(),
   })
 
   const createTodoListItemResponseBodyValidator = responseValidationFactory(
@@ -607,7 +607,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -662,7 +662,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -725,7 +725,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response

@@ -84,8 +84,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
   with200(): ExpressRuntimeResponse<t_AppAuthenticatorEnrollment>
@@ -777,7 +777,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -866,7 +866,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -956,7 +956,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1036,7 +1036,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1057,7 +1057,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const listAppAuthenticatorPendingPushNotificationChallengesParamSchema =
-    z.object({ enrollmentId: z.string() })
+    z.object({enrollmentId: z.string()})
 
   const listAppAuthenticatorPendingPushNotificationChallengesResponseBodyValidator =
     responseValidationFactory(
@@ -1115,7 +1115,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1193,7 +1193,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1211,11 +1211,9 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getAuthenticatorParamSchema = z.object({ authenticatorId: z.string() })
+  const getAuthenticatorParamSchema = z.object({authenticatorId: z.string()})
 
-  const getAuthenticatorQuerySchema = z.object({
-    expand: z.string().optional(),
-  })
+  const getAuthenticatorQuerySchema = z.object({expand: z.string().optional()})
 
   const getAuthenticatorResponseBodyValidator = responseValidationFactory(
     [
@@ -1276,7 +1274,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1294,7 +1292,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const listEnrollmentsParamSchema = z.object({ authenticatorId: z.string() })
+  const listEnrollmentsParamSchema = z.object({authenticatorId: z.string()})
 
   const listEnrollmentsResponseBodyValidator = responseValidationFactory(
     [
@@ -1351,7 +1349,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1429,7 +1427,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1514,7 +1512,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1575,7 +1573,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1594,7 +1592,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const createEmailRequestBodySchema = z.object({
-    profile: z.object({ email: z.string().email() }),
+    profile: z.object({email: z.string().email()}),
     sendEmail: PermissiveBoolean.optional().default(true),
     state: z.string().optional(),
     role: z.enum(["PRIMARY", "SECONDARY"]).optional(),
@@ -1659,7 +1657,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1677,7 +1675,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getEmailParamSchema = z.object({ id: z.string() })
+  const getEmailParamSchema = z.object({id: z.string()})
 
   const getEmailResponseBodyValidator = responseValidationFactory(
     [
@@ -1726,7 +1724,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1744,7 +1742,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deleteEmailParamSchema = z.object({ id: z.string() })
+  const deleteEmailParamSchema = z.object({id: z.string()})
 
   const deleteEmailResponseBodyValidator = responseValidationFactory(
     [
@@ -1801,7 +1799,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1819,9 +1817,9 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const sendEmailChallengeParamSchema = z.object({ id: z.string() })
+  const sendEmailChallengeParamSchema = z.object({id: z.string()})
 
-  const sendEmailChallengeRequestBodySchema = z.object({ state: z.string() })
+  const sendEmailChallengeRequestBodySchema = z.object({state: z.string()})
 
   const sendEmailChallengeResponseBodyValidator = responseValidationFactory(
     [
@@ -1831,15 +1829,15 @@ export function createRouter(implementation: Implementation): Router {
           id: z.string().min(1),
           status: z.enum(["VERIFIED", "UNVERIFIED"]),
           expiresAt: z.string().min(1),
-          profile: z.object({ email: z.string().min(1) }),
+          profile: z.object({email: z.string().min(1)}),
           _links: z.object({
             verify: z.object({
               href: z.string().min(1),
-              hints: z.object({ allow: z.array(z.enum(["POST"])) }),
+              hints: z.object({allow: z.array(z.enum(["POST"]))}),
             }),
             poll: z.object({
               href: z.string().min(1),
-              hints: z.object({ allow: z.array(z.enum(["GET"])) }),
+              hints: z.object({allow: z.array(z.enum(["GET"]))}),
             }),
           }),
         }),
@@ -1921,7 +1919,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -1953,7 +1951,7 @@ export function createRouter(implementation: Implementation): Router {
             id: z.string().min(1),
             status: z.enum(["VERIFIED", "UNVERIFIED"]),
             expiresAt: z.string().min(1),
-            profile: z.object({ email: z.string().min(1) }),
+            profile: z.object({email: z.string().min(1)}),
             _links: z.object({
               verify: z.object({
                 href: z.string().min(1),
@@ -2039,7 +2037,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2127,7 +2125,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2188,7 +2186,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2249,7 +2247,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2310,7 +2308,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2329,7 +2327,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const createPasswordRequestBodySchema = z.object({
-    profile: z.object({ password: z.string() }),
+    profile: z.object({password: z.string()}),
   })
 
   const createPasswordResponseBodyValidator = responseValidationFactory(
@@ -2387,7 +2385,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2406,7 +2404,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const replacePasswordRequestBodySchema = z.object({
-    profile: z.object({ password: z.string() }),
+    profile: z.object({password: z.string()}),
   })
 
   const replacePasswordResponseBodyValidator = responseValidationFactory(
@@ -2464,7 +2462,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2529,7 +2527,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2590,7 +2588,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2609,7 +2607,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const createPhoneRequestBodySchema = z.object({
-    profile: z.object({ phoneNumber: z.string().optional() }),
+    profile: z.object({phoneNumber: z.string().optional()}),
     sendCode: PermissiveBoolean.optional().default(true),
     method: z.enum(["SMS", "CALL"]).optional(),
   })
@@ -2677,7 +2675,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2695,7 +2693,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const getPhoneParamSchema = z.object({ id: z.string() })
+  const getPhoneParamSchema = z.object({id: z.string()})
 
   const getPhoneResponseBodyValidator = responseValidationFactory(
     [
@@ -2748,7 +2746,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2766,7 +2764,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const deletePhoneParamSchema = z.object({ id: z.string() })
+  const deletePhoneParamSchema = z.object({id: z.string()})
 
   const deletePhoneResponseBodyValidator = responseValidationFactory(
     [
@@ -2823,7 +2821,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2841,7 +2839,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const sendPhoneChallengeParamSchema = z.object({ id: z.string() })
+  const sendPhoneChallengeParamSchema = z.object({id: z.string()})
 
   const sendPhoneChallengeRequestBodySchema = z.object({
     method: z.enum(["SMS", "CALL"]),
@@ -2858,7 +2856,7 @@ export function createRouter(implementation: Implementation): Router {
               verify: z
                 .object({
                   href: z.string().min(1),
-                  hints: z.object({ allow: z.array(z.enum(["GET"])) }),
+                  hints: z.object({allow: z.array(z.enum(["GET"]))}),
                 })
                 .optional(),
             })
@@ -2942,7 +2940,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -2960,7 +2958,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const verifyPhoneChallengeParamSchema = z.object({ id: z.string() })
+  const verifyPhoneChallengeParamSchema = z.object({id: z.string()})
 
   const verifyPhoneChallengeRequestBodySchema = z.object({
     verificationCode: z.string(),
@@ -3033,7 +3031,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3094,7 +3092,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3167,7 +3165,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3228,7 +3226,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -3293,7 +3291,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response

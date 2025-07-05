@@ -56,8 +56,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod"
-import { NextFunction, Request, Response, Router } from "express"
-import { z } from "zod"
+import {NextFunction, Request, Response, Router} from "express"
+import {z} from "zod"
 
 export type OperationsListResponder = {
   with200(): ExpressRuntimeResponse<t_OperationListResult>
@@ -252,9 +252,7 @@ export type Implementation = {
 export function createRouter(implementation: Implementation): Router {
   const router = Router()
 
-  const operationsListQuerySchema = z.object({
-    "api-version": z.string().min(1),
-  })
+  const operationsListQuerySchema = z.object({"api-version": z.string().min(1)})
 
   const operationsListResponseBodyValidator = responseValidationFactory(
     [["200", s_OperationListResult]],
@@ -302,7 +300,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -330,7 +328,7 @@ export function createRouter(implementation: Implementation): Router {
     employeeName: z.string().regex(new RegExp("^[a-zA-Z0-9-]{3,24}$")),
   })
 
-  const employeesGetQuerySchema = z.object({ "api-version": z.string().min(1) })
+  const employeesGetQuerySchema = z.object({"api-version": z.string().min(1)})
 
   const employeesGetResponseBodyValidator = responseValidationFactory(
     [["200", s_Employee]],
@@ -382,7 +380,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -477,7 +475,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -565,7 +563,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -653,7 +651,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -742,7 +740,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -824,7 +822,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -903,7 +901,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response
@@ -933,9 +931,7 @@ export function createRouter(implementation: Implementation): Router {
     employeeName: z.string().regex(new RegExp("^[a-zA-Z0-9-]{3,24}$")),
   })
 
-  const employeesMoveQuerySchema = z.object({
-    "api-version": z.string().min(1),
-  })
+  const employeesMoveQuerySchema = z.object({"api-version": z.string().min(1)})
 
   const employeesMoveRequestBodySchema = s_MoveRequest
 
@@ -993,7 +989,7 @@ export function createRouter(implementation: Implementation): Router {
           return
         }
 
-        const { status, body } =
+        const {status, body} =
           response instanceof ExpressRuntimeResponse
             ? response.unpack()
             : response

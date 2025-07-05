@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ContosoProviderHubClientService } from "./client.service"
-import { NgModule } from "@angular/core"
+import {ContosoProviderHubClientService} from "./client.service"
+import {NgModule} from "@angular/core"
 
 @NgModule({
   imports: [],
@@ -13,4 +13,4 @@ import { NgModule } from "@angular/core"
 })
 export class ContosoProviderHubClientModule {}
 
-export { ContosoProviderHubClientModule as ApiModule }
+export {ContosoProviderHubClientModule as ApiModule}

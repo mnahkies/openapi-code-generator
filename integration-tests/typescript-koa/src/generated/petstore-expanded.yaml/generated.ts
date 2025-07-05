@@ -10,8 +10,8 @@ import {
   t_FindPetsQuerySchema,
   t_Pet,
 } from "./models"
-import { s_Error, s_NewPet, s_Pet } from "./schemas"
-import KoaRouter, { RouterContext } from "@koa/router"
+import {s_Error, s_NewPet, s_Pet} from "./schemas"
+import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -30,8 +30,8 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import { Next } from "koa"
-import { z } from "zod"
+import {Next} from "koa"
+import {z} from "zod"
 
 export type FindPetsResponder = {
   with200(): KoaRuntimeResponse<t_Pet[]>
@@ -161,7 +161,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = findPetsResponseValidator(status, body)
@@ -211,7 +211,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = addPetResponseValidator(status, body)
@@ -219,7 +219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const findPetByIdParamSchema = z.object({ id: z.coerce.number() })
+  const findPetByIdParamSchema = z.object({id: z.coerce.number()})
 
   const findPetByIdResponseValidator = responseValidationFactory(
     [["200", s_Pet]],
@@ -261,7 +261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = findPetByIdResponseValidator(status, body)
@@ -269,7 +269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const deletePetParamSchema = z.object({ id: z.coerce.number() })
+  const deletePetParamSchema = z.object({id: z.coerce.number()})
 
   const deletePetResponseValidator = responseValidationFactory(
     [["204", z.undefined()]],
@@ -311,7 +311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return
     }
 
-    const { status, body } =
+    const {status, body} =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = deletePetResponseValidator(status, body)

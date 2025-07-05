@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
+export type EmptyObject = {[key: string]: never}
 
 export type t_Azure_Core_armResourceType = string
 

@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { OktaOpenIdConnectOAuth20Service } from "./client.service"
-import { NgModule } from "@angular/core"
+import {OktaOpenIdConnectOAuth20Service} from "./client.service"
+import {NgModule} from "@angular/core"
 
 @NgModule({
   imports: [],
@@ -13,4 +13,4 @@ import { NgModule } from "@angular/core"
 })
 export class OktaOpenIdConnectOAuth20Module {}
 
-export { OktaOpenIdConnectOAuth20Module as ApiModule }
+export {OktaOpenIdConnectOAuth20Module as ApiModule}
