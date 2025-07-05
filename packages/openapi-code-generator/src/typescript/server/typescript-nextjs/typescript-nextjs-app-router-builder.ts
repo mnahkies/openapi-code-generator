@@ -132,7 +132,9 @@ export class TypescriptNextjsAppRouterBuilder implements ICompilable {
       .forEach((it) => it.remove())
 
     this.sourceFile.addImportDeclaration({
-      namedImports: Array.from(this.httpMethodsUsed).map((it) => `_${it}`),
+      namedImports: Array.from(this.httpMethodsUsed)
+        .map((it) => `_${it}`)
+        .sort(),
       moduleSpecifier: from,
     })
 
