@@ -13,10 +13,10 @@
     "@nahkies/typescript-express-runtime": "*",
     "express": "^5.1.0",
     "joi": "^17.13.3",
-    "zod": "^3.25.42"
+    "zod": "^3.25.74"
   },
   "devDependencies": {
-    "@types/express": "^5.0.2",
+    "@types/express": "^5.0.3",
     "typescript": "~5.8.3"
   }
 }

@@ -1441,6 +1441,7 @@ export type t_code_security_configuration = {
   code_scanning_delegated_alert_dismissal?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
+  code_scanning_options?: (EmptyObject | null) | undefined
   created_at?: string | undefined
   dependabot_alerts?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -2434,7 +2435,7 @@ export type t_dependabot_public_key = {
 }
 
 export type t_dependabot_repository_access_details = {
-  accessible_repositories?: t_simple_repository[] | undefined
+  accessible_repositories?: t_nullable_simple_repository[] | undefined
   default_level?:
     | ("public" | "internal" | UnknownEnumStringValue | null)
     | undefined
@@ -2678,14 +2679,16 @@ export type t_enterprise = {
 
 export type t_enterprise_team = {
   created_at: string
+  description?: string | undefined
   group_id?: (string | null) | undefined
   group_name?: (string | null) | undefined
   html_url: string
   id: number
   members_url: string
   name: string
+  organization_selection_type?: string | undefined
   slug: string
-  sync_to_organizations: string
+  sync_to_organizations?: string | undefined
   updated_at: string
   url: string
 }
@@ -3411,6 +3414,7 @@ export type t_installation = {
   account: t_simple_user | t_enterprise | null
   app_id: number
   app_slug: string
+  client_id?: string | undefined
   contact_email?: (string | null) | undefined
   created_at: string
   events: string[]
@@ -3796,6 +3800,7 @@ export type t_key = {
 }
 
 export type t_key_simple = {
+  created_at?: string | undefined
   id: number
   key: string
 }
@@ -4061,6 +4066,11 @@ export type t_minimal_repository = {
   contents_url: string
   contributors_url: string
   created_at?: (string | null) | undefined
+  custom_properties?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   default_branch?: string | undefined
   delete_branch_on_merge?: boolean | undefined
   deployments_url: string
@@ -4395,6 +4405,11 @@ export type t_nullable_minimal_repository = {
   contents_url: string
   contributors_url: string
   created_at?: (string | null) | undefined
+  custom_properties?:
+    | {
+        [key: string]: unknown | undefined
+      }
+    | undefined
   default_branch?: string | undefined
   delete_branch_on_merge?: boolean | undefined
   deployments_url: string
@@ -4630,6 +4645,22 @@ export type t_nullable_scoped_installation = {
   single_file_paths?: string[] | undefined
 } | null
 
+export type t_nullable_secret_scanning_first_detected_location =
+  | t_secret_scanning_location_commit
+  | t_secret_scanning_location_wiki_commit
+  | t_secret_scanning_location_issue_title
+  | t_secret_scanning_location_issue_body
+  | t_secret_scanning_location_issue_comment
+  | t_secret_scanning_location_discussion_title
+  | t_secret_scanning_location_discussion_body
+  | t_secret_scanning_location_discussion_comment
+  | t_secret_scanning_location_pull_request_title
+  | t_secret_scanning_location_pull_request_body
+  | t_secret_scanning_location_pull_request_comment
+  | t_secret_scanning_location_pull_request_review
+  | t_secret_scanning_location_pull_request_review_comment
+  | null
+
 export type t_nullable_simple_commit = {
   author: {
     email: string
@@ -4643,6 +4674,55 @@ export type t_nullable_simple_commit = {
   message: string
   timestamp: string
   tree_id: string
+} | null
+
+export type t_nullable_simple_repository = {
+  archive_url: string
+  assignees_url: string
+  blobs_url: string
+  branches_url: string
+  collaborators_url: string
+  comments_url: string
+  commits_url: string
+  compare_url: string
+  contents_url: string
+  contributors_url: string
+  deployments_url: string
+  description: string | null
+  downloads_url: string
+  events_url: string
+  fork: boolean
+  forks_url: string
+  full_name: string
+  git_commits_url: string
+  git_refs_url: string
+  git_tags_url: string
+  hooks_url: string
+  html_url: string
+  id: number
+  issue_comment_url: string
+  issue_events_url: string
+  issues_url: string
+  keys_url: string
+  labels_url: string
+  languages_url: string
+  merges_url: string
+  milestones_url: string
+  name: string
+  node_id: string
+  notifications_url: string
+  owner: t_simple_user
+  private: boolean
+  pulls_url: string
+  releases_url: string
+  stargazers_url: string
+  statuses_url: string
+  subscribers_url: string
+  subscription_url: string
+  tags_url: string
+  teams_url: string
+  trees_url: string
+  url: string
 } | null
 
 export type t_nullable_simple_user = {
@@ -4824,6 +4904,7 @@ export type t_organization_full = {
   collaborators?: (number | null) | undefined
   company?: string | undefined
   created_at: string
+  default_repository_branch?: (string | null) | undefined
   default_repository_permission?: (string | null) | undefined
   dependabot_alerts_enabled_for_new_repositories?: boolean | undefined
   dependabot_security_updates_enabled_for_new_repositories?: boolean | undefined
@@ -4831,6 +4912,7 @@ export type t_organization_full = {
   deploy_keys_enabled_for_repositories?: boolean | undefined
   description: string | null
   disk_usage?: (number | null) | undefined
+  display_commenter_full_name_setting_enabled?: boolean | undefined
   email?: string | undefined
   events_url: string
   followers: number
@@ -4845,6 +4927,7 @@ export type t_organization_full = {
   location?: string | undefined
   login: string
   members_allowed_repository_creation_type?: string | undefined
+  members_can_change_repo_visibility?: boolean | undefined
   members_can_create_internal_repositories?: boolean | undefined
   members_can_create_pages?: boolean | undefined
   members_can_create_private_pages?: boolean | undefined
@@ -4852,7 +4935,12 @@ export type t_organization_full = {
   members_can_create_public_pages?: boolean | undefined
   members_can_create_public_repositories?: boolean | undefined
   members_can_create_repositories?: (boolean | null) | undefined
+  members_can_create_teams?: boolean | undefined
+  members_can_delete_issues?: boolean | undefined
+  members_can_delete_repositories?: boolean | undefined
   members_can_fork_private_repositories?: (boolean | null) | undefined
+  members_can_invite_outside_collaborators?: boolean | undefined
+  members_can_view_dependency_insights?: boolean | undefined
   members_url: string
   name?: string | undefined
   node_id: string
@@ -4870,6 +4958,7 @@ export type t_organization_full = {
   public_gists: number
   public_members_url: string
   public_repos: number
+  readers_can_create_discussions?: boolean | undefined
   repos_url: string
   secret_scanning_enabled_for_new_repositories?: boolean | undefined
   secret_scanning_push_protection_custom_link?: (string | null) | undefined
@@ -4994,6 +5083,10 @@ export type t_organization_role = {
 
 export type t_organization_secret_scanning_alert = {
   created_at?: t_alert_created_at | undefined
+  first_location_detected?:
+    | t_nullable_secret_scanning_first_detected_location
+    | undefined
+  has_more_locations?: boolean | undefined
   html_url?: t_alert_html_url | undefined
   is_base64_encoded?: (boolean | null) | undefined
   locations_url?: string | undefined
@@ -5886,6 +5979,7 @@ export type t_rate_limit_overview = {
     code_scanning_upload?: t_rate_limit | undefined
     code_search?: t_rate_limit | undefined
     core: t_rate_limit
+    dependency_sbom?: t_rate_limit | undefined
     dependency_snapshots?: t_rate_limit | undefined
     graphql?: t_rate_limit | undefined
     integration_manifest?: t_rate_limit | undefined
@@ -6879,6 +6973,7 @@ export type t_review_comment = {
   side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue) | undefined
   start_line?: (number | null) | undefined
   start_side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue | null) | undefined
+  subject_type?: ("line" | "file" | UnknownEnumStringValue) | undefined
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -7108,6 +7203,10 @@ export type t_search_result_text_matches = {
 
 export type t_secret_scanning_alert = {
   created_at?: t_alert_created_at | undefined
+  first_location_detected?:
+    | t_nullable_secret_scanning_first_detected_location
+    | undefined
+  has_more_locations?: boolean | undefined
   html_url?: t_alert_html_url | undefined
   is_base64_encoded?: (boolean | null) | undefined
   locations_url?: string | undefined

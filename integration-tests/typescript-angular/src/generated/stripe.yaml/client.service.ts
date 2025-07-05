@@ -696,6 +696,9 @@ export class StripeApiService {
           cashapp_payments?: {
             requested?: boolean
           }
+          crypto_payments?: {
+            requested?: boolean
+          }
           eps_payments?: {
             requested?: boolean
           }
@@ -955,6 +958,9 @@ export class StripeApiService {
           company_tax_id_verification?: {
             files?: string[]
           }
+          proof_of_address?: {
+            files?: string[]
+          }
           proof_of_registration?: {
             files?: string[]
           }
@@ -1111,6 +1117,7 @@ export class StripeApiService {
                 | "weekly"
                 | UnknownEnumStringValue
               monthly_anchor?: number
+              monthly_payout_days?: number[]
               weekly_anchor?:
                 | "friday"
                 | "monday"
@@ -1120,6 +1127,16 @@ export class StripeApiService {
                 | "tuesday"
                 | "wednesday"
                 | UnknownEnumStringValue
+              weekly_payout_days?: (
+                | "friday"
+                | "monday"
+                | "saturday"
+                | "sunday"
+                | "thursday"
+                | "tuesday"
+                | "wednesday"
+                | UnknownEnumStringValue
+              )[]
             }
             statement_descriptor?: string
           }
@@ -1307,6 +1324,9 @@ export class StripeApiService {
           requested?: boolean
         }
         cashapp_payments?: {
+          requested?: boolean
+        }
+        crypto_payments?: {
           requested?: boolean
         }
         eps_payments?: {
@@ -1552,6 +1572,9 @@ export class StripeApiService {
         company_tax_id_verification?: {
           files?: string[]
         }
+        proof_of_address?: {
+          files?: string[]
+        }
         proof_of_registration?: {
           files?: string[]
         }
@@ -1709,6 +1732,7 @@ export class StripeApiService {
               | "weekly"
               | UnknownEnumStringValue
             monthly_anchor?: number
+            monthly_payout_days?: number[]
             weekly_anchor?:
               | "friday"
               | "monday"
@@ -1718,6 +1742,16 @@ export class StripeApiService {
               | "tuesday"
               | "wednesday"
               | UnknownEnumStringValue
+            weekly_payout_days?: (
+              | "friday"
+              | "monday"
+              | "saturday"
+              | "sunday"
+              | "thursday"
+              | "tuesday"
+              | "wednesday"
+              | UnknownEnumStringValue
+            )[]
           }
           statement_descriptor?: string
         }
@@ -6394,6 +6428,24 @@ export class StripeApiService {
           }
           klarna?: {
             setup_future_usage?: "none" | UnknownEnumStringValue
+            subscriptions?:
+              | {
+                  interval:
+                    | "day"
+                    | "month"
+                    | "week"
+                    | "year"
+                    | UnknownEnumStringValue
+                  interval_count?: number
+                  name?: string
+                  next_billing: {
+                    amount: number
+                    date: string
+                  }
+                  reference: string
+                }[]
+              | ""
+              | UnknownEnumStringValue
           }
           konbini?: {
             expires_after_days?: number
@@ -6538,6 +6590,7 @@ export class StripeApiService {
           | "boleto"
           | "card"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -6914,6 +6967,9 @@ export class StripeApiService {
         subscription_data?: {
           application_fee_percent?: number
           billing_cycle_anchor?: number
+          billing_mode?: {
+            type: "classic" | "flexible" | UnknownEnumStringValue
+          }
           default_tax_rates?: string[]
           description?: string
           invoice_settings?: {
@@ -9684,6 +9740,7 @@ export class StripeApiService {
       | "boleto"
       | "card"
       | "cashapp"
+      | "crypto"
       | "customer_balance"
       | "eps"
       | "fpx"
@@ -10321,6 +10378,7 @@ export class StripeApiService {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -10736,6 +10794,7 @@ export class StripeApiService {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -12841,6 +12900,10 @@ export class StripeApiService {
           phone?: string
         }
         related_customer?: string
+        related_person?: {
+          account: string
+          person: string
+        }
         return_url?: string
         type?: "document" | "id_number" | UnknownEnumStringValue
         verification_flow?: string
@@ -13646,7 +13709,11 @@ export class StripeApiService {
                       | {
                           count?: number
                           interval?: "month" | UnknownEnumStringValue
-                          type: "fixed_count" | UnknownEnumStringValue
+                          type:
+                            | "bonus"
+                            | "fixed_count"
+                            | "revolving"
+                            | UnknownEnumStringValue
                         }
                       | ""
                       | UnknownEnumStringValue
@@ -13719,6 +13786,7 @@ export class StripeApiService {
                 | "boleto"
                 | "card"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -14091,6 +14159,9 @@ export class StripeApiService {
         preview_mode?: "next" | "recurring" | UnknownEnumStringValue
         schedule?: string
         schedule_details?: {
+          billing_mode?: {
+            type: "classic" | "flexible" | UnknownEnumStringValue
+          }
           end_behavior?: "cancel" | "release" | UnknownEnumStringValue
           phases?: {
             add_invoice_items?: {
@@ -14230,6 +14301,9 @@ export class StripeApiService {
             | "unchanged"
             | UnknownEnumStringValue
             | number
+          billing_mode?: {
+            type: "classic" | "flexible" | UnknownEnumStringValue
+          }
           cancel_at?: number | "" | UnknownEnumStringValue
           cancel_at_period_end?: boolean
           cancel_now?: boolean
@@ -14503,7 +14577,11 @@ export class StripeApiService {
                     | {
                         count?: number
                         interval?: "month" | UnknownEnumStringValue
-                        type: "fixed_count" | UnknownEnumStringValue
+                        type:
+                          | "bonus"
+                          | "fixed_count"
+                          | "revolving"
+                          | UnknownEnumStringValue
                       }
                     | ""
                     | UnknownEnumStringValue
@@ -14576,6 +14654,7 @@ export class StripeApiService {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -21078,6 +21157,7 @@ export class StripeApiService {
           tax_id: string
         }
         cashapp?: EmptyObject
+        crypto?: EmptyObject
         customer_balance?: EmptyObject
         eps?: {
           bank?:
@@ -21144,6 +21224,7 @@ export class StripeApiService {
             | "abn_amro"
             | "asn_bank"
             | "bunq"
+            | "buut"
             | "handelsbanken"
             | "ing"
             | "knab"
@@ -21259,6 +21340,7 @@ export class StripeApiService {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -21458,7 +21540,11 @@ export class StripeApiService {
                   | {
                       count?: number
                       interval?: "month" | UnknownEnumStringValue
-                      type: "fixed_count" | UnknownEnumStringValue
+                      type:
+                        | "bonus"
+                        | "fixed_count"
+                        | "revolving"
+                        | UnknownEnumStringValue
                     }
                   | ""
                   | UnknownEnumStringValue
@@ -21599,6 +21685,12 @@ export class StripeApiService {
             }
           | ""
           | UnknownEnumStringValue
+        crypto?:
+          | {
+              setup_future_usage?: "none" | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
         customer_balance?:
           | {
               bank_transfer?: {
@@ -21677,6 +21769,18 @@ export class StripeApiService {
         klarna?:
           | {
               capture_method?: "" | "manual" | UnknownEnumStringValue
+              on_demand?: {
+                average_amount?: number
+                maximum_amount?: number
+                minimum_amount?: number
+                purchase_interval?:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                purchase_interval_count?: number
+              }
               preferred_locale?:
                 | "cs-CZ"
                 | "da-DK"
@@ -21725,7 +21829,29 @@ export class StripeApiService {
                 | "sv-FI"
                 | "sv-SE"
                 | UnknownEnumStringValue
-              setup_future_usage?: "none" | UnknownEnumStringValue
+              setup_future_usage?:
+                | "none"
+                | "off_session"
+                | "on_session"
+                | UnknownEnumStringValue
+              subscriptions?:
+                | {
+                    interval:
+                      | "day"
+                      | "month"
+                      | "week"
+                      | "year"
+                      | UnknownEnumStringValue
+                    interval_count?: number
+                    name?: string
+                    next_billing?: {
+                      amount: number
+                      date: string
+                    }
+                    reference: string
+                  }[]
+                | ""
+                | UnknownEnumStringValue
             }
           | ""
           | UnknownEnumStringValue
@@ -22211,6 +22337,7 @@ export class StripeApiService {
           tax_id: string
         }
         cashapp?: EmptyObject
+        crypto?: EmptyObject
         customer_balance?: EmptyObject
         eps?: {
           bank?:
@@ -22277,6 +22404,7 @@ export class StripeApiService {
             | "abn_amro"
             | "asn_bank"
             | "bunq"
+            | "buut"
             | "handelsbanken"
             | "ing"
             | "knab"
@@ -22392,6 +22520,7 @@ export class StripeApiService {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -22591,7 +22720,11 @@ export class StripeApiService {
                   | {
                       count?: number
                       interval?: "month" | UnknownEnumStringValue
-                      type: "fixed_count" | UnknownEnumStringValue
+                      type:
+                        | "bonus"
+                        | "fixed_count"
+                        | "revolving"
+                        | UnknownEnumStringValue
                     }
                   | ""
                   | UnknownEnumStringValue
@@ -22732,6 +22865,12 @@ export class StripeApiService {
             }
           | ""
           | UnknownEnumStringValue
+        crypto?:
+          | {
+              setup_future_usage?: "none" | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
         customer_balance?:
           | {
               bank_transfer?: {
@@ -22810,6 +22949,18 @@ export class StripeApiService {
         klarna?:
           | {
               capture_method?: "" | "manual" | UnknownEnumStringValue
+              on_demand?: {
+                average_amount?: number
+                maximum_amount?: number
+                minimum_amount?: number
+                purchase_interval?:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                purchase_interval_count?: number
+              }
               preferred_locale?:
                 | "cs-CZ"
                 | "da-DK"
@@ -22858,7 +23009,29 @@ export class StripeApiService {
                 | "sv-FI"
                 | "sv-SE"
                 | UnknownEnumStringValue
-              setup_future_usage?: "none" | UnknownEnumStringValue
+              setup_future_usage?:
+                | "none"
+                | "off_session"
+                | "on_session"
+                | UnknownEnumStringValue
+              subscriptions?:
+                | {
+                    interval:
+                      | "day"
+                      | "month"
+                      | "week"
+                      | "year"
+                      | UnknownEnumStringValue
+                    interval_count?: number
+                    name?: string
+                    next_billing?: {
+                      amount: number
+                      date: string
+                    }
+                    reference: string
+                  }[]
+                | ""
+                | UnknownEnumStringValue
             }
           | ""
           | UnknownEnumStringValue
@@ -23391,6 +23564,7 @@ export class StripeApiService {
           tax_id: string
         }
         cashapp?: EmptyObject
+        crypto?: EmptyObject
         customer_balance?: EmptyObject
         eps?: {
           bank?:
@@ -23457,6 +23631,7 @@ export class StripeApiService {
             | "abn_amro"
             | "asn_bank"
             | "bunq"
+            | "buut"
             | "handelsbanken"
             | "ing"
             | "knab"
@@ -23572,6 +23747,7 @@ export class StripeApiService {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -23771,7 +23947,11 @@ export class StripeApiService {
                   | {
                       count?: number
                       interval?: "month" | UnknownEnumStringValue
-                      type: "fixed_count" | UnknownEnumStringValue
+                      type:
+                        | "bonus"
+                        | "fixed_count"
+                        | "revolving"
+                        | UnknownEnumStringValue
                     }
                   | ""
                   | UnknownEnumStringValue
@@ -23912,6 +24092,12 @@ export class StripeApiService {
             }
           | ""
           | UnknownEnumStringValue
+        crypto?:
+          | {
+              setup_future_usage?: "none" | UnknownEnumStringValue
+            }
+          | ""
+          | UnknownEnumStringValue
         customer_balance?:
           | {
               bank_transfer?: {
@@ -23990,6 +24176,18 @@ export class StripeApiService {
         klarna?:
           | {
               capture_method?: "" | "manual" | UnknownEnumStringValue
+              on_demand?: {
+                average_amount?: number
+                maximum_amount?: number
+                minimum_amount?: number
+                purchase_interval?:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                purchase_interval_count?: number
+              }
               preferred_locale?:
                 | "cs-CZ"
                 | "da-DK"
@@ -24038,7 +24236,29 @@ export class StripeApiService {
                 | "sv-FI"
                 | "sv-SE"
                 | UnknownEnumStringValue
-              setup_future_usage?: "none" | UnknownEnumStringValue
+              setup_future_usage?:
+                | "none"
+                | "off_session"
+                | "on_session"
+                | UnknownEnumStringValue
+              subscriptions?:
+                | {
+                    interval:
+                      | "day"
+                      | "month"
+                      | "week"
+                      | "year"
+                      | UnknownEnumStringValue
+                    interval_count?: number
+                    name?: string
+                    next_billing?: {
+                      amount: number
+                      date: string
+                    }
+                    reference: string
+                  }[]
+                | ""
+                | UnknownEnumStringValue
             }
           | ""
           | UnknownEnumStringValue
@@ -26419,6 +26639,7 @@ export class StripeApiService {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -26558,6 +26779,7 @@ export class StripeApiService {
               token: string
             }
         cashapp?: EmptyObject
+        crypto?: EmptyObject
         customer?: string
         customer_balance?: EmptyObject
         eps?: {
@@ -26626,6 +26848,7 @@ export class StripeApiService {
             | "abn_amro"
             | "asn_bank"
             | "bunq"
+            | "buut"
             | "handelsbanken"
             | "ing"
             | "knab"
@@ -26743,6 +26966,7 @@ export class StripeApiService {
           | "boleto"
           | "card"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -28456,6 +28680,9 @@ export class StripeApiService {
         }
         on_behalf_of?: string | "" | UnknownEnumStringValue
         subscription_data?: {
+          billing_mode?: {
+            type: "classic" | "flexible" | UnknownEnumStringValue
+          }
           description?: string
           effective_date?:
             | "current_period_end"
@@ -30543,6 +30770,7 @@ export class StripeApiService {
             tax_id: string
           }
           cashapp?: EmptyObject
+          crypto?: EmptyObject
           customer_balance?: EmptyObject
           eps?: {
             bank?:
@@ -30609,6 +30837,7 @@ export class StripeApiService {
               | "abn_amro"
               | "asn_bank"
               | "bunq"
+              | "buut"
               | "handelsbanken"
               | "ing"
               | "knab"
@@ -30724,6 +30953,7 @@ export class StripeApiService {
             | "blik"
             | "boleto"
             | "cashapp"
+            | "crypto"
             | "customer_balance"
             | "eps"
             | "fpx"
@@ -30881,6 +31111,87 @@ export class StripeApiService {
             }
           }
           card_present?: EmptyObject
+          klarna?: {
+            currency?: string
+            on_demand?: {
+              average_amount?: number
+              maximum_amount?: number
+              minimum_amount?: number
+              purchase_interval?:
+                | "day"
+                | "month"
+                | "week"
+                | "year"
+                | UnknownEnumStringValue
+              purchase_interval_count?: number
+            }
+            preferred_locale?:
+              | "cs-CZ"
+              | "da-DK"
+              | "de-AT"
+              | "de-CH"
+              | "de-DE"
+              | "el-GR"
+              | "en-AT"
+              | "en-AU"
+              | "en-BE"
+              | "en-CA"
+              | "en-CH"
+              | "en-CZ"
+              | "en-DE"
+              | "en-DK"
+              | "en-ES"
+              | "en-FI"
+              | "en-FR"
+              | "en-GB"
+              | "en-GR"
+              | "en-IE"
+              | "en-IT"
+              | "en-NL"
+              | "en-NO"
+              | "en-NZ"
+              | "en-PL"
+              | "en-PT"
+              | "en-RO"
+              | "en-SE"
+              | "en-US"
+              | "es-ES"
+              | "es-US"
+              | "fi-FI"
+              | "fr-BE"
+              | "fr-CA"
+              | "fr-CH"
+              | "fr-FR"
+              | "it-CH"
+              | "it-IT"
+              | "nb-NO"
+              | "nl-BE"
+              | "nl-NL"
+              | "pl-PL"
+              | "pt-PT"
+              | "ro-RO"
+              | "sv-FI"
+              | "sv-SE"
+              | UnknownEnumStringValue
+            subscriptions?:
+              | {
+                  interval:
+                    | "day"
+                    | "month"
+                    | "week"
+                    | "year"
+                    | UnknownEnumStringValue
+                  interval_count?: number
+                  name?: string
+                  next_billing: {
+                    amount: number
+                    date: string
+                  }
+                  reference: string
+                }[]
+              | ""
+              | UnknownEnumStringValue
+          }
           link?: EmptyObject
           paypal?: {
             billing_agreement_id?: string
@@ -31059,6 +31370,7 @@ export class StripeApiService {
           tax_id: string
         }
         cashapp?: EmptyObject
+        crypto?: EmptyObject
         customer_balance?: EmptyObject
         eps?: {
           bank?:
@@ -31125,6 +31437,7 @@ export class StripeApiService {
             | "abn_amro"
             | "asn_bank"
             | "bunq"
+            | "buut"
             | "handelsbanken"
             | "ing"
             | "knab"
@@ -31240,6 +31553,7 @@ export class StripeApiService {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -31394,6 +31708,87 @@ export class StripeApiService {
           }
         }
         card_present?: EmptyObject
+        klarna?: {
+          currency?: string
+          on_demand?: {
+            average_amount?: number
+            maximum_amount?: number
+            minimum_amount?: number
+            purchase_interval?:
+              | "day"
+              | "month"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            purchase_interval_count?: number
+          }
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-CH"
+            | "de-DE"
+            | "el-GR"
+            | "en-AT"
+            | "en-AU"
+            | "en-BE"
+            | "en-CA"
+            | "en-CH"
+            | "en-CZ"
+            | "en-DE"
+            | "en-DK"
+            | "en-ES"
+            | "en-FI"
+            | "en-FR"
+            | "en-GB"
+            | "en-GR"
+            | "en-IE"
+            | "en-IT"
+            | "en-NL"
+            | "en-NO"
+            | "en-NZ"
+            | "en-PL"
+            | "en-PT"
+            | "en-RO"
+            | "en-SE"
+            | "en-US"
+            | "es-ES"
+            | "es-US"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-CA"
+            | "fr-CH"
+            | "fr-FR"
+            | "it-CH"
+            | "it-IT"
+            | "nb-NO"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "ro-RO"
+            | "sv-FI"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          subscriptions?:
+            | {
+                interval:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                interval_count?: number
+                name?: string
+                next_billing: {
+                  amount: number
+                  date: string
+                }
+                reference: string
+              }[]
+            | ""
+            | UnknownEnumStringValue
+        }
         link?: EmptyObject
         paypal?: {
           billing_agreement_id?: string
@@ -31574,6 +31969,7 @@ export class StripeApiService {
           tax_id: string
         }
         cashapp?: EmptyObject
+        crypto?: EmptyObject
         customer_balance?: EmptyObject
         eps?: {
           bank?:
@@ -31640,6 +32036,7 @@ export class StripeApiService {
             | "abn_amro"
             | "asn_bank"
             | "bunq"
+            | "buut"
             | "handelsbanken"
             | "ing"
             | "knab"
@@ -31755,6 +32152,7 @@ export class StripeApiService {
           | "blik"
           | "boleto"
           | "cashapp"
+          | "crypto"
           | "customer_balance"
           | "eps"
           | "fpx"
@@ -31909,6 +32307,87 @@ export class StripeApiService {
           }
         }
         card_present?: EmptyObject
+        klarna?: {
+          currency?: string
+          on_demand?: {
+            average_amount?: number
+            maximum_amount?: number
+            minimum_amount?: number
+            purchase_interval?:
+              | "day"
+              | "month"
+              | "week"
+              | "year"
+              | UnknownEnumStringValue
+            purchase_interval_count?: number
+          }
+          preferred_locale?:
+            | "cs-CZ"
+            | "da-DK"
+            | "de-AT"
+            | "de-CH"
+            | "de-DE"
+            | "el-GR"
+            | "en-AT"
+            | "en-AU"
+            | "en-BE"
+            | "en-CA"
+            | "en-CH"
+            | "en-CZ"
+            | "en-DE"
+            | "en-DK"
+            | "en-ES"
+            | "en-FI"
+            | "en-FR"
+            | "en-GB"
+            | "en-GR"
+            | "en-IE"
+            | "en-IT"
+            | "en-NL"
+            | "en-NO"
+            | "en-NZ"
+            | "en-PL"
+            | "en-PT"
+            | "en-RO"
+            | "en-SE"
+            | "en-US"
+            | "es-ES"
+            | "es-US"
+            | "fi-FI"
+            | "fr-BE"
+            | "fr-CA"
+            | "fr-CH"
+            | "fr-FR"
+            | "it-CH"
+            | "it-IT"
+            | "nb-NO"
+            | "nl-BE"
+            | "nl-NL"
+            | "pl-PL"
+            | "pt-PT"
+            | "ro-RO"
+            | "sv-FI"
+            | "sv-SE"
+            | UnknownEnumStringValue
+          subscriptions?:
+            | {
+                interval:
+                  | "day"
+                  | "month"
+                  | "week"
+                  | "year"
+                  | UnknownEnumStringValue
+                interval_count?: number
+                name?: string
+                next_billing: {
+                  amount: number
+                  date: string
+                }
+                reference: string
+              }[]
+            | ""
+            | UnknownEnumStringValue
+        }
         link?: EmptyObject
         paypal?: {
           billing_agreement_id?: string
@@ -33068,6 +33547,9 @@ export class StripeApiService {
   postSubscriptionSchedules(
     p: {
       requestBody?: {
+        billing_mode?: {
+          type: "classic" | "flexible" | UnknownEnumStringValue
+        }
         customer?: string
         default_settings?: {
           application_fee_percent?: number
@@ -33712,6 +34194,9 @@ export class StripeApiService {
         month?: number
         second?: number
       }
+      billing_mode?: {
+        type: "classic" | "flexible" | UnknownEnumStringValue
+      }
       billing_thresholds?:
         | {
             amount_gte?: number
@@ -33918,6 +34403,7 @@ export class StripeApiService {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -34386,6 +34872,7 @@ export class StripeApiService {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -34493,6 +34980,36 @@ export class StripeApiService {
       "DELETE",
       this.config.basePath +
         `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postSubscriptionsSubscriptionMigrate(p: {
+    subscription: string
+    requestBody: {
+      billing_mode: {
+        type: "flexible" | UnknownEnumStringValue
+      }
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_subscription> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/subscriptions/${p["subscription"]}/migrate`,
       {
         headers,
         body,
@@ -35420,6 +35937,9 @@ export class StripeApiService {
           type: "simplified" | UnknownEnumStringValue
         }
         tz?: {
+          type: "simplified" | UnknownEnumStringValue
+        }
+        ua?: {
           type: "simplified" | UnknownEnumStringValue
         }
         ug?: {
@@ -36907,7 +37427,7 @@ export class StripeApiService {
         state?: string
       }
       configuration_overrides?: string | "" | UnknownEnumStringValue
-      display_name?: string
+      display_name?: string | "" | UnknownEnumStringValue
       expand?: string[]
       metadata?:
         | {
@@ -37214,6 +37734,79 @@ export class StripeApiService {
     )
   }
 
+  postTerminalReadersReaderCollectPaymentMethod(p: {
+    reader: string
+    requestBody: {
+      collect_config?: {
+        allow_redisplay?:
+          | "always"
+          | "limited"
+          | "unspecified"
+          | UnknownEnumStringValue
+        enable_customer_cancellation?: boolean
+        skip_tipping?: boolean
+        tipping?: {
+          amount_eligible?: number
+        }
+      }
+      expand?: string[]
+      payment_intent: string
+    }
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/terminal/readers/${p["reader"]}/collect_payment_method`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTerminalReadersReaderConfirmPaymentIntent(p: {
+    reader: string
+    requestBody: {
+      confirm_config?: {
+        return_url?: string
+      }
+      expand?: string[]
+      payment_intent: string
+    }
+  }): Observable<
+    | (HttpResponse<t_terminal_reader> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/terminal/readers/${p["reader"]}/confirm_payment_intent`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postTerminalReadersReaderProcessPaymentIntent(p: {
     reader: string
     requestBody: {
@@ -37424,6 +38017,7 @@ export class StripeApiService {
             tax_id: string
           }
           cashapp?: EmptyObject
+          crypto?: EmptyObject
           customer_balance?: EmptyObject
           eps?: {
             bank?:
@@ -37490,6 +38084,7 @@ export class StripeApiService {
               | "abn_amro"
               | "asn_bank"
               | "bunq"
+              | "buut"
               | "handelsbanken"
               | "ing"
               | "knab"
@@ -37605,6 +38200,7 @@ export class StripeApiService {
             | "blik"
             | "boleto"
             | "cashapp"
+            | "crypto"
             | "customer_balance"
             | "eps"
             | "fpx"
@@ -37658,7 +38254,11 @@ export class StripeApiService {
               plan: {
                 count?: number
                 interval?: "month" | UnknownEnumStringValue
-                type: "fixed_count" | UnknownEnumStringValue
+                type:
+                  | "bonus"
+                  | "fixed_count"
+                  | "revolving"
+                  | UnknownEnumStringValue
               }
             }
           }
@@ -41544,6 +42144,7 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      status?: "closed" | "open" | UnknownEnumStringValue
       requestBody?: EmptyObject
     } = {},
   ): Observable<
@@ -41565,6 +42166,7 @@ export class StripeApiService {
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
+      status: p["status"],
     })
     const body = p["requestBody"]
 
@@ -42873,6 +43475,7 @@ export class StripeApiService {
         | "2025-03-31.basil"
         | "2025-04-30.basil"
         | "2025-05-28.basil"
+        | "2025-06-30.basil"
         | UnknownEnumStringValue
       connect?: boolean
       description?: string | "" | UnknownEnumStringValue
@@ -43076,6 +43679,7 @@ export class StripeApiService {
         | "tax_rate.updated"
         | "terminal.reader.action_failed"
         | "terminal.reader.action_succeeded"
+        | "terminal.reader.action_updated"
         | "test_helpers.test_clock.advancing"
         | "test_helpers.test_clock.created"
         | "test_helpers.test_clock.deleted"
@@ -43410,6 +44014,7 @@ export class StripeApiService {
         | "tax_rate.updated"
         | "terminal.reader.action_failed"
         | "terminal.reader.action_succeeded"
+        | "terminal.reader.action_updated"
         | "test_helpers.test_clock.advancing"
         | "test_helpers.test_clock.created"
         | "test_helpers.test_clock.deleted"

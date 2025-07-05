@@ -752,6 +752,11 @@ export class StripeApi extends AbstractAxiosClient {
                     requested?: boolean | undefined
                   }
                 | undefined
+              crypto_payments?:
+                | {
+                    requested?: boolean | undefined
+                  }
+                | undefined
               eps_payments?:
                 | {
                     requested?: boolean | undefined
@@ -1147,6 +1152,11 @@ export class StripeApi extends AbstractAxiosClient {
                     files?: string[] | undefined
                   }
                 | undefined
+              proof_of_address?:
+                | {
+                    files?: string[] | undefined
+                  }
+                | undefined
               proof_of_registration?:
                 | {
                     files?: string[] | undefined
@@ -1367,6 +1377,7 @@ export class StripeApi extends AbstractAxiosClient {
                               )
                             | undefined
                           monthly_anchor?: number | undefined
+                          monthly_payout_days?: number[] | undefined
                           weekly_anchor?:
                             | (
                                 | "friday"
@@ -1378,6 +1389,18 @@ export class StripeApi extends AbstractAxiosClient {
                                 | "wednesday"
                                 | UnknownEnumStringValue
                               )
+                            | undefined
+                          weekly_payout_days?:
+                            | (
+                                | "friday"
+                                | "monday"
+                                | "saturday"
+                                | "sunday"
+                                | "thursday"
+                                | "tuesday"
+                                | "wednesday"
+                                | UnknownEnumStringValue
+                              )[]
                             | undefined
                         }
                       | undefined
@@ -1621,6 +1644,11 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp_payments?:
+                | {
+                    requested?: boolean | undefined
+                  }
+                | undefined
+              crypto_payments?:
                 | {
                     requested?: boolean | undefined
                   }
@@ -1991,6 +2019,11 @@ export class StripeApi extends AbstractAxiosClient {
                     files?: string[] | undefined
                   }
                 | undefined
+              proof_of_address?:
+                | {
+                    files?: string[] | undefined
+                  }
+                | undefined
               proof_of_registration?:
                 | {
                     files?: string[] | undefined
@@ -2214,6 +2247,7 @@ export class StripeApi extends AbstractAxiosClient {
                               )
                             | undefined
                           monthly_anchor?: number | undefined
+                          monthly_payout_days?: number[] | undefined
                           weekly_anchor?:
                             | (
                                 | "friday"
@@ -2225,6 +2259,18 @@ export class StripeApi extends AbstractAxiosClient {
                                 | "wednesday"
                                 | UnknownEnumStringValue
                               )
+                            | undefined
+                          weekly_payout_days?:
+                            | (
+                                | "friday"
+                                | "monday"
+                                | "saturday"
+                                | "sunday"
+                                | "thursday"
+                                | "tuesday"
+                                | "wednesday"
+                                | UnknownEnumStringValue
+                              )[]
                             | undefined
                         }
                       | undefined
@@ -7602,6 +7648,27 @@ export class StripeApi extends AbstractAxiosClient {
                     setup_future_usage?:
                       | ("none" | UnknownEnumStringValue)
                       | undefined
+                    subscriptions?:
+                      | (
+                          | {
+                              interval:
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              interval_count?: number | undefined
+                              name?: string | undefined
+                              next_billing: {
+                                amount: number
+                                date: string
+                              }
+                              reference: string
+                            }[]
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
                   }
                 | undefined
               konbini?:
@@ -7837,6 +7904,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -8252,6 +8320,11 @@ export class StripeApi extends AbstractAxiosClient {
           | {
               application_fee_percent?: number | undefined
               billing_cycle_anchor?: number | undefined
+              billing_mode?:
+                | {
+                    type: "classic" | "flexible" | UnknownEnumStringValue
+                  }
+                | undefined
               default_tax_rates?: string[] | undefined
               description?: string | undefined
               invoice_settings?:
@@ -11219,6 +11292,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -11985,6 +12059,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "boleto"
                         | "card"
                         | "cashapp"
+                        | "crypto"
                         | "customer_balance"
                         | "eps"
                         | "fpx"
@@ -12542,6 +12617,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "boleto"
                         | "card"
                         | "cashapp"
+                        | "crypto"
                         | "customer_balance"
                         | "eps"
                         | "fpx"
@@ -14788,6 +14864,12 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         related_customer?: string | undefined
+        related_person?:
+          | {
+              account: string
+              person: string
+            }
+          | undefined
         return_url?: string | undefined
         type?: ("document" | "id_number" | UnknownEnumStringValue) | undefined
         verification_flow?: string | undefined
@@ -15657,7 +15739,9 @@ export class StripeApi extends AbstractAxiosClient {
                                                   )
                                                 | undefined
                                               type:
+                                                | "bonus"
                                                 | "fixed_count"
+                                                | "revolving"
                                                 | UnknownEnumStringValue
                                             }
                                           | ""
@@ -15768,6 +15852,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "boleto"
                         | "card"
                         | "cashapp"
+                        | "crypto"
                         | "customer_balance"
                         | "eps"
                         | "fpx"
@@ -16218,6 +16303,11 @@ export class StripeApi extends AbstractAxiosClient {
         schedule?: string | undefined
         schedule_details?:
           | {
+              billing_mode?:
+                | {
+                    type: "classic" | "flexible" | UnknownEnumStringValue
+                  }
+                | undefined
               end_behavior?:
                 | ("cancel" | "release" | UnknownEnumStringValue)
                 | undefined
@@ -16430,6 +16520,11 @@ export class StripeApi extends AbstractAxiosClient {
           | {
               billing_cycle_anchor?:
                 | ("now" | "unchanged" | UnknownEnumStringValue | number)
+                | undefined
+              billing_mode?:
+                | {
+                    type: "classic" | "flexible" | UnknownEnumStringValue
+                  }
                 | undefined
               cancel_at?: (number | "" | UnknownEnumStringValue) | undefined
               cancel_at_period_end?: boolean | undefined
@@ -16771,7 +16866,9 @@ export class StripeApi extends AbstractAxiosClient {
                                                   )
                                                 | undefined
                                               type:
+                                                | "bonus"
                                                 | "fixed_count"
+                                                | "revolving"
                                                 | UnknownEnumStringValue
                                             }
                                           | ""
@@ -16882,6 +16979,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "boleto"
                         | "card"
                         | "cashapp"
+                        | "crypto"
                         | "customer_balance"
                         | "eps"
                         | "fpx"
@@ -23907,6 +24005,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -23982,6 +24081,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -24123,6 +24223,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -24422,7 +24523,9 @@ export class StripeApi extends AbstractAxiosClient {
                                           | ("month" | UnknownEnumStringValue)
                                           | undefined
                                         type:
+                                          | "bonus"
                                           | "fixed_count"
+                                          | "revolving"
                                           | UnknownEnumStringValue
                                       }
                                     | ""
@@ -24612,6 +24715,17 @@ export class StripeApi extends AbstractAxiosClient {
                     | UnknownEnumStringValue
                   )
                 | undefined
+              crypto?:
+                | (
+                    | {
+                        setup_future_usage?:
+                          | ("none" | UnknownEnumStringValue)
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               customer_balance?:
                 | (
                     | {
@@ -24742,6 +24856,23 @@ export class StripeApi extends AbstractAxiosClient {
                         capture_method?:
                           | ("" | "manual" | UnknownEnumStringValue)
                           | undefined
+                        on_demand?:
+                          | {
+                              average_amount?: number | undefined
+                              maximum_amount?: number | undefined
+                              minimum_amount?: number | undefined
+                              purchase_interval?:
+                                | (
+                                    | "day"
+                                    | "month"
+                                    | "week"
+                                    | "year"
+                                    | UnknownEnumStringValue
+                                  )
+                                | undefined
+                              purchase_interval_count?: number | undefined
+                            }
+                          | undefined
                         preferred_locale?:
                           | (
                               | "cs-CZ"
@@ -24794,7 +24925,35 @@ export class StripeApi extends AbstractAxiosClient {
                             )
                           | undefined
                         setup_future_usage?:
-                          | ("none" | UnknownEnumStringValue)
+                          | (
+                              | "none"
+                              | "off_session"
+                              | "on_session"
+                              | UnknownEnumStringValue
+                            )
+                          | undefined
+                        subscriptions?:
+                          | (
+                              | {
+                                  interval:
+                                    | "day"
+                                    | "month"
+                                    | "week"
+                                    | "year"
+                                    | UnknownEnumStringValue
+                                  interval_count?: number | undefined
+                                  name?: string | undefined
+                                  next_billing?:
+                                    | {
+                                        amount: number
+                                        date: string
+                                      }
+                                    | undefined
+                                  reference: string
+                                }[]
+                              | ""
+                              | UnknownEnumStringValue
+                            )
                           | undefined
                       }
                     | ""
@@ -25506,6 +25665,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -25581,6 +25741,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -25722,6 +25883,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -26021,7 +26183,9 @@ export class StripeApi extends AbstractAxiosClient {
                                           | ("month" | UnknownEnumStringValue)
                                           | undefined
                                         type:
+                                          | "bonus"
                                           | "fixed_count"
+                                          | "revolving"
                                           | UnknownEnumStringValue
                                       }
                                     | ""
@@ -26211,6 +26375,17 @@ export class StripeApi extends AbstractAxiosClient {
                     | UnknownEnumStringValue
                   )
                 | undefined
+              crypto?:
+                | (
+                    | {
+                        setup_future_usage?:
+                          | ("none" | UnknownEnumStringValue)
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               customer_balance?:
                 | (
                     | {
@@ -26341,6 +26516,23 @@ export class StripeApi extends AbstractAxiosClient {
                         capture_method?:
                           | ("" | "manual" | UnknownEnumStringValue)
                           | undefined
+                        on_demand?:
+                          | {
+                              average_amount?: number | undefined
+                              maximum_amount?: number | undefined
+                              minimum_amount?: number | undefined
+                              purchase_interval?:
+                                | (
+                                    | "day"
+                                    | "month"
+                                    | "week"
+                                    | "year"
+                                    | UnknownEnumStringValue
+                                  )
+                                | undefined
+                              purchase_interval_count?: number | undefined
+                            }
+                          | undefined
                         preferred_locale?:
                           | (
                               | "cs-CZ"
@@ -26393,7 +26585,35 @@ export class StripeApi extends AbstractAxiosClient {
                             )
                           | undefined
                         setup_future_usage?:
-                          | ("none" | UnknownEnumStringValue)
+                          | (
+                              | "none"
+                              | "off_session"
+                              | "on_session"
+                              | UnknownEnumStringValue
+                            )
+                          | undefined
+                        subscriptions?:
+                          | (
+                              | {
+                                  interval:
+                                    | "day"
+                                    | "month"
+                                    | "week"
+                                    | "year"
+                                    | UnknownEnumStringValue
+                                  interval_count?: number | undefined
+                                  name?: string | undefined
+                                  next_billing?:
+                                    | {
+                                        amount: number
+                                        date: string
+                                      }
+                                    | undefined
+                                  reference: string
+                                }[]
+                              | ""
+                              | UnknownEnumStringValue
+                            )
                           | undefined
                       }
                     | ""
@@ -27156,6 +27376,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -27231,6 +27452,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -27372,6 +27594,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -27671,7 +27894,9 @@ export class StripeApi extends AbstractAxiosClient {
                                           | ("month" | UnknownEnumStringValue)
                                           | undefined
                                         type:
+                                          | "bonus"
                                           | "fixed_count"
+                                          | "revolving"
                                           | UnknownEnumStringValue
                                       }
                                     | ""
@@ -27861,6 +28086,17 @@ export class StripeApi extends AbstractAxiosClient {
                     | UnknownEnumStringValue
                   )
                 | undefined
+              crypto?:
+                | (
+                    | {
+                        setup_future_usage?:
+                          | ("none" | UnknownEnumStringValue)
+                          | undefined
+                      }
+                    | ""
+                    | UnknownEnumStringValue
+                  )
+                | undefined
               customer_balance?:
                 | (
                     | {
@@ -27991,6 +28227,23 @@ export class StripeApi extends AbstractAxiosClient {
                         capture_method?:
                           | ("" | "manual" | UnknownEnumStringValue)
                           | undefined
+                        on_demand?:
+                          | {
+                              average_amount?: number | undefined
+                              maximum_amount?: number | undefined
+                              minimum_amount?: number | undefined
+                              purchase_interval?:
+                                | (
+                                    | "day"
+                                    | "month"
+                                    | "week"
+                                    | "year"
+                                    | UnknownEnumStringValue
+                                  )
+                                | undefined
+                              purchase_interval_count?: number | undefined
+                            }
+                          | undefined
                         preferred_locale?:
                           | (
                               | "cs-CZ"
@@ -28043,7 +28296,35 @@ export class StripeApi extends AbstractAxiosClient {
                             )
                           | undefined
                         setup_future_usage?:
-                          | ("none" | UnknownEnumStringValue)
+                          | (
+                              | "none"
+                              | "off_session"
+                              | "on_session"
+                              | UnknownEnumStringValue
+                            )
+                          | undefined
+                        subscriptions?:
+                          | (
+                              | {
+                                  interval:
+                                    | "day"
+                                    | "month"
+                                    | "week"
+                                    | "year"
+                                    | UnknownEnumStringValue
+                                  interval_count?: number | undefined
+                                  name?: string | undefined
+                                  next_billing?:
+                                    | {
+                                        amount: number
+                                        date: string
+                                      }
+                                    | undefined
+                                  reference: string
+                                }[]
+                              | ""
+                              | UnknownEnumStringValue
+                            )
                           | undefined
                       }
                     | ""
@@ -31444,6 +31725,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "boleto"
         | "card"
         | "cashapp"
+        | "crypto"
         | "customer_balance"
         | "eps"
         | "fpx"
@@ -31601,6 +31883,7 @@ export class StripeApi extends AbstractAxiosClient {
             )
           | undefined
         cashapp?: EmptyObject | undefined
+        crypto?: EmptyObject | undefined
         customer?: string | undefined
         customer_balance?: EmptyObject | undefined
         eps?:
@@ -31678,6 +31961,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | "abn_amro"
                     | "asn_bank"
                     | "bunq"
+                    | "buut"
                     | "handelsbanken"
                     | "ing"
                     | "knab"
@@ -31820,6 +32104,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "boleto"
               | "card"
               | "cashapp"
+              | "crypto"
               | "customer_balance"
               | "eps"
               | "fpx"
@@ -33706,6 +33991,11 @@ export class StripeApi extends AbstractAxiosClient {
         on_behalf_of?: (string | "" | UnknownEnumStringValue) | undefined
         subscription_data?:
           | {
+              billing_mode?:
+                | {
+                    type: "classic" | "flexible" | UnknownEnumStringValue
+                  }
+                | undefined
               description?: string | undefined
               effective_date?:
                 | ("current_period_end" | UnknownEnumStringValue | number | "")
@@ -35874,6 +36164,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -35949,6 +36240,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -36090,6 +36382,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -36307,6 +36600,100 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               card_present?: EmptyObject | undefined
+              klarna?:
+                | {
+                    currency?: string | undefined
+                    on_demand?:
+                      | {
+                          average_amount?: number | undefined
+                          maximum_amount?: number | undefined
+                          minimum_amount?: number | undefined
+                          purchase_interval?:
+                            | (
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              )
+                            | undefined
+                          purchase_interval_count?: number | undefined
+                        }
+                      | undefined
+                    preferred_locale?:
+                      | (
+                          | "cs-CZ"
+                          | "da-DK"
+                          | "de-AT"
+                          | "de-CH"
+                          | "de-DE"
+                          | "el-GR"
+                          | "en-AT"
+                          | "en-AU"
+                          | "en-BE"
+                          | "en-CA"
+                          | "en-CH"
+                          | "en-CZ"
+                          | "en-DE"
+                          | "en-DK"
+                          | "en-ES"
+                          | "en-FI"
+                          | "en-FR"
+                          | "en-GB"
+                          | "en-GR"
+                          | "en-IE"
+                          | "en-IT"
+                          | "en-NL"
+                          | "en-NO"
+                          | "en-NZ"
+                          | "en-PL"
+                          | "en-PT"
+                          | "en-RO"
+                          | "en-SE"
+                          | "en-US"
+                          | "es-ES"
+                          | "es-US"
+                          | "fi-FI"
+                          | "fr-BE"
+                          | "fr-CA"
+                          | "fr-CH"
+                          | "fr-FR"
+                          | "it-CH"
+                          | "it-IT"
+                          | "nb-NO"
+                          | "nl-BE"
+                          | "nl-NL"
+                          | "pl-PL"
+                          | "pt-PT"
+                          | "ro-RO"
+                          | "sv-FI"
+                          | "sv-SE"
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
+                    subscriptions?:
+                      | (
+                          | {
+                              interval:
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              interval_count?: number | undefined
+                              name?: string | undefined
+                              next_billing: {
+                                amount: number
+                                date: string
+                              }
+                              reference: string
+                            }[]
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
+                  }
+                | undefined
               link?: EmptyObject | undefined
               paypal?:
                 | {
@@ -36541,6 +36928,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -36616,6 +37004,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -36757,6 +37146,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -36974,6 +37364,100 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               card_present?: EmptyObject | undefined
+              klarna?:
+                | {
+                    currency?: string | undefined
+                    on_demand?:
+                      | {
+                          average_amount?: number | undefined
+                          maximum_amount?: number | undefined
+                          minimum_amount?: number | undefined
+                          purchase_interval?:
+                            | (
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              )
+                            | undefined
+                          purchase_interval_count?: number | undefined
+                        }
+                      | undefined
+                    preferred_locale?:
+                      | (
+                          | "cs-CZ"
+                          | "da-DK"
+                          | "de-AT"
+                          | "de-CH"
+                          | "de-DE"
+                          | "el-GR"
+                          | "en-AT"
+                          | "en-AU"
+                          | "en-BE"
+                          | "en-CA"
+                          | "en-CH"
+                          | "en-CZ"
+                          | "en-DE"
+                          | "en-DK"
+                          | "en-ES"
+                          | "en-FI"
+                          | "en-FR"
+                          | "en-GB"
+                          | "en-GR"
+                          | "en-IE"
+                          | "en-IT"
+                          | "en-NL"
+                          | "en-NO"
+                          | "en-NZ"
+                          | "en-PL"
+                          | "en-PT"
+                          | "en-RO"
+                          | "en-SE"
+                          | "en-US"
+                          | "es-ES"
+                          | "es-US"
+                          | "fi-FI"
+                          | "fr-BE"
+                          | "fr-CA"
+                          | "fr-CH"
+                          | "fr-FR"
+                          | "it-CH"
+                          | "it-IT"
+                          | "nb-NO"
+                          | "nl-BE"
+                          | "nl-NL"
+                          | "pl-PL"
+                          | "pt-PT"
+                          | "ro-RO"
+                          | "sv-FI"
+                          | "sv-SE"
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
+                    subscriptions?:
+                      | (
+                          | {
+                              interval:
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              interval_count?: number | undefined
+                              name?: string | undefined
+                              next_billing: {
+                                amount: number
+                                date: string
+                              }
+                              reference: string
+                            }[]
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
+                  }
+                | undefined
               link?: EmptyObject | undefined
               paypal?:
                 | {
@@ -37215,6 +37699,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -37290,6 +37775,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -37431,6 +37917,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -37648,6 +38135,100 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               card_present?: EmptyObject | undefined
+              klarna?:
+                | {
+                    currency?: string | undefined
+                    on_demand?:
+                      | {
+                          average_amount?: number | undefined
+                          maximum_amount?: number | undefined
+                          minimum_amount?: number | undefined
+                          purchase_interval?:
+                            | (
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              )
+                            | undefined
+                          purchase_interval_count?: number | undefined
+                        }
+                      | undefined
+                    preferred_locale?:
+                      | (
+                          | "cs-CZ"
+                          | "da-DK"
+                          | "de-AT"
+                          | "de-CH"
+                          | "de-DE"
+                          | "el-GR"
+                          | "en-AT"
+                          | "en-AU"
+                          | "en-BE"
+                          | "en-CA"
+                          | "en-CH"
+                          | "en-CZ"
+                          | "en-DE"
+                          | "en-DK"
+                          | "en-ES"
+                          | "en-FI"
+                          | "en-FR"
+                          | "en-GB"
+                          | "en-GR"
+                          | "en-IE"
+                          | "en-IT"
+                          | "en-NL"
+                          | "en-NO"
+                          | "en-NZ"
+                          | "en-PL"
+                          | "en-PT"
+                          | "en-RO"
+                          | "en-SE"
+                          | "en-US"
+                          | "es-ES"
+                          | "es-US"
+                          | "fi-FI"
+                          | "fr-BE"
+                          | "fr-CA"
+                          | "fr-CH"
+                          | "fr-FR"
+                          | "it-CH"
+                          | "it-IT"
+                          | "nb-NO"
+                          | "nl-BE"
+                          | "nl-NL"
+                          | "pl-PL"
+                          | "pt-PT"
+                          | "ro-RO"
+                          | "sv-FI"
+                          | "sv-SE"
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
+                    subscriptions?:
+                      | (
+                          | {
+                              interval:
+                                | "day"
+                                | "month"
+                                | "week"
+                                | "year"
+                                | UnknownEnumStringValue
+                              interval_count?: number | undefined
+                              name?: string | undefined
+                              next_billing: {
+                                amount: number
+                                date: string
+                              }
+                              reference: string
+                            }[]
+                          | ""
+                          | UnknownEnumStringValue
+                        )
+                      | undefined
+                  }
+                | undefined
               link?: EmptyObject | undefined
               paypal?:
                 | {
@@ -38970,6 +39551,11 @@ export class StripeApi extends AbstractAxiosClient {
   async postSubscriptionSchedules(
     p: {
       requestBody?: {
+        billing_mode?:
+          | {
+              type: "classic" | "flexible" | UnknownEnumStringValue
+            }
+          | undefined
         customer?: string | undefined
         default_settings?:
           | {
@@ -39775,6 +40361,11 @@ export class StripeApi extends AbstractAxiosClient {
               second?: number | undefined
             }
           | undefined
+        billing_mode?:
+          | {
+              type: "classic" | "flexible" | UnknownEnumStringValue
+            }
+          | undefined
         billing_thresholds?:
           | (
               | {
@@ -40083,6 +40674,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "boleto"
                         | "card"
                         | "cashapp"
+                        | "crypto"
                         | "customer_balance"
                         | "eps"
                         | "fpx"
@@ -40701,6 +41293,7 @@ export class StripeApi extends AbstractAxiosClient {
                         | "boleto"
                         | "card"
                         | "cashapp"
+                        | "crypto"
                         | "customer_balance"
                         | "eps"
                         | "fpx"
@@ -40826,6 +41419,36 @@ export class StripeApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postSubscriptionsSubscriptionMigrate(
+    p: {
+      subscription: string
+      requestBody: {
+        billing_mode: {
+          type: "flexible" | UnknownEnumStringValue
+        }
+        expand?: string[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_subscription>> {
+    const url = `/v1/subscriptions/${p["subscription"]}/migrate`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
       data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
@@ -42012,6 +42635,11 @@ export class StripeApi extends AbstractAxiosClient {
               }
             | undefined
           tz?:
+            | {
+                type: "simplified" | UnknownEnumStringValue
+              }
+            | undefined
+          ua?:
             | {
                 type: "simplified" | UnknownEnumStringValue
               }
@@ -43654,7 +44282,7 @@ export class StripeApi extends AbstractAxiosClient {
         configuration_overrides?:
           | (string | "" | UnknownEnumStringValue)
           | undefined
-        display_name?: string | undefined
+        display_name?: (string | "" | UnknownEnumStringValue) | undefined
         expand?: string[] | undefined
         metadata?:
           | (
@@ -43969,6 +44597,86 @@ export class StripeApi extends AbstractAxiosClient {
     })
   }
 
+  async postTerminalReadersReaderCollectPaymentMethod(
+    p: {
+      reader: string
+      requestBody: {
+        collect_config?:
+          | {
+              allow_redisplay?:
+                | (
+                    | "always"
+                    | "limited"
+                    | "unspecified"
+                    | UnknownEnumStringValue
+                  )
+                | undefined
+              enable_customer_cancellation?: boolean | undefined
+              skip_tipping?: boolean | undefined
+              tipping?:
+                | {
+                    amount_eligible?: number | undefined
+                  }
+                | undefined
+            }
+          | undefined
+        expand?: string[] | undefined
+        payment_intent: string
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_reader>> {
+    const url = `/v1/terminal/readers/${p["reader"]}/collect_payment_method`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postTerminalReadersReaderConfirmPaymentIntent(
+    p: {
+      reader: string
+      requestBody: {
+        confirm_config?:
+          | {
+              return_url?: string | undefined
+            }
+          | undefined
+        expand?: string[] | undefined
+        payment_intent: string
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_terminal_reader>> {
+    const url = `/v1/terminal/readers/${p["reader"]}/confirm_payment_intent`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async postTerminalReadersReaderProcessPaymentIntent(
     p: {
       reader: string
@@ -44207,6 +44915,7 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               cashapp?: EmptyObject | undefined
+              crypto?: EmptyObject | undefined
               customer_balance?: EmptyObject | undefined
               eps?:
                 | {
@@ -44282,6 +44991,7 @@ export class StripeApi extends AbstractAxiosClient {
                           | "abn_amro"
                           | "asn_bank"
                           | "bunq"
+                          | "buut"
                           | "handelsbanken"
                           | "ing"
                           | "knab"
@@ -44423,6 +45133,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "blik"
                 | "boleto"
                 | "cashapp"
+                | "crypto"
                 | "customer_balance"
                 | "eps"
                 | "fpx"
@@ -44485,7 +45196,11 @@ export class StripeApi extends AbstractAxiosClient {
                             interval?:
                               | ("month" | UnknownEnumStringValue)
                               | undefined
-                            type: "fixed_count" | UnknownEnumStringValue
+                            type:
+                              | "bonus"
+                              | "fixed_count"
+                              | "revolving"
+                              | UnknownEnumStringValue
                           }
                         }
                       | undefined
@@ -48731,6 +49446,7 @@ export class StripeApi extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
+      status?: "closed" | "open" | UnknownEnumStringValue
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
@@ -48754,6 +49470,7 @@ export class StripeApi extends AbstractAxiosClient {
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
+      status: p["status"],
     })
     const body = JSON.stringify(p.requestBody)
 
@@ -50208,6 +50925,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "2025-03-31.basil"
               | "2025-04-30.basil"
               | "2025-05-28.basil"
+              | "2025-06-30.basil"
               | UnknownEnumStringValue
             )
           | undefined
@@ -50413,6 +51131,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "tax_rate.updated"
           | "terminal.reader.action_failed"
           | "terminal.reader.action_succeeded"
+          | "terminal.reader.action_updated"
           | "test_helpers.test_clock.advancing"
           | "test_helpers.test_clock.created"
           | "test_helpers.test_clock.deleted"
@@ -50750,6 +51469,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "tax_rate.updated"
               | "terminal.reader.action_failed"
               | "terminal.reader.action_succeeded"
+              | "terminal.reader.action_updated"
               | "test_helpers.test_clock.advancing"
               | "test_helpers.test_clock.created"
               | "test_helpers.test_clock.deleted"

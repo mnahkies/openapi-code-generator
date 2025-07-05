@@ -150,6 +150,9 @@ export type t_account_capabilities = {
   cashapp_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
+  crypto_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
   eps_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
@@ -2309,6 +2312,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   card?: t_payment_method_card | undefined
   card_present?: t_payment_method_card_present | undefined
   cashapp?: t_payment_method_cashapp | undefined
+  crypto?: t_payment_method_crypto | undefined
   customer?: (string | t_customer | null) | undefined
   customer_balance?: t_payment_method_customer_balance | undefined
   eps?: t_payment_method_eps | undefined
@@ -2357,6 +2361,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "card"
     | "card_present"
     | "cashapp"
+    | "crypto"
     | "customer_balance"
     | "eps"
     | "fpx"
@@ -3224,6 +3229,7 @@ export type t_dispute = {
   currency: string
   enhanced_eligibility_types: (
     | "visa_compelling_evidence_3"
+    | "visa_compliance"
     | UnknownEnumStringValue
   )[]
   evidence: t_dispute_evidence
@@ -3352,7 +3358,7 @@ export type t_dispute_payment_method_details_amazon_pay = {
 
 export type t_dispute_payment_method_details_card = {
   brand: string
-  case_type: "chargeback" | "inquiry" | UnknownEnumStringValue
+  case_type: "chargeback" | "compliance" | "inquiry" | UnknownEnumStringValue
   network_reason_code?: (string | null) | undefined
 }
 
@@ -3974,6 +3980,11 @@ export type t_gelato_provided_details = {
   phone?: string | undefined
 }
 
+export type t_gelato_related_person = {
+  account?: string | undefined
+  person?: string | undefined
+}
+
 export type t_gelato_report_document_options = {
   allowed_types?:
     | ("driving_license" | "id_card" | "passport" | UnknownEnumStringValue)[]
@@ -4050,6 +4061,11 @@ export type t_gelato_session_last_error = {
   reason?: (string | null) | undefined
 }
 
+export type t_gelato_session_matching_options = {
+  dob?: ("none" | "similar" | UnknownEnumStringValue) | undefined
+  name?: ("none" | "similar" | UnknownEnumStringValue) | undefined
+}
+
 export type t_gelato_session_phone_options = {
   require_verification?: boolean | undefined
 }
@@ -4063,6 +4079,7 @@ export type t_gelato_verification_session_options = {
   document?: t_gelato_session_document_options | undefined
   email?: t_gelato_session_email_options | undefined
   id_number?: t_gelato_session_id_number_options | undefined
+  matching?: t_gelato_session_matching_options | undefined
   phone?: t_gelato_session_phone_options | undefined
 }
 
@@ -4126,6 +4143,7 @@ export type t_identity_verification_session = {
   provided_details?: (t_gelato_provided_details | null) | undefined
   redaction?: (t_verification_session_redaction | null) | undefined
   related_customer?: (string | null) | undefined
+  related_person?: t_gelato_related_person | undefined
   status:
     | "canceled"
     | "processing"
@@ -4571,6 +4589,7 @@ export type t_invoices_payment_settings = {
             | "boleto"
             | "card"
             | "cashapp"
+            | "crypto"
             | "customer_balance"
             | "eps"
             | "fpx"
@@ -7914,6 +7933,8 @@ export type t_mandate_cashapp = EmptyObject
 
 export type t_mandate_kakao_pay = EmptyObject
 
+export type t_mandate_klarna = EmptyObject
+
 export type t_mandate_kr_card = EmptyObject
 
 export type t_mandate_link = EmptyObject
@@ -7932,6 +7953,7 @@ export type t_mandate_payment_method_details = {
   card?: t_card_mandate_payment_method_details | undefined
   cashapp?: t_mandate_cashapp | undefined
   kakao_pay?: t_mandate_kakao_pay | undefined
+  klarna?: t_mandate_klarna | undefined
   kr_card?: t_mandate_kr_card | undefined
   link?: t_mandate_link | undefined
   naver_pay?: t_mandate_naver_pay | undefined
@@ -8166,7 +8188,7 @@ export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_o
   }
 
 export type t_payment_intent = {
-  amount: number
+  amount?: number | undefined
   amount_capturable?: number | undefined
   amount_details?:
     | (t_payment_flows_amount_details | t_payment_flows_amount_details_client)
@@ -8192,15 +8214,15 @@ export type t_payment_intent = {
         | null
       )
     | undefined
-  capture_method:
-    | "automatic"
-    | "automatic_async"
-    | "manual"
-    | UnknownEnumStringValue
+  capture_method?:
+    | ("automatic" | "automatic_async" | "manual" | UnknownEnumStringValue)
+    | undefined
   client_secret?: (string | null) | undefined
-  confirmation_method: "automatic" | "manual" | UnknownEnumStringValue
+  confirmation_method?:
+    | ("automatic" | "manual" | UnknownEnumStringValue)
+    | undefined
   created: number
-  currency: string
+  currency?: string | undefined
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
   description?: (string | null) | undefined
   id: string
@@ -8222,7 +8244,7 @@ export type t_payment_intent = {
   payment_method_options?:
     | (t_payment_intent_payment_method_options | null)
     | undefined
-  payment_method_types: string[]
+  payment_method_types?: string[] | undefined
   presentment_details?:
     | t_payment_flows_payment_intent_presentment_details
     | undefined
@@ -8560,6 +8582,12 @@ export type t_payment_intent_payment_method_options = {
   cashapp?:
     | (
         | t_payment_method_options_cashapp
+        | t_payment_intent_type_specific_payment_method_options_client
+      )
+    | undefined
+  crypto?:
+    | (
+        | t_payment_method_options_crypto
         | t_payment_intent_type_specific_payment_method_options_client
       )
     | undefined
@@ -9519,6 +9547,7 @@ export type t_payment_method = {
   card_present?: t_payment_method_card_present | undefined
   cashapp?: t_payment_method_cashapp | undefined
   created: number
+  crypto?: t_payment_method_crypto | undefined
   customer?: (string | t_customer | null) | undefined
   customer_balance?: t_payment_method_customer_balance | undefined
   eps?: t_payment_method_eps | undefined
@@ -9576,6 +9605,7 @@ export type t_payment_method = {
     | "card"
     | "card_present"
     | "cashapp"
+    | "crypto"
     | "customer_balance"
     | "eps"
     | "fpx"
@@ -9924,6 +9954,8 @@ export type t_payment_method_configuration = {
   zip?: t_payment_method_config_resource_payment_method_properties | undefined
 }
 
+export type t_payment_method_crypto = EmptyObject
+
 export type t_payment_method_customer_balance = EmptyObject
 
 export type t_payment_method_details = {
@@ -9944,6 +9976,7 @@ export type t_payment_method_details = {
   card?: t_payment_method_details_card | undefined
   card_present?: t_payment_method_details_card_present | undefined
   cashapp?: t_payment_method_details_cashapp | undefined
+  crypto?: t_payment_method_details_crypto | undefined
   customer_balance?: t_payment_method_details_customer_balance | undefined
   eps?: t_payment_method_details_eps | undefined
   fpx?: t_payment_method_details_fpx | undefined
@@ -10115,7 +10148,7 @@ export type t_payment_method_details_card_installments = {
 export type t_payment_method_details_card_installments_plan = {
   count?: (number | null) | undefined
   interval?: ("month" | UnknownEnumStringValue | null) | undefined
-  type: "fixed_count" | UnknownEnumStringValue
+  type: "bonus" | "fixed_count" | "revolving" | UnknownEnumStringValue
 }
 
 export type t_payment_method_details_card_network_token = {
@@ -10232,6 +10265,17 @@ export type t_payment_method_details_cashapp = {
   cashtag?: (string | null) | undefined
 }
 
+export type t_payment_method_details_crypto = {
+  buyer_address?: string | undefined
+  network?:
+    | ("base" | "ethereum" | "polygon" | UnknownEnumStringValue)
+    | undefined
+  token_currency?:
+    | ("usdc" | "usdg" | "usdp" | UnknownEnumStringValue)
+    | undefined
+  transaction_hash?: string | undefined
+}
+
 export type t_payment_method_details_customer_balance = EmptyObject
 
 export type t_payment_method_details_eps = {
@@ -10317,6 +10361,7 @@ export type t_payment_method_details_ideal = {
         | "abn_amro"
         | "asn_bank"
         | "bunq"
+        | "buut"
         | "handelsbanken"
         | "ing"
         | "knab"
@@ -10340,6 +10385,7 @@ export type t_payment_method_details_ideal = {
         | "ASNBNL21"
         | "BITSNL2A"
         | "BUNQNL2A"
+        | "BUUTNL2A"
         | "FVLBNL22"
         | "HANDNL2A"
         | "INGBNL2A"
@@ -10751,6 +10797,7 @@ export type t_payment_method_ideal = {
         | "abn_amro"
         | "asn_bank"
         | "bunq"
+        | "buut"
         | "handelsbanken"
         | "ing"
         | "knab"
@@ -10774,6 +10821,7 @@ export type t_payment_method_ideal = {
         | "ASNBNL21"
         | "BITSNL2A"
         | "BUNQNL2A"
+        | "BUUTNL2A"
         | "FVLBNL22"
         | "HANDNL2A"
         | "INGBNL2A"
@@ -10973,6 +11021,10 @@ export type t_payment_method_options_cashapp = {
     | undefined
 }
 
+export type t_payment_method_options_crypto = {
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+}
+
 export type t_payment_method_options_customer_balance = {
   bank_transfer?:
     | t_payment_method_options_customer_balance_bank_transfer
@@ -11037,7 +11089,9 @@ export type t_payment_method_options_interac_present = EmptyObject
 export type t_payment_method_options_klarna = {
   capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   preferred_locale?: (string | null) | undefined
-  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_konbini = {
@@ -12527,7 +12581,12 @@ export type t_quotes_resource_status_transitions = {
   finalized_at?: (number | null) | undefined
 }
 
+export type t_quotes_resource_subscription_data_billing_mode = {
+  type: "classic" | "flexible" | UnknownEnumStringValue
+}
+
 export type t_quotes_resource_subscription_data_subscription_data = {
+  billing_mode: t_quotes_resource_subscription_data_billing_mode
   description?: (string | null) | undefined
   effective_date?: (number | null) | undefined
   metadata?:
@@ -13035,6 +13094,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
         | "abn_amro"
         | "asn_bank"
         | "bunq"
+        | "buut"
         | "handelsbanken"
         | "ing"
         | "knab"
@@ -13058,6 +13118,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
         | "ASNBNL21"
         | "BITSNL2A"
         | "BUNQNL2A"
+        | "BUUTNL2A"
         | "FVLBNL22"
         | "HANDNL2A"
         | "INGBNL2A"
@@ -13227,6 +13288,12 @@ export type t_setup_intent_payment_method_options = {
         | t_setup_intent_type_specific_payment_method_options_client
       )
     | undefined
+  klarna?:
+    | (
+        | t_setup_intent_payment_method_options_klarna
+        | t_setup_intent_type_specific_payment_method_options_client
+      )
+    | undefined
   link?:
     | (
         | t_setup_intent_payment_method_options_link
@@ -13319,6 +13386,11 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
 }
 
 export type t_setup_intent_payment_method_options_card_present = EmptyObject
+
+export type t_setup_intent_payment_method_options_klarna = {
+  currency?: (string | null) | undefined
+  preferred_locale?: (string | null) | undefined
+}
 
 export type t_setup_intent_payment_method_options_link = EmptyObject
 
@@ -13891,6 +13963,7 @@ export type t_subscription = {
   billing_cycle_anchor_config?:
     | (t_subscriptions_resource_billing_cycle_anchor_config | null)
     | undefined
+  billing_mode: t_subscriptions_resource_billing_mode
   billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   cancel_at?: (number | null) | undefined
   cancel_at_period_end: boolean
@@ -14031,6 +14104,7 @@ export type t_subscription_schedule = {
   application?:
     | (string | t_application | t_deleted_application | null)
     | undefined
+  billing_mode: t_subscriptions_resource_billing_mode
   canceled_at?: (number | null) | undefined
   completed_at?: (number | null) | undefined
   created: number
@@ -14162,6 +14236,11 @@ export type t_subscriptions_resource_billing_cycle_anchor_config = {
   second?: (number | null) | undefined
 }
 
+export type t_subscriptions_resource_billing_mode = {
+  type: "classic" | "flexible" | UnknownEnumStringValue
+  updated_at?: number | undefined
+}
+
 export type t_subscriptions_resource_pause_collection = {
   behavior:
     | "keep_as_draft"
@@ -14203,6 +14282,7 @@ export type t_subscriptions_resource_payment_settings = {
             | "boleto"
             | "card"
             | "cashapp"
+            | "crypto"
             | "customer_balance"
             | "eps"
             | "fpx"
@@ -14731,6 +14811,9 @@ export type t_tax_product_registrations_resource_country_options = {
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   tz?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  ua?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   ug?:
@@ -15418,6 +15501,12 @@ export type t_terminal_reader_reader_resource_choice = {
   text: string
 }
 
+export type t_terminal_reader_reader_resource_collect_config = {
+  enable_customer_cancellation?: boolean | undefined
+  skip_tipping?: boolean | undefined
+  tipping?: t_terminal_reader_reader_resource_tipping_config | undefined
+}
+
 export type t_terminal_reader_reader_resource_collect_inputs_action = {
   inputs: t_terminal_reader_reader_resource_input[]
   metadata?:
@@ -15425,6 +15514,21 @@ export type t_terminal_reader_reader_resource_collect_inputs_action = {
         [key: string]: string | undefined
       } | null)
     | undefined
+}
+
+export type t_terminal_reader_reader_resource_collect_payment_method_action = {
+  collect_config?: t_terminal_reader_reader_resource_collect_config | undefined
+  payment_intent: string | t_payment_intent
+  payment_method?: t_payment_method | undefined
+}
+
+export type t_terminal_reader_reader_resource_confirm_config = {
+  return_url?: string | undefined
+}
+
+export type t_terminal_reader_reader_resource_confirm_payment_intent_action = {
+  confirm_config?: t_terminal_reader_reader_resource_confirm_config | undefined
+  payment_intent: string | t_payment_intent
 }
 
 export type t_terminal_reader_reader_resource_custom_text = {
@@ -15503,6 +15607,12 @@ export type t_terminal_reader_reader_resource_reader_action = {
   collect_inputs?:
     | t_terminal_reader_reader_resource_collect_inputs_action
     | undefined
+  collect_payment_method?:
+    | t_terminal_reader_reader_resource_collect_payment_method_action
+    | undefined
+  confirm_payment_intent?:
+    | t_terminal_reader_reader_resource_confirm_payment_intent_action
+    | undefined
   failure_code?: (string | null) | undefined
   failure_message?: (string | null) | undefined
   process_payment_intent?:
@@ -15520,6 +15630,8 @@ export type t_terminal_reader_reader_resource_reader_action = {
   status: "failed" | "in_progress" | "succeeded" | UnknownEnumStringValue
   type:
     | "collect_inputs"
+    | "collect_payment_method"
+    | "confirm_payment_intent"
     | "process_payment_intent"
     | "process_setup_intent"
     | "refund_payment"
@@ -15792,7 +15904,20 @@ export type t_transfer_schedule = {
   delay_days: number
   interval: string
   monthly_anchor?: number | undefined
+  monthly_payout_days?: number[] | undefined
   weekly_anchor?: string | undefined
+  weekly_payout_days?:
+    | (
+        | "friday"
+        | "monday"
+        | "saturday"
+        | "sunday"
+        | "thursday"
+        | "tuesday"
+        | "wednesday"
+        | UnknownEnumStringValue
+      )[]
+    | undefined
 }
 
 export type t_transform_quantity = {
