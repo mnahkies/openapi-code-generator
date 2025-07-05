@@ -171,11 +171,7 @@ export class ApiClient extends AbstractFetchClient {
       tags: p["tags"],
     })
 
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
+    return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
   async getTodoListById(
@@ -190,7 +186,7 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async updateTodoListById(
@@ -205,12 +201,12 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
   async deleteTodoListById(
@@ -225,7 +221,7 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
   async getTodoListItems(
@@ -255,7 +251,7 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async createTodoListItem(
@@ -272,12 +268,12 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<Res<204, void>> {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      {"Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async listAttachments(
@@ -290,7 +286,7 @@ export class ApiClient extends AbstractFetchClient {
     const url = basePath + `/attachments`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async uploadAttachment(
@@ -307,11 +303,11 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<Res<202, void>> {
     const url = basePath + `/attachments`
     const headers = this._headers(
-      { "Content-Type": "multipart/form-data" },
+      {"Content-Type": "multipart/form-data"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 }

@@ -17,9 +17,9 @@ import {
   StatusCode,
   StatusCode5xx,
 } from "@nahkies/typescript-koa-runtime/server"
-import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
-import { NextRequest } from "next/server"
-import { z } from "zod"
+import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+import {NextRequest} from "next/server"
+import {z} from "zod"
 
 // /list/{listId}/items
 export type GetTodoListItemsResponder = {
@@ -56,13 +56,13 @@ export type CreateTodoListItem = (
   request: NextRequest,
 ) => Promise<KoaRuntimeResponse<unknown>>
 
-const getTodoListItemsParamSchema = z.object({ listId: z.string() })
+const getTodoListItemsParamSchema = z.object({listId: z.string()})
 
 export const _GET =
   (implementation: GetTodoListItems) =>
   async (
     request: NextRequest,
-    { params }: { params: Promise<unknown> },
+    {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
@@ -96,30 +96,30 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
 
-const createTodoListItemParamSchema = z.object({ listId: z.string() })
+const createTodoListItemParamSchema = z.object({listId: z.string()})
 
 const createTodoListItemBodySchema = z.object({
   id: z.string(),
   content: z.string(),
-  completedAt: z.string().datetime({ offset: true }).optional(),
+  completedAt: z.string().datetime({offset: true}).optional(),
 })
 
 export const _POST =
   (implementation: CreateTodoListItem) =>
   async (
     request: NextRequest,
-    { params }: { params: Promise<unknown> },
+    {params}: {params: Promise<unknown>},
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
@@ -146,13 +146,13 @@ export const _POST =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }

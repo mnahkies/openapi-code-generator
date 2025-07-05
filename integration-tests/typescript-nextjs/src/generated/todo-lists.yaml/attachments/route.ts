@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_UnknownObject, t_UploadAttachmentBodySchema } from "../models"
+import {t_UnknownObject, t_UploadAttachmentBodySchema} from "../models"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -12,9 +12,9 @@ import {
   KoaRuntimeResponse,
   StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
-import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
-import { NextRequest } from "next/server"
-import { z } from "zod"
+import {Params, parseRequestInput} from "@nahkies/typescript-koa-runtime/zod"
+import {NextRequest} from "next/server"
+import {z} from "zod"
 
 // /attachments
 export type ListAttachmentsResponder = {
@@ -56,18 +56,18 @@ export const _GET =
       },
     }
 
-    const { status, body } = await implementation(responder, request)
+    const {status, body} = await implementation(responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
 
-const uploadAttachmentBodySchema = z.object({ file: z.unknown().optional() })
+const uploadAttachmentBodySchema = z.object({file: z.unknown().optional()})
 
 export const _POST =
   (implementation: UploadAttachment) =>
@@ -93,13 +93,13 @@ export const _POST =
       },
     }
 
-    const { status, body } = await implementation(input, responder, request)
+    const {status, body} = await implementation(input, responder, request)
       .then((it) => it.unpack())
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
 
     return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
+      ? Response.json(body, {status})
+      : new Response(undefined, {status})
   }
