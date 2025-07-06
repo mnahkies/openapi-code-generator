@@ -3646,6 +3646,7 @@ __metadata:
     react-hook-form: "npm:^7.60.0"
     tsx: "npm:^4.20.3"
     typescript: "npm:^5.8.3"
+    webpack: "npm:5.99.8"
   languageName: unknown
   linkType: soft
 
@@ -3665,10 +3666,13 @@ __metadata:
     "@types/lodash": "npm:^4.17.20"
     "@types/prettier": "npm:^3.0.0"
     "@typespec/compiler": "npm:^1.1.0"
+    "@typespec/events": "npm:^0.71.0"
     "@typespec/http": "npm:^1.1.0"
     "@typespec/openapi": "npm:^1.1.0"
     "@typespec/openapi3": "npm:^1.1.0"
     "@typespec/rest": "npm:^0.71.0"
+    "@typespec/sse": "npm:^0.71.0"
+    "@typespec/streams": "npm:^0.71.0"
     "@typespec/versioning": "npm:^0.71.0"
     "@typespec/xml": "npm:^0.71.0"
     ajv: "npm:^8.17.1"
@@ -3679,19 +3683,25 @@ __metadata:
     json5: "npm:^2.2.3"
     lodash: "npm:^4.17.21"
     source-map-support: "npm:^0.5.21"
+    strip-json-comments: "npm:^3.1.1"
     tslib: "npm:^2.8.1"
     typescript: "npm:~5.8.3"
     zod: "npm:^3.25.74"
   peerDependencies:
-    "@typespec/compiler": ^1.0.0-rc.1
-    "@typespec/http": ^1.0.0-rc.1
-    "@typespec/openapi": ^1.0.0-rc.1
-    "@typespec/openapi3": ^1.0.0-rc.1
-    "@typespec/rest": ^0.70.0
-    "@typespec/versioning": ^0.70.0
-    "@typespec/xml": ^0.70.0
+    "@typespec/compiler": ^1.1.0
+    "@typespec/events": ^0.71.0
+    "@typespec/http": ^1.1.0
+    "@typespec/openapi": ^1.1.0
+    "@typespec/openapi3": ^1.1.0
+    "@typespec/rest": ^0.71.0
+    "@typespec/sse": ^0.71.0
+    "@typespec/streams": ^0.71.0
+    "@typespec/versioning": ^0.71.0
+    "@typespec/xml": ^0.71.0
   peerDependenciesMeta:
     "@typespec/compiler":
+      optional: true
+    "@typespec/events":
       optional: true
     "@typespec/http":
       optional: true
@@ -3700,6 +3710,10 @@ __metadata:
     "@typespec/openapi3":
       optional: true
     "@typespec/rest":
+      optional: true
+    "@typespec/sse":
+      optional: true
+    "@typespec/streams":
       optional: true
     "@typespec/versioning":
       optional: true
@@ -6774,6 +6788,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@typespec/events@npm:^0.71.0":
+  version: 0.71.0
+  resolution: "@typespec/events@npm:0.71.0"
+  peerDependencies:
+    "@typespec/compiler": ^1.1.0
+  checksum: 10/d90f5385b4a80d02698519f2f13ee2700c86d9a3551258f1e2ce124b7ba10ec370cd89ff55cce66e830d340ac93c73c6f1ded9aa265de9bd5a337ea7ba2cdf41
+  languageName: node
+  linkType: hard
+
 "@typespec/http@npm:^1.1.0":
   version: 1.1.0
   resolution: "@typespec/http@npm:1.1.0"
@@ -6831,6 +6854,27 @@ __metadata:
     "@typespec/compiler": ^1.1.0
     "@typespec/http": ^1.1.0
   checksum: 10/3b7a35d27263e4fbdef1c12d084f324c1afd57b758081cc19b4334b011a772d8c36818b6aad51bbfde764ec1a309c542fd15a98afc72911fbae933bb861c4882
+  languageName: node
+  linkType: hard
+
+"@typespec/sse@npm:^0.71.0":
+  version: 0.71.0
+  resolution: "@typespec/sse@npm:0.71.0"
+  peerDependencies:
+    "@typespec/compiler": ^1.1.0
+    "@typespec/events": ^0.71.0
+    "@typespec/http": ^1.1.0
+    "@typespec/streams": ^0.71.0
+  checksum: 10/0d35e1d8da220c98c436823d4cae110ed34f2ae6963be2179a7702e80ad6f22e292226d2a01844b1aae4bdf0100cdbe605e20c648aa6b213abb3483e4eac0944
+  languageName: node
+  linkType: hard
+
+"@typespec/streams@npm:^0.71.0":
+  version: 0.71.0
+  resolution: "@typespec/streams@npm:0.71.0"
+  peerDependencies:
+    "@typespec/compiler": ^1.1.0
+  checksum: 10/03ae6545dc66d368d51a9adb6132c3cc2695a39533c1b6bf31701c1d67768623934b29da5bda805cadeb2e7f29584fe673f7c19c6813bb25f63aacd0108c032d
   languageName: node
   linkType: hard
 
