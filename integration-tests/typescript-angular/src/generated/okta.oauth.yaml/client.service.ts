@@ -151,9 +151,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   getWellKnownOpenIdConfiguration(
-    p: {
-      clientId?: string
-    } = {},
+    p: {clientId?: string} = {},
   ): Observable<
     | (HttpResponse<t_OidcMetadata> & {status: 200})
     | (HttpResponse<t_Error> & {status: 400})
@@ -306,11 +304,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   listClients(
-    p: {
-      after?: string
-      limit?: number
-      q?: string
-    } = {},
+    p: {after?: string; limit?: number; q?: string} = {},
   ): Observable<
     | (HttpResponse<t_Client[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 403})
@@ -519,9 +513,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   oauthKeys(
-    p: {
-      clientId?: string
-    } = {},
+    p: {clientId?: string} = {},
   ): Observable<
     | (HttpResponse<t_OAuthKeys> & {status: 200})
     | (HttpResponse<t_Error> & {status: 429})
@@ -618,9 +610,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   parOptions(
-    p: {
-      origin?: string
-    } = {},
+    p: {origin?: string} = {},
   ): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 429})
@@ -689,9 +679,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   tokenOptions(
-    p: {
-      origin?: string
-    } = {},
+    p: {origin?: string} = {},
   ): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_Error> & {status: 429})

@@ -112,10 +112,7 @@ export class SwaggerPetstoreService {
   }
 
   findPets(
-    p: {
-      tags?: string[]
-      limit?: number
-    } = {},
+    p: {tags?: string[]; limit?: number} = {},
   ): Observable<
     | (HttpResponse<t_Pet[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: StatusCode})

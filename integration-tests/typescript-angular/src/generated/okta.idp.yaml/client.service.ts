@@ -256,9 +256,7 @@ export class MyAccountManagementService {
   }
 
   listAuthenticators(
-    p: {
-      expand?: string
-    } = {},
+    p: {expand?: string} = {},
   ): Observable<
     | (HttpResponse<t_Authenticator[]> & {status: 200})
     | (HttpResponse<t_Error> & {status: 403})
