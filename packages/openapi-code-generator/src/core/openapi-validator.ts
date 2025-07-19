@@ -1,6 +1,5 @@
-import {logger} from "./logger"
-
 import type {ErrorObject} from "ajv"
+import {logger} from "./logger"
 
 import validate3_0 = require("./schemas/openapi-3.0-specification-validator")
 import validate3_1 = require("./schemas/openapi-3.1-specification-validator")

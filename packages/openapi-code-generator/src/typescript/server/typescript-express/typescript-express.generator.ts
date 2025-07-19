@@ -3,7 +3,6 @@ import {normalizeFilename} from "../../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
 import {CompilationUnit} from "../../common/compilation-units"
 import {ImportBuilder} from "../../common/import-builder"
-import type {SchemaBuilderType} from "../../common/schema-builders/schema-builder"
 import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../../common/type-builder"
 import {ExpressRouterBuilder} from "./typescript-express-router-builder"
@@ -57,8 +56,10 @@ export async function generateTypescriptExpress(
         config.serverImplementationMethod,
       )
 
-      // biome-ignore lint/complexity/noForEach: <explanation>
-      group.operations.forEach((it) => routerBuilder.add(it))
+      for (const it of group.operations) {
+        routerBuilder.add(it)
+      }
+
       return routerBuilder.toCompilationUnit()
     }),
   )

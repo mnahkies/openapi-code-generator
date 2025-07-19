@@ -1,6 +1,6 @@
 import {
-  type DependencyGraph,
   buildDependencyGraph,
+  type DependencyGraph,
 } from "../../../core/dependency-graph"
 import type {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
@@ -18,7 +18,7 @@ import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
 import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
-import {type ExportDefinition, buildExport} from "../typescript-common"
+import {buildExport, type ExportDefinition} from "../typescript-common"
 
 export type SchemaBuilderConfig = {
   allowAny: boolean

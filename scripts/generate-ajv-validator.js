@@ -42,9 +42,13 @@ const writeOutput = async (filepath, moduleCode) => {
     distribution: Distribution.NODE,
   })
 
-  biome.applyConfiguration(require("../biome.json"))
+  const {projectKey} = biome.openProject(
+    path.resolve(path.join(__dirname, "..")),
+  )
 
-  const formatted = biome.formatContent(raw, {
+  biome.applyConfiguration(projectKey, require("../biome.json"))
+
+  const formatted = biome.formatContent(projectKey, raw, {
     filePath: filepath,
   })
 

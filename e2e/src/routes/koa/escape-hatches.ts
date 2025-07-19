@@ -1,12 +1,12 @@
 import {SkipResponse} from "@nahkies/typescript-koa-runtime/server"
 import {
-  type GetEscapeHatchesPlainText,
   createRouter,
+  type GetEscapeHatchesPlainText,
 } from "../../generated/server/koa/routes/escape-hatches"
 
 const getEscapeHatchesPlainText: GetEscapeHatchesPlainText = async (
   _,
-  respond,
+  _respond,
   ctx,
 ) => {
   ctx.set("x-ratelimit-remaining", "100")

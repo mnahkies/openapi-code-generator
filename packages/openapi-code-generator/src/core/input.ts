@@ -67,6 +67,7 @@ export class Input {
 
     const schemas = allDocuments.reduce(
       (acc, it) => {
+        // biome-ignore lint/performance/noAccumulatingSpread: todo
         return Object.assign(acc, it.components?.schemas ?? {})
       },
       {} as {
@@ -280,7 +281,7 @@ export class Input {
       return undefined
     }
 
-    // biome-ignore lint/style/noParameterAssign: <explanation>
+    // biome-ignore lint/style/noParameterAssign: resolve $ref
     requestBody = this.loader.requestBody(requestBody)
 
     return {

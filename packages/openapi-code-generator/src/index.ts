@@ -14,10 +14,10 @@ import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 export {type Config, configSchema} from "./config"
 export {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 export {WebFsAdaptor} from "./core/file-system/web-fs-adaptor"
-export {TypescriptFormatterPrettier} from "./typescript/common/typescript-formatter.prettier"
 export type {IFormatter} from "./core/interfaces"
-export {OpenapiValidator} from "./core/openapi-validator"
 export {TypespecLoader} from "./core/loaders/typespec.loader"
+export {OpenapiValidator} from "./core/openapi-validator"
+export {TypescriptFormatterPrettier} from "./typescript/common/typescript-formatter.prettier"
 
 function enumExtensibility(
   config: Config,

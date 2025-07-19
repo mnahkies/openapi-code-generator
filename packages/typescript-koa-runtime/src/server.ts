@@ -1,6 +1,5 @@
 import type {Server} from "node:http"
-import type {ListenOptions} from "node:net"
-import type {AddressInfo} from "node:net"
+import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
 import Koa, {type Middleware} from "koa"
@@ -57,7 +56,7 @@ export class KoaRuntimeResponse<Type> {
 
 export type KoaRuntimeResponder<
   Status extends StatusCode = StatusCode,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: needed
   Type = any,
 > = {
   withStatus: (status: Status) => KoaRuntimeResponse<Type>
@@ -136,8 +135,9 @@ export async function startServer({
     app.use(KoaBody(body))
   }
 
-  // biome-ignore lint/complexity/noForEach: <explanation>
-  middleware.forEach((it) => app.use(it))
+  for (const it of middleware) {
+    app.use(it)
+  }
 
   app.use(router.allowedMethods())
   app.use(router.routes())

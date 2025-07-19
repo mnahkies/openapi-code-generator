@@ -308,10 +308,7 @@ export class StripeApiService {
   }
 
   getAccount(
-    p: {
-      expand?: string[]
-      requestBody?: EmptyObject
-    } = {},
+    p: {expand?: string[]; requestBody?: EmptyObject} = {},
   ): Observable<
     | (HttpResponse<t_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
@@ -3774,10 +3771,7 @@ export class StripeApiService {
   }
 
   getBalance(
-    p: {
-      expand?: string[]
-      requestBody?: EmptyObject
-    } = {},
+    p: {expand?: string[]; requestBody?: EmptyObject} = {},
   ): Observable<
     | (HttpResponse<t_balance> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
@@ -30413,10 +30407,7 @@ export class StripeApiService {
   }
 
   getReportingReportTypes(
-    p: {
-      expand?: string[]
-      requestBody?: EmptyObject
-    } = {},
+    p: {expand?: string[]; requestBody?: EmptyObject} = {},
   ): Observable<
     | (HttpResponse<{
         data: t_reporting_report_type[]
@@ -36073,10 +36064,7 @@ export class StripeApiService {
   }
 
   getTaxSettings(
-    p: {
-      expand?: string[]
-      requestBody?: EmptyObject
-    } = {},
+    p: {expand?: string[]; requestBody?: EmptyObject} = {},
   ): Observable<
     | (HttpResponse<t_tax_settings> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})

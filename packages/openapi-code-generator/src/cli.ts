@@ -14,15 +14,15 @@ import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import type {OperationGroupStrategy} from "./core/input"
 import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {
-  type TypescriptFormatterConfig,
   loadTypescriptFormatterConfig,
+  type TypescriptFormatterConfig,
 } from "./core/loaders/typescript-formatter-config.loader"
 import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import type {IdentifierConvention} from "./core/utils"
 import {configSchema, generate} from "./index"
-import {templateNames, templates} from "./templates"
+import {templateNames} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
 
 export const boolParser = (arg: string): boolean => {

@@ -572,9 +572,7 @@ export class GitHubV3RestApiService {
     })
   }
 
-  appsCreateFromManifest(p: {
-    code: string
-  }): Observable<
+  appsCreateFromManifest(p: {code: string}): Observable<
     | (HttpResponse<
         t_integration & {
           client_id: string
@@ -637,10 +635,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListWebhookDeliveries(
-    p: {
-      perPage?: number
-      cursor?: string
-    } = {},
+    p: {perPage?: number; cursor?: string} = {},
   ): Observable<
     | (HttpResponse<t_hook_delivery_item[]> & {status: 200})
     | (HttpResponse<t_scim_error> & {status: 400})
@@ -681,9 +676,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  appsRedeliverWebhookDelivery(p: {
-    deliveryId: number
-  }): Observable<
+  appsRedeliverWebhookDelivery(p: {deliveryId: number}): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
       }> & {status: 202})
@@ -702,10 +695,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListInstallationRequestsForAuthenticatedApp(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_integration_installation_request[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -1063,10 +1053,7 @@ export class GitHubV3RestApiService {
   }
 
   classroomListClassrooms(
-    p: {
-      page?: number
-      perPage?: number
-    } = {},
+    p: {page?: number; perPage?: number} = {},
   ): Observable<
     (HttpResponse<t_simple_classroom[]> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -1710,10 +1697,7 @@ export class GitHubV3RestApiService {
   }
 
   activityListPublicEvents(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_event[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -1752,11 +1736,7 @@ export class GitHubV3RestApiService {
   }
 
   gistsList(
-    p: {
-      since?: string
-      perPage?: number
-      page?: number
-    } = {},
+    p: {since?: string; perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_base_gist[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -1816,11 +1796,7 @@ export class GitHubV3RestApiService {
   }
 
   gistsListPublic(
-    p: {
-      since?: string
-      perPage?: number
-      page?: number
-    } = {},
+    p: {since?: string; perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_base_gist[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -1846,11 +1822,7 @@ export class GitHubV3RestApiService {
   }
 
   gistsListStarred(
-    p: {
-      since?: string
-      perPage?: number
-      page?: number
-    } = {},
+    p: {since?: string; perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_base_gist[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -1875,9 +1847,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  gistsGet(p: {
-    gistId: string
-  }): Observable<
+  gistsGet(p: {gistId: string}): Observable<
     | (HttpResponse<t_gist_simple> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<{
@@ -2006,10 +1976,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  gistsGetComment(p: {
-    gistId: string
-    commentId: number
-  }): Observable<
+  gistsGetComment(p: {gistId: string; commentId: number}): Observable<
     | (HttpResponse<t_gist_comment> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<{
@@ -2258,10 +2225,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListReposAccessibleToInstallation(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<{
         repositories: t_repository[]
@@ -2355,11 +2319,7 @@ export class GitHubV3RestApiService {
   }
 
   licensesGetAllCommonlyUsed(
-    p: {
-      featured?: boolean
-      perPage?: number
-      page?: number
-    } = {},
+    p: {featured?: boolean; perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_license_simple[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -2428,9 +2388,7 @@ export class GitHubV3RestApiService {
   }
 
   markdownRenderRaw(
-    p: {
-      requestBody?: string
-    } = {},
+    p: {requestBody?: string} = {},
   ): Observable<
     | (HttpResponse<string> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -2470,10 +2428,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListPlans(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_marketplace_listing_plan[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -2545,10 +2500,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListPlansStubbed(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_marketplace_listing_plan[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -2822,9 +2774,7 @@ export class GitHubV3RestApiService {
   }
 
   metaGetOctocat(
-    p: {
-      s?: string
-    } = {},
+    p: {s?: string} = {},
   ): Observable<
     (HttpResponse<string> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -2842,10 +2792,7 @@ export class GitHubV3RestApiService {
   }
 
   orgsList(
-    p: {
-      since?: number
-      perPage?: number
-    } = {},
+    p: {since?: number; perPage?: number} = {},
   ): Observable<
     | (HttpResponse<t_organization_simple[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -3066,9 +3013,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  orgsDelete(p: {
-    org: string
-  }): Observable<
+  orgsDelete(p: {org: string}): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
       }> & {status: 202})
@@ -3183,9 +3128,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  actionsGetHostedRunnersGithubOwnedImagesForOrg(p: {
-    org: string
-  }): Observable<
+  actionsGetHostedRunnersGithubOwnedImagesForOrg(p: {org: string}): Observable<
     | (HttpResponse<{
         images: t_actions_hosted_runner_image[]
         total_count: number
@@ -3203,9 +3146,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  actionsGetHostedRunnersPartnerImagesForOrg(p: {
-    org: string
-  }): Observable<
+  actionsGetHostedRunnersPartnerImagesForOrg(p: {org: string}): Observable<
     | (HttpResponse<{
         images: t_actions_hosted_runner_image[]
         total_count: number
@@ -3239,9 +3180,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  actionsGetHostedRunnersMachineSpecsForOrg(p: {
-    org: string
-  }): Observable<
+  actionsGetHostedRunnersMachineSpecsForOrg(p: {org: string}): Observable<
     | (HttpResponse<{
         machine_specs: t_actions_hosted_runner_machine_spec[]
         total_count: number
@@ -3259,9 +3198,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  actionsGetHostedRunnersPlatformsForOrg(p: {
-    org: string
-  }): Observable<
+  actionsGetHostedRunnersPlatformsForOrg(p: {org: string}): Observable<
     | (HttpResponse<{
         platforms: string[]
         total_count: number
@@ -4941,10 +4878,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  campaignsDeleteCampaign(p: {
-    org: string
-    campaignNumber: number
-  }): Observable<
+  campaignsDeleteCampaign(p: {org: string; campaignNumber: number}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 404})
     | (HttpResponse<{
@@ -7616,9 +7550,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  orgsListOrgRoles(p: {
-    org: string
-  }): Observable<
+  orgsListOrgRoles(p: {org: string}): Observable<
     | (HttpResponse<{
         roles?: t_organization_role[]
         total_count?: number
@@ -7865,10 +7797,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  orgsRemoveOutsideCollaborator(p: {
-    org: string
-    username: string
-  }): Observable<
+  orgsRemoveOutsideCollaborator(p: {org: string; username: string}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<{
         documentation_url?: string
@@ -8467,9 +8396,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  privateRegistriesGetOrgPublicKey(p: {
-    org: string
-  }): Observable<
+  privateRegistriesGetOrgPublicKey(p: {org: string}): Observable<
     | (HttpResponse<{
         key: string
         key_id: string
@@ -10495,9 +10422,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsDeleteCard(p: {
-    cardId: number
-  }): Observable<
+  projectsDeleteCard(p: {cardId: number}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -10795,9 +10720,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsDelete(p: {
-    projectId: number
-  }): Observable<
+  projectsDelete(p: {projectId: number}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -11099,10 +11022,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposDelete(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposDelete(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<t_basic_error> & {status: 307})
     | (HttpResponse<{
@@ -14692,10 +14612,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  codeScanningListCodeqlDatabases(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  codeScanningListCodeqlDatabases(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_code_scanning_codeql_database[]> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -14853,10 +14770,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  codeScanningGetDefaultSetup(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  codeScanningGetDefaultSetup(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_code_scanning_default_setup> & {status: 200})
     | (HttpResponse<t_basic_error> & {status: 403})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -20598,11 +20512,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  pullsGet(p: {
-    owner: string
-    repo: string
-    pullNumber: number
-  }): Observable<
+  pullsGet(p: {owner: string; repo: string; pullNumber: number}): Observable<
     | (HttpResponse<t_pull_request> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 404})
@@ -22182,10 +22092,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  secretScanningGetScanHistory(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  secretScanningGetScanHistory(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_secret_scanning_scan_history> & {status: 200})
     | (HttpResponse<void> & {status: 404})
     | (HttpResponse<{
@@ -22416,10 +22323,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposGetCodeFrequencyStats(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposGetCodeFrequencyStats(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_code_frequency_stat[]> & {status: 200})
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -22439,10 +22343,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposGetCommitActivityStats(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposGetCommitActivityStats(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_commit_activity[]> & {status: 200})
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -22461,10 +22362,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposGetContributorsStats(p: {
-    owner: string
-    repo: string
-  }): Observable<
+  reposGetContributorsStats(p: {owner: string; repo: string}): Observable<
     | (HttpResponse<t_contributor_activity[]> & {status: 200})
     | (HttpResponse<{
         [key: string]: unknown | undefined
@@ -23017,9 +22915,7 @@ export class GitHubV3RestApiService {
   }
 
   reposListPublic(
-    p: {
-      since?: number
-    } = {},
+    p: {since?: number} = {},
   ): Observable<
     | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -23253,11 +23149,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  searchTopics(p: {
-    q: string
-    perPage?: number
-    page?: number
-  }): Observable<
+  searchTopics(p: {q: string; perPage?: number; page?: number}): Observable<
     | (HttpResponse<{
         incomplete_results: boolean
         items: t_topic_search_result_item[]
@@ -24184,10 +24076,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListBlockedByAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -24271,11 +24160,7 @@ export class GitHubV3RestApiService {
   }
 
   codespacesListForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-      repositoryId?: number
-    } = {},
+    p: {perPage?: number; page?: number; repositoryId?: number} = {},
   ): Observable<
     | (HttpResponse<{
         codespaces: t_codespace[]
@@ -24372,10 +24257,7 @@ export class GitHubV3RestApiService {
   }
 
   codespacesListSecretsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<{
         secrets: t_codespaces_secret[]
@@ -24614,9 +24496,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  codespacesDeleteForAuthenticatedUser(p: {
-    codespaceName: string
-  }): Observable<
+  codespacesDeleteForAuthenticatedUser(p: {codespaceName: string}): Observable<
     | (HttpResponse<{
         [key: string]: unknown | undefined
       }> & {status: 202})
@@ -24816,10 +24696,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListEmailsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_email[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -24906,10 +24783,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListFollowersForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -24931,10 +24805,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListFollowedByAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25017,10 +24888,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListGpgKeysForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_gpg_key[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25113,10 +24981,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListInstallationsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<{
         installations: t_installation[]
@@ -25309,10 +25174,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListPublicSshKeysForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_key[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25404,10 +25266,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListSubscriptionsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_user_marketplace_purchase[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25429,10 +25288,7 @@ export class GitHubV3RestApiService {
   }
 
   appsListSubscriptionsForAuthenticatedUserStubbed(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_user_marketplace_purchase[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25529,10 +25385,7 @@ export class GitHubV3RestApiService {
   }
 
   migrationsListForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_migration[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25697,10 +25550,7 @@ export class GitHubV3RestApiService {
   }
 
   orgsListForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_organization_simple[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -25990,10 +25840,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListPublicEmailsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_email[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -26132,10 +25979,7 @@ export class GitHubV3RestApiService {
   }
 
   reposListInvitationsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_repository_invitation[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -26200,10 +26044,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListSocialAccountsForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_social_account[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -26282,10 +26123,7 @@ export class GitHubV3RestApiService {
   }
 
   usersListSshSigningKeysForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_ssh_signing_key[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -26472,10 +26310,7 @@ export class GitHubV3RestApiService {
   }
 
   activityListWatchedReposForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -26497,10 +26332,7 @@ export class GitHubV3RestApiService {
   }
 
   teamsListForAuthenticatedUser(
-    p: {
-      perPage?: number
-      page?: number
-    } = {},
+    p: {perPage?: number; page?: number} = {},
   ): Observable<
     | (HttpResponse<t_team_full[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})
@@ -26539,10 +26371,7 @@ export class GitHubV3RestApiService {
   }
 
   usersList(
-    p: {
-      since?: number
-      perPage?: number
-    } = {},
+    p: {since?: number; perPage?: number} = {},
   ): Observable<
     | (HttpResponse<t_simple_user[]> & {status: 200})
     | (HttpResponse<void> & {status: 304})

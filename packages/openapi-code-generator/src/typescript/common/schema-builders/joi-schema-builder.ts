@@ -3,7 +3,6 @@ import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModel,
   IRModelArray,
-  IRModelBase,
   IRModelNumeric,
   IRModelString,
   MaybeIRModel,

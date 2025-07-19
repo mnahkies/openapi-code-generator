@@ -1,11 +1,11 @@
-import {ControlledCheckbox} from "@/lib/playground/controls/controlled-checkbox"
-import {ControlledSelect} from "@/lib/playground/controls/controlled-select"
 import {zodResolver} from "@hookform/resolvers/zod"
 import {type Config, configSchema} from "@nahkies/openapi-code-generator"
 import type React from "react"
 import {useEffect} from "react"
 import {useForm} from "react-hook-form"
 import type {z} from "zod"
+import {ControlledCheckbox} from "@/lib/playground/controls/controlled-checkbox"
+import {ControlledSelect} from "@/lib/playground/controls/controlled-select"
 import styles from "./config-form.module.css"
 
 const schema = configSchema.pick({

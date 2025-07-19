@@ -1,12 +1,11 @@
-import {describe, expect, it, jest} from "@jest/globals"
+import {describe, expect, it} from "@jest/globals"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
+import typecheck from "../../test/typescript-compiler-worker.test-utils"
+import {CompilationUnit} from "./compilation-units"
 import {ImportBuilder} from "./import-builder"
 import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
 import {TypescriptFormatterBiome} from "./typescript-formatter.biome"
-
-import typecheck from "../../test/typescript-compiler-worker.test-utils"
-import {CompilationUnit} from "./compilation-units"
 
 describe.each(testVersions)(
   "%s - typescript/common/type-builder",

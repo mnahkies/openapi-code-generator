@@ -35,6 +35,7 @@ export async function loadTsConfigCompilerOptions(
       `failed to load tsconfig.json for ${searchPath}, using defaults`,
       {
         compilerOptions: defaults,
+        err,
       },
     )
   }

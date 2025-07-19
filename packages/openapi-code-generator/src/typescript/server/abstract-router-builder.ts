@@ -4,18 +4,10 @@ import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import type {ImportBuilder} from "../common/import-builder"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
-import {ServerOperationBuilder} from "./server-operation-builder"
-
-export type ServerSymbols = {
-  implPropName: string
-  implTypeName: string
-  responderName: string
-  paramSchema: string
-  querySchema: string
-  requestBodySchema: string
-  requestHeaderSchema: string
-  responseBodyValidator: string
-}
+import {
+  ServerOperationBuilder,
+  type ServerSymbols,
+} from "./server-operation-builder"
 
 export abstract class AbstractRouterBuilder implements ICompilable {
   private readonly statements: string[] = []

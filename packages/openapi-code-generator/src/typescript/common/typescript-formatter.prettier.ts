@@ -1,11 +1,10 @@
-import {resolveConfig} from "prettier"
 import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 
 export class TypescriptFormatterPrettier implements IFormatter {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: not important
   prettier: any
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: not important
   plugins: any[]
 
   private constructor() {

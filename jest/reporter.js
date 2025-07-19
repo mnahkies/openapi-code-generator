@@ -6,7 +6,7 @@ class Reporter extends DefaultReporter {
     if (result.numFailingTests === 0 && !result.testExecError) {
       result.console = []
     } else {
-      // biome-ignore lint/style/noArguments: <explanation>
+      // biome-ignore lint/complexity/noArguments: we want to pass through
       super.printTestFileHeader(...arguments)
     }
   }

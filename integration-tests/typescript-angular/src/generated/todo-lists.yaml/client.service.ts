@@ -228,11 +228,7 @@ export class TodoListsExampleApiService {
   }
 
   getTodoLists(
-    p: {
-      created?: string
-      statuses?: t_Statuses
-      tags?: string[]
-    } = {},
+    p: {created?: string; statuses?: t_Statuses; tags?: string[]} = {},
   ): Observable<
     (HttpResponse<t_TodoList[]> & {status: 200}) | HttpResponse<unknown>
   > {
@@ -309,9 +305,7 @@ export class TodoListsExampleApiService {
     )
   }
 
-  getTodoListItems(p: {
-    listId: string
-  }): Observable<
+  getTodoListItems(p: {listId: string}): Observable<
     | (HttpResponse<{
         completedAt?: string
         content: string

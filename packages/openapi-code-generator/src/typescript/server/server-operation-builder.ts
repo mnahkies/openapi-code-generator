@@ -13,7 +13,17 @@ import {
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"
-import type {ServerSymbols} from "./abstract-router-builder"
+
+export type ServerSymbols = {
+  implPropName: string
+  implTypeName: string
+  responderName: string
+  paramSchema: string
+  querySchema: string
+  requestBodySchema: string
+  requestHeaderSchema: string
+  responseBodyValidator: string
+}
 
 export function reduceParamsToOpenApiSchema(
   parameters: IRParameter[],

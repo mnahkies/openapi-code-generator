@@ -1,10 +1,9 @@
-import type {ExpressRuntimeResponse} from "@nahkies/typescript-express-runtime/server"
 import {
+  createRouter,
   type GetResponses500,
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
-  createRouter,
 } from "../../generated/server/express/routes/validation"
 
 const postValidationEnums: PostValidationEnums = async ({body}, respond) => {

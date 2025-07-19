@@ -3,16 +3,16 @@
 /* istanbul ignore file */
 /* c8 ignore start */
 
-"use strict"
-const {logger} = require("../logger")
-module.exports = validate
-module.exports.default = validate
+"use strict";
+const { logger } = require("../logger");
+module.exports = validate;
+module.exports.default = validate;
 
 function validate() {
-  logger.warn(
-    "Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
-  )
-  return true
+	logger.warn(
+		"Skipping validation due to https://github.com/mnahkies/openapi-code-generator/issues/103",
+	);
+	return true;
 }
 
 /* c8 ignore end */

@@ -8,11 +8,11 @@ import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
 import {constStatement, object} from "../../common/type-utils"
 import {buildExport} from "../../common/typescript-common"
-import {
-  AbstractRouterBuilder,
-  type ServerSymbols,
-} from "../abstract-router-builder"
-import type {ServerOperationBuilder} from "../server-operation-builder"
+import {AbstractRouterBuilder} from "../abstract-router-builder"
+import type {
+  ServerOperationBuilder,
+  ServerSymbols,
+} from "../server-operation-builder"
 
 export class KoaRouterBuilder extends AbstractRouterBuilder {
   private readonly operationTypes: {

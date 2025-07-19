@@ -55,8 +55,9 @@ export async function generateTypescriptKoa(
         config.serverImplementationMethod,
       )
 
-      // biome-ignore lint/complexity/noForEach: <explanation>
-      group.operations.forEach((it) => routerBuilder.add(it))
+      for (const it of group.operations) {
+        routerBuilder.add(it)
+      }
 
       return routerBuilder.toCompilationUnit()
     }),

@@ -1,9 +1,6 @@
 import path from "node:path"
 import util from "node:util"
-
-import * as console from "node:console"
-import {load} from "js-yaml"
-import {VirtualDefinition, generationLib} from "./generation-lib"
+import {generationLib, VirtualDefinition} from "./generation-lib"
 import type {GenericLoader} from "./loaders/generic.loader"
 import type {TypespecLoader} from "./loaders/typespec.loader"
 import {isRemote} from "./loaders/utils"
@@ -46,10 +43,13 @@ export class OpenapiLoader {
   }
 
   get entryPoint(): OpenapiDocument {
-    // This is guaranteed by the combination of a private constructor,
-    // and the factory function loading the entry point at this key.
-    // biome-ignore lint/style/noNonNullAssertion: <explanation>
-    return this.library.get(this.entryPointKey)!
+    const result = this.library.get(this.entryPointKey)
+
+    if (!result) {
+      throw new Error(`missing entryPoint for key '${this.entryPointKey}'`)
+    }
+
+    return result
   }
 
   allDocuments(): OpenapiDocument[] {
@@ -87,7 +87,7 @@ export class OpenapiLoader {
   private $ref<T>({$ref}: Reference): T {
     const [key, objPath] = $ref.split("#")
 
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    // biome-ignore lint/suspicious/noExplicitAny: dynamic
     const obj: any = key && this.library.get(key)
 
     if (!obj) {
@@ -136,7 +136,7 @@ export class OpenapiLoader {
     await this.loadFileContent(loadedFrom, definition)
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: dynamic
   private async loadFileContent(loadedFrom: string, definition: any) {
     await this.validator.validate(loadedFrom, definition)
 
@@ -148,10 +148,10 @@ export class OpenapiLoader {
     }
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: dynamic
   private async normalizeRefs(loadedFrom: string, obj: any) {
     for (const key in obj) {
-      if (!Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (!Object.hasOwn(obj, key)) {
         continue
       }
 
@@ -164,8 +164,9 @@ export class OpenapiLoader {
         typeof obj[key] === "string" &&
         obj[key].indexOf("#") !== -1
       ) {
-        // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-        const $ref = (obj[key] = normalizeRef(obj[key], loadedFrom))
+        const $ref = normalizeRef(obj[key], loadedFrom)
+        obj[key] = $ref
+
         await this.loadFile(pathFromRef($ref))
       } else if (typeof obj[key] === "object" && !!obj[key]) {
         await this.normalizeRefs(loadedFrom, obj[key])

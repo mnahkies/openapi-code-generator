@@ -1,13 +1,13 @@
 import {SkipResponse} from "@nahkies/typescript-express-runtime/server"
 import {
-  type GetEscapeHatchesPlainText,
   createRouter,
+  type GetEscapeHatchesPlainText,
 } from "../../generated/server/express/routes/escape-hatches"
 
 const getEscapeHatchesPlainText: GetEscapeHatchesPlainText = async (
   _,
-  respond,
-  req,
+  _respond,
+  _req,
   res,
 ) => {
   res.setHeader("x-ratelimit-remaining", "100")

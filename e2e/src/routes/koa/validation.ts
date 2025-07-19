@@ -1,9 +1,9 @@
 import {
+  createRouter,
   type GetResponses500,
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
-  createRouter,
 } from "../../generated/server/koa/routes/validation"
 
 const postValidationEnums: PostValidationEnums = async ({body}, respond) => {

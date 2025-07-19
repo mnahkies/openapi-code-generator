@@ -24,7 +24,10 @@ export class CompilationUnit {
   getRawFileContent({
     allowUnusedImports,
     includeHeader = true,
-  }: {allowUnusedImports: boolean; includeHeader?: boolean}): string {
+  }: {
+    allowUnusedImports: boolean
+    includeHeader?: boolean
+  }): string {
     return [
       includeHeader ? FILE_HEADER : "",
       this.imports

@@ -4,7 +4,7 @@ import {useMDXComponents as getThemeComponents} from "nextra-theme-docs" // next
 const themeComponents = getThemeComponents()
 
 // Merge components
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: nextra
 export function useMDXComponents(components: any) {
   return {
     ...themeComponents,
