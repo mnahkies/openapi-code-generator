@@ -3,7 +3,7 @@ import type {
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {camelCase, isDefined} from "../../core/utils"
+import {isDefined} from "../../core/utils"
 
 export type MethodParameterDefinition = {
   name: string

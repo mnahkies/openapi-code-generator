@@ -1,17 +1,17 @@
+import {
+  type Config,
+  generate,
+  OpenapiValidator,
+  TypescriptFormatterPrettier,
+  TypespecLoader,
+  WebFsAdaptor,
+} from "@nahkies/openapi-code-generator"
+import _ from "lodash"
 import type {
   Monad,
   WorkerMessage,
   WorkerResult,
 } from "@/lib/playground/worker/types"
-import {
-  type Config,
-  OpenapiValidator,
-  TypescriptFormatterPrettier,
-  TypespecLoader,
-  WebFsAdaptor,
-  generate,
-} from "@nahkies/openapi-code-generator"
-import _ from "lodash"
 
 // TODO: move
 export function asyncDebounce<

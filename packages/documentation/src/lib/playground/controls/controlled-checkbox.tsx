@@ -1,4 +1,3 @@
-import React from "react"
 import {type UseControllerProps, useController} from "react-hook-form"
 
 export function ControlledCheckbox<

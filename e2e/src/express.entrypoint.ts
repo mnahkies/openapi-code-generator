@@ -28,12 +28,12 @@ export async function startExpressServer() {
       origin: "http://example.com",
     },
     router: createRouter(),
-    notFoundHandler: (req: Request, res: Response, next: NextFunction) => {
+    notFoundHandler: (_req: Request, res: Response, _next: NextFunction) => {
       res.status(404).json({code: 404, message: "route not found"})
     },
     errorHandler: (
       err: Error,
-      req: Request,
+      _req: Request,
       res: Response,
       next: NextFunction,
     ) => {

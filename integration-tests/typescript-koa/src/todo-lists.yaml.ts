@@ -1,7 +1,7 @@
 import {
-  type GetTodoLists,
   bootstrap,
   createRouter,
+  type GetTodoLists,
 } from "./generated/todo-lists.yaml/generated"
 import type {t_TodoList} from "./generated/todo-lists.yaml/models"
 import {genericErrorMiddleware, notImplemented} from "./petstore-expanded.yaml"

@@ -1,6 +1,5 @@
 import type {Server} from "node:http"
-import type {ListenOptions} from "node:net"
-import type {AddressInfo} from "node:net"
+import type {AddressInfo, ListenOptions} from "node:net"
 
 import type {OptionsJson} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
@@ -61,7 +60,7 @@ export class ExpressRuntimeResponse<Type> {
 
 export type ExpressRuntimeResponder<
   Status extends StatusCode = StatusCode,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: needed
   Type = any,
 > = {
   withStatus: (status: Status) => ExpressRuntimeResponse<Type>

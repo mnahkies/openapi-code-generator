@@ -4,9 +4,9 @@ import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
 
 export type TypescriptFormatterConfig =
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: not important
   | {type: "biome"; config: any}
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: not important
   | {type: "prettier"; config: any}
   | null
 

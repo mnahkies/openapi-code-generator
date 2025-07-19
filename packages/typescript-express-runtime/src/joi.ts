@@ -7,7 +7,7 @@ export function parseRequestInput<Schema extends JoiSchema>(
   schema: Schema,
   input: unknown,
   type: RequestInputType,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: needed
 ): any
 export function parseRequestInput(
   schema: undefined,
@@ -18,7 +18,7 @@ export function parseRequestInput<Schema extends JoiSchema>(
   schema: Schema | undefined,
   input: unknown,
   type: RequestInputType,
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: needed
 ): any {
   try {
     if (!schema) {

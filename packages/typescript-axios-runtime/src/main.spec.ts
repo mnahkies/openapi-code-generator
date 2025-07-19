@@ -1,3 +1,6 @@
+// biome-ignore-all lint/complexity/useLiteralKeys: tests
+// biome-ignore-all lint/suspicious/noExplicitAny: tests
+
 import {describe, expect, it} from "@jest/globals"
 import type {AxiosRequestConfig, RawAxiosRequestHeaders} from "axios"
 import {
@@ -8,7 +11,7 @@ import {
 } from "./main"
 
 class ConcreteAxiosClient extends AbstractAxiosClient {
-  // biome-ignore lint/complexity/noUselessConstructor: <explanation>
+  // biome-ignore lint/complexity/noUselessConstructor: make public
   constructor(config: AbstractAxiosConfig) {
     super(config)
   }
@@ -130,7 +133,6 @@ describe("typescript-axios-runtime/main", () => {
         const actual = getActual({
           defaultHeaders: {Authorization: "Bearer: default"},
           routeHeaders: {Authorization: "Bearer: route"},
-          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
           configHeaders: {Authorization: null as any},
         })
 
@@ -165,7 +167,6 @@ describe("typescript-axios-runtime/main", () => {
           ],
         })
 
-        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
         expect(actual["foo"]).toStrictEqual("bar")
         expect(actual["x-rate-limit"]).toStrictEqual("20")
       })
@@ -182,7 +183,6 @@ describe("typescript-axios-runtime/main", () => {
         })
 
         // Headers that aren't Set-Cookie get concatenated by the Headers built-in.
-        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
         expect(actual["foo"]).toStrictEqual("bar, foobar")
         expect(actual["x-rate-limit"]).toStrictEqual("20")
       })
@@ -204,7 +204,6 @@ describe("typescript-axios-runtime/main", () => {
           configHeaders: headers,
         })
 
-        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
         expect(actual["foo"]).toStrictEqual("bar")
         expect(actual["set-cookie"]).toStrictEqual(
           "one=cookie-1; SameSite=None; Secure,two=cookie-2; SameSite=None; Secure",

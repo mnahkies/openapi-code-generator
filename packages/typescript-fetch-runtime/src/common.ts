@@ -1,7 +1,7 @@
 import type {Res, StatusCode} from "./types"
 
 export function responseValidationFactoryFactory<Schema>(
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: needed
   parse: (schema: Schema, value: unknown) => any,
   possibleResponses: [string, Schema][],
   defaultResponse?: Schema,
@@ -11,7 +11,7 @@ export function responseValidationFactoryFactory<Schema>(
 
   return async (
     whenRes: Promise<Res<StatusCode, unknown>>,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    // biome-ignore lint/suspicious/noExplicitAny: needed
   ): Promise<any> => {
     const res = await whenRes
 

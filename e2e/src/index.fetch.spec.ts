@@ -1,6 +1,5 @@
 import type {Server} from "node:http"
 import {beforeAll, describe, expect, it} from "@jest/globals"
-import type {AxiosError} from "axios"
 import {ApiClient, E2ETestClientServers} from "./generated/client/fetch/client"
 import {startServerFunctions} from "./index"
 import {numberBetween} from "./test-utils"

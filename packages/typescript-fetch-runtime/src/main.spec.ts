@@ -1,3 +1,5 @@
+// biome-ignore-all lint/suspicious/noExplicitAny: tests
+
 import {describe, expect, it} from "@jest/globals"
 import {
   AbstractFetchClient,
@@ -8,7 +10,7 @@ import {
 } from "./main"
 
 class ConcreteFetchClient extends AbstractFetchClient {
-  // biome-ignore lint/complexity/noUselessConstructor: <explanation>
+  // biome-ignore lint/complexity/noUselessConstructor: make public
   constructor(config: AbstractFetchClientConfig) {
     super(config)
   }
@@ -136,7 +138,6 @@ describe("typescript-fetch-runtime/main", () => {
         const actual = getActual({
           defaultHeaders: {Authorization: "Bearer: default"},
           routeHeaders: {Authorization: "Bearer: route"},
-          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
           configHeaders: {Authorization: null as any},
         })
 

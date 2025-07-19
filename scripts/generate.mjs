@@ -63,7 +63,7 @@ function runCmd(cmd) {
 
     console.info(cmd)
 
-    const child = exec(cmd, (err, stdout, stderr) => {
+    const child = exec(cmd, (err) => {
       if (err) {
         err.output = output
         reject(err)

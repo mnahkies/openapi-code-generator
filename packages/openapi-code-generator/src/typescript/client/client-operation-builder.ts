@@ -9,8 +9,8 @@ import {camelCase, isDefined} from "../../core/utils"
 import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
 import type {TypeBuilder} from "../common/type-builder"
 import {
-  type MethodParameterDefinition,
   combineParams,
+  type MethodParameterDefinition,
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"

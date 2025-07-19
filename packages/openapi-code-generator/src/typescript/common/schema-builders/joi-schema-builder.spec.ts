@@ -15,7 +15,6 @@ import {
   irModelString,
   schemaBuilderTestHarness,
 } from "./schema-builder.test-utils"
-import {staticSchemas} from "./zod-schema-builder"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/joi-schema-builder",

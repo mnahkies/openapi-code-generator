@@ -6,6 +6,7 @@ export class ExpressServerBuilder implements ICompilable {
   constructor(
     private readonly filename: string,
     private readonly name: string,
+    // biome-ignore lint/correctness/noUnusedPrivateClassMembers: future
     private readonly input: Input,
     private readonly imports: ImportBuilder = new ImportBuilder(),
   ) {

@@ -9,8 +9,9 @@ export class ImportBuilder {
   from(from: string) {
     return {
       add: (...names: string[]): this => {
-        // biome-ignore lint/complexity/noForEach: <explanation>
-        names.forEach((it) => this.addSingle(it, from))
+        for (const it of names) {
+          this.addSingle(it, from)
+        }
         return this
       },
       all: (name: string): this => {
@@ -50,17 +51,17 @@ export class ImportBuilder {
   ): ImportBuilder {
     const result = new ImportBuilder(unit)
 
-    // biome-ignore lint/complexity/noForEach: <explanation>
+    // biome-ignore lint/complexity/noForEach: todo
     builders.forEach((builder) => {
-      // biome-ignore lint/complexity/noForEach: <explanation>
+      // biome-ignore lint/complexity/noForEach: todo
       Object.entries(builder.imports).forEach(([key, value]) => {
-        // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+        // biome-ignore lint/suspicious/noAssignInExpressions: todo
         const imports = (result.imports[key] = result.imports[key] ?? new Set())
-        // biome-ignore lint/complexity/noForEach: <explanation>
+        // biome-ignore lint/complexity/noForEach: todo
         value.forEach((it) => imports.add(it))
       })
 
-      // biome-ignore lint/complexity/noForEach: <explanation>
+      // biome-ignore lint/complexity/noForEach: todo
       Object.entries(builder.importAll).forEach(([key, value]) => {
         if (result.importAll[key] && result.importAll[key] !== value) {
           throw new Error("cannot merge imports with colliding importAlls")
@@ -74,9 +75,9 @@ export class ImportBuilder {
   }
 
   private add(name: string, from: string, isAll: boolean): void {
-    // biome-ignore lint/style/noParameterAssign: <explanation>
+    // biome-ignore lint/style/noParameterAssign: normalization
     from = this.normalizeFrom(from)
-    // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+    // biome-ignore lint/suspicious/noAssignInExpressions: init
     const imports = (this.imports[from] =
       this.imports[from] ?? new Set<string>())
 
@@ -89,7 +90,7 @@ export class ImportBuilder {
 
   private normalizeFrom(from: string) {
     if (from.endsWith(".ts")) {
-      // biome-ignore lint/style/noParameterAssign: <explanation>
+      // biome-ignore lint/style/noParameterAssign: normalization
       from = from.substring(0, from.length - ".ts".length)
     }
 
@@ -99,11 +100,11 @@ export class ImportBuilder {
 
       const relative = path.relative(unitDirname, fromDirname)
 
-      // biome-ignore lint/style/noParameterAssign: <explanation>
+      // biome-ignore lint/style/noParameterAssign: normalization
       from = path.join(relative, path.basename(from))
 
       if (!from.startsWith("../") && !from.startsWith("./")) {
-        // biome-ignore lint/style/noParameterAssign: <explanation>
+        // biome-ignore lint/style/noParameterAssign: normalization
         from = `./${from}`
       }
     }
@@ -137,7 +138,7 @@ export class ImportBuilder {
     )
       .sort()
       .map((from) => {
-        // biome-ignore lint/style/noNonNullAssertion: <explanation>
+        // biome-ignore lint/style/noNonNullAssertion: todo
         const individualImports = Array.from(this.imports[from]!.values())
           .sort()
           .filter(hasImport)

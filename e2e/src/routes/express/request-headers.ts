@@ -1,7 +1,7 @@
 import {
+  createRouter,
   type GetHeadersRequest,
   type GetHeadersUndeclared,
-  createRouter,
 } from "../../generated/server/express/routes/request-headers"
 
 const getHeadersUndeclared: GetHeadersUndeclared = async (

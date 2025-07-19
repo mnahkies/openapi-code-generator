@@ -1,6 +1,5 @@
-import {Piscina} from "piscina"
-
 import path from "node:path"
+import {Piscina} from "piscina"
 import {filename} from "./typescript-compiler-worker.test-utils"
 
 let pool: Piscina | null = null
