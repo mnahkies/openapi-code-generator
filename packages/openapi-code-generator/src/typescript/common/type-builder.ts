@@ -233,11 +233,9 @@ export class TypeBuilder implements ICompilable {
             ? `[key: string]: ${union(additionalPropertiesType, "undefined")}`
             : ""
 
-          const emptyObject =
-            schemaObject.additionalProperties === false &&
-            properties.length === 0
-              ? this.addStaticType("EmptyObject")
-              : ""
+          const emptyObject = this.isEmptyObject(schemaObject)
+            ? this.addStaticType("EmptyObject")
+            : ""
 
           properties.push(additionalProperties)
 
@@ -262,5 +260,18 @@ export class TypeBuilder implements ICompilable {
 
   toCompilationUnit(): CompilationUnit {
     return new CompilationUnit(this.filename, this.imports, this.toString())
+  }
+
+  isEmptyObject(schemaObject: MaybeIRModel) {
+    const dereferenced = this.input.schema(schemaObject)
+
+    return (
+      dereferenced.type === "object" &&
+      dereferenced.allOf.length === 0 &&
+      dereferenced.anyOf.length === 0 &&
+      dereferenced.oneOf.length === 0 &&
+      dereferenced.additionalProperties === false &&
+      Object.keys(dereferenced.properties).length === 0
+    )
   }
 }

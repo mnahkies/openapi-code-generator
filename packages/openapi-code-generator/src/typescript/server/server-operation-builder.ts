@@ -1,4 +1,5 @@
 import type {Input} from "../../core/input"
+import {logger} from "../../core/logger"
 import type {
   IRModelObject,
   IROperation,
@@ -265,7 +266,9 @@ export class ServerOperationBuilder {
 
   private requestBodyParameter(schemaSymbolName: string): Parameters["body"] {
     const {requestBodyParameter} = requestBodyAsParameter(this.operation)
+
     const isRequired = Boolean(requestBodyParameter?.required)
+
     const schema = requestBodyParameter
       ? this.schemaBuilder.fromModel(
           requestBodyParameter.schema,
@@ -273,6 +276,17 @@ export class ServerOperationBuilder {
           true,
         )
       : undefined
+
+    if (
+      requestBodyParameter &&
+      this.types.isEmptyObject(requestBodyParameter.schema)
+    ) {
+      logger.warn(
+        `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
+      )
+      return {type: "void", schema: undefined, isRequired: false}
+    }
+
     let type = "void"
 
     if (schema && requestBodyParameter) {
