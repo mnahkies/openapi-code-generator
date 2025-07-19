@@ -17126,6 +17126,8 @@ __metadata:
   resolution: "openapi-code-generator-root@workspace:."
   dependencies:
     "@biomejs/biome": "npm:2.1.2"
+    "@biomejs/js-api": "npm:2.0.3"
+    "@biomejs/wasm-nodejs": "npm:2.1.2"
     "@swc/core": "npm:^1.12.9"
     "@swc/jest": "npm:^0.2.38"
     "@tsconfig/node24": "npm:^24.0.1"

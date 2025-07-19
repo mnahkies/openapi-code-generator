@@ -39,6 +39,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
+    "@biomejs/js-api": "2.0.3",
+    "@biomejs/wasm-nodejs": "2.1.2",
     "@swc/core": "^1.12.9",
     "@swc/jest": "^0.2.38",
     "@tsconfig/node24": "^24.0.1",

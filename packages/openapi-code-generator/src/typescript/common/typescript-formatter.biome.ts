@@ -26,7 +26,10 @@ const defaultConfiguration = {
 } as const
 
 export class TypescriptFormatterBiome implements IFormatter {
-  private constructor(private readonly biome: Biome) {}
+  private constructor(
+    private readonly projectKey: number,
+    private readonly biome: Biome,
+  ) {}
 
   async format(
     filename: string,
@@ -38,7 +41,7 @@ export class TypescriptFormatterBiome implements IFormatter {
       .join("\n")
 
     try {
-      const formatted = this.biome.formatContent(trimmed, {
+      const formatted = this.biome.formatContent(this.projectKey, trimmed, {
         filePath: filename,
       })
 
@@ -58,23 +61,28 @@ export class TypescriptFormatterBiome implements IFormatter {
     const biome = await Biome.create({
       distribution: Distribution.NODE,
     })
-    biome.applyConfiguration({
+    const {projectKey} = biome.openProject()
+    biome.applyConfiguration(projectKey, {
       ...(configuration ?? defaultConfiguration),
+      // we want to avoid any ignore patterns that might \
+      // prevent formatting of the output
+      vcs: {enabled: false},
       files: {
         maxSize: 5 * 1024 * 1024,
       },
       linter: {enabled: false},
     })
 
-    return new TypescriptFormatterBiome(biome)
+    return new TypescriptFormatterBiome(projectKey, biome)
   }
 
   static async createWebFormatter(): Promise<TypescriptFormatterBiome> {
     const biome = await Biome.create({
       distribution: Distribution.WEB,
     })
-    biome.applyConfiguration(defaultConfiguration)
+    const {projectKey} = biome.openProject()
+    biome.applyConfiguration(projectKey, defaultConfiguration)
 
-    return new TypescriptFormatterBiome(biome)
+    return new TypescriptFormatterBiome(projectKey, biome)
   }
 }

@@ -434,7 +434,10 @@ const schema11 = {
     },
     Paths: {
       type: "object",
-      patternProperties: {"^\\/": {$ref: "#/definitions/PathItem"}, "^x-": {}},
+      patternProperties: {
+        "^\\/": {$ref: "#/definitions/PathItem"},
+        "^x-": {},
+      },
       additionalProperties: false,
     },
     PathItem: {
@@ -2010,7 +2013,9 @@ const schema22 = {
 const schema33 = {
   type: "object",
   required: ["$ref"],
-  patternProperties: {"^\\$ref$": {type: "string", format: "uri-reference"}},
+  patternProperties: {
+    "^\\$ref$": {type: "string", format: "uri-reference"},
+  },
 }
 const func3 = Object.prototype.hasOwnProperty
 const func0 = require("ajv/dist/runtime/equal").default
@@ -2853,7 +2858,10 @@ function validate21(
                                                         schemaPath:
                                                           "#/properties/required/uniqueItems",
                                                         keyword: "uniqueItems",
-                                                        params: {i: i1, j: j0},
+                                                        params: {
+                                                          i: i1,
+                                                          j: j0,
+                                                        },
                                                         message:
                                                           "must NOT have duplicate items (items ## " +
                                                           j0 +
@@ -3821,7 +3829,9 @@ function validate21(
                                                         schemaPath:
                                                           "#/properties/oneOf/type",
                                                         keyword: "type",
-                                                        params: {type: "array"},
+                                                        params: {
+                                                          type: "array",
+                                                        },
                                                         message:
                                                           "must be array",
                                                       },
@@ -6892,7 +6902,9 @@ function validate26(
                         instancePath: instancePath + "/style",
                         schemaPath: "#/properties/style/enum",
                         keyword: "enum",
-                        params: {allowedValues: schema50.properties.style.enum},
+                        params: {
+                          allowedValues: schema50.properties.style.enum,
+                        },
                         message: "must be equal to one of the allowed values",
                       },
                     ]
@@ -7245,7 +7257,9 @@ function validate26(
                                             schemaPath:
                                               "#/definitions/Example/additionalProperties",
                                             keyword: "additionalProperties",
-                                            params: {additionalProperty: key4},
+                                            params: {
+                                              additionalProperty: key4,
+                                            },
                                             message:
                                               "must NOT have additional properties",
                                           }
@@ -7382,7 +7396,9 @@ function validate26(
                                                       schemaPath:
                                                         "#/definitions/Example/properties/externalValue/type",
                                                       keyword: "type",
-                                                      params: {type: "string"},
+                                                      params: {
+                                                        type: "string",
+                                                      },
                                                       message: "must be string",
                                                     }
                                                     if (vErrors === null) {
@@ -7451,7 +7467,9 @@ function validate26(
                                           schemaPath:
                                             "#/definitions/Reference/required",
                                           keyword: "required",
-                                          params: {missingProperty: missing10},
+                                          params: {
+                                            missingProperty: missing10,
+                                          },
                                           message:
                                             "must have required property '" +
                                             missing10 +
@@ -9979,7 +9997,9 @@ function validate20(
                                                       schemaPath:
                                                         "#/definitions/Example/properties/description/type",
                                                       keyword: "type",
-                                                      params: {type: "string"},
+                                                      params: {
+                                                        type: "string",
+                                                      },
                                                       message: "must be string",
                                                     }
                                                     if (vErrors === null) {
@@ -10309,7 +10329,9 @@ function validate20(
                                             schemaPath:
                                               "#/properties/examples/additionalProperties/oneOf",
                                             keyword: "oneOf",
-                                            params: {passingSchemas: passing3},
+                                            params: {
+                                              passingSchemas: passing3,
+                                            },
                                             message:
                                               "must match exactly one schema in oneOf",
                                           }
@@ -13575,7 +13597,9 @@ function validate18(
                                             schemaPath:
                                               "#/properties/parameters/items/oneOf",
                                             keyword: "oneOf",
-                                            params: {passingSchemas: passing0},
+                                            params: {
+                                              passingSchemas: passing0,
+                                            },
                                             message:
                                               "must match exactly one schema in oneOf",
                                           }
@@ -13904,7 +13928,9 @@ const schema84 = {
       description: "Non Bearer",
       not: {required: ["bearerFormat"]},
       properties: {
-        scheme: {not: {type: "string", pattern: "^[Bb][Ee][Aa][Rr][Ee][Rr]$"}},
+        scheme: {
+          not: {type: "string", pattern: "^[Bb][Ee][Aa][Rr][Ee][Rr]$"},
+        },
       },
     },
   ],
@@ -16870,7 +16896,9 @@ function validate60(
                                               schemaPath:
                                                 "#/definitions/Example/properties/externalValue/format",
                                               keyword: "format",
-                                              params: {format: "uri-reference"},
+                                              params: {
+                                                format: "uri-reference",
+                                              },
                                               message:
                                                 'must match format "' +
                                                 "uri-reference" +
@@ -17073,7 +17101,9 @@ function validate60(
                                               schemaPath:
                                                 "#/definitions/Reference/patternProperties/%5E%5C%24ref%24/format",
                                               keyword: "format",
-                                              params: {format: "uri-reference"},
+                                              params: {
+                                                format: "uri-reference",
+                                              },
                                               message:
                                                 'must match format "' +
                                                 "uri-reference" +
