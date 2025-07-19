@@ -15609,54 +15609,37 @@ export type t_DeleteAccountsAccountParamSchema = {
   account: string
 }
 
-export type t_DeleteAccountsAccountRequestBodySchema = EmptyObject
-
 export type t_DeleteAccountsAccountBankAccountsIdParamSchema = {
   account: string
   id: string
 }
-
-export type t_DeleteAccountsAccountBankAccountsIdRequestBodySchema = EmptyObject
 
 export type t_DeleteAccountsAccountExternalAccountsIdParamSchema = {
   account: string
   id: string
 }
 
-export type t_DeleteAccountsAccountExternalAccountsIdRequestBodySchema =
-  EmptyObject
-
 export type t_DeleteAccountsAccountPeoplePersonParamSchema = {
   account: string
   person: string
 }
-
-export type t_DeleteAccountsAccountPeoplePersonRequestBodySchema = EmptyObject
 
 export type t_DeleteAccountsAccountPersonsPersonParamSchema = {
   account: string
   person: string
 }
 
-export type t_DeleteAccountsAccountPersonsPersonRequestBodySchema = EmptyObject
-
 export type t_DeleteApplePayDomainsDomainParamSchema = {
   domain: string
 }
-
-export type t_DeleteApplePayDomainsDomainRequestBodySchema = EmptyObject
 
 export type t_DeleteCouponsCouponParamSchema = {
   coupon: string
 }
 
-export type t_DeleteCouponsCouponRequestBodySchema = EmptyObject
-
 export type t_DeleteCustomersCustomerParamSchema = {
   customer: string
 }
-
-export type t_DeleteCustomersCustomerRequestBodySchema = EmptyObject
 
 export type t_DeleteCustomersCustomerBankAccountsIdParamSchema = {
   customer: string
@@ -15679,8 +15662,6 @@ export type t_DeleteCustomersCustomerCardsIdRequestBodySchema = {
 export type t_DeleteCustomersCustomerDiscountParamSchema = {
   customer: string
 }
-
-export type t_DeleteCustomersCustomerDiscountRequestBodySchema = EmptyObject
 
 export type t_DeleteCustomersCustomerSourcesIdParamSchema = {
   customer: string
@@ -15710,15 +15691,10 @@ export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountP
     subscription_exposed_id: string
   }
 
-export type t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema =
-  EmptyObject
-
 export type t_DeleteCustomersCustomerTaxIdsIdParamSchema = {
   customer: string
   id: string
 }
-
-export type t_DeleteCustomersCustomerTaxIdsIdRequestBodySchema = EmptyObject
 
 export type t_DeleteEphemeralKeysKeyParamSchema = {
   key: string
@@ -15732,44 +15708,30 @@ export type t_DeleteInvoiceitemsInvoiceitemParamSchema = {
   invoiceitem: string
 }
 
-export type t_DeleteInvoiceitemsInvoiceitemRequestBodySchema = EmptyObject
-
 export type t_DeleteInvoicesInvoiceParamSchema = {
   invoice: string
 }
-
-export type t_DeleteInvoicesInvoiceRequestBodySchema = EmptyObject
 
 export type t_DeletePlansPlanParamSchema = {
   plan: string
 }
 
-export type t_DeletePlansPlanRequestBodySchema = EmptyObject
-
 export type t_DeleteProductsIdParamSchema = {
   id: string
 }
-
-export type t_DeleteProductsIdRequestBodySchema = EmptyObject
 
 export type t_DeleteProductsProductFeaturesIdParamSchema = {
   id: string
   product: string
 }
 
-export type t_DeleteProductsProductFeaturesIdRequestBodySchema = EmptyObject
-
 export type t_DeleteRadarValueListItemsItemParamSchema = {
   item: string
 }
 
-export type t_DeleteRadarValueListItemsItemRequestBodySchema = EmptyObject
-
 export type t_DeleteRadarValueListsValueListParamSchema = {
   value_list: string
 }
-
-export type t_DeleteRadarValueListsValueListRequestBodySchema = EmptyObject
 
 export type t_DeleteSubscriptionItemsItemParamSchema = {
   item: string
@@ -15815,53 +15777,33 @@ export type t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema = {
   subscription_exposed_id: string
 }
 
-export type t_DeleteSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema =
-  EmptyObject
-
 export type t_DeleteTaxIdsIdParamSchema = {
   id: string
 }
-
-export type t_DeleteTaxIdsIdRequestBodySchema = EmptyObject
 
 export type t_DeleteTerminalConfigurationsConfigurationParamSchema = {
   configuration: string
 }
 
-export type t_DeleteTerminalConfigurationsConfigurationRequestBodySchema =
-  EmptyObject
-
 export type t_DeleteTerminalLocationsLocationParamSchema = {
   location: string
 }
-
-export type t_DeleteTerminalLocationsLocationRequestBodySchema = EmptyObject
 
 export type t_DeleteTerminalReadersReaderParamSchema = {
   reader: string
 }
 
-export type t_DeleteTerminalReadersReaderRequestBodySchema = EmptyObject
-
 export type t_DeleteTestHelpersTestClocksTestClockParamSchema = {
   test_clock: string
 }
-
-export type t_DeleteTestHelpersTestClocksTestClockRequestBodySchema =
-  EmptyObject
 
 export type t_DeleteWebhookEndpointsWebhookEndpointParamSchema = {
   webhook_endpoint: string
 }
 
-export type t_DeleteWebhookEndpointsWebhookEndpointRequestBodySchema =
-  EmptyObject
-
 export type t_GetAccountQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetAccountRequestBodySchema = EmptyObject
 
 export type t_GetAccountsQuerySchema = {
   created?:
@@ -15881,8 +15823,6 @@ export type t_GetAccountsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetAccountsRequestBodySchema = EmptyObject
-
 export type t_GetAccountsAccountParamSchema = {
   account: string
 }
@@ -15890,8 +15830,6 @@ export type t_GetAccountsAccountParamSchema = {
 export type t_GetAccountsAccountQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetAccountsAccountRequestBodySchema = EmptyObject
 
 export type t_GetAccountsAccountBankAccountsIdParamSchema = {
   account: string
@@ -15902,8 +15840,6 @@ export type t_GetAccountsAccountBankAccountsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetAccountsAccountBankAccountsIdRequestBodySchema = EmptyObject
-
 export type t_GetAccountsAccountCapabilitiesParamSchema = {
   account: string
 }
@@ -15911,8 +15847,6 @@ export type t_GetAccountsAccountCapabilitiesParamSchema = {
 export type t_GetAccountsAccountCapabilitiesQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetAccountsAccountCapabilitiesRequestBodySchema = EmptyObject
 
 export type t_GetAccountsAccountCapabilitiesCapabilityParamSchema = {
   account: string
@@ -15922,9 +15856,6 @@ export type t_GetAccountsAccountCapabilitiesCapabilityParamSchema = {
 export type t_GetAccountsAccountCapabilitiesCapabilityQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetAccountsAccountCapabilitiesCapabilityRequestBodySchema =
-  EmptyObject
 
 export type t_GetAccountsAccountExternalAccountsParamSchema = {
   account: string
@@ -15938,8 +15869,6 @@ export type t_GetAccountsAccountExternalAccountsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetAccountsAccountExternalAccountsRequestBodySchema = EmptyObject
-
 export type t_GetAccountsAccountExternalAccountsIdParamSchema = {
   account: string
   id: string
@@ -15948,9 +15877,6 @@ export type t_GetAccountsAccountExternalAccountsIdParamSchema = {
 export type t_GetAccountsAccountExternalAccountsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetAccountsAccountExternalAccountsIdRequestBodySchema =
-  EmptyObject
 
 export type t_GetAccountsAccountPeopleParamSchema = {
   account: string
@@ -15973,8 +15899,6 @@ export type t_GetAccountsAccountPeopleQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetAccountsAccountPeopleRequestBodySchema = EmptyObject
-
 export type t_GetAccountsAccountPeoplePersonParamSchema = {
   account: string
   person: string
@@ -15983,8 +15907,6 @@ export type t_GetAccountsAccountPeoplePersonParamSchema = {
 export type t_GetAccountsAccountPeoplePersonQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetAccountsAccountPeoplePersonRequestBodySchema = EmptyObject
 
 export type t_GetAccountsAccountPersonsParamSchema = {
   account: string
@@ -16007,8 +15929,6 @@ export type t_GetAccountsAccountPersonsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetAccountsAccountPersonsRequestBodySchema = EmptyObject
-
 export type t_GetAccountsAccountPersonsPersonParamSchema = {
   account: string
   person: string
@@ -16018,8 +15938,6 @@ export type t_GetAccountsAccountPersonsPersonQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetAccountsAccountPersonsPersonRequestBodySchema = EmptyObject
-
 export type t_GetApplePayDomainsQuerySchema = {
   domain_name?: string | undefined
   ending_before?: string | undefined
@@ -16028,8 +15946,6 @@ export type t_GetApplePayDomainsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetApplePayDomainsRequestBodySchema = EmptyObject
-
 export type t_GetApplePayDomainsDomainParamSchema = {
   domain: string
 }
@@ -16037,8 +15953,6 @@ export type t_GetApplePayDomainsDomainParamSchema = {
 export type t_GetApplePayDomainsDomainQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetApplePayDomainsDomainRequestBodySchema = EmptyObject
 
 export type t_GetApplicationFeesQuerySchema = {
   charge?: string | undefined
@@ -16059,8 +15973,6 @@ export type t_GetApplicationFeesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetApplicationFeesRequestBodySchema = EmptyObject
-
 export type t_GetApplicationFeesFeeRefundsIdParamSchema = {
   fee: string
   id: string
@@ -16070,8 +15982,6 @@ export type t_GetApplicationFeesFeeRefundsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetApplicationFeesFeeRefundsIdRequestBodySchema = EmptyObject
-
 export type t_GetApplicationFeesIdParamSchema = {
   id: string
 }
@@ -16079,8 +15989,6 @@ export type t_GetApplicationFeesIdParamSchema = {
 export type t_GetApplicationFeesIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetApplicationFeesIdRequestBodySchema = EmptyObject
 
 export type t_GetApplicationFeesIdRefundsParamSchema = {
   id: string
@@ -16093,8 +16001,6 @@ export type t_GetApplicationFeesIdRefundsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetApplicationFeesIdRefundsRequestBodySchema = EmptyObject
-
 export type t_GetAppsSecretsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
@@ -16106,8 +16012,6 @@ export type t_GetAppsSecretsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetAppsSecretsRequestBodySchema = EmptyObject
-
 export type t_GetAppsSecretsFindQuerySchema = {
   expand?: string[] | undefined
   name: string
@@ -16117,13 +16021,9 @@ export type t_GetAppsSecretsFindQuerySchema = {
   }
 }
 
-export type t_GetAppsSecretsFindRequestBodySchema = EmptyObject
-
 export type t_GetBalanceQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBalanceRequestBodySchema = EmptyObject
 
 export type t_GetBalanceHistoryQuerySchema = {
   created?:
@@ -16147,8 +16047,6 @@ export type t_GetBalanceHistoryQuerySchema = {
   type?: string | undefined
 }
 
-export type t_GetBalanceHistoryRequestBodySchema = EmptyObject
-
 export type t_GetBalanceHistoryIdParamSchema = {
   id: string
 }
@@ -16156,8 +16054,6 @@ export type t_GetBalanceHistoryIdParamSchema = {
 export type t_GetBalanceHistoryIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBalanceHistoryIdRequestBodySchema = EmptyObject
 
 export type t_GetBalanceTransactionsQuerySchema = {
   created?:
@@ -16181,8 +16077,6 @@ export type t_GetBalanceTransactionsQuerySchema = {
   type?: string | undefined
 }
 
-export type t_GetBalanceTransactionsRequestBodySchema = EmptyObject
-
 export type t_GetBalanceTransactionsIdParamSchema = {
   id: string
 }
@@ -16190,8 +16084,6 @@ export type t_GetBalanceTransactionsIdParamSchema = {
 export type t_GetBalanceTransactionsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBalanceTransactionsIdRequestBodySchema = EmptyObject
 
 export type t_GetBillingAlertsQuerySchema = {
   alert_type?: "usage_threshold" | undefined
@@ -16202,8 +16094,6 @@ export type t_GetBillingAlertsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetBillingAlertsRequestBodySchema = EmptyObject
-
 export type t_GetBillingAlertsIdParamSchema = {
   id: string
 }
@@ -16211,8 +16101,6 @@ export type t_GetBillingAlertsIdParamSchema = {
 export type t_GetBillingAlertsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBillingAlertsIdRequestBodySchema = EmptyObject
 
 export type t_GetBillingCreditBalanceSummaryQuerySchema = {
   customer: string
@@ -16233,8 +16121,6 @@ export type t_GetBillingCreditBalanceSummaryQuerySchema = {
   }
 }
 
-export type t_GetBillingCreditBalanceSummaryRequestBodySchema = EmptyObject
-
 export type t_GetBillingCreditBalanceTransactionsQuerySchema = {
   credit_grant?: string | undefined
   customer: string
@@ -16244,8 +16130,6 @@ export type t_GetBillingCreditBalanceTransactionsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetBillingCreditBalanceTransactionsRequestBodySchema = EmptyObject
-
 export type t_GetBillingCreditBalanceTransactionsIdParamSchema = {
   id: string
 }
@@ -16253,9 +16137,6 @@ export type t_GetBillingCreditBalanceTransactionsIdParamSchema = {
 export type t_GetBillingCreditBalanceTransactionsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBillingCreditBalanceTransactionsIdRequestBodySchema =
-  EmptyObject
 
 export type t_GetBillingCreditGrantsQuerySchema = {
   customer?: string | undefined
@@ -16265,8 +16146,6 @@ export type t_GetBillingCreditGrantsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetBillingCreditGrantsRequestBodySchema = EmptyObject
-
 export type t_GetBillingCreditGrantsIdParamSchema = {
   id: string
 }
@@ -16274,8 +16153,6 @@ export type t_GetBillingCreditGrantsIdParamSchema = {
 export type t_GetBillingCreditGrantsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBillingCreditGrantsIdRequestBodySchema = EmptyObject
 
 export type t_GetBillingMetersQuerySchema = {
   ending_before?: string | undefined
@@ -16285,8 +16162,6 @@ export type t_GetBillingMetersQuerySchema = {
   status?: ("active" | "inactive") | undefined
 }
 
-export type t_GetBillingMetersRequestBodySchema = EmptyObject
-
 export type t_GetBillingMetersIdParamSchema = {
   id: string
 }
@@ -16294,8 +16169,6 @@ export type t_GetBillingMetersIdParamSchema = {
 export type t_GetBillingMetersIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBillingMetersIdRequestBodySchema = EmptyObject
 
 export type t_GetBillingMetersIdEventSummariesParamSchema = {
   id: string
@@ -16312,8 +16185,6 @@ export type t_GetBillingMetersIdEventSummariesQuerySchema = {
   value_grouping_window?: ("day" | "hour") | undefined
 }
 
-export type t_GetBillingMetersIdEventSummariesRequestBodySchema = EmptyObject
-
 export type t_GetBillingPortalConfigurationsQuerySchema = {
   active?: boolean | undefined
   ending_before?: string | undefined
@@ -16323,8 +16194,6 @@ export type t_GetBillingPortalConfigurationsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetBillingPortalConfigurationsRequestBodySchema = EmptyObject
-
 export type t_GetBillingPortalConfigurationsConfigurationParamSchema = {
   configuration: string
 }
@@ -16332,9 +16201,6 @@ export type t_GetBillingPortalConfigurationsConfigurationParamSchema = {
 export type t_GetBillingPortalConfigurationsConfigurationQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetBillingPortalConfigurationsConfigurationRequestBodySchema =
-  EmptyObject
 
 export type t_GetChargesQuerySchema = {
   created?:
@@ -16357,8 +16223,6 @@ export type t_GetChargesQuerySchema = {
   transfer_group?: string | undefined
 }
 
-export type t_GetChargesRequestBodySchema = EmptyObject
-
 export type t_GetChargesChargeParamSchema = {
   charge: string
 }
@@ -16367,8 +16231,6 @@ export type t_GetChargesChargeQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetChargesChargeRequestBodySchema = EmptyObject
-
 export type t_GetChargesChargeDisputeParamSchema = {
   charge: string
 }
@@ -16376,8 +16238,6 @@ export type t_GetChargesChargeDisputeParamSchema = {
 export type t_GetChargesChargeDisputeQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetChargesChargeDisputeRequestBodySchema = EmptyObject
 
 export type t_GetChargesChargeRefundsParamSchema = {
   charge: string
@@ -16390,8 +16250,6 @@ export type t_GetChargesChargeRefundsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetChargesChargeRefundsRequestBodySchema = EmptyObject
-
 export type t_GetChargesChargeRefundsRefundParamSchema = {
   charge: string
   refund: string
@@ -16401,16 +16259,12 @@ export type t_GetChargesChargeRefundsRefundQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetChargesChargeRefundsRefundRequestBodySchema = EmptyObject
-
 export type t_GetChargesSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetChargesSearchRequestBodySchema = EmptyObject
 
 export type t_GetCheckoutSessionsQuerySchema = {
   created?:
@@ -16440,8 +16294,6 @@ export type t_GetCheckoutSessionsQuerySchema = {
   subscription?: string | undefined
 }
 
-export type t_GetCheckoutSessionsRequestBodySchema = EmptyObject
-
 export type t_GetCheckoutSessionsSessionParamSchema = {
   session: string
 }
@@ -16449,8 +16301,6 @@ export type t_GetCheckoutSessionsSessionParamSchema = {
 export type t_GetCheckoutSessionsSessionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCheckoutSessionsSessionRequestBodySchema = EmptyObject
 
 export type t_GetCheckoutSessionsSessionLineItemsParamSchema = {
   session: string
@@ -16463,16 +16313,12 @@ export type t_GetCheckoutSessionsSessionLineItemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCheckoutSessionsSessionLineItemsRequestBodySchema = EmptyObject
-
 export type t_GetClimateOrdersQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetClimateOrdersRequestBodySchema = EmptyObject
 
 export type t_GetClimateOrdersOrderParamSchema = {
   order: string
@@ -16482,16 +16328,12 @@ export type t_GetClimateOrdersOrderQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetClimateOrdersOrderRequestBodySchema = EmptyObject
-
 export type t_GetClimateProductsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetClimateProductsRequestBodySchema = EmptyObject
 
 export type t_GetClimateProductsProductParamSchema = {
   product: string
@@ -16501,16 +16343,12 @@ export type t_GetClimateProductsProductQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetClimateProductsProductRequestBodySchema = EmptyObject
-
 export type t_GetClimateSuppliersQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetClimateSuppliersRequestBodySchema = EmptyObject
 
 export type t_GetClimateSuppliersSupplierParamSchema = {
   supplier: string
@@ -16520,8 +16358,6 @@ export type t_GetClimateSuppliersSupplierQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetClimateSuppliersSupplierRequestBodySchema = EmptyObject
-
 export type t_GetConfirmationTokensConfirmationTokenParamSchema = {
   confirmation_token: string
 }
@@ -16530,17 +16366,12 @@ export type t_GetConfirmationTokensConfirmationTokenQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetConfirmationTokensConfirmationTokenRequestBodySchema =
-  EmptyObject
-
 export type t_GetCountrySpecsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetCountrySpecsRequestBodySchema = EmptyObject
 
 export type t_GetCountrySpecsCountryParamSchema = {
   country: string
@@ -16549,8 +16380,6 @@ export type t_GetCountrySpecsCountryParamSchema = {
 export type t_GetCountrySpecsCountryQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCountrySpecsCountryRequestBodySchema = EmptyObject
 
 export type t_GetCouponsQuerySchema = {
   created?:
@@ -16570,8 +16399,6 @@ export type t_GetCouponsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCouponsRequestBodySchema = EmptyObject
-
 export type t_GetCouponsCouponParamSchema = {
   coupon: string
 }
@@ -16579,8 +16406,6 @@ export type t_GetCouponsCouponParamSchema = {
 export type t_GetCouponsCouponQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCouponsCouponRequestBodySchema = EmptyObject
 
 export type t_GetCreditNotesQuerySchema = {
   created?:
@@ -16602,8 +16427,6 @@ export type t_GetCreditNotesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCreditNotesRequestBodySchema = EmptyObject
-
 export type t_GetCreditNotesCreditNoteLinesParamSchema = {
   credit_note: string
 }
@@ -16615,8 +16438,6 @@ export type t_GetCreditNotesCreditNoteLinesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCreditNotesCreditNoteLinesRequestBodySchema = EmptyObject
-
 export type t_GetCreditNotesIdParamSchema = {
   id: string
 }
@@ -16624,8 +16445,6 @@ export type t_GetCreditNotesIdParamSchema = {
 export type t_GetCreditNotesIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCreditNotesIdRequestBodySchema = EmptyObject
 
 export type t_GetCreditNotesPreviewQuerySchema = {
   amount?: number | undefined
@@ -16679,8 +16498,6 @@ export type t_GetCreditNotesPreviewQuerySchema = {
       }
     | undefined
 }
-
-export type t_GetCreditNotesPreviewRequestBodySchema = EmptyObject
 
 export type t_GetCreditNotesPreviewLinesQuerySchema = {
   amount?: number | undefined
@@ -16738,8 +16555,6 @@ export type t_GetCreditNotesPreviewLinesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCreditNotesPreviewLinesRequestBodySchema = EmptyObject
-
 export type t_GetCustomersQuerySchema = {
   created?:
     | (
@@ -16760,8 +16575,6 @@ export type t_GetCustomersQuerySchema = {
   test_clock?: string | undefined
 }
 
-export type t_GetCustomersRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerParamSchema = {
   customer: string
 }
@@ -16769,8 +16582,6 @@ export type t_GetCustomersCustomerParamSchema = {
 export type t_GetCustomersCustomerQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerRequestBodySchema = EmptyObject
 
 export type t_GetCustomersCustomerBalanceTransactionsParamSchema = {
   customer: string
@@ -16783,9 +16594,6 @@ export type t_GetCustomersCustomerBalanceTransactionsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerBalanceTransactionsRequestBodySchema =
-  EmptyObject
-
 export type t_GetCustomersCustomerBalanceTransactionsTransactionParamSchema = {
   customer: string
   transaction: string
@@ -16794,9 +16602,6 @@ export type t_GetCustomersCustomerBalanceTransactionsTransactionParamSchema = {
 export type t_GetCustomersCustomerBalanceTransactionsTransactionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerBalanceTransactionsTransactionRequestBodySchema =
-  EmptyObject
 
 export type t_GetCustomersCustomerBankAccountsParamSchema = {
   customer: string
@@ -16809,8 +16614,6 @@ export type t_GetCustomersCustomerBankAccountsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerBankAccountsRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerBankAccountsIdParamSchema = {
   customer: string
   id: string
@@ -16819,8 +16622,6 @@ export type t_GetCustomersCustomerBankAccountsIdParamSchema = {
 export type t_GetCustomersCustomerBankAccountsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerBankAccountsIdRequestBodySchema = EmptyObject
 
 export type t_GetCustomersCustomerCardsParamSchema = {
   customer: string
@@ -16833,8 +16634,6 @@ export type t_GetCustomersCustomerCardsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerCardsRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerCardsIdParamSchema = {
   customer: string
   id: string
@@ -16844,8 +16643,6 @@ export type t_GetCustomersCustomerCardsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetCustomersCustomerCardsIdRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerCashBalanceParamSchema = {
   customer: string
 }
@@ -16853,8 +16650,6 @@ export type t_GetCustomersCustomerCashBalanceParamSchema = {
 export type t_GetCustomersCustomerCashBalanceQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerCashBalanceRequestBodySchema = EmptyObject
 
 export type t_GetCustomersCustomerCashBalanceTransactionsParamSchema = {
   customer: string
@@ -16867,9 +16662,6 @@ export type t_GetCustomersCustomerCashBalanceTransactionsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerCashBalanceTransactionsRequestBodySchema =
-  EmptyObject
-
 export type t_GetCustomersCustomerCashBalanceTransactionsTransactionParamSchema =
   {
     customer: string
@@ -16881,9 +16673,6 @@ export type t_GetCustomersCustomerCashBalanceTransactionsTransactionQuerySchema 
     expand?: string[] | undefined
   }
 
-export type t_GetCustomersCustomerCashBalanceTransactionsTransactionRequestBodySchema =
-  EmptyObject
-
 export type t_GetCustomersCustomerDiscountParamSchema = {
   customer: string
 }
@@ -16891,8 +16680,6 @@ export type t_GetCustomersCustomerDiscountParamSchema = {
 export type t_GetCustomersCustomerDiscountQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerDiscountRequestBodySchema = EmptyObject
 
 export type t_GetCustomersCustomerPaymentMethodsParamSchema = {
   customer: string
@@ -16958,8 +16745,6 @@ export type t_GetCustomersCustomerPaymentMethodsQuerySchema = {
     | undefined
 }
 
-export type t_GetCustomersCustomerPaymentMethodsRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerPaymentMethodsPaymentMethodParamSchema = {
   customer: string
   payment_method: string
@@ -16968,9 +16753,6 @@ export type t_GetCustomersCustomerPaymentMethodsPaymentMethodParamSchema = {
 export type t_GetCustomersCustomerPaymentMethodsPaymentMethodQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerPaymentMethodsPaymentMethodRequestBodySchema =
-  EmptyObject
 
 export type t_GetCustomersCustomerSourcesParamSchema = {
   customer: string
@@ -16984,8 +16766,6 @@ export type t_GetCustomersCustomerSourcesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerSourcesRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerSourcesIdParamSchema = {
   customer: string
   id: string
@@ -16994,8 +16774,6 @@ export type t_GetCustomersCustomerSourcesIdParamSchema = {
 export type t_GetCustomersCustomerSourcesIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetCustomersCustomerSourcesIdRequestBodySchema = EmptyObject
 
 export type t_GetCustomersCustomerSubscriptionsParamSchema = {
   customer: string
@@ -17008,8 +16786,6 @@ export type t_GetCustomersCustomerSubscriptionsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerSubscriptionsRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   {
     customer: string
@@ -17020,9 +16796,6 @@ export type t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema 
   {
     expand?: string[] | undefined
   }
-
-export type t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema =
-  EmptyObject
 
 export type t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema =
   {
@@ -17035,9 +16808,6 @@ export type t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuer
     expand?: string[] | undefined
   }
 
-export type t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema =
-  EmptyObject
-
 export type t_GetCustomersCustomerTaxIdsParamSchema = {
   customer: string
 }
@@ -17049,8 +16819,6 @@ export type t_GetCustomersCustomerTaxIdsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetCustomersCustomerTaxIdsRequestBodySchema = EmptyObject
-
 export type t_GetCustomersCustomerTaxIdsIdParamSchema = {
   customer: string
   id: string
@@ -17060,16 +16828,12 @@ export type t_GetCustomersCustomerTaxIdsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetCustomersCustomerTaxIdsIdRequestBodySchema = EmptyObject
-
 export type t_GetCustomersSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetCustomersSearchRequestBodySchema = EmptyObject
 
 export type t_GetDisputesQuerySchema = {
   charge?: string | undefined
@@ -17091,8 +16855,6 @@ export type t_GetDisputesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetDisputesRequestBodySchema = EmptyObject
-
 export type t_GetDisputesDisputeParamSchema = {
   dispute: string
 }
@@ -17100,8 +16862,6 @@ export type t_GetDisputesDisputeParamSchema = {
 export type t_GetDisputesDisputeQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetDisputesDisputeRequestBodySchema = EmptyObject
 
 export type t_GetEntitlementsActiveEntitlementsQuerySchema = {
   customer: string
@@ -17111,8 +16871,6 @@ export type t_GetEntitlementsActiveEntitlementsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetEntitlementsActiveEntitlementsRequestBodySchema = EmptyObject
-
 export type t_GetEntitlementsActiveEntitlementsIdParamSchema = {
   id: string
 }
@@ -17120,8 +16878,6 @@ export type t_GetEntitlementsActiveEntitlementsIdParamSchema = {
 export type t_GetEntitlementsActiveEntitlementsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetEntitlementsActiveEntitlementsIdRequestBodySchema = EmptyObject
 
 export type t_GetEntitlementsFeaturesQuerySchema = {
   archived?: boolean | undefined
@@ -17132,8 +16888,6 @@ export type t_GetEntitlementsFeaturesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetEntitlementsFeaturesRequestBodySchema = EmptyObject
-
 export type t_GetEntitlementsFeaturesIdParamSchema = {
   id: string
 }
@@ -17141,8 +16895,6 @@ export type t_GetEntitlementsFeaturesIdParamSchema = {
 export type t_GetEntitlementsFeaturesIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetEntitlementsFeaturesIdRequestBodySchema = EmptyObject
 
 export type t_GetEventsQuerySchema = {
   created?:
@@ -17165,8 +16917,6 @@ export type t_GetEventsQuerySchema = {
   types?: string[] | undefined
 }
 
-export type t_GetEventsRequestBodySchema = EmptyObject
-
 export type t_GetEventsIdParamSchema = {
   id: string
 }
@@ -17175,16 +16925,12 @@ export type t_GetEventsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetEventsIdRequestBodySchema = EmptyObject
-
 export type t_GetExchangeRatesQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetExchangeRatesRequestBodySchema = EmptyObject
 
 export type t_GetExchangeRatesRateIdParamSchema = {
   rate_id: string
@@ -17193,8 +16939,6 @@ export type t_GetExchangeRatesRateIdParamSchema = {
 export type t_GetExchangeRatesRateIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetExchangeRatesRateIdRequestBodySchema = EmptyObject
 
 export type t_GetFileLinksQuerySchema = {
   created?:
@@ -17216,8 +16960,6 @@ export type t_GetFileLinksQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetFileLinksRequestBodySchema = EmptyObject
-
 export type t_GetFileLinksLinkParamSchema = {
   link: string
 }
@@ -17225,8 +16967,6 @@ export type t_GetFileLinksLinkParamSchema = {
 export type t_GetFileLinksLinkQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetFileLinksLinkRequestBodySchema = EmptyObject
 
 export type t_GetFilesQuerySchema = {
   created?:
@@ -17267,8 +17007,6 @@ export type t_GetFilesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetFilesRequestBodySchema = EmptyObject
-
 export type t_GetFilesFileParamSchema = {
   file: string
 }
@@ -17276,8 +17014,6 @@ export type t_GetFilesFileParamSchema = {
 export type t_GetFilesFileQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetFilesFileRequestBodySchema = EmptyObject
 
 export type t_GetFinancialConnectionsAccountsQuerySchema = {
   account_holder?:
@@ -17293,8 +17029,6 @@ export type t_GetFinancialConnectionsAccountsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetFinancialConnectionsAccountsRequestBodySchema = EmptyObject
-
 export type t_GetFinancialConnectionsAccountsAccountParamSchema = {
   account: string
 }
@@ -17302,9 +17036,6 @@ export type t_GetFinancialConnectionsAccountsAccountParamSchema = {
 export type t_GetFinancialConnectionsAccountsAccountQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetFinancialConnectionsAccountsAccountRequestBodySchema =
-  EmptyObject
 
 export type t_GetFinancialConnectionsAccountsAccountOwnersParamSchema = {
   account: string
@@ -17318,9 +17049,6 @@ export type t_GetFinancialConnectionsAccountsAccountOwnersQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetFinancialConnectionsAccountsAccountOwnersRequestBodySchema =
-  EmptyObject
-
 export type t_GetFinancialConnectionsSessionsSessionParamSchema = {
   session: string
 }
@@ -17328,9 +17056,6 @@ export type t_GetFinancialConnectionsSessionsSessionParamSchema = {
 export type t_GetFinancialConnectionsSessionsSessionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetFinancialConnectionsSessionsSessionRequestBodySchema =
-  EmptyObject
 
 export type t_GetFinancialConnectionsTransactionsQuerySchema = {
   account: string
@@ -17356,8 +17081,6 @@ export type t_GetFinancialConnectionsTransactionsQuerySchema = {
     | undefined
 }
 
-export type t_GetFinancialConnectionsTransactionsRequestBodySchema = EmptyObject
-
 export type t_GetFinancialConnectionsTransactionsTransactionParamSchema = {
   transaction: string
 }
@@ -17365,9 +17088,6 @@ export type t_GetFinancialConnectionsTransactionsTransactionParamSchema = {
 export type t_GetFinancialConnectionsTransactionsTransactionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetFinancialConnectionsTransactionsTransactionRequestBodySchema =
-  EmptyObject
 
 export type t_GetForwardingRequestsQuerySchema = {
   created?:
@@ -17384,8 +17104,6 @@ export type t_GetForwardingRequestsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetForwardingRequestsRequestBodySchema = EmptyObject
-
 export type t_GetForwardingRequestsIdParamSchema = {
   id: string
 }
@@ -17393,8 +17111,6 @@ export type t_GetForwardingRequestsIdParamSchema = {
 export type t_GetForwardingRequestsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetForwardingRequestsIdRequestBodySchema = EmptyObject
 
 export type t_GetIdentityVerificationReportsQuerySchema = {
   client_reference_id?: string | undefined
@@ -17417,8 +17133,6 @@ export type t_GetIdentityVerificationReportsQuerySchema = {
   verification_session?: string | undefined
 }
 
-export type t_GetIdentityVerificationReportsRequestBodySchema = EmptyObject
-
 export type t_GetIdentityVerificationReportsReportParamSchema = {
   report: string
 }
@@ -17426,9 +17140,6 @@ export type t_GetIdentityVerificationReportsReportParamSchema = {
 export type t_GetIdentityVerificationReportsReportQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIdentityVerificationReportsReportRequestBodySchema =
-  EmptyObject
 
 export type t_GetIdentityVerificationSessionsQuerySchema = {
   client_reference_id?: string | undefined
@@ -17453,8 +17164,6 @@ export type t_GetIdentityVerificationSessionsQuerySchema = {
     | undefined
 }
 
-export type t_GetIdentityVerificationSessionsRequestBodySchema = EmptyObject
-
 export type t_GetIdentityVerificationSessionsSessionParamSchema = {
   session: string
 }
@@ -17462,9 +17171,6 @@ export type t_GetIdentityVerificationSessionsSessionParamSchema = {
 export type t_GetIdentityVerificationSessionsSessionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIdentityVerificationSessionsSessionRequestBodySchema =
-  EmptyObject
 
 export type t_GetInvoicePaymentsQuerySchema = {
   ending_before?: string | undefined
@@ -17481,8 +17187,6 @@ export type t_GetInvoicePaymentsQuerySchema = {
   status?: ("canceled" | "open" | "paid") | undefined
 }
 
-export type t_GetInvoicePaymentsRequestBodySchema = EmptyObject
-
 export type t_GetInvoicePaymentsInvoicePaymentParamSchema = {
   invoice_payment: string
 }
@@ -17490,8 +17194,6 @@ export type t_GetInvoicePaymentsInvoicePaymentParamSchema = {
 export type t_GetInvoicePaymentsInvoicePaymentQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetInvoicePaymentsInvoicePaymentRequestBodySchema = EmptyObject
 
 export type t_GetInvoiceRenderingTemplatesQuerySchema = {
   ending_before?: string | undefined
@@ -17501,8 +17203,6 @@ export type t_GetInvoiceRenderingTemplatesQuerySchema = {
   status?: ("active" | "archived") | undefined
 }
 
-export type t_GetInvoiceRenderingTemplatesRequestBodySchema = EmptyObject
-
 export type t_GetInvoiceRenderingTemplatesTemplateParamSchema = {
   template: string
 }
@@ -17511,9 +17211,6 @@ export type t_GetInvoiceRenderingTemplatesTemplateQuerySchema = {
   expand?: string[] | undefined
   version?: number | undefined
 }
-
-export type t_GetInvoiceRenderingTemplatesTemplateRequestBodySchema =
-  EmptyObject
 
 export type t_GetInvoiceitemsQuerySchema = {
   created?:
@@ -17536,8 +17233,6 @@ export type t_GetInvoiceitemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetInvoiceitemsRequestBodySchema = EmptyObject
-
 export type t_GetInvoiceitemsInvoiceitemParamSchema = {
   invoiceitem: string
 }
@@ -17545,8 +17240,6 @@ export type t_GetInvoiceitemsInvoiceitemParamSchema = {
 export type t_GetInvoiceitemsInvoiceitemQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetInvoiceitemsInvoiceitemRequestBodySchema = EmptyObject
 
 export type t_GetInvoicesQuerySchema = {
   collection_method?: ("charge_automatically" | "send_invoice") | undefined
@@ -17581,8 +17274,6 @@ export type t_GetInvoicesQuerySchema = {
   subscription?: string | undefined
 }
 
-export type t_GetInvoicesRequestBodySchema = EmptyObject
-
 export type t_GetInvoicesInvoiceParamSchema = {
   invoice: string
 }
@@ -17590,8 +17281,6 @@ export type t_GetInvoicesInvoiceParamSchema = {
 export type t_GetInvoicesInvoiceQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetInvoicesInvoiceRequestBodySchema = EmptyObject
 
 export type t_GetInvoicesInvoiceLinesParamSchema = {
   invoice: string
@@ -17604,16 +17293,12 @@ export type t_GetInvoicesInvoiceLinesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetInvoicesInvoiceLinesRequestBodySchema = EmptyObject
-
 export type t_GetInvoicesSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetInvoicesSearchRequestBodySchema = EmptyObject
 
 export type t_GetIssuingAuthorizationsQuerySchema = {
   card?: string | undefined
@@ -17636,8 +17321,6 @@ export type t_GetIssuingAuthorizationsQuerySchema = {
   status?: ("closed" | "expired" | "pending" | "reversed") | undefined
 }
 
-export type t_GetIssuingAuthorizationsRequestBodySchema = EmptyObject
-
 export type t_GetIssuingAuthorizationsAuthorizationParamSchema = {
   authorization: string
 }
@@ -17645,9 +17328,6 @@ export type t_GetIssuingAuthorizationsAuthorizationParamSchema = {
 export type t_GetIssuingAuthorizationsAuthorizationQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIssuingAuthorizationsAuthorizationRequestBodySchema =
-  EmptyObject
 
 export type t_GetIssuingCardholdersQuerySchema = {
   created?:
@@ -17671,8 +17351,6 @@ export type t_GetIssuingCardholdersQuerySchema = {
   type?: ("company" | "individual") | undefined
 }
 
-export type t_GetIssuingCardholdersRequestBodySchema = EmptyObject
-
 export type t_GetIssuingCardholdersCardholderParamSchema = {
   cardholder: string
 }
@@ -17680,8 +17358,6 @@ export type t_GetIssuingCardholdersCardholderParamSchema = {
 export type t_GetIssuingCardholdersCardholderQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIssuingCardholdersCardholderRequestBodySchema = EmptyObject
 
 export type t_GetIssuingCardsQuerySchema = {
   cardholder?: string | undefined
@@ -17708,8 +17384,6 @@ export type t_GetIssuingCardsQuerySchema = {
   type?: ("physical" | "virtual") | undefined
 }
 
-export type t_GetIssuingCardsRequestBodySchema = EmptyObject
-
 export type t_GetIssuingCardsCardParamSchema = {
   card: string
 }
@@ -17717,8 +17391,6 @@ export type t_GetIssuingCardsCardParamSchema = {
 export type t_GetIssuingCardsCardQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIssuingCardsCardRequestBodySchema = EmptyObject
 
 export type t_GetIssuingDisputesQuerySchema = {
   created?:
@@ -17742,8 +17414,6 @@ export type t_GetIssuingDisputesQuerySchema = {
   transaction?: string | undefined
 }
 
-export type t_GetIssuingDisputesRequestBodySchema = EmptyObject
-
 export type t_GetIssuingDisputesDisputeParamSchema = {
   dispute: string
 }
@@ -17751,8 +17421,6 @@ export type t_GetIssuingDisputesDisputeParamSchema = {
 export type t_GetIssuingDisputesDisputeQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIssuingDisputesDisputeRequestBodySchema = EmptyObject
 
 export type t_GetIssuingPersonalizationDesignsQuerySchema = {
   ending_before?: string | undefined
@@ -17769,8 +17437,6 @@ export type t_GetIssuingPersonalizationDesignsQuerySchema = {
   status?: ("active" | "inactive" | "rejected" | "review") | undefined
 }
 
-export type t_GetIssuingPersonalizationDesignsRequestBodySchema = EmptyObject
-
 export type t_GetIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
   {
     personalization_design: string
@@ -17781,9 +17447,6 @@ export type t_GetIssuingPersonalizationDesignsPersonalizationDesignQuerySchema =
     expand?: string[] | undefined
   }
 
-export type t_GetIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema =
-  EmptyObject
-
 export type t_GetIssuingPhysicalBundlesQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
@@ -17793,8 +17456,6 @@ export type t_GetIssuingPhysicalBundlesQuerySchema = {
   type?: ("custom" | "standard") | undefined
 }
 
-export type t_GetIssuingPhysicalBundlesRequestBodySchema = EmptyObject
-
 export type t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema = {
   physical_bundle: string
 }
@@ -17803,9 +17464,6 @@ export type t_GetIssuingPhysicalBundlesPhysicalBundleQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetIssuingPhysicalBundlesPhysicalBundleRequestBodySchema =
-  EmptyObject
-
 export type t_GetIssuingSettlementsSettlementParamSchema = {
   settlement: string
 }
@@ -17813,8 +17471,6 @@ export type t_GetIssuingSettlementsSettlementParamSchema = {
 export type t_GetIssuingSettlementsSettlementQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIssuingSettlementsSettlementRequestBodySchema = EmptyObject
 
 export type t_GetIssuingTokensQuerySchema = {
   card: string
@@ -17836,8 +17492,6 @@ export type t_GetIssuingTokensQuerySchema = {
   status?: ("active" | "deleted" | "requested" | "suspended") | undefined
 }
 
-export type t_GetIssuingTokensRequestBodySchema = EmptyObject
-
 export type t_GetIssuingTokensTokenParamSchema = {
   token: string
 }
@@ -17845,8 +17499,6 @@ export type t_GetIssuingTokensTokenParamSchema = {
 export type t_GetIssuingTokensTokenQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetIssuingTokensTokenRequestBodySchema = EmptyObject
 
 export type t_GetIssuingTransactionsQuerySchema = {
   card?: string | undefined
@@ -17869,8 +17521,6 @@ export type t_GetIssuingTransactionsQuerySchema = {
   type?: ("capture" | "refund") | undefined
 }
 
-export type t_GetIssuingTransactionsRequestBodySchema = EmptyObject
-
 export type t_GetIssuingTransactionsTransactionParamSchema = {
   transaction: string
 }
@@ -17879,8 +17529,6 @@ export type t_GetIssuingTransactionsTransactionQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetIssuingTransactionsTransactionRequestBodySchema = EmptyObject
-
 export type t_GetLinkAccountSessionsSessionParamSchema = {
   session: string
 }
@@ -17888,8 +17536,6 @@ export type t_GetLinkAccountSessionsSessionParamSchema = {
 export type t_GetLinkAccountSessionsSessionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetLinkAccountSessionsSessionRequestBodySchema = EmptyObject
 
 export type t_GetLinkedAccountsQuerySchema = {
   account_holder?:
@@ -17905,8 +17551,6 @@ export type t_GetLinkedAccountsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetLinkedAccountsRequestBodySchema = EmptyObject
-
 export type t_GetLinkedAccountsAccountParamSchema = {
   account: string
 }
@@ -17914,8 +17558,6 @@ export type t_GetLinkedAccountsAccountParamSchema = {
 export type t_GetLinkedAccountsAccountQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetLinkedAccountsAccountRequestBodySchema = EmptyObject
 
 export type t_GetLinkedAccountsAccountOwnersParamSchema = {
   account: string
@@ -17929,8 +17571,6 @@ export type t_GetLinkedAccountsAccountOwnersQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetLinkedAccountsAccountOwnersRequestBodySchema = EmptyObject
-
 export type t_GetMandatesMandateParamSchema = {
   mandate: string
 }
@@ -17938,8 +17578,6 @@ export type t_GetMandatesMandateParamSchema = {
 export type t_GetMandatesMandateQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetMandatesMandateRequestBodySchema = EmptyObject
 
 export type t_GetPaymentIntentsQuerySchema = {
   created?:
@@ -17960,8 +17598,6 @@ export type t_GetPaymentIntentsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPaymentIntentsRequestBodySchema = EmptyObject
-
 export type t_GetPaymentIntentsIntentParamSchema = {
   intent: string
 }
@@ -17971,16 +17607,12 @@ export type t_GetPaymentIntentsIntentQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetPaymentIntentsIntentRequestBodySchema = EmptyObject
-
 export type t_GetPaymentIntentsSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetPaymentIntentsSearchRequestBodySchema = EmptyObject
 
 export type t_GetPaymentLinksQuerySchema = {
   active?: boolean | undefined
@@ -17990,8 +17622,6 @@ export type t_GetPaymentLinksQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPaymentLinksRequestBodySchema = EmptyObject
-
 export type t_GetPaymentLinksPaymentLinkParamSchema = {
   payment_link: string
 }
@@ -17999,8 +17629,6 @@ export type t_GetPaymentLinksPaymentLinkParamSchema = {
 export type t_GetPaymentLinksPaymentLinkQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPaymentLinksPaymentLinkRequestBodySchema = EmptyObject
 
 export type t_GetPaymentLinksPaymentLinkLineItemsParamSchema = {
   payment_link: string
@@ -18013,8 +17641,6 @@ export type t_GetPaymentLinksPaymentLinkLineItemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPaymentLinksPaymentLinkLineItemsRequestBodySchema = EmptyObject
-
 export type t_GetPaymentMethodConfigurationsQuerySchema = {
   application?: (string | "") | undefined
   ending_before?: string | undefined
@@ -18023,8 +17649,6 @@ export type t_GetPaymentMethodConfigurationsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPaymentMethodConfigurationsRequestBodySchema = EmptyObject
-
 export type t_GetPaymentMethodConfigurationsConfigurationParamSchema = {
   configuration: string
 }
@@ -18032,9 +17656,6 @@ export type t_GetPaymentMethodConfigurationsConfigurationParamSchema = {
 export type t_GetPaymentMethodConfigurationsConfigurationQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPaymentMethodConfigurationsConfigurationRequestBodySchema =
-  EmptyObject
 
 export type t_GetPaymentMethodDomainsQuerySchema = {
   domain_name?: string | undefined
@@ -18045,8 +17666,6 @@ export type t_GetPaymentMethodDomainsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPaymentMethodDomainsRequestBodySchema = EmptyObject
-
 export type t_GetPaymentMethodDomainsPaymentMethodDomainParamSchema = {
   payment_method_domain: string
 }
@@ -18054,9 +17673,6 @@ export type t_GetPaymentMethodDomainsPaymentMethodDomainParamSchema = {
 export type t_GetPaymentMethodDomainsPaymentMethodDomainQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPaymentMethodDomainsPaymentMethodDomainRequestBodySchema =
-  EmptyObject
 
 export type t_GetPaymentMethodsQuerySchema = {
   customer?: string | undefined
@@ -18118,8 +17734,6 @@ export type t_GetPaymentMethodsQuerySchema = {
     | undefined
 }
 
-export type t_GetPaymentMethodsRequestBodySchema = EmptyObject
-
 export type t_GetPaymentMethodsPaymentMethodParamSchema = {
   payment_method: string
 }
@@ -18127,8 +17741,6 @@ export type t_GetPaymentMethodsPaymentMethodParamSchema = {
 export type t_GetPaymentMethodsPaymentMethodQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPaymentMethodsPaymentMethodRequestBodySchema = EmptyObject
 
 export type t_GetPayoutsQuerySchema = {
   arrival_date?:
@@ -18161,8 +17773,6 @@ export type t_GetPayoutsQuerySchema = {
   status?: string | undefined
 }
 
-export type t_GetPayoutsRequestBodySchema = EmptyObject
-
 export type t_GetPayoutsPayoutParamSchema = {
   payout: string
 }
@@ -18170,8 +17780,6 @@ export type t_GetPayoutsPayoutParamSchema = {
 export type t_GetPayoutsPayoutQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPayoutsPayoutRequestBodySchema = EmptyObject
 
 export type t_GetPlansQuerySchema = {
   active?: boolean | undefined
@@ -18193,8 +17801,6 @@ export type t_GetPlansQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPlansRequestBodySchema = EmptyObject
-
 export type t_GetPlansPlanParamSchema = {
   plan: string
 }
@@ -18202,8 +17808,6 @@ export type t_GetPlansPlanParamSchema = {
 export type t_GetPlansPlanQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPlansPlanRequestBodySchema = EmptyObject
 
 export type t_GetPricesQuerySchema = {
   active?: boolean | undefined
@@ -18235,8 +17839,6 @@ export type t_GetPricesQuerySchema = {
   type?: ("one_time" | "recurring") | undefined
 }
 
-export type t_GetPricesRequestBodySchema = EmptyObject
-
 export type t_GetPricesPriceParamSchema = {
   price: string
 }
@@ -18245,16 +17847,12 @@ export type t_GetPricesPriceQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetPricesPriceRequestBodySchema = EmptyObject
-
 export type t_GetPricesSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetPricesSearchRequestBodySchema = EmptyObject
 
 export type t_GetProductsQuerySchema = {
   active?: boolean | undefined
@@ -18278,8 +17876,6 @@ export type t_GetProductsQuerySchema = {
   url?: string | undefined
 }
 
-export type t_GetProductsRequestBodySchema = EmptyObject
-
 export type t_GetProductsIdParamSchema = {
   id: string
 }
@@ -18287,8 +17883,6 @@ export type t_GetProductsIdParamSchema = {
 export type t_GetProductsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetProductsIdRequestBodySchema = EmptyObject
 
 export type t_GetProductsProductFeaturesParamSchema = {
   product: string
@@ -18301,8 +17895,6 @@ export type t_GetProductsProductFeaturesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetProductsProductFeaturesRequestBodySchema = EmptyObject
-
 export type t_GetProductsProductFeaturesIdParamSchema = {
   id: string
   product: string
@@ -18312,16 +17904,12 @@ export type t_GetProductsProductFeaturesIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetProductsProductFeaturesIdRequestBodySchema = EmptyObject
-
 export type t_GetProductsSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetProductsSearchRequestBodySchema = EmptyObject
 
 export type t_GetPromotionCodesQuerySchema = {
   active?: boolean | undefined
@@ -18345,8 +17933,6 @@ export type t_GetPromotionCodesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetPromotionCodesRequestBodySchema = EmptyObject
-
 export type t_GetPromotionCodesPromotionCodeParamSchema = {
   promotion_code: string
 }
@@ -18354,8 +17940,6 @@ export type t_GetPromotionCodesPromotionCodeParamSchema = {
 export type t_GetPromotionCodesPromotionCodeQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetPromotionCodesPromotionCodeRequestBodySchema = EmptyObject
 
 export type t_GetQuotesQuerySchema = {
   customer?: string | undefined
@@ -18367,8 +17951,6 @@ export type t_GetQuotesQuerySchema = {
   test_clock?: string | undefined
 }
 
-export type t_GetQuotesRequestBodySchema = EmptyObject
-
 export type t_GetQuotesQuoteParamSchema = {
   quote: string
 }
@@ -18376,8 +17958,6 @@ export type t_GetQuotesQuoteParamSchema = {
 export type t_GetQuotesQuoteQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetQuotesQuoteRequestBodySchema = EmptyObject
 
 export type t_GetQuotesQuoteComputedUpfrontLineItemsParamSchema = {
   quote: string
@@ -18390,9 +17970,6 @@ export type t_GetQuotesQuoteComputedUpfrontLineItemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetQuotesQuoteComputedUpfrontLineItemsRequestBodySchema =
-  EmptyObject
-
 export type t_GetQuotesQuoteLineItemsParamSchema = {
   quote: string
 }
@@ -18404,8 +17981,6 @@ export type t_GetQuotesQuoteLineItemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetQuotesQuoteLineItemsRequestBodySchema = EmptyObject
-
 export type t_GetQuotesQuotePdfParamSchema = {
   quote: string
 }
@@ -18413,8 +17988,6 @@ export type t_GetQuotesQuotePdfParamSchema = {
 export type t_GetQuotesQuotePdfQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetQuotesQuotePdfRequestBodySchema = EmptyObject
 
 export type t_GetRadarEarlyFraudWarningsQuerySchema = {
   charge?: string | undefined
@@ -18436,8 +18009,6 @@ export type t_GetRadarEarlyFraudWarningsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetRadarEarlyFraudWarningsRequestBodySchema = EmptyObject
-
 export type t_GetRadarEarlyFraudWarningsEarlyFraudWarningParamSchema = {
   early_fraud_warning: string
 }
@@ -18445,9 +18016,6 @@ export type t_GetRadarEarlyFraudWarningsEarlyFraudWarningParamSchema = {
 export type t_GetRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetRadarEarlyFraudWarningsEarlyFraudWarningRequestBodySchema =
-  EmptyObject
 
 export type t_GetRadarValueListItemsQuerySchema = {
   created?:
@@ -18469,8 +18037,6 @@ export type t_GetRadarValueListItemsQuerySchema = {
   value_list: string
 }
 
-export type t_GetRadarValueListItemsRequestBodySchema = EmptyObject
-
 export type t_GetRadarValueListItemsItemParamSchema = {
   item: string
 }
@@ -18478,8 +18044,6 @@ export type t_GetRadarValueListItemsItemParamSchema = {
 export type t_GetRadarValueListItemsItemQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetRadarValueListItemsItemRequestBodySchema = EmptyObject
 
 export type t_GetRadarValueListsQuerySchema = {
   alias?: string | undefined
@@ -18501,8 +18065,6 @@ export type t_GetRadarValueListsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetRadarValueListsRequestBodySchema = EmptyObject
-
 export type t_GetRadarValueListsValueListParamSchema = {
   value_list: string
 }
@@ -18510,8 +18072,6 @@ export type t_GetRadarValueListsValueListParamSchema = {
 export type t_GetRadarValueListsValueListQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetRadarValueListsValueListRequestBodySchema = EmptyObject
 
 export type t_GetRefundsQuerySchema = {
   charge?: string | undefined
@@ -18533,8 +18093,6 @@ export type t_GetRefundsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetRefundsRequestBodySchema = EmptyObject
-
 export type t_GetRefundsRefundParamSchema = {
   refund: string
 }
@@ -18542,8 +18100,6 @@ export type t_GetRefundsRefundParamSchema = {
 export type t_GetRefundsRefundQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetRefundsRefundRequestBodySchema = EmptyObject
 
 export type t_GetReportingReportRunsQuerySchema = {
   created?:
@@ -18563,8 +18119,6 @@ export type t_GetReportingReportRunsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetReportingReportRunsRequestBodySchema = EmptyObject
-
 export type t_GetReportingReportRunsReportRunParamSchema = {
   report_run: string
 }
@@ -18573,13 +18127,9 @@ export type t_GetReportingReportRunsReportRunQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetReportingReportRunsReportRunRequestBodySchema = EmptyObject
-
 export type t_GetReportingReportTypesQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetReportingReportTypesRequestBodySchema = EmptyObject
 
 export type t_GetReportingReportTypesReportTypeParamSchema = {
   report_type: string
@@ -18588,8 +18138,6 @@ export type t_GetReportingReportTypesReportTypeParamSchema = {
 export type t_GetReportingReportTypesReportTypeQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetReportingReportTypesReportTypeRequestBodySchema = EmptyObject
 
 export type t_GetReviewsQuerySchema = {
   created?:
@@ -18609,8 +18157,6 @@ export type t_GetReviewsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetReviewsRequestBodySchema = EmptyObject
-
 export type t_GetReviewsReviewParamSchema = {
   review: string
 }
@@ -18618,8 +18164,6 @@ export type t_GetReviewsReviewParamSchema = {
 export type t_GetReviewsReviewQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetReviewsReviewRequestBodySchema = EmptyObject
 
 export type t_GetSetupAttemptsQuerySchema = {
   created?:
@@ -18639,8 +18183,6 @@ export type t_GetSetupAttemptsQuerySchema = {
   setup_intent: string
   starting_after?: string | undefined
 }
-
-export type t_GetSetupAttemptsRequestBodySchema = EmptyObject
 
 export type t_GetSetupIntentsQuerySchema = {
   attach_to_self?: boolean | undefined
@@ -18663,8 +18205,6 @@ export type t_GetSetupIntentsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetSetupIntentsRequestBodySchema = EmptyObject
-
 export type t_GetSetupIntentsIntentParamSchema = {
   intent: string
 }
@@ -18673,8 +18213,6 @@ export type t_GetSetupIntentsIntentQuerySchema = {
   client_secret?: string | undefined
   expand?: string[] | undefined
 }
-
-export type t_GetSetupIntentsIntentRequestBodySchema = EmptyObject
 
 export type t_GetShippingRatesQuerySchema = {
   active?: boolean | undefined
@@ -18696,8 +18234,6 @@ export type t_GetShippingRatesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetShippingRatesRequestBodySchema = EmptyObject
-
 export type t_GetShippingRatesShippingRateTokenParamSchema = {
   shipping_rate_token: string
 }
@@ -18706,16 +18242,12 @@ export type t_GetShippingRatesShippingRateTokenQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetShippingRatesShippingRateTokenRequestBodySchema = EmptyObject
-
 export type t_GetSigmaScheduledQueryRunsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetSigmaScheduledQueryRunsRequestBodySchema = EmptyObject
 
 export type t_GetSigmaScheduledQueryRunsScheduledQueryRunParamSchema = {
   scheduled_query_run: string
@@ -18725,9 +18257,6 @@ export type t_GetSigmaScheduledQueryRunsScheduledQueryRunQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetSigmaScheduledQueryRunsScheduledQueryRunRequestBodySchema =
-  EmptyObject
-
 export type t_GetSourcesSourceParamSchema = {
   source: string
 }
@@ -18736,8 +18265,6 @@ export type t_GetSourcesSourceQuerySchema = {
   client_secret?: string | undefined
   expand?: string[] | undefined
 }
-
-export type t_GetSourcesSourceRequestBodySchema = EmptyObject
 
 export type t_GetSourcesSourceMandateNotificationsMandateNotificationParamSchema =
   {
@@ -18750,9 +18277,6 @@ export type t_GetSourcesSourceMandateNotificationsMandateNotificationQuerySchema
     expand?: string[] | undefined
   }
 
-export type t_GetSourcesSourceMandateNotificationsMandateNotificationRequestBodySchema =
-  EmptyObject
-
 export type t_GetSourcesSourceSourceTransactionsParamSchema = {
   source: string
 }
@@ -18764,8 +18288,6 @@ export type t_GetSourcesSourceSourceTransactionsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetSourcesSourceSourceTransactionsRequestBodySchema = EmptyObject
-
 export type t_GetSourcesSourceSourceTransactionsSourceTransactionParamSchema = {
   source: string
   source_transaction: string
@@ -18775,9 +18297,6 @@ export type t_GetSourcesSourceSourceTransactionsSourceTransactionQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetSourcesSourceSourceTransactionsSourceTransactionRequestBodySchema =
-  EmptyObject
-
 export type t_GetSubscriptionItemsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
@@ -18786,8 +18305,6 @@ export type t_GetSubscriptionItemsQuerySchema = {
   subscription: string
 }
 
-export type t_GetSubscriptionItemsRequestBodySchema = EmptyObject
-
 export type t_GetSubscriptionItemsItemParamSchema = {
   item: string
 }
@@ -18795,8 +18312,6 @@ export type t_GetSubscriptionItemsItemParamSchema = {
 export type t_GetSubscriptionItemsItemQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetSubscriptionItemsItemRequestBodySchema = EmptyObject
 
 export type t_GetSubscriptionSchedulesQuerySchema = {
   canceled_at?:
@@ -18851,8 +18366,6 @@ export type t_GetSubscriptionSchedulesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetSubscriptionSchedulesRequestBodySchema = EmptyObject
-
 export type t_GetSubscriptionSchedulesScheduleParamSchema = {
   schedule: string
 }
@@ -18860,8 +18373,6 @@ export type t_GetSubscriptionSchedulesScheduleParamSchema = {
 export type t_GetSubscriptionSchedulesScheduleQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetSubscriptionSchedulesScheduleRequestBodySchema = EmptyObject
 
 export type t_GetSubscriptionsQuerySchema = {
   automatic_tax?:
@@ -18926,16 +18437,12 @@ export type t_GetSubscriptionsQuerySchema = {
   test_clock?: string | undefined
 }
 
-export type t_GetSubscriptionsRequestBodySchema = EmptyObject
-
 export type t_GetSubscriptionsSearchQuerySchema = {
   expand?: string[] | undefined
   limit?: number | undefined
   page?: string | undefined
   query: string
 }
-
-export type t_GetSubscriptionsSearchRequestBodySchema = EmptyObject
 
 export type t_GetSubscriptionsSubscriptionExposedIdParamSchema = {
   subscription_exposed_id: string
@@ -18945,9 +18452,6 @@ export type t_GetSubscriptionsSubscriptionExposedIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetSubscriptionsSubscriptionExposedIdRequestBodySchema =
-  EmptyObject
-
 export type t_GetTaxCalculationsCalculationParamSchema = {
   calculation: string
 }
@@ -18955,8 +18459,6 @@ export type t_GetTaxCalculationsCalculationParamSchema = {
 export type t_GetTaxCalculationsCalculationQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTaxCalculationsCalculationRequestBodySchema = EmptyObject
 
 export type t_GetTaxCalculationsCalculationLineItemsParamSchema = {
   calculation: string
@@ -18969,17 +18471,12 @@ export type t_GetTaxCalculationsCalculationLineItemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetTaxCalculationsCalculationLineItemsRequestBodySchema =
-  EmptyObject
-
 export type t_GetTaxCodesQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetTaxCodesRequestBodySchema = EmptyObject
 
 export type t_GetTaxCodesIdParamSchema = {
   id: string
@@ -18988,8 +18485,6 @@ export type t_GetTaxCodesIdParamSchema = {
 export type t_GetTaxCodesIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTaxCodesIdRequestBodySchema = EmptyObject
 
 export type t_GetTaxIdsQuerySchema = {
   ending_before?: string | undefined
@@ -19005,8 +18500,6 @@ export type t_GetTaxIdsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetTaxIdsRequestBodySchema = EmptyObject
-
 export type t_GetTaxIdsIdParamSchema = {
   id: string
 }
@@ -19014,8 +18507,6 @@ export type t_GetTaxIdsIdParamSchema = {
 export type t_GetTaxIdsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTaxIdsIdRequestBodySchema = EmptyObject
 
 export type t_GetTaxRatesQuerySchema = {
   active?: boolean | undefined
@@ -19037,8 +18528,6 @@ export type t_GetTaxRatesQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetTaxRatesRequestBodySchema = EmptyObject
-
 export type t_GetTaxRatesTaxRateParamSchema = {
   tax_rate: string
 }
@@ -19046,8 +18535,6 @@ export type t_GetTaxRatesTaxRateParamSchema = {
 export type t_GetTaxRatesTaxRateQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTaxRatesTaxRateRequestBodySchema = EmptyObject
 
 export type t_GetTaxRegistrationsQuerySchema = {
   ending_before?: string | undefined
@@ -19057,8 +18544,6 @@ export type t_GetTaxRegistrationsQuerySchema = {
   status?: ("active" | "all" | "expired" | "scheduled") | undefined
 }
 
-export type t_GetTaxRegistrationsRequestBodySchema = EmptyObject
-
 export type t_GetTaxRegistrationsIdParamSchema = {
   id: string
 }
@@ -19067,13 +18552,9 @@ export type t_GetTaxRegistrationsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetTaxRegistrationsIdRequestBodySchema = EmptyObject
-
 export type t_GetTaxSettingsQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTaxSettingsRequestBodySchema = EmptyObject
 
 export type t_GetTaxTransactionsTransactionParamSchema = {
   transaction: string
@@ -19082,8 +18563,6 @@ export type t_GetTaxTransactionsTransactionParamSchema = {
 export type t_GetTaxTransactionsTransactionQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTaxTransactionsTransactionRequestBodySchema = EmptyObject
 
 export type t_GetTaxTransactionsTransactionLineItemsParamSchema = {
   transaction: string
@@ -19096,9 +18575,6 @@ export type t_GetTaxTransactionsTransactionLineItemsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetTaxTransactionsTransactionLineItemsRequestBodySchema =
-  EmptyObject
-
 export type t_GetTerminalConfigurationsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
@@ -19106,8 +18582,6 @@ export type t_GetTerminalConfigurationsQuerySchema = {
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetTerminalConfigurationsRequestBodySchema = EmptyObject
 
 export type t_GetTerminalConfigurationsConfigurationParamSchema = {
   configuration: string
@@ -19117,17 +18591,12 @@ export type t_GetTerminalConfigurationsConfigurationQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetTerminalConfigurationsConfigurationRequestBodySchema =
-  EmptyObject
-
 export type t_GetTerminalLocationsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetTerminalLocationsRequestBodySchema = EmptyObject
 
 export type t_GetTerminalLocationsLocationParamSchema = {
   location: string
@@ -19136,8 +18605,6 @@ export type t_GetTerminalLocationsLocationParamSchema = {
 export type t_GetTerminalLocationsLocationQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTerminalLocationsLocationRequestBodySchema = EmptyObject
 
 export type t_GetTerminalReadersQuerySchema = {
   device_type?:
@@ -19162,8 +18629,6 @@ export type t_GetTerminalReadersQuerySchema = {
   status?: ("offline" | "online") | undefined
 }
 
-export type t_GetTerminalReadersRequestBodySchema = EmptyObject
-
 export type t_GetTerminalReadersReaderParamSchema = {
   reader: string
 }
@@ -19172,16 +18637,12 @@ export type t_GetTerminalReadersReaderQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetTerminalReadersReaderRequestBodySchema = EmptyObject
-
 export type t_GetTestHelpersTestClocksQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetTestHelpersTestClocksRequestBodySchema = EmptyObject
 
 export type t_GetTestHelpersTestClocksTestClockParamSchema = {
   test_clock: string
@@ -19191,8 +18652,6 @@ export type t_GetTestHelpersTestClocksTestClockQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetTestHelpersTestClocksTestClockRequestBodySchema = EmptyObject
-
 export type t_GetTokensTokenParamSchema = {
   token: string
 }
@@ -19200,8 +18659,6 @@ export type t_GetTokensTokenParamSchema = {
 export type t_GetTokensTokenQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTokensTokenRequestBodySchema = EmptyObject
 
 export type t_GetTopupsQuerySchema = {
   amount?:
@@ -19233,8 +18690,6 @@ export type t_GetTopupsQuerySchema = {
   status?: ("canceled" | "failed" | "pending" | "succeeded") | undefined
 }
 
-export type t_GetTopupsRequestBodySchema = EmptyObject
-
 export type t_GetTopupsTopupParamSchema = {
   topup: string
 }
@@ -19242,8 +18697,6 @@ export type t_GetTopupsTopupParamSchema = {
 export type t_GetTopupsTopupQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTopupsTopupRequestBodySchema = EmptyObject
 
 export type t_GetTransfersQuerySchema = {
   created?:
@@ -19265,8 +18718,6 @@ export type t_GetTransfersQuerySchema = {
   transfer_group?: string | undefined
 }
 
-export type t_GetTransfersRequestBodySchema = EmptyObject
-
 export type t_GetTransfersIdReversalsParamSchema = {
   id: string
 }
@@ -19278,8 +18729,6 @@ export type t_GetTransfersIdReversalsQuerySchema = {
   starting_after?: string | undefined
 }
 
-export type t_GetTransfersIdReversalsRequestBodySchema = EmptyObject
-
 export type t_GetTransfersTransferParamSchema = {
   transfer: string
 }
@@ -19287,8 +18736,6 @@ export type t_GetTransfersTransferParamSchema = {
 export type t_GetTransfersTransferQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTransfersTransferRequestBodySchema = EmptyObject
 
 export type t_GetTransfersTransferReversalsIdParamSchema = {
   id: string
@@ -19298,8 +18745,6 @@ export type t_GetTransfersTransferReversalsIdParamSchema = {
 export type t_GetTransfersTransferReversalsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTransfersTransferReversalsIdRequestBodySchema = EmptyObject
 
 export type t_GetTreasuryCreditReversalsQuerySchema = {
   ending_before?: string | undefined
@@ -19311,8 +18756,6 @@ export type t_GetTreasuryCreditReversalsQuerySchema = {
   status?: ("canceled" | "posted" | "processing") | undefined
 }
 
-export type t_GetTreasuryCreditReversalsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryCreditReversalsCreditReversalParamSchema = {
   credit_reversal: string
 }
@@ -19320,9 +18763,6 @@ export type t_GetTreasuryCreditReversalsCreditReversalParamSchema = {
 export type t_GetTreasuryCreditReversalsCreditReversalQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryCreditReversalsCreditReversalRequestBodySchema =
-  EmptyObject
 
 export type t_GetTreasuryDebitReversalsQuerySchema = {
   ending_before?: string | undefined
@@ -19335,8 +18775,6 @@ export type t_GetTreasuryDebitReversalsQuerySchema = {
   status?: ("canceled" | "completed" | "processing") | undefined
 }
 
-export type t_GetTreasuryDebitReversalsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryDebitReversalsDebitReversalParamSchema = {
   debit_reversal: string
 }
@@ -19344,9 +18782,6 @@ export type t_GetTreasuryDebitReversalsDebitReversalParamSchema = {
 export type t_GetTreasuryDebitReversalsDebitReversalQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryDebitReversalsDebitReversalRequestBodySchema =
-  EmptyObject
 
 export type t_GetTreasuryFinancialAccountsQuerySchema = {
   created?:
@@ -19367,8 +18802,6 @@ export type t_GetTreasuryFinancialAccountsQuerySchema = {
   status?: ("closed" | "open") | undefined
 }
 
-export type t_GetTreasuryFinancialAccountsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryFinancialAccountsFinancialAccountParamSchema = {
   financial_account: string
 }
@@ -19376,9 +18809,6 @@ export type t_GetTreasuryFinancialAccountsFinancialAccountParamSchema = {
 export type t_GetTreasuryFinancialAccountsFinancialAccountQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryFinancialAccountsFinancialAccountRequestBodySchema =
-  EmptyObject
 
 export type t_GetTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema =
   {
@@ -19390,9 +18820,6 @@ export type t_GetTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema =
     expand?: string[] | undefined
   }
 
-export type t_GetTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema =
-  EmptyObject
-
 export type t_GetTreasuryInboundTransfersQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
@@ -19402,8 +18829,6 @@ export type t_GetTreasuryInboundTransfersQuerySchema = {
   status?: ("canceled" | "failed" | "processing" | "succeeded") | undefined
 }
 
-export type t_GetTreasuryInboundTransfersRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryInboundTransfersIdParamSchema = {
   id: string
 }
@@ -19411,8 +18836,6 @@ export type t_GetTreasuryInboundTransfersIdParamSchema = {
 export type t_GetTreasuryInboundTransfersIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryInboundTransfersIdRequestBodySchema = EmptyObject
 
 export type t_GetTreasuryOutboundPaymentsQuerySchema = {
   created?:
@@ -19437,8 +18860,6 @@ export type t_GetTreasuryOutboundPaymentsQuerySchema = {
     | undefined
 }
 
-export type t_GetTreasuryOutboundPaymentsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryOutboundPaymentsIdParamSchema = {
   id: string
 }
@@ -19446,8 +18867,6 @@ export type t_GetTreasuryOutboundPaymentsIdParamSchema = {
 export type t_GetTreasuryOutboundPaymentsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryOutboundPaymentsIdRequestBodySchema = EmptyObject
 
 export type t_GetTreasuryOutboundTransfersQuerySchema = {
   ending_before?: string | undefined
@@ -19460,8 +18879,6 @@ export type t_GetTreasuryOutboundTransfersQuerySchema = {
     | undefined
 }
 
-export type t_GetTreasuryOutboundTransfersRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryOutboundTransfersOutboundTransferParamSchema = {
   outbound_transfer: string
 }
@@ -19469,9 +18886,6 @@ export type t_GetTreasuryOutboundTransfersOutboundTransferParamSchema = {
 export type t_GetTreasuryOutboundTransfersOutboundTransferQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryOutboundTransfersOutboundTransferRequestBodySchema =
-  EmptyObject
 
 export type t_GetTreasuryReceivedCreditsQuerySchema = {
   ending_before?: string | undefined
@@ -19492,8 +18906,6 @@ export type t_GetTreasuryReceivedCreditsQuerySchema = {
   status?: ("failed" | "succeeded") | undefined
 }
 
-export type t_GetTreasuryReceivedCreditsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryReceivedCreditsIdParamSchema = {
   id: string
 }
@@ -19501,8 +18913,6 @@ export type t_GetTreasuryReceivedCreditsIdParamSchema = {
 export type t_GetTreasuryReceivedCreditsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryReceivedCreditsIdRequestBodySchema = EmptyObject
 
 export type t_GetTreasuryReceivedDebitsQuerySchema = {
   ending_before?: string | undefined
@@ -19513,8 +18923,6 @@ export type t_GetTreasuryReceivedDebitsQuerySchema = {
   status?: ("failed" | "succeeded") | undefined
 }
 
-export type t_GetTreasuryReceivedDebitsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryReceivedDebitsIdParamSchema = {
   id: string
 }
@@ -19522,8 +18930,6 @@ export type t_GetTreasuryReceivedDebitsIdParamSchema = {
 export type t_GetTreasuryReceivedDebitsIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryReceivedDebitsIdRequestBodySchema = EmptyObject
 
 export type t_GetTreasuryTransactionEntriesQuerySchema = {
   created?:
@@ -19557,8 +18963,6 @@ export type t_GetTreasuryTransactionEntriesQuerySchema = {
   transaction?: string | undefined
 }
 
-export type t_GetTreasuryTransactionEntriesRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryTransactionEntriesIdParamSchema = {
   id: string
 }
@@ -19566,8 +18970,6 @@ export type t_GetTreasuryTransactionEntriesIdParamSchema = {
 export type t_GetTreasuryTransactionEntriesIdQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetTreasuryTransactionEntriesIdRequestBodySchema = EmptyObject
 
 export type t_GetTreasuryTransactionsQuerySchema = {
   created?:
@@ -19605,8 +19007,6 @@ export type t_GetTreasuryTransactionsQuerySchema = {
     | undefined
 }
 
-export type t_GetTreasuryTransactionsRequestBodySchema = EmptyObject
-
 export type t_GetTreasuryTransactionsIdParamSchema = {
   id: string
 }
@@ -19615,16 +19015,12 @@ export type t_GetTreasuryTransactionsIdQuerySchema = {
   expand?: string[] | undefined
 }
 
-export type t_GetTreasuryTransactionsIdRequestBodySchema = EmptyObject
-
 export type t_GetWebhookEndpointsQuerySchema = {
   ending_before?: string | undefined
   expand?: string[] | undefined
   limit?: number | undefined
   starting_after?: string | undefined
 }
-
-export type t_GetWebhookEndpointsRequestBodySchema = EmptyObject
 
 export type t_GetWebhookEndpointsWebhookEndpointParamSchema = {
   webhook_endpoint: string
@@ -19633,8 +19029,6 @@ export type t_GetWebhookEndpointsWebhookEndpointParamSchema = {
 export type t_GetWebhookEndpointsWebhookEndpointQuerySchema = {
   expand?: string[] | undefined
 }
-
-export type t_GetWebhookEndpointsWebhookEndpointRequestBodySchema = EmptyObject
 
 export type t_PostAccountLinksRequestBodySchema = {
   account: string
