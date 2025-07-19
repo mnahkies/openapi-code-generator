@@ -4,732 +4,451 @@
 
 import {
   t_DeleteAccountsAccountBankAccountsIdParamSchema,
-  t_DeleteAccountsAccountBankAccountsIdRequestBodySchema,
   t_DeleteAccountsAccountExternalAccountsIdParamSchema,
-  t_DeleteAccountsAccountExternalAccountsIdRequestBodySchema,
   t_DeleteAccountsAccountParamSchema,
   t_DeleteAccountsAccountPeoplePersonParamSchema,
-  t_DeleteAccountsAccountPeoplePersonRequestBodySchema,
   t_DeleteAccountsAccountPersonsPersonParamSchema,
-  t_DeleteAccountsAccountPersonsPersonRequestBodySchema,
-  t_DeleteAccountsAccountRequestBodySchema,
   t_DeleteApplePayDomainsDomainParamSchema,
-  t_DeleteApplePayDomainsDomainRequestBodySchema,
   t_DeleteCouponsCouponParamSchema,
-  t_DeleteCouponsCouponRequestBodySchema,
   t_DeleteCustomersCustomerBankAccountsIdParamSchema,
   t_DeleteCustomersCustomerBankAccountsIdRequestBodySchema,
   t_DeleteCustomersCustomerCardsIdParamSchema,
   t_DeleteCustomersCustomerCardsIdRequestBodySchema,
   t_DeleteCustomersCustomerDiscountParamSchema,
-  t_DeleteCustomersCustomerDiscountRequestBodySchema,
   t_DeleteCustomersCustomerParamSchema,
-  t_DeleteCustomersCustomerRequestBodySchema,
   t_DeleteCustomersCustomerSourcesIdParamSchema,
   t_DeleteCustomersCustomerSourcesIdRequestBodySchema,
   t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
-  t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema,
   t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
   t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema,
   t_DeleteCustomersCustomerTaxIdsIdParamSchema,
-  t_DeleteCustomersCustomerTaxIdsIdRequestBodySchema,
   t_DeleteEphemeralKeysKeyParamSchema,
   t_DeleteEphemeralKeysKeyRequestBodySchema,
   t_DeleteInvoiceitemsInvoiceitemParamSchema,
-  t_DeleteInvoiceitemsInvoiceitemRequestBodySchema,
   t_DeleteInvoicesInvoiceParamSchema,
-  t_DeleteInvoicesInvoiceRequestBodySchema,
   t_DeletePlansPlanParamSchema,
-  t_DeletePlansPlanRequestBodySchema,
   t_DeleteProductsIdParamSchema,
-  t_DeleteProductsIdRequestBodySchema,
   t_DeleteProductsProductFeaturesIdParamSchema,
-  t_DeleteProductsProductFeaturesIdRequestBodySchema,
   t_DeleteRadarValueListItemsItemParamSchema,
-  t_DeleteRadarValueListItemsItemRequestBodySchema,
   t_DeleteRadarValueListsValueListParamSchema,
-  t_DeleteRadarValueListsValueListRequestBodySchema,
   t_DeleteSubscriptionItemsItemParamSchema,
   t_DeleteSubscriptionItemsItemRequestBodySchema,
   t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
-  t_DeleteSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema,
   t_DeleteSubscriptionsSubscriptionExposedIdParamSchema,
   t_DeleteSubscriptionsSubscriptionExposedIdRequestBodySchema,
   t_DeleteTaxIdsIdParamSchema,
-  t_DeleteTaxIdsIdRequestBodySchema,
   t_DeleteTerminalConfigurationsConfigurationParamSchema,
-  t_DeleteTerminalConfigurationsConfigurationRequestBodySchema,
   t_DeleteTerminalLocationsLocationParamSchema,
-  t_DeleteTerminalLocationsLocationRequestBodySchema,
   t_DeleteTerminalReadersReaderParamSchema,
-  t_DeleteTerminalReadersReaderRequestBodySchema,
   t_DeleteTestHelpersTestClocksTestClockParamSchema,
-  t_DeleteTestHelpersTestClocksTestClockRequestBodySchema,
   t_DeleteWebhookEndpointsWebhookEndpointParamSchema,
-  t_DeleteWebhookEndpointsWebhookEndpointRequestBodySchema,
   t_GetAccountQuerySchema,
-  t_GetAccountRequestBodySchema,
   t_GetAccountsAccountBankAccountsIdParamSchema,
   t_GetAccountsAccountBankAccountsIdQuerySchema,
-  t_GetAccountsAccountBankAccountsIdRequestBodySchema,
   t_GetAccountsAccountCapabilitiesCapabilityParamSchema,
   t_GetAccountsAccountCapabilitiesCapabilityQuerySchema,
-  t_GetAccountsAccountCapabilitiesCapabilityRequestBodySchema,
   t_GetAccountsAccountCapabilitiesParamSchema,
   t_GetAccountsAccountCapabilitiesQuerySchema,
-  t_GetAccountsAccountCapabilitiesRequestBodySchema,
   t_GetAccountsAccountExternalAccountsIdParamSchema,
   t_GetAccountsAccountExternalAccountsIdQuerySchema,
-  t_GetAccountsAccountExternalAccountsIdRequestBodySchema,
   t_GetAccountsAccountExternalAccountsParamSchema,
   t_GetAccountsAccountExternalAccountsQuerySchema,
-  t_GetAccountsAccountExternalAccountsRequestBodySchema,
   t_GetAccountsAccountParamSchema,
   t_GetAccountsAccountPeopleParamSchema,
   t_GetAccountsAccountPeoplePersonParamSchema,
   t_GetAccountsAccountPeoplePersonQuerySchema,
-  t_GetAccountsAccountPeoplePersonRequestBodySchema,
   t_GetAccountsAccountPeopleQuerySchema,
-  t_GetAccountsAccountPeopleRequestBodySchema,
   t_GetAccountsAccountPersonsParamSchema,
   t_GetAccountsAccountPersonsPersonParamSchema,
   t_GetAccountsAccountPersonsPersonQuerySchema,
-  t_GetAccountsAccountPersonsPersonRequestBodySchema,
   t_GetAccountsAccountPersonsQuerySchema,
-  t_GetAccountsAccountPersonsRequestBodySchema,
   t_GetAccountsAccountQuerySchema,
-  t_GetAccountsAccountRequestBodySchema,
   t_GetAccountsQuerySchema,
-  t_GetAccountsRequestBodySchema,
   t_GetApplePayDomainsDomainParamSchema,
   t_GetApplePayDomainsDomainQuerySchema,
-  t_GetApplePayDomainsDomainRequestBodySchema,
   t_GetApplePayDomainsQuerySchema,
-  t_GetApplePayDomainsRequestBodySchema,
   t_GetApplicationFeesFeeRefundsIdParamSchema,
   t_GetApplicationFeesFeeRefundsIdQuerySchema,
-  t_GetApplicationFeesFeeRefundsIdRequestBodySchema,
   t_GetApplicationFeesIdParamSchema,
   t_GetApplicationFeesIdQuerySchema,
   t_GetApplicationFeesIdRefundsParamSchema,
   t_GetApplicationFeesIdRefundsQuerySchema,
-  t_GetApplicationFeesIdRefundsRequestBodySchema,
-  t_GetApplicationFeesIdRequestBodySchema,
   t_GetApplicationFeesQuerySchema,
-  t_GetApplicationFeesRequestBodySchema,
   t_GetAppsSecretsFindQuerySchema,
-  t_GetAppsSecretsFindRequestBodySchema,
   t_GetAppsSecretsQuerySchema,
-  t_GetAppsSecretsRequestBodySchema,
   t_GetBalanceHistoryIdParamSchema,
   t_GetBalanceHistoryIdQuerySchema,
-  t_GetBalanceHistoryIdRequestBodySchema,
   t_GetBalanceHistoryQuerySchema,
-  t_GetBalanceHistoryRequestBodySchema,
   t_GetBalanceQuerySchema,
-  t_GetBalanceRequestBodySchema,
   t_GetBalanceTransactionsIdParamSchema,
   t_GetBalanceTransactionsIdQuerySchema,
-  t_GetBalanceTransactionsIdRequestBodySchema,
   t_GetBalanceTransactionsQuerySchema,
-  t_GetBalanceTransactionsRequestBodySchema,
   t_GetBillingAlertsIdParamSchema,
   t_GetBillingAlertsIdQuerySchema,
-  t_GetBillingAlertsIdRequestBodySchema,
   t_GetBillingAlertsQuerySchema,
-  t_GetBillingAlertsRequestBodySchema,
   t_GetBillingCreditBalanceSummaryQuerySchema,
-  t_GetBillingCreditBalanceSummaryRequestBodySchema,
   t_GetBillingCreditBalanceTransactionsIdParamSchema,
   t_GetBillingCreditBalanceTransactionsIdQuerySchema,
-  t_GetBillingCreditBalanceTransactionsIdRequestBodySchema,
   t_GetBillingCreditBalanceTransactionsQuerySchema,
-  t_GetBillingCreditBalanceTransactionsRequestBodySchema,
   t_GetBillingCreditGrantsIdParamSchema,
   t_GetBillingCreditGrantsIdQuerySchema,
-  t_GetBillingCreditGrantsIdRequestBodySchema,
   t_GetBillingCreditGrantsQuerySchema,
-  t_GetBillingCreditGrantsRequestBodySchema,
   t_GetBillingMetersIdEventSummariesParamSchema,
   t_GetBillingMetersIdEventSummariesQuerySchema,
-  t_GetBillingMetersIdEventSummariesRequestBodySchema,
   t_GetBillingMetersIdParamSchema,
   t_GetBillingMetersIdQuerySchema,
-  t_GetBillingMetersIdRequestBodySchema,
   t_GetBillingMetersQuerySchema,
-  t_GetBillingMetersRequestBodySchema,
   t_GetBillingPortalConfigurationsConfigurationParamSchema,
   t_GetBillingPortalConfigurationsConfigurationQuerySchema,
-  t_GetBillingPortalConfigurationsConfigurationRequestBodySchema,
   t_GetBillingPortalConfigurationsQuerySchema,
-  t_GetBillingPortalConfigurationsRequestBodySchema,
   t_GetChargesChargeDisputeParamSchema,
   t_GetChargesChargeDisputeQuerySchema,
-  t_GetChargesChargeDisputeRequestBodySchema,
   t_GetChargesChargeParamSchema,
   t_GetChargesChargeQuerySchema,
   t_GetChargesChargeRefundsParamSchema,
   t_GetChargesChargeRefundsQuerySchema,
   t_GetChargesChargeRefundsRefundParamSchema,
   t_GetChargesChargeRefundsRefundQuerySchema,
-  t_GetChargesChargeRefundsRefundRequestBodySchema,
-  t_GetChargesChargeRefundsRequestBodySchema,
-  t_GetChargesChargeRequestBodySchema,
   t_GetChargesQuerySchema,
-  t_GetChargesRequestBodySchema,
   t_GetChargesSearchQuerySchema,
-  t_GetChargesSearchRequestBodySchema,
   t_GetCheckoutSessionsQuerySchema,
-  t_GetCheckoutSessionsRequestBodySchema,
   t_GetCheckoutSessionsSessionLineItemsParamSchema,
   t_GetCheckoutSessionsSessionLineItemsQuerySchema,
-  t_GetCheckoutSessionsSessionLineItemsRequestBodySchema,
   t_GetCheckoutSessionsSessionParamSchema,
   t_GetCheckoutSessionsSessionQuerySchema,
-  t_GetCheckoutSessionsSessionRequestBodySchema,
   t_GetClimateOrdersOrderParamSchema,
   t_GetClimateOrdersOrderQuerySchema,
-  t_GetClimateOrdersOrderRequestBodySchema,
   t_GetClimateOrdersQuerySchema,
-  t_GetClimateOrdersRequestBodySchema,
   t_GetClimateProductsProductParamSchema,
   t_GetClimateProductsProductQuerySchema,
-  t_GetClimateProductsProductRequestBodySchema,
   t_GetClimateProductsQuerySchema,
-  t_GetClimateProductsRequestBodySchema,
   t_GetClimateSuppliersQuerySchema,
-  t_GetClimateSuppliersRequestBodySchema,
   t_GetClimateSuppliersSupplierParamSchema,
   t_GetClimateSuppliersSupplierQuerySchema,
-  t_GetClimateSuppliersSupplierRequestBodySchema,
   t_GetConfirmationTokensConfirmationTokenParamSchema,
   t_GetConfirmationTokensConfirmationTokenQuerySchema,
-  t_GetConfirmationTokensConfirmationTokenRequestBodySchema,
   t_GetCountrySpecsCountryParamSchema,
   t_GetCountrySpecsCountryQuerySchema,
-  t_GetCountrySpecsCountryRequestBodySchema,
   t_GetCountrySpecsQuerySchema,
-  t_GetCountrySpecsRequestBodySchema,
   t_GetCouponsCouponParamSchema,
   t_GetCouponsCouponQuerySchema,
-  t_GetCouponsCouponRequestBodySchema,
   t_GetCouponsQuerySchema,
-  t_GetCouponsRequestBodySchema,
   t_GetCreditNotesCreditNoteLinesParamSchema,
   t_GetCreditNotesCreditNoteLinesQuerySchema,
-  t_GetCreditNotesCreditNoteLinesRequestBodySchema,
   t_GetCreditNotesIdParamSchema,
   t_GetCreditNotesIdQuerySchema,
-  t_GetCreditNotesIdRequestBodySchema,
   t_GetCreditNotesPreviewLinesQuerySchema,
-  t_GetCreditNotesPreviewLinesRequestBodySchema,
   t_GetCreditNotesPreviewQuerySchema,
-  t_GetCreditNotesPreviewRequestBodySchema,
   t_GetCreditNotesQuerySchema,
-  t_GetCreditNotesRequestBodySchema,
   t_GetCustomersCustomerBalanceTransactionsParamSchema,
   t_GetCustomersCustomerBalanceTransactionsQuerySchema,
-  t_GetCustomersCustomerBalanceTransactionsRequestBodySchema,
   t_GetCustomersCustomerBalanceTransactionsTransactionParamSchema,
   t_GetCustomersCustomerBalanceTransactionsTransactionQuerySchema,
-  t_GetCustomersCustomerBalanceTransactionsTransactionRequestBodySchema,
   t_GetCustomersCustomerBankAccountsIdParamSchema,
   t_GetCustomersCustomerBankAccountsIdQuerySchema,
-  t_GetCustomersCustomerBankAccountsIdRequestBodySchema,
   t_GetCustomersCustomerBankAccountsParamSchema,
   t_GetCustomersCustomerBankAccountsQuerySchema,
-  t_GetCustomersCustomerBankAccountsRequestBodySchema,
   t_GetCustomersCustomerCardsIdParamSchema,
   t_GetCustomersCustomerCardsIdQuerySchema,
-  t_GetCustomersCustomerCardsIdRequestBodySchema,
   t_GetCustomersCustomerCardsParamSchema,
   t_GetCustomersCustomerCardsQuerySchema,
-  t_GetCustomersCustomerCardsRequestBodySchema,
   t_GetCustomersCustomerCashBalanceParamSchema,
   t_GetCustomersCustomerCashBalanceQuerySchema,
-  t_GetCustomersCustomerCashBalanceRequestBodySchema,
   t_GetCustomersCustomerCashBalanceTransactionsParamSchema,
   t_GetCustomersCustomerCashBalanceTransactionsQuerySchema,
-  t_GetCustomersCustomerCashBalanceTransactionsRequestBodySchema,
   t_GetCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
   t_GetCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
-  t_GetCustomersCustomerCashBalanceTransactionsTransactionRequestBodySchema,
   t_GetCustomersCustomerDiscountParamSchema,
   t_GetCustomersCustomerDiscountQuerySchema,
-  t_GetCustomersCustomerDiscountRequestBodySchema,
   t_GetCustomersCustomerParamSchema,
   t_GetCustomersCustomerPaymentMethodsParamSchema,
   t_GetCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
   t_GetCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
-  t_GetCustomersCustomerPaymentMethodsPaymentMethodRequestBodySchema,
   t_GetCustomersCustomerPaymentMethodsQuerySchema,
-  t_GetCustomersCustomerPaymentMethodsRequestBodySchema,
   t_GetCustomersCustomerQuerySchema,
-  t_GetCustomersCustomerRequestBodySchema,
   t_GetCustomersCustomerSourcesIdParamSchema,
   t_GetCustomersCustomerSourcesIdQuerySchema,
-  t_GetCustomersCustomerSourcesIdRequestBodySchema,
   t_GetCustomersCustomerSourcesParamSchema,
   t_GetCustomersCustomerSourcesQuerySchema,
-  t_GetCustomersCustomerSourcesRequestBodySchema,
   t_GetCustomersCustomerSubscriptionsParamSchema,
   t_GetCustomersCustomerSubscriptionsQuerySchema,
-  t_GetCustomersCustomerSubscriptionsRequestBodySchema,
   t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
   t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
-  t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema,
   t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
   t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
-  t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema,
   t_GetCustomersCustomerTaxIdsIdParamSchema,
   t_GetCustomersCustomerTaxIdsIdQuerySchema,
-  t_GetCustomersCustomerTaxIdsIdRequestBodySchema,
   t_GetCustomersCustomerTaxIdsParamSchema,
   t_GetCustomersCustomerTaxIdsQuerySchema,
-  t_GetCustomersCustomerTaxIdsRequestBodySchema,
   t_GetCustomersQuerySchema,
-  t_GetCustomersRequestBodySchema,
   t_GetCustomersSearchQuerySchema,
-  t_GetCustomersSearchRequestBodySchema,
   t_GetDisputesDisputeParamSchema,
   t_GetDisputesDisputeQuerySchema,
-  t_GetDisputesDisputeRequestBodySchema,
   t_GetDisputesQuerySchema,
-  t_GetDisputesRequestBodySchema,
   t_GetEntitlementsActiveEntitlementsIdParamSchema,
   t_GetEntitlementsActiveEntitlementsIdQuerySchema,
-  t_GetEntitlementsActiveEntitlementsIdRequestBodySchema,
   t_GetEntitlementsActiveEntitlementsQuerySchema,
-  t_GetEntitlementsActiveEntitlementsRequestBodySchema,
   t_GetEntitlementsFeaturesIdParamSchema,
   t_GetEntitlementsFeaturesIdQuerySchema,
-  t_GetEntitlementsFeaturesIdRequestBodySchema,
   t_GetEntitlementsFeaturesQuerySchema,
-  t_GetEntitlementsFeaturesRequestBodySchema,
   t_GetEventsIdParamSchema,
   t_GetEventsIdQuerySchema,
-  t_GetEventsIdRequestBodySchema,
   t_GetEventsQuerySchema,
-  t_GetEventsRequestBodySchema,
   t_GetExchangeRatesQuerySchema,
   t_GetExchangeRatesRateIdParamSchema,
   t_GetExchangeRatesRateIdQuerySchema,
-  t_GetExchangeRatesRateIdRequestBodySchema,
-  t_GetExchangeRatesRequestBodySchema,
   t_GetFileLinksLinkParamSchema,
   t_GetFileLinksLinkQuerySchema,
-  t_GetFileLinksLinkRequestBodySchema,
   t_GetFileLinksQuerySchema,
-  t_GetFileLinksRequestBodySchema,
   t_GetFilesFileParamSchema,
   t_GetFilesFileQuerySchema,
-  t_GetFilesFileRequestBodySchema,
   t_GetFilesQuerySchema,
-  t_GetFilesRequestBodySchema,
   t_GetFinancialConnectionsAccountsAccountOwnersParamSchema,
   t_GetFinancialConnectionsAccountsAccountOwnersQuerySchema,
-  t_GetFinancialConnectionsAccountsAccountOwnersRequestBodySchema,
   t_GetFinancialConnectionsAccountsAccountParamSchema,
   t_GetFinancialConnectionsAccountsAccountQuerySchema,
-  t_GetFinancialConnectionsAccountsAccountRequestBodySchema,
   t_GetFinancialConnectionsAccountsQuerySchema,
-  t_GetFinancialConnectionsAccountsRequestBodySchema,
   t_GetFinancialConnectionsSessionsSessionParamSchema,
   t_GetFinancialConnectionsSessionsSessionQuerySchema,
-  t_GetFinancialConnectionsSessionsSessionRequestBodySchema,
   t_GetFinancialConnectionsTransactionsQuerySchema,
-  t_GetFinancialConnectionsTransactionsRequestBodySchema,
   t_GetFinancialConnectionsTransactionsTransactionParamSchema,
   t_GetFinancialConnectionsTransactionsTransactionQuerySchema,
-  t_GetFinancialConnectionsTransactionsTransactionRequestBodySchema,
   t_GetForwardingRequestsIdParamSchema,
   t_GetForwardingRequestsIdQuerySchema,
-  t_GetForwardingRequestsIdRequestBodySchema,
   t_GetForwardingRequestsQuerySchema,
-  t_GetForwardingRequestsRequestBodySchema,
   t_GetIdentityVerificationReportsQuerySchema,
   t_GetIdentityVerificationReportsReportParamSchema,
   t_GetIdentityVerificationReportsReportQuerySchema,
-  t_GetIdentityVerificationReportsReportRequestBodySchema,
-  t_GetIdentityVerificationReportsRequestBodySchema,
   t_GetIdentityVerificationSessionsQuerySchema,
-  t_GetIdentityVerificationSessionsRequestBodySchema,
   t_GetIdentityVerificationSessionsSessionParamSchema,
   t_GetIdentityVerificationSessionsSessionQuerySchema,
-  t_GetIdentityVerificationSessionsSessionRequestBodySchema,
   t_GetInvoicePaymentsInvoicePaymentParamSchema,
   t_GetInvoicePaymentsInvoicePaymentQuerySchema,
-  t_GetInvoicePaymentsInvoicePaymentRequestBodySchema,
   t_GetInvoicePaymentsQuerySchema,
-  t_GetInvoicePaymentsRequestBodySchema,
   t_GetInvoiceRenderingTemplatesQuerySchema,
-  t_GetInvoiceRenderingTemplatesRequestBodySchema,
   t_GetInvoiceRenderingTemplatesTemplateParamSchema,
   t_GetInvoiceRenderingTemplatesTemplateQuerySchema,
-  t_GetInvoiceRenderingTemplatesTemplateRequestBodySchema,
   t_GetInvoiceitemsInvoiceitemParamSchema,
   t_GetInvoiceitemsInvoiceitemQuerySchema,
-  t_GetInvoiceitemsInvoiceitemRequestBodySchema,
   t_GetInvoiceitemsQuerySchema,
-  t_GetInvoiceitemsRequestBodySchema,
   t_GetInvoicesInvoiceLinesParamSchema,
   t_GetInvoicesInvoiceLinesQuerySchema,
-  t_GetInvoicesInvoiceLinesRequestBodySchema,
   t_GetInvoicesInvoiceParamSchema,
   t_GetInvoicesInvoiceQuerySchema,
-  t_GetInvoicesInvoiceRequestBodySchema,
   t_GetInvoicesQuerySchema,
-  t_GetInvoicesRequestBodySchema,
   t_GetInvoicesSearchQuerySchema,
-  t_GetInvoicesSearchRequestBodySchema,
   t_GetIssuingAuthorizationsAuthorizationParamSchema,
   t_GetIssuingAuthorizationsAuthorizationQuerySchema,
-  t_GetIssuingAuthorizationsAuthorizationRequestBodySchema,
   t_GetIssuingAuthorizationsQuerySchema,
-  t_GetIssuingAuthorizationsRequestBodySchema,
   t_GetIssuingCardholdersCardholderParamSchema,
   t_GetIssuingCardholdersCardholderQuerySchema,
-  t_GetIssuingCardholdersCardholderRequestBodySchema,
   t_GetIssuingCardholdersQuerySchema,
-  t_GetIssuingCardholdersRequestBodySchema,
   t_GetIssuingCardsCardParamSchema,
   t_GetIssuingCardsCardQuerySchema,
-  t_GetIssuingCardsCardRequestBodySchema,
   t_GetIssuingCardsQuerySchema,
-  t_GetIssuingCardsRequestBodySchema,
   t_GetIssuingDisputesDisputeParamSchema,
   t_GetIssuingDisputesDisputeQuerySchema,
-  t_GetIssuingDisputesDisputeRequestBodySchema,
   t_GetIssuingDisputesQuerySchema,
-  t_GetIssuingDisputesRequestBodySchema,
   t_GetIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
   t_GetIssuingPersonalizationDesignsPersonalizationDesignQuerySchema,
-  t_GetIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema,
   t_GetIssuingPersonalizationDesignsQuerySchema,
-  t_GetIssuingPersonalizationDesignsRequestBodySchema,
   t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema,
   t_GetIssuingPhysicalBundlesPhysicalBundleQuerySchema,
-  t_GetIssuingPhysicalBundlesPhysicalBundleRequestBodySchema,
   t_GetIssuingPhysicalBundlesQuerySchema,
-  t_GetIssuingPhysicalBundlesRequestBodySchema,
   t_GetIssuingSettlementsSettlementParamSchema,
   t_GetIssuingSettlementsSettlementQuerySchema,
-  t_GetIssuingSettlementsSettlementRequestBodySchema,
   t_GetIssuingTokensQuerySchema,
-  t_GetIssuingTokensRequestBodySchema,
   t_GetIssuingTokensTokenParamSchema,
   t_GetIssuingTokensTokenQuerySchema,
-  t_GetIssuingTokensTokenRequestBodySchema,
   t_GetIssuingTransactionsQuerySchema,
-  t_GetIssuingTransactionsRequestBodySchema,
   t_GetIssuingTransactionsTransactionParamSchema,
   t_GetIssuingTransactionsTransactionQuerySchema,
-  t_GetIssuingTransactionsTransactionRequestBodySchema,
   t_GetLinkAccountSessionsSessionParamSchema,
   t_GetLinkAccountSessionsSessionQuerySchema,
-  t_GetLinkAccountSessionsSessionRequestBodySchema,
   t_GetLinkedAccountsAccountOwnersParamSchema,
   t_GetLinkedAccountsAccountOwnersQuerySchema,
-  t_GetLinkedAccountsAccountOwnersRequestBodySchema,
   t_GetLinkedAccountsAccountParamSchema,
   t_GetLinkedAccountsAccountQuerySchema,
-  t_GetLinkedAccountsAccountRequestBodySchema,
   t_GetLinkedAccountsQuerySchema,
-  t_GetLinkedAccountsRequestBodySchema,
   t_GetMandatesMandateParamSchema,
   t_GetMandatesMandateQuerySchema,
-  t_GetMandatesMandateRequestBodySchema,
   t_GetPaymentIntentsIntentParamSchema,
   t_GetPaymentIntentsIntentQuerySchema,
-  t_GetPaymentIntentsIntentRequestBodySchema,
   t_GetPaymentIntentsQuerySchema,
-  t_GetPaymentIntentsRequestBodySchema,
   t_GetPaymentIntentsSearchQuerySchema,
-  t_GetPaymentIntentsSearchRequestBodySchema,
   t_GetPaymentLinksPaymentLinkLineItemsParamSchema,
   t_GetPaymentLinksPaymentLinkLineItemsQuerySchema,
-  t_GetPaymentLinksPaymentLinkLineItemsRequestBodySchema,
   t_GetPaymentLinksPaymentLinkParamSchema,
   t_GetPaymentLinksPaymentLinkQuerySchema,
-  t_GetPaymentLinksPaymentLinkRequestBodySchema,
   t_GetPaymentLinksQuerySchema,
-  t_GetPaymentLinksRequestBodySchema,
   t_GetPaymentMethodConfigurationsConfigurationParamSchema,
   t_GetPaymentMethodConfigurationsConfigurationQuerySchema,
-  t_GetPaymentMethodConfigurationsConfigurationRequestBodySchema,
   t_GetPaymentMethodConfigurationsQuerySchema,
-  t_GetPaymentMethodConfigurationsRequestBodySchema,
   t_GetPaymentMethodDomainsPaymentMethodDomainParamSchema,
   t_GetPaymentMethodDomainsPaymentMethodDomainQuerySchema,
-  t_GetPaymentMethodDomainsPaymentMethodDomainRequestBodySchema,
   t_GetPaymentMethodDomainsQuerySchema,
-  t_GetPaymentMethodDomainsRequestBodySchema,
   t_GetPaymentMethodsPaymentMethodParamSchema,
   t_GetPaymentMethodsPaymentMethodQuerySchema,
-  t_GetPaymentMethodsPaymentMethodRequestBodySchema,
   t_GetPaymentMethodsQuerySchema,
-  t_GetPaymentMethodsRequestBodySchema,
   t_GetPayoutsPayoutParamSchema,
   t_GetPayoutsPayoutQuerySchema,
-  t_GetPayoutsPayoutRequestBodySchema,
   t_GetPayoutsQuerySchema,
-  t_GetPayoutsRequestBodySchema,
   t_GetPlansPlanParamSchema,
   t_GetPlansPlanQuerySchema,
-  t_GetPlansPlanRequestBodySchema,
   t_GetPlansQuerySchema,
-  t_GetPlansRequestBodySchema,
   t_GetPricesPriceParamSchema,
   t_GetPricesPriceQuerySchema,
-  t_GetPricesPriceRequestBodySchema,
   t_GetPricesQuerySchema,
-  t_GetPricesRequestBodySchema,
   t_GetPricesSearchQuerySchema,
-  t_GetPricesSearchRequestBodySchema,
   t_GetProductsIdParamSchema,
   t_GetProductsIdQuerySchema,
-  t_GetProductsIdRequestBodySchema,
   t_GetProductsProductFeaturesIdParamSchema,
   t_GetProductsProductFeaturesIdQuerySchema,
-  t_GetProductsProductFeaturesIdRequestBodySchema,
   t_GetProductsProductFeaturesParamSchema,
   t_GetProductsProductFeaturesQuerySchema,
-  t_GetProductsProductFeaturesRequestBodySchema,
   t_GetProductsQuerySchema,
-  t_GetProductsRequestBodySchema,
   t_GetProductsSearchQuerySchema,
-  t_GetProductsSearchRequestBodySchema,
   t_GetPromotionCodesPromotionCodeParamSchema,
   t_GetPromotionCodesPromotionCodeQuerySchema,
-  t_GetPromotionCodesPromotionCodeRequestBodySchema,
   t_GetPromotionCodesQuerySchema,
-  t_GetPromotionCodesRequestBodySchema,
   t_GetQuotesQuerySchema,
   t_GetQuotesQuoteComputedUpfrontLineItemsParamSchema,
   t_GetQuotesQuoteComputedUpfrontLineItemsQuerySchema,
-  t_GetQuotesQuoteComputedUpfrontLineItemsRequestBodySchema,
   t_GetQuotesQuoteLineItemsParamSchema,
   t_GetQuotesQuoteLineItemsQuerySchema,
-  t_GetQuotesQuoteLineItemsRequestBodySchema,
   t_GetQuotesQuoteParamSchema,
   t_GetQuotesQuotePdfParamSchema,
   t_GetQuotesQuotePdfQuerySchema,
-  t_GetQuotesQuotePdfRequestBodySchema,
   t_GetQuotesQuoteQuerySchema,
-  t_GetQuotesQuoteRequestBodySchema,
-  t_GetQuotesRequestBodySchema,
   t_GetRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
   t_GetRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
-  t_GetRadarEarlyFraudWarningsEarlyFraudWarningRequestBodySchema,
   t_GetRadarEarlyFraudWarningsQuerySchema,
-  t_GetRadarEarlyFraudWarningsRequestBodySchema,
   t_GetRadarValueListItemsItemParamSchema,
   t_GetRadarValueListItemsItemQuerySchema,
-  t_GetRadarValueListItemsItemRequestBodySchema,
   t_GetRadarValueListItemsQuerySchema,
-  t_GetRadarValueListItemsRequestBodySchema,
   t_GetRadarValueListsQuerySchema,
-  t_GetRadarValueListsRequestBodySchema,
   t_GetRadarValueListsValueListParamSchema,
   t_GetRadarValueListsValueListQuerySchema,
-  t_GetRadarValueListsValueListRequestBodySchema,
   t_GetRefundsQuerySchema,
   t_GetRefundsRefundParamSchema,
   t_GetRefundsRefundQuerySchema,
-  t_GetRefundsRefundRequestBodySchema,
-  t_GetRefundsRequestBodySchema,
   t_GetReportingReportRunsQuerySchema,
   t_GetReportingReportRunsReportRunParamSchema,
   t_GetReportingReportRunsReportRunQuerySchema,
-  t_GetReportingReportRunsReportRunRequestBodySchema,
-  t_GetReportingReportRunsRequestBodySchema,
   t_GetReportingReportTypesQuerySchema,
   t_GetReportingReportTypesReportTypeParamSchema,
   t_GetReportingReportTypesReportTypeQuerySchema,
-  t_GetReportingReportTypesReportTypeRequestBodySchema,
-  t_GetReportingReportTypesRequestBodySchema,
   t_GetReviewsQuerySchema,
-  t_GetReviewsRequestBodySchema,
   t_GetReviewsReviewParamSchema,
   t_GetReviewsReviewQuerySchema,
-  t_GetReviewsReviewRequestBodySchema,
   t_GetSetupAttemptsQuerySchema,
-  t_GetSetupAttemptsRequestBodySchema,
   t_GetSetupIntentsIntentParamSchema,
   t_GetSetupIntentsIntentQuerySchema,
-  t_GetSetupIntentsIntentRequestBodySchema,
   t_GetSetupIntentsQuerySchema,
-  t_GetSetupIntentsRequestBodySchema,
   t_GetShippingRatesQuerySchema,
-  t_GetShippingRatesRequestBodySchema,
   t_GetShippingRatesShippingRateTokenParamSchema,
   t_GetShippingRatesShippingRateTokenQuerySchema,
-  t_GetShippingRatesShippingRateTokenRequestBodySchema,
   t_GetSigmaScheduledQueryRunsQuerySchema,
-  t_GetSigmaScheduledQueryRunsRequestBodySchema,
   t_GetSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
   t_GetSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
-  t_GetSigmaScheduledQueryRunsScheduledQueryRunRequestBodySchema,
   t_GetSourcesSourceMandateNotificationsMandateNotificationParamSchema,
   t_GetSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
-  t_GetSourcesSourceMandateNotificationsMandateNotificationRequestBodySchema,
   t_GetSourcesSourceParamSchema,
   t_GetSourcesSourceQuerySchema,
-  t_GetSourcesSourceRequestBodySchema,
   t_GetSourcesSourceSourceTransactionsParamSchema,
   t_GetSourcesSourceSourceTransactionsQuerySchema,
-  t_GetSourcesSourceSourceTransactionsRequestBodySchema,
   t_GetSourcesSourceSourceTransactionsSourceTransactionParamSchema,
   t_GetSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
-  t_GetSourcesSourceSourceTransactionsSourceTransactionRequestBodySchema,
   t_GetSubscriptionItemsItemParamSchema,
   t_GetSubscriptionItemsItemQuerySchema,
-  t_GetSubscriptionItemsItemRequestBodySchema,
   t_GetSubscriptionItemsQuerySchema,
-  t_GetSubscriptionItemsRequestBodySchema,
   t_GetSubscriptionSchedulesQuerySchema,
-  t_GetSubscriptionSchedulesRequestBodySchema,
   t_GetSubscriptionSchedulesScheduleParamSchema,
   t_GetSubscriptionSchedulesScheduleQuerySchema,
-  t_GetSubscriptionSchedulesScheduleRequestBodySchema,
   t_GetSubscriptionsQuerySchema,
-  t_GetSubscriptionsRequestBodySchema,
   t_GetSubscriptionsSearchQuerySchema,
-  t_GetSubscriptionsSearchRequestBodySchema,
   t_GetSubscriptionsSubscriptionExposedIdParamSchema,
   t_GetSubscriptionsSubscriptionExposedIdQuerySchema,
-  t_GetSubscriptionsSubscriptionExposedIdRequestBodySchema,
   t_GetTaxCalculationsCalculationLineItemsParamSchema,
   t_GetTaxCalculationsCalculationLineItemsQuerySchema,
-  t_GetTaxCalculationsCalculationLineItemsRequestBodySchema,
   t_GetTaxCalculationsCalculationParamSchema,
   t_GetTaxCalculationsCalculationQuerySchema,
-  t_GetTaxCalculationsCalculationRequestBodySchema,
   t_GetTaxCodesIdParamSchema,
   t_GetTaxCodesIdQuerySchema,
-  t_GetTaxCodesIdRequestBodySchema,
   t_GetTaxCodesQuerySchema,
-  t_GetTaxCodesRequestBodySchema,
   t_GetTaxIdsIdParamSchema,
   t_GetTaxIdsIdQuerySchema,
-  t_GetTaxIdsIdRequestBodySchema,
   t_GetTaxIdsQuerySchema,
-  t_GetTaxIdsRequestBodySchema,
   t_GetTaxRatesQuerySchema,
-  t_GetTaxRatesRequestBodySchema,
   t_GetTaxRatesTaxRateParamSchema,
   t_GetTaxRatesTaxRateQuerySchema,
-  t_GetTaxRatesTaxRateRequestBodySchema,
   t_GetTaxRegistrationsIdParamSchema,
   t_GetTaxRegistrationsIdQuerySchema,
-  t_GetTaxRegistrationsIdRequestBodySchema,
   t_GetTaxRegistrationsQuerySchema,
-  t_GetTaxRegistrationsRequestBodySchema,
   t_GetTaxSettingsQuerySchema,
-  t_GetTaxSettingsRequestBodySchema,
   t_GetTaxTransactionsTransactionLineItemsParamSchema,
   t_GetTaxTransactionsTransactionLineItemsQuerySchema,
-  t_GetTaxTransactionsTransactionLineItemsRequestBodySchema,
   t_GetTaxTransactionsTransactionParamSchema,
   t_GetTaxTransactionsTransactionQuerySchema,
-  t_GetTaxTransactionsTransactionRequestBodySchema,
   t_GetTerminalConfigurationsConfigurationParamSchema,
   t_GetTerminalConfigurationsConfigurationQuerySchema,
-  t_GetTerminalConfigurationsConfigurationRequestBodySchema,
   t_GetTerminalConfigurationsQuerySchema,
-  t_GetTerminalConfigurationsRequestBodySchema,
   t_GetTerminalLocationsLocationParamSchema,
   t_GetTerminalLocationsLocationQuerySchema,
-  t_GetTerminalLocationsLocationRequestBodySchema,
   t_GetTerminalLocationsQuerySchema,
-  t_GetTerminalLocationsRequestBodySchema,
   t_GetTerminalReadersQuerySchema,
   t_GetTerminalReadersReaderParamSchema,
   t_GetTerminalReadersReaderQuerySchema,
-  t_GetTerminalReadersReaderRequestBodySchema,
-  t_GetTerminalReadersRequestBodySchema,
   t_GetTestHelpersTestClocksQuerySchema,
-  t_GetTestHelpersTestClocksRequestBodySchema,
   t_GetTestHelpersTestClocksTestClockParamSchema,
   t_GetTestHelpersTestClocksTestClockQuerySchema,
-  t_GetTestHelpersTestClocksTestClockRequestBodySchema,
   t_GetTokensTokenParamSchema,
   t_GetTokensTokenQuerySchema,
-  t_GetTokensTokenRequestBodySchema,
   t_GetTopupsQuerySchema,
-  t_GetTopupsRequestBodySchema,
   t_GetTopupsTopupParamSchema,
   t_GetTopupsTopupQuerySchema,
-  t_GetTopupsTopupRequestBodySchema,
   t_GetTransfersIdReversalsParamSchema,
   t_GetTransfersIdReversalsQuerySchema,
-  t_GetTransfersIdReversalsRequestBodySchema,
   t_GetTransfersQuerySchema,
-  t_GetTransfersRequestBodySchema,
   t_GetTransfersTransferParamSchema,
   t_GetTransfersTransferQuerySchema,
-  t_GetTransfersTransferRequestBodySchema,
   t_GetTransfersTransferReversalsIdParamSchema,
   t_GetTransfersTransferReversalsIdQuerySchema,
-  t_GetTransfersTransferReversalsIdRequestBodySchema,
   t_GetTreasuryCreditReversalsCreditReversalParamSchema,
   t_GetTreasuryCreditReversalsCreditReversalQuerySchema,
-  t_GetTreasuryCreditReversalsCreditReversalRequestBodySchema,
   t_GetTreasuryCreditReversalsQuerySchema,
-  t_GetTreasuryCreditReversalsRequestBodySchema,
   t_GetTreasuryDebitReversalsDebitReversalParamSchema,
   t_GetTreasuryDebitReversalsDebitReversalQuerySchema,
-  t_GetTreasuryDebitReversalsDebitReversalRequestBodySchema,
   t_GetTreasuryDebitReversalsQuerySchema,
-  t_GetTreasuryDebitReversalsRequestBodySchema,
   t_GetTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
   t_GetTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
-  t_GetTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema,
   t_GetTreasuryFinancialAccountsFinancialAccountParamSchema,
   t_GetTreasuryFinancialAccountsFinancialAccountQuerySchema,
-  t_GetTreasuryFinancialAccountsFinancialAccountRequestBodySchema,
   t_GetTreasuryFinancialAccountsQuerySchema,
-  t_GetTreasuryFinancialAccountsRequestBodySchema,
   t_GetTreasuryInboundTransfersIdParamSchema,
   t_GetTreasuryInboundTransfersIdQuerySchema,
-  t_GetTreasuryInboundTransfersIdRequestBodySchema,
   t_GetTreasuryInboundTransfersQuerySchema,
-  t_GetTreasuryInboundTransfersRequestBodySchema,
   t_GetTreasuryOutboundPaymentsIdParamSchema,
   t_GetTreasuryOutboundPaymentsIdQuerySchema,
-  t_GetTreasuryOutboundPaymentsIdRequestBodySchema,
   t_GetTreasuryOutboundPaymentsQuerySchema,
-  t_GetTreasuryOutboundPaymentsRequestBodySchema,
   t_GetTreasuryOutboundTransfersOutboundTransferParamSchema,
   t_GetTreasuryOutboundTransfersOutboundTransferQuerySchema,
-  t_GetTreasuryOutboundTransfersOutboundTransferRequestBodySchema,
   t_GetTreasuryOutboundTransfersQuerySchema,
-  t_GetTreasuryOutboundTransfersRequestBodySchema,
   t_GetTreasuryReceivedCreditsIdParamSchema,
   t_GetTreasuryReceivedCreditsIdQuerySchema,
-  t_GetTreasuryReceivedCreditsIdRequestBodySchema,
   t_GetTreasuryReceivedCreditsQuerySchema,
-  t_GetTreasuryReceivedCreditsRequestBodySchema,
   t_GetTreasuryReceivedDebitsIdParamSchema,
   t_GetTreasuryReceivedDebitsIdQuerySchema,
-  t_GetTreasuryReceivedDebitsIdRequestBodySchema,
   t_GetTreasuryReceivedDebitsQuerySchema,
-  t_GetTreasuryReceivedDebitsRequestBodySchema,
   t_GetTreasuryTransactionEntriesIdParamSchema,
   t_GetTreasuryTransactionEntriesIdQuerySchema,
-  t_GetTreasuryTransactionEntriesIdRequestBodySchema,
   t_GetTreasuryTransactionEntriesQuerySchema,
-  t_GetTreasuryTransactionEntriesRequestBodySchema,
   t_GetTreasuryTransactionsIdParamSchema,
   t_GetTreasuryTransactionsIdQuerySchema,
-  t_GetTreasuryTransactionsIdRequestBodySchema,
   t_GetTreasuryTransactionsQuerySchema,
-  t_GetTreasuryTransactionsRequestBodySchema,
   t_GetWebhookEndpointsQuerySchema,
-  t_GetWebhookEndpointsRequestBodySchema,
   t_GetWebhookEndpointsWebhookEndpointParamSchema,
   t_GetWebhookEndpointsWebhookEndpointQuerySchema,
-  t_GetWebhookEndpointsWebhookEndpointRequestBodySchema,
   t_PostAccountLinksRequestBodySchema,
   t_PostAccountSessionsRequestBodySchema,
   t_PostAccountsAccountBankAccountsIdParamSchema,
@@ -1553,12 +1272,7 @@ export type GetAccountResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAccount = (
-  params: Params<
-    void,
-    t_GetAccountQuerySchema,
-    t_GetAccountRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetAccountQuerySchema, void, void>,
   respond: GetAccountResponder,
   req: Request,
   res: Response,
@@ -1602,12 +1316,7 @@ export type GetAccountsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAccounts = (
-  params: Params<
-    void,
-    t_GetAccountsQuerySchema,
-    t_GetAccountsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetAccountsQuerySchema, void, void>,
   respond: GetAccountsResponder,
   req: Request,
   res: Response,
@@ -1633,12 +1342,7 @@ export type DeleteAccountsAccountResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteAccountsAccount = (
-  params: Params<
-    t_DeleteAccountsAccountParamSchema,
-    void,
-    t_DeleteAccountsAccountRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteAccountsAccountParamSchema, void, void, void>,
   respond: DeleteAccountsAccountResponder,
   req: Request,
   res: Response,
@@ -1654,7 +1358,7 @@ export type GetAccountsAccount = (
   params: Params<
     t_GetAccountsAccountParamSchema,
     t_GetAccountsAccountQuerySchema,
-    t_GetAccountsAccountRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountResponder,
@@ -1708,7 +1412,7 @@ export type DeleteAccountsAccountBankAccountsId = (
   params: Params<
     t_DeleteAccountsAccountBankAccountsIdParamSchema,
     void,
-    t_DeleteAccountsAccountBankAccountsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountBankAccountsIdResponder,
@@ -1726,7 +1430,7 @@ export type GetAccountsAccountBankAccountsId = (
   params: Params<
     t_GetAccountsAccountBankAccountsIdParamSchema,
     t_GetAccountsAccountBankAccountsIdQuerySchema,
-    t_GetAccountsAccountBankAccountsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountBankAccountsIdResponder,
@@ -1767,7 +1471,7 @@ export type GetAccountsAccountCapabilities = (
   params: Params<
     t_GetAccountsAccountCapabilitiesParamSchema,
     t_GetAccountsAccountCapabilitiesQuerySchema,
-    t_GetAccountsAccountCapabilitiesRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountCapabilitiesResponder,
@@ -1785,7 +1489,7 @@ export type GetAccountsAccountCapabilitiesCapability = (
   params: Params<
     t_GetAccountsAccountCapabilitiesCapabilityParamSchema,
     t_GetAccountsAccountCapabilitiesCapabilityQuerySchema,
-    t_GetAccountsAccountCapabilitiesCapabilityRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountCapabilitiesCapabilityResponder,
@@ -1826,7 +1530,7 @@ export type GetAccountsAccountExternalAccounts = (
   params: Params<
     t_GetAccountsAccountExternalAccountsParamSchema,
     t_GetAccountsAccountExternalAccountsQuerySchema,
-    t_GetAccountsAccountExternalAccountsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountExternalAccountsResponder,
@@ -1862,7 +1566,7 @@ export type DeleteAccountsAccountExternalAccountsId = (
   params: Params<
     t_DeleteAccountsAccountExternalAccountsIdParamSchema,
     void,
-    t_DeleteAccountsAccountExternalAccountsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountExternalAccountsIdResponder,
@@ -1880,7 +1584,7 @@ export type GetAccountsAccountExternalAccountsId = (
   params: Params<
     t_GetAccountsAccountExternalAccountsIdParamSchema,
     t_GetAccountsAccountExternalAccountsIdQuerySchema,
-    t_GetAccountsAccountExternalAccountsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountExternalAccountsIdResponder,
@@ -1939,7 +1643,7 @@ export type GetAccountsAccountPeople = (
   params: Params<
     t_GetAccountsAccountPeopleParamSchema,
     t_GetAccountsAccountPeopleQuerySchema,
-    t_GetAccountsAccountPeopleRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPeopleResponder,
@@ -1975,7 +1679,7 @@ export type DeleteAccountsAccountPeoplePerson = (
   params: Params<
     t_DeleteAccountsAccountPeoplePersonParamSchema,
     void,
-    t_DeleteAccountsAccountPeoplePersonRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountPeoplePersonResponder,
@@ -1993,7 +1697,7 @@ export type GetAccountsAccountPeoplePerson = (
   params: Params<
     t_GetAccountsAccountPeoplePersonParamSchema,
     t_GetAccountsAccountPeoplePersonQuerySchema,
-    t_GetAccountsAccountPeoplePersonRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPeoplePersonResponder,
@@ -2034,7 +1738,7 @@ export type GetAccountsAccountPersons = (
   params: Params<
     t_GetAccountsAccountPersonsParamSchema,
     t_GetAccountsAccountPersonsQuerySchema,
-    t_GetAccountsAccountPersonsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPersonsResponder,
@@ -2070,7 +1774,7 @@ export type DeleteAccountsAccountPersonsPerson = (
   params: Params<
     t_DeleteAccountsAccountPersonsPersonParamSchema,
     void,
-    t_DeleteAccountsAccountPersonsPersonRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteAccountsAccountPersonsPersonResponder,
@@ -2088,7 +1792,7 @@ export type GetAccountsAccountPersonsPerson = (
   params: Params<
     t_GetAccountsAccountPersonsPersonParamSchema,
     t_GetAccountsAccountPersonsPersonQuerySchema,
-    t_GetAccountsAccountPersonsPersonRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetAccountsAccountPersonsPersonResponder,
@@ -2144,12 +1848,7 @@ export type GetApplePayDomainsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetApplePayDomains = (
-  params: Params<
-    void,
-    t_GetApplePayDomainsQuerySchema,
-    t_GetApplePayDomainsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetApplePayDomainsQuerySchema, void, void>,
   respond: GetApplePayDomainsResponder,
   req: Request,
   res: Response,
@@ -2175,12 +1874,7 @@ export type DeleteApplePayDomainsDomainResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteApplePayDomainsDomain = (
-  params: Params<
-    t_DeleteApplePayDomainsDomainParamSchema,
-    void,
-    t_DeleteApplePayDomainsDomainRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteApplePayDomainsDomainParamSchema, void, void, void>,
   respond: DeleteApplePayDomainsDomainResponder,
   req: Request,
   res: Response,
@@ -2196,7 +1890,7 @@ export type GetApplePayDomainsDomain = (
   params: Params<
     t_GetApplePayDomainsDomainParamSchema,
     t_GetApplePayDomainsDomainQuerySchema,
-    t_GetApplePayDomainsDomainRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetApplePayDomainsDomainResponder,
@@ -2216,12 +1910,7 @@ export type GetApplicationFeesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetApplicationFees = (
-  params: Params<
-    void,
-    t_GetApplicationFeesQuerySchema,
-    t_GetApplicationFeesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetApplicationFeesQuerySchema, void, void>,
   respond: GetApplicationFeesResponder,
   req: Request,
   res: Response,
@@ -2237,7 +1926,7 @@ export type GetApplicationFeesFeeRefundsId = (
   params: Params<
     t_GetApplicationFeesFeeRefundsIdParamSchema,
     t_GetApplicationFeesFeeRefundsIdQuerySchema,
-    t_GetApplicationFeesFeeRefundsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetApplicationFeesFeeRefundsIdResponder,
@@ -2273,7 +1962,7 @@ export type GetApplicationFeesId = (
   params: Params<
     t_GetApplicationFeesIdParamSchema,
     t_GetApplicationFeesIdQuerySchema,
-    t_GetApplicationFeesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetApplicationFeesIdResponder,
@@ -2314,7 +2003,7 @@ export type GetApplicationFeesIdRefunds = (
   params: Params<
     t_GetApplicationFeesIdRefundsParamSchema,
     t_GetApplicationFeesIdRefundsQuerySchema,
-    t_GetApplicationFeesIdRefundsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetApplicationFeesIdRefundsResponder,
@@ -2352,12 +2041,7 @@ export type GetAppsSecretsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAppsSecrets = (
-  params: Params<
-    void,
-    t_GetAppsSecretsQuerySchema,
-    t_GetAppsSecretsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetAppsSecretsQuerySchema, void, void>,
   respond: GetAppsSecretsResponder,
   req: Request,
   res: Response,
@@ -2396,12 +2080,7 @@ export type GetAppsSecretsFindResponder = {
 } & ExpressRuntimeResponder
 
 export type GetAppsSecretsFind = (
-  params: Params<
-    void,
-    t_GetAppsSecretsFindQuerySchema,
-    t_GetAppsSecretsFindRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetAppsSecretsFindQuerySchema, void, void>,
   respond: GetAppsSecretsFindResponder,
   req: Request,
   res: Response,
@@ -2414,12 +2093,7 @@ export type GetBalanceResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBalance = (
-  params: Params<
-    void,
-    t_GetBalanceQuerySchema,
-    t_GetBalanceRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBalanceQuerySchema, void, void>,
   respond: GetBalanceResponder,
   req: Request,
   res: Response,
@@ -2437,12 +2111,7 @@ export type GetBalanceHistoryResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBalanceHistory = (
-  params: Params<
-    void,
-    t_GetBalanceHistoryQuerySchema,
-    t_GetBalanceHistoryRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBalanceHistoryQuerySchema, void, void>,
   respond: GetBalanceHistoryResponder,
   req: Request,
   res: Response,
@@ -2458,7 +2127,7 @@ export type GetBalanceHistoryId = (
   params: Params<
     t_GetBalanceHistoryIdParamSchema,
     t_GetBalanceHistoryIdQuerySchema,
-    t_GetBalanceHistoryIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBalanceHistoryIdResponder,
@@ -2478,12 +2147,7 @@ export type GetBalanceTransactionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBalanceTransactions = (
-  params: Params<
-    void,
-    t_GetBalanceTransactionsQuerySchema,
-    t_GetBalanceTransactionsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBalanceTransactionsQuerySchema, void, void>,
   respond: GetBalanceTransactionsResponder,
   req: Request,
   res: Response,
@@ -2499,7 +2163,7 @@ export type GetBalanceTransactionsId = (
   params: Params<
     t_GetBalanceTransactionsIdParamSchema,
     t_GetBalanceTransactionsIdQuerySchema,
-    t_GetBalanceTransactionsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBalanceTransactionsIdResponder,
@@ -2519,12 +2183,7 @@ export type GetBillingAlertsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingAlerts = (
-  params: Params<
-    void,
-    t_GetBillingAlertsQuerySchema,
-    t_GetBillingAlertsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingAlertsQuerySchema, void, void>,
   respond: GetBillingAlertsResponder,
   req: Request,
   res: Response,
@@ -2553,7 +2212,7 @@ export type GetBillingAlertsId = (
   params: Params<
     t_GetBillingAlertsIdParamSchema,
     t_GetBillingAlertsIdQuerySchema,
-    t_GetBillingAlertsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingAlertsIdResponder,
@@ -2622,12 +2281,7 @@ export type GetBillingCreditBalanceSummaryResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingCreditBalanceSummary = (
-  params: Params<
-    void,
-    t_GetBillingCreditBalanceSummaryQuerySchema,
-    t_GetBillingCreditBalanceSummaryRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingCreditBalanceSummaryQuerySchema, void, void>,
   respond: GetBillingCreditBalanceSummaryResponder,
   req: Request,
   res: Response,
@@ -2648,7 +2302,7 @@ export type GetBillingCreditBalanceTransactions = (
   params: Params<
     void,
     t_GetBillingCreditBalanceTransactionsQuerySchema,
-    t_GetBillingCreditBalanceTransactionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingCreditBalanceTransactionsResponder,
@@ -2666,7 +2320,7 @@ export type GetBillingCreditBalanceTransactionsId = (
   params: Params<
     t_GetBillingCreditBalanceTransactionsIdParamSchema,
     t_GetBillingCreditBalanceTransactionsIdQuerySchema,
-    t_GetBillingCreditBalanceTransactionsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingCreditBalanceTransactionsIdResponder,
@@ -2686,12 +2340,7 @@ export type GetBillingCreditGrantsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingCreditGrants = (
-  params: Params<
-    void,
-    t_GetBillingCreditGrantsQuerySchema,
-    t_GetBillingCreditGrantsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingCreditGrantsQuerySchema, void, void>,
   respond: GetBillingCreditGrantsResponder,
   req: Request,
   res: Response,
@@ -2720,7 +2369,7 @@ export type GetBillingCreditGrantsId = (
   params: Params<
     t_GetBillingCreditGrantsIdParamSchema,
     t_GetBillingCreditGrantsIdQuerySchema,
-    t_GetBillingCreditGrantsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingCreditGrantsIdResponder,
@@ -2825,12 +2474,7 @@ export type GetBillingMetersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingMeters = (
-  params: Params<
-    void,
-    t_GetBillingMetersQuerySchema,
-    t_GetBillingMetersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingMetersQuerySchema, void, void>,
   respond: GetBillingMetersResponder,
   req: Request,
   res: Response,
@@ -2859,7 +2503,7 @@ export type GetBillingMetersId = (
   params: Params<
     t_GetBillingMetersIdParamSchema,
     t_GetBillingMetersIdQuerySchema,
-    t_GetBillingMetersIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingMetersIdResponder,
@@ -2918,7 +2562,7 @@ export type GetBillingMetersIdEventSummaries = (
   params: Params<
     t_GetBillingMetersIdEventSummariesParamSchema,
     t_GetBillingMetersIdEventSummariesQuerySchema,
-    t_GetBillingMetersIdEventSummariesRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingMetersIdEventSummariesResponder,
@@ -2956,12 +2600,7 @@ export type GetBillingPortalConfigurationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetBillingPortalConfigurations = (
-  params: Params<
-    void,
-    t_GetBillingPortalConfigurationsQuerySchema,
-    t_GetBillingPortalConfigurationsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetBillingPortalConfigurationsQuerySchema, void, void>,
   respond: GetBillingPortalConfigurationsResponder,
   req: Request,
   res: Response,
@@ -2995,7 +2634,7 @@ export type GetBillingPortalConfigurationsConfiguration = (
   params: Params<
     t_GetBillingPortalConfigurationsConfigurationParamSchema,
     t_GetBillingPortalConfigurationsConfigurationQuerySchema,
-    t_GetBillingPortalConfigurationsConfigurationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetBillingPortalConfigurationsConfigurationResponder,
@@ -3051,12 +2690,7 @@ export type GetChargesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCharges = (
-  params: Params<
-    void,
-    t_GetChargesQuerySchema,
-    t_GetChargesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetChargesQuerySchema, void, void>,
   respond: GetChargesResponder,
   req: Request,
   res: Response,
@@ -3089,12 +2723,7 @@ export type GetChargesSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetChargesSearch = (
-  params: Params<
-    void,
-    t_GetChargesSearchQuerySchema,
-    t_GetChargesSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetChargesSearchQuerySchema, void, void>,
   respond: GetChargesSearchResponder,
   req: Request,
   res: Response,
@@ -3110,7 +2739,7 @@ export type GetChargesCharge = (
   params: Params<
     t_GetChargesChargeParamSchema,
     t_GetChargesChargeQuerySchema,
-    t_GetChargesChargeRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeResponder,
@@ -3164,7 +2793,7 @@ export type GetChargesChargeDispute = (
   params: Params<
     t_GetChargesChargeDisputeParamSchema,
     t_GetChargesChargeDisputeQuerySchema,
-    t_GetChargesChargeDisputeRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeDisputeResponder,
@@ -3241,7 +2870,7 @@ export type GetChargesChargeRefunds = (
   params: Params<
     t_GetChargesChargeRefundsParamSchema,
     t_GetChargesChargeRefundsQuerySchema,
-    t_GetChargesChargeRefundsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeRefundsResponder,
@@ -3277,7 +2906,7 @@ export type GetChargesChargeRefundsRefund = (
   params: Params<
     t_GetChargesChargeRefundsRefundParamSchema,
     t_GetChargesChargeRefundsRefundQuerySchema,
-    t_GetChargesChargeRefundsRefundRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetChargesChargeRefundsRefundResponder,
@@ -3315,12 +2944,7 @@ export type GetCheckoutSessionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCheckoutSessions = (
-  params: Params<
-    void,
-    t_GetCheckoutSessionsQuerySchema,
-    t_GetCheckoutSessionsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCheckoutSessionsQuerySchema, void, void>,
   respond: GetCheckoutSessionsResponder,
   req: Request,
   res: Response,
@@ -3354,7 +2978,7 @@ export type GetCheckoutSessionsSession = (
   params: Params<
     t_GetCheckoutSessionsSessionParamSchema,
     t_GetCheckoutSessionsSessionQuerySchema,
-    t_GetCheckoutSessionsSessionRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCheckoutSessionsSessionResponder,
@@ -3413,7 +3037,7 @@ export type GetCheckoutSessionsSessionLineItems = (
   params: Params<
     t_GetCheckoutSessionsSessionLineItemsParamSchema,
     t_GetCheckoutSessionsSessionLineItemsQuerySchema,
-    t_GetCheckoutSessionsSessionLineItemsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCheckoutSessionsSessionLineItemsResponder,
@@ -3433,12 +3057,7 @@ export type GetClimateOrdersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetClimateOrders = (
-  params: Params<
-    void,
-    t_GetClimateOrdersQuerySchema,
-    t_GetClimateOrdersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetClimateOrdersQuerySchema, void, void>,
   respond: GetClimateOrdersResponder,
   req: Request,
   res: Response,
@@ -3467,7 +3086,7 @@ export type GetClimateOrdersOrder = (
   params: Params<
     t_GetClimateOrdersOrderParamSchema,
     t_GetClimateOrdersOrderQuerySchema,
-    t_GetClimateOrdersOrderRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetClimateOrdersOrderResponder,
@@ -3523,12 +3142,7 @@ export type GetClimateProductsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetClimateProducts = (
-  params: Params<
-    void,
-    t_GetClimateProductsQuerySchema,
-    t_GetClimateProductsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetClimateProductsQuerySchema, void, void>,
   respond: GetClimateProductsResponder,
   req: Request,
   res: Response,
@@ -3544,7 +3158,7 @@ export type GetClimateProductsProduct = (
   params: Params<
     t_GetClimateProductsProductParamSchema,
     t_GetClimateProductsProductQuerySchema,
-    t_GetClimateProductsProductRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetClimateProductsProductResponder,
@@ -3564,12 +3178,7 @@ export type GetClimateSuppliersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetClimateSuppliers = (
-  params: Params<
-    void,
-    t_GetClimateSuppliersQuerySchema,
-    t_GetClimateSuppliersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetClimateSuppliersQuerySchema, void, void>,
   respond: GetClimateSuppliersResponder,
   req: Request,
   res: Response,
@@ -3585,7 +3194,7 @@ export type GetClimateSuppliersSupplier = (
   params: Params<
     t_GetClimateSuppliersSupplierParamSchema,
     t_GetClimateSuppliersSupplierQuerySchema,
-    t_GetClimateSuppliersSupplierRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetClimateSuppliersSupplierResponder,
@@ -3603,7 +3212,7 @@ export type GetConfirmationTokensConfirmationToken = (
   params: Params<
     t_GetConfirmationTokensConfirmationTokenParamSchema,
     t_GetConfirmationTokensConfirmationTokenQuerySchema,
-    t_GetConfirmationTokensConfirmationTokenRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetConfirmationTokensConfirmationTokenResponder,
@@ -3623,12 +3232,7 @@ export type GetCountrySpecsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCountrySpecs = (
-  params: Params<
-    void,
-    t_GetCountrySpecsQuerySchema,
-    t_GetCountrySpecsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCountrySpecsQuerySchema, void, void>,
   respond: GetCountrySpecsResponder,
   req: Request,
   res: Response,
@@ -3644,7 +3248,7 @@ export type GetCountrySpecsCountry = (
   params: Params<
     t_GetCountrySpecsCountryParamSchema,
     t_GetCountrySpecsCountryQuerySchema,
-    t_GetCountrySpecsCountryRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCountrySpecsCountryResponder,
@@ -3664,12 +3268,7 @@ export type GetCouponsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCoupons = (
-  params: Params<
-    void,
-    t_GetCouponsQuerySchema,
-    t_GetCouponsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCouponsQuerySchema, void, void>,
   respond: GetCouponsResponder,
   req: Request,
   res: Response,
@@ -3695,12 +3294,7 @@ export type DeleteCouponsCouponResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteCouponsCoupon = (
-  params: Params<
-    t_DeleteCouponsCouponParamSchema,
-    void,
-    t_DeleteCouponsCouponRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteCouponsCouponParamSchema, void, void, void>,
   respond: DeleteCouponsCouponResponder,
   req: Request,
   res: Response,
@@ -3716,7 +3310,7 @@ export type GetCouponsCoupon = (
   params: Params<
     t_GetCouponsCouponParamSchema,
     t_GetCouponsCouponQuerySchema,
-    t_GetCouponsCouponRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCouponsCouponResponder,
@@ -3754,12 +3348,7 @@ export type GetCreditNotesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCreditNotes = (
-  params: Params<
-    void,
-    t_GetCreditNotesQuerySchema,
-    t_GetCreditNotesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCreditNotesQuerySchema, void, void>,
   respond: GetCreditNotesResponder,
   req: Request,
   res: Response,
@@ -3785,12 +3374,7 @@ export type GetCreditNotesPreviewResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCreditNotesPreview = (
-  params: Params<
-    void,
-    t_GetCreditNotesPreviewQuerySchema,
-    t_GetCreditNotesPreviewRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCreditNotesPreviewQuerySchema, void, void>,
   respond: GetCreditNotesPreviewResponder,
   req: Request,
   res: Response,
@@ -3808,12 +3392,7 @@ export type GetCreditNotesPreviewLinesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCreditNotesPreviewLines = (
-  params: Params<
-    void,
-    t_GetCreditNotesPreviewLinesQuerySchema,
-    t_GetCreditNotesPreviewLinesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCreditNotesPreviewLinesQuerySchema, void, void>,
   respond: GetCreditNotesPreviewLinesResponder,
   req: Request,
   res: Response,
@@ -3834,7 +3413,7 @@ export type GetCreditNotesCreditNoteLines = (
   params: Params<
     t_GetCreditNotesCreditNoteLinesParamSchema,
     t_GetCreditNotesCreditNoteLinesQuerySchema,
-    t_GetCreditNotesCreditNoteLinesRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCreditNotesCreditNoteLinesResponder,
@@ -3852,7 +3431,7 @@ export type GetCreditNotesId = (
   params: Params<
     t_GetCreditNotesIdParamSchema,
     t_GetCreditNotesIdQuerySchema,
-    t_GetCreditNotesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCreditNotesIdResponder,
@@ -3921,12 +3500,7 @@ export type GetCustomersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCustomers = (
-  params: Params<
-    void,
-    t_GetCustomersQuerySchema,
-    t_GetCustomersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCustomersQuerySchema, void, void>,
   respond: GetCustomersResponder,
   req: Request,
   res: Response,
@@ -3964,12 +3538,7 @@ export type GetCustomersSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetCustomersSearch = (
-  params: Params<
-    void,
-    t_GetCustomersSearchQuerySchema,
-    t_GetCustomersSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetCustomersSearchQuerySchema, void, void>,
   respond: GetCustomersSearchResponder,
   req: Request,
   res: Response,
@@ -3982,12 +3551,7 @@ export type DeleteCustomersCustomerResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteCustomersCustomer = (
-  params: Params<
-    t_DeleteCustomersCustomerParamSchema,
-    void,
-    t_DeleteCustomersCustomerRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteCustomersCustomerParamSchema, void, void, void>,
   respond: DeleteCustomersCustomerResponder,
   req: Request,
   res: Response,
@@ -4003,7 +3567,7 @@ export type GetCustomersCustomer = (
   params: Params<
     t_GetCustomersCustomerParamSchema,
     t_GetCustomersCustomerQuerySchema,
-    t_GetCustomersCustomerRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerResponder,
@@ -4044,7 +3608,7 @@ export type GetCustomersCustomerBalanceTransactions = (
   params: Params<
     t_GetCustomersCustomerBalanceTransactionsParamSchema,
     t_GetCustomersCustomerBalanceTransactionsQuerySchema,
-    t_GetCustomersCustomerBalanceTransactionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBalanceTransactionsResponder,
@@ -4080,8 +3644,7 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
     t_GetCustomersCustomerBalanceTransactionsTransactionParamSchema,
     t_GetCustomersCustomerBalanceTransactionsTransactionQuerySchema,
-    | t_GetCustomersCustomerBalanceTransactionsTransactionRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
@@ -4123,7 +3686,7 @@ export type GetCustomersCustomerBankAccounts = (
   params: Params<
     t_GetCustomersCustomerBankAccountsParamSchema,
     t_GetCustomersCustomerBankAccountsQuerySchema,
-    t_GetCustomersCustomerBankAccountsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBankAccountsResponder,
@@ -4177,7 +3740,7 @@ export type GetCustomersCustomerBankAccountsId = (
   params: Params<
     t_GetCustomersCustomerBankAccountsIdParamSchema,
     t_GetCustomersCustomerBankAccountsIdQuerySchema,
-    t_GetCustomersCustomerBankAccountsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerBankAccountsIdResponder,
@@ -4236,7 +3799,7 @@ export type GetCustomersCustomerCards = (
   params: Params<
     t_GetCustomersCustomerCardsParamSchema,
     t_GetCustomersCustomerCardsQuerySchema,
-    t_GetCustomersCustomerCardsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCardsResponder,
@@ -4290,7 +3853,7 @@ export type GetCustomersCustomerCardsId = (
   params: Params<
     t_GetCustomersCustomerCardsIdParamSchema,
     t_GetCustomersCustomerCardsIdQuerySchema,
-    t_GetCustomersCustomerCardsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCardsIdResponder,
@@ -4326,7 +3889,7 @@ export type GetCustomersCustomerCashBalance = (
   params: Params<
     t_GetCustomersCustomerCashBalanceParamSchema,
     t_GetCustomersCustomerCashBalanceQuerySchema,
-    t_GetCustomersCustomerCashBalanceRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCashBalanceResponder,
@@ -4367,7 +3930,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
   params: Params<
     t_GetCustomersCustomerCashBalanceTransactionsParamSchema,
     t_GetCustomersCustomerCashBalanceTransactionsQuerySchema,
-    t_GetCustomersCustomerCashBalanceTransactionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsResponder,
@@ -4385,8 +3948,7 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   params: Params<
     t_GetCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
     t_GetCustomersCustomerCashBalanceTransactionsTransactionQuerySchema,
-    | t_GetCustomersCustomerCashBalanceTransactionsTransactionRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
@@ -4404,7 +3966,7 @@ export type DeleteCustomersCustomerDiscount = (
   params: Params<
     t_DeleteCustomersCustomerDiscountParamSchema,
     void,
-    t_DeleteCustomersCustomerDiscountRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteCustomersCustomerDiscountResponder,
@@ -4422,7 +3984,7 @@ export type GetCustomersCustomerDiscount = (
   params: Params<
     t_GetCustomersCustomerDiscountParamSchema,
     t_GetCustomersCustomerDiscountQuerySchema,
-    t_GetCustomersCustomerDiscountRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerDiscountResponder,
@@ -4463,7 +4025,7 @@ export type GetCustomersCustomerPaymentMethods = (
   params: Params<
     t_GetCustomersCustomerPaymentMethodsParamSchema,
     t_GetCustomersCustomerPaymentMethodsQuerySchema,
-    t_GetCustomersCustomerPaymentMethodsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerPaymentMethodsResponder,
@@ -4481,8 +4043,7 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   params: Params<
     t_GetCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
     t_GetCustomersCustomerPaymentMethodsPaymentMethodQuerySchema,
-    | t_GetCustomersCustomerPaymentMethodsPaymentMethodRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
@@ -4505,7 +4066,7 @@ export type GetCustomersCustomerSources = (
   params: Params<
     t_GetCustomersCustomerSourcesParamSchema,
     t_GetCustomersCustomerSourcesQuerySchema,
-    t_GetCustomersCustomerSourcesRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSourcesResponder,
@@ -4559,7 +4120,7 @@ export type GetCustomersCustomerSourcesId = (
   params: Params<
     t_GetCustomersCustomerSourcesIdParamSchema,
     t_GetCustomersCustomerSourcesIdQuerySchema,
-    t_GetCustomersCustomerSourcesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSourcesIdResponder,
@@ -4618,7 +4179,7 @@ export type GetCustomersCustomerSubscriptions = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsParamSchema,
     t_GetCustomersCustomerSubscriptionsQuerySchema,
-    t_GetCustomersCustomerSubscriptionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSubscriptionsResponder,
@@ -4674,8 +4235,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema,
-    | t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
@@ -4714,8 +4274,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
     params: Params<
       t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
       void,
-      | t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema
-      | undefined,
+      void,
       void
     >,
     respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
@@ -4734,8 +4293,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema,
-    | t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
@@ -4758,7 +4316,7 @@ export type GetCustomersCustomerTaxIds = (
   params: Params<
     t_GetCustomersCustomerTaxIdsParamSchema,
     t_GetCustomersCustomerTaxIdsQuerySchema,
-    t_GetCustomersCustomerTaxIdsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerTaxIdsResponder,
@@ -4794,7 +4352,7 @@ export type DeleteCustomersCustomerTaxIdsId = (
   params: Params<
     t_DeleteCustomersCustomerTaxIdsIdParamSchema,
     void,
-    t_DeleteCustomersCustomerTaxIdsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteCustomersCustomerTaxIdsIdResponder,
@@ -4812,7 +4370,7 @@ export type GetCustomersCustomerTaxIdsId = (
   params: Params<
     t_GetCustomersCustomerTaxIdsIdParamSchema,
     t_GetCustomersCustomerTaxIdsIdQuerySchema,
-    t_GetCustomersCustomerTaxIdsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetCustomersCustomerTaxIdsIdResponder,
@@ -4832,12 +4390,7 @@ export type GetDisputesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetDisputes = (
-  params: Params<
-    void,
-    t_GetDisputesQuerySchema,
-    t_GetDisputesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetDisputesQuerySchema, void, void>,
   respond: GetDisputesResponder,
   req: Request,
   res: Response,
@@ -4853,7 +4406,7 @@ export type GetDisputesDispute = (
   params: Params<
     t_GetDisputesDisputeParamSchema,
     t_GetDisputesDisputeQuerySchema,
-    t_GetDisputesDisputeRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetDisputesDisputeResponder,
@@ -4912,7 +4465,7 @@ export type GetEntitlementsActiveEntitlements = (
   params: Params<
     void,
     t_GetEntitlementsActiveEntitlementsQuerySchema,
-    t_GetEntitlementsActiveEntitlementsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetEntitlementsActiveEntitlementsResponder,
@@ -4930,7 +4483,7 @@ export type GetEntitlementsActiveEntitlementsId = (
   params: Params<
     t_GetEntitlementsActiveEntitlementsIdParamSchema,
     t_GetEntitlementsActiveEntitlementsIdQuerySchema,
-    t_GetEntitlementsActiveEntitlementsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetEntitlementsActiveEntitlementsIdResponder,
@@ -4950,12 +4503,7 @@ export type GetEntitlementsFeaturesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetEntitlementsFeatures = (
-  params: Params<
-    void,
-    t_GetEntitlementsFeaturesQuerySchema,
-    t_GetEntitlementsFeaturesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetEntitlementsFeaturesQuerySchema, void, void>,
   respond: GetEntitlementsFeaturesResponder,
   req: Request,
   res: Response,
@@ -4984,7 +4532,7 @@ export type GetEntitlementsFeaturesId = (
   params: Params<
     t_GetEntitlementsFeaturesIdParamSchema,
     t_GetEntitlementsFeaturesIdQuerySchema,
-    t_GetEntitlementsFeaturesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetEntitlementsFeaturesIdResponder,
@@ -5058,12 +4606,7 @@ export type GetEventsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetEvents = (
-  params: Params<
-    void,
-    t_GetEventsQuerySchema,
-    t_GetEventsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetEventsQuerySchema, void, void>,
   respond: GetEventsResponder,
   req: Request,
   res: Response,
@@ -5079,7 +4622,7 @@ export type GetEventsId = (
   params: Params<
     t_GetEventsIdParamSchema,
     t_GetEventsIdQuerySchema,
-    t_GetEventsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetEventsIdResponder,
@@ -5099,12 +4642,7 @@ export type GetExchangeRatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetExchangeRates = (
-  params: Params<
-    void,
-    t_GetExchangeRatesQuerySchema,
-    t_GetExchangeRatesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetExchangeRatesQuerySchema, void, void>,
   respond: GetExchangeRatesResponder,
   req: Request,
   res: Response,
@@ -5120,7 +4658,7 @@ export type GetExchangeRatesRateId = (
   params: Params<
     t_GetExchangeRatesRateIdParamSchema,
     t_GetExchangeRatesRateIdQuerySchema,
-    t_GetExchangeRatesRateIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetExchangeRatesRateIdResponder,
@@ -5158,12 +4696,7 @@ export type GetFileLinksResponder = {
 } & ExpressRuntimeResponder
 
 export type GetFileLinks = (
-  params: Params<
-    void,
-    t_GetFileLinksQuerySchema,
-    t_GetFileLinksRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetFileLinksQuerySchema, void, void>,
   respond: GetFileLinksResponder,
   req: Request,
   res: Response,
@@ -5192,7 +4725,7 @@ export type GetFileLinksLink = (
   params: Params<
     t_GetFileLinksLinkParamSchema,
     t_GetFileLinksLinkQuerySchema,
-    t_GetFileLinksLinkRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFileLinksLinkResponder,
@@ -5230,12 +4763,7 @@ export type GetFilesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetFiles = (
-  params: Params<
-    void,
-    t_GetFilesQuerySchema,
-    t_GetFilesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetFilesQuerySchema, void, void>,
   respond: GetFilesResponder,
   req: Request,
   res: Response,
@@ -5264,7 +4792,7 @@ export type GetFilesFile = (
   params: Params<
     t_GetFilesFileParamSchema,
     t_GetFilesFileQuerySchema,
-    t_GetFilesFileRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFilesFileResponder,
@@ -5287,7 +4815,7 @@ export type GetFinancialConnectionsAccounts = (
   params: Params<
     void,
     t_GetFinancialConnectionsAccountsQuerySchema,
-    t_GetFinancialConnectionsAccountsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsAccountsResponder,
@@ -5305,7 +4833,7 @@ export type GetFinancialConnectionsAccountsAccount = (
   params: Params<
     t_GetFinancialConnectionsAccountsAccountParamSchema,
     t_GetFinancialConnectionsAccountsAccountQuerySchema,
-    t_GetFinancialConnectionsAccountsAccountRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsAccountsAccountResponder,
@@ -5347,7 +4875,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
   params: Params<
     t_GetFinancialConnectionsAccountsAccountOwnersParamSchema,
     t_GetFinancialConnectionsAccountsAccountOwnersQuerySchema,
-    t_GetFinancialConnectionsAccountsAccountOwnersRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
@@ -5437,7 +4965,7 @@ export type GetFinancialConnectionsSessionsSession = (
   params: Params<
     t_GetFinancialConnectionsSessionsSessionParamSchema,
     t_GetFinancialConnectionsSessionsSessionQuerySchema,
-    t_GetFinancialConnectionsSessionsSessionRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsSessionsSessionResponder,
@@ -5460,7 +4988,7 @@ export type GetFinancialConnectionsTransactions = (
   params: Params<
     void,
     t_GetFinancialConnectionsTransactionsQuerySchema,
-    t_GetFinancialConnectionsTransactionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsTransactionsResponder,
@@ -5478,8 +5006,7 @@ export type GetFinancialConnectionsTransactionsTransaction = (
   params: Params<
     t_GetFinancialConnectionsTransactionsTransactionParamSchema,
     t_GetFinancialConnectionsTransactionsTransactionQuerySchema,
-    | t_GetFinancialConnectionsTransactionsTransactionRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetFinancialConnectionsTransactionsTransactionResponder,
@@ -5499,12 +5026,7 @@ export type GetForwardingRequestsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetForwardingRequests = (
-  params: Params<
-    void,
-    t_GetForwardingRequestsQuerySchema,
-    t_GetForwardingRequestsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetForwardingRequestsQuerySchema, void, void>,
   respond: GetForwardingRequestsResponder,
   req: Request,
   res: Response,
@@ -5533,7 +5055,7 @@ export type GetForwardingRequestsId = (
   params: Params<
     t_GetForwardingRequestsIdParamSchema,
     t_GetForwardingRequestsIdQuerySchema,
-    t_GetForwardingRequestsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetForwardingRequestsIdResponder,
@@ -5553,12 +5075,7 @@ export type GetIdentityVerificationReportsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIdentityVerificationReports = (
-  params: Params<
-    void,
-    t_GetIdentityVerificationReportsQuerySchema,
-    t_GetIdentityVerificationReportsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIdentityVerificationReportsQuerySchema, void, void>,
   respond: GetIdentityVerificationReportsResponder,
   req: Request,
   res: Response,
@@ -5574,7 +5091,7 @@ export type GetIdentityVerificationReportsReport = (
   params: Params<
     t_GetIdentityVerificationReportsReportParamSchema,
     t_GetIdentityVerificationReportsReportQuerySchema,
-    t_GetIdentityVerificationReportsReportRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIdentityVerificationReportsReportResponder,
@@ -5597,7 +5114,7 @@ export type GetIdentityVerificationSessions = (
   params: Params<
     void,
     t_GetIdentityVerificationSessionsQuerySchema,
-    t_GetIdentityVerificationSessionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIdentityVerificationSessionsResponder,
@@ -5633,7 +5150,7 @@ export type GetIdentityVerificationSessionsSession = (
   params: Params<
     t_GetIdentityVerificationSessionsSessionParamSchema,
     t_GetIdentityVerificationSessionsSessionQuerySchema,
-    t_GetIdentityVerificationSessionsSessionRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIdentityVerificationSessionsSessionResponder,
@@ -5709,12 +5226,7 @@ export type GetInvoicePaymentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoicePayments = (
-  params: Params<
-    void,
-    t_GetInvoicePaymentsQuerySchema,
-    t_GetInvoicePaymentsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoicePaymentsQuerySchema, void, void>,
   respond: GetInvoicePaymentsResponder,
   req: Request,
   res: Response,
@@ -5730,7 +5242,7 @@ export type GetInvoicePaymentsInvoicePayment = (
   params: Params<
     t_GetInvoicePaymentsInvoicePaymentParamSchema,
     t_GetInvoicePaymentsInvoicePaymentQuerySchema,
-    t_GetInvoicePaymentsInvoicePaymentRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetInvoicePaymentsInvoicePaymentResponder,
@@ -5750,12 +5262,7 @@ export type GetInvoiceRenderingTemplatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoiceRenderingTemplates = (
-  params: Params<
-    void,
-    t_GetInvoiceRenderingTemplatesQuerySchema,
-    t_GetInvoiceRenderingTemplatesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoiceRenderingTemplatesQuerySchema, void, void>,
   respond: GetInvoiceRenderingTemplatesResponder,
   req: Request,
   res: Response,
@@ -5771,7 +5278,7 @@ export type GetInvoiceRenderingTemplatesTemplate = (
   params: Params<
     t_GetInvoiceRenderingTemplatesTemplateParamSchema,
     t_GetInvoiceRenderingTemplatesTemplateQuerySchema,
-    t_GetInvoiceRenderingTemplatesTemplateRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetInvoiceRenderingTemplatesTemplateResponder,
@@ -5828,12 +5335,7 @@ export type GetInvoiceitemsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoiceitems = (
-  params: Params<
-    void,
-    t_GetInvoiceitemsQuerySchema,
-    t_GetInvoiceitemsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoiceitemsQuerySchema, void, void>,
   respond: GetInvoiceitemsResponder,
   req: Request,
   res: Response,
@@ -5859,12 +5361,7 @@ export type DeleteInvoiceitemsInvoiceitemResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteInvoiceitemsInvoiceitem = (
-  params: Params<
-    t_DeleteInvoiceitemsInvoiceitemParamSchema,
-    void,
-    t_DeleteInvoiceitemsInvoiceitemRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteInvoiceitemsInvoiceitemParamSchema, void, void, void>,
   respond: DeleteInvoiceitemsInvoiceitemResponder,
   req: Request,
   res: Response,
@@ -5880,7 +5377,7 @@ export type GetInvoiceitemsInvoiceitem = (
   params: Params<
     t_GetInvoiceitemsInvoiceitemParamSchema,
     t_GetInvoiceitemsInvoiceitemQuerySchema,
-    t_GetInvoiceitemsInvoiceitemRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetInvoiceitemsInvoiceitemResponder,
@@ -5918,12 +5415,7 @@ export type GetInvoicesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoices = (
-  params: Params<
-    void,
-    t_GetInvoicesQuerySchema,
-    t_GetInvoicesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoicesQuerySchema, void, void>,
   respond: GetInvoicesResponder,
   req: Request,
   res: Response,
@@ -5974,12 +5466,7 @@ export type GetInvoicesSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetInvoicesSearch = (
-  params: Params<
-    void,
-    t_GetInvoicesSearchQuerySchema,
-    t_GetInvoicesSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetInvoicesSearchQuerySchema, void, void>,
   respond: GetInvoicesSearchResponder,
   req: Request,
   res: Response,
@@ -5992,12 +5479,7 @@ export type DeleteInvoicesInvoiceResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteInvoicesInvoice = (
-  params: Params<
-    t_DeleteInvoicesInvoiceParamSchema,
-    void,
-    t_DeleteInvoicesInvoiceRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteInvoicesInvoiceParamSchema, void, void, void>,
   respond: DeleteInvoicesInvoiceResponder,
   req: Request,
   res: Response,
@@ -6013,7 +5495,7 @@ export type GetInvoicesInvoice = (
   params: Params<
     t_GetInvoicesInvoiceParamSchema,
     t_GetInvoicesInvoiceQuerySchema,
-    t_GetInvoicesInvoiceRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetInvoicesInvoiceResponder,
@@ -6108,7 +5590,7 @@ export type GetInvoicesInvoiceLines = (
   params: Params<
     t_GetInvoicesInvoiceLinesParamSchema,
     t_GetInvoicesInvoiceLinesQuerySchema,
-    t_GetInvoicesInvoiceLinesRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetInvoicesInvoiceLinesResponder,
@@ -6254,12 +5736,7 @@ export type GetIssuingAuthorizationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingAuthorizations = (
-  params: Params<
-    void,
-    t_GetIssuingAuthorizationsQuerySchema,
-    t_GetIssuingAuthorizationsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingAuthorizationsQuerySchema, void, void>,
   respond: GetIssuingAuthorizationsResponder,
   req: Request,
   res: Response,
@@ -6275,7 +5752,7 @@ export type GetIssuingAuthorizationsAuthorization = (
   params: Params<
     t_GetIssuingAuthorizationsAuthorizationParamSchema,
     t_GetIssuingAuthorizationsAuthorizationQuerySchema,
-    t_GetIssuingAuthorizationsAuthorizationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingAuthorizationsAuthorizationResponder,
@@ -6351,12 +5828,7 @@ export type GetIssuingCardholdersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingCardholders = (
-  params: Params<
-    void,
-    t_GetIssuingCardholdersQuerySchema,
-    t_GetIssuingCardholdersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingCardholdersQuerySchema, void, void>,
   respond: GetIssuingCardholdersResponder,
   req: Request,
   res: Response,
@@ -6385,7 +5857,7 @@ export type GetIssuingCardholdersCardholder = (
   params: Params<
     t_GetIssuingCardholdersCardholderParamSchema,
     t_GetIssuingCardholdersCardholderQuerySchema,
-    t_GetIssuingCardholdersCardholderRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingCardholdersCardholderResponder,
@@ -6423,12 +5895,7 @@ export type GetIssuingCardsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingCards = (
-  params: Params<
-    void,
-    t_GetIssuingCardsQuerySchema,
-    t_GetIssuingCardsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingCardsQuerySchema, void, void>,
   respond: GetIssuingCardsResponder,
   req: Request,
   res: Response,
@@ -6457,7 +5924,7 @@ export type GetIssuingCardsCard = (
   params: Params<
     t_GetIssuingCardsCardParamSchema,
     t_GetIssuingCardsCardQuerySchema,
-    t_GetIssuingCardsCardRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingCardsCardResponder,
@@ -6495,12 +5962,7 @@ export type GetIssuingDisputesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingDisputes = (
-  params: Params<
-    void,
-    t_GetIssuingDisputesQuerySchema,
-    t_GetIssuingDisputesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingDisputesQuerySchema, void, void>,
   respond: GetIssuingDisputesResponder,
   req: Request,
   res: Response,
@@ -6534,7 +5996,7 @@ export type GetIssuingDisputesDispute = (
   params: Params<
     t_GetIssuingDisputesDisputeParamSchema,
     t_GetIssuingDisputesDisputeQuerySchema,
-    t_GetIssuingDisputesDisputeRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingDisputesDisputeResponder,
@@ -6593,7 +6055,7 @@ export type GetIssuingPersonalizationDesigns = (
   params: Params<
     void,
     t_GetIssuingPersonalizationDesignsQuerySchema,
-    t_GetIssuingPersonalizationDesignsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingPersonalizationDesignsResponder,
@@ -6629,8 +6091,7 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
     t_GetIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
     t_GetIssuingPersonalizationDesignsPersonalizationDesignQuerySchema,
-    | t_GetIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetIssuingPersonalizationDesignsPersonalizationDesignResponder,
@@ -6669,12 +6130,7 @@ export type GetIssuingPhysicalBundlesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingPhysicalBundles = (
-  params: Params<
-    void,
-    t_GetIssuingPhysicalBundlesQuerySchema,
-    t_GetIssuingPhysicalBundlesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingPhysicalBundlesQuerySchema, void, void>,
   respond: GetIssuingPhysicalBundlesResponder,
   req: Request,
   res: Response,
@@ -6690,7 +6146,7 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   params: Params<
     t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema,
     t_GetIssuingPhysicalBundlesPhysicalBundleQuerySchema,
-    t_GetIssuingPhysicalBundlesPhysicalBundleRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingPhysicalBundlesPhysicalBundleResponder,
@@ -6708,7 +6164,7 @@ export type GetIssuingSettlementsSettlement = (
   params: Params<
     t_GetIssuingSettlementsSettlementParamSchema,
     t_GetIssuingSettlementsSettlementQuerySchema,
-    t_GetIssuingSettlementsSettlementRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingSettlementsSettlementResponder,
@@ -6746,12 +6202,7 @@ export type GetIssuingTokensResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingTokens = (
-  params: Params<
-    void,
-    t_GetIssuingTokensQuerySchema,
-    t_GetIssuingTokensRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingTokensQuerySchema, void, void>,
   respond: GetIssuingTokensResponder,
   req: Request,
   res: Response,
@@ -6767,7 +6218,7 @@ export type GetIssuingTokensToken = (
   params: Params<
     t_GetIssuingTokensTokenParamSchema,
     t_GetIssuingTokensTokenQuerySchema,
-    t_GetIssuingTokensTokenRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingTokensTokenResponder,
@@ -6805,12 +6256,7 @@ export type GetIssuingTransactionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetIssuingTransactions = (
-  params: Params<
-    void,
-    t_GetIssuingTransactionsQuerySchema,
-    t_GetIssuingTransactionsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetIssuingTransactionsQuerySchema, void, void>,
   respond: GetIssuingTransactionsResponder,
   req: Request,
   res: Response,
@@ -6826,7 +6272,7 @@ export type GetIssuingTransactionsTransaction = (
   params: Params<
     t_GetIssuingTransactionsTransactionParamSchema,
     t_GetIssuingTransactionsTransactionQuerySchema,
-    t_GetIssuingTransactionsTransactionRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetIssuingTransactionsTransactionResponder,
@@ -6875,7 +6321,7 @@ export type GetLinkAccountSessionsSession = (
   params: Params<
     t_GetLinkAccountSessionsSessionParamSchema,
     t_GetLinkAccountSessionsSessionQuerySchema,
-    t_GetLinkAccountSessionsSessionRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetLinkAccountSessionsSessionResponder,
@@ -6895,12 +6341,7 @@ export type GetLinkedAccountsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetLinkedAccounts = (
-  params: Params<
-    void,
-    t_GetLinkedAccountsQuerySchema,
-    t_GetLinkedAccountsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetLinkedAccountsQuerySchema, void, void>,
   respond: GetLinkedAccountsResponder,
   req: Request,
   res: Response,
@@ -6916,7 +6357,7 @@ export type GetLinkedAccountsAccount = (
   params: Params<
     t_GetLinkedAccountsAccountParamSchema,
     t_GetLinkedAccountsAccountQuerySchema,
-    t_GetLinkedAccountsAccountRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetLinkedAccountsAccountResponder,
@@ -6957,7 +6398,7 @@ export type GetLinkedAccountsAccountOwners = (
   params: Params<
     t_GetLinkedAccountsAccountOwnersParamSchema,
     t_GetLinkedAccountsAccountOwnersQuerySchema,
-    t_GetLinkedAccountsAccountOwnersRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetLinkedAccountsAccountOwnersResponder,
@@ -6993,7 +6434,7 @@ export type GetMandatesMandate = (
   params: Params<
     t_GetMandatesMandateParamSchema,
     t_GetMandatesMandateQuerySchema,
-    t_GetMandatesMandateRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetMandatesMandateResponder,
@@ -7013,12 +6454,7 @@ export type GetPaymentIntentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentIntents = (
-  params: Params<
-    void,
-    t_GetPaymentIntentsQuerySchema,
-    t_GetPaymentIntentsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentIntentsQuerySchema, void, void>,
   respond: GetPaymentIntentsResponder,
   req: Request,
   res: Response,
@@ -7051,12 +6487,7 @@ export type GetPaymentIntentsSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentIntentsSearch = (
-  params: Params<
-    void,
-    t_GetPaymentIntentsSearchQuerySchema,
-    t_GetPaymentIntentsSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentIntentsSearchQuerySchema, void, void>,
   respond: GetPaymentIntentsSearchResponder,
   req: Request,
   res: Response,
@@ -7072,7 +6503,7 @@ export type GetPaymentIntentsIntent = (
   params: Params<
     t_GetPaymentIntentsIntentParamSchema,
     t_GetPaymentIntentsIntentQuerySchema,
-    t_GetPaymentIntentsIntentRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPaymentIntentsIntentResponder,
@@ -7218,12 +6649,7 @@ export type GetPaymentLinksResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentLinks = (
-  params: Params<
-    void,
-    t_GetPaymentLinksQuerySchema,
-    t_GetPaymentLinksRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentLinksQuerySchema, void, void>,
   respond: GetPaymentLinksResponder,
   req: Request,
   res: Response,
@@ -7252,7 +6678,7 @@ export type GetPaymentLinksPaymentLink = (
   params: Params<
     t_GetPaymentLinksPaymentLinkParamSchema,
     t_GetPaymentLinksPaymentLinkQuerySchema,
-    t_GetPaymentLinksPaymentLinkRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPaymentLinksPaymentLinkResponder,
@@ -7293,7 +6719,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
   params: Params<
     t_GetPaymentLinksPaymentLinkLineItemsParamSchema,
     t_GetPaymentLinksPaymentLinkLineItemsQuerySchema,
-    t_GetPaymentLinksPaymentLinkLineItemsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPaymentLinksPaymentLinkLineItemsResponder,
@@ -7313,12 +6739,7 @@ export type GetPaymentMethodConfigurationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentMethodConfigurations = (
-  params: Params<
-    void,
-    t_GetPaymentMethodConfigurationsQuerySchema,
-    t_GetPaymentMethodConfigurationsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentMethodConfigurationsQuerySchema, void, void>,
   respond: GetPaymentMethodConfigurationsResponder,
   req: Request,
   res: Response,
@@ -7352,7 +6773,7 @@ export type GetPaymentMethodConfigurationsConfiguration = (
   params: Params<
     t_GetPaymentMethodConfigurationsConfigurationParamSchema,
     t_GetPaymentMethodConfigurationsConfigurationQuerySchema,
-    t_GetPaymentMethodConfigurationsConfigurationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPaymentMethodConfigurationsConfigurationResponder,
@@ -7390,12 +6811,7 @@ export type GetPaymentMethodDomainsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentMethodDomains = (
-  params: Params<
-    void,
-    t_GetPaymentMethodDomainsQuerySchema,
-    t_GetPaymentMethodDomainsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentMethodDomainsQuerySchema, void, void>,
   respond: GetPaymentMethodDomainsResponder,
   req: Request,
   res: Response,
@@ -7424,7 +6840,7 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
     t_GetPaymentMethodDomainsPaymentMethodDomainParamSchema,
     t_GetPaymentMethodDomainsPaymentMethodDomainQuerySchema,
-    t_GetPaymentMethodDomainsPaymentMethodDomainRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
@@ -7481,12 +6897,7 @@ export type GetPaymentMethodsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPaymentMethods = (
-  params: Params<
-    void,
-    t_GetPaymentMethodsQuerySchema,
-    t_GetPaymentMethodsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPaymentMethodsQuerySchema, void, void>,
   respond: GetPaymentMethodsResponder,
   req: Request,
   res: Response,
@@ -7520,7 +6931,7 @@ export type GetPaymentMethodsPaymentMethod = (
   params: Params<
     t_GetPaymentMethodsPaymentMethodParamSchema,
     t_GetPaymentMethodsPaymentMethodQuerySchema,
-    t_GetPaymentMethodsPaymentMethodRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPaymentMethodsPaymentMethodResponder,
@@ -7594,12 +7005,7 @@ export type GetPayoutsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPayouts = (
-  params: Params<
-    void,
-    t_GetPayoutsQuerySchema,
-    t_GetPayoutsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPayoutsQuerySchema, void, void>,
   respond: GetPayoutsResponder,
   req: Request,
   res: Response,
@@ -7628,7 +7034,7 @@ export type GetPayoutsPayout = (
   params: Params<
     t_GetPayoutsPayoutParamSchema,
     t_GetPayoutsPayoutQuerySchema,
-    t_GetPayoutsPayoutRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPayoutsPayoutResponder,
@@ -7702,12 +7108,7 @@ export type GetPlansResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPlans = (
-  params: Params<
-    void,
-    t_GetPlansQuerySchema,
-    t_GetPlansRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPlansQuerySchema, void, void>,
   respond: GetPlansResponder,
   req: Request,
   res: Response,
@@ -7733,12 +7134,7 @@ export type DeletePlansPlanResponder = {
 } & ExpressRuntimeResponder
 
 export type DeletePlansPlan = (
-  params: Params<
-    t_DeletePlansPlanParamSchema,
-    void,
-    t_DeletePlansPlanRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeletePlansPlanParamSchema, void, void, void>,
   respond: DeletePlansPlanResponder,
   req: Request,
   res: Response,
@@ -7754,7 +7150,7 @@ export type GetPlansPlan = (
   params: Params<
     t_GetPlansPlanParamSchema,
     t_GetPlansPlanQuerySchema,
-    t_GetPlansPlanRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPlansPlanResponder,
@@ -7792,12 +7188,7 @@ export type GetPricesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPrices = (
-  params: Params<
-    void,
-    t_GetPricesQuerySchema,
-    t_GetPricesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPricesQuerySchema, void, void>,
   respond: GetPricesResponder,
   req: Request,
   res: Response,
@@ -7830,12 +7221,7 @@ export type GetPricesSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPricesSearch = (
-  params: Params<
-    void,
-    t_GetPricesSearchQuerySchema,
-    t_GetPricesSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPricesSearchQuerySchema, void, void>,
   respond: GetPricesSearchResponder,
   req: Request,
   res: Response,
@@ -7851,7 +7237,7 @@ export type GetPricesPrice = (
   params: Params<
     t_GetPricesPriceParamSchema,
     t_GetPricesPriceQuerySchema,
-    t_GetPricesPriceRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPricesPriceResponder,
@@ -7889,12 +7275,7 @@ export type GetProductsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetProducts = (
-  params: Params<
-    void,
-    t_GetProductsQuerySchema,
-    t_GetProductsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetProductsQuerySchema, void, void>,
   respond: GetProductsResponder,
   req: Request,
   res: Response,
@@ -7927,12 +7308,7 @@ export type GetProductsSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetProductsSearch = (
-  params: Params<
-    void,
-    t_GetProductsSearchQuerySchema,
-    t_GetProductsSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetProductsSearchQuerySchema, void, void>,
   respond: GetProductsSearchResponder,
   req: Request,
   res: Response,
@@ -7945,12 +7321,7 @@ export type DeleteProductsIdResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteProductsId = (
-  params: Params<
-    t_DeleteProductsIdParamSchema,
-    void,
-    t_DeleteProductsIdRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteProductsIdParamSchema, void, void, void>,
   respond: DeleteProductsIdResponder,
   req: Request,
   res: Response,
@@ -7966,7 +7337,7 @@ export type GetProductsId = (
   params: Params<
     t_GetProductsIdParamSchema,
     t_GetProductsIdQuerySchema,
-    t_GetProductsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetProductsIdResponder,
@@ -8007,7 +7378,7 @@ export type GetProductsProductFeatures = (
   params: Params<
     t_GetProductsProductFeaturesParamSchema,
     t_GetProductsProductFeaturesQuerySchema,
-    t_GetProductsProductFeaturesRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetProductsProductFeaturesResponder,
@@ -8043,7 +7414,7 @@ export type DeleteProductsProductFeaturesId = (
   params: Params<
     t_DeleteProductsProductFeaturesIdParamSchema,
     void,
-    t_DeleteProductsProductFeaturesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteProductsProductFeaturesIdResponder,
@@ -8061,7 +7432,7 @@ export type GetProductsProductFeaturesId = (
   params: Params<
     t_GetProductsProductFeaturesIdParamSchema,
     t_GetProductsProductFeaturesIdQuerySchema,
-    t_GetProductsProductFeaturesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetProductsProductFeaturesIdResponder,
@@ -8081,12 +7452,7 @@ export type GetPromotionCodesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetPromotionCodes = (
-  params: Params<
-    void,
-    t_GetPromotionCodesQuerySchema,
-    t_GetPromotionCodesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetPromotionCodesQuerySchema, void, void>,
   respond: GetPromotionCodesResponder,
   req: Request,
   res: Response,
@@ -8115,7 +7481,7 @@ export type GetPromotionCodesPromotionCode = (
   params: Params<
     t_GetPromotionCodesPromotionCodeParamSchema,
     t_GetPromotionCodesPromotionCodeQuerySchema,
-    t_GetPromotionCodesPromotionCodeRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetPromotionCodesPromotionCodeResponder,
@@ -8153,12 +7519,7 @@ export type GetQuotesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetQuotes = (
-  params: Params<
-    void,
-    t_GetQuotesQuerySchema,
-    t_GetQuotesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetQuotesQuerySchema, void, void>,
   respond: GetQuotesResponder,
   req: Request,
   res: Response,
@@ -8187,7 +7548,7 @@ export type GetQuotesQuote = (
   params: Params<
     t_GetQuotesQuoteParamSchema,
     t_GetQuotesQuoteQuerySchema,
-    t_GetQuotesQuoteRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuoteResponder,
@@ -8264,7 +7625,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
   params: Params<
     t_GetQuotesQuoteComputedUpfrontLineItemsParamSchema,
     t_GetQuotesQuoteComputedUpfrontLineItemsQuerySchema,
-    t_GetQuotesQuoteComputedUpfrontLineItemsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
@@ -8305,7 +7666,7 @@ export type GetQuotesQuoteLineItems = (
   params: Params<
     t_GetQuotesQuoteLineItemsParamSchema,
     t_GetQuotesQuoteLineItemsQuerySchema,
-    t_GetQuotesQuoteLineItemsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuoteLineItemsResponder,
@@ -8323,7 +7684,7 @@ export type GetQuotesQuotePdf = (
   params: Params<
     t_GetQuotesQuotePdfParamSchema,
     t_GetQuotesQuotePdfQuerySchema,
-    t_GetQuotesQuotePdfRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetQuotesQuotePdfResponder,
@@ -8343,12 +7704,7 @@ export type GetRadarEarlyFraudWarningsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRadarEarlyFraudWarnings = (
-  params: Params<
-    void,
-    t_GetRadarEarlyFraudWarningsQuerySchema,
-    t_GetRadarEarlyFraudWarningsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetRadarEarlyFraudWarningsQuerySchema, void, void>,
   respond: GetRadarEarlyFraudWarningsResponder,
   req: Request,
   res: Response,
@@ -8364,7 +7720,7 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   params: Params<
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema,
-    t_GetRadarEarlyFraudWarningsEarlyFraudWarningRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
@@ -8384,12 +7740,7 @@ export type GetRadarValueListItemsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRadarValueListItems = (
-  params: Params<
-    void,
-    t_GetRadarValueListItemsQuerySchema,
-    t_GetRadarValueListItemsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetRadarValueListItemsQuerySchema, void, void>,
   respond: GetRadarValueListItemsResponder,
   req: Request,
   res: Response,
@@ -8415,12 +7766,7 @@ export type DeleteRadarValueListItemsItemResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteRadarValueListItemsItem = (
-  params: Params<
-    t_DeleteRadarValueListItemsItemParamSchema,
-    void,
-    t_DeleteRadarValueListItemsItemRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteRadarValueListItemsItemParamSchema, void, void, void>,
   respond: DeleteRadarValueListItemsItemResponder,
   req: Request,
   res: Response,
@@ -8436,7 +7782,7 @@ export type GetRadarValueListItemsItem = (
   params: Params<
     t_GetRadarValueListItemsItemParamSchema,
     t_GetRadarValueListItemsItemQuerySchema,
-    t_GetRadarValueListItemsItemRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetRadarValueListItemsItemResponder,
@@ -8456,12 +7802,7 @@ export type GetRadarValueListsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRadarValueLists = (
-  params: Params<
-    void,
-    t_GetRadarValueListsQuerySchema,
-    t_GetRadarValueListsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetRadarValueListsQuerySchema, void, void>,
   respond: GetRadarValueListsResponder,
   req: Request,
   res: Response,
@@ -8487,12 +7828,7 @@ export type DeleteRadarValueListsValueListResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteRadarValueListsValueList = (
-  params: Params<
-    t_DeleteRadarValueListsValueListParamSchema,
-    void,
-    t_DeleteRadarValueListsValueListRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteRadarValueListsValueListParamSchema, void, void, void>,
   respond: DeleteRadarValueListsValueListResponder,
   req: Request,
   res: Response,
@@ -8508,7 +7844,7 @@ export type GetRadarValueListsValueList = (
   params: Params<
     t_GetRadarValueListsValueListParamSchema,
     t_GetRadarValueListsValueListQuerySchema,
-    t_GetRadarValueListsValueListRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetRadarValueListsValueListResponder,
@@ -8546,12 +7882,7 @@ export type GetRefundsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetRefunds = (
-  params: Params<
-    void,
-    t_GetRefundsQuerySchema,
-    t_GetRefundsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetRefundsQuerySchema, void, void>,
   respond: GetRefundsResponder,
   req: Request,
   res: Response,
@@ -8580,7 +7911,7 @@ export type GetRefundsRefund = (
   params: Params<
     t_GetRefundsRefundParamSchema,
     t_GetRefundsRefundQuerySchema,
-    t_GetRefundsRefundRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetRefundsRefundResponder,
@@ -8636,12 +7967,7 @@ export type GetReportingReportRunsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetReportingReportRuns = (
-  params: Params<
-    void,
-    t_GetReportingReportRunsQuerySchema,
-    t_GetReportingReportRunsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetReportingReportRunsQuerySchema, void, void>,
   respond: GetReportingReportRunsResponder,
   req: Request,
   res: Response,
@@ -8670,7 +7996,7 @@ export type GetReportingReportRunsReportRun = (
   params: Params<
     t_GetReportingReportRunsReportRunParamSchema,
     t_GetReportingReportRunsReportRunQuerySchema,
-    t_GetReportingReportRunsReportRunRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetReportingReportRunsReportRunResponder,
@@ -8690,12 +8016,7 @@ export type GetReportingReportTypesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetReportingReportTypes = (
-  params: Params<
-    void,
-    t_GetReportingReportTypesQuerySchema,
-    t_GetReportingReportTypesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetReportingReportTypesQuerySchema, void, void>,
   respond: GetReportingReportTypesResponder,
   req: Request,
   res: Response,
@@ -8711,7 +8032,7 @@ export type GetReportingReportTypesReportType = (
   params: Params<
     t_GetReportingReportTypesReportTypeParamSchema,
     t_GetReportingReportTypesReportTypeQuerySchema,
-    t_GetReportingReportTypesReportTypeRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetReportingReportTypesReportTypeResponder,
@@ -8731,12 +8052,7 @@ export type GetReviewsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetReviews = (
-  params: Params<
-    void,
-    t_GetReviewsQuerySchema,
-    t_GetReviewsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetReviewsQuerySchema, void, void>,
   respond: GetReviewsResponder,
   req: Request,
   res: Response,
@@ -8752,7 +8068,7 @@ export type GetReviewsReview = (
   params: Params<
     t_GetReviewsReviewParamSchema,
     t_GetReviewsReviewQuerySchema,
-    t_GetReviewsReviewRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetReviewsReviewResponder,
@@ -8790,12 +8106,7 @@ export type GetSetupAttemptsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSetupAttempts = (
-  params: Params<
-    void,
-    t_GetSetupAttemptsQuerySchema,
-    t_GetSetupAttemptsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSetupAttemptsQuerySchema, void, void>,
   respond: GetSetupAttemptsResponder,
   req: Request,
   res: Response,
@@ -8813,12 +8124,7 @@ export type GetSetupIntentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSetupIntents = (
-  params: Params<
-    void,
-    t_GetSetupIntentsQuerySchema,
-    t_GetSetupIntentsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSetupIntentsQuerySchema, void, void>,
   respond: GetSetupIntentsResponder,
   req: Request,
   res: Response,
@@ -8852,7 +8158,7 @@ export type GetSetupIntentsIntent = (
   params: Params<
     t_GetSetupIntentsIntentParamSchema,
     t_GetSetupIntentsIntentQuerySchema,
-    t_GetSetupIntentsIntentRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSetupIntentsIntentResponder,
@@ -8944,12 +8250,7 @@ export type GetShippingRatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetShippingRates = (
-  params: Params<
-    void,
-    t_GetShippingRatesQuerySchema,
-    t_GetShippingRatesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetShippingRatesQuerySchema, void, void>,
   respond: GetShippingRatesResponder,
   req: Request,
   res: Response,
@@ -8978,7 +8279,7 @@ export type GetShippingRatesShippingRateToken = (
   params: Params<
     t_GetShippingRatesShippingRateTokenParamSchema,
     t_GetShippingRatesShippingRateTokenQuerySchema,
-    t_GetShippingRatesShippingRateTokenRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetShippingRatesShippingRateTokenResponder,
@@ -9034,12 +8335,7 @@ export type GetSigmaScheduledQueryRunsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSigmaScheduledQueryRuns = (
-  params: Params<
-    void,
-    t_GetSigmaScheduledQueryRunsQuerySchema,
-    t_GetSigmaScheduledQueryRunsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSigmaScheduledQueryRunsQuerySchema, void, void>,
   respond: GetSigmaScheduledQueryRunsResponder,
   req: Request,
   res: Response,
@@ -9055,7 +8351,7 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   params: Params<
     t_GetSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
     t_GetSigmaScheduledQueryRunsScheduledQueryRunQuerySchema,
-    t_GetSigmaScheduledQueryRunsScheduledQueryRunRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
@@ -9086,7 +8382,7 @@ export type GetSourcesSource = (
   params: Params<
     t_GetSourcesSourceParamSchema,
     t_GetSourcesSourceQuerySchema,
-    t_GetSourcesSourceRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceResponder,
@@ -9122,8 +8418,7 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
   params: Params<
     t_GetSourcesSourceMandateNotificationsMandateNotificationParamSchema,
     t_GetSourcesSourceMandateNotificationsMandateNotificationQuerySchema,
-    | t_GetSourcesSourceMandateNotificationsMandateNotificationRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
@@ -9146,7 +8441,7 @@ export type GetSourcesSourceSourceTransactions = (
   params: Params<
     t_GetSourcesSourceSourceTransactionsParamSchema,
     t_GetSourcesSourceSourceTransactionsQuerySchema,
-    t_GetSourcesSourceSourceTransactionsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceSourceTransactionsResponder,
@@ -9164,8 +8459,7 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   params: Params<
     t_GetSourcesSourceSourceTransactionsSourceTransactionParamSchema,
     t_GetSourcesSourceSourceTransactionsSourceTransactionQuerySchema,
-    | t_GetSourcesSourceSourceTransactionsSourceTransactionRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
@@ -9203,12 +8497,7 @@ export type GetSubscriptionItemsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptionItems = (
-  params: Params<
-    void,
-    t_GetSubscriptionItemsQuerySchema,
-    t_GetSubscriptionItemsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionItemsQuerySchema, void, void>,
   respond: GetSubscriptionItemsResponder,
   req: Request,
   res: Response,
@@ -9255,7 +8544,7 @@ export type GetSubscriptionItemsItem = (
   params: Params<
     t_GetSubscriptionItemsItemParamSchema,
     t_GetSubscriptionItemsItemQuerySchema,
-    t_GetSubscriptionItemsItemRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSubscriptionItemsItemResponder,
@@ -9293,12 +8582,7 @@ export type GetSubscriptionSchedulesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptionSchedules = (
-  params: Params<
-    void,
-    t_GetSubscriptionSchedulesQuerySchema,
-    t_GetSubscriptionSchedulesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionSchedulesQuerySchema, void, void>,
   respond: GetSubscriptionSchedulesResponder,
   req: Request,
   res: Response,
@@ -9332,7 +8616,7 @@ export type GetSubscriptionSchedulesSchedule = (
   params: Params<
     t_GetSubscriptionSchedulesScheduleParamSchema,
     t_GetSubscriptionSchedulesScheduleQuerySchema,
-    t_GetSubscriptionSchedulesScheduleRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSubscriptionSchedulesScheduleResponder,
@@ -9406,12 +8690,7 @@ export type GetSubscriptionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptions = (
-  params: Params<
-    void,
-    t_GetSubscriptionsQuerySchema,
-    t_GetSubscriptionsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionsQuerySchema, void, void>,
   respond: GetSubscriptionsResponder,
   req: Request,
   res: Response,
@@ -9444,12 +8723,7 @@ export type GetSubscriptionsSearchResponder = {
 } & ExpressRuntimeResponder
 
 export type GetSubscriptionsSearch = (
-  params: Params<
-    void,
-    t_GetSubscriptionsSearchQuerySchema,
-    t_GetSubscriptionsSearchRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetSubscriptionsSearchQuerySchema, void, void>,
   respond: GetSubscriptionsSearchResponder,
   req: Request,
   res: Response,
@@ -9483,7 +8757,7 @@ export type GetSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_GetSubscriptionsSubscriptionExposedIdParamSchema,
     t_GetSubscriptionsSubscriptionExposedIdQuerySchema,
-    t_GetSubscriptionsSubscriptionExposedIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetSubscriptionsSubscriptionExposedIdResponder,
@@ -9519,8 +8793,7 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
     t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
     void,
-    | t_DeleteSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
@@ -9587,7 +8860,7 @@ export type GetTaxCalculationsCalculation = (
   params: Params<
     t_GetTaxCalculationsCalculationParamSchema,
     t_GetTaxCalculationsCalculationQuerySchema,
-    t_GetTaxCalculationsCalculationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxCalculationsCalculationResponder,
@@ -9610,7 +8883,7 @@ export type GetTaxCalculationsCalculationLineItems = (
   params: Params<
     t_GetTaxCalculationsCalculationLineItemsParamSchema,
     t_GetTaxCalculationsCalculationLineItemsQuerySchema,
-    t_GetTaxCalculationsCalculationLineItemsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxCalculationsCalculationLineItemsResponder,
@@ -9630,12 +8903,7 @@ export type GetTaxRegistrationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxRegistrations = (
-  params: Params<
-    void,
-    t_GetTaxRegistrationsQuerySchema,
-    t_GetTaxRegistrationsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxRegistrationsQuerySchema, void, void>,
   respond: GetTaxRegistrationsResponder,
   req: Request,
   res: Response,
@@ -9664,7 +8932,7 @@ export type GetTaxRegistrationsId = (
   params: Params<
     t_GetTaxRegistrationsIdParamSchema,
     t_GetTaxRegistrationsIdQuerySchema,
-    t_GetTaxRegistrationsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxRegistrationsIdResponder,
@@ -9697,12 +8965,7 @@ export type GetTaxSettingsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxSettings = (
-  params: Params<
-    void,
-    t_GetTaxSettingsQuerySchema,
-    t_GetTaxSettingsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxSettingsQuerySchema, void, void>,
   respond: GetTaxSettingsResponder,
   req: Request,
   res: Response,
@@ -9772,7 +9035,7 @@ export type GetTaxTransactionsTransaction = (
   params: Params<
     t_GetTaxTransactionsTransactionParamSchema,
     t_GetTaxTransactionsTransactionQuerySchema,
-    t_GetTaxTransactionsTransactionRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxTransactionsTransactionResponder,
@@ -9795,7 +9058,7 @@ export type GetTaxTransactionsTransactionLineItems = (
   params: Params<
     t_GetTaxTransactionsTransactionLineItemsParamSchema,
     t_GetTaxTransactionsTransactionLineItemsQuerySchema,
-    t_GetTaxTransactionsTransactionLineItemsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxTransactionsTransactionLineItemsResponder,
@@ -9815,12 +9078,7 @@ export type GetTaxCodesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxCodes = (
-  params: Params<
-    void,
-    t_GetTaxCodesQuerySchema,
-    t_GetTaxCodesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxCodesQuerySchema, void, void>,
   respond: GetTaxCodesResponder,
   req: Request,
   res: Response,
@@ -9836,7 +9094,7 @@ export type GetTaxCodesId = (
   params: Params<
     t_GetTaxCodesIdParamSchema,
     t_GetTaxCodesIdQuerySchema,
-    t_GetTaxCodesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxCodesIdResponder,
@@ -9856,12 +9114,7 @@ export type GetTaxIdsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxIds = (
-  params: Params<
-    void,
-    t_GetTaxIdsQuerySchema,
-    t_GetTaxIdsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxIdsQuerySchema, void, void>,
   respond: GetTaxIdsResponder,
   req: Request,
   res: Response,
@@ -9887,12 +9140,7 @@ export type DeleteTaxIdsIdResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteTaxIdsId = (
-  params: Params<
-    t_DeleteTaxIdsIdParamSchema,
-    void,
-    t_DeleteTaxIdsIdRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteTaxIdsIdParamSchema, void, void, void>,
   respond: DeleteTaxIdsIdResponder,
   req: Request,
   res: Response,
@@ -9908,7 +9156,7 @@ export type GetTaxIdsId = (
   params: Params<
     t_GetTaxIdsIdParamSchema,
     t_GetTaxIdsIdQuerySchema,
-    t_GetTaxIdsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxIdsIdResponder,
@@ -9928,12 +9176,7 @@ export type GetTaxRatesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTaxRates = (
-  params: Params<
-    void,
-    t_GetTaxRatesQuerySchema,
-    t_GetTaxRatesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTaxRatesQuerySchema, void, void>,
   respond: GetTaxRatesResponder,
   req: Request,
   res: Response,
@@ -9962,7 +9205,7 @@ export type GetTaxRatesTaxRate = (
   params: Params<
     t_GetTaxRatesTaxRateParamSchema,
     t_GetTaxRatesTaxRateQuerySchema,
-    t_GetTaxRatesTaxRateRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTaxRatesTaxRateResponder,
@@ -10000,12 +9243,7 @@ export type GetTerminalConfigurationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTerminalConfigurations = (
-  params: Params<
-    void,
-    t_GetTerminalConfigurationsQuerySchema,
-    t_GetTerminalConfigurationsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTerminalConfigurationsQuerySchema, void, void>,
   respond: GetTerminalConfigurationsResponder,
   req: Request,
   res: Response,
@@ -10039,7 +9277,7 @@ export type DeleteTerminalConfigurationsConfiguration = (
   params: Params<
     t_DeleteTerminalConfigurationsConfigurationParamSchema,
     void,
-    t_DeleteTerminalConfigurationsConfigurationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteTerminalConfigurationsConfigurationResponder,
@@ -10059,7 +9297,7 @@ export type GetTerminalConfigurationsConfiguration = (
   params: Params<
     t_GetTerminalConfigurationsConfigurationParamSchema,
     t_GetTerminalConfigurationsConfigurationQuerySchema,
-    t_GetTerminalConfigurationsConfigurationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTerminalConfigurationsConfigurationResponder,
@@ -10117,12 +9355,7 @@ export type GetTerminalLocationsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTerminalLocations = (
-  params: Params<
-    void,
-    t_GetTerminalLocationsQuerySchema,
-    t_GetTerminalLocationsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTerminalLocationsQuerySchema, void, void>,
   respond: GetTerminalLocationsResponder,
   req: Request,
   res: Response,
@@ -10151,7 +9384,7 @@ export type DeleteTerminalLocationsLocation = (
   params: Params<
     t_DeleteTerminalLocationsLocationParamSchema,
     void,
-    t_DeleteTerminalLocationsLocationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteTerminalLocationsLocationResponder,
@@ -10171,7 +9404,7 @@ export type GetTerminalLocationsLocation = (
   params: Params<
     t_GetTerminalLocationsLocationParamSchema,
     t_GetTerminalLocationsLocationQuerySchema,
-    t_GetTerminalLocationsLocationRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTerminalLocationsLocationResponder,
@@ -10211,12 +9444,7 @@ export type GetTerminalReadersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTerminalReaders = (
-  params: Params<
-    void,
-    t_GetTerminalReadersQuerySchema,
-    t_GetTerminalReadersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTerminalReadersQuerySchema, void, void>,
   respond: GetTerminalReadersResponder,
   req: Request,
   res: Response,
@@ -10242,12 +9470,7 @@ export type DeleteTerminalReadersReaderResponder = {
 } & ExpressRuntimeResponder
 
 export type DeleteTerminalReadersReader = (
-  params: Params<
-    t_DeleteTerminalReadersReaderParamSchema,
-    void,
-    t_DeleteTerminalReadersReaderRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<t_DeleteTerminalReadersReaderParamSchema, void, void, void>,
   respond: DeleteTerminalReadersReaderResponder,
   req: Request,
   res: Response,
@@ -10265,7 +9488,7 @@ export type GetTerminalReadersReader = (
   params: Params<
     t_GetTerminalReadersReaderParamSchema,
     t_GetTerminalReadersReaderQuerySchema,
-    t_GetTerminalReadersReaderRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTerminalReadersReaderResponder,
@@ -10945,12 +10168,7 @@ export type GetTestHelpersTestClocksResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTestHelpersTestClocks = (
-  params: Params<
-    void,
-    t_GetTestHelpersTestClocksQuerySchema,
-    t_GetTestHelpersTestClocksRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTestHelpersTestClocksQuerySchema, void, void>,
   respond: GetTestHelpersTestClocksResponder,
   req: Request,
   res: Response,
@@ -10984,7 +10202,7 @@ export type DeleteTestHelpersTestClocksTestClock = (
   params: Params<
     t_DeleteTestHelpersTestClocksTestClockParamSchema,
     void,
-    t_DeleteTestHelpersTestClocksTestClockRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteTestHelpersTestClocksTestClockResponder,
@@ -11002,7 +10220,7 @@ export type GetTestHelpersTestClocksTestClock = (
   params: Params<
     t_GetTestHelpersTestClocksTestClockParamSchema,
     t_GetTestHelpersTestClocksTestClockQuerySchema,
-    t_GetTestHelpersTestClocksTestClockRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTestHelpersTestClocksTestClockResponder,
@@ -11298,7 +10516,7 @@ export type GetTokensToken = (
   params: Params<
     t_GetTokensTokenParamSchema,
     t_GetTokensTokenQuerySchema,
-    t_GetTokensTokenRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTokensTokenResponder,
@@ -11318,12 +10536,7 @@ export type GetTopupsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTopups = (
-  params: Params<
-    void,
-    t_GetTopupsQuerySchema,
-    t_GetTopupsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTopupsQuerySchema, void, void>,
   respond: GetTopupsResponder,
   req: Request,
   res: Response,
@@ -11352,7 +10565,7 @@ export type GetTopupsTopup = (
   params: Params<
     t_GetTopupsTopupParamSchema,
     t_GetTopupsTopupQuerySchema,
-    t_GetTopupsTopupRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTopupsTopupResponder,
@@ -11408,12 +10621,7 @@ export type GetTransfersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTransfers = (
-  params: Params<
-    void,
-    t_GetTransfersQuerySchema,
-    t_GetTransfersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTransfersQuerySchema, void, void>,
   respond: GetTransfersResponder,
   req: Request,
   res: Response,
@@ -11447,7 +10655,7 @@ export type GetTransfersIdReversals = (
   params: Params<
     t_GetTransfersIdReversalsParamSchema,
     t_GetTransfersIdReversalsQuerySchema,
-    t_GetTransfersIdReversalsRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTransfersIdReversalsResponder,
@@ -11483,7 +10691,7 @@ export type GetTransfersTransfer = (
   params: Params<
     t_GetTransfersTransferParamSchema,
     t_GetTransfersTransferQuerySchema,
-    t_GetTransfersTransferRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTransfersTransferResponder,
@@ -11519,7 +10727,7 @@ export type GetTransfersTransferReversalsId = (
   params: Params<
     t_GetTransfersTransferReversalsIdParamSchema,
     t_GetTransfersTransferReversalsIdQuerySchema,
-    t_GetTransfersTransferReversalsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTransfersTransferReversalsIdResponder,
@@ -11557,12 +10765,7 @@ export type GetTreasuryCreditReversalsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryCreditReversals = (
-  params: Params<
-    void,
-    t_GetTreasuryCreditReversalsQuerySchema,
-    t_GetTreasuryCreditReversalsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryCreditReversalsQuerySchema, void, void>,
   respond: GetTreasuryCreditReversalsResponder,
   req: Request,
   res: Response,
@@ -11596,7 +10799,7 @@ export type GetTreasuryCreditReversalsCreditReversal = (
   params: Params<
     t_GetTreasuryCreditReversalsCreditReversalParamSchema,
     t_GetTreasuryCreditReversalsCreditReversalQuerySchema,
-    t_GetTreasuryCreditReversalsCreditReversalRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryCreditReversalsCreditReversalResponder,
@@ -11616,12 +10819,7 @@ export type GetTreasuryDebitReversalsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryDebitReversals = (
-  params: Params<
-    void,
-    t_GetTreasuryDebitReversalsQuerySchema,
-    t_GetTreasuryDebitReversalsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryDebitReversalsQuerySchema, void, void>,
   respond: GetTreasuryDebitReversalsResponder,
   req: Request,
   res: Response,
@@ -11655,7 +10853,7 @@ export type GetTreasuryDebitReversalsDebitReversal = (
   params: Params<
     t_GetTreasuryDebitReversalsDebitReversalParamSchema,
     t_GetTreasuryDebitReversalsDebitReversalQuerySchema,
-    t_GetTreasuryDebitReversalsDebitReversalRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryDebitReversalsDebitReversalResponder,
@@ -11675,12 +10873,7 @@ export type GetTreasuryFinancialAccountsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryFinancialAccounts = (
-  params: Params<
-    void,
-    t_GetTreasuryFinancialAccountsQuerySchema,
-    t_GetTreasuryFinancialAccountsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryFinancialAccountsQuerySchema, void, void>,
   respond: GetTreasuryFinancialAccountsResponder,
   req: Request,
   res: Response,
@@ -11714,7 +10907,7 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
     t_GetTreasuryFinancialAccountsFinancialAccountParamSchema,
     t_GetTreasuryFinancialAccountsFinancialAccountQuerySchema,
-    t_GetTreasuryFinancialAccountsFinancialAccountRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
@@ -11770,8 +10963,7 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesQuerySchema,
-    | t_GetTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema
-    | undefined,
+    void,
     void
   >,
   respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
@@ -11810,12 +11002,7 @@ export type GetTreasuryInboundTransfersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryInboundTransfers = (
-  params: Params<
-    void,
-    t_GetTreasuryInboundTransfersQuerySchema,
-    t_GetTreasuryInboundTransfersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryInboundTransfersQuerySchema, void, void>,
   respond: GetTreasuryInboundTransfersResponder,
   req: Request,
   res: Response,
@@ -11849,7 +11036,7 @@ export type GetTreasuryInboundTransfersId = (
   params: Params<
     t_GetTreasuryInboundTransfersIdParamSchema,
     t_GetTreasuryInboundTransfersIdQuerySchema,
-    t_GetTreasuryInboundTransfersIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryInboundTransfersIdResponder,
@@ -11888,12 +11075,7 @@ export type GetTreasuryOutboundPaymentsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryOutboundPayments = (
-  params: Params<
-    void,
-    t_GetTreasuryOutboundPaymentsQuerySchema,
-    t_GetTreasuryOutboundPaymentsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryOutboundPaymentsQuerySchema, void, void>,
   respond: GetTreasuryOutboundPaymentsResponder,
   req: Request,
   res: Response,
@@ -11927,7 +11109,7 @@ export type GetTreasuryOutboundPaymentsId = (
   params: Params<
     t_GetTreasuryOutboundPaymentsIdParamSchema,
     t_GetTreasuryOutboundPaymentsIdQuerySchema,
-    t_GetTreasuryOutboundPaymentsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryOutboundPaymentsIdResponder,
@@ -11965,12 +11147,7 @@ export type GetTreasuryOutboundTransfersResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryOutboundTransfers = (
-  params: Params<
-    void,
-    t_GetTreasuryOutboundTransfersQuerySchema,
-    t_GetTreasuryOutboundTransfersRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryOutboundTransfersQuerySchema, void, void>,
   respond: GetTreasuryOutboundTransfersResponder,
   req: Request,
   res: Response,
@@ -12004,7 +11181,7 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
     t_GetTreasuryOutboundTransfersOutboundTransferParamSchema,
     t_GetTreasuryOutboundTransfersOutboundTransferQuerySchema,
-    t_GetTreasuryOutboundTransfersOutboundTransferRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
@@ -12043,12 +11220,7 @@ export type GetTreasuryReceivedCreditsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryReceivedCredits = (
-  params: Params<
-    void,
-    t_GetTreasuryReceivedCreditsQuerySchema,
-    t_GetTreasuryReceivedCreditsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryReceivedCreditsQuerySchema, void, void>,
   respond: GetTreasuryReceivedCreditsResponder,
   req: Request,
   res: Response,
@@ -12064,7 +11236,7 @@ export type GetTreasuryReceivedCreditsId = (
   params: Params<
     t_GetTreasuryReceivedCreditsIdParamSchema,
     t_GetTreasuryReceivedCreditsIdQuerySchema,
-    t_GetTreasuryReceivedCreditsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryReceivedCreditsIdResponder,
@@ -12084,12 +11256,7 @@ export type GetTreasuryReceivedDebitsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryReceivedDebits = (
-  params: Params<
-    void,
-    t_GetTreasuryReceivedDebitsQuerySchema,
-    t_GetTreasuryReceivedDebitsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryReceivedDebitsQuerySchema, void, void>,
   respond: GetTreasuryReceivedDebitsResponder,
   req: Request,
   res: Response,
@@ -12105,7 +11272,7 @@ export type GetTreasuryReceivedDebitsId = (
   params: Params<
     t_GetTreasuryReceivedDebitsIdParamSchema,
     t_GetTreasuryReceivedDebitsIdQuerySchema,
-    t_GetTreasuryReceivedDebitsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryReceivedDebitsIdResponder,
@@ -12125,12 +11292,7 @@ export type GetTreasuryTransactionEntriesResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryTransactionEntries = (
-  params: Params<
-    void,
-    t_GetTreasuryTransactionEntriesQuerySchema,
-    t_GetTreasuryTransactionEntriesRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryTransactionEntriesQuerySchema, void, void>,
   respond: GetTreasuryTransactionEntriesResponder,
   req: Request,
   res: Response,
@@ -12146,7 +11308,7 @@ export type GetTreasuryTransactionEntriesId = (
   params: Params<
     t_GetTreasuryTransactionEntriesIdParamSchema,
     t_GetTreasuryTransactionEntriesIdQuerySchema,
-    t_GetTreasuryTransactionEntriesIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryTransactionEntriesIdResponder,
@@ -12166,12 +11328,7 @@ export type GetTreasuryTransactionsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetTreasuryTransactions = (
-  params: Params<
-    void,
-    t_GetTreasuryTransactionsQuerySchema,
-    t_GetTreasuryTransactionsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetTreasuryTransactionsQuerySchema, void, void>,
   respond: GetTreasuryTransactionsResponder,
   req: Request,
   res: Response,
@@ -12187,7 +11344,7 @@ export type GetTreasuryTransactionsId = (
   params: Params<
     t_GetTreasuryTransactionsIdParamSchema,
     t_GetTreasuryTransactionsIdQuerySchema,
-    t_GetTreasuryTransactionsIdRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetTreasuryTransactionsIdResponder,
@@ -12207,12 +11364,7 @@ export type GetWebhookEndpointsResponder = {
 } & ExpressRuntimeResponder
 
 export type GetWebhookEndpoints = (
-  params: Params<
-    void,
-    t_GetWebhookEndpointsQuerySchema,
-    t_GetWebhookEndpointsRequestBodySchema | undefined,
-    void
-  >,
+  params: Params<void, t_GetWebhookEndpointsQuerySchema, void, void>,
   respond: GetWebhookEndpointsResponder,
   req: Request,
   res: Response,
@@ -12241,7 +11393,7 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_DeleteWebhookEndpointsWebhookEndpointParamSchema,
     void,
-    t_DeleteWebhookEndpointsWebhookEndpointRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: DeleteWebhookEndpointsWebhookEndpointResponder,
@@ -12259,7 +11411,7 @@ export type GetWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_GetWebhookEndpointsWebhookEndpointParamSchema,
     t_GetWebhookEndpointsWebhookEndpointQuerySchema,
-    t_GetWebhookEndpointsWebhookEndpointRequestBodySchema | undefined,
+    void,
     void
   >,
   respond: GetWebhookEndpointsWebhookEndpointResponder,
@@ -12871,8 +12023,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountRequestBodySchema = z.object({}).optional()
-
   const getAccountResponseBodyValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -12890,11 +12040,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -13286,8 +12432,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getAccountsRequestBodySchema = z.object({}).optional()
-
   const getAccountsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -13315,11 +12459,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14092,8 +13232,6 @@ export function createRouter(implementation: Implementation): Router {
     account: z.string().max(5000),
   })
 
-  const deleteAccountsAccountRequestBodySchema = z.object({}).optional()
-
   const deleteAccountsAccountResponseBodyValidator = responseValidationFactory(
     [["200", s_deleted_account]],
     s_error,
@@ -14111,11 +13249,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteAccountsAccountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -14173,8 +13307,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountRequestBodySchema = z.object({}).optional()
-
   const getAccountsAccountResponseBodyValidator = responseValidationFactory(
     [["200", s_account]],
     s_error,
@@ -14196,11 +13328,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15043,10 +14171,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const deleteAccountsAccountBankAccountsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteAccountsAccountBankAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_external_account]], s_error)
 
@@ -15062,11 +14186,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteAccountsAccountBankAccountsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15130,10 +14250,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountBankAccountsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountBankAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -15153,11 +14269,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountBankAccountsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15318,10 +14430,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountCapabilitiesRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountCapabilitiesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -15354,11 +14462,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountCapabilitiesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15424,10 +14528,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountCapabilitiesCapabilityRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountCapabilitiesCapabilityResponseBodyValidator =
     responseValidationFactory([["200", s_capability]], s_error)
 
@@ -15447,11 +14547,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountCapabilitiesCapabilityRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15611,10 +14707,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getAccountsAccountExternalAccountsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountExternalAccountsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -15649,11 +14741,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountExternalAccountsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15819,10 +14907,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const deleteAccountsAccountExternalAccountsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteAccountsAccountExternalAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_external_account]], s_error)
 
@@ -15838,11 +14922,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteAccountsAccountExternalAccountsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -15912,10 +14992,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountExternalAccountsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountExternalAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
 
@@ -15935,11 +15011,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountExternalAccountsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16202,8 +15274,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getAccountsAccountPeopleRequestBodySchema = z.object({}).optional()
-
   const getAccountsAccountPeopleResponseBodyValidator =
     responseValidationFactory(
       [
@@ -16236,11 +15306,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountPeopleRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16567,10 +15633,6 @@ export function createRouter(implementation: Implementation): Router {
     person: z.string().max(5000),
   })
 
-  const deleteAccountsAccountPeoplePersonRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteAccountsAccountPeoplePersonResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_person]], s_error)
 
@@ -16586,11 +15648,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteAccountsAccountPeoplePersonRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -16654,10 +15712,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountPeoplePersonRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountPeoplePersonResponseBodyValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -16677,11 +15731,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountPeoplePersonRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17029,8 +16079,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getAccountsAccountPersonsRequestBodySchema = z.object({}).optional()
-
   const getAccountsAccountPersonsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -17063,11 +16111,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountPersonsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17396,10 +16440,6 @@ export function createRouter(implementation: Implementation): Router {
     person: z.string().max(5000),
   })
 
-  const deleteAccountsAccountPersonsPersonRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteAccountsAccountPersonsPersonResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_person]], s_error)
 
@@ -17415,11 +16455,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteAccountsAccountPersonsPersonRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17483,10 +16519,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getAccountsAccountPersonsPersonRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getAccountsAccountPersonsPersonResponseBodyValidator =
     responseValidationFactory([["200", s_person]], s_error)
 
@@ -17506,11 +16538,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAccountsAccountPersonsPersonRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -17918,8 +16946,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getApplePayDomainsRequestBodySchema = z.object({}).optional()
-
   const getApplePayDomainsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -17947,11 +16973,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getApplePayDomainsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18072,8 +17094,6 @@ export function createRouter(implementation: Implementation): Router {
     domain: z.string().max(5000),
   })
 
-  const deleteApplePayDomainsDomainRequestBodySchema = z.object({}).optional()
-
   const deleteApplePayDomainsDomainResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_apple_pay_domain]], s_error)
 
@@ -18089,11 +17109,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteApplePayDomainsDomainRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18153,8 +17169,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getApplePayDomainsDomainRequestBodySchema = z.object({}).optional()
-
   const getApplePayDomainsDomainResponseBodyValidator =
     responseValidationFactory([["200", s_apple_pay_domain]], s_error)
 
@@ -18174,11 +17188,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getApplePayDomainsDomainRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18247,8 +17257,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getApplicationFeesRequestBodySchema = z.object({}).optional()
-
   const getApplicationFeesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -18276,11 +17284,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getApplicationFeesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18344,10 +17348,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getApplicationFeesFeeRefundsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getApplicationFeesFeeRefundsIdResponseBodyValidator =
     responseValidationFactory([["200", s_fee_refund]], s_error)
 
@@ -18367,11 +17367,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getApplicationFeesFeeRefundsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18507,8 +17503,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getApplicationFeesIdRequestBodySchema = z.object({}).optional()
-
   const getApplicationFeesIdResponseBodyValidator = responseValidationFactory(
     [["200", s_application_fee]],
     s_error,
@@ -18530,11 +17524,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getApplicationFeesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18673,8 +17663,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getApplicationFeesIdRefundsRequestBodySchema = z.object({}).optional()
-
   const getApplicationFeesIdRefundsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -18707,11 +17695,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getApplicationFeesIdRefundsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -18857,8 +17841,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getAppsSecretsRequestBodySchema = z.object({}).optional()
-
   const getAppsSecretsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -18886,11 +17868,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAppsSecretsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19098,8 +18076,6 @@ export function createRouter(implementation: Implementation): Router {
     }),
   })
 
-  const getAppsSecretsFindRequestBodySchema = z.object({}).optional()
-
   const getAppsSecretsFindResponseBodyValidator = responseValidationFactory(
     [["200", s_apps_secret]],
     s_error,
@@ -19117,11 +18093,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getAppsSecretsFindRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19175,8 +18147,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBalanceRequestBodySchema = z.object({}).optional()
-
   const getBalanceResponseBodyValidator = responseValidationFactory(
     [["200", s_balance]],
     s_error,
@@ -19194,11 +18164,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBalanceRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19270,8 +18236,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.string().max(5000).optional(),
   })
 
-  const getBalanceHistoryRequestBodySchema = z.object({}).optional()
-
   const getBalanceHistoryResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -19302,11 +18266,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBalanceHistoryRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19367,8 +18327,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBalanceHistoryIdRequestBodySchema = z.object({}).optional()
-
   const getBalanceHistoryIdResponseBodyValidator = responseValidationFactory(
     [["200", s_balance_transaction]],
     s_error,
@@ -19390,11 +18348,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBalanceHistoryIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19466,8 +18420,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.string().max(5000).optional(),
   })
 
-  const getBalanceTransactionsRequestBodySchema = z.object({}).optional()
-
   const getBalanceTransactionsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -19498,11 +18450,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBalanceTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19565,8 +18513,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBalanceTransactionsIdRequestBodySchema = z.object({}).optional()
-
   const getBalanceTransactionsIdResponseBodyValidator =
     responseValidationFactory([["200", s_balance_transaction]], s_error)
 
@@ -19586,11 +18532,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBalanceTransactionsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19649,8 +18591,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getBillingAlertsRequestBodySchema = z.object({}).optional()
-
   const getBillingAlertsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -19678,11 +18618,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingAlertsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -19826,8 +18762,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBillingAlertsIdRequestBodySchema = z.object({}).optional()
-
   const getBillingAlertsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_billing_alert]],
     s_error,
@@ -19849,11 +18783,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingAlertsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20140,10 +19070,6 @@ export function createRouter(implementation: Implementation): Router {
     }),
   })
 
-  const getBillingCreditBalanceSummaryRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getBillingCreditBalanceSummaryResponseBodyValidator =
     responseValidationFactory(
       [["200", s_billing_credit_balance_summary]],
@@ -20162,11 +19088,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingCreditBalanceSummaryRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20229,10 +19151,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getBillingCreditBalanceTransactionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getBillingCreditBalanceTransactionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -20264,11 +19182,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingCreditBalanceTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20336,10 +19250,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBillingCreditBalanceTransactionsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getBillingCreditBalanceTransactionsIdResponseBodyValidator =
     responseValidationFactory(
       [["200", s_billing_credit_balance_transaction]],
@@ -20362,11 +19272,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingCreditBalanceTransactionsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20437,8 +19343,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getBillingCreditGrantsRequestBodySchema = z.object({}).optional()
-
   const getBillingCreditGrantsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -20469,11 +19373,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingCreditGrantsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -20619,8 +19519,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBillingCreditGrantsIdRequestBodySchema = z.object({}).optional()
-
   const getBillingCreditGrantsIdResponseBodyValidator =
     responseValidationFactory([["200", s_billing_credit_grant]], s_error)
 
@@ -20640,11 +19538,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingCreditGrantsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21070,8 +19964,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["active", "inactive"]).optional(),
   })
 
-  const getBillingMetersRequestBodySchema = z.object({}).optional()
-
   const getBillingMetersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -21099,11 +19991,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingMetersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21240,8 +20128,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBillingMetersIdRequestBodySchema = z.object({}).optional()
-
   const getBillingMetersIdResponseBodyValidator = responseValidationFactory(
     [["200", s_billing_meter]],
     s_error,
@@ -21263,11 +20149,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingMetersIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21481,10 +20363,6 @@ export function createRouter(implementation: Implementation): Router {
     value_grouping_window: z.enum(["day", "hour"]).optional(),
   })
 
-  const getBillingMetersIdEventSummariesRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getBillingMetersIdEventSummariesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -21520,11 +20398,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingMetersIdEventSummariesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21664,10 +20538,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getBillingPortalConfigurationsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getBillingPortalConfigurationsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -21699,11 +20569,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingPortalConfigurationsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -21941,10 +20807,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getBillingPortalConfigurationsConfigurationRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getBillingPortalConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["200", s_billing_portal_configuration]],
@@ -21967,11 +20829,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getBillingPortalConfigurationsConfigurationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22433,8 +21291,6 @@ export function createRouter(implementation: Implementation): Router {
     transfer_group: z.string().max(5000).optional(),
   })
 
-  const getChargesRequestBodySchema = z.object({}).optional()
-
   const getChargesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -22462,11 +21318,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getChargesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22664,8 +21516,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getChargesSearchRequestBodySchema = z.object({}).optional()
-
   const getChargesSearchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -22695,11 +21545,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getChargesSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -22762,8 +21608,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getChargesChargeRequestBodySchema = z.object({}).optional()
-
   const getChargesChargeResponseBodyValidator = responseValidationFactory(
     [["200", s_charge]],
     s_error,
@@ -22785,11 +21629,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getChargesChargeRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23029,8 +21869,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getChargesChargeDisputeRequestBodySchema = z.object({}).optional()
-
   const getChargesChargeDisputeResponseBodyValidator =
     responseValidationFactory([["200", s_dispute]], s_error)
 
@@ -23050,11 +21888,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getChargesChargeDisputeRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23485,8 +22319,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getChargesChargeRefundsRequestBodySchema = z.object({}).optional()
-
   const getChargesChargeRefundsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -23519,11 +22351,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getChargesChargeRefundsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23673,8 +22501,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getChargesChargeRefundsRefundRequestBodySchema = z.object({}).optional()
-
   const getChargesChargeRefundsRefundResponseBodyValidator =
     responseValidationFactory([["200", s_refund]], s_error)
 
@@ -23694,11 +22520,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getChargesChargeRefundsRefundRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -23852,8 +22674,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription: z.string().max(5000).optional(),
   })
 
-  const getCheckoutSessionsRequestBodySchema = z.object({}).optional()
-
   const getCheckoutSessionsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -23881,11 +22701,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCheckoutSessionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25120,8 +23936,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCheckoutSessionsSessionRequestBodySchema = z.object({}).optional()
-
   const getCheckoutSessionsSessionResponseBodyValidator =
     responseValidationFactory([["200", s_checkout_session]], s_error)
 
@@ -25141,11 +23955,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCheckoutSessionsSessionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25444,10 +24254,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCheckoutSessionsSessionLineItemsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCheckoutSessionsSessionLineItemsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -25480,11 +24286,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCheckoutSessionsSessionLineItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25551,8 +24353,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getClimateOrdersRequestBodySchema = z.object({}).optional()
-
   const getClimateOrdersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -25580,11 +24380,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getClimateOrdersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25719,8 +24515,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getClimateOrdersOrderRequestBodySchema = z.object({}).optional()
-
   const getClimateOrdersOrderResponseBodyValidator = responseValidationFactory(
     [["200", s_climate_order]],
     s_error,
@@ -25742,11 +24536,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getClimateOrdersOrderRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -25962,8 +24752,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getClimateProductsRequestBodySchema = z.object({}).optional()
-
   const getClimateProductsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -25991,11 +24779,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getClimateProductsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26058,8 +24842,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getClimateProductsProductRequestBodySchema = z.object({}).optional()
-
   const getClimateProductsProductResponseBodyValidator =
     responseValidationFactory([["200", s_climate_product]], s_error)
 
@@ -26079,11 +24861,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getClimateProductsProductRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26140,8 +24918,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getClimateSuppliersRequestBodySchema = z.object({}).optional()
-
   const getClimateSuppliersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -26169,11 +24945,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getClimateSuppliersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26236,8 +25008,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getClimateSuppliersSupplierRequestBodySchema = z.object({}).optional()
-
   const getClimateSuppliersSupplierResponseBodyValidator =
     responseValidationFactory([["200", s_climate_supplier]], s_error)
 
@@ -26257,11 +25027,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getClimateSuppliersSupplierRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26321,10 +25087,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getConfirmationTokensConfirmationTokenRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getConfirmationTokensConfirmationTokenResponseBodyValidator =
     responseValidationFactory([["200", s_confirmation_token]], s_error)
 
@@ -26344,11 +25106,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getConfirmationTokensConfirmationTokenRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26416,8 +25174,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCountrySpecsRequestBodySchema = z.object({}).optional()
-
   const getCountrySpecsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -26445,11 +25201,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCountrySpecsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26512,8 +25264,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCountrySpecsCountryRequestBodySchema = z.object({}).optional()
-
   const getCountrySpecsCountryResponseBodyValidator = responseValidationFactory(
     [["200", s_country_spec]],
     s_error,
@@ -26535,11 +25285,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCountrySpecsCountryRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26607,8 +25353,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCouponsRequestBodySchema = z.object({}).optional()
-
   const getCouponsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -26636,11 +25380,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCouponsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26778,8 +25518,6 @@ export function createRouter(implementation: Implementation): Router {
     coupon: z.string().max(5000),
   })
 
-  const deleteCouponsCouponRequestBodySchema = z.object({}).optional()
-
   const deleteCouponsCouponResponseBodyValidator = responseValidationFactory(
     [["200", s_deleted_coupon]],
     s_error,
@@ -26797,11 +25535,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteCouponsCouponRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -26857,8 +25591,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCouponsCouponRequestBodySchema = z.object({}).optional()
-
   const getCouponsCouponResponseBodyValidator = responseValidationFactory(
     [["200", s_coupon]],
     s_error,
@@ -26880,11 +25612,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCouponsCouponRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27033,8 +25761,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCreditNotesRequestBodySchema = z.object({}).optional()
-
   const getCreditNotesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -27062,11 +25788,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCreditNotesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27309,8 +26031,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCreditNotesPreviewRequestBodySchema = z.object({}).optional()
-
   const getCreditNotesPreviewResponseBodyValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -27328,11 +26048,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCreditNotesPreviewRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27451,8 +26167,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCreditNotesPreviewLinesRequestBodySchema = z.object({}).optional()
-
   const getCreditNotesPreviewLinesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -27481,11 +26195,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCreditNotesPreviewLinesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27553,8 +26263,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCreditNotesCreditNoteLinesRequestBodySchema = z.object({}).optional()
-
   const getCreditNotesCreditNoteLinesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -27587,11 +26295,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCreditNotesCreditNoteLinesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27654,8 +26358,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCreditNotesIdRequestBodySchema = z.object({}).optional()
-
   const getCreditNotesIdResponseBodyValidator = responseValidationFactory(
     [["200", s_credit_note]],
     s_error,
@@ -27677,11 +26379,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCreditNotesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -27991,8 +26689,6 @@ export function createRouter(implementation: Implementation): Router {
     test_clock: z.string().max(5000).optional(),
   })
 
-  const getCustomersRequestBodySchema = z.object({}).optional()
-
   const getCustomersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -28020,11 +26716,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28361,8 +27053,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getCustomersSearchRequestBodySchema = z.object({}).optional()
-
   const getCustomersSearchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -28392,11 +27082,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28452,8 +27138,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const deleteCustomersCustomerRequestBodySchema = z.object({}).optional()
-
   const deleteCustomersCustomerResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_customer]], s_error)
 
@@ -28469,11 +27153,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteCustomersCustomerRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28531,8 +27211,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerResponseBodyValidator = responseValidationFactory(
     [["200", z.union([z.lazy(() => s_customer), s_deleted_customer])]],
     s_error,
@@ -28554,11 +27232,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -28823,10 +27497,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerBalanceTransactionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerBalanceTransactionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -28859,11 +27529,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerBalanceTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29029,10 +27695,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getCustomersCustomerBalanceTransactionsTransactionRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_customer_balance_transaction]],
@@ -29055,11 +27717,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerBalanceTransactionsTransactionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29227,10 +27885,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getCustomersCustomerBankAccountsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerBankAccountsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -29263,11 +27917,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerBankAccountsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29543,10 +28193,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerBankAccountsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerBankAccountsIdResponseBodyValidator =
     responseValidationFactory([["200", s_bank_account]], s_error)
 
@@ -29566,11 +28212,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerBankAccountsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -29846,8 +28488,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getCustomersCustomerCardsRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerCardsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -29880,11 +28520,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerCardsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30146,8 +28782,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerCardsIdRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerCardsIdResponseBodyValidator =
     responseValidationFactory([["200", s_card]], s_error)
 
@@ -30167,11 +28801,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerCardsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30351,10 +28981,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerCashBalanceRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerCashBalanceResponseBodyValidator =
     responseValidationFactory([["200", s_cash_balance]], s_error)
 
@@ -30374,11 +29000,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerCashBalanceRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30524,10 +29146,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerCashBalanceTransactionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerCashBalanceTransactionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -30560,11 +29178,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerCashBalanceTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30638,9 +29252,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getCustomersCustomerCashBalanceTransactionsTransactionRequestBodySchema =
-    z.object({}).optional()
-
   const getCustomersCustomerCashBalanceTransactionsTransactionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_customer_cash_balance_transaction]],
@@ -30663,11 +29274,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerCashBalanceTransactionsTransactionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30729,10 +29336,6 @@ export function createRouter(implementation: Implementation): Router {
     customer: z.string().max(5000),
   })
 
-  const deleteCustomersCustomerDiscountRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteCustomersCustomerDiscountResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_discount]], s_error)
 
@@ -30748,11 +29351,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteCustomersCustomerDiscountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -30812,8 +29411,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerDiscountRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerDiscountResponseBodyValidator =
     responseValidationFactory([["200", s_discount]], s_error)
 
@@ -30833,11 +29430,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerDiscountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31051,10 +29644,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerPaymentMethodsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerPaymentMethodsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -31087,11 +29676,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerPaymentMethodsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31160,10 +29745,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerPaymentMethodsPaymentMethodRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerPaymentMethodsPaymentMethodResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -31183,11 +29764,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerPaymentMethodsPaymentMethodRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31260,8 +29837,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getCustomersCustomerSourcesRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerSourcesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -31300,11 +29875,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerSourcesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31568,8 +30139,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerSourcesIdRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerSourcesIdResponseBodyValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
 
@@ -31589,11 +30158,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerSourcesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -31863,10 +30428,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerSubscriptionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getCustomersCustomerSubscriptionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -31899,11 +30460,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerSubscriptionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -32494,9 +31051,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema =
-    z.object({}).optional()
-
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -32516,11 +31070,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33056,9 +31606,6 @@ export function createRouter(implementation: Implementation): Router {
       subscription_exposed_id: z.string().max(5000),
     })
 
-  const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema =
-    z.object({}).optional()
-
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_discount]], s_error)
 
@@ -33074,11 +31621,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33150,9 +31693,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema =
-    z.object({}).optional()
-
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator =
     responseValidationFactory([["200", s_discount]], s_error)
 
@@ -33172,11 +31712,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33248,8 +31784,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerTaxIdsRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerTaxIdsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -33282,11 +31816,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerTaxIdsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33530,10 +32060,6 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerTaxIdsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteCustomersCustomerTaxIdsIdResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_tax_id]], s_error)
 
@@ -33549,11 +32075,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteCustomersCustomerTaxIdsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33614,8 +32136,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getCustomersCustomerTaxIdsIdRequestBodySchema = z.object({}).optional()
-
   const getCustomersCustomerTaxIdsIdResponseBodyValidator =
     responseValidationFactory([["200", s_tax_id]], s_error)
 
@@ -33635,11 +32155,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getCustomersCustomerTaxIdsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33711,8 +32227,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getDisputesRequestBodySchema = z.object({}).optional()
-
   const getDisputesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -33740,11 +32254,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getDisputesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -33807,8 +32317,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getDisputesDisputeRequestBodySchema = z.object({}).optional()
-
   const getDisputesDisputeResponseBodyValidator = responseValidationFactory(
     [["200", s_dispute]],
     s_error,
@@ -33830,11 +32338,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getDisputesDisputeRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34181,10 +32685,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getEntitlementsActiveEntitlementsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getEntitlementsActiveEntitlementsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -34213,11 +32713,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getEntitlementsActiveEntitlementsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34285,10 +32781,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getEntitlementsActiveEntitlementsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getEntitlementsActiveEntitlementsIdResponseBodyValidator =
     responseValidationFactory(
       [["200", s_entitlements_active_entitlement]],
@@ -34311,11 +32803,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getEntitlementsActiveEntitlementsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34381,8 +32869,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getEntitlementsFeaturesRequestBodySchema = z.object({}).optional()
-
   const getEntitlementsFeaturesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -34414,11 +32900,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getEntitlementsFeaturesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34548,8 +33030,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getEntitlementsFeaturesIdRequestBodySchema = z.object({}).optional()
-
   const getEntitlementsFeaturesIdResponseBodyValidator =
     responseValidationFactory([["200", s_entitlements_feature]], s_error)
 
@@ -34569,11 +33049,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getEntitlementsFeaturesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34874,8 +33350,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getEventsRequestBodySchema = z.object({}).optional()
-
   const getEventsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -34903,11 +33377,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getEventsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -34968,8 +33438,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getEventsIdRequestBodySchema = z.object({}).optional()
-
   const getEventsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_event]],
     s_error,
@@ -34991,11 +33459,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getEventsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35052,8 +33516,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getExchangeRatesRequestBodySchema = z.object({}).optional()
-
   const getExchangeRatesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -35081,11 +33543,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getExchangeRatesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35148,8 +33606,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getExchangeRatesRateIdRequestBodySchema = z.object({}).optional()
-
   const getExchangeRatesRateIdResponseBodyValidator = responseValidationFactory(
     [["200", s_exchange_rate]],
     s_error,
@@ -35171,11 +33627,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getExchangeRatesRateIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35340,8 +33792,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getFileLinksRequestBodySchema = z.object({}).optional()
-
   const getFileLinksResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -35369,11 +33819,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFileLinksRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35503,8 +33949,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getFileLinksLinkRequestBodySchema = z.object({}).optional()
-
   const getFileLinksLinkResponseBodyValidator = responseValidationFactory(
     [["200", s_file_link]],
     s_error,
@@ -35526,11 +33970,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFileLinksLinkRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35697,8 +34137,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getFilesRequestBodySchema = z.object({}).optional()
-
   const getFilesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -35726,11 +34164,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFilesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35878,8 +34312,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getFilesFileRequestBodySchema = z.object({}).optional()
-
   const getFilesFileResponseBodyValidator = responseValidationFactory(
     [["200", s_file]],
     s_error,
@@ -35901,11 +34333,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFilesFileRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -35969,10 +34397,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getFinancialConnectionsAccountsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getFinancialConnectionsAccountsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -36004,11 +34428,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFinancialConnectionsAccountsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36073,10 +34493,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getFinancialConnectionsAccountsAccountRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getFinancialConnectionsAccountsAccountResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -36099,11 +34515,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFinancialConnectionsAccountsAccountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36266,10 +34678,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getFinancialConnectionsAccountsAccountOwnersRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getFinancialConnectionsAccountsAccountOwnersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -36302,11 +34710,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFinancialConnectionsAccountsAccountOwnersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36748,10 +35152,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getFinancialConnectionsSessionsSessionRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getFinancialConnectionsSessionsSessionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
@@ -36774,11 +35174,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFinancialConnectionsSessionsSessionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36861,10 +35257,6 @@ export function createRouter(implementation: Implementation): Router {
     transaction_refresh: z.object({after: z.string().max(5000)}).optional(),
   })
 
-  const getFinancialConnectionsTransactionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getFinancialConnectionsTransactionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -36896,11 +35288,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFinancialConnectionsTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -36968,10 +35356,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getFinancialConnectionsTransactionsTransactionRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getFinancialConnectionsTransactionsTransactionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_transaction]],
@@ -36994,11 +35378,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getFinancialConnectionsTransactionsTransactionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37076,8 +35456,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getForwardingRequestsRequestBodySchema = z.object({}).optional()
-
   const getForwardingRequestsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -37105,11 +35483,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getForwardingRequestsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37260,8 +35634,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getForwardingRequestsIdRequestBodySchema = z.object({}).optional()
-
   const getForwardingRequestsIdResponseBodyValidator =
     responseValidationFactory([["200", s_forwarding_request]], s_error)
 
@@ -37281,11 +35653,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getForwardingRequestsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37356,10 +35724,6 @@ export function createRouter(implementation: Implementation): Router {
     verification_session: z.string().max(5000).optional(),
   })
 
-  const getIdentityVerificationReportsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIdentityVerificationReportsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37391,11 +35755,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIdentityVerificationReportsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37460,10 +35820,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIdentityVerificationReportsReportRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIdentityVerificationReportsReportResponseBodyValidator =
     responseValidationFactory(
       [["200", s_identity_verification_report]],
@@ -37486,11 +35842,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIdentityVerificationReportsReportRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37576,10 +35928,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIdentityVerificationSessionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIdentityVerificationSessionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -37611,11 +35959,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIdentityVerificationSessionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -37782,10 +36126,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIdentityVerificationSessionsSessionRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIdentityVerificationSessionsSessionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_identity_verification_session]],
@@ -37808,11 +36148,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIdentityVerificationSessionsSessionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38178,8 +36514,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["canceled", "open", "paid"]).optional(),
   })
 
-  const getInvoicePaymentsRequestBodySchema = z.object({}).optional()
-
   const getInvoicePaymentsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -38207,11 +36541,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoicePaymentsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38274,10 +36604,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getInvoicePaymentsInvoicePaymentRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getInvoicePaymentsInvoicePaymentResponseBodyValidator =
     responseValidationFactory([["200", s_invoice_payment]], s_error)
 
@@ -38297,11 +36623,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoicePaymentsInvoicePaymentRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38361,8 +36683,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["active", "archived"]).optional(),
   })
 
-  const getInvoiceRenderingTemplatesRequestBodySchema = z.object({}).optional()
-
   const getInvoiceRenderingTemplatesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -38391,11 +36711,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoiceRenderingTemplatesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38461,10 +36777,6 @@ export function createRouter(implementation: Implementation): Router {
     version: z.coerce.number().optional(),
   })
 
-  const getInvoiceRenderingTemplatesTemplateRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getInvoiceRenderingTemplatesTemplateResponseBodyValidator =
     responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
 
@@ -38484,11 +36796,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoiceRenderingTemplatesTemplateRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38736,8 +37044,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getInvoiceitemsRequestBodySchema = z.object({}).optional()
-
   const getInvoiceitemsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -38765,11 +37071,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoiceitemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -38929,8 +37231,6 @@ export function createRouter(implementation: Implementation): Router {
     invoiceitem: z.string().max(5000),
   })
 
-  const deleteInvoiceitemsInvoiceitemRequestBodySchema = z.object({}).optional()
-
   const deleteInvoiceitemsInvoiceitemResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_invoiceitem]], s_error)
 
@@ -38946,11 +37246,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteInvoiceitemsInvoiceitemRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39010,8 +37306,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getInvoiceitemsInvoiceitemRequestBodySchema = z.object({}).optional()
-
   const getInvoiceitemsInvoiceitemResponseBodyValidator =
     responseValidationFactory([["200", s_invoiceitem]], s_error)
 
@@ -39031,11 +37325,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoiceitemsInvoiceitemRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -39240,8 +37530,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription: z.string().max(5000).optional(),
   })
 
-  const getInvoicesRequestBodySchema = z.object({}).optional()
-
   const getInvoicesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -39269,11 +37557,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoicesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40283,8 +38567,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getInvoicesSearchRequestBodySchema = z.object({}).optional()
-
   const getInvoicesSearchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -40314,11 +38596,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoicesSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40374,8 +38652,6 @@ export function createRouter(implementation: Implementation): Router {
     invoice: z.string().max(5000),
   })
 
-  const deleteInvoicesInvoiceRequestBodySchema = z.object({}).optional()
-
   const deleteInvoicesInvoiceResponseBodyValidator = responseValidationFactory(
     [["200", s_deleted_invoice]],
     s_error,
@@ -40393,11 +38669,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteInvoicesInvoiceRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -40455,8 +38727,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getInvoicesInvoiceRequestBodySchema = z.object({}).optional()
-
   const getInvoicesInvoiceResponseBodyValidator = responseValidationFactory(
     [["200", s_invoice]],
     s_error,
@@ -40478,11 +38748,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoicesInvoiceRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -41296,8 +39562,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getInvoicesInvoiceLinesRequestBodySchema = z.object({}).optional()
-
   const getInvoicesInvoiceLinesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -41330,11 +39594,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getInvoicesInvoiceLinesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42182,8 +40442,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["closed", "expired", "pending", "reversed"]).optional(),
   })
 
-  const getIssuingAuthorizationsRequestBodySchema = z.object({}).optional()
-
   const getIssuingAuthorizationsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -42215,11 +40473,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingAuthorizationsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42282,10 +40536,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingAuthorizationsAuthorizationRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIssuingAuthorizationsAuthorizationResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
 
@@ -42305,11 +40555,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingAuthorizationsAuthorizationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -42651,8 +40897,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.enum(["company", "individual"]).optional(),
   })
 
-  const getIssuingCardholdersRequestBodySchema = z.object({}).optional()
-
   const getIssuingCardholdersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -42683,11 +40927,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingCardholdersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -43797,10 +42037,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingCardholdersCardholderRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIssuingCardholdersCardholderResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_cardholder]], s_error)
 
@@ -43820,11 +42056,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingCardholdersCardholderRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -44958,8 +43190,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.enum(["physical", "virtual"]).optional(),
   })
 
-  const getIssuingCardsRequestBodySchema = z.object({}).optional()
-
   const getIssuingCardsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -44987,11 +43217,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingCardsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -46086,8 +44312,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingCardsCardRequestBodySchema = z.object({}).optional()
-
   const getIssuingCardsCardResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_card]],
     s_error,
@@ -46109,11 +44333,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingCardsCardRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47219,8 +45439,6 @@ export function createRouter(implementation: Implementation): Router {
     transaction: z.string().max(5000).optional(),
   })
 
-  const getIssuingDisputesRequestBodySchema = z.object({}).optional()
-
   const getIssuingDisputesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -47248,11 +45466,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingDisputesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47565,8 +45779,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingDisputesDisputeRequestBodySchema = z.object({}).optional()
-
   const getIssuingDisputesDisputeResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_dispute]], s_error)
 
@@ -47586,11 +45798,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingDisputesDisputeRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -47993,10 +46201,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["active", "inactive", "rejected", "review"]).optional(),
   })
 
-  const getIssuingPersonalizationDesignsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIssuingPersonalizationDesignsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -48028,11 +46232,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingPersonalizationDesignsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48186,9 +46386,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema =
-    z.object({}).optional()
-
   const getIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator =
     responseValidationFactory(
       [["200", s_issuing_personalization_design]],
@@ -48211,11 +46408,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingPersonalizationDesignsPersonalizationDesignRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48403,8 +46596,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.enum(["custom", "standard"]).optional(),
   })
 
-  const getIssuingPhysicalBundlesRequestBodySchema = z.object({}).optional()
-
   const getIssuingPhysicalBundlesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -48436,11 +46627,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingPhysicalBundlesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48503,10 +46690,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingPhysicalBundlesPhysicalBundleRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIssuingPhysicalBundlesPhysicalBundleResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_physical_bundle]], s_error)
 
@@ -48526,11 +46709,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingPhysicalBundlesPhysicalBundleRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48599,10 +46778,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingSettlementsSettlementRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIssuingSettlementsSettlementResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
 
@@ -48622,11 +46797,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingSettlementsSettlementRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48775,8 +46946,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["active", "deleted", "requested", "suspended"]).optional(),
   })
 
-  const getIssuingTokensRequestBodySchema = z.object({}).optional()
-
   const getIssuingTokensResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -48804,11 +46973,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingTokensRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -48871,8 +47036,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingTokensTokenRequestBodySchema = z.object({}).optional()
-
   const getIssuingTokensTokenResponseBodyValidator = responseValidationFactory(
     [["200", s_issuing_token]],
     s_error,
@@ -48894,11 +47057,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingTokensTokenRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49044,8 +47203,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.enum(["capture", "refund"]).optional(),
   })
 
-  const getIssuingTransactionsRequestBodySchema = z.object({}).optional()
-
   const getIssuingTransactionsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -49076,11 +47233,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49143,10 +47296,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getIssuingTransactionsTransactionRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getIssuingTransactionsTransactionResponseBodyValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
 
@@ -49166,11 +47315,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getIssuingTransactionsTransactionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49410,8 +47555,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getLinkAccountSessionsSessionRequestBodySchema = z.object({}).optional()
-
   const getLinkAccountSessionsSessionResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_session]],
@@ -49434,11 +47577,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getLinkAccountSessionsSessionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49506,8 +47645,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getLinkedAccountsRequestBodySchema = z.object({}).optional()
-
   const getLinkedAccountsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -49538,11 +47675,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getLinkedAccountsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49605,8 +47738,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getLinkedAccountsAccountRequestBodySchema = z.object({}).optional()
-
   const getLinkedAccountsAccountResponseBodyValidator =
     responseValidationFactory(
       [["200", s_financial_connections_account]],
@@ -49629,11 +47760,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getLinkedAccountsAccountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49779,10 +47906,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getLinkedAccountsAccountOwnersRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getLinkedAccountsAccountOwnersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -49815,11 +47938,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getLinkedAccountsAccountOwnersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -49962,8 +48081,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getMandatesMandateRequestBodySchema = z.object({}).optional()
-
   const getMandatesMandateResponseBodyValidator = responseValidationFactory(
     [["200", s_mandate]],
     s_error,
@@ -49985,11 +48102,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getMandatesMandateRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -50058,8 +48171,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentIntentsRequestBodySchema = z.object({}).optional()
-
   const getPaymentIntentsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -50087,11 +48198,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentIntentsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -51348,8 +49455,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getPaymentIntentsSearchRequestBodySchema = z.object({}).optional()
-
   const getPaymentIntentsSearchResponseBodyValidator =
     responseValidationFactory(
       [
@@ -51380,11 +49485,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentIntentsSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -51450,8 +49551,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPaymentIntentsIntentRequestBodySchema = z.object({}).optional()
-
   const getPaymentIntentsIntentResponseBodyValidator =
     responseValidationFactory([["200", s_payment_intent]], s_error)
 
@@ -51471,11 +49570,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentIntentsIntentRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -54346,8 +52441,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentLinksRequestBodySchema = z.object({}).optional()
-
   const getPaymentLinksResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -54375,11 +52468,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentLinksRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55020,8 +53109,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPaymentLinksPaymentLinkRequestBodySchema = z.object({}).optional()
-
   const getPaymentLinksPaymentLinkResponseBodyValidator =
     responseValidationFactory([["200", s_payment_link]], s_error)
 
@@ -55041,11 +53128,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentLinksPaymentLinkRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55687,10 +53770,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentLinksPaymentLinkLineItemsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getPaymentLinksPaymentLinkLineItemsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -55723,11 +53802,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentLinksPaymentLinkLineItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -55795,10 +53870,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentMethodConfigurationsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getPaymentMethodConfigurationsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -55830,11 +53901,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentMethodConfigurationsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56338,10 +54405,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPaymentMethodConfigurationsConfigurationRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getPaymentMethodConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["200", s_payment_method_configuration]],
@@ -56364,11 +54427,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentMethodConfigurationsConfigurationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -56896,8 +54955,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentMethodDomainsRequestBodySchema = z.object({}).optional()
-
   const getPaymentMethodDomainsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -56929,11 +54986,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentMethodDomainsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -57062,10 +55115,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPaymentMethodDomainsPaymentMethodDomainRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method_domain]], s_error)
 
@@ -57085,11 +55134,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentMethodDomainsPaymentMethodDomainRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -57378,8 +55423,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPaymentMethodsRequestBodySchema = z.object({}).optional()
-
   const getPaymentMethodsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -57407,11 +55450,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentMethodsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -57854,10 +55893,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPaymentMethodsPaymentMethodRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getPaymentMethodsPaymentMethodResponseBodyValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
 
@@ -57877,11 +55912,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPaymentMethodsPaymentMethodRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -58251,8 +56282,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.string().max(5000).optional(),
   })
 
-  const getPayoutsRequestBodySchema = z.object({}).optional()
-
   const getPayoutsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -58280,11 +56309,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPayoutsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -58419,8 +56444,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPayoutsPayoutRequestBodySchema = z.object({}).optional()
-
   const getPayoutsPayoutResponseBodyValidator = responseValidationFactory(
     [["200", s_payout]],
     s_error,
@@ -58442,11 +56465,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPayoutsPayoutRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -58738,8 +56757,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPlansRequestBodySchema = z.object({}).optional()
-
   const getPlansResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -58767,11 +56784,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPlansRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -58931,8 +56944,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const deletePlansPlanParamSchema = z.object({plan: z.string().max(5000)})
 
-  const deletePlansPlanRequestBodySchema = z.object({}).optional()
-
   const deletePlansPlanResponseBodyValidator = responseValidationFactory(
     [["200", s_deleted_plan]],
     s_error,
@@ -58950,11 +56961,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deletePlansPlanRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -59010,8 +57017,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPlansPlanRequestBodySchema = z.object({}).optional()
-
   const getPlansPlanResponseBodyValidator = responseValidationFactory(
     [["200", s_plan]],
     s_error,
@@ -59033,11 +57038,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPlansPlanRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -59201,8 +57202,6 @@ export function createRouter(implementation: Implementation): Router {
     type: z.enum(["one_time", "recurring"]).optional(),
   })
 
-  const getPricesRequestBodySchema = z.object({}).optional()
-
   const getPricesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -59230,11 +57229,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPricesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -59445,8 +57440,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getPricesSearchRequestBodySchema = z.object({}).optional()
-
   const getPricesSearchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -59476,11 +57469,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPricesSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -59543,8 +57532,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPricesPriceRequestBodySchema = z.object({}).optional()
-
   const getPricesPriceResponseBodyValidator = responseValidationFactory(
     [["200", s_price]],
     s_error,
@@ -59566,11 +57553,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPricesPriceRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -59762,8 +57745,6 @@ export function createRouter(implementation: Implementation): Router {
     url: z.string().max(5000).optional(),
   })
 
-  const getProductsRequestBodySchema = z.object({}).optional()
-
   const getProductsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -59791,11 +57772,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getProductsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60000,8 +57977,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getProductsSearchRequestBodySchema = z.object({}).optional()
-
   const getProductsSearchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -60031,11 +58006,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getProductsSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60089,8 +58060,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const deleteProductsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const deleteProductsIdRequestBodySchema = z.object({}).optional()
-
   const deleteProductsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_deleted_product]],
     s_error,
@@ -60108,11 +58077,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteProductsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60168,8 +58133,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getProductsIdRequestBodySchema = z.object({}).optional()
-
   const getProductsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_product]],
     s_error,
@@ -60191,11 +58154,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getProductsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60355,8 +58314,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getProductsProductFeaturesRequestBodySchema = z.object({}).optional()
-
   const getProductsProductFeaturesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -60389,11 +58346,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getProductsProductFeaturesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60525,10 +58478,6 @@ export function createRouter(implementation: Implementation): Router {
     product: z.string().max(5000),
   })
 
-  const deleteProductsProductFeaturesIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteProductsProductFeaturesIdResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_product_feature]], s_error)
 
@@ -60544,11 +58493,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteProductsProductFeaturesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60609,8 +58554,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getProductsProductFeaturesIdRequestBodySchema = z.object({}).optional()
-
   const getProductsProductFeaturesIdResponseBodyValidator =
     responseValidationFactory([["200", s_product_feature]], s_error)
 
@@ -60630,11 +58573,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getProductsProductFeaturesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60708,8 +58647,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPromotionCodesRequestBodySchema = z.object({}).optional()
-
   const getPromotionCodesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -60737,11 +58674,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPromotionCodesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -60887,10 +58820,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getPromotionCodesPromotionCodeRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getPromotionCodesPromotionCodeResponseBodyValidator =
     responseValidationFactory([["200", s_promotion_code]], s_error)
 
@@ -60910,11 +58839,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getPromotionCodesPromotionCodeRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -61061,8 +58986,6 @@ export function createRouter(implementation: Implementation): Router {
     test_clock: z.string().max(5000).optional(),
   })
 
-  const getQuotesRequestBodySchema = z.object({}).optional()
-
   const getQuotesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -61090,11 +59013,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getQuotesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -61352,8 +59271,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getQuotesQuoteRequestBodySchema = z.object({}).optional()
-
   const getQuotesQuoteResponseBodyValidator = responseValidationFactory(
     [["200", s_quote]],
     s_error,
@@ -61375,11 +59292,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getQuotesQuoteRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -61782,10 +59695,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getQuotesQuoteComputedUpfrontLineItemsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getQuotesQuoteComputedUpfrontLineItemsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -61818,11 +59727,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getQuotesQuoteComputedUpfrontLineItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -61974,8 +59879,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getQuotesQuoteLineItemsRequestBodySchema = z.object({}).optional()
-
   const getQuotesQuoteLineItemsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -62008,11 +59911,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getQuotesQuoteLineItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62073,8 +59972,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getQuotesQuotePdfRequestBodySchema = z.object({}).optional()
-
   const getQuotesQuotePdfResponseBodyValidator = responseValidationFactory(
     [["200", z.string()]],
     s_error,
@@ -62096,11 +59993,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getQuotesQuotePdfRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62170,8 +60063,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getRadarEarlyFraudWarningsRequestBodySchema = z.object({}).optional()
-
   const getRadarEarlyFraudWarningsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -62203,11 +60094,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRadarEarlyFraudWarningsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62272,10 +60159,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getRadarEarlyFraudWarningsEarlyFraudWarningRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getRadarEarlyFraudWarningsEarlyFraudWarningResponseBodyValidator =
     responseValidationFactory([["200", s_radar_early_fraud_warning]], s_error)
 
@@ -62295,11 +60178,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRadarEarlyFraudWarningsEarlyFraudWarningRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62380,8 +60259,6 @@ export function createRouter(implementation: Implementation): Router {
     value_list: z.string().max(5000),
   })
 
-  const getRadarValueListItemsRequestBodySchema = z.object({}).optional()
-
   const getRadarValueListItemsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -62412,11 +60289,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRadarValueListItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62536,8 +60409,6 @@ export function createRouter(implementation: Implementation): Router {
     item: z.string().max(5000),
   })
 
-  const deleteRadarValueListItemsItemRequestBodySchema = z.object({}).optional()
-
   const deleteRadarValueListItemsItemResponseBodyValidator =
     responseValidationFactory(
       [["200", s_deleted_radar_value_list_item]],
@@ -62556,11 +60427,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteRadarValueListItemsItemRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62622,8 +60489,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getRadarValueListItemsItemRequestBodySchema = z.object({}).optional()
-
   const getRadarValueListItemsItemResponseBodyValidator =
     responseValidationFactory([["200", s_radar_value_list_item]], s_error)
 
@@ -62643,11 +60508,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRadarValueListItemsItemRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62719,8 +60580,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getRadarValueListsRequestBodySchema = z.object({}).optional()
-
   const getRadarValueListsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -62748,11 +60607,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRadarValueListsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62889,10 +60744,6 @@ export function createRouter(implementation: Implementation): Router {
     value_list: z.string().max(5000),
   })
 
-  const deleteRadarValueListsValueListRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteRadarValueListsValueListResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_radar_value_list]], s_error)
 
@@ -62908,11 +60759,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteRadarValueListsValueListRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -62972,8 +60819,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getRadarValueListsValueListRequestBodySchema = z.object({}).optional()
-
   const getRadarValueListsValueListResponseBodyValidator =
     responseValidationFactory([["200", s_radar_value_list]], s_error)
 
@@ -62993,11 +60838,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRadarValueListsValueListRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -63148,8 +60989,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getRefundsRequestBodySchema = z.object({}).optional()
-
   const getRefundsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -63177,11 +61016,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRefundsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -63323,8 +61158,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getRefundsRefundRequestBodySchema = z.object({}).optional()
-
   const getRefundsRefundResponseBodyValidator = responseValidationFactory(
     [["200", s_refund]],
     s_error,
@@ -63346,11 +61179,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getRefundsRefundRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -63563,8 +61392,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getReportingReportRunsRequestBodySchema = z.object({}).optional()
-
   const getReportingReportRunsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -63595,11 +61422,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getReportingReportRunsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -64380,10 +62203,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getReportingReportRunsReportRunRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getReportingReportRunsReportRunResponseBodyValidator =
     responseValidationFactory([["200", s_reporting_report_run]], s_error)
 
@@ -64403,11 +62222,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getReportingReportRunsReportRunRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -64463,8 +62278,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getReportingReportTypesRequestBodySchema = z.object({}).optional()
-
   const getReportingReportTypesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -64493,11 +62306,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getReportingReportTypesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -64560,10 +62369,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getReportingReportTypesReportTypeRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getReportingReportTypesReportTypeResponseBodyValidator =
     responseValidationFactory([["200", s_reporting_report_type]], s_error)
 
@@ -64583,11 +62388,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getReportingReportTypesReportTypeRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -64660,8 +62461,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getReviewsRequestBodySchema = z.object({}).optional()
-
   const getReviewsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -64689,11 +62488,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getReviewsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -64754,8 +62549,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getReviewsReviewRequestBodySchema = z.object({}).optional()
-
   const getReviewsReviewResponseBodyValidator = responseValidationFactory(
     [["200", s_review]],
     s_error,
@@ -64777,11 +62570,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getReviewsReviewRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -64922,8 +62711,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSetupAttemptsRequestBodySchema = z.object({}).optional()
-
   const getSetupAttemptsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -64951,11 +62738,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSetupAttemptsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -65031,8 +62814,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSetupIntentsRequestBodySchema = z.object({}).optional()
-
   const getSetupIntentsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -65060,11 +62841,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSetupIntentsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -65781,8 +63558,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getSetupIntentsIntentRequestBodySchema = z.object({}).optional()
-
   const getSetupIntentsIntentResponseBodyValidator = responseValidationFactory(
     [["200", s_setup_intent]],
     s_error,
@@ -65804,11 +63579,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSetupIntentsIntentRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -67325,8 +65096,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getShippingRatesRequestBodySchema = z.object({}).optional()
-
   const getShippingRatesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -67354,11 +65123,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getShippingRatesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -67524,10 +65289,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getShippingRatesShippingRateTokenRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getShippingRatesShippingRateTokenResponseBodyValidator =
     responseValidationFactory([["200", s_shipping_rate]], s_error)
 
@@ -67547,11 +65308,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getShippingRatesShippingRateTokenRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -67787,8 +65544,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSigmaScheduledQueryRunsRequestBodySchema = z.object({}).optional()
-
   const getSigmaScheduledQueryRunsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -67820,11 +65575,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSigmaScheduledQueryRunsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -67889,10 +65640,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getSigmaScheduledQueryRunsScheduledQueryRunRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getSigmaScheduledQueryRunsScheduledQueryRunResponseBodyValidator =
     responseValidationFactory([["200", s_scheduled_query_run]], s_error)
 
@@ -67912,11 +65659,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSigmaScheduledQueryRunsScheduledQueryRunRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -68154,8 +65897,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getSourcesSourceRequestBodySchema = z.object({}).optional()
-
   const getSourcesSourceResponseBodyValidator = responseValidationFactory(
     [["200", s_source]],
     s_error,
@@ -68177,11 +65918,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSourcesSourceRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -68400,9 +66137,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getSourcesSourceMandateNotificationsMandateNotificationRequestBodySchema =
-    z.object({}).optional()
-
   const getSourcesSourceMandateNotificationsMandateNotificationResponseBodyValidator =
     responseValidationFactory([["200", s_source_mandate_notification]], s_error)
 
@@ -68422,11 +66156,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSourcesSourceMandateNotificationsMandateNotificationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -68500,10 +66230,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSourcesSourceSourceTransactionsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getSourcesSourceSourceTransactionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -68536,11 +66262,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSourcesSourceSourceTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -68611,10 +66333,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getSourcesSourceSourceTransactionsSourceTransactionRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getSourcesSourceSourceTransactionsSourceTransactionResponseBodyValidator =
     responseValidationFactory([["200", s_source_transaction]], s_error)
 
@@ -68634,11 +66352,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSourcesSourceSourceTransactionsSourceTransactionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -68780,8 +66494,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription: z.string().max(5000),
   })
 
-  const getSubscriptionItemsRequestBodySchema = z.object({}).optional()
-
   const getSubscriptionItemsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -68812,11 +66524,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -69074,8 +66782,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getSubscriptionItemsItemRequestBodySchema = z.object({}).optional()
-
   const getSubscriptionItemsItemResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_item]], s_error)
 
@@ -69095,11 +66801,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionItemsItemRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -69325,8 +67027,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSubscriptionSchedulesRequestBodySchema = z.object({}).optional()
-
   const getSubscriptionSchedulesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -69358,11 +67058,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionSchedulesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -69710,10 +67406,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getSubscriptionSchedulesScheduleRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getSubscriptionSchedulesScheduleResponseBodyValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
 
@@ -69733,11 +67425,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionSchedulesScheduleRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -70320,8 +68008,6 @@ export function createRouter(implementation: Implementation): Router {
     test_clock: z.string().max(5000).optional(),
   })
 
-  const getSubscriptionsRequestBodySchema = z.object({}).optional()
-
   const getSubscriptionsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -70349,11 +68035,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -70841,8 +68523,6 @@ export function createRouter(implementation: Implementation): Router {
     query: z.string().max(5000),
   })
 
-  const getSubscriptionsSearchRequestBodySchema = z.object({}).optional()
-
   const getSubscriptionsSearchResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -70872,11 +68552,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionsSearchRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -71046,10 +68722,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getSubscriptionsSubscriptionExposedIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getSubscriptionsSubscriptionExposedIdResponseBodyValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
 
@@ -71069,11 +68741,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getSubscriptionsSubscriptionExposedIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -71602,10 +69270,6 @@ export function createRouter(implementation: Implementation): Router {
     subscription_exposed_id: z.string().max(5000),
   })
 
-  const deleteSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_discount]], s_error)
 
@@ -71621,11 +69285,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteSubscriptionsSubscriptionExposedIdDiscountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -72102,8 +69762,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxCalculationsCalculationRequestBodySchema = z.object({}).optional()
-
   const getTaxCalculationsCalculationResponseBodyValidator =
     responseValidationFactory([["200", s_tax_calculation]], s_error)
 
@@ -72123,11 +69781,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxCalculationsCalculationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -72190,10 +69844,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(500).optional(),
   })
 
-  const getTaxCalculationsCalculationLineItemsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTaxCalculationsCalculationLineItemsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -72229,11 +69879,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxCalculationsCalculationLineItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -72307,8 +69953,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["active", "all", "expired", "scheduled"]).optional(),
   })
 
-  const getTaxRegistrationsRequestBodySchema = z.object({}).optional()
-
   const getTaxRegistrationsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -72336,11 +69980,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxRegistrationsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -72852,8 +70492,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxRegistrationsIdRequestBodySchema = z.object({}).optional()
-
   const getTaxRegistrationsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_registration]],
     s_error,
@@ -72875,11 +70513,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxRegistrationsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -73011,8 +70645,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxSettingsRequestBodySchema = z.object({}).optional()
-
   const getTaxSettingsResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_settings]],
     s_error,
@@ -73030,11 +70662,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxSettingsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -73348,8 +70976,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxTransactionsTransactionRequestBodySchema = z.object({}).optional()
-
   const getTaxTransactionsTransactionResponseBodyValidator =
     responseValidationFactory([["200", s_tax_transaction]], s_error)
 
@@ -73369,11 +70995,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxTransactionsTransactionRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -73436,10 +71058,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(500).optional(),
   })
 
-  const getTaxTransactionsTransactionLineItemsRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTaxTransactionsTransactionLineItemsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -73475,11 +71093,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxTransactionsTransactionLineItemsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -73552,8 +71166,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().optional(),
   })
 
-  const getTaxCodesRequestBodySchema = z.object({}).optional()
-
   const getTaxCodesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -73581,11 +71193,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxCodesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -73646,8 +71254,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxCodesIdRequestBodySchema = z.object({}).optional()
-
   const getTaxCodesIdResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_code]],
     s_error,
@@ -73669,11 +71275,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxCodesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -73737,8 +71339,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTaxIdsRequestBodySchema = z.object({}).optional()
-
   const getTaxIdsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -73766,11 +71366,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxIdsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74008,8 +71604,6 @@ export function createRouter(implementation: Implementation): Router {
 
   const deleteTaxIdsIdParamSchema = z.object({id: z.string().max(5000)})
 
-  const deleteTaxIdsIdRequestBodySchema = z.object({}).optional()
-
   const deleteTaxIdsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_deleted_tax_id]],
     s_error,
@@ -74027,11 +71621,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteTaxIdsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74087,8 +71677,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxIdsIdRequestBodySchema = z.object({}).optional()
-
   const getTaxIdsIdResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_id]],
     s_error,
@@ -74110,11 +71698,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxIdsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74184,8 +71768,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTaxRatesRequestBodySchema = z.object({}).optional()
-
   const getTaxRatesResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -74213,11 +71795,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxRatesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74373,8 +71951,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTaxRatesTaxRateRequestBodySchema = z.object({}).optional()
-
   const getTaxRatesTaxRateResponseBodyValidator = responseValidationFactory(
     [["200", s_tax_rate]],
     s_error,
@@ -74396,11 +71972,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTaxRatesTaxRateRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74559,8 +72131,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTerminalConfigurationsRequestBodySchema = z.object({}).optional()
-
   const getTerminalConfigurationsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -74592,11 +72162,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTerminalConfigurationsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74888,10 +72454,6 @@ export function createRouter(implementation: Implementation): Router {
     configuration: z.string().max(5000),
   })
 
-  const deleteTerminalConfigurationsConfigurationRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteTerminalConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [["200", s_deleted_terminal_configuration]],
@@ -74910,11 +72472,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteTerminalConfigurationsConfigurationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -74985,10 +72543,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTerminalConfigurationsConfigurationRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTerminalConfigurationsConfigurationResponseBodyValidator =
     responseValidationFactory(
       [
@@ -75019,11 +72573,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTerminalConfigurationsConfigurationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -75451,8 +73001,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTerminalLocationsRequestBodySchema = z.object({}).optional()
-
   const getTerminalLocationsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -75483,11 +73031,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTerminalLocationsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -75618,10 +73162,6 @@ export function createRouter(implementation: Implementation): Router {
     location: z.string().max(5000),
   })
 
-  const deleteTerminalLocationsLocationRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteTerminalLocationsLocationResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_terminal_location]], s_error)
 
@@ -75637,11 +73177,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteTerminalLocationsLocationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -75701,8 +73237,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTerminalLocationsLocationRequestBodySchema = z.object({}).optional()
-
   const getTerminalLocationsLocationResponseBodyValidator =
     responseValidationFactory(
       [["200", z.union([s_terminal_location, s_deleted_terminal_location])]],
@@ -75725,11 +73259,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTerminalLocationsLocationRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -75902,8 +73432,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["offline", "online"]).optional(),
   })
 
-  const getTerminalReadersRequestBodySchema = z.object({}).optional()
-
   const getTerminalReadersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -75931,11 +73459,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTerminalReadersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -76059,8 +73583,6 @@ export function createRouter(implementation: Implementation): Router {
     reader: z.string().max(5000),
   })
 
-  const deleteTerminalReadersReaderRequestBodySchema = z.object({}).optional()
-
   const deleteTerminalReadersReaderResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_terminal_reader]], s_error)
 
@@ -76076,11 +73598,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteTerminalReadersReaderRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -76140,8 +73658,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTerminalReadersReaderRequestBodySchema = z.object({}).optional()
-
   const getTerminalReadersReaderResponseBodyValidator =
     responseValidationFactory(
       [
@@ -76169,11 +73685,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTerminalReadersReaderRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -81048,8 +78560,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTestHelpersTestClocksRequestBodySchema = z.object({}).optional()
-
   const getTestHelpersTestClocksResponseBodyValidator =
     responseValidationFactory(
       [
@@ -81081,11 +78591,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTestHelpersTestClocksRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -81205,10 +78711,6 @@ export function createRouter(implementation: Implementation): Router {
     test_clock: z.string().max(5000),
   })
 
-  const deleteTestHelpersTestClocksTestClockRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteTestHelpersTestClocksTestClockResponseBodyValidator =
     responseValidationFactory(
       [["200", s_deleted_test_helpers_test_clock]],
@@ -81227,11 +78729,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteTestHelpersTestClocksTestClockRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -81302,10 +78800,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTestHelpersTestClocksTestClockRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTestHelpersTestClocksTestClockResponseBodyValidator =
     responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
 
@@ -81325,11 +78819,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTestHelpersTestClocksTestClockRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -83195,8 +80685,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTokensTokenRequestBodySchema = z.object({}).optional()
-
   const getTokensTokenResponseBodyValidator = responseValidationFactory(
     [["200", s_token]],
     s_error,
@@ -83218,11 +80706,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTokensTokenRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -83302,8 +80786,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["canceled", "failed", "pending", "succeeded"]).optional(),
   })
 
-  const getTopupsRequestBodySchema = z.object({}).optional()
-
   const getTopupsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -83331,11 +80813,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTopupsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -83469,8 +80947,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTopupsTopupRequestBodySchema = z.object({}).optional()
-
   const getTopupsTopupResponseBodyValidator = responseValidationFactory(
     [["200", s_topup]],
     s_error,
@@ -83492,11 +80968,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTopupsTopupRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -83716,8 +81188,6 @@ export function createRouter(implementation: Implementation): Router {
     transfer_group: z.string().max(5000).optional(),
   })
 
-  const getTransfersRequestBodySchema = z.object({}).optional()
-
   const getTransfersResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -83745,11 +81215,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTransfersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -83889,8 +81355,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTransfersIdReversalsRequestBodySchema = z.object({}).optional()
-
   const getTransfersIdReversalsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -83923,11 +81387,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTransfersIdReversalsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84068,8 +81528,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTransfersTransferRequestBodySchema = z.object({}).optional()
-
   const getTransfersTransferResponseBodyValidator = responseValidationFactory(
     [["200", s_transfer]],
     s_error,
@@ -84091,11 +81549,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTransfersTransferRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84232,10 +81686,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTransfersTransferReversalsIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTransfersTransferReversalsIdResponseBodyValidator =
     responseValidationFactory([["200", s_transfer_reversal]], s_error)
 
@@ -84255,11 +81705,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTransfersTransferReversalsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84399,8 +81845,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["canceled", "posted", "processing"]).optional(),
   })
 
-  const getTreasuryCreditReversalsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryCreditReversalsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -84429,11 +81873,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryCreditReversalsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84566,10 +82006,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryCreditReversalsCreditReversalRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTreasuryCreditReversalsCreditReversalResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_credit_reversal]], s_error)
 
@@ -84589,11 +82025,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryCreditReversalsCreditReversalRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84665,8 +82097,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["canceled", "completed", "processing"]).optional(),
   })
 
-  const getTreasuryDebitReversalsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryDebitReversalsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -84695,11 +82125,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryDebitReversalsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84830,10 +82256,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryDebitReversalsDebitReversalRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTreasuryDebitReversalsDebitReversalResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_debit_reversal]], s_error)
 
@@ -84853,11 +82275,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryDebitReversalsDebitReversalRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -84937,8 +82355,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["closed", "open"]).optional(),
   })
 
-  const getTreasuryFinancialAccountsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryFinancialAccountsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -84970,11 +82386,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryFinancialAccountsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -85143,10 +82555,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryFinancialAccountsFinancialAccountRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTreasuryFinancialAccountsFinancialAccountResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_financial_account]], s_error)
 
@@ -85166,11 +82574,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryFinancialAccountsFinancialAccountRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -85463,9 +82867,6 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     })
 
-  const getTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema =
-    z.object({}).optional()
-
   const getTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator =
     responseValidationFactory(
       [["200", s_treasury_financial_account_features]],
@@ -85488,11 +82889,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryFinancialAccountsFinancialAccountFeaturesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -85681,8 +83078,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryInboundTransfersRequestBodySchema = z.object({}).optional()
-
   const getTreasuryInboundTransfersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -85711,11 +83106,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryInboundTransfersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -85853,8 +83244,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryInboundTransfersIdRequestBodySchema = z.object({}).optional()
-
   const getTreasuryInboundTransfersIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
 
@@ -85874,11 +83263,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryInboundTransfersIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86036,8 +83421,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryOutboundPaymentsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryOutboundPaymentsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -86069,11 +83452,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryOutboundPaymentsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86261,8 +83640,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryOutboundPaymentsIdRequestBodySchema = z.object({}).optional()
-
   const getTreasuryOutboundPaymentsIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
 
@@ -86282,11 +83659,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryOutboundPaymentsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86432,8 +83805,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryOutboundTransfersRequestBodySchema = z.object({}).optional()
-
   const getTreasuryOutboundTransfersResponseBodyValidator =
     responseValidationFactory(
       [
@@ -86462,11 +83833,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryOutboundTransfersRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86620,10 +83987,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryOutboundTransfersOutboundTransferRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTreasuryOutboundTransfersOutboundTransferResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
 
@@ -86643,11 +84006,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryOutboundTransfersOutboundTransferRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86810,8 +84169,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["failed", "succeeded"]).optional(),
   })
 
-  const getTreasuryReceivedCreditsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryReceivedCreditsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -86840,11 +84197,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryReceivedCreditsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86909,8 +84262,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryReceivedCreditsIdRequestBodySchema = z.object({}).optional()
-
   const getTreasuryReceivedCreditsIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_received_credit]], s_error)
 
@@ -86930,11 +84281,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryReceivedCreditsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -86995,8 +84342,6 @@ export function createRouter(implementation: Implementation): Router {
     status: z.enum(["failed", "succeeded"]).optional(),
   })
 
-  const getTreasuryReceivedDebitsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryReceivedDebitsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -87025,11 +84370,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryReceivedDebitsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -87092,8 +84433,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryReceivedDebitsIdRequestBodySchema = z.object({}).optional()
-
   const getTreasuryReceivedDebitsIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_received_debit]], s_error)
 
@@ -87113,11 +84452,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryReceivedDebitsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -87201,8 +84536,6 @@ export function createRouter(implementation: Implementation): Router {
     transaction: z.string().max(5000).optional(),
   })
 
-  const getTreasuryTransactionEntriesRequestBodySchema = z.object({}).optional()
-
   const getTreasuryTransactionEntriesResponseBodyValidator =
     responseValidationFactory(
       [
@@ -87234,11 +84567,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryTransactionEntriesRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -87303,10 +84632,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryTransactionEntriesIdRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getTreasuryTransactionEntriesIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_transaction_entry]], s_error)
 
@@ -87326,11 +84651,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryTransactionEntriesIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -87418,8 +84739,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryTransactionsRequestBodySchema = z.object({}).optional()
-
   const getTreasuryTransactionsResponseBodyValidator =
     responseValidationFactory(
       [
@@ -87448,11 +84767,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryTransactionsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -87515,8 +84830,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getTreasuryTransactionsIdRequestBodySchema = z.object({}).optional()
-
   const getTreasuryTransactionsIdResponseBodyValidator =
     responseValidationFactory([["200", s_treasury_transaction]], s_error)
 
@@ -87536,11 +84849,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getTreasuryTransactionsIdRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -87597,8 +84906,6 @@ export function createRouter(implementation: Implementation): Router {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getWebhookEndpointsRequestBodySchema = z.object({}).optional()
-
   const getWebhookEndpointsResponseBodyValidator = responseValidationFactory(
     [
       [
@@ -87626,11 +84933,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getWebhookEndpointsRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -88118,10 +85421,6 @@ export function createRouter(implementation: Implementation): Router {
     webhook_endpoint: z.string().max(5000),
   })
 
-  const deleteWebhookEndpointsWebhookEndpointRequestBodySchema = z
-    .object({})
-    .optional()
-
   const deleteWebhookEndpointsWebhookEndpointResponseBodyValidator =
     responseValidationFactory([["200", s_deleted_webhook_endpoint]], s_error)
 
@@ -88137,11 +85436,7 @@ export function createRouter(implementation: Implementation): Router {
             RequestInputType.RouteParam,
           ),
           query: undefined,
-          body: parseRequestInput(
-            deleteWebhookEndpointsWebhookEndpointRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 
@@ -88210,10 +85505,6 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
   })
 
-  const getWebhookEndpointsWebhookEndpointRequestBodySchema = z
-    .object({})
-    .optional()
-
   const getWebhookEndpointsWebhookEndpointResponseBodyValidator =
     responseValidationFactory([["200", s_webhook_endpoint]], s_error)
 
@@ -88233,11 +85524,7 @@ export function createRouter(implementation: Implementation): Router {
             req.query,
             RequestInputType.QueryString,
           ),
-          body: parseRequestInput(
-            getWebhookEndpointsWebhookEndpointRequestBodySchema,
-            req.body,
-            RequestInputType.RequestBody,
-          ),
+          body: undefined,
           headers: undefined,
         }
 

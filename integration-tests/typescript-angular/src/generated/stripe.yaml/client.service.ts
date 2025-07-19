@@ -308,25 +308,19 @@ export class StripeApiService {
   }
 
   getAccount(
-    p: {expand?: string[]; requestBody?: EmptyObject} = {},
+    p: {expand?: string[]} = {},
   ): Observable<
     | (HttpResponse<t_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/account`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -537,7 +531,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -549,9 +542,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -559,15 +549,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/accounts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -1178,23 +1165,15 @@ export class StripeApiService {
 
   deleteAccountsAccount(p: {
     account: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/accounts/${p["account"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -1204,25 +1183,18 @@ export class StripeApiService {
   getAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/accounts/${p["account"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -1849,24 +1821,16 @@ export class StripeApiService {
   deleteAccountsAccountBankAccountsId(p: {
     account: string
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_external_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -1877,17 +1841,12 @@ export class StripeApiService {
     account: string
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_external_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -1895,8 +1854,6 @@ export class StripeApiService {
         `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -1968,7 +1925,6 @@ export class StripeApiService {
   getAccountsAccountCapabilities(p: {
     account: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_capability[]
@@ -1979,19 +1935,13 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/accounts/${p["account"]}/capabilities`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2002,17 +1952,12 @@ export class StripeApiService {
     account: string
     capability: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_capability> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -2020,8 +1965,6 @@ export class StripeApiService {
         `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2065,7 +2008,6 @@ export class StripeApiService {
     limit?: number
     object?: "bank_account" | "card" | UnknownEnumStringValue
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: (t_bank_account | t_card)[]
@@ -2076,9 +2018,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2086,15 +2025,12 @@ export class StripeApiService {
       object: p["object"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/accounts/${p["account"]}/external_accounts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2161,24 +2097,16 @@ export class StripeApiService {
   deleteAccountsAccountExternalAccountsId(p: {
     account: string
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_external_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2189,17 +2117,12 @@ export class StripeApiService {
     account: string
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_external_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -2207,8 +2130,6 @@ export class StripeApiService {
         `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2318,7 +2239,6 @@ export class StripeApiService {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_person[]
@@ -2329,9 +2249,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2339,15 +2256,12 @@ export class StripeApiService {
       relationship: p["relationship"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/accounts/${p["account"]}/people`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2533,24 +2447,16 @@ export class StripeApiService {
   deleteAccountsAccountPeoplePerson(p: {
     account: string
     person: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_person> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/accounts/${p["account"]}/people/${p["person"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2561,17 +2467,12 @@ export class StripeApiService {
     account: string
     expand?: string[]
     person: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_person> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -2579,8 +2480,6 @@ export class StripeApiService {
         `/v1/accounts/${p["account"]}/people/${p["person"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2779,7 +2678,6 @@ export class StripeApiService {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_person[]
@@ -2790,9 +2688,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2800,15 +2695,12 @@ export class StripeApiService {
       relationship: p["relationship"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/accounts/${p["account"]}/persons`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -2994,24 +2886,16 @@ export class StripeApiService {
   deleteAccountsAccountPersonsPerson(p: {
     account: string
     person: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_person> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/accounts/${p["account"]}/persons/${p["person"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3022,17 +2906,12 @@ export class StripeApiService {
     account: string
     expand?: string[]
     person: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_person> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -3040,8 +2919,6 @@ export class StripeApiService {
         `/v1/accounts/${p["account"]}/persons/${p["person"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3261,7 +3138,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3273,9 +3149,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       domain_name: p["domainName"],
       ending_before: p["endingBefore"],
@@ -3283,15 +3156,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/apple_pay/domains`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3327,23 +3197,15 @@ export class StripeApiService {
 
   deleteApplePayDomainsDomain(p: {
     domain: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_apple_pay_domain> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/apple_pay/domains/${p["domain"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3353,25 +3215,18 @@ export class StripeApiService {
   getApplePayDomainsDomain(p: {
     domain: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_apple_pay_domain> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/apple_pay/domains/${p["domain"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3393,7 +3248,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3405,9 +3259,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       charge: p["charge"],
       created: p["created"],
@@ -3416,15 +3267,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/application_fees`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3435,17 +3283,12 @@ export class StripeApiService {
     expand?: string[]
     fee: string
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_fee_refund> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -3453,8 +3296,6 @@ export class StripeApiService {
         `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3499,25 +3340,18 @@ export class StripeApiService {
   getApplicationFeesId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_application_fee> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/application_fees/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3559,7 +3393,6 @@ export class StripeApiService {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_fee_refund[]
@@ -3570,24 +3403,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/application_fees/${p["id"]}/refunds`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3634,7 +3461,6 @@ export class StripeApiService {
       user?: string
     }
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_apps_secret[]
@@ -3645,9 +3471,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -3655,15 +3478,12 @@ export class StripeApiService {
       scope: p["scope"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/apps/secrets`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3741,29 +3561,22 @@ export class StripeApiService {
       type: "account" | "user" | UnknownEnumStringValue
       user?: string
     }
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_apps_secret> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       name: p["name"],
       scope: p["scope"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/apps/secrets/find`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3771,25 +3584,19 @@ export class StripeApiService {
   }
 
   getBalance(
-    p: {expand?: string[]; requestBody?: EmptyObject} = {},
+    p: {expand?: string[]} = {},
   ): Observable<
     | (HttpResponse<t_balance> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/balance`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3814,7 +3621,6 @@ export class StripeApiService {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3826,9 +3632,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       currency: p["currency"],
@@ -3840,15 +3643,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/balance/history`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3858,25 +3658,18 @@ export class StripeApiService {
   getBalanceHistoryId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_balance_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/balance/history/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3901,7 +3694,6 @@ export class StripeApiService {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3913,9 +3705,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       currency: p["currency"],
@@ -3927,15 +3716,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/balance_transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3945,25 +3731,18 @@ export class StripeApiService {
   getBalanceTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_balance_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/balance_transactions/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -3978,7 +3757,6 @@ export class StripeApiService {
       limit?: number
       meter?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3990,9 +3768,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       alert_type: p["alertType"],
       ending_before: p["endingBefore"],
@@ -4001,15 +3776,12 @@ export class StripeApiService {
       meter: p["meter"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/alerts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4056,25 +3828,18 @@ export class StripeApiService {
   getBillingAlertsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_alert> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/alerts/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4175,29 +3940,22 @@ export class StripeApiService {
       credit_grant?: string
       type: "applicability_scope" | "credit_grant" | UnknownEnumStringValue
     }
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_credit_balance_summary> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       customer: p["customer"],
       expand: p["expand"],
       filter: p["filter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/credit_balance_summary`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4211,7 +3969,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_billing_credit_balance_transaction[]
@@ -4222,9 +3979,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       credit_grant: p["creditGrant"],
       customer: p["customer"],
@@ -4233,15 +3987,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/credit_balance_transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4251,17 +4002,12 @@ export class StripeApiService {
   getBillingCreditBalanceTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_credit_balance_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -4269,8 +4015,6 @@ export class StripeApiService {
         `/v1/billing/credit_balance_transactions/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4284,7 +4028,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -4296,9 +4039,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -4306,15 +4046,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/credit_grants`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4374,25 +4111,18 @@ export class StripeApiService {
   getBillingCreditGrantsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_credit_grant> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/credit_grants/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4554,7 +4284,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       status?: "active" | "inactive" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -4566,9 +4295,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -4576,15 +4302,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/meters`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4633,25 +4356,18 @@ export class StripeApiService {
   getBillingMetersId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_meter> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/meters/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4723,7 +4439,6 @@ export class StripeApiService {
     startTime: number
     startingAfter?: string
     valueGroupingWindow?: "day" | "hour" | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_billing_meter_event_summary[]
@@ -4734,9 +4449,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       customer: p["customer"],
       end_time: p["endTime"],
@@ -4747,15 +4459,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       value_grouping_window: p["valueGroupingWindow"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing/meters/${p["id"]}/event_summaries`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4797,7 +4506,6 @@ export class StripeApiService {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -4809,9 +4517,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       ending_before: p["endingBefore"],
@@ -4820,15 +4525,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/billing_portal/configurations`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -4957,17 +4659,12 @@ export class StripeApiService {
   getBillingPortalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_portal_configuration> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -4975,8 +4672,6 @@ export class StripeApiService {
         `/v1/billing_portal/configurations/${p["configuration"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5252,7 +4947,6 @@ export class StripeApiService {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5264,9 +4958,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       customer: p["customer"],
@@ -5277,15 +4968,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       transfer_group: p["transferGroup"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/charges`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5390,7 +5078,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_charge[]
@@ -5403,24 +5090,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/charges/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5430,25 +5111,18 @@ export class StripeApiService {
   getChargesCharge(p: {
     charge: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_charge> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/charges/${p["charge"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5549,25 +5223,18 @@ export class StripeApiService {
   getChargesChargeDispute(p: {
     charge: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_dispute> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/charges/${p["charge"]}/dispute`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5766,7 +5433,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_refund[]
@@ -5777,24 +5443,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/charges/${p["charge"]}/refunds`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5851,17 +5511,12 @@ export class StripeApiService {
     charge: string
     expand?: string[]
     refund: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_refund> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -5869,8 +5524,6 @@ export class StripeApiService {
         `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5934,7 +5587,6 @@ export class StripeApiService {
       startingAfter?: string
       status?: "complete" | "expired" | "open" | UnknownEnumStringValue
       subscription?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5946,9 +5598,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       customer: p["customer"],
@@ -5962,15 +5611,12 @@ export class StripeApiService {
       status: p["status"],
       subscription: p["subscription"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/checkout/sessions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7034,25 +6680,18 @@ export class StripeApiService {
   getCheckoutSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_checkout_session> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/checkout/sessions/${p["session"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7195,7 +6834,6 @@ export class StripeApiService {
     limit?: number
     session: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -7206,24 +6844,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7236,7 +6868,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -7248,24 +6879,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/climate/orders`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7311,25 +6936,18 @@ export class StripeApiService {
   getClimateOrdersOrder(p: {
     expand?: string[]
     order: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_climate_order> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/climate/orders/${p["order"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7405,7 +7023,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -7417,24 +7034,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/climate/products`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7444,25 +7055,18 @@ export class StripeApiService {
   getClimateProductsProduct(p: {
     expand?: string[]
     product: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_climate_product> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/climate/products/${p["product"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7475,7 +7079,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -7487,24 +7090,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/climate/suppliers`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7514,25 +7111,18 @@ export class StripeApiService {
   getClimateSuppliersSupplier(p: {
     expand?: string[]
     supplier: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_climate_supplier> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/climate/suppliers/${p["supplier"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7542,17 +7132,12 @@ export class StripeApiService {
   getConfirmationTokensConfirmationToken(p: {
     confirmationToken: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_confirmation_token> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -7560,8 +7145,6 @@ export class StripeApiService {
         `/v1/confirmation_tokens/${p["confirmationToken"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7574,7 +7157,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -7586,24 +7168,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/country_specs`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7613,25 +7189,18 @@ export class StripeApiService {
   getCountrySpecsCountry(p: {
     country: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_country_spec> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/country_specs/${p["country"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7652,7 +7221,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -7664,9 +7232,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -7674,15 +7239,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/coupons`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7744,23 +7306,15 @@ export class StripeApiService {
 
   deleteCouponsCoupon(p: {
     coupon: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_coupon> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/coupons/${p["coupon"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7770,25 +7324,18 @@ export class StripeApiService {
   getCouponsCoupon(p: {
     coupon: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_coupon> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/coupons/${p["coupon"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -7852,7 +7399,6 @@ export class StripeApiService {
       invoice?: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -7864,9 +7410,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       customer: p["customer"],
@@ -7876,15 +7419,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/credit_notes`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8003,15 +7543,11 @@ export class StripeApiService {
     shippingCost?: {
       shipping_rate?: string
     }
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_credit_note> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
@@ -8028,15 +7564,12 @@ export class StripeApiService {
       refunds: p["refunds"],
       shipping_cost: p["shippingCost"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/credit_notes/preview`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8090,7 +7623,6 @@ export class StripeApiService {
       shipping_rate?: string
     }
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_credit_note_line_item[]
@@ -8101,9 +7633,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
@@ -8123,15 +7652,12 @@ export class StripeApiService {
       shipping_cost: p["shippingCost"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/credit_notes/preview/lines`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8144,7 +7670,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_credit_note_line_item[]
@@ -8155,24 +7680,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/credit_notes/${p["creditNote"]}/lines`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8182,25 +7701,18 @@ export class StripeApiService {
   getCreditNotesId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_credit_note> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/credit_notes/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8344,7 +7856,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       testClock?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -8356,9 +7867,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       email: p["email"],
@@ -8368,15 +7876,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       test_clock: p["testClock"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8613,7 +8118,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_customer[]
@@ -8626,24 +8130,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8652,23 +8150,15 @@ export class StripeApiService {
 
   deleteCustomersCustomer(p: {
     customer: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_customer> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/customers/${p["customer"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8678,25 +8168,18 @@ export class StripeApiService {
   getCustomersCustomer(p: {
     customer: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_customer | t_deleted_customer> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8854,7 +8337,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_customer_balance_transaction[]
@@ -8865,16 +8347,12 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -8882,8 +8360,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/balance_transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8931,17 +8407,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_customer_balance_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -8949,8 +8420,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -8999,7 +8468,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_bank_account[]
@@ -9010,24 +8478,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/bank_accounts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9134,17 +8596,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_bank_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -9152,8 +8609,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9255,7 +8710,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_card[]
@@ -9266,24 +8720,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/cards`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9389,25 +8837,18 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_card> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9475,25 +8916,18 @@ export class StripeApiService {
   getCustomersCustomerCashBalance(p: {
     customer: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_cash_balance> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/cash_balance`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9540,7 +8974,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_customer_cash_balance_transaction[]
@@ -9551,16 +8984,12 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -9568,8 +8997,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/cash_balance_transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9580,17 +9007,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_customer_cash_balance_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -9598,8 +9020,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9608,23 +9028,15 @@ export class StripeApiService {
 
   deleteCustomersCustomerDiscount(p: {
     customer: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_discount> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/customers/${p["customer"]}/discount`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9634,25 +9046,18 @@ export class StripeApiService {
   getCustomersCustomerDiscount(p: {
     customer: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_discount> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/discount`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9769,7 +9174,6 @@ export class StripeApiService {
       | "wechat_pay"
       | "zip"
       | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_payment_method[]
@@ -9780,9 +9184,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       allow_redisplay: p["allowRedisplay"],
       ending_before: p["endingBefore"],
@@ -9791,15 +9192,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/payment_methods`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9810,17 +9208,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     paymentMethod: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -9828,8 +9221,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9843,7 +9234,6 @@ export class StripeApiService {
     limit?: number
     object?: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: (t_bank_account | t_card | t_source)[]
@@ -9854,9 +9244,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9864,15 +9251,12 @@ export class StripeApiService {
       object: p["object"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/sources`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -9979,17 +9363,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_source> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -9997,8 +9376,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/sources/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -10100,7 +9477,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_subscription[]
@@ -10111,24 +9487,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/subscriptions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -10495,17 +9865,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -10513,8 +9878,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -10883,24 +10246,16 @@ export class StripeApiService {
   deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(p: {
     customer: string
     subscriptionExposedId: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_discount> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -10911,17 +10266,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_discount> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -10929,8 +10279,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -10943,7 +10291,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_tax_id[]
@@ -10954,24 +10301,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/customers/${p["customer"]}/tax_ids`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11121,24 +10462,16 @@ export class StripeApiService {
   deleteCustomersCustomerTaxIdsId(p: {
     customer: string
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_tax_id> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11149,17 +10482,12 @@ export class StripeApiService {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_id> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -11167,8 +10495,6 @@ export class StripeApiService {
         `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11191,7 +10517,6 @@ export class StripeApiService {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -11203,9 +10528,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       charge: p["charge"],
       created: p["created"],
@@ -11215,15 +10537,12 @@ export class StripeApiService {
       payment_intent: p["paymentIntent"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/disputes`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11233,25 +10552,18 @@ export class StripeApiService {
   getDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_dispute> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/disputes/${p["dispute"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11407,7 +10719,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_entitlements_active_entitlement[]
@@ -11418,9 +10729,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -11428,15 +10736,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/entitlements/active_entitlements`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11446,25 +10751,18 @@ export class StripeApiService {
   getEntitlementsActiveEntitlementsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_entitlements_active_entitlement> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/entitlements/active_entitlements/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11479,7 +10777,6 @@ export class StripeApiService {
       limit?: number
       lookupKey?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -11491,9 +10788,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       archived: p["archived"],
       ending_before: p["endingBefore"],
@@ -11502,15 +10796,12 @@ export class StripeApiService {
       lookup_key: p["lookupKey"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/entitlements/features`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11551,25 +10842,18 @@ export class StripeApiService {
   getEntitlementsFeaturesId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_entitlements_feature> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/entitlements/features/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11687,7 +10971,6 @@ export class StripeApiService {
       startingAfter?: string
       type?: string
       types?: string[]
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -11699,9 +10982,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       delivery_success: p["deliverySuccess"],
@@ -11712,15 +10992,12 @@ export class StripeApiService {
       type: p["type"],
       types: p["types"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/events`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11730,25 +11007,18 @@ export class StripeApiService {
   getEventsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_event> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/events/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11761,7 +11031,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -11773,24 +11042,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/exchange_rates`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11800,25 +11063,18 @@ export class StripeApiService {
   getExchangeRatesRateId(p: {
     expand?: string[]
     rateId: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_exchange_rate> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/exchange_rates/${p["rateId"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11901,7 +11157,6 @@ export class StripeApiService {
       file?: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -11913,9 +11168,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -11925,15 +11177,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/file_links`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -11977,25 +11226,18 @@ export class StripeApiService {
   getFileLinksLink(p: {
     expand?: string[]
     link: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_file_link> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/file_links/${p["link"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12069,7 +11311,6 @@ export class StripeApiService {
         | "terminal_reader_splashscreen"
         | UnknownEnumStringValue
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -12081,9 +11322,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -12092,15 +11330,12 @@ export class StripeApiService {
       purpose: p["purpose"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/files`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12159,25 +11394,18 @@ export class StripeApiService {
   getFilesFile(p: {
     expand?: string[]
     file: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_file> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/files/${p["file"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12195,7 +11423,6 @@ export class StripeApiService {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -12207,9 +11434,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       account_holder: p["accountHolder"],
       ending_before: p["endingBefore"],
@@ -12218,15 +11442,12 @@ export class StripeApiService {
       session: p["session"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/financial_connections/accounts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12236,17 +11457,12 @@ export class StripeApiService {
   getFinancialConnectionsAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -12254,8 +11470,6 @@ export class StripeApiService {
         `/v1/financial_connections/accounts/${p["account"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12297,7 +11511,6 @@ export class StripeApiService {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_financial_connections_account_owner[]
@@ -12308,9 +11521,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -12318,7 +11528,6 @@ export class StripeApiService {
       ownership: p["ownership"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -12326,8 +11535,6 @@ export class StripeApiService {
         `/v1/financial_connections/accounts/${p["account"]}/owners`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12485,17 +11692,12 @@ export class StripeApiService {
   getFinancialConnectionsSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_session> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -12503,8 +11705,6 @@ export class StripeApiService {
         `/v1/financial_connections/sessions/${p["session"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12528,7 +11728,6 @@ export class StripeApiService {
     transactionRefresh?: {
       after: string
     }
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_financial_connections_transaction[]
@@ -12539,9 +11738,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       account: p["account"],
       ending_before: p["endingBefore"],
@@ -12551,15 +11747,12 @@ export class StripeApiService {
       transacted_at: p["transactedAt"],
       transaction_refresh: p["transactionRefresh"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/financial_connections/transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12569,17 +11762,12 @@ export class StripeApiService {
   getFinancialConnectionsTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -12587,8 +11775,6 @@ export class StripeApiService {
         `/v1/financial_connections/transactions/${p["transaction"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12607,7 +11793,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -12619,9 +11804,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -12629,15 +11811,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/forwarding/requests`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12693,25 +11872,18 @@ export class StripeApiService {
   getForwardingRequestsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_forwarding_request> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/forwarding/requests/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12735,7 +11907,6 @@ export class StripeApiService {
       startingAfter?: string
       type?: "document" | "id_number" | UnknownEnumStringValue
       verificationSession?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -12747,9 +11918,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       client_reference_id: p["clientReferenceId"],
       created: p["created"],
@@ -12760,15 +11928,12 @@ export class StripeApiService {
       type: p["type"],
       verification_session: p["verificationSession"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/identity/verification_reports`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12778,25 +11943,18 @@ export class StripeApiService {
   getIdentityVerificationReportsReport(p: {
     expand?: string[]
     report: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_identity_verification_report> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/identity/verification_reports/${p["report"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12825,7 +11983,6 @@ export class StripeApiService {
         | "requires_input"
         | "verified"
         | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -12837,9 +11994,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       client_reference_id: p["clientReferenceId"],
       created: p["created"],
@@ -12850,15 +12004,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/identity/verification_sessions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -12928,17 +12079,12 @@ export class StripeApiService {
   getIdentityVerificationSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_identity_verification_session> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -12946,8 +12092,6 @@ export class StripeApiService {
         `/v1/identity/verification_sessions/${p["session"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13074,7 +12218,6 @@ export class StripeApiService {
       }
       startingAfter?: string
       status?: "canceled" | "open" | "paid" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -13086,9 +12229,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -13098,15 +12238,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoice_payments`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13116,25 +12253,18 @@ export class StripeApiService {
   getInvoicePaymentsInvoicePayment(p: {
     expand?: string[]
     invoicePayment: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_invoice_payment> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoice_payments/${p["invoicePayment"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13148,7 +12278,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       status?: "active" | "archived" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -13160,9 +12289,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -13170,15 +12296,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoice_rendering_templates`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13189,28 +12312,21 @@ export class StripeApiService {
     expand?: string[]
     template: string
     version?: number
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_invoice_rendering_template> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       version: p["version"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoice_rendering_templates/${p["template"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13290,7 +12406,6 @@ export class StripeApiService {
       limit?: number
       pending?: boolean
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -13302,9 +12417,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       customer: p["customer"],
@@ -13315,15 +12427,12 @@ export class StripeApiService {
       pending: p["pending"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoiceitems`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13406,23 +12515,15 @@ export class StripeApiService {
 
   deleteInvoiceitemsInvoiceitem(p: {
     invoiceitem: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_invoiceitem> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13432,25 +12533,18 @@ export class StripeApiService {
   getInvoiceitemsInvoiceitem(p: {
     expand?: string[]
     invoiceitem: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_invoiceitem> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -13563,7 +12657,6 @@ export class StripeApiService {
         | "void"
         | UnknownEnumStringValue
       subscription?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -13575,9 +12668,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       collection_method: p["collectionMethod"],
       created: p["created"],
@@ -13590,15 +12680,12 @@ export class StripeApiService {
       status: p["status"],
       subscription: p["subscription"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoices`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -14389,7 +13476,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_invoice[]
@@ -14402,24 +13488,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoices/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -14428,23 +13508,15 @@ export class StripeApiService {
 
   deleteInvoicesInvoice(p: {
     invoice: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_invoice> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/invoices/${p["invoice"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -14454,25 +13526,18 @@ export class StripeApiService {
   getInvoicesInvoice(p: {
     expand?: string[]
     invoice: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_invoice> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoices/${p["invoice"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -14997,7 +14062,6 @@ export class StripeApiService {
     invoice: string
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_line_item[]
@@ -15008,24 +14072,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/invoices/${p["invoice"]}/lines`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -15476,7 +14534,6 @@ export class StripeApiService {
         | "pending"
         | "reversed"
         | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -15488,9 +14545,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       card: p["card"],
       cardholder: p["cardholder"],
@@ -15501,15 +14555,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/authorizations`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -15519,25 +14570,18 @@ export class StripeApiService {
   getIssuingAuthorizationsAuthorization(p: {
     authorization: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_authorization> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/authorizations/${p["authorization"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -15664,7 +14708,6 @@ export class StripeApiService {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive" | UnknownEnumStringValue
       type?: "company" | "individual" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -15676,9 +14719,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       email: p["email"],
@@ -15690,15 +14730,12 @@ export class StripeApiService {
       status: p["status"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/cardholders`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -16695,25 +15732,18 @@ export class StripeApiService {
   getIssuingCardholdersCardholder(p: {
     cardholder: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_cardholder> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -17727,7 +16757,6 @@ export class StripeApiService {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive" | UnknownEnumStringValue
       type?: "physical" | "virtual" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -17739,9 +16768,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       cardholder: p["cardholder"],
       created: p["created"],
@@ -17756,15 +16782,12 @@ export class StripeApiService {
       status: p["status"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/cards`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -18754,25 +17777,18 @@ export class StripeApiService {
   getIssuingCardsCard(p: {
     card: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_card> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/cards/${p["card"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -19774,7 +18790,6 @@ export class StripeApiService {
         | "won"
         | UnknownEnumStringValue
       transaction?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -19786,9 +18801,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -19798,15 +18810,12 @@ export class StripeApiService {
       status: p["status"],
       transaction: p["transaction"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/disputes`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -19967,25 +18976,18 @@ export class StripeApiService {
   getIssuingDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_dispute> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/disputes/${p["dispute"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20191,7 +19193,6 @@ export class StripeApiService {
         | "rejected"
         | "review"
         | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -20203,9 +19204,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -20215,15 +19213,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/personalization_designs`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20276,17 +19271,12 @@ export class StripeApiService {
   getIssuingPersonalizationDesignsPersonalizationDesign(p: {
     expand?: string[]
     personalizationDesign: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_personalization_design> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -20294,8 +19284,6 @@ export class StripeApiService {
         `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20358,7 +19346,6 @@ export class StripeApiService {
       startingAfter?: string
       status?: "active" | "inactive" | "review" | UnknownEnumStringValue
       type?: "custom" | "standard" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -20370,9 +19357,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -20381,15 +19365,12 @@ export class StripeApiService {
       status: p["status"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/physical_bundles`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20399,17 +19380,12 @@ export class StripeApiService {
   getIssuingPhysicalBundlesPhysicalBundle(p: {
     expand?: string[]
     physicalBundle: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_physical_bundle> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -20417,8 +19393,6 @@ export class StripeApiService {
         `/v1/issuing/physical_bundles/${p["physicalBundle"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20428,25 +19402,18 @@ export class StripeApiService {
   getIssuingSettlementsSettlement(p: {
     expand?: string[]
     settlement: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_settlement> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/settlements/${p["settlement"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20503,7 +19470,6 @@ export class StripeApiService {
       | "requested"
       | "suspended"
       | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_issuing_token[]
@@ -20514,9 +19480,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       card: p["card"],
       created: p["created"],
@@ -20526,15 +19489,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/tokens`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20544,25 +19504,18 @@ export class StripeApiService {
   getIssuingTokensToken(p: {
     expand?: string[]
     token: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_token> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/tokens/${p["token"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20614,7 +19567,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -20626,9 +19578,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       card: p["card"],
       cardholder: p["cardholder"],
@@ -20639,15 +19588,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20657,25 +19603,18 @@ export class StripeApiService {
   getIssuingTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/issuing/transactions/${p["transaction"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20774,25 +19713,18 @@ export class StripeApiService {
   getLinkAccountSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_session> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/link_account_sessions/${p["session"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20810,7 +19742,6 @@ export class StripeApiService {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -20822,9 +19753,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       account_holder: p["accountHolder"],
       ending_before: p["endingBefore"],
@@ -20833,15 +19761,12 @@ export class StripeApiService {
       session: p["session"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/linked_accounts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20851,25 +19776,18 @@ export class StripeApiService {
   getLinkedAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/linked_accounts/${p["account"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20910,7 +19828,6 @@ export class StripeApiService {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_financial_connections_account_owner[]
@@ -20921,9 +19838,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -20931,15 +19845,12 @@ export class StripeApiService {
       ownership: p["ownership"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/linked_accounts/${p["account"]}/owners`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -20982,25 +19893,18 @@ export class StripeApiService {
   getMandatesMandate(p: {
     expand?: string[]
     mandate: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_mandate> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/mandates/${p["mandate"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -21022,7 +19926,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -21034,9 +19937,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       customer: p["customer"],
@@ -21045,15 +19945,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_intents`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -22192,7 +21089,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_payment_intent[]
@@ -22205,24 +21101,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_intents/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -22233,28 +21123,21 @@ export class StripeApiService {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_intent> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       client_secret: p["clientSecret"],
       expand: p["expand"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_intents/${p["intent"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -24670,7 +23553,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -24682,9 +23564,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       ending_before: p["endingBefore"],
@@ -24692,15 +23571,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_links`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -25228,25 +24104,18 @@ export class StripeApiService {
   getPaymentLinksPaymentLink(p: {
     expand?: string[]
     paymentLink: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_link> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_links/${p["paymentLink"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -25763,7 +24632,6 @@ export class StripeApiService {
     limit?: number
     paymentLink: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -25774,24 +24642,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_links/${p["paymentLink"]}/line_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -25805,7 +24667,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -25817,9 +24678,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       application: p["application"],
       ending_before: p["endingBefore"],
@@ -25827,15 +24685,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_method_configurations`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -26135,17 +24990,12 @@ export class StripeApiService {
   getPaymentMethodConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method_configuration> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -26153,8 +25003,6 @@ export class StripeApiService {
         `/v1/payment_method_configurations/${p["configuration"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -26459,7 +25307,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -26471,9 +25318,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       domain_name: p["domainName"],
       enabled: p["enabled"],
@@ -26482,15 +25326,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_method_domains`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -26528,17 +25369,12 @@ export class StripeApiService {
   getPaymentMethodDomainsPaymentMethodDomain(p: {
     expand?: string[]
     paymentMethodDomain: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method_domain> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -26546,8 +25382,6 @@ export class StripeApiService {
         `/v1/payment_method_domains/${p["paymentMethodDomain"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -26668,7 +25502,6 @@ export class StripeApiService {
         | "wechat_pay"
         | "zip"
         | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -26680,9 +25513,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -26691,15 +25521,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_methods`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27034,25 +25861,18 @@ export class StripeApiService {
   getPaymentMethodsPaymentMethod(p: {
     expand?: string[]
     paymentMethod: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payment_methods/${p["paymentMethod"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27211,7 +26031,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       status?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -27223,9 +26042,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       arrival_date: p["arrivalDate"],
       created: p["created"],
@@ -27236,15 +26052,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payouts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27290,25 +26103,18 @@ export class StripeApiService {
   getPayoutsPayout(p: {
     expand?: string[]
     payout: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payout> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/payouts/${p["payout"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27421,7 +26227,6 @@ export class StripeApiService {
       limit?: number
       product?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -27433,9 +26238,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       created: p["created"],
@@ -27445,15 +26247,12 @@ export class StripeApiService {
       product: p["product"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/plans`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27531,23 +26330,15 @@ export class StripeApiService {
 
   deletePlansPlan(p: {
     plan: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_plan> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/plans/${p["plan"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27557,25 +26348,18 @@ export class StripeApiService {
   getPlansPlan(p: {
     expand?: string[]
     plan: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_plan> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/plans/${p["plan"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27643,7 +26427,6 @@ export class StripeApiService {
       }
       startingAfter?: string
       type?: "one_time" | "recurring" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -27655,9 +26438,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       created: p["created"],
@@ -27671,15 +26451,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       type: p["type"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/prices`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27795,7 +26572,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_price[]
@@ -27808,24 +26584,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/prices/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27835,25 +26605,18 @@ export class StripeApiService {
   getPricesPrice(p: {
     expand?: string[]
     price: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_price> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/prices/${p["price"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -27949,7 +26712,6 @@ export class StripeApiService {
       shippable?: boolean
       startingAfter?: string
       url?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -27961,9 +26723,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       created: p["created"],
@@ -27975,15 +26734,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       url: p["url"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/products`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28092,7 +26848,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_product[]
@@ -28105,24 +26860,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/products/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28131,23 +26880,15 @@ export class StripeApiService {
 
   deleteProductsId(p: {
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_product> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/products/${p["id"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28157,25 +26898,18 @@ export class StripeApiService {
   getProductsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_product> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/products/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28246,7 +26980,6 @@ export class StripeApiService {
     limit?: number
     product: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_product_feature[]
@@ -28257,24 +26990,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/products/${p["product"]}/features`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28312,23 +27039,15 @@ export class StripeApiService {
   deleteProductsProductFeaturesId(p: {
     id: string
     product: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_product_feature> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28339,25 +27058,18 @@ export class StripeApiService {
     expand?: string[]
     id: string
     product: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_product_feature> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28382,7 +27094,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -28394,9 +27105,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       code: p["code"],
@@ -28408,15 +27116,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/promotion_codes`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28473,25 +27178,18 @@ export class StripeApiService {
   getPromotionCodesPromotionCode(p: {
     expand?: string[]
     promotionCode: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_promotion_code> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/promotion_codes/${p["promotionCode"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28555,7 +27253,6 @@ export class StripeApiService {
         | "open"
         | UnknownEnumStringValue
       testClock?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -28567,9 +27264,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -28579,15 +27273,12 @@ export class StripeApiService {
       status: p["status"],
       test_clock: p["testClock"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/quotes`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28724,25 +27415,18 @@ export class StripeApiService {
   getQuotesQuote(p: {
     expand?: string[]
     quote: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_quote> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/quotes/${p["quote"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28923,7 +27607,6 @@ export class StripeApiService {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -28934,16 +27617,12 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -28951,8 +27630,6 @@ export class StripeApiService {
         `/v1/quotes/${p["quote"]}/computed_upfront_line_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -28993,7 +27670,6 @@ export class StripeApiService {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -29004,24 +27680,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/quotes/${p["quote"]}/line_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29032,7 +27702,6 @@ export class StripeApiService {
     p: {
       expand?: string[]
       quote: string
-      requestBody?: EmptyObject
     },
     basePath:
       | Server<"getQuotesQuotePdf_StripeApiService">
@@ -29042,19 +27711,13 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       basePath + `/v1/quotes/${p["quote"]}/pdf`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29077,7 +27740,6 @@ export class StripeApiService {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -29089,9 +27751,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       charge: p["charge"],
       created: p["created"],
@@ -29101,15 +27760,12 @@ export class StripeApiService {
       payment_intent: p["paymentIntent"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/radar/early_fraud_warnings`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29119,17 +27775,12 @@ export class StripeApiService {
   getRadarEarlyFraudWarningsEarlyFraudWarning(p: {
     earlyFraudWarning: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_radar_early_fraud_warning> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -29137,8 +27788,6 @@ export class StripeApiService {
         `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29160,7 +27809,6 @@ export class StripeApiService {
     startingAfter?: string
     value?: string
     valueList: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_radar_value_list_item[]
@@ -29171,9 +27819,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -29183,15 +27828,12 @@ export class StripeApiService {
       value: p["value"],
       value_list: p["valueList"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/radar/value_list_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29228,23 +27870,15 @@ export class StripeApiService {
 
   deleteRadarValueListItemsItem(p: {
     item: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_radar_value_list_item> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/radar/value_list_items/${p["item"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29254,25 +27888,18 @@ export class StripeApiService {
   getRadarValueListItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_radar_value_list_item> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/radar/value_list_items/${p["item"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29295,7 +27922,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -29307,9 +27933,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       alias: p["alias"],
       contains: p["contains"],
@@ -29319,15 +27942,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/radar/value_lists`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29379,23 +27999,15 @@ export class StripeApiService {
 
   deleteRadarValueListsValueList(p: {
     valueList: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_radar_value_list> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/radar/value_lists/${p["valueList"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29405,25 +28017,18 @@ export class StripeApiService {
   getRadarValueListsValueList(p: {
     expand?: string[]
     valueList: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_radar_value_list> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/radar/value_lists/${p["valueList"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29478,7 +28083,6 @@ export class StripeApiService {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -29490,9 +28094,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       charge: p["charge"],
       created: p["created"],
@@ -29502,15 +28103,12 @@ export class StripeApiService {
       payment_intent: p["paymentIntent"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/refunds`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29568,25 +28166,18 @@ export class StripeApiService {
   getRefundsRefund(p: {
     expand?: string[]
     refund: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_refund> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/refunds/${p["refund"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -29667,7 +28258,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -29679,9 +28269,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -29689,15 +28276,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/reporting/report_runs`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -30381,34 +28965,25 @@ export class StripeApiService {
   getReportingReportRunsReportRun(p: {
     expand?: string[]
     reportRun: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_reporting_report_run> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
     )
   }
 
-  getReportingReportTypes(
-    p: {expand?: string[]; requestBody?: EmptyObject} = {},
-  ): Observable<
+  getReportingReportTypes(p: {expand?: string[]} = {}): Observable<
     | (HttpResponse<{
         data: t_reporting_report_type[]
         has_more: boolean
@@ -30418,19 +28993,13 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/reporting/report_types`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -30440,25 +29009,18 @@ export class StripeApiService {
   getReportingReportTypesReportType(p: {
     expand?: string[]
     reportType: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_reporting_report_type> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/reporting/report_types/${p["reportType"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -30479,7 +29041,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -30491,9 +29052,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -30501,15 +29059,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/reviews`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -30519,25 +29074,18 @@ export class StripeApiService {
   getReviewsReview(p: {
     expand?: string[]
     review: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_review> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/reviews/${p["review"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -30585,7 +29133,6 @@ export class StripeApiService {
     limit?: number
     setupIntent: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_setup_attempt[]
@@ -30596,9 +29143,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -30607,15 +29151,12 @@ export class StripeApiService {
       setup_intent: p["setupIntent"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/setup_attempts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -30639,7 +29180,6 @@ export class StripeApiService {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -30651,9 +29191,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       attach_to_self: p["attachToSelf"],
       created: p["created"],
@@ -30664,15 +29201,12 @@ export class StripeApiService {
       payment_method: p["paymentMethod"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/setup_intents`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -31269,28 +29803,21 @@ export class StripeApiService {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_setup_intent> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       client_secret: p["clientSecret"],
       expand: p["expand"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/setup_intents/${p["intent"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -32497,7 +31024,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -32509,9 +31035,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       created: p["created"],
@@ -32521,15 +31044,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/shipping_rates`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -32614,25 +31134,18 @@ export class StripeApiService {
   getShippingRatesShippingRateToken(p: {
     expand?: string[]
     shippingRateToken: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_shipping_rate> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -32727,7 +31240,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -32739,24 +31251,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/sigma/scheduled_query_runs`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -32766,17 +31272,12 @@ export class StripeApiService {
   getSigmaScheduledQueryRunsScheduledQueryRun(p: {
     expand?: string[]
     scheduledQueryRun: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_scheduled_query_run> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -32784,8 +31285,6 @@ export class StripeApiService {
         `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -32929,28 +31428,21 @@ export class StripeApiService {
     clientSecret?: string
     expand?: string[]
     source: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_source> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       client_secret: p["clientSecret"],
       expand: p["expand"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/sources/${p["source"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33073,17 +31565,12 @@ export class StripeApiService {
     expand?: string[]
     mandateNotification: string
     source: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_source_mandate_notification> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -33091,8 +31578,6 @@ export class StripeApiService {
         `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33105,7 +31590,6 @@ export class StripeApiService {
     limit?: number
     source: string
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_source_transaction[]
@@ -33116,24 +31600,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/sources/${p["source"]}/source_transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33144,17 +31622,12 @@ export class StripeApiService {
     expand?: string[]
     source: string
     sourceTransaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_source_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -33162,8 +31635,6 @@ export class StripeApiService {
         `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33204,7 +31675,6 @@ export class StripeApiService {
     limit?: number
     startingAfter?: string
     subscription: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_subscription_item[]
@@ -33215,9 +31685,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -33225,15 +31692,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       subscription: p["subscription"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscription_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33350,25 +31814,18 @@ export class StripeApiService {
   getSubscriptionItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription_item> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscription_items/${p["item"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33493,7 +31950,6 @@ export class StripeApiService {
         | number
       scheduled?: boolean
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -33505,9 +31961,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       canceled_at: p["canceledAt"],
       completed_at: p["completedAt"],
@@ -33520,15 +31973,12 @@ export class StripeApiService {
       scheduled: p["scheduled"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscription_schedules`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -33752,25 +32202,18 @@ export class StripeApiService {
   getSubscriptionSchedulesSchedule(p: {
     expand?: string[]
     schedule: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription_schedule> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscription_schedules/${p["schedule"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -34100,7 +32543,6 @@ export class StripeApiService {
         | "unpaid"
         | UnknownEnumStringValue
       testClock?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -34112,9 +32554,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       automatic_tax: p["automaticTax"],
       collection_method: p["collectionMethod"],
@@ -34130,15 +32569,12 @@ export class StripeApiService {
       status: p["status"],
       test_clock: p["testClock"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscriptions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -34487,7 +32923,6 @@ export class StripeApiService {
     limit?: number
     page?: string
     query: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_subscription[]
@@ -34500,24 +32935,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       expand: p["expand"],
       limit: p["limit"],
       page: p["page"],
       query: p["query"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscriptions/search`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -34570,25 +32999,18 @@ export class StripeApiService {
   getSubscriptionsSubscriptionExposedId(p: {
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -34956,24 +33378,16 @@ export class StripeApiService {
 
   deleteSubscriptionsSubscriptionExposedIdDiscount(p: {
     subscriptionExposedId: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_discount> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -35235,25 +33649,18 @@ export class StripeApiService {
   getTaxCalculationsCalculation(p: {
     calculation: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_calculation> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax/calculations/${p["calculation"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -35266,7 +33673,6 @@ export class StripeApiService {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_tax_calculation_line_item[]
@@ -35277,16 +33683,12 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -35294,8 +33696,6 @@ export class StripeApiService {
         `/v1/tax/calculations/${p["calculation"]}/line_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -35314,7 +33714,6 @@ export class StripeApiService {
         | "expired"
         | "scheduled"
         | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -35326,9 +33725,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35336,15 +33732,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax/registrations`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36009,25 +34402,18 @@ export class StripeApiService {
   getTaxRegistrationsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_registration> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax/registrations/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36064,25 +34450,19 @@ export class StripeApiService {
   }
 
   getTaxSettings(
-    p: {expand?: string[]; requestBody?: EmptyObject} = {},
+    p: {expand?: string[]} = {},
   ): Observable<
     | (HttpResponse<t_tax_settings> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax/settings`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36217,25 +34597,18 @@ export class StripeApiService {
   getTaxTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax/transactions/${p["transaction"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36248,7 +34621,6 @@ export class StripeApiService {
     limit?: number
     startingAfter?: string
     transaction: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_tax_transaction_line_item[]
@@ -36259,16 +34631,12 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -36276,8 +34644,6 @@ export class StripeApiService {
         `/v1/tax/transactions/${p["transaction"]}/line_items`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36290,7 +34656,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -36302,24 +34667,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax_codes`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36329,25 +34688,18 @@ export class StripeApiService {
   getTaxCodesId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_code> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax_codes/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36370,7 +34722,6 @@ export class StripeApiService {
           | UnknownEnumStringValue
       }
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -36382,9 +34733,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -36392,15 +34740,12 @@ export class StripeApiService {
       owner: p["owner"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax_ids`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36558,23 +34903,15 @@ export class StripeApiService {
 
   deleteTaxIdsId(p: {
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_tax_id> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/tax_ids/${p["id"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36584,25 +34921,18 @@ export class StripeApiService {
   getTaxIdsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_id> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax_ids/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36625,7 +34955,6 @@ export class StripeApiService {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -36637,9 +34966,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       active: p["active"],
       created: p["created"],
@@ -36649,15 +34975,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax_rates`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36720,25 +35043,18 @@ export class StripeApiService {
   getTaxRatesTaxRate(p: {
     expand?: string[]
     taxRate: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_rate> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tax_rates/${p["taxRate"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -36807,7 +35123,6 @@ export class StripeApiService {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -36819,9 +35134,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -36829,15 +35141,12 @@ export class StripeApiService {
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/terminal/configurations`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37006,24 +35315,16 @@ export class StripeApiService {
 
   deleteTerminalConfigurationsConfiguration(p: {
     configuration: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_terminal_configuration> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/v1/terminal/configurations/${p["configuration"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37033,7 +35334,6 @@ export class StripeApiService {
   getTerminalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<
         t_terminal_configuration | t_deleted_terminal_configuration
@@ -37041,11 +35341,7 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -37053,8 +35349,6 @@ export class StripeApiService {
         `/v1/terminal/configurations/${p["configuration"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37270,7 +35564,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -37282,24 +35575,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/terminal/locations`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37350,23 +35637,15 @@ export class StripeApiService {
 
   deleteTerminalLocationsLocation(p: {
     location: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_terminal_location> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/terminal/locations/${p["location"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37376,7 +35655,6 @@ export class StripeApiService {
   getTerminalLocationsLocation(p: {
     expand?: string[]
     location: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_terminal_location | t_deleted_terminal_location> & {
         status: 200
@@ -37384,19 +35662,13 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/terminal/locations/${p["location"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37468,7 +35740,6 @@ export class StripeApiService {
       serialNumber?: string
       startingAfter?: string
       status?: "offline" | "online" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -37480,9 +35751,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       device_type: p["deviceType"],
       ending_before: p["endingBefore"],
@@ -37493,15 +35761,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/terminal/readers`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37545,23 +35810,15 @@ export class StripeApiService {
 
   deleteTerminalReadersReader(p: {
     reader: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_terminal_reader> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/terminal/readers/${p["reader"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -37571,7 +35828,6 @@ export class StripeApiService {
   getTerminalReadersReader(p: {
     expand?: string[]
     reader: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_terminal_reader | t_deleted_terminal_reader> & {
         status: 200
@@ -37579,19 +35835,13 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/terminal/readers/${p["reader"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -40376,7 +38626,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -40388,24 +38637,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/test_helpers/test_clocks`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -40442,23 +38685,15 @@ export class StripeApiService {
 
   deleteTestHelpersTestClocksTestClock(p: {
     testClock: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_test_helpers_test_clock> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -40468,25 +38703,18 @@ export class StripeApiService {
   getTestHelpersTestClocksTestClock(p: {
     expand?: string[]
     testClock: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_test_helpers_test_clock> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41392,25 +39620,18 @@ export class StripeApiService {
   getTokensToken(p: {
     expand?: string[]
     token: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_token> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/tokens/${p["token"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41445,7 +39666,6 @@ export class StripeApiService {
         | "pending"
         | "succeeded"
         | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -41457,9 +39677,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       amount: p["amount"],
       created: p["created"],
@@ -41469,15 +39686,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/topups`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41525,25 +39739,18 @@ export class StripeApiService {
   getTopupsTopup(p: {
     expand?: string[]
     topup: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_topup> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/topups/${p["topup"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41627,7 +39834,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       transferGroup?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -41639,9 +39845,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       destination: p["destination"],
@@ -41651,15 +39854,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       transfer_group: p["transferGroup"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/transfers`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41708,7 +39908,6 @@ export class StripeApiService {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_transfer_reversal[]
@@ -41719,24 +39918,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/transfers/${p["id"]}/reversals`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41782,25 +39975,18 @@ export class StripeApiService {
   getTransfersTransfer(p: {
     expand?: string[]
     transfer: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_transfer> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/transfers/${p["transfer"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41845,17 +40031,12 @@ export class StripeApiService {
     expand?: string[]
     id: string
     transfer: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_transfer_reversal> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -41863,8 +40044,6 @@ export class StripeApiService {
         `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41914,7 +40093,6 @@ export class StripeApiService {
     receivedCredit?: string
     startingAfter?: string
     status?: "canceled" | "posted" | "processing" | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_credit_reversal[]
@@ -41925,9 +40103,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -41937,15 +40112,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/credit_reversals`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -41985,17 +40157,12 @@ export class StripeApiService {
   getTreasuryCreditReversalsCreditReversal(p: {
     creditReversal: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_credit_reversal> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -42003,8 +40170,6 @@ export class StripeApiService {
         `/v1/treasury/credit_reversals/${p["creditReversal"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42020,7 +40185,6 @@ export class StripeApiService {
     resolution?: "lost" | "won" | UnknownEnumStringValue
     startingAfter?: string
     status?: "canceled" | "completed" | "processing" | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_debit_reversal[]
@@ -42031,9 +40195,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -42044,15 +40205,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/debit_reversals`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42092,17 +40250,12 @@ export class StripeApiService {
   getTreasuryDebitReversalsDebitReversal(p: {
     debitReversal: string
     expand?: string[]
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_debit_reversal> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -42110,8 +40263,6 @@ export class StripeApiService {
         `/v1/treasury/debit_reversals/${p["debitReversal"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42133,7 +40284,6 @@ export class StripeApiService {
       limit?: number
       startingAfter?: string
       status?: "closed" | "open" | UnknownEnumStringValue
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -42145,9 +40295,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -42156,15 +40303,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/financial_accounts`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42246,17 +40390,12 @@ export class StripeApiService {
   getTreasuryFinancialAccountsFinancialAccount(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_financial_account> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -42264,8 +40403,6 @@ export class StripeApiService {
         `/v1/treasury/financial_accounts/${p["financialAccount"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42386,17 +40523,12 @@ export class StripeApiService {
   getTreasuryFinancialAccountsFinancialAccountFeatures(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_financial_account_features> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -42404,8 +40536,6 @@ export class StripeApiService {
         `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42487,7 +40617,6 @@ export class StripeApiService {
       | "processing"
       | "succeeded"
       | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_inbound_transfer[]
@@ -42498,9 +40627,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -42509,15 +40635,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/inbound_transfers`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42562,25 +40685,18 @@ export class StripeApiService {
   getTreasuryInboundTransfersId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_inbound_transfer> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42637,7 +40753,6 @@ export class StripeApiService {
       | "processing"
       | "returned"
       | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_outbound_payment[]
@@ -42648,9 +40763,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       customer: p["customer"],
@@ -42661,15 +40773,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/outbound_payments`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42760,25 +40869,18 @@ export class StripeApiService {
   getTreasuryOutboundPaymentsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_outbound_payment> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/outbound_payments/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42825,7 +40927,6 @@ export class StripeApiService {
       | "processing"
       | "returned"
       | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_outbound_transfer[]
@@ -42836,9 +40937,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -42847,15 +40945,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/outbound_transfers`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42912,17 +41007,12 @@ export class StripeApiService {
   getTreasuryOutboundTransfersOutboundTransfer(p: {
     expand?: string[]
     outboundTransfer: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_outbound_transfer> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
@@ -42930,8 +41020,6 @@ export class StripeApiService {
         `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -42982,7 +41070,6 @@ export class StripeApiService {
     }
     startingAfter?: string
     status?: "failed" | "succeeded" | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_received_credit[]
@@ -42993,9 +41080,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -43005,15 +41089,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/received_credits`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43023,25 +41104,18 @@ export class StripeApiService {
   getTreasuryReceivedCreditsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_received_credit> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/received_credits/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43055,7 +41129,6 @@ export class StripeApiService {
     limit?: number
     startingAfter?: string
     status?: "failed" | "succeeded" | UnknownEnumStringValue
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_received_debit[]
@@ -43066,9 +41139,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -43077,15 +41147,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       status: p["status"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/received_debits`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43095,25 +41162,18 @@ export class StripeApiService {
   getTreasuryReceivedDebitsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_received_debit> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/received_debits/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43144,7 +41204,6 @@ export class StripeApiService {
     orderBy?: "created" | "effective_at" | UnknownEnumStringValue
     startingAfter?: string
     transaction?: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_transaction_entry[]
@@ -43155,9 +41214,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       effective_at: p["effectiveAt"],
@@ -43169,15 +41225,12 @@ export class StripeApiService {
       starting_after: p["startingAfter"],
       transaction: p["transaction"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/transaction_entries`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43187,25 +41240,18 @@ export class StripeApiService {
   getTreasuryTransactionEntriesId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_transaction_entry> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/transaction_entries/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43238,7 +41284,6 @@ export class StripeApiService {
           }
         | number
     }
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_transaction[]
@@ -43249,9 +41294,6 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -43263,15 +41305,12 @@ export class StripeApiService {
       status: p["status"],
       status_transitions: p["statusTransitions"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/transactions`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43281,25 +41320,18 @@ export class StripeApiService {
   getTreasuryTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_transaction> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/treasury/transactions/${p["id"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43312,7 +41344,6 @@ export class StripeApiService {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -43324,24 +41355,18 @@ export class StripeApiService {
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
       starting_after: p["startingAfter"],
     })
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/webhook_endpoints`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43746,23 +41771,15 @@ export class StripeApiService {
 
   deleteWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_webhook_endpoint> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
-
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`,
       {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -43772,25 +41789,18 @@ export class StripeApiService {
   getWebhookEndpointsWebhookEndpoint(p: {
     expand?: string[]
     webhookEndpoint: string
-    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_webhook_endpoint> & {status: 200})
     | (HttpResponse<t_error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
     const params = this._queryParams({expand: p["expand"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`,
       {
         params,
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },

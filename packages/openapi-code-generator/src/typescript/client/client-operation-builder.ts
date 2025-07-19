@@ -1,4 +1,5 @@
 import {generationLib} from "../../core/generation-lib"
+import {logger} from "../../core/logger"
 import type {
   IROperation,
   IRParameter,
@@ -99,7 +100,17 @@ export class ClientOperationBuilder {
     requestBodyParameter?: IRParameter
     requestBodyContentType?: string
   } {
-    return requestBodyAsParameter(this.operation)
+    const result = requestBodyAsParameter(this.operation)
+    const schema = result.requestBodyParameter?.schema
+
+    if (schema && this.models.isEmptyObject(schema)) {
+      logger.warn(
+        `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
+      )
+      return {}
+    }
+
+    return result
   }
 
   queryString(): string {
