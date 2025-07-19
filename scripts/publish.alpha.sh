@@ -2,17 +2,17 @@
 
 set -ex
 
-yarn clean
+pnpm clean
 
-yarn --immutable
+pnpm install --frozen-lockfile
 
-yarn ci-pipeline
+pnpm ci-pipeline
 
 ./scripts/assert-clean-working-directory.sh
 
 BRANCH="$(git branch --show-current | sed -e 's|/|-|g')"
 
-yarn lerna publish \
+pnpm lerna publish \
   --no-private \
   --force-publish \
   --canary \

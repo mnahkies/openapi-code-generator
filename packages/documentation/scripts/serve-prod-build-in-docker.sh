@@ -2,7 +2,7 @@
 
 set -e
 
-yarn build
+pnpm build
 
 docker run -it --rm -p 8080:80 \
   -v $PWD/nginx.default.conf:/etc/nginx/conf.d/default.conf \

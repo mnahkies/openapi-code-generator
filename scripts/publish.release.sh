@@ -9,15 +9,15 @@ fi
 
 git pull origin main
 
-yarn clean
+pnpm clean
 
-yarn --immutable
+pnpm install --frozen-lockfile
 
-yarn ci-pipeline
+pnpm ci-pipeline
 
 ./scripts/assert-clean-working-directory.sh
 
-yarn lerna publish \
+pnpm lerna publish \
   --no-private \
   --force-publish \
   --conventional-commits

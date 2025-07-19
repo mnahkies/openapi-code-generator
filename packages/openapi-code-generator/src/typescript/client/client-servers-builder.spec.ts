@@ -1,4 +1,4 @@
-import {describe, expect, it} from "@jest/globals"
+import {beforeAll, describe, expect, it} from "@jest/globals"
 import type {IROperation, IRServer} from "../../core/openapi-types-normalized"
 import {ImportBuilder} from "../common/import-builder"
 import {TypescriptFormatterBiome} from "../common/typescript-formatter.biome"

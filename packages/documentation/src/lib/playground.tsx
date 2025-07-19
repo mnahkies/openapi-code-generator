@@ -331,7 +331,7 @@ const PlaygroundInner: React.FC<{
       <ConfigForm config={config} setConfig={setConfig} />
       {/*TODO: output a copy-paste-able CLI command*/}
       {/*<Components.code>*/}
-      {/*  yarn openapi-code-generator --template typescript-koa*/}
+      {/*  pnpm openapi-code-generator --template typescript-koa*/}
       {/*</Components.code>*/}
       <div className={styles.editorContainer}>
         <div>

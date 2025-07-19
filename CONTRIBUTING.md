@@ -28,7 +28,7 @@ PR with a detailed description is fine too.
    [fnm](https://github.com/Schniz/fnm)
 2. Enable [corepack](https://nodejs.org/api/corepack.html) using `corepack
 enable`
-3. Install `devDependencies` using `yarn`
+3. Install `devDependencies` using `pnpm`
 
 ## Workflow
 
@@ -37,34 +37,34 @@ See [package.json](./package.json) for available scripts.
 Main ones of interest are `build`, `test`, `lint`. E.g:
 
 ```shell
-yarn build
-yarn test
-yarn lint
-yarn format
+pnpm build
+pnpm test
+pnpm lint
+pnpm format
 ```
 
 To regenerate the integration tests:
 
 ```shell
-yarn integration:generate
+pnpm integration:generate
 ```
 
 And to build them / check the code output is valid:
 
 ```shell
-yarn integration:validate
+pnpm integration:validate
 ```
 
 There's also a `ci-pipeline` script that can be used as a pre-push check, e.g:
 
 ```shell
-yarn ci-pipeline && git push --force-with-lease
+pnpm ci-pipeline && git push --force-with-lease
 ```
 
 ## Typescript Conventions
 
 ```shell
-yarn build
+pnpm build
 ```
 
 We strive for robust type safety, both in the library and the code it outputs.
@@ -77,8 +77,8 @@ in the fetch runtime [here][ts-ignore-example]
 ## Linting / Formatting
 
 ```shell
-yarn lint
-yarn format
+pnpm lint
+pnpm format
 ```
 
 We use `biome` for formatting, and linting, largely sticking to the recommended rules.
@@ -87,8 +87,8 @@ The config can be seen here [./biome.json](./biome.json)
 ## Testing
 
 ```shell
-yarn test
-yarn integration:generate && yarn integration:validate
+pnpm test
+pnpm integration:generate && pnpm integration:validate
 ```
 
 We have two types of testing in play:
@@ -123,9 +123,9 @@ assist:
 
 ```shell
 # Publish a pre-release, eg: 0.0.2-alpha.107
-yarn publish:alpha
+pnpm publish:alpha
 # Publish a release, eg: 0.0.1
-yarn publish:release
+pnpm publish:release
 ```
 
 These will build and test before asking for publish confirmation.

@@ -10,11 +10,12 @@
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
-    "@nahkies/typescript-fetch-runtime": "*",
-    "dotenv": "^16.6.1"
+    "@nahkies/typescript-fetch-runtime": "workspace:*",
+    "dotenv": "^17.2.0",
+    "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@types/node": "^22.16.0",
+    "@types/node": "^22.16.5",
     "typescript": "~5.8.3"
   }
 }

@@ -2,14 +2,14 @@
 
 set -ex
 
-yarn ci-build
-yarn ci-test
+pnpm ci-build
+pnpm ci-test
 
-yarn lint
-yarn format
+pnpm lint
+pnpm format
 
-yarn integration:generate
-yarn integration:validate
+pnpm integration:generate
+pnpm integration:validate
 
-yarn e2e:generate
-yarn e2e:validate
+pnpm e2e:generate
+pnpm e2e:validate
