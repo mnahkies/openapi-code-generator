@@ -1,4 +1,3 @@
-import * as console from "node:console"
 import {Biome, type Configuration, Distribution} from "@biomejs/js-api"
 import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
@@ -59,7 +58,6 @@ export class TypescriptFormatterBiome implements IFormatter {
     const biome = await Biome.create({
       distribution: Distribution.NODE,
     })
-    console.info(configuration)
     biome.applyConfiguration({
       ...(configuration ?? defaultConfiguration),
       files: {

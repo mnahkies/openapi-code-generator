@@ -1,21 +1,20 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
   },
-  "organizeImports": {
-    "enabled": true
-  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "files": {
-    "ignore": [
-      "integration-tests/**/generated/*",
-      "integration-tests-definitions/**/*",
-      "e2e/src/generated/**/*",
-      "schemas/*.json",
-      "**/package.json",
-      "package.json"
+    "includes": [
+      "**",
+      "!**/integration-tests/**/generated/**/*",
+      "!**/integration-tests-definitions/**/*",
+      "!**/e2e/src/generated/**/*",
+      "!**/schemas/**/*.json",
+      "!**/package.json",
+      "!**/package.json"
     ]
   },
   "formatter": {
@@ -35,18 +34,32 @@
   },
   "linter": {
     "enabled": true,
-    "rules": {
-      "recommended": true
+    "domains": {
+      "project": "recommended",
+      "test": "recommended"
     },
-    "ignore": [
-      "packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
-      "packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
-      "integration-tests/**/generated/*",
-      "integration-tests-definitions/**/*",
-      "e2e/src/generated/**/*",
-      "schemas/*.json",
-      "**/package.json",
-      "package.json"
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noForEach": "error"
+      },
+      "nursery": {
+        "noImportCycles": "error"
+      },
+      "style": {
+        "noParameterAssign": "error"
+      }
+    },
+    "includes": [
+      "**",
+      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
+      "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
+      "!**/integration-tests/**/generated/**/*",
+      "!**/integration-tests-definitions/**/*",
+      "!**/e2e/src/generated/**/*",
+      "!**/schemas/**/*.json",
+      "!**/package.json",
+      "!**/package.json"
     ]
   }
 }

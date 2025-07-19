@@ -21,7 +21,7 @@
     "clean": "lerna run clean --stream",
     "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
-    "lint": "biome lint --write .",
+    "lint": "biome lint --fix .",
     "format": "biome check --write .",
     "build": "node ./scripts/generate-ajv-validator.js && tsc -b tsconfig.json && yarn workspace @nahkies/openapi-code-generator-documentation build",
     "build:watch": "tsc -b tsconfig.json -w",
@@ -38,7 +38,7 @@
     "publish:release": "./scripts/publish.release.sh"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.1.2",
     "@swc/core": "^1.12.9",
     "@swc/jest": "^0.2.38",
     "@tsconfig/node24": "^24.0.1",
