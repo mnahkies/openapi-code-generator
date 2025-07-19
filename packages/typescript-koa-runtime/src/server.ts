@@ -76,7 +76,7 @@ export type ServerConfig = {
    * if disabling, ensure you pass a body parsing middleware that places the parsed
    * body on `ctx.body` for request body processing to work.
    **/
-  body?: "disabled" | KoaBodyMiddlewareOptions | undefined
+  body?: "disabled" | Partial<KoaBodyMiddlewareOptions> | undefined
 
   /**
    * allows you to provide arbitrary koa middleware
