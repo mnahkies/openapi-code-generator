@@ -1,5 +1,5 @@
 import type {Server} from "node:http"
-import {beforeAll, describe, expect, it} from "@jest/globals"
+import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
 import type {AxiosError} from "axios"
 import {ApiClient} from "./generated/client/axios/client"
 import {E2ETestClientServers} from "./generated/client/fetch/client"

@@ -1,0 +1,32 @@
+packages:
+  - packages/*
+  - integration-tests/*
+  - e2e
+
+configDependencies:
+  '@pnpm/plugin-types-fixer': 0.1.0+sha512-bLww63gRHi7siYTqFJb5qNdcXadU0jv20Et6z5AryMZ7FlLolbEJOrXLpg8+amQZNHHNW1dfFUBGVw/9ezQbFg==
+
+dedupeInjectedDeps: true
+
+linkWorkspacePackages: deep
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - esbuild
+  - lmdb
+  - msgpackr-extract
+  - nx
+  - sharp
+  - unrs-resolver
+
+overrides:
+  '@types/node': 22.16.5
+  zod: 3.25.74
+
+preferWorkspacePackages: true
+
+publicHoistPattern:
+  - '@typespec/*'
+  - '@azure-tools/*'
+  - '@types/node'

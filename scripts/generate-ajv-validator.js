@@ -73,7 +73,7 @@ const compileOpenapi30Standalone = async () => {
   return standaloneCode(ajv4, validate)
 }
 
-const compileOpenapi31Standalone = async () => {
+const compileOpenapi31Standalone = async (strict) => {
   try {
     const spec = await loadYamlFile(openapi31Path)
 

@@ -1,4 +1,4 @@
-import {describe, expect} from "@jest/globals"
+import {describe, expect, it} from "@jest/globals"
 import {getNameFromRef, isRef} from "./openapi-utils"
 
 describe("core/openapi-utils", () => {

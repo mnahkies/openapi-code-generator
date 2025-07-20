@@ -4,7 +4,7 @@ set -e
 
 SCHEMA_BUILDER=zod
 
-yarn openapi-code-generator \
+pnpm openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/generated/server/koa \
   --template typescript-koa \
@@ -12,7 +12,7 @@ yarn openapi-code-generator \
   --extract-inline-schemas \
   --grouping-strategy first-tag
 
-yarn openapi-code-generator \
+pnpm openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/generated/server/express \
   --template typescript-express \
@@ -20,7 +20,7 @@ yarn openapi-code-generator \
   --extract-inline-schemas \
   --grouping-strategy first-tag
 
-yarn openapi-code-generator \
+pnpm openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/generated/client/fetch \
   --template typescript-fetch \
@@ -29,7 +29,7 @@ yarn openapi-code-generator \
   --enable-runtime-response-validation \
   --override-specification-title "E2E Test Client"
 
-yarn openapi-code-generator \
+pnpm openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/generated/client/axios \
   --template typescript-axios \
