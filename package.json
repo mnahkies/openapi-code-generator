@@ -17,7 +17,7 @@
     "url": "https://github.com/mnahkies/openapi-code-generator/issues"
   },
   "scripts": {
-    "clean": "lerna run clean --stream",
+    "clean": "pnpm -r clean",
     "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "biome lint --fix .",
@@ -26,7 +26,7 @@
     "build:watch": "tsc -b tsconfig.json -w",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "integration:generate": "node ./scripts/generate.mjs",
-    "integration:validate": "lerna run validate --stream",
+    "integration:validate": "pnpm -r validate",
     "e2e:generate": "pnpm --filter e2e clean && pnpm --filter e2e generate",
     "e2e:validate": "pnpm --filter e2e build && pnpm --filter e2e test",
     "ci-build": "pnpm build",
