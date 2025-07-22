@@ -580,11 +580,20 @@ export class Input {
             : undefined,
         } satisfies IRModelString
       }
-      case "boolean":
+      case "boolean": {
+        const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
+        const nullable = schemaObjectEnum.includes(null)
+        const enumValues = schemaObjectEnum
+          .filter((it) => it !== undefined && it !== null)
+          .map((it) => String(it).toLowerCase())
+
         return {
           ...base,
+          enum: enumValues.length ? enumValues : undefined,
+          nullable: nullable || base.nullable,
           type: schemaObject.type,
         } satisfies IRModelBoolean
+      }
       // custom extension types used internally
       case "any": {
         return {

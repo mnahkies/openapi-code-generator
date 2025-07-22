@@ -62,6 +62,7 @@ export interface IRModelString extends IRModelBase {
 
 export interface IRModelBoolean extends IRModelBase {
   type: "boolean"
+  enum?: string[] | undefined
 }
 
 export interface IRModelObject extends IRModelBase {
