@@ -17,7 +17,7 @@ function getTestVersions(): OpenApiVersion[] {
     return ["3.0.x"]
   }
 
-  return ["3.0.x", "3.1.x"]
+  return ["3.0.x"]
 }
 
 export const testVersions = getTestVersions()

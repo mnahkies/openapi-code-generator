@@ -109,7 +109,11 @@ describe.each(testVersions)(
               .alternatives()
               .try(joi.string().required(), joi.number().required()),
             optionalOneOfRef: s_OneOf,
-            nullableSingularOneOf: joi.boolean().truthy(1).falsy(0).allow(null),
+            nullableSingularOneOf: joi
+              .boolean()
+              .truthy(1, "1")
+              .falsy(0, "0")
+              .allow(null),
             nullableSingularOneOfRef: s_AString.allow(null),
           })
           .options({ stripUnknown: true })
@@ -854,7 +858,7 @@ describe.each(testVersions)(
         const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(
-          '"const x = joi.boolean().truthy(1).falsy(0).required()"',
+          `"const x = joi.boolean().truthy(1, "1").falsy(0, "0").required()"`,
         )
 
         await expect(execute(true)).resolves.toBe(true)
@@ -864,7 +868,9 @@ describe.each(testVersions)(
         await expect(execute("true")).resolves.toBe(true)
 
         await expect(execute(0)).resolves.toBe(false)
+        await expect(execute("0")).resolves.toBe(false)
         await expect(execute(1)).resolves.toBe(true)
+        await expect(execute("1")).resolves.toBe(true)
 
         await expect(execute(12)).rejects.toThrow('"value" must be a boolean')
         await expect(execute("yup")).rejects.toThrow(
@@ -881,7 +887,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = joi.boolean().truthy(1).falsy(0).default(false)"`,
+          `"const x = joi.boolean().truthy(1, "1").falsy(0, "0").default(false)"`,
         )
 
         await expect(execute(undefined)).resolves.toBe(false)
@@ -894,10 +900,38 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = joi.boolean().truthy(1).falsy(0).default(true)"`,
+          `"const x = joi.boolean().truthy(1, "1").falsy(0, "0").default(true)"`,
         )
 
         await expect(execute(undefined)).resolves.toBe(true)
+      })
+
+      it("support enum of 'true'", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: ["true"],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.boolean().truthy(1, "1").valid(true).required()"`,
+        )
+
+        await expect(execute(true)).resolves.toBe(true)
+        await expect(execute(false)).rejects.toThrow('"value" must be [true]')
+      })
+
+      it("support enum of 'false'", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: ["false"],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.boolean().falsy(0, "0").valid(false).required()"`,
+        )
+
+        await expect(execute(false)).resolves.toBe(false)
+        await expect(execute(true)).rejects.toThrow('"value" must be [false]')
       })
     })
 
