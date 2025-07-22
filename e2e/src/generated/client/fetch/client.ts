@@ -198,6 +198,29 @@ export class E2ETestClient extends AbstractFetchClient {
 
     return responseValidationFactory([["204", z.any()]], undefined)(res)
   }
+
+  async postMediaTypesText(
+    p: {
+      requestBody: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, string>> {
+    const url = this.basePath + `/media-types/text`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "text/plain"},
+      opts.headers,
+    )
+    const body = p.requestBody
+
+    const res = this._fetch(
+      url,
+      {method: "POST", body, ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory([["200", z.string()]], undefined)(res)
+  }
 }
 
 export {E2ETestClient as ApiClient}

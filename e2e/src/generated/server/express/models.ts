@@ -42,6 +42,8 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
   min?: number | undefined
 }
 
+export type t_PostMediaTypesTextRequestBodySchema = string
+
 export type t_PostValidationEnumsRequestBodySchema = {
   colors: "red" | "green" | "blue"
   starRatings: 1 | 2 | 3

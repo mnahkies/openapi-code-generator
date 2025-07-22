@@ -224,6 +224,32 @@ export class E2ETestClient extends AbstractAxiosClient {
 
     return {...res, data: z.any().parse(res.data)}
   }
+
+  async postMediaTypesText(
+    p: {
+      requestBody: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<string>> {
+    const url = `/media-types/text`
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "text/plain"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    const res = await this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: z.string().parse(res.data)}
+  }
 }
 
 export {E2ETestClient as ApiClient}

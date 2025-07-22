@@ -367,5 +367,16 @@ describe.each(startServerFunctions)(
         expect(res.data).toBe("Plain text response")
       })
     })
+
+    describe("POST /media-types/text", () => {
+      it("can do use text/plain", async () => {
+        const res = await client.postMediaTypesText({
+          requestBody: "Some plain text",
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.data).toBe("Some plain text")
+      })
+    })
   },
 )
