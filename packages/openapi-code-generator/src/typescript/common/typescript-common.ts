@@ -1,5 +1,6 @@
 import {logger} from "../../core/logger"
 import type {
+  IRMediaType,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
@@ -145,12 +146,45 @@ export type RequestBodyAsParameter = {
   contentType: string
 }
 
+export function filterBySupportedMediaTypes(
+  object: Record<string, IRMediaType>,
+  supportedMediaTypes: string[],
+): {contentType: string; mediaType: IRMediaType}[] {
+  const normalized = Object.fromEntries(
+    Object.entries(object).map(([key, value]) => {
+      const contentType = key.split(/\s*[,;]\s*/)[0]
+
+      if (!contentType) {
+        throw new Error(`unspecified content type '${key}'`)
+      }
+
+      return [contentType, {fullContentType: key, mediaType: value}]
+    }),
+  )
+
+  return supportedMediaTypes
+    .map((supportedMediaType) => normalized[supportedMediaType])
+    .filter(isDefined)
+    .map((it) => ({
+      contentType: it.fullContentType,
+      mediaType: it.mediaType,
+    }))
+}
+
+export function firstByBySupportedMediaTypes(
+  object: Record<string, IRMediaType>,
+  supportedMediaTypes: string[],
+): {contentType: string; mediaType: IRMediaType} | undefined {
+  return filterBySupportedMediaTypes(object, supportedMediaTypes)[0]
+}
+
 export function requestBodyAsParameter(
   operation: IROperation,
   supportedMediaTypes = [
     "application/json",
-    "text/json",
+    "application/scim+json",
     "application/merge-patch+json",
+    "text/json",
   ],
 ): RequestBodyAsParameter | undefined {
   const {requestBody} = operation
@@ -159,36 +193,25 @@ export function requestBodyAsParameter(
     return undefined
   }
 
-  const normalized = Object.entries(requestBody.content).map(([key, value]) => {
-    const contentType = key.split(/\s*[,;]\s*/)[0]
+  // todo: support multiple media types properly. https://github.com/mnahkies/openapi-code-generator/issues/42
+  const result = firstByBySupportedMediaTypes(
+    requestBody.content,
+    supportedMediaTypes,
+  )
 
-    if (!contentType) {
-      throw new Error(`unspecified content type '${key}'`)
-    }
-
-    return {contentType, fullContentType: key, value}
-  })
-
-  // todo: https://github.com/mnahkies/openapi-code-generator/issues/42
-  for (const supportedMediaType of supportedMediaTypes) {
-    const result = normalized.find(
-      (it) => it.contentType === supportedMediaType,
-    )
-
-    if (result) {
-      return {
-        isSupported: true,
-        contentType: result.fullContentType,
-        parameter: {
-          name: "requestBody",
-          description: requestBody.description,
-          in: "body",
-          required: requestBody.required,
-          schema: result.value.schema,
-          allowEmptyValue: false,
-          deprecated: false,
-        },
-      }
+  if (result) {
+    return {
+      isSupported: true,
+      contentType: result.contentType,
+      parameter: {
+        name: "requestBody",
+        description: requestBody.description,
+        in: "body",
+        required: requestBody.required,
+        schema: result.mediaType.schema,
+        allowEmptyValue: false,
+        deprecated: false,
+      },
     }
   }
 
@@ -196,15 +219,15 @@ export function requestBodyAsParameter(
     requestBody,
   })
 
-  const first = normalized[0]
+  const contentType = Object.keys(requestBody.content).sort().join(", ")
 
-  if (!first) {
+  if (!contentType) {
     return undefined
   }
 
   return {
     isSupported: false,
-    contentType: first.fullContentType,
+    contentType,
     parameter: {
       name: "requestBody",
       description: requestBody.description,

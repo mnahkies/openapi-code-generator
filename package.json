@@ -25,6 +25,7 @@
     "build": "node ./scripts/generate-ajv-validator.js && tsc -b tsconfig.json && pnpm --filter @nahkies/openapi-code-generator-documentation build",
     "build:watch": "tsc -b tsconfig.json -w",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "integration:clean": "pnpm --filter @integration/* clean",
     "integration:generate": "node ./scripts/generate.mjs",
     "integration:validate": "pnpm -r validate",
     "e2e:generate": "pnpm --filter e2e clean && pnpm --filter e2e generate",

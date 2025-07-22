@@ -132,6 +132,7 @@ export class ClientOperationBuilder {
     const requestBody = this.requestBodyAsParameter()
 
     const result = [
+      // todo: generate prioritized accept header on supported content-type union
       hasAcceptHeader ? undefined : "'Accept': 'application/json'",
       !hasContentTypeHeader &&
       requestBody?.contentType &&
@@ -160,6 +161,7 @@ export class ClientOperationBuilder {
     const schemaBuilder = this.schemaBuilder
     const models = this.models
 
+    // todo: replace with responsesToArray / filter by supported content-types
     return Object.entries(this.operation.responses ?? {}).reduce(
       (acc, [status, response]) => {
         const content = Object.values(response.content ?? {}).pop()
@@ -229,6 +231,7 @@ export class ClientOperationBuilder {
     }
 
     return Object.entries(responses).map(([status, response]) => {
+      // todo: filter and union by supported content-type
       const responseContent = Object.values(response?.content || {}).pop()
 
       if (!responseContent) {

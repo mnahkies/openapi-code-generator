@@ -325,8 +325,7 @@ export abstract class AbstractSchemaBuilder<
       }
 
       case "never": {
-        // todo: use z.never() ?
-        result = `z.never()`
+        result = this.never()
         break
       }
 
@@ -422,6 +421,8 @@ export abstract class AbstractSchemaBuilder<
   protected abstract default(schema: string, model: IRModelBase): string
 
   public abstract void(): string
+
+  public abstract never(): string
 
   toCompilationUnit(): CompilationUnit {
     return new CompilationUnit(

@@ -285,6 +285,11 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return [joi, "any()"].filter(isDefined).join(".")
   }
 
+  public never(): string {
+    // todo: not sure if there's a better option here.
+    return this.any()
+  }
+
   protected override unknown(): string {
     return this.any()
   }

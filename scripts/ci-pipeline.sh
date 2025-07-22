@@ -8,6 +8,7 @@ pnpm ci-test
 pnpm lint
 pnpm format
 
+pnpm integration:clean
 pnpm integration:generate
 pnpm integration:validate
 
