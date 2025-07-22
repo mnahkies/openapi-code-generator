@@ -2320,18 +2320,22 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async markdownRenderRaw(
     p: {
-      requestBody?: never
+      requestBody?: string
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {
     const url = `/markdown/raw`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "text/plain"},
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
+      data: body,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,

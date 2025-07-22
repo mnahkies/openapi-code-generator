@@ -32539,9 +32539,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported
-
-  const markdownRenderRawBodySchema = z.never().optional()
+  const markdownRenderRawBodySchema = z.string().optional()
 
   const markdownRenderRawResponseValidator = responseValidationFactory(
     [

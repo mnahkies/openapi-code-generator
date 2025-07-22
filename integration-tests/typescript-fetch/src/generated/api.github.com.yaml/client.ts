@@ -2173,24 +2173,19 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async markdownRenderRaw(
     p: {
-      requestBody?: never
+      requestBody?: string
     } = {},
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, string> | Res<304, void>> {
     const url = this.basePath + `/markdown/raw`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
-      {
-        method: "POST",
-        // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
-        ...opts,
-        headers,
-      },
-      timeout,
+    const headers = this._headers(
+      {Accept: "application/json", "Content-Type": "text/plain"},
+      opts.headers,
     )
+    const body = p.requestBody
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async appsGetSubscriptionPlanForAccount(

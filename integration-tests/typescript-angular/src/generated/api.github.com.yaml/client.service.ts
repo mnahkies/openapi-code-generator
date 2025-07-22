@@ -2586,20 +2586,24 @@ export class GitHubV3RestApiService {
   }
 
   markdownRenderRaw(
-    p: {requestBody?: never} = {},
+    p: {requestBody?: string} = {},
   ): Observable<
     | (HttpResponse<string> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({Accept: "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "text/plain",
+    })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/markdown/raw`,
       {
         headers,
-        // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
+        body,
         observe: "response",
         reportProgress: false,
       },

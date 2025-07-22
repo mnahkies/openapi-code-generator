@@ -11791,7 +11791,7 @@ export type t_MarkdownRenderBodySchema = {
   text: string
 }
 
-export type t_MarkdownRenderRawBodySchema = never
+export type t_MarkdownRenderRawBodySchema = string
 
 export type t_MetaGetOctocatQuerySchema = {
   s?: string
