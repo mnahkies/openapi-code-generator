@@ -1,4 +1,5 @@
 import {generationLib} from "../../core/generation-lib"
+import type {Input} from "../../core/input"
 import {logger} from "../../core/logger"
 import type {
   IROperation,
@@ -36,6 +37,7 @@ export class ClientOperationBuilder {
     private readonly operation: IROperation,
     private readonly models: TypeBuilder,
     private readonly schemaBuilder: SchemaBuilder,
+    private readonly input: Input,
   ) {}
 
   get operationId(): string {
@@ -98,13 +100,22 @@ export class ClientOperationBuilder {
 
   requestBodyAsParameter(): RequestBodyAsParameter | undefined {
     const result = requestBodyAsParameter(this.operation)
-    const schema = result?.parameter?.schema
+    const schema =
+      result?.parameter?.schema && this.input.schema(result?.parameter?.schema)
 
-    if (schema && this.models.isEmptyObject(schema)) {
-      logger.warn(
-        `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
-      )
-      return undefined
+    if (schema) {
+      if (this.models.isEmptyObject(schema)) {
+        logger.warn(
+          `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
+        )
+        return undefined
+      }
+
+      if (result?.serializer === "String" && schema.type !== "string") {
+        throw new Error(
+          "request bodies of content-type text/plain must have a string schema",
+        )
+      }
     }
 
     return result

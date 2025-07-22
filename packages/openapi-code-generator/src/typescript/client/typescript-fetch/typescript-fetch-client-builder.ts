@@ -2,7 +2,10 @@ import type {ImportBuilder} from "../../common/import-builder"
 import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
 import {union} from "../../common/type-utils"
-import {asyncMethod} from "../../common/typescript-common"
+import {
+  asyncMethod,
+  type RequestBodyAsParameter,
+} from "../../common/typescript-common"
 import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
@@ -77,7 +80,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
         : "const headers = this._headers({}, opts.headers)",
       queryString ? `const query = this._query({ ${queryString} })` : "",
       requestBody?.parameter && requestBody.isSupported
-        ? "const body = JSON.stringify(p.requestBody)"
+        ? `const body = ${this.serializeRequestBody(requestBody)}`
         : "",
     ]
       .filter(Boolean)
@@ -120,6 +123,26 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
       returnType,
       body,
     })
+  }
+
+  private serializeRequestBody(requestBody: RequestBodyAsParameter) {
+    if (!requestBody.serializer) {
+      throw new Error(
+        `missing serializer on requestBody ${JSON.stringify(requestBody, undefined, 2)}`,
+      )
+    }
+
+    switch (requestBody.serializer) {
+      case "JSON.stringify":
+        return `JSON.stringify(p.${requestBody.parameter.name})`
+      case "String":
+        return `p.${requestBody.parameter.name}`
+      default: {
+        throw new Error(
+          `typescript-fetch does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies never}'`,
+        )
+      }
+    }
   }
 
   protected buildClient(clientName: string, clientMethods: string[]): string {

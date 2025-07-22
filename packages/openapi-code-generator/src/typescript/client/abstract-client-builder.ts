@@ -45,6 +45,7 @@ export abstract class AbstractClientBuilder implements ICompilable {
       operation,
       this.types,
       this.schemaBuilder,
+      this.input,
     )
     this.clientServersBuilder.addOperation(operation)
     const result = this.buildOperation(builder)
