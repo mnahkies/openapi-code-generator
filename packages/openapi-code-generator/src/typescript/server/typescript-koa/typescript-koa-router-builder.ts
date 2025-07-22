@@ -88,6 +88,12 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       )
     }
     if (params.body.schema) {
+      if (!params.body.isSupported) {
+        statements.push(
+          `// todo: request bodies with content-type '${params.body.contentType}' not yet supported`,
+        )
+      }
+
       statements.push(
         constStatement(symbols.requestBodySchema, params.body.schema),
       )

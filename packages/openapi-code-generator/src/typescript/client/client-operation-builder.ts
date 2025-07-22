@@ -131,12 +131,16 @@ export class ClientOperationBuilder {
       .map((it) => `'${it.name}': ${this.paramName(it.name)}`)
 
     const hasAcceptHeader = this.hasHeader("Accept")
-
-    const {requestBodyContentType} = this.requestBodyAsParameter()
+    const hasContentTypeHeader = this.hasHeader("Content-Type")
+    const {requestBodyContentType, requestBodyParameter} =
+      this.requestBodyAsParameter()
 
     const result = [
       hasAcceptHeader ? undefined : "'Accept': 'application/json'",
-      requestBodyContentType
+      // !hasContentTypeHeader &&
+      requestBodyContentType &&
+      // omit Content-Type when unsupported (never)
+      !this.models.isNever(requestBodyParameter?.schema)
         ? `'Content-Type': '${requestBodyContentType}'`
         : undefined,
     ]

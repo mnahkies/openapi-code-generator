@@ -323,8 +323,22 @@ export abstract class AbstractSchemaBuilder<
         result = this.config.allowAny ? this.any() : this.unknown()
         break
       }
-      case "null":
+
+      case "never": {
+        // todo: use z.never() ?
+        result = `z.never()`
+        break
+      }
+
+      case "null": {
         throw new Error("unreachable - input should normalize this out")
+      }
+
+      default: {
+        throw new Error(
+          `unsupported type '${JSON.stringify(model satisfies never, undefined, 2)}'`,
+        )
+      }
     }
 
     if (model["x-internal-preprocess"]) {

@@ -17,7 +17,12 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
 
   protected buildOperation(builder: ClientOperationBuilder): string {
     const {operationId, method, hasServers} = builder
-    const {requestBodyParameter} = builder.requestBodyAsParameter()
+    const {requestBodyContentType, requestBodyParameter} =
+      builder.requestBodyAsParameter()
+
+    const requestBodyIsSupported = !this.types.isNever(
+      requestBodyParameter?.schema,
+    )
 
     const operationParameter = builder.methodParameter()
 
@@ -49,7 +54,11 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
     const axiosFragment = `this._request({${[
       `url: url ${queryString ? "+ query" : ""}`,
       `method: "${method}"`,
-      requestBodyParameter ? "data: body" : "",
+      requestBodyParameter
+        ? requestBodyIsSupported
+          ? "data: body"
+          : `// todo: request bodies with content-type '${requestBodyContentType}' not yet supported`
+        : "",
       hasServers ? "baseURL: basePath" : undefined,
       // ensure compatibility with `exactOptionalPropertyTypes` compiler option
       // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
@@ -67,7 +76,9 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
         ? `const headers = this._headers(${headers}, opts.headers)`
         : "const headers = this._headers({}, opts.headers)",
       queryString ? `const query = this._query({ ${queryString} })` : "",
-      requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
+      requestBodyParameter && requestBodyIsSupported
+        ? "const body = JSON.stringify(p.requestBody)"
+        : "",
     ]
       .filter(Boolean)
       .join("\n")}

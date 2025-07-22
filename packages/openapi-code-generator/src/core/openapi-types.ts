@@ -217,7 +217,9 @@ export interface Schema {
     | "object"
     | "array"
     | "null" // only valid in OA 3.1
-    | string
+    // internal extension schema types
+    | "any"
+    | "never"
     | undefined
   not?: Schema | Reference | undefined
   allOf?: (Schema | Reference)[] | undefined

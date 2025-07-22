@@ -84,6 +84,8 @@ export type Parameters = {
     type: string
   }
   body: {
+    isSupported: boolean
+    contentType: string | undefined
     schema: string | undefined
     type: string
     isRequired: boolean
@@ -265,7 +267,8 @@ export class ServerOperationBuilder {
   }
 
   private requestBodyParameter(schemaSymbolName: string): Parameters["body"] {
-    const {requestBodyParameter} = requestBodyAsParameter(this.operation)
+    const {requestBodyContentType, requestBodyParameter} =
+      requestBodyAsParameter(this.operation)
 
     const isRequired = Boolean(requestBodyParameter?.required)
 
@@ -284,7 +287,13 @@ export class ServerOperationBuilder {
       logger.warn(
         `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
       )
-      return {type: "void", schema: undefined, isRequired: false}
+      return {
+        isSupported: true,
+        type: "void",
+        contentType: undefined,
+        schema: undefined,
+        isRequired: false,
+      }
     }
 
     let type = "void"
@@ -300,6 +309,8 @@ export class ServerOperationBuilder {
     }
 
     return {
+      isSupported: !this.types.isNever(requestBodyParameter?.schema),
+      contentType: requestBodyContentType,
       schema,
       type,
       isRequired,

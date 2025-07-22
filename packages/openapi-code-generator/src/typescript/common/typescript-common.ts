@@ -1,5 +1,6 @@
 import {logger} from "../../core/logger"
 import type {
+  IRMediaType,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
@@ -139,7 +140,14 @@ export function buildExport(args: ExportDefinition) {
   }
 }
 
-export function requestBodyAsParameter(operation: IROperation): {
+export function requestBodyAsParameter(
+  operation: IROperation,
+  supportedMediaTypes = [
+    "application/json",
+    "text/json",
+    "application/merge-patch+json",
+  ],
+): {
   requestBodyParameter?: IRParameter
   requestBodyContentType?: string
 } {
@@ -149,26 +157,60 @@ export function requestBodyAsParameter(operation: IROperation): {
     return {}
   }
 
+  const normalized = Object.entries(requestBody.content).map(([key, value]) => {
+    const contentType = key.split(/\s*[,;]\s*/)[0]
+
+    if (!contentType) {
+      throw new Error(`unspecified content type '${key}'`)
+    }
+
+    return {contentType, fullContentType: key, value}
+  })
+
   // todo: https://github.com/mnahkies/openapi-code-generator/issues/42
-  for (const [requestBodyContentType, definition] of Object.entries(
-    requestBody.content,
-  )) {
-    return {
-      requestBodyContentType,
-      requestBodyParameter: {
-        name: "requestBody",
-        description: requestBody.description,
-        in: "body",
-        required: requestBody.required,
-        schema: definition.schema,
-        allowEmptyValue: false,
-        deprecated: false,
-      },
+  for (const supportedMediaType of supportedMediaTypes) {
+    const result = normalized.find(
+      (it) => it.contentType === supportedMediaType,
+    )
+
+    if (result) {
+      return {
+        requestBodyContentType: result.fullContentType,
+        requestBodyParameter: {
+          name: "requestBody",
+          description: requestBody.description,
+          in: "body",
+          required: requestBody.required,
+          schema: result.value.schema,
+          allowEmptyValue: false,
+          deprecated: false,
+        },
+      }
     }
   }
 
-  logger.warn("no content on defined request body ", {requestBody})
-  return {}
+  logger.warn("no supported content-type on defined request body ", {
+    requestBody,
+  })
+
+  const first = normalized[0]
+
+  if (!first) {
+    return {}
+  }
+
+  return {
+    requestBodyContentType: first.fullContentType,
+    requestBodyParameter: {
+      name: "requestBody",
+      description: requestBody.description,
+      in: "body",
+      required: requestBody.required,
+      schema: {type: "never", nullable: false, readOnly: false},
+      allowEmptyValue: false,
+      deprecated: false,
+    },
+  }
 }
 
 export function statusStringToType(status: string): string {

@@ -17,7 +17,12 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
 
   protected buildOperation(builder: ClientOperationBuilder): string {
     const {operationId, method, hasServers} = builder
-    const {requestBodyParameter} = builder.requestBodyAsParameter()
+    const {requestBodyContentType, requestBodyParameter} =
+      builder.requestBodyAsParameter()
+
+    const requestBodyIsSupported = !this.types.isNever(
+      requestBodyParameter?.schema,
+    )
 
     const operationParameter = builder.methodParameter()
 
@@ -38,7 +43,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
     ${[
       headers ? `const headers = this._headers(${headers})` : "",
       queryString ? `const params = this._queryParams({${queryString}})` : "",
-      requestBodyParameter
+      requestBodyParameter && requestBodyIsSupported
         ? `const body = ${builder.paramName(requestBodyParameter.name)}`
         : "",
     ]
@@ -49,14 +54,18 @@ return this.httpClient.request<any>(
   "${method}",
   ${hasServers ? "basePath" : "this.config.basePath"} + \`${url}\`, {
     ${[
-      queryString ? "params," : "",
-      headers ? "headers," : "",
-      requestBodyParameter ? "body," : "",
+      queryString ? "params" : "",
+      headers ? "headers" : "",
+      requestBodyParameter
+        ? requestBodyIsSupported
+          ? "body"
+          : `// todo: request bodies with content-type '${requestBodyContentType}' not yet supported`
+        : "",
+      'observe: "response"',
+      "reportProgress: false",
     ]
       .filter(Boolean)
-      .join("\n")}
-    observe: "response",
-    reportProgress: false,
+      .join(",\n")}
   });
 `
 
