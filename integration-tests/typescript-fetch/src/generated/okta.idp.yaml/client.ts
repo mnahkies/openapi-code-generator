@@ -80,7 +80,10 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/app-authenticators`
     const headers = this._headers(
-      {"Content-Type": "application/json, okta-version=1.0.0"},
+      {
+        Accept: "application/json",
+        "Content-Type": "application/json, okta-version=1.0.0",
+      },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -100,7 +103,10 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
     const headers = this._headers(
-      {"Content-Type": "application/json;okta-version=1.0.0"},
+      {
+        Accept: "application/json",
+        "Content-Type": "application/json;okta-version=1.0.0",
+      },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -124,7 +130,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
     const headers = this._headers(
-      {"Content-Type": "application/merge-patch+json;okta-version=1.0.0"},
+      {
+        Accept: "application/json",
+        "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
+      },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -143,7 +152,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
@@ -158,7 +167,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath +
       `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -173,7 +182,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     Res<200, t_Authenticator[]> | Res<403, t_Error> | Res<429, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/authenticators`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({expand: p["expand"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -194,7 +203,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/idp/myaccount/authenticators/${p["authenticatorId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({expand: p["expand"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -215,7 +224,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath +
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -236,7 +245,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath +
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -259,7 +268,10 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
     const headers = this._headers(
-      {"Content-Type": "application/merge-patch+json;okta-version=1.0.0"},
+      {
+        Accept: "application/json",
+        "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
+      },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -272,7 +284,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Email[]> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/emails`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -299,7 +311,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/emails`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -315,7 +327,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Email> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -330,7 +342,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     Res<204, void> | Res<400, t_Error> | Res<401, t_Error> | Res<404, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
@@ -376,7 +388,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}/challenge`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -435,7 +447,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     const url =
       this.basePath +
       `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -457,7 +469,7 @@ export class MyAccountManagement extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}/verify`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -470,7 +482,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_OktaApplication[]> | Res<400, t_Error>> {
     const url = this.basePath + `/idp/myaccount/okta-applications`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -480,7 +492,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Organization> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/organization`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -490,7 +502,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_PasswordResponse> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/password`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -513,7 +525,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -539,7 +551,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -552,7 +564,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>> {
     const url = this.basePath + `/idp/myaccount/password`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
@@ -562,7 +574,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Phone[]> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/phones`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -589,7 +601,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -605,7 +617,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Phone> | Res<401, t_Error> | Res<404, t_Error>> {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -620,7 +632,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
@@ -657,7 +669,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/challenge`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -684,7 +696,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/verify`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -697,7 +709,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Profile> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -713,7 +725,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   ): Promise<Res<200, t_Profile> | Res<400, t_Error> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -726,7 +738,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_Schema> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile/schema`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -736,7 +748,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>> {
     const url = this.basePath + `/idp/myaccount/sessions`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }

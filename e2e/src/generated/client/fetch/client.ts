@@ -72,7 +72,7 @@ export class E2ETestClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_getHeadersUndeclaredJson200Response>> {
     const url = this.basePath + `/headers/undeclared`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
@@ -96,6 +96,7 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/headers/request`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Route-Level-Header": p["routeLevelHeader"],
         "Number-Header": p["numberHeader"],
         "Boolean-Header": p["booleanHeader"],
@@ -123,7 +124,7 @@ export class E2ETestClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_RandomNumber>> {
     const url = this.basePath + `/validation/numbers/random-number`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
       max: p["max"],
       min: p["min"],
@@ -148,7 +149,7 @@ export class E2ETestClient extends AbstractFetchClient {
   ): Promise<Res<200, t_Enumerations>> {
     const url = this.basePath + `/validation/enums`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -167,7 +168,7 @@ export class E2ETestClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<500, void>> {
     const url = this.basePath + `/responses/500`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
@@ -179,7 +180,7 @@ export class E2ETestClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, string>> {
     const url = this.basePath + `/escape-hatches/plain-text`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
@@ -191,7 +192,7 @@ export class E2ETestClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<204, void>> {
     const url = this.basePath + `/responses/empty`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 

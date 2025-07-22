@@ -50,7 +50,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet[]>> {
     const url = `/pets`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({tags: p["tags"], limit: p["limit"]})
 
     return this._request({
@@ -71,7 +71,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -94,7 +94,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
@@ -113,7 +113,7 @@ export class SwaggerPetstore extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/pets/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,

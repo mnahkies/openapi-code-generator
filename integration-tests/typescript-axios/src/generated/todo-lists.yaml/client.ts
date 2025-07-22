@@ -163,7 +163,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList[]>> {
     const url = `/list`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
       created: p["created"],
       statuses: p["statuses"],
@@ -187,7 +187,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
@@ -208,7 +208,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -231,7 +231,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
@@ -257,7 +257,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     }>
   > {
     const url = `/list/${p["listId"]}/items`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
@@ -282,7 +282,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}/items`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -307,7 +307,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_UnknownObject[]>> {
     const url = `/attachments`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
@@ -321,9 +321,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
 
   async uploadAttachment(
     p: {
-      requestBody: {
-        file?: unknown | undefined
-      }
+      requestBody: never
     },
     basePath:
       | Server<"uploadAttachment_TodoListsExampleApi">
@@ -334,16 +332,12 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/attachments`
-    const headers = this._headers(
-      {"Content-Type": "multipart/form-data"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
       method: "POST",
-      data: body,
+      // todo: request bodies with content-type 'multipart/form-data' not yet supported,
       baseURL: basePath,
       ...(timeout ? {timeout} : {}),
       ...opts,

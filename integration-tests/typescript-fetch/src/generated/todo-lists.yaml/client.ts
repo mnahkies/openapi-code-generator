@@ -167,7 +167,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_TodoList[]>> {
     const url = this.basePath + `/list`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
       created: p["created"],
       statuses: p["statuses"],
@@ -187,7 +187,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -204,7 +204,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -222,7 +222,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
@@ -252,7 +252,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
       >
   > {
     const url = this.basePath + `/list/${p["listId"]}/items`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
@@ -271,7 +271,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
   ): Promise<Res<204, void>> {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -289,16 +289,14 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_UnknownObject[]>> {
     const url = basePath + `/attachments`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
   async uploadAttachment(
     p: {
-      requestBody: {
-        file?: unknown
-      }
+      requestBody: never
     },
     basePath:
       | Server<"uploadAttachment_TodoListsExampleApi">
@@ -309,13 +307,18 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<202, void>> {
     const url = basePath + `/attachments`
-    const headers = this._headers(
-      {"Content-Type": "multipart/form-data"},
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
-    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
+    return this._fetch(
+      url,
+      {
+        method: "POST",
+        // todo: request bodies with content-type 'multipart/form-data' not yet supported,
+        ...opts,
+        headers,
+      },
+      timeout,
+    )
   }
 }
 

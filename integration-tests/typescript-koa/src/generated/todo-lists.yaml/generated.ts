@@ -629,7 +629,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const uploadAttachmentBodySchema = z.object({file: z.unknown().optional()})
+  // todo: request bodies with content-type 'multipart/form-data' not yet supported
+
+  const uploadAttachmentBodySchema = z.never()
 
   const uploadAttachmentResponseValidator = responseValidationFactory(
     [["202", z.undefined()]],

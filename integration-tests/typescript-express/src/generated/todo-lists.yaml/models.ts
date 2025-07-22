@@ -58,6 +58,4 @@ export type t_UpdateTodoListByIdRequestBodySchema = {
   name: string
 }
 
-export type t_UploadAttachmentRequestBodySchema = {
-  file?: unknown | undefined
-}
+export type t_UploadAttachmentRequestBodySchema = never
