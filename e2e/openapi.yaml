@@ -6,6 +6,7 @@ tags:
   - name: request headers
   - name: validation
   - name: escape hatches
+  - name: media types
 servers:
   - url: '{protocol}://{host}:{port}'
     variables:
@@ -125,6 +126,25 @@ paths:
       responses:
         204:
           description: Ok
+
+  /media-types/text:
+    post:
+      tags:
+        - media types
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+        required: true
+      responses:
+        200:
+          description: Rendered as HTML
+          content:
+            text/html:
+              schema:
+                type: string
+
 components:
   responses:
     GetHeaders:

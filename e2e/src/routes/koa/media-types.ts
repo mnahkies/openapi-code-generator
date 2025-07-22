@@ -1,0 +1,25 @@
+import {SkipResponse} from "@nahkies/typescript-koa-runtime/server"
+import {
+  createRouter,
+  type PostMediaTypesText,
+} from "../../generated/server/koa/routes/media-types"
+
+const postMediaTypesText: PostMediaTypesText = async (
+  {body},
+  _respond,
+  ctx,
+) => {
+  ctx.status = 200
+  ctx.body = body
+
+  // TODO: the typescript types are correct, but gets mangled by json serialization
+  // return respond.with200().body("Plain text response")
+
+  return SkipResponse
+}
+
+export function createMediaTypesRouter() {
+  return createRouter({
+    postMediaTypesText,
+  })
+}

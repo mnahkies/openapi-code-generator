@@ -1,6 +1,7 @@
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {bootstrap} from "./generated/server/express"
 import {createEscapeHatchesRouter} from "./routes/express/escape-hatches"
+import {createMediaTypesRouter} from "./routes/express/media-types"
 import {createRequestHeadersRouter} from "./routes/express/request-headers"
 import {createValidationRouter} from "./routes/express/validation"
 import {createErrorResponse} from "./shared"
@@ -11,10 +12,12 @@ function createRouter() {
   const requestHeadersRouter = createRequestHeadersRouter()
   const validationRouter = createValidationRouter()
   const escapeHatchesRouter = createEscapeHatchesRouter()
+  const mediaTypesRouter = createMediaTypesRouter()
 
   router.use(requestHeadersRouter)
   router.use(validationRouter)
   router.use(escapeHatchesRouter)
+  router.use(mediaTypesRouter)
 
   return router
 }

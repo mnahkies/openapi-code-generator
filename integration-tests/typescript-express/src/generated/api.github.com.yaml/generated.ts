@@ -27748,9 +27748,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported
-
-  const markdownRenderRawRequestBodySchema = z.never().optional()
+  const markdownRenderRawRequestBodySchema = z.string().optional()
 
   const markdownRenderRawResponseBodyValidator = responseValidationFactory(
     [

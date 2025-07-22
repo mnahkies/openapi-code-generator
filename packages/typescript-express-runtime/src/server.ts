@@ -1,7 +1,7 @@
 import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 
-import type {OptionsJson} from "body-parser"
+import type {OptionsJson, OptionsText} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
 import express, {
   type ErrorRequestHandler,
@@ -81,7 +81,10 @@ export type ServerConfig = {
    * if disabling, ensure you pass a body parsing middleware that places the parsed
    * body on `req.body` for request body processing to work.
    **/
-  body?: "disabled" | OptionsJson | undefined
+  body?:
+    | "disabled"
+    | Partial<{json: OptionsJson; text: OptionsText}>
+    | undefined
 
   /**
    * provide arbitrary express middleware to be mounted before all request handlers
@@ -150,7 +153,8 @@ export async function startServer({
   }
 
   if (body !== "disabled") {
-    app.use(express.json(body))
+    app.use(express.json(body?.json))
+    app.use(express.text(body?.text))
   }
 
   if (middleware) {

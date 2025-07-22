@@ -182,14 +182,16 @@ everything should just work as you'd guess/expect.
 | content                  |    🚫     |                                                            Not yet supported |
 
 ### Request Body Object
-Well-supported for `application/json` content types. Support for form data, and file uploads, etc
+Well-supported for `application/json` (including some variations like `application/scim+json`) and `text/plain` content types.
+
+Support for `multipart/form-data`, `application/x-www-form-urlencoded` and `application/octocat-stream`, etc
 planned to come soon.
 
-| Attribute                     | Supported |                                                 Notes |
-|:------------------------------|:---------:|------------------------------------------------------:|
-| description                   |  __N/A__  |                                               Ignored |
-| [content](#media-type-object) |   ✅/🚧    | Only media types of `application/json` work properly. |
-| required                      |     ✅     |                                                       |
+| Attribute                     | Supported |                                                          Notes |
+|:------------------------------|:---------:|---------------------------------------------------------------:|
+| description                   |  __N/A__  |                                                        Ignored |
+| [content](#media-type-object) |   ✅/🚧    | Only media types related to JSON and plain text work properly. |
+| required                      |     ✅     |                                                                |
 
 ### Media Type Object
 

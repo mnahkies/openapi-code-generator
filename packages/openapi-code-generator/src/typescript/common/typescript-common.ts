@@ -140,16 +140,50 @@ export function buildExport(args: ExportDefinition) {
   }
 }
 
+export type Serializer = "JSON.stringify" | "String"
+// TODO: support more serializations
+// | "Blob"
+// | "FormData"
+// | "URLSearchParams"
+
 export type RequestBodyAsParameter = {
   isSupported: boolean
   parameter: IRParameter
   contentType: string
+  serializer: Serializer | undefined
+}
+
+function serializerForNormalizedContentType(contentType: string): Serializer {
+  switch (contentType) {
+    case "application/json":
+    case "text/json":
+    case "application/merge-patch+json":
+      return "JSON.stringify"
+
+    case "text/plain":
+    case "text/x-markdown":
+      return "String"
+
+    // TODO: support more serializations
+    // case "application/x-www-form-urlencoded":
+    //   return "URLSearchParams"
+    //
+    // case "application/octet-stream":
+    //   return "Blob"
+    //
+    // case "multipart/form-data":
+    //   return "FormData"
+
+    default: {
+      throw new Error(`unsupported requestBody type '${contentType}'`)
+    }
+  }
 }
 
 export function filterBySupportedMediaTypes(
   object: Record<string, IRMediaType>,
   supportedMediaTypes: string[],
-): {contentType: string; mediaType: IRMediaType}[] {
+): {contentType: string; mediaType: IRMediaType; serializer: Serializer}[] {
   const normalized = Object.fromEntries(
     Object.entries(object).map(([key, value]) => {
       const contentType = key.split(/\s*[,;]\s*/)[0]
@@ -158,7 +192,14 @@ export function filterBySupportedMediaTypes(
         throw new Error(`unspecified content type '${key}'`)
       }
 
-      return [contentType, {fullContentType: key, mediaType: value}]
+      return [
+        contentType,
+        {
+          normalizedContentType: contentType,
+          fullContentType: key,
+          mediaType: value,
+        },
+      ]
     }),
   )
 
@@ -168,13 +209,16 @@ export function filterBySupportedMediaTypes(
     .map((it) => ({
       contentType: it.fullContentType,
       mediaType: it.mediaType,
+      serializer: serializerForNormalizedContentType(it.normalizedContentType),
     }))
 }
 
 export function firstByBySupportedMediaTypes(
   object: Record<string, IRMediaType>,
   supportedMediaTypes: string[],
-): {contentType: string; mediaType: IRMediaType} | undefined {
+):
+  | {contentType: string; mediaType: IRMediaType; serializer: Serializer}
+  | undefined {
   return filterBySupportedMediaTypes(object, supportedMediaTypes)[0]
 }
 
@@ -185,6 +229,8 @@ export function requestBodyAsParameter(
     "application/scim+json",
     "application/merge-patch+json",
     "text/json",
+    "text/plain",
+    "text/x-markdown",
   ],
 ): RequestBodyAsParameter | undefined {
   const {requestBody} = operation
@@ -212,6 +258,7 @@ export function requestBodyAsParameter(
         allowEmptyValue: false,
         deprecated: false,
       },
+      serializer: result.serializer,
     }
   }
 
@@ -237,6 +284,7 @@ export function requestBodyAsParameter(
       allowEmptyValue: false,
       deprecated: false,
     },
+    serializer: undefined,
   }
 }
 
