@@ -5,25 +5,18 @@
 import {
   t_AcrValue,
   t_AmrValue,
-  t_AuthorizeWithPost,
-  t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
-  t_ChallengeRequest,
   t_ChallengeResponse,
   t_Client,
   t_CodeChallengeMethod,
-  t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
   t_Error,
   t_GlobalTokenRevocationRequest,
-  t_IntrospectionRequest,
   t_IntrospectionResponse,
-  t_LogoutWithPost,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OidcMetadata,
-  t_OobAuthenticateRequest,
   t_OobAuthenticateResponse,
   t_ParRequest,
   t_ParResponse,
@@ -31,7 +24,6 @@ import {
   t_ResponseMode,
   t_ResponseTypesSupported,
   t_RevokeRequest,
-  t_TokenRequest,
   t_TokenResponse,
   t_UserInfo,
 } from "./models"
@@ -157,6 +149,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 400})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
@@ -164,6 +157,7 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/.well-known/openid-configuration`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -194,6 +188,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }): Observable<
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       acr_values: p["acrValues"],
       client_id: p["clientId"],
@@ -222,6 +217,7 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/oauth2/v1/authorize`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -229,21 +225,18 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   authorizeWithPost(p: {
-    requestBody: t_AuthorizeWithPost
+    requestBody: never
   }): Observable<
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/authorize`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -251,7 +244,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   bcAuthorize(p: {
-    requestBody: t_BackchannelAuthorizeRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_BackchannelAuthorizeResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -259,17 +252,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/bc/authorize`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -277,7 +267,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   challenge(p: {
-    requestBody: t_ChallengeRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_ChallengeResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -286,17 +276,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/challenge`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -311,6 +298,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       after: p["after"],
       limit: p["limit"],
@@ -322,6 +310,7 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/oauth2/v1/clients`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -337,7 +326,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -361,10 +353,13 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/oauth2/v1/clients/${p["clientId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -382,7 +377,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -406,10 +404,13 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/oauth2/v1/clients/${p["clientId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -425,11 +426,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/oauth2/v1/clients/${p["clientId"]}/lifecycle/newSecret`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -437,7 +441,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   deviceAuthorize(p: {
-    requestBody: t_DeviceAuthorizeRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_DeviceAuthorizeResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -445,17 +449,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/device/authorize`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -471,7 +472,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -487,7 +491,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   introspect(p: {
-    requestBody: t_IntrospectionRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_IntrospectionResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -495,17 +499,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/introspect`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -519,6 +520,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
@@ -526,6 +528,7 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/oauth2/v1/keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -541,6 +544,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       id_token_hint: p["idTokenHint"],
       post_logout_redirect_uri: p["postLogoutRedirectUri"],
@@ -552,6 +556,7 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/oauth2/v1/logout`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -559,23 +564,20 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   logoutWithPost(p: {
-    requestBody: t_LogoutWithPost
+    requestBody: never
   }): Observable<
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/logout`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -583,7 +585,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   oobAuthenticate(p: {
-    requestBody: t_OobAuthenticateRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_OobAuthenticateResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -592,17 +594,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/oob-authenticate`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -616,7 +615,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({Origin: p["origin"]})
+    const headers = this._headers({
+      Accept: "application/json",
+      Origin: p["origin"],
+    })
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -639,7 +641,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -663,7 +668,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -685,7 +693,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({Origin: p["origin"]})
+    const headers = this._headers({
+      Accept: "application/json",
+      Origin: p["origin"],
+    })
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -699,7 +710,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }
 
   token(p: {
-    requestBody: t_TokenRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_TokenResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -707,17 +718,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/v1/token`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -731,10 +739,13 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/oauth2/v1/userinfo`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -750,6 +761,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
@@ -758,6 +770,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/.well-known/oauth-authorization-server`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -773,6 +786,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({client_id: p["clientId"]})
 
     return this.httpClient.request<any>(
@@ -781,6 +795,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/.well-known/openid-configuration`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -812,6 +827,7 @@ export class OktaOpenIdConnectOAuth20Service {
   }): Observable<
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       acr_values: p["acrValues"],
       client_id: p["clientId"],
@@ -841,6 +857,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/authorize`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -849,14 +866,11 @@ export class OktaOpenIdConnectOAuth20Service {
 
   authorizeCustomAsWithPost(p: {
     authorizationServerId: string
-    requestBody: t_AuthorizeWithPost
+    requestBody: never
   }): Observable<
     (HttpResponse<t_Error> & {status: 429}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
@@ -864,7 +878,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/authorize`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -873,7 +887,7 @@ export class OktaOpenIdConnectOAuth20Service {
 
   bcAuthorizeCustomAs(p: {
     authorizationServerId: string
-    requestBody: t_BackchannelAuthorizeRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_BackchannelAuthorizeResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -881,10 +895,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
@@ -892,7 +903,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/bc/authorize`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -901,7 +912,7 @@ export class OktaOpenIdConnectOAuth20Service {
 
   challengeCustomAs(p: {
     authorizationServerId: string
-    requestBody: t_ChallengeRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_ChallengeResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -910,10 +921,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
@@ -921,7 +929,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/challenge`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -930,7 +938,7 @@ export class OktaOpenIdConnectOAuth20Service {
 
   deviceAuthorizeCustomAs(p: {
     authorizationServerId: string
-    requestBody: t_DeviceAuthorizeRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_DeviceAuthorizeResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -938,10 +946,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
@@ -949,7 +954,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/device/authorize`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -958,7 +963,7 @@ export class OktaOpenIdConnectOAuth20Service {
 
   introspectCustomAs(p: {
     authorizationServerId: string
-    requestBody: t_IntrospectionRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_IntrospectionResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -966,10 +971,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
@@ -977,7 +979,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/introspect`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -991,10 +993,13 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/oauth2/${p["authorizationServerId"]}/v1/keys`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1011,6 +1016,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       id_token_hint: p["idTokenHint"],
       post_logout_redirect_uri: p["postLogoutRedirectUri"],
@@ -1022,6 +1028,7 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1030,23 +1037,20 @@ export class OktaOpenIdConnectOAuth20Service {
 
   logoutCustomAsWithPost(p: {
     authorizationServerId: string
-    requestBody: t_LogoutWithPost
+    requestBody: never
   }): Observable<
     | (HttpResponse<void> & {status: 200})
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -1055,7 +1059,7 @@ export class OktaOpenIdConnectOAuth20Service {
 
   oobAuthenticateCustomAs(p: {
     authorizationServerId: string
-    requestBody: t_OobAuthenticateRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_OobAuthenticateResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -1064,10 +1068,7 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_OAuthError> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
@@ -1075,7 +1076,7 @@ export class OktaOpenIdConnectOAuth20Service {
         `/oauth2/${p["authorizationServerId"]}/v1/oob-authenticate`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -1090,7 +1091,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({Origin: p["origin"]})
+    const headers = this._headers({
+      Accept: "application/json",
+      Origin: p["origin"],
+    })
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -1114,7 +1118,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1139,7 +1146,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1162,7 +1172,10 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({Origin: p["origin"]})
+    const headers = this._headers({
+      Accept: "application/json",
+      Origin: p["origin"],
+    })
 
     return this.httpClient.request<any>(
       "OPTIONS",
@@ -1177,7 +1190,7 @@ export class OktaOpenIdConnectOAuth20Service {
 
   tokenCustomAs(p: {
     authorizationServerId: string
-    requestBody: t_TokenRequest
+    requestBody: never
   }): Observable<
     | (HttpResponse<t_TokenResponse> & {status: 200})
     | (HttpResponse<t_OAuthError> & {status: 400})
@@ -1185,17 +1198,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -1211,11 +1221,14 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/oauth2/${p["authorizationServerId"]}/v1/userinfo`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },

@@ -1,5 +1,5 @@
 {
-  "name": "typescript-axios",
+  "name": "@integration/typescript-axios",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "author": "Michael Nahkies",

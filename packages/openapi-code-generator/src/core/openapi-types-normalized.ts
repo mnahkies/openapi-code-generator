@@ -79,6 +79,10 @@ export interface IRModelAny extends IRModelBase {
   type: "any"
 }
 
+export interface IRModelNever extends IRModelBase {
+  type: "never"
+}
+
 export interface IRModelArray extends IRModelBase {
   type: "array"
   items: MaybeIRModel
@@ -100,6 +104,7 @@ export type IRModel =
   | IRModelArray
   | IRModelAny
   | IRModelNull
+  | IRModelNever
 
 export type MaybeIRModel = IRModel | IRRef
 

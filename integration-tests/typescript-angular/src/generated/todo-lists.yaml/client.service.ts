@@ -232,6 +232,7 @@ export class TodoListsExampleApiService {
   ): Observable<
     (HttpResponse<t_TodoList[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       created: p["created"],
       statuses: p["statuses"],
@@ -240,6 +241,7 @@ export class TodoListsExampleApiService {
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/list`, {
       params,
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -253,10 +255,13 @@ export class TodoListsExampleApiService {
     | (HttpResponse<void> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/list/${p["listId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -272,7 +277,10 @@ export class TodoListsExampleApiService {
     | (HttpResponse<void> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -295,10 +303,13 @@ export class TodoListsExampleApiService {
     | (HttpResponse<void> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/list/${p["listId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -318,10 +329,13 @@ export class TodoListsExampleApiService {
       }> & {status: StatusCode5xx})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/list/${p["listId"]}/items`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -336,7 +350,10 @@ export class TodoListsExampleApiService {
       id: string
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -360,7 +377,10 @@ export class TodoListsExampleApiService {
   ): Observable<
     (HttpResponse<t_UnknownObject[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>("GET", basePath + `/attachments`, {
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -368,9 +388,7 @@ export class TodoListsExampleApiService {
 
   uploadAttachment(
     p: {
-      requestBody: {
-        file?: unknown
-      }
+      requestBody: never
     },
     basePath:
       | Server<"uploadAttachment_TodoListsExampleApiService">
@@ -378,12 +396,11 @@ export class TodoListsExampleApiService {
       .uploadAttachment()
       .build(),
   ): Observable<(HttpResponse<void> & {status: 202}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "multipart/form-data"})
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>("POST", basePath + `/attachments`, {
       headers,
-      body,
+      // todo: request bodies with content-type 'multipart/form-data' not yet supported,
       observe: "response",
       reportProgress: false,
     })

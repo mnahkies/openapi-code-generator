@@ -680,9 +680,9 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const uploadAttachmentRequestBodySchema = z.object({
-    file: z.unknown().optional(),
-  })
+  // todo: request bodies with content-type 'multipart/form-data' not yet supported
+
+  const uploadAttachmentRequestBodySchema = z.never()
 
   const uploadAttachmentResponseBodyValidator = responseValidationFactory(
     [["202", z.undefined()]],

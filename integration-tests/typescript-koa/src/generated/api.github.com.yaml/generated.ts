@@ -32539,7 +32539,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const markdownRenderRawBodySchema = z.string().optional()
+  // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported
+
+  const markdownRenderRawBodySchema = z.never().optional()
 
   const markdownRenderRawResponseValidator = responseValidationFactory(
     [
@@ -84669,7 +84671,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     label: z.string().optional(),
   })
 
-  const reposUploadReleaseAssetBodySchema = z.string().optional()
+  // todo: request bodies with content-type 'application/octet-stream' not yet supported
+
+  const reposUploadReleaseAssetBodySchema = z.never().optional()
 
   const reposUploadReleaseAssetResponseValidator = responseValidationFactory(
     [

@@ -139,6 +139,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
     const params = this._queryParams({"api-version": p["apiVersion"]})
@@ -178,6 +179,7 @@ export class ContosoWidgetManagerService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -186,6 +188,7 @@ export class ContosoWidgetManagerService {
         `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -212,6 +215,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/merge-patch+json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -253,6 +257,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "If-Match": p["ifMatch"],
       "If-None-Match": p["ifNoneMatch"],
       "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -295,6 +300,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "If-Match": p["ifMatch"],
@@ -332,6 +338,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
     const params = this._queryParams({
@@ -370,6 +377,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "If-Match": p["ifMatch"],
       "If-None-Match": p["ifNoneMatch"],
       "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -410,6 +418,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/merge-patch+json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -451,6 +460,7 @@ export class ContosoWidgetManagerService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -459,6 +469,7 @@ export class ContosoWidgetManagerService {
         `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -491,6 +502,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -529,6 +541,7 @@ export class ContosoWidgetManagerService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -537,6 +550,7 @@ export class ContosoWidgetManagerService {
         `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -562,6 +576,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -599,6 +614,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
     const params = this._queryParams({"api-version": p["apiVersion"]})
@@ -632,6 +648,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "If-Match": p["ifMatch"],
       "If-None-Match": p["ifNoneMatch"],
       "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -672,6 +689,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "If-Match": p["ifMatch"],
@@ -714,6 +732,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -751,6 +770,7 @@ export class ContosoWidgetManagerService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -759,6 +779,7 @@ export class ContosoWidgetManagerService {
         `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -785,6 +806,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -826,6 +848,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "If-Match": p["ifMatch"],
       "If-None-Match": p["ifNoneMatch"],
       "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -868,6 +891,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Repeatability-Request-ID": p["repeatabilityRequestId"],
       "Repeatability-First-Sent": p["repeatabilityFirstSent"],
       "If-Match": p["ifMatch"],
@@ -901,6 +925,7 @@ export class ContosoWidgetManagerService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "x-ms-client-request-id": p["xMsClientRequestId"],
     })
     const params = this._queryParams({"api-version": p["apiVersion"]})

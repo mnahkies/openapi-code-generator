@@ -12361,7 +12361,7 @@ export type t_MarkdownRenderRequestBodySchema = {
   text: string
 }
 
-export type t_MarkdownRenderRawRequestBodySchema = string
+export type t_MarkdownRenderRawRequestBodySchema = never
 
 export type t_MetaGetOctocatQuerySchema = {
   s?: string | undefined
@@ -16432,7 +16432,7 @@ export type t_ReposUploadReleaseAssetQuerySchema = {
   name: string
 }
 
-export type t_ReposUploadReleaseAssetRequestBodySchema = string
+export type t_ReposUploadReleaseAssetRequestBodySchema = never
 
 export type t_SearchCodeQuerySchema = {
   order?: ("desc" | "asc") | undefined

@@ -323,8 +323,21 @@ export abstract class AbstractSchemaBuilder<
         result = this.config.allowAny ? this.any() : this.unknown()
         break
       }
-      case "null":
+
+      case "never": {
+        result = this.never()
+        break
+      }
+
+      case "null": {
         throw new Error("unreachable - input should normalize this out")
+      }
+
+      default: {
+        throw new Error(
+          `unsupported type '${JSON.stringify(model satisfies never, undefined, 2)}'`,
+        )
+      }
     }
 
     if (model["x-internal-preprocess"]) {
@@ -408,6 +421,8 @@ export abstract class AbstractSchemaBuilder<
   protected abstract default(schema: string, model: IRModelBase): string
 
   public abstract void(): string
+
+  public abstract never(): string
 
   toCompilationUnit(): CompilationUnit {
     return new CompilationUnit(

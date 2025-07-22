@@ -129,6 +129,7 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -137,6 +138,7 @@ export class ContosoProviderHubClientService {
         `/providers/Microsoft.ContosoProviderHub/operations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -155,6 +157,7 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -163,6 +166,7 @@ export class ContosoProviderHubClientService {
         `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -183,7 +187,10 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
@@ -214,7 +221,10 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 
@@ -245,6 +255,7 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -253,6 +264,7 @@ export class ContosoProviderHubClientService {
         `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -272,6 +284,7 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -280,6 +293,7 @@ export class ContosoProviderHubClientService {
         `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -297,6 +311,7 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -305,6 +320,7 @@ export class ContosoProviderHubClientService {
         `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -321,6 +337,7 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({"api-version": p["apiVersion"]})
 
     return this.httpClient.request<any>(
@@ -329,6 +346,7 @@ export class ContosoProviderHubClientService {
         `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -348,7 +366,10 @@ export class ContosoProviderHubClientService {
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const params = this._queryParams({"api-version": p["apiVersion"]})
     const body = p["requestBody"]
 

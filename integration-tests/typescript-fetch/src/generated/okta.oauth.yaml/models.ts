@@ -40,39 +40,6 @@ export type t_ApplicationType =
   | "web"
   | UnknownEnumStringValue
 
-export type t_AuthorizeWithPost = {
-  acr_values?: t_AcrValue & string
-  client_id: string
-  code_challenge?: string
-  code_challenge_method?: t_CodeChallengeMethod & string
-  display?: string
-  enroll_amr_values?: t_AmrValue & string
-  idp?: string
-  idp_scope?: string
-  login_hint?: string
-  max_age?: number
-  nonce?: string
-  prompt?: t_Prompt & string
-  redirect_uri: string
-  request?: string
-  request_uri?: string
-  response_mode?: t_ResponseMode & string
-  response_type: t_ResponseTypesSupported & string
-  scope: string
-  sessionToken?: string
-  state: string
-}
-
-export type t_BackchannelAuthorizeRequest = {
-  binding_message?: string
-  id_token_hint: string
-  login_hint: string
-  request?: string
-  request_expiry?: number
-  scope: string
-  [key: string]: unknown | undefined
-}
-
 export type t_BackchannelAuthorizeResponse = {
   auth_req_id?: string
   expires_in?: number
@@ -85,12 +52,6 @@ export type t_BindingMethod =
   | "transfer"
   | UnknownEnumStringValue
 
-export type t_ChallengeRequest = {
-  challenge_types_supported?: t_ChallengeType[]
-  channel_hint?: t_Channel
-  mfa_token: string
-}
-
 export type t_ChallengeResponse = {
   binding_code?: string
   binding_method?: t_BindingMethod
@@ -100,11 +61,6 @@ export type t_ChallengeResponse = {
   interval?: number
   oob_code?: string
 }
-
-export type t_ChallengeType =
-  | "http://auth0.com/oauth/grant-type/mfa-oob"
-  | "http://auth0.com/oauth/grant-type/mfa-otp"
-  | UnknownEnumStringValue
 
 export type t_Channel = "push" | "sms" | "voice" | UnknownEnumStringValue
 
@@ -136,11 +92,6 @@ export type t_Client = {
 }
 
 export type t_CodeChallengeMethod = "S256" | UnknownEnumStringValue
-
-export type t_DeviceAuthorizeRequest = {
-  client_id?: string
-  scope?: string
-}
 
 export type t_DeviceAuthorizeResponse = {
   device_code?: string
@@ -191,11 +142,6 @@ export type t_GrantType =
   | "http://auth0.com/oauth/grant-type/mfa-oob"
   | UnknownEnumStringValue
 
-export type t_IntrospectionRequest = {
-  token?: string
-  token_type_hint?: t_TokenTypeHintIntrospect
-}
-
 export type t_IntrospectionResponse = {
   active?: boolean
   aud?: string
@@ -227,12 +173,6 @@ export type t_JsonWebKeyStatus = "ACTIVE" | "INACTIVE" | UnknownEnumStringValue
 export type t_JsonWebKeyType = "EC" | "RSA" | UnknownEnumStringValue
 
 export type t_JsonWebKeyUse = "enc" | "sig" | UnknownEnumStringValue
-
-export type t_LogoutWithPost = {
-  id_token_hint: string
-  post_logout_redirect_uri?: string
-  state?: string
-}
 
 export type t_OAuthError = {
   error?: string
@@ -282,11 +222,6 @@ export type t_OAuthMetadata = {
 export type t_OidcMetadata = t_OAuthMetadata & {
   id_token_signing_alg_values_supported?: t_SigningAlgorithm[]
   userinfo_endpoint?: string
-}
-
-export type t_OobAuthenticateRequest = {
-  channel_hint: t_Channel
-  login_hint: string
 }
 
 export type t_OobAuthenticateResponse = {
@@ -378,10 +313,6 @@ export type t_SubjectType = "pairwise" | "public" | UnknownEnumStringValue
 
 export type t_TokenDeliveryMode = "poll" | UnknownEnumStringValue
 
-export type t_TokenRequest = {
-  grant_type?: t_GrantType
-}
-
 export type t_TokenResponse = {
   access_token?: string
   device_secret?: string
@@ -404,13 +335,6 @@ export type t_TokenType =
   | "urn:ietf:params:oauth:token-type:saml2"
   | "urn:okta:oauth:token-type:web_sso_token"
   | "urn:x-oath:params:oauth:token-type:device-secret"
-  | UnknownEnumStringValue
-
-export type t_TokenTypeHintIntrospect =
-  | "access_token"
-  | "device_secret"
-  | "id_token"
-  | "refresh_token"
   | UnknownEnumStringValue
 
 export type t_TokenTypeHintRevoke =

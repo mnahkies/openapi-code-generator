@@ -460,12 +460,6 @@ export class Input {
 
         return self.normalizeSchemaObject({...schemaObject, type: "object"})
       }
-      case "any": {
-        return {
-          ...base,
-          type: "any",
-        }
-      }
       case "null": // TODO: HACK to support OA 3.1
       case "object": {
         if (deepEqual(schemaObject, {type: "object"})) {
@@ -591,8 +585,23 @@ export class Input {
           ...base,
           type: schemaObject.type,
         } satisfies IRModelBoolean
+      // custom extension types used internally
+      case "any": {
+        return {
+          ...base,
+          type: "any",
+        }
+      }
+      case "never": {
+        return {
+          ...base,
+          type: "never",
+        }
+      }
       default:
-        throw new Error(`unsupported type '${schemaObject.type}'`)
+        throw new Error(
+          `unsupported type '${schemaObject.type satisfies never}'`,
+        )
     }
 
     function normalizeProperties(

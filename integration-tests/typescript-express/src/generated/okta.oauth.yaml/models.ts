@@ -47,10 +47,6 @@ export type t_ChallengeResponse = {
   oob_code?: string | undefined
 }
 
-export type t_ChallengeType =
-  | "http://auth0.com/oauth/grant-type/mfa-oob"
-  | "http://auth0.com/oauth/grant-type/mfa-otp"
-
 export type t_Channel = "push" | "sms" | "voice"
 
 export type t_Claim = string
@@ -289,12 +285,6 @@ export type t_TokenType =
   | "urn:okta:oauth:token-type:web_sso_token"
   | "urn:x-oath:params:oauth:token-type:device-secret"
 
-export type t_TokenTypeHintIntrospect =
-  | "access_token"
-  | "device_secret"
-  | "id_token"
-  | "refresh_token"
-
 export type t_TokenTypeHintRevoke =
   | "access_token"
   | "device_secret"
@@ -364,91 +354,25 @@ export type t_AuthorizeCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_AuthorizeCustomAsWithPostRequestBodySchema = {
-  acr_values?: (t_AcrValue & string) | undefined
-  client_id: string
-  code_challenge?: string | undefined
-  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
-  display?: string | undefined
-  enroll_amr_values?: (t_AmrValue & string) | undefined
-  idp?: string | undefined
-  idp_scope?: string | undefined
-  login_hint?: string | undefined
-  max_age?: number | undefined
-  nonce?: string | undefined
-  prompt?: (t_Prompt & string) | undefined
-  redirect_uri: string
-  request?: string | undefined
-  request_uri?: string | undefined
-  response_mode?: (t_ResponseMode & string) | undefined
-  response_type: t_ResponseTypesSupported & string
-  scope: string
-  sessionToken?: string | undefined
-  state: string
-}
+export type t_AuthorizeCustomAsWithPostRequestBodySchema = never
 
-export type t_AuthorizeWithPostRequestBodySchema = {
-  acr_values?: (t_AcrValue & string) | undefined
-  client_id: string
-  code_challenge?: string | undefined
-  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
-  display?: string | undefined
-  enroll_amr_values?: (t_AmrValue & string) | undefined
-  idp?: string | undefined
-  idp_scope?: string | undefined
-  login_hint?: string | undefined
-  max_age?: number | undefined
-  nonce?: string | undefined
-  prompt?: (t_Prompt & string) | undefined
-  redirect_uri: string
-  request?: string | undefined
-  request_uri?: string | undefined
-  response_mode?: (t_ResponseMode & string) | undefined
-  response_type: t_ResponseTypesSupported & string
-  scope: string
-  sessionToken?: string | undefined
-  state: string
-}
+export type t_AuthorizeWithPostRequestBodySchema = never
 
-export type t_BcAuthorizeRequestBodySchema = {
-  binding_message?: string | undefined
-  id_token_hint: string
-  login_hint: string
-  request?: string | undefined
-  request_expiry?: number | undefined
-  scope: string
-  [key: string]: unknown | undefined
-}
+export type t_BcAuthorizeRequestBodySchema = never
 
 export type t_BcAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_BcAuthorizeCustomAsRequestBodySchema = {
-  binding_message?: string | undefined
-  id_token_hint: string
-  login_hint: string
-  request?: string | undefined
-  request_expiry?: number | undefined
-  scope: string
-  [key: string]: unknown | undefined
-}
+export type t_BcAuthorizeCustomAsRequestBodySchema = never
 
-export type t_ChallengeRequestBodySchema = {
-  challenge_types_supported?: t_ChallengeType[] | undefined
-  channel_hint?: t_Channel | undefined
-  mfa_token: string
-}
+export type t_ChallengeRequestBodySchema = never
 
 export type t_ChallengeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_ChallengeCustomAsRequestBodySchema = {
-  challenge_types_supported?: t_ChallengeType[] | undefined
-  channel_hint?: t_Channel | undefined
-  mfa_token: string
-}
+export type t_ChallengeCustomAsRequestBodySchema = never
 
 export type t_CreateClientRequestBodySchema = {
   application_type?: t_ApplicationType | undefined
@@ -481,19 +405,13 @@ export type t_DeleteClientParamSchema = {
   clientId: string
 }
 
-export type t_DeviceAuthorizeRequestBodySchema = {
-  client_id?: string | undefined
-  scope?: string | undefined
-}
+export type t_DeviceAuthorizeRequestBodySchema = never
 
 export type t_DeviceAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_DeviceAuthorizeCustomAsRequestBodySchema = {
-  client_id?: string | undefined
-  scope?: string | undefined
-}
+export type t_DeviceAuthorizeCustomAsRequestBodySchema = never
 
 export type t_GenerateNewClientSecretParamSchema = {
   clientId: string
@@ -527,19 +445,13 @@ export type t_GlobalTokenRevocationRequestBodySchema = {
   sub_id?: t_sub_id | undefined
 }
 
-export type t_IntrospectRequestBodySchema = {
-  token?: string | undefined
-  token_type_hint?: t_TokenTypeHintIntrospect | undefined
-}
+export type t_IntrospectRequestBodySchema = never
 
 export type t_IntrospectCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_IntrospectCustomAsRequestBodySchema = {
-  token?: string | undefined
-  token_type_hint?: t_TokenTypeHintIntrospect | undefined
-}
+export type t_IntrospectCustomAsRequestBodySchema = never
 
 export type t_ListClientsQuerySchema = {
   after?: string | undefined
@@ -567,17 +479,9 @@ export type t_LogoutCustomAsWithPostParamSchema = {
   authorizationServerId: string
 }
 
-export type t_LogoutCustomAsWithPostRequestBodySchema = {
-  id_token_hint: string
-  post_logout_redirect_uri?: string | undefined
-  state?: string | undefined
-}
+export type t_LogoutCustomAsWithPostRequestBodySchema = never
 
-export type t_LogoutWithPostRequestBodySchema = {
-  id_token_hint: string
-  post_logout_redirect_uri?: string | undefined
-  state?: string | undefined
-}
+export type t_LogoutWithPostRequestBodySchema = never
 
 export type t_OauthKeysQuerySchema = {
   client_id?: string | undefined
@@ -587,19 +491,13 @@ export type t_OauthKeysCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateRequestBodySchema = {
-  channel_hint: t_Channel
-  login_hint: string
-}
+export type t_OobAuthenticateRequestBodySchema = never
 
 export type t_OobAuthenticateCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_OobAuthenticateCustomAsRequestBodySchema = {
-  channel_hint: t_Channel
-  login_hint: string
-}
+export type t_OobAuthenticateCustomAsRequestBodySchema = never
 
 export type t_ParRequestBodySchema = {
   client_id?: string | undefined
@@ -702,17 +600,13 @@ export type t_RevokeCustomAsRequestBodySchema = {
   token_type_hint?: t_TokenTypeHintRevoke | undefined
 }
 
-export type t_TokenRequestBodySchema = {
-  grant_type?: t_GrantType | undefined
-}
+export type t_TokenRequestBodySchema = never
 
 export type t_TokenCustomAsParamSchema = {
   authorizationServerId: string
 }
 
-export type t_TokenCustomAsRequestBodySchema = {
-  grant_type?: t_GrantType | undefined
-}
+export type t_TokenCustomAsRequestBodySchema = never
 
 export type t_TokenOptionsRequestHeaderSchema = {
   origin?: string | undefined

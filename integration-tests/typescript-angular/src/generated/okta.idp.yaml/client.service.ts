@@ -146,6 +146,7 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/json, okta-version=1.0.0",
     })
     const body = p["requestBody"]
@@ -172,6 +173,7 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/json;okta-version=1.0.0",
     })
     const body = p["requestBody"]
@@ -200,6 +202,7 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
     })
     const body = p["requestBody"]
@@ -226,11 +229,14 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -244,11 +250,14 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -263,6 +272,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({expand: p["expand"]})
 
     return this.httpClient.request<any>(
@@ -270,6 +280,7 @@ export class MyAccountManagementService {
       this.config.basePath + `/idp/myaccount/authenticators`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -286,6 +297,7 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({expand: p["expand"]})
 
     return this.httpClient.request<any>(
@@ -294,6 +306,7 @@ export class MyAccountManagementService {
         `/idp/myaccount/authenticators/${p["authenticatorId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -309,11 +322,14 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -330,11 +346,14 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -353,6 +372,7 @@ export class MyAccountManagementService {
     | HttpResponse<unknown>
   > {
     const headers = this._headers({
+      Accept: "application/json",
       "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
     })
     const body = p["requestBody"]
@@ -375,10 +395,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/emails`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -402,7 +425,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -424,10 +450,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/emails/${p["id"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -443,10 +472,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/idp/myaccount/emails/${p["id"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -486,7 +518,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -543,11 +578,14 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -567,7 +605,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -588,10 +629,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 400})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/okta-applications`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -603,10 +647,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/organization`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -618,10 +665,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/password`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -641,7 +691,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -669,7 +722,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -690,10 +746,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/idp/myaccount/password`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -705,10 +764,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/phones`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -732,7 +794,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -755,10 +820,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/phones/${p["id"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -774,10 +842,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/idp/myaccount/phones/${p["id"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -808,7 +879,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -837,7 +911,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -857,10 +934,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/profile`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -877,7 +957,10 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -897,10 +980,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/profile/schema`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -913,10 +999,13 @@ export class MyAccountManagementService {
     | (HttpResponse<t_Error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/idp/myaccount/sessions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },

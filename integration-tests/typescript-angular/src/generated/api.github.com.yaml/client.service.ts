@@ -470,7 +470,10 @@ export class GitHubV3RestApiService {
   metaRoot(): Observable<
     (HttpResponse<t_root> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>("GET", this.config.basePath + `/`, {
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -514,6 +517,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 429})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       ghsa_id: p["ghsaId"],
       type: p["type"],
@@ -540,6 +544,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/advisories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -553,10 +558,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/advisories/${p["ghsaId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -566,7 +574,10 @@ export class GitHubV3RestApiService {
   appsGetAuthenticated(): Observable<
     (HttpResponse<t_integration> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>("GET", this.config.basePath + `/app`, {
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -586,10 +597,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/app-manifests/${p["code"]}/conversions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -599,10 +613,13 @@ export class GitHubV3RestApiService {
   appsGetWebhookConfigForApp(): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/hook/config`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -619,7 +636,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -642,6 +662,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
@@ -652,6 +673,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/app/hook/deliveries`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -666,10 +688,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/hook/deliveries/${p["deliveryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -684,10 +709,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -702,6 +730,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -709,6 +738,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/app/installation-requests`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -725,6 +755,7 @@ export class GitHubV3RestApiService {
   ): Observable<
     (HttpResponse<t_installation[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -737,6 +768,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/app/installations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -750,10 +782,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -767,10 +802,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/app/installations/${p["installationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -792,7 +830,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -815,11 +856,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/app/installations/${p["installationId"]}/suspended`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -833,11 +877,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/app/installations/${p["installationId"]}/suspended`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -854,7 +901,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -880,7 +930,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -905,7 +958,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -930,7 +986,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -963,7 +1022,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -986,10 +1048,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/apps/${p["appSlug"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1003,10 +1068,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/assignments/${p["assignmentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1021,6 +1089,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_classroom_accepted_assignment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -1029,6 +1098,7 @@ export class GitHubV3RestApiService {
         `/assignments/${p["assignmentId"]}/accepted_assignments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1042,10 +1112,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/assignments/${p["assignmentId"]}/grades`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1057,6 +1130,7 @@ export class GitHubV3RestApiService {
   ): Observable<
     (HttpResponse<t_simple_classroom[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -1064,6 +1138,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/classrooms`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1077,10 +1152,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/classrooms/${p["classroomId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1095,6 +1173,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_simple_classroom_assignment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -1102,6 +1181,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/classrooms/${p["classroomId"]}/assignments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1113,10 +1193,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/codes_of_conduct`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1131,10 +1214,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/codes_of_conduct/${p["key"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1153,7 +1239,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1175,10 +1264,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/emojis`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1196,6 +1288,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -1208,6 +1301,7 @@ export class GitHubV3RestApiService {
         `/enterprises/${p["enterprise"]}/code-security/configurations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1303,7 +1397,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1325,11 +1422,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_code_security_default_configurations> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/code-security/configurations/defaults`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1346,11 +1446,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1448,7 +1551,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1475,11 +1581,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1501,7 +1610,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1542,7 +1654,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1573,6 +1688,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -1586,6 +1702,7 @@ export class GitHubV3RestApiService {
         `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1616,6 +1733,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       severity: p["severity"],
@@ -1639,6 +1757,7 @@ export class GitHubV3RestApiService {
         `/enterprises/${p["enterprise"]}/dependabot/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1669,6 +1788,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       secret_type: p["secretType"],
@@ -1690,6 +1810,7 @@ export class GitHubV3RestApiService {
         `/enterprises/${p["enterprise"]}/secret-scanning/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1709,6 +1830,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -1716,6 +1838,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1725,10 +1848,13 @@ export class GitHubV3RestApiService {
   activityGetFeeds(): Observable<
     (HttpResponse<t_feed> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/feeds`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1743,6 +1869,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -1754,6 +1881,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/gists`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1780,7 +1908,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1804,6 +1935,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -1815,6 +1947,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/gists/public`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1830,6 +1963,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -1841,6 +1975,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/gists/starred`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1862,10 +1997,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1891,7 +2029,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1915,10 +2056,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/gists/${p["gistId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1936,6 +2080,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -1943,6 +2088,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/gists/${p["gistId"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -1961,7 +2107,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -1991,10 +2140,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2012,7 +2164,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2037,10 +2192,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2058,6 +2216,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -2065,6 +2224,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/gists/${p["gistId"]}/commits`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2082,6 +2242,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -2089,6 +2250,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/gists/${p["gistId"]}/forks`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2105,10 +2267,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/gists/${p["gistId"]}/forks`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2124,10 +2289,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<EmptyObject> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2143,10 +2311,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2162,10 +2333,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/gists/${p["gistId"]}/star`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2182,10 +2356,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gists/${p["gistId"]}/${p["sha"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2197,10 +2374,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gitignore/templates`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2214,10 +2394,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/gitignore/templates/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2237,6 +2420,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -2244,6 +2428,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/installation/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2253,10 +2438,13 @@ export class GitHubV3RestApiService {
   appsRevokeInstallationAccessToken(): Observable<
     (HttpResponse<void> & {status: 204}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/installation/token`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2292,6 +2480,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
@@ -2312,6 +2501,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/issues`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2325,6 +2515,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       featured: p["featured"],
       per_page: p["perPage"],
@@ -2336,6 +2527,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/licenses`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2351,10 +2543,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/licenses/${p["license"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2372,7 +2567,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2388,21 +2586,20 @@ export class GitHubV3RestApiService {
   }
 
   markdownRenderRaw(
-    p: {requestBody?: string} = {},
+    p: {requestBody?: never} = {},
   ): Observable<
     | (HttpResponse<string> & {status: 200})
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "text/plain"})
-    const body = p["requestBody"]
+    const headers = this._headers({Accept: "application/json"})
 
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/markdown/raw`,
       {
         headers,
-        body,
+        // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -2417,10 +2614,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/marketplace_listing/accounts/${p["accountId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2435,6 +2635,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -2442,6 +2643,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/marketplace_listing/plans`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2461,6 +2663,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -2474,6 +2677,7 @@ export class GitHubV3RestApiService {
         `/marketplace_listing/plans/${p["planId"]}/accounts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2488,11 +2692,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/marketplace_listing/stubbed/accounts/${p["accountId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2506,6 +2713,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -2513,6 +2721,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/marketplace_listing/stubbed/plans`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2530,6 +2739,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -2543,6 +2753,7 @@ export class GitHubV3RestApiService {
         `/marketplace_listing/stubbed/plans/${p["planId"]}/accounts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2554,7 +2765,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>("GET", this.config.basePath + `/meta`, {
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -2573,6 +2787,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -2580,6 +2795,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/networks/${p["owner"]}/${p["repo"]}/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2603,6 +2819,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       all: p["all"],
       participating: p["participating"],
@@ -2617,6 +2834,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/notifications`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2640,7 +2858,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2664,10 +2885,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2682,10 +2906,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2695,10 +2922,13 @@ export class GitHubV3RestApiService {
   activityMarkThreadAsDone(p: {
     threadId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/notifications/threads/${p["threadId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2714,11 +2944,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2737,7 +2970,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2762,11 +2998,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/notifications/threads/${p["threadId"]}/subscription`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2778,6 +3017,7 @@ export class GitHubV3RestApiService {
   ): Observable<
     (HttpResponse<string> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({s: p["s"]})
 
     return this.httpClient.request<any>(
@@ -2785,6 +3025,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/octocat`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2798,6 +3039,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -2808,6 +3050,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/organizations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2824,6 +3067,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -2832,6 +3076,7 @@ export class GitHubV3RestApiService {
         `/organizations/${p["org"]}/dependabot/repository-access`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2850,7 +3095,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2877,7 +3125,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -2911,6 +3162,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       year: p["year"],
       month: p["month"],
@@ -2924,6 +3176,7 @@ export class GitHubV3RestApiService {
         `/organizations/${p["org"]}/settings/billing/usage`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2937,10 +3190,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -2998,7 +3254,10 @@ export class GitHubV3RestApiService {
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3021,10 +3280,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3037,10 +3299,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_cache_usage_org_enterprise> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/cache/usage`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3058,6 +3323,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -3066,6 +3332,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/cache/usage-by-repository`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3083,6 +3350,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -3090,6 +3358,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/actions/hosted-runners`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3113,7 +3382,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_hosted_runner> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3135,11 +3407,14 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/hosted-runners/images/github-owned`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3153,11 +3428,14 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/hosted-runners/images/partner`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3170,10 +3448,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_hosted_runner_limits> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/hosted-runners/limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3187,11 +3468,14 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/hosted-runners/machine-sizes`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3205,11 +3489,14 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/hosted-runners/platforms`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3223,11 +3510,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_hosted_runner> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3247,7 +3537,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_hosted_runner> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3270,11 +3563,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_hosted_runner> & {status: 202})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3286,10 +3582,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_oidc_custom_sub> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3305,7 +3604,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3326,10 +3628,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_organization_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/permissions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3343,7 +3648,10 @@ export class GitHubV3RestApiService {
       enabled_repositories: t_enabled_repositories
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3369,6 +3677,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -3377,6 +3686,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/permissions/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3389,7 +3699,10 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3409,11 +3722,14 @@ export class GitHubV3RestApiService {
     org: string
     repositoryId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3424,11 +3740,14 @@ export class GitHubV3RestApiService {
     org: string
     repositoryId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3440,11 +3759,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_selected_actions> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/permissions/selected-actions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3455,7 +3777,10 @@ export class GitHubV3RestApiService {
     org: string
     requestBody?: t_selected_actions
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3477,10 +3802,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_get_default_workflow_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3491,7 +3819,10 @@ export class GitHubV3RestApiService {
     org: string
     requestBody?: t_actions_set_default_workflow_permissions
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3518,6 +3849,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -3529,6 +3861,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3550,7 +3883,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_runner_groups_org> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3571,11 +3907,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_runner_groups_org> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3596,7 +3935,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_runner_groups_org> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3616,11 +3958,14 @@ export class GitHubV3RestApiService {
     org: string
     runnerGroupId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3639,6 +3984,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -3647,6 +3993,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3665,6 +4012,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -3673,6 +4021,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3686,7 +4035,10 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3707,11 +4059,14 @@ export class GitHubV3RestApiService {
     runnerGroupId: number
     repositoryId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3723,11 +4078,14 @@ export class GitHubV3RestApiService {
     runnerGroupId: number
     repositoryId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3746,6 +4104,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -3754,6 +4113,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3767,7 +4127,10 @@ export class GitHubV3RestApiService {
       runners: number[]
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3788,11 +4151,14 @@ export class GitHubV3RestApiService {
     runnerGroupId: number
     runnerId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3804,11 +4170,14 @@ export class GitHubV3RestApiService {
     runnerGroupId: number
     runnerId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3827,6 +4196,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       name: p["name"],
       per_page: p["perPage"],
@@ -3838,6 +4208,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/actions/runners`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3850,10 +4221,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_runner_application[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/downloads`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3878,7 +4252,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -3900,11 +4277,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/registration-token`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3917,10 +4297,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3933,11 +4316,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_runner> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3952,11 +4338,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -3974,11 +4363,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4000,7 +4392,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4031,7 +4426,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4058,11 +4456,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4082,11 +4483,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4104,6 +4508,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -4111,6 +4516,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/actions/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4122,10 +4528,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_public_key> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4139,11 +4548,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_actions_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4164,7 +4576,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4184,11 +4599,14 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4207,6 +4625,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -4215,6 +4634,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4228,7 +4648,10 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4253,11 +4676,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4273,11 +4699,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4295,6 +4724,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -4302,6 +4732,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/actions/variables`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4319,7 +4750,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4341,10 +4775,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_actions_variable> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4361,7 +4798,10 @@ export class GitHubV3RestApiService {
       visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4380,10 +4820,13 @@ export class GitHubV3RestApiService {
     org: string
     name: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4403,6 +4846,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -4411,6 +4855,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4428,7 +4873,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4453,11 +4901,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4473,11 +4924,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4524,7 +4978,10 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -4559,7 +5016,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4583,11 +5043,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/attestations/digest/${p["subjectDigest"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4604,11 +5067,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/attestations/${p["attestationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4640,6 +5106,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -4653,6 +5120,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4666,6 +5134,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -4673,6 +5142,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/blocks`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4687,10 +5157,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4705,10 +5178,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4719,10 +5195,13 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4751,6 +5230,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
@@ -4764,6 +5244,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/campaigns`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4798,7 +5279,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4827,11 +5311,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4862,7 +5349,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -4888,11 +5378,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4921,6 +5414,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -4939,6 +5433,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/code-scanning/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -4957,6 +5452,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       target_type: p["targetType"],
       per_page: p["perPage"],
@@ -4969,6 +5465,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/code-security/configurations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5072,7 +5569,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_code_security_configuration> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5096,11 +5596,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/code-security/configurations/defaults`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5120,7 +5623,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5146,11 +5652,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5256,7 +5765,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5283,11 +5795,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5313,7 +5828,10 @@ export class GitHubV3RestApiService {
       }> & {status: 202})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5354,7 +5872,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5385,6 +5906,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -5398,6 +5920,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5420,6 +5943,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -5427,6 +5951,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/codespaces`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5453,7 +5978,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5482,7 +6010,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5512,7 +6043,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5539,6 +6073,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -5546,6 +6081,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/codespaces/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5558,10 +6094,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_codespaces_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/codespaces/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5575,11 +6114,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_codespaces_org_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5602,7 +6144,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5626,11 +6171,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5650,6 +6198,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -5658,6 +6207,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5676,7 +6226,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5703,11 +6256,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5725,11 +6281,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5747,10 +6306,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/copilot/billing`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5772,6 +6334,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -5779,6 +6342,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/copilot/billing/seats`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5801,7 +6365,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5832,7 +6399,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5863,7 +6433,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5894,7 +6467,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -5923,6 +6499,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       until: p["until"],
@@ -5935,6 +6512,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/copilot/metrics`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -5966,6 +6544,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       severity: p["severity"],
@@ -5988,6 +6567,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/dependabot/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6005,6 +6585,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -6012,6 +6593,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/dependabot/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6024,10 +6606,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_dependabot_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/dependabot/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6041,11 +6626,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_dependabot_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6066,7 +6654,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6086,11 +6677,14 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6109,6 +6703,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -6117,6 +6712,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6130,7 +6726,10 @@ export class GitHubV3RestApiService {
       selected_repository_ids: number[]
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6155,11 +6754,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6175,11 +6777,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6194,10 +6799,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/docker/conflicts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6211,6 +6819,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -6218,6 +6827,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6233,6 +6843,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -6240,6 +6851,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/failed_invitations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6255,6 +6867,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -6262,6 +6875,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/hooks`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6289,7 +6903,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6312,10 +6929,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6342,7 +6962,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6365,10 +6988,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6381,10 +7007,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6403,7 +7032,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6429,6 +7061,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
@@ -6440,6 +7073,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6456,11 +7090,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6479,11 +7116,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6498,10 +7138,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6537,6 +7180,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_route_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6553,6 +7197,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/insights/api/route-stats/${p["actorType"]}/${p["actorId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6579,6 +7224,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_subject_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6594,6 +7240,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/insights/api/subject-stats`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6608,6 +7255,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_summary_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6618,6 +7266,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/insights/api/summary-stats`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6633,6 +7282,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_summary_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6644,6 +7294,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/insights/api/summary-stats/users/${p["userId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6666,6 +7317,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_summary_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6677,6 +7329,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/insights/api/summary-stats/${p["actorType"]}/${p["actorId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6692,6 +7345,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_time_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6703,6 +7357,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/insights/api/time-stats`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6719,6 +7374,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_time_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6731,6 +7387,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/insights/api/time-stats/users/${p["userId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6754,6 +7411,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_time_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6766,6 +7424,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/insights/api/time-stats/${p["actorType"]}/${p["actorId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6793,6 +7452,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_api_insights_user_stats> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       min_timestamp: p["minTimestamp"],
       max_timestamp: p["maxTimestamp"],
@@ -6809,6 +7469,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/insights/api/user-stats/${p["userId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6820,10 +7481,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_installation> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/installation`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6841,6 +7505,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -6848,6 +7513,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/installations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6860,10 +7526,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6878,7 +7547,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6896,10 +7568,13 @@ export class GitHubV3RestApiService {
   interactionsRemoveRestrictionsForOrg(p: {
     org: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/interaction-limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6923,6 +7598,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -6935,6 +7611,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/invitations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -6960,7 +7637,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -6984,11 +7664,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/invitations/${p["invitationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7005,6 +7688,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -7013,6 +7697,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7026,10 +7711,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/issue-types`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7045,7 +7733,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7070,7 +7761,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7095,11 +7789,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7129,6 +7826,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
@@ -7146,6 +7844,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/issues`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7163,6 +7862,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       filter: p["filter"],
       role: p["role"],
@@ -7175,6 +7875,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/members`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7190,10 +7891,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7208,10 +7912,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7235,6 +7942,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -7243,6 +7951,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/members/${p["username"]}/codespaces`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7264,11 +7973,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7288,11 +8000,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7311,11 +8026,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/members/${p["username"]}/copilot`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7331,10 +8049,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7353,7 +8074,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7377,10 +8101,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7395,6 +8122,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_migration[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -7406,6 +8134,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/migrations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7431,7 +8160,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7455,6 +8187,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({exclude: p["exclude"]})
 
     return this.httpClient.request<any>(
@@ -7462,6 +8195,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7476,11 +8210,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7495,11 +8232,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7515,11 +8255,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7536,6 +8279,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -7544,6 +8288,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7559,10 +8304,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/organization-roles`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7573,11 +8321,14 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7594,11 +8345,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7610,11 +8364,14 @@ export class GitHubV3RestApiService {
     teamSlug: string
     roleId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7625,11 +8382,14 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/users/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7646,11 +8406,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7662,11 +8425,14 @@ export class GitHubV3RestApiService {
     username: string
     roleId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7682,11 +8448,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7704,6 +8473,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -7712,6 +8482,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7729,6 +8500,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -7737,6 +8509,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7751,6 +8524,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       filter: p["filter"],
       per_page: p["perPage"],
@@ -7762,6 +8536,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/outside_collaborators`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7781,7 +8556,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -7805,11 +8583,14 @@ export class GitHubV3RestApiService {
       }> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7836,6 +8617,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
@@ -7848,6 +8630,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/packages`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7868,11 +8651,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_package> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7897,11 +8683,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7927,6 +8716,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({token: p["token"]})
 
     return this.httpClient.request<any>(
@@ -7935,6 +8725,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7962,6 +8753,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
@@ -7974,6 +8766,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -7995,11 +8788,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_package_version> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8025,11 +8821,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8055,11 +8854,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8088,6 +8890,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -8106,6 +8909,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/personal-access-token-requests`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8129,7 +8933,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8159,7 +8966,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8187,6 +8997,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -8195,6 +9006,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8221,6 +9033,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -8239,6 +9052,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/personal-access-tokens`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8261,7 +9075,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8290,7 +9107,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8318,6 +9138,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -8326,6 +9147,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8345,6 +9167,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -8352,6 +9175,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/private-registries`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8381,7 +9205,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8404,10 +9231,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/private-registries/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8422,11 +9252,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/private-registries/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8455,7 +9288,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8480,11 +9316,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/private-registries/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8501,6 +9340,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
@@ -8512,6 +9352,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/projects`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8533,7 +9374,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8556,10 +9400,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/properties/schema`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8577,7 +9424,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8601,11 +9451,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8622,7 +9475,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8647,11 +9503,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8669,6 +9528,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -8680,6 +9540,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/properties/values`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8699,7 +9560,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8721,6 +9585,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -8728,6 +9593,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/public_members`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8742,11 +9608,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8761,11 +9630,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8776,11 +9648,14 @@ export class GitHubV3RestApiService {
     org: string
     username: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/public_members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8810,6 +9685,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       type: p["type"],
       sort: p["sort"],
@@ -8823,6 +9699,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/repos`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8877,7 +9754,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8903,6 +9783,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -8914,6 +9795,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/rulesets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -8936,7 +9818,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -8971,6 +9856,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       ref: p["ref"],
       repository_name: p["repositoryName"],
@@ -8986,6 +9872,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/rulesets/rule-suites`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9001,11 +9888,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9021,10 +9911,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9048,7 +9941,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9072,10 +9968,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9093,6 +9992,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -9101,6 +10001,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9117,11 +10018,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9153,6 +10057,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       secret_type: p["secretType"],
@@ -9174,6 +10079,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/secret-scanning/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9194,6 +10100,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       sort: p["sort"],
@@ -9208,6 +10115,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/security-advisories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9219,10 +10127,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_simple[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/security-managers`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9233,11 +10144,14 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9248,11 +10162,14 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9265,10 +10182,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/settings/billing/actions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9281,10 +10201,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_packages_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/settings/billing/packages`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9297,11 +10220,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_combined_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/settings/billing/shared-storage`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9319,6 +10245,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -9327,6 +10254,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/settings/network-configurations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9344,7 +10272,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_network_configuration> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9367,11 +10298,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_network_configuration> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9390,7 +10324,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_network_configuration> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9410,11 +10347,14 @@ export class GitHubV3RestApiService {
     org: string
     networkConfigurationId: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9427,11 +10367,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_network_settings> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/settings/network-settings/${p["networkSettingsId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9453,6 +10396,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       until: p["until"],
@@ -9466,6 +10410,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/metrics`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9481,6 +10426,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -9488,6 +10434,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9515,7 +10462,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9538,10 +10488,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9570,7 +10523,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9589,10 +10545,13 @@ export class GitHubV3RestApiService {
     org: string
     teamSlug: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9609,6 +10568,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -9622,6 +10582,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9639,7 +10600,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9662,11 +10626,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9684,7 +10651,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9705,11 +10675,14 @@ export class GitHubV3RestApiService {
     teamSlug: string
     discussionNumber: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9727,6 +10700,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -9739,6 +10713,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9756,7 +10731,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9781,11 +10759,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9804,7 +10785,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9826,11 +10810,14 @@ export class GitHubV3RestApiService {
     discussionNumber: number
     commentNumber: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9857,6 +10844,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -9869,6 +10857,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9897,7 +10886,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_reaction> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -9920,11 +10912,14 @@ export class GitHubV3RestApiService {
     commentNumber: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9950,6 +10945,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -9962,6 +10958,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -9989,7 +10986,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_reaction> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10011,11 +11011,14 @@ export class GitHubV3RestApiService {
     discussionNumber: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10031,6 +11034,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_invitation[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -10039,6 +11043,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10054,6 +11059,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       role: p["role"],
       per_page: p["perPage"],
@@ -10065,6 +11071,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10080,11 +11087,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10104,7 +11114,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10129,11 +11142,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10148,6 +11164,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_project[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -10156,6 +11173,7 @@ export class GitHubV3RestApiService {
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10171,11 +11189,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10197,7 +11218,10 @@ export class GitHubV3RestApiService {
       }> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10218,11 +11242,14 @@ export class GitHubV3RestApiService {
     teamSlug: string
     projectId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10238,6 +11265,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -10245,6 +11273,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10262,11 +11291,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10282,7 +11314,10 @@ export class GitHubV3RestApiService {
       permission?: string
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10304,11 +11339,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10323,6 +11361,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -10330,6 +11369,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10356,7 +11396,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10382,10 +11425,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10407,7 +11453,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10434,10 +11483,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/projects/columns/cards/${p["cardId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10476,7 +11528,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10501,10 +11556,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10523,7 +11581,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10547,10 +11608,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/projects/columns/${p["columnId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10569,6 +11633,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       archived_state: p["archivedState"],
       per_page: p["perPage"],
@@ -10580,6 +11645,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/projects/columns/${p["columnId"]}/cards`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10615,7 +11681,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10643,7 +11712,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10667,10 +11739,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10705,7 +11780,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10733,10 +11811,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/projects/${p["projectId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10757,6 +11838,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       affiliation: p["affiliation"],
       per_page: p["perPage"],
@@ -10768,6 +11850,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/projects/${p["projectId"]}/collaborators`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10789,7 +11872,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10817,11 +11903,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10840,11 +11929,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10862,6 +11954,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -10869,6 +11962,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/projects/${p["projectId"]}/columns`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10888,7 +11982,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -10909,10 +12006,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/rate_limit`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -10929,10 +12029,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11007,7 +12110,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11033,10 +12139,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11056,6 +12165,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -11068,6 +12178,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11081,11 +12192,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_artifact> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11097,11 +12211,14 @@ export class GitHubV3RestApiService {
     repo: string
     artifactId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11118,11 +12235,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11136,11 +12256,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_cache_usage_by_repository> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11163,6 +12286,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_cache_list> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -11177,6 +12301,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11191,6 +12316,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_cache_list> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({key: p["key"], ref: p["ref"]})
 
     return this.httpClient.request<any>(
@@ -11198,6 +12324,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11209,11 +12336,14 @@ export class GitHubV3RestApiService {
     repo: string
     cacheId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11227,11 +12357,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_job> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11243,11 +12376,14 @@ export class GitHubV3RestApiService {
     repo: string
     jobId: number
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11266,7 +12402,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11291,11 +12430,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11316,7 +12458,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11344,6 +12489,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -11352,6 +12498,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11370,6 +12517,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -11378,6 +12526,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11391,11 +12540,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_repository_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11410,7 +12562,10 @@ export class GitHubV3RestApiService {
       enabled: t_actions_enabled
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11433,11 +12588,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_workflow_access_to_repository> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11449,7 +12607,10 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody: t_actions_workflow_access_to_repository
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11471,11 +12632,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_selected_actions> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11487,7 +12651,10 @@ export class GitHubV3RestApiService {
     repo: string
     requestBody?: t_selected_actions
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11510,11 +12677,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_get_default_workflow_permissions> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11530,7 +12700,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11559,6 +12732,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       name: p["name"],
       per_page: p["perPage"],
@@ -11571,6 +12745,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11584,11 +12759,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_runner_application[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11614,7 +12792,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11637,11 +12818,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11655,11 +12839,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_authentication_token> & {status: 201})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11673,11 +12860,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_runner> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11693,11 +12883,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11716,11 +12909,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11743,7 +12939,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11775,7 +12974,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -11803,11 +13005,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11828,11 +13033,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11874,6 +13082,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       actor: p["actor"],
       branch: p["branch"],
@@ -11892,6 +13101,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11906,6 +13116,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_workflow_run> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       exclude_pull_requests: p["excludePullRequests"],
     })
@@ -11916,6 +13127,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11927,11 +13139,14 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11946,11 +13161,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_environment_approvals[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11967,11 +13185,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -11992,6 +13213,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -12004,6 +13226,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/artifacts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12019,6 +13242,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_workflow_run> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       exclude_pull_requests: p["excludePullRequests"],
     })
@@ -12029,6 +13253,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12050,6 +13275,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -12058,6 +13284,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12070,11 +13297,14 @@ export class GitHubV3RestApiService {
     runId: number
     attemptNumber: number
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12090,11 +13320,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12109,7 +13342,10 @@ export class GitHubV3RestApiService {
       | t_review_custom_gates_comment_required
       | t_review_custom_gates_state_required
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12134,11 +13370,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/force-cancel`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12159,6 +13398,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       filter: p["filter"],
       per_page: p["perPage"],
@@ -12171,6 +13411,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/jobs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12182,11 +13423,14 @@ export class GitHubV3RestApiService {
     repo: string
     runId: number
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12203,11 +13447,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12222,11 +13469,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_pending_deployment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12245,7 +13495,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_deployment[]> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12271,7 +13524,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12297,7 +13553,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12320,11 +13579,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_workflow_run_usage> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12343,6 +13605,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -12351,6 +13614,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12363,11 +13627,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_public_key> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12381,11 +13648,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_secret> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12405,7 +13675,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12426,11 +13699,14 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12449,6 +13725,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -12457,6 +13734,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12473,7 +13751,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12496,11 +13777,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_variable> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12516,7 +13800,10 @@ export class GitHubV3RestApiService {
       value?: string
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12537,11 +13824,14 @@ export class GitHubV3RestApiService {
     repo: string
     name: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12560,6 +13850,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -12568,6 +13859,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12581,11 +13873,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_workflow> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12597,11 +13892,14 @@ export class GitHubV3RestApiService {
     repo: string
     workflowId: number | string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12619,7 +13917,10 @@ export class GitHubV3RestApiService {
       ref: string
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12640,11 +13941,14 @@ export class GitHubV3RestApiService {
     repo: string
     workflowId: number | string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12687,6 +13991,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       actor: p["actor"],
       branch: p["branch"],
@@ -12706,6 +14011,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/runs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12719,11 +14025,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_workflow_usage> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12759,6 +14068,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -12775,6 +14085,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/activity`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12791,6 +14102,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -12798,6 +14110,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12813,11 +14126,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12846,7 +14162,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12887,6 +14206,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -12900,6 +14220,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12912,10 +14233,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_autolink[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12935,7 +14259,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -12959,11 +14286,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12979,11 +14309,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -12998,11 +14331,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13013,11 +14349,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13028,11 +14367,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13050,6 +14392,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       protected: p["protected"],
       per_page: p["perPage"],
@@ -13061,6 +14404,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/branches`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13077,11 +14421,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13097,11 +14444,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13158,7 +14508,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13183,11 +14536,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13202,11 +14558,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_protected_branch_admin_enforced> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13221,11 +14580,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_protected_branch_admin_enforced> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13241,11 +14603,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13260,11 +14625,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_protected_branch_pull_request_review> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13296,7 +14664,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13321,11 +14692,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13341,11 +14715,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13361,11 +14738,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13381,11 +14761,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13401,11 +14784,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13430,7 +14816,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13451,11 +14840,14 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13471,11 +14863,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13498,7 +14893,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13529,7 +14927,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13560,7 +14961,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13585,11 +14989,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13601,11 +15008,14 @@ export class GitHubV3RestApiService {
     repo: string
     branch: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13621,11 +15031,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13644,7 +15057,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13672,7 +15088,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13700,7 +15119,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13725,11 +15147,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13750,7 +15175,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13780,7 +15208,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13810,7 +15241,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13835,11 +15269,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -13858,7 +15295,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13886,7 +15326,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13914,7 +15357,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13944,7 +15390,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13975,7 +15424,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_check_run> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -13997,11 +15449,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_check_run> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14070,7 +15525,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_check_run> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14095,6 +15553,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_check_annotation[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -14103,6 +15562,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14120,11 +15580,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14142,7 +15605,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_check_suite> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14170,7 +15636,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_check_suite_preference> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14193,11 +15662,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_check_suite> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14220,6 +15692,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       check_name: p["checkName"],
       status: p["status"],
@@ -14234,6 +15707,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/check-runs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14247,11 +15721,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14285,6 +15762,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -14306,6 +15784,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14328,11 +15807,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14361,7 +15843,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14393,11 +15878,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14422,11 +15910,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14451,7 +15942,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14486,6 +15980,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
@@ -14499,6 +15994,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/instances`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14528,6 +16024,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -14546,6 +16043,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14570,11 +16068,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14598,6 +16099,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({confirm_delete: p["confirmDelete"]})
 
     return this.httpClient.request<any>(
@@ -14606,6 +16108,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14623,11 +16126,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14650,11 +16156,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14676,11 +16185,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14702,7 +16214,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14732,11 +16247,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14759,11 +16277,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}/repos/${p["repoOwner"]}/${p["repoName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14781,11 +16302,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14812,7 +16336,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14853,7 +16380,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -14884,11 +16414,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14908,11 +16441,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-security-configuration`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14928,6 +16464,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
@@ -14936,6 +16473,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -14958,6 +16496,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -14965,6 +16504,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15006,7 +16546,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15042,6 +16585,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15050,6 +16594,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15074,6 +16619,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       location: p["location"],
       client_ip: p["clientIp"],
@@ -15086,6 +16632,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/machines`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15110,6 +16657,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({ref: p["ref"], client_ip: p["clientIp"]})
 
     return this.httpClient.request<any>(
@@ -15117,6 +16665,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15143,6 +16692,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       ref: p["ref"],
       devcontainer_path: p["devcontainerPath"],
@@ -15154,6 +16704,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/permissions_check`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15172,6 +16723,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15180,6 +16732,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15193,11 +16746,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_codespaces_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15212,11 +16768,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_repo_codespaces_secret> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15236,7 +16795,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15257,11 +16819,14 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15286,6 +16851,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       affiliation: p["affiliation"],
       permission: p["permission"],
@@ -15298,6 +16864,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/collaborators`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15313,11 +16880,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15338,7 +16908,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15364,11 +16937,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15384,11 +16960,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15403,6 +16982,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_commit_comment[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15410,6 +16990,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15425,11 +17006,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15448,7 +17032,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15473,11 +17060,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15505,6 +17095,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -15517,6 +17108,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15545,7 +17137,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15567,11 +17162,14 @@ export class GitHubV3RestApiService {
     commentId: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15597,6 +17195,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sha: p["sha"],
       path: p["path"],
@@ -15613,6 +17212,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15629,11 +17229,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15649,6 +17252,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_commit_comment[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15657,6 +17261,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15679,7 +17284,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -15706,6 +17314,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15714,6 +17323,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15739,6 +17349,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -15747,6 +17358,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15770,6 +17382,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       check_name: p["checkName"],
       status: p["status"],
@@ -15785,6 +17398,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-runs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15806,6 +17420,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       app_id: p["appId"],
       check_name: p["checkName"],
@@ -15819,6 +17434,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-suites`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15836,6 +17452,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15844,6 +17461,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15861,6 +17479,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 301})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -15869,6 +17488,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15881,11 +17501,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_community_profile> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/community/profile`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15909,6 +17532,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -15917,6 +17541,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15941,6 +17566,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
@@ -15949,6 +17575,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -15985,7 +17612,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16030,7 +17660,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16059,6 +17692,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       anon: p["anon"],
       per_page: p["perPage"],
@@ -16070,6 +17704,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/contributors`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16104,6 +17739,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       severity: p["severity"],
@@ -16129,6 +17765,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16146,11 +17783,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16181,7 +17821,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16209,6 +17852,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -16217,6 +17861,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16230,11 +17875,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_dependabot_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16248,11 +17896,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_dependabot_secret> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16272,7 +17923,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16293,11 +17947,14 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16315,6 +17972,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({name: p["name"]})
 
     return this.httpClient.request<any>(
@@ -16323,6 +17981,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16338,11 +17997,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16362,7 +18024,10 @@ export class GitHubV3RestApiService {
       }> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16390,6 +18055,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_deployment[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sha: p["sha"],
       ref: p["ref"],
@@ -16404,6 +18070,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16437,7 +18104,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16461,11 +18131,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16482,11 +18155,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16504,6 +18180,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -16512,6 +18189,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16544,7 +18222,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16570,11 +18251,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16596,7 +18280,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16623,6 +18310,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -16630,6 +18318,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/environments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16643,11 +18332,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_environment> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16674,7 +18366,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16695,11 +18390,14 @@ export class GitHubV3RestApiService {
     repo: string
     environmentName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16719,6 +18417,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -16727,6 +18426,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16744,7 +18444,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16769,11 +18472,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_deployment_branch_policy> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16790,7 +18496,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_deployment_branch_policy> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16812,11 +18521,14 @@ export class GitHubV3RestApiService {
     environmentName: string
     branchPolicyId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16834,11 +18546,14 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16856,7 +18571,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_deployment_protection_rule> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -16885,6 +18603,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -16893,6 +18612,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16908,11 +18628,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_deployment_protection_rule> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16925,11 +18648,14 @@ export class GitHubV3RestApiService {
     owner: string
     protectionRuleId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16949,6 +18675,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -16957,6 +18684,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16970,11 +18698,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_public_key> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -16989,11 +18720,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_secret> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17014,7 +18748,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17036,11 +18773,14 @@ export class GitHubV3RestApiService {
     environmentName: string
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17060,6 +18800,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -17068,6 +18809,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17085,7 +18827,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_empty_object> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17109,11 +18854,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_actions_variable> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17130,7 +18878,10 @@ export class GitHubV3RestApiService {
       value?: string
     }
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17152,11 +18903,14 @@ export class GitHubV3RestApiService {
     name: string
     environmentName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17171,6 +18925,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -17178,6 +18933,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17200,6 +18956,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_scim_error> & {status: 400})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       per_page: p["perPage"],
@@ -17211,6 +18968,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17233,7 +18991,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17265,7 +19026,10 @@ export class GitHubV3RestApiService {
       })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17292,11 +19056,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17329,7 +19096,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17354,11 +19124,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17374,11 +19147,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17395,11 +19171,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17419,7 +19198,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17448,7 +19230,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17474,11 +19259,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17505,7 +19293,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17530,11 +19321,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17568,7 +19362,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17595,6 +19392,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({recursive: p["recursive"]})
 
     return this.httpClient.request<any>(
@@ -17603,6 +19401,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17619,6 +19418,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -17626,6 +19426,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17653,7 +19454,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17677,11 +19481,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17705,7 +19512,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17730,11 +19540,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17748,11 +19561,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17772,7 +19588,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_webhook_config> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17800,6 +19619,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
@@ -17811,6 +19631,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17828,11 +19649,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17852,11 +19676,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17872,11 +19699,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17892,11 +19722,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17912,10 +19745,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -17939,7 +19775,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17968,7 +19807,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -17991,10 +19833,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18011,6 +19856,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({since: p["since"]})
 
     return this.httpClient.request<any>(
@@ -18018,6 +19864,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/authors`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18039,7 +19886,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18063,11 +19913,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/import/large_files`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18086,7 +19939,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18110,10 +19966,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18127,11 +19986,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_interaction_limit_response | EmptyObject> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18147,7 +20009,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18171,11 +20036,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18191,6 +20059,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_repository_invitation[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -18198,6 +20067,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18221,7 +20091,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_repository_invitation> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18242,11 +20115,14 @@ export class GitHubV3RestApiService {
     repo: string
     invitationId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18275,6 +20151,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       milestone: p["milestone"],
       state: p["state"],
@@ -18295,6 +20172,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18335,7 +20213,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18364,6 +20245,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -18378,6 +20260,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18393,11 +20276,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18416,7 +20302,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18437,11 +20326,14 @@ export class GitHubV3RestApiService {
     repo: string
     commentId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18469,6 +20361,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -18481,6 +20374,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18509,7 +20403,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18531,11 +20428,14 @@ export class GitHubV3RestApiService {
     commentId: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18552,6 +20452,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -18559,6 +20460,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18576,11 +20478,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18599,11 +20504,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18652,7 +20560,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18678,7 +20589,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_issue> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18704,7 +20618,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_issue> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18730,11 +20647,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18754,6 +20674,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -18766,6 +20687,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18787,7 +20709,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18814,6 +20739,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -18822,6 +20748,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18841,6 +20768,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -18849,6 +20777,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18881,7 +20810,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18923,7 +20855,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -18950,11 +20885,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -18973,11 +20911,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19004,7 +20945,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19030,11 +20974,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19063,6 +21010,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -19075,6 +21023,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19103,7 +21052,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19125,11 +21077,14 @@ export class GitHubV3RestApiService {
     issueNumber: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19149,7 +21104,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19177,6 +21135,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -19185,6 +21144,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19207,7 +21167,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19244,7 +21207,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19272,6 +21238,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 410})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -19280,6 +21247,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19294,6 +21262,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_deploy_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -19301,6 +21270,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19320,7 +21290,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19344,11 +21317,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19360,11 +21336,14 @@ export class GitHubV3RestApiService {
     repo: string
     keyId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19381,6 +21360,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -19388,6 +21368,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19408,7 +21389,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19432,11 +21416,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19455,7 +21442,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_label> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19476,11 +21466,14 @@ export class GitHubV3RestApiService {
     repo: string
     name: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19493,10 +21486,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_language> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19512,6 +21508,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
@@ -19519,6 +21516,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19537,7 +21535,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19569,7 +21570,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19597,6 +21601,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       sort: p["sort"],
@@ -19610,6 +21615,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19631,7 +21637,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19655,11 +21664,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19679,7 +21691,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_milestone> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19704,11 +21719,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19724,6 +21742,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_label[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -19732,6 +21751,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19750,6 +21770,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_thread[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       all: p["all"],
       participating: p["participating"],
@@ -19764,6 +21785,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19784,7 +21806,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 205})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19807,10 +21832,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19833,7 +21861,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19872,7 +21903,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -19897,10 +21931,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19915,6 +21952,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_page_build[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -19922,6 +21960,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19934,10 +21973,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_page_build_status> & {status: 201}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19950,11 +21992,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_page_build> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19968,11 +22013,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_page_build> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -19996,7 +22044,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20021,11 +22072,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20041,11 +22095,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}/cancel`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20063,10 +22120,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/health`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20083,11 +22143,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_scim_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20102,11 +22165,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_scim_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20121,11 +22187,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_scim_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20147,6 +22216,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
@@ -20158,6 +22228,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20180,7 +22251,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20204,11 +22278,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/properties/values`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20228,7 +22305,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20265,6 +22345,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       head: p["head"],
@@ -20280,6 +22361,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20305,7 +22387,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20332,6 +22417,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_pull_request_review_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -20345,6 +22431,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20360,11 +22447,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20382,7 +22472,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_pull_request_review_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20407,11 +22500,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20439,6 +22535,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -20451,6 +22548,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20479,7 +22577,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20501,11 +22602,14 @@ export class GitHubV3RestApiService {
     commentId: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20525,11 +22629,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20553,7 +22660,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20603,7 +22713,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20632,6 +22745,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_pull_request_review_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -20646,6 +22760,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20674,7 +22789,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20703,7 +22821,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20728,6 +22849,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_commit[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -20736,6 +22858,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20759,6 +22882,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -20767,6 +22891,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20782,11 +22907,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20818,7 +22946,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20842,11 +22973,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_pull_request_review_request> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20867,7 +23001,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20896,7 +23033,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20922,6 +23062,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_pull_request_review[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -20930,6 +23071,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -20960,7 +23102,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -20986,11 +23131,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21010,7 +23158,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21037,11 +23188,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21060,6 +23214,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -21068,6 +23223,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21089,7 +23245,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21121,7 +23280,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21153,7 +23315,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21180,6 +23345,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
@@ -21187,6 +23353,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21204,6 +23371,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({ref: p["ref"]})
 
     return this.httpClient.request<any>(
@@ -21212,6 +23380,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21228,6 +23397,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -21235,6 +23405,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21261,7 +23432,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21286,11 +23460,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21309,7 +23486,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_release_asset> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21330,11 +23510,14 @@ export class GitHubV3RestApiService {
     repo: string
     assetId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21355,7 +23538,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21377,11 +23563,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_release> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/latest`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21397,11 +23586,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21417,11 +23609,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21447,7 +23642,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21468,11 +23666,14 @@ export class GitHubV3RestApiService {
     repo: string
     releaseId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21488,6 +23689,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_release_asset[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -21496,6 +23698,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21509,7 +23712,7 @@ export class GitHubV3RestApiService {
       releaseId: number
       name: string
       label?: string
-      requestBody?: string
+      requestBody?: never
     },
     basePath:
       | Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
@@ -21521,9 +23724,8 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/octet-stream"})
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({name: p["name"], label: p["label"]})
-    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
       "POST",
@@ -21532,7 +23734,7 @@ export class GitHubV3RestApiService {
       {
         params,
         headers,
-        body,
+        // todo: request bodies with content-type 'application/octet-stream' not yet supported,
         observe: "response",
         reportProgress: false,
       },
@@ -21558,6 +23760,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -21570,6 +23773,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21596,7 +23800,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21618,11 +23825,14 @@ export class GitHubV3RestApiService {
     releaseId: number
     reactionId: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21639,6 +23849,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_repository_rule_detailed[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -21647,6 +23858,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21666,6 +23878,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -21678,6 +23891,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21701,7 +23915,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21736,6 +23953,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       ref: p["ref"],
       time_period: p["timePeriod"],
@@ -21751,6 +23969,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21767,11 +23986,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21789,6 +24011,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({includes_parents: p["includesParents"]})
 
     return this.httpClient.request<any>(
@@ -21797,6 +24020,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21821,7 +24045,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -21847,11 +24074,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21870,6 +24100,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -21878,6 +24109,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21895,11 +24127,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21932,6 +24167,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       secret_type: p["secretType"],
@@ -21954,6 +24190,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -21976,6 +24213,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({hide_secret: p["hideSecret"]})
 
     return this.httpClient.request<any>(
@@ -21984,6 +24222,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22011,7 +24250,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22043,6 +24285,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -22051,6 +24294,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22076,7 +24320,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22102,11 +24349,14 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/scan-history`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22128,6 +24378,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       sort: p["sort"],
@@ -22143,6 +24394,7 @@ export class GitHubV3RestApiService {
         `/repos/${p["owner"]}/${p["repo"]}/security-advisories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22160,7 +24412,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22187,7 +24442,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22213,11 +24471,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22236,7 +24497,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22266,11 +24530,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22289,11 +24556,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/forks`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22310,6 +24580,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -22317,6 +24588,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22332,11 +24604,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22351,11 +24626,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22370,11 +24648,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22389,11 +24670,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/participation`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22408,11 +24692,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22437,7 +24724,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_status> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22461,6 +24751,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -22468,6 +24759,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22483,10 +24775,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22504,7 +24799,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_repository_subscription> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22523,10 +24821,13 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22541,6 +24842,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_tag[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -22548,6 +24850,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22563,11 +24866,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tags/protection`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22586,7 +24892,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22612,11 +24921,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22628,11 +24940,14 @@ export class GitHubV3RestApiService {
     repo: string
     ref: string
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22649,6 +24964,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -22656,6 +24972,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22672,6 +24989,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({page: p["page"], per_page: p["perPage"]})
 
     return this.httpClient.request<any>(
@@ -22679,6 +24997,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22697,7 +25016,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22721,6 +25043,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per: p["per"]})
 
     return this.httpClient.request<any>(
@@ -22728,6 +25051,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22742,11 +25066,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22761,11 +25088,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22781,6 +25111,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per: p["per"]})
 
     return this.httpClient.request<any>(
@@ -22788,6 +25119,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22805,7 +25137,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_minimal_repository> & {status: 202}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22828,11 +25163,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22843,11 +25181,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22858,11 +25199,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22874,11 +25218,14 @@ export class GitHubV3RestApiService {
     repo: string
     ref: string
   }): Observable<(HttpResponse<void> & {status: 302}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22898,7 +25245,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_full_repository> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -22922,6 +25272,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({since: p["since"]})
 
     return this.httpClient.request<any>(
@@ -22929,6 +25280,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22957,6 +25309,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
@@ -22970,6 +25323,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/code`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -22991,6 +25345,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
@@ -23004,6 +25359,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/commits`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23045,6 +25401,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
@@ -23059,6 +25416,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/issues`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23084,6 +25442,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       repository_id: p["repositoryId"],
       q: p["q"],
@@ -23098,6 +25457,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/labels`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23130,6 +25490,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
@@ -23143,6 +25504,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23158,6 +25520,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       q: p["q"],
       per_page: p["perPage"],
@@ -23169,6 +25532,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/topics`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23196,6 +25560,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       q: p["q"],
       sort: p["sort"],
@@ -23209,6 +25574,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/search/users`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23222,10 +25588,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23253,7 +25622,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23276,10 +25648,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/teams/${p["teamId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23294,6 +25669,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -23305,6 +25681,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/teams/${p["teamId"]}/discussions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23321,7 +25698,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23342,11 +25722,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23363,7 +25746,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_team_discussion> & {status: 200}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23383,11 +25769,14 @@ export class GitHubV3RestApiService {
     teamId: number
     discussionNumber: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23404,6 +25793,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -23416,6 +25806,7 @@ export class GitHubV3RestApiService {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23432,7 +25823,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment> & {status: 201})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23456,11 +25850,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23478,7 +25875,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_team_discussion_comment> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23499,11 +25899,14 @@ export class GitHubV3RestApiService {
     discussionNumber: number
     commentNumber: number
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23529,6 +25932,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -23541,6 +25945,7 @@ export class GitHubV3RestApiService {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23566,7 +25971,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_reaction> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23600,6 +26008,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_reaction[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       content: p["content"],
       per_page: p["perPage"],
@@ -23612,6 +26021,7 @@ export class GitHubV3RestApiService {
         `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23636,7 +26046,10 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_reaction> & {status: 201}) | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23660,6 +26073,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_invitation[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -23667,6 +26081,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/teams/${p["teamId"]}/invitations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23683,6 +26098,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       role: p["role"],
       per_page: p["perPage"],
@@ -23694,6 +26110,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/teams/${p["teamId"]}/members`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23708,10 +26125,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23728,10 +26148,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23746,10 +26169,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23764,11 +26190,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23788,7 +26217,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23812,11 +26244,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/memberships/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23832,6 +26267,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -23839,6 +26275,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/teams/${p["teamId"]}/projects`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23853,10 +26290,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23879,7 +26319,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23903,10 +26346,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23922,6 +26368,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -23929,6 +26376,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/teams/${p["teamId"]}/repos`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23945,11 +26393,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -23969,7 +26420,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -23990,11 +26444,14 @@ export class GitHubV3RestApiService {
     owner: string
     repo: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24012,6 +26469,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24019,6 +26477,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/teams/${p["teamId"]}/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24032,7 +26491,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>("GET", this.config.basePath + `/user`, {
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -24060,7 +26522,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24085,6 +26550,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24092,6 +26558,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/blocks`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24108,10 +26575,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24129,10 +26599,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24149,10 +26622,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/blocks/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24173,6 +26649,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
@@ -24184,6 +26661,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/codespaces`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24241,7 +26719,10 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24265,6 +26746,7 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24272,6 +26754,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/codespaces/secrets`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24282,10 +26765,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_codespaces_user_public_key> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/secrets/public-key`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24297,10 +26783,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_codespaces_secret> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24321,7 +26810,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24339,10 +26831,13 @@ export class GitHubV3RestApiService {
   codespacesDeleteSecretForAuthenticatedUser(p: {
     secretName: string
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/codespaces/secrets/${p["secretName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24362,11 +26857,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24386,7 +26884,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24413,11 +26914,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24435,11 +26939,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24457,10 +26964,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24481,7 +26991,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24507,10 +27020,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24528,10 +27044,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/exports`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24546,11 +27065,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24571,10 +27093,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/machines`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24595,7 +27120,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24624,10 +27152,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/start`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24644,10 +27175,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 500})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/user/codespaces/${p["codespaceName"]}/stop`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24657,10 +27191,13 @@ export class GitHubV3RestApiService {
   packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(): Observable<
     (HttpResponse<t_package[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/docker/conflicts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24680,7 +27217,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24705,6 +27245,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24712,6 +27253,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/emails`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24736,7 +27278,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24767,7 +27312,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24791,6 +27339,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24798,6 +27347,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/followers`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24813,6 +27363,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24820,6 +27371,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/following`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24836,10 +27388,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/following/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24857,10 +27412,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/following/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24877,10 +27435,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/following/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24897,6 +27458,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24904,6 +27466,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/gpg_keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24924,7 +27487,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -24949,10 +27515,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24970,10 +27539,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -24992,6 +27564,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -24999,6 +27572,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/installations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25020,6 +27594,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25028,6 +27603,7 @@ export class GitHubV3RestApiService {
         `/user/installations/${p["installationId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25044,11 +27620,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25066,11 +27645,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25082,10 +27664,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 204})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/interaction-limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25099,7 +27684,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25117,10 +27705,13 @@ export class GitHubV3RestApiService {
   interactionsRemoveRestrictionsForAuthenticatedUser(): Observable<
     (HttpResponse<void> & {status: 204}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/interaction-limits`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25151,6 +27742,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       filter: p["filter"],
       state: p["state"],
@@ -25167,6 +27759,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/issues`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25183,6 +27776,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25190,6 +27784,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25210,7 +27805,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25235,10 +27833,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/keys/${p["keyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25255,10 +27856,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/keys/${p["keyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25274,6 +27878,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25281,6 +27886,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/marketplace_purchases`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25295,6 +27901,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 401})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25302,6 +27909,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/marketplace_purchases/stubbed`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25322,6 +27930,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
@@ -25333,6 +27942,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/memberships/orgs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25347,10 +27957,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/memberships/orgs/${p["org"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25369,7 +27982,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25393,6 +28009,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25400,6 +28017,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/migrations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25426,7 +28044,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25452,6 +28073,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({exclude: p["exclude"]})
 
     return this.httpClient.request<any>(
@@ -25459,6 +28081,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/migrations/${p["migrationId"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25474,10 +28097,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25494,10 +28120,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/migrations/${p["migrationId"]}/archive`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25515,11 +28144,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25535,6 +28167,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25543,6 +28176,7 @@ export class GitHubV3RestApiService {
         `/user/migrations/${p["migrationId"]}/repositories`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25558,6 +28192,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25565,6 +28200,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/orgs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25588,6 +28224,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 400})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
@@ -25600,6 +28237,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/packages`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25619,11 +28257,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_package> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25647,11 +28288,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25676,6 +28320,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({token: p["token"]})
 
     return this.httpClient.request<any>(
@@ -25684,6 +28329,7 @@ export class GitHubV3RestApiService {
         `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25710,6 +28356,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       page: p["page"],
       per_page: p["perPage"],
@@ -25722,6 +28369,7 @@ export class GitHubV3RestApiService {
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25742,11 +28390,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_package_version> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25771,11 +28422,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25800,11 +28454,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25824,7 +28481,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error_simple> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25849,6 +28509,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25856,6 +28517,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/public_emails`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25893,6 +28555,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       visibility: p["visibility"],
       affiliation: p["affiliation"],
@@ -25910,6 +28573,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/repos`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -25963,7 +28627,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -25988,6 +28655,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -25995,6 +28663,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/repository_invitations`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26011,11 +28680,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PATCH",
       this.config.basePath +
         `/user/repository_invitations/${p["invitationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26032,11 +28704,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 409})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/user/repository_invitations/${p["invitationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26053,6 +28728,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26060,6 +28736,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/social_accounts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26079,7 +28756,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26107,7 +28787,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26132,6 +28815,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26139,6 +28823,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/ssh_signing_keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26159,7 +28844,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26184,10 +28872,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26204,10 +28895,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26228,6 +28922,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -26240,6 +28935,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/starred`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26257,10 +28953,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26278,10 +28977,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "PUT",
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26299,10 +29001,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26318,6 +29023,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26325,6 +29031,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/subscriptions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26340,6 +29047,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26347,6 +29055,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/user/teams`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26360,10 +29069,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/user/${p["accountId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26377,6 +29089,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 304})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -26387,6 +29100,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26400,10 +29114,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26450,7 +29167,10 @@ export class GitHubV3RestApiService {
       }> & {status: 200})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -26485,7 +29205,10 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -26510,11 +29233,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/users/${p["username"]}/attestations/digest/${p["subjectDigest"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26531,11 +29257,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/users/${p["username"]}/attestations/${p["attestationId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26570,6 +29299,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       per_page: p["perPage"],
       before: p["before"],
@@ -26583,6 +29313,7 @@ export class GitHubV3RestApiService {
         `/users/${p["username"]}/attestations/${p["subjectDigest"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26597,10 +29328,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/docker/conflicts`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26614,6 +29348,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26621,6 +29356,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26635,6 +29371,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26642,6 +29379,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26655,6 +29393,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26662,6 +29401,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/events/public`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26675,6 +29415,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26682,6 +29423,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/followers`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26695,6 +29437,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_simple_user[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26702,6 +29445,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/following`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26716,11 +29460,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<void> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/following/${p["targetUser"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26737,6 +29484,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       since: p["since"],
       per_page: p["perPage"],
@@ -26748,6 +29496,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/gists`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26761,6 +29510,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_gpg_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26768,6 +29518,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/gpg_keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26789,6 +29540,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       subject_type: p["subjectType"],
       subject_id: p["subjectId"],
@@ -26799,6 +29551,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/hovercard`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26810,10 +29563,13 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_installation> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/installation`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26827,6 +29583,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_key_simple[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26834,6 +29591,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26848,6 +29606,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_organization_simple[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -26855,6 +29614,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/orgs`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26881,6 +29641,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 403})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       package_type: p["packageType"],
       visibility: p["visibility"],
@@ -26893,6 +29654,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/packages`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26913,11 +29675,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_package> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26942,11 +29707,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -26972,6 +29740,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({token: p["token"]})
 
     return this.httpClient.request<any>(
@@ -26980,6 +29749,7 @@ export class GitHubV3RestApiService {
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27004,11 +29774,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27030,11 +29803,14 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_package_version> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27060,11 +29836,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27090,11 +29869,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath +
         `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27111,6 +29893,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_validation_error> & {status: 422})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       state: p["state"],
       per_page: p["perPage"],
@@ -27122,6 +29905,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/projects`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27135,6 +29919,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -27142,6 +29927,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/received_events`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27155,6 +29941,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_event[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -27162,6 +29949,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/received_events/public`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27184,6 +29972,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       type: p["type"],
       sort: p["sort"],
@@ -27197,6 +29986,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/repos`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27209,10 +29999,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_actions_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/users/${p["username"]}/settings/billing/actions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27225,11 +30018,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_packages_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/settings/billing/packages`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27242,11 +30038,14 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_combined_billing_usage> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/users/${p["username"]}/settings/billing/shared-storage`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27271,6 +30070,7 @@ export class GitHubV3RestApiService {
       }> & {status: 503})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       year: p["year"],
       month: p["month"],
@@ -27283,6 +30083,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/settings/billing/usage`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27296,6 +30097,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_social_account[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -27303,6 +30105,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/social_accounts`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27316,6 +30119,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     (HttpResponse<t_ssh_signing_key[]> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -27323,6 +30127,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/ssh_signing_keys`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27339,6 +30144,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_starred_repository[] | t_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({
       sort: p["sort"],
       direction: p["direction"],
@@ -27351,6 +30157,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/starred`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27365,6 +30172,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_minimal_repository[]> & {status: 200})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({per_page: p["perPage"], page: p["page"]})
 
     return this.httpClient.request<any>(
@@ -27372,6 +30180,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/users/${p["username"]}/subscriptions`,
       {
         params,
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27383,10 +30192,13 @@ export class GitHubV3RestApiService {
     | (HttpResponse<t_basic_error> & {status: 404})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/versions`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -27396,7 +30208,10 @@ export class GitHubV3RestApiService {
   metaGetZen(): Observable<
     (HttpResponse<string> & {status: 200}) | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>("GET", this.config.basePath + `/zen`, {
+      headers,
       observe: "response",
       reportProgress: false,
     })

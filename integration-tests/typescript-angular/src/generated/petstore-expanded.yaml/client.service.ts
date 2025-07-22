@@ -118,10 +118,12 @@ export class SwaggerPetstoreService {
     | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
     const params = this._queryParams({tags: p["tags"], limit: p["limit"]})
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/pets`, {
       params,
+      headers,
       observe: "response",
       reportProgress: false,
     })
@@ -134,7 +136,10 @@ export class SwaggerPetstoreService {
     | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({"Content-Type": "application/json"})
+    const headers = this._headers({
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -156,10 +161,13 @@ export class SwaggerPetstoreService {
     | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/pets/${p["id"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },
@@ -173,10 +181,13 @@ export class SwaggerPetstoreService {
     | (HttpResponse<t_Error> & {status: StatusCode})
     | HttpResponse<unknown>
   > {
+    const headers = this._headers({Accept: "application/json"})
+
     return this.httpClient.request<any>(
       "DELETE",
       this.config.basePath + `/pets/${p["id"]}`,
       {
+        headers,
         observe: "response",
         reportProgress: false,
       },

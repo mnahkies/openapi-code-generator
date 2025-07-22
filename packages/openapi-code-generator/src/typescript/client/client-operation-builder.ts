@@ -2,7 +2,6 @@ import {generationLib} from "../../core/generation-lib"
 import {logger} from "../../core/logger"
 import type {
   IROperation,
-  IRParameter,
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
 import {extractPlaceholders} from "../../core/openapi-utils"
@@ -12,6 +11,7 @@ import type {TypeBuilder} from "../common/type-builder"
 import {
   combineParams,
   type MethodParameterDefinition,
+  type RequestBodyAsParameter,
   requestBodyAsParameter,
   statusStringToType,
 } from "../common/typescript-common"
@@ -85,10 +85,10 @@ export class ClientOperationBuilder {
 
   methodParameter(): MethodParameterDefinition | undefined {
     const {parameters} = this.operation
-    const {requestBodyParameter} = this.requestBodyAsParameter()
+    const requestBody = this.requestBodyAsParameter()
 
     return combineParams(
-      [...parameters, requestBodyParameter].filter(isDefined).map((it) => ({
+      [...parameters, requestBody?.parameter].filter(isDefined).map((it) => ({
         name: `${camelCase(it.name)}`,
         type: this.models.schemaObjectToType(it.schema),
         required: it.required,
@@ -96,18 +96,15 @@ export class ClientOperationBuilder {
     )
   }
 
-  requestBodyAsParameter(): {
-    requestBodyParameter?: IRParameter
-    requestBodyContentType?: string
-  } {
+  requestBodyAsParameter(): RequestBodyAsParameter | undefined {
     const result = requestBodyAsParameter(this.operation)
-    const schema = result.requestBodyParameter?.schema
+    const schema = result?.parameter?.schema
 
     if (schema && this.models.isEmptyObject(schema)) {
       logger.warn(
         `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
       )
-      return {}
+      return undefined
     }
 
     return result
@@ -131,13 +128,16 @@ export class ClientOperationBuilder {
       .map((it) => `'${it.name}': ${this.paramName(it.name)}`)
 
     const hasAcceptHeader = this.hasHeader("Accept")
-
-    const {requestBodyContentType} = this.requestBodyAsParameter()
+    const hasContentTypeHeader = this.hasHeader("Content-Type")
+    const requestBody = this.requestBodyAsParameter()
 
     const result = [
+      // todo: generate prioritized accept header on supported content-type union
       hasAcceptHeader ? undefined : "'Accept': 'application/json'",
-      requestBodyContentType
-        ? `'Content-Type': '${requestBodyContentType}'`
+      !hasContentTypeHeader &&
+      requestBody?.contentType &&
+      requestBody.isSupported
+        ? `'Content-Type': '${requestBody.contentType}'`
         : undefined,
     ]
       .concat(paramHeaders)
@@ -149,18 +149,19 @@ export class ClientOperationBuilder {
   hasHeader(name: string): boolean {
     const {parameters} = this.operation
 
-    return (
-      parameters.find(
-        (it) =>
-          it.in === "header" && it.name.toLowerCase() === name.toLowerCase(),
-      ) !== null
+    const parameter = parameters.find(
+      (it) =>
+        it.in === "header" && it.name.toLowerCase() === name.toLowerCase(),
     )
+
+    return Boolean(parameter)
   }
 
   responseSchemas() {
     const schemaBuilder = this.schemaBuilder
     const models = this.models
 
+    // todo: replace with responsesToArray / filter by supported content-types
     return Object.entries(this.operation.responses ?? {}).reduce(
       (acc, [status, response]) => {
         const content = Object.values(response.content ?? {}).pop()
@@ -230,6 +231,7 @@ export class ClientOperationBuilder {
     }
 
     return Object.entries(responses).map(([status, response]) => {
+      // todo: filter and union by supported content-type
       const responseContent = Object.values(response?.content || {}).pop()
 
       if (!responseContent) {

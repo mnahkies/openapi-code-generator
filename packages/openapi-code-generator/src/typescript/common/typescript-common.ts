@@ -1,5 +1,6 @@
 import {logger} from "../../core/logger"
 import type {
+  IRMediaType,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
@@ -139,36 +140,104 @@ export function buildExport(args: ExportDefinition) {
   }
 }
 
-export function requestBodyAsParameter(operation: IROperation): {
-  requestBodyParameter?: IRParameter
-  requestBodyContentType?: string
-} {
+export type RequestBodyAsParameter = {
+  isSupported: boolean
+  parameter: IRParameter
+  contentType: string
+}
+
+export function filterBySupportedMediaTypes(
+  object: Record<string, IRMediaType>,
+  supportedMediaTypes: string[],
+): {contentType: string; mediaType: IRMediaType}[] {
+  const normalized = Object.fromEntries(
+    Object.entries(object).map(([key, value]) => {
+      const contentType = key.split(/\s*[,;]\s*/)[0]
+
+      if (!contentType) {
+        throw new Error(`unspecified content type '${key}'`)
+      }
+
+      return [contentType, {fullContentType: key, mediaType: value}]
+    }),
+  )
+
+  return supportedMediaTypes
+    .map((supportedMediaType) => normalized[supportedMediaType])
+    .filter(isDefined)
+    .map((it) => ({
+      contentType: it.fullContentType,
+      mediaType: it.mediaType,
+    }))
+}
+
+export function firstByBySupportedMediaTypes(
+  object: Record<string, IRMediaType>,
+  supportedMediaTypes: string[],
+): {contentType: string; mediaType: IRMediaType} | undefined {
+  return filterBySupportedMediaTypes(object, supportedMediaTypes)[0]
+}
+
+export function requestBodyAsParameter(
+  operation: IROperation,
+  supportedMediaTypes = [
+    "application/json",
+    "application/scim+json",
+    "application/merge-patch+json",
+    "text/json",
+  ],
+): RequestBodyAsParameter | undefined {
   const {requestBody} = operation
 
   if (!requestBody) {
-    return {}
+    return undefined
   }
 
-  // todo: https://github.com/mnahkies/openapi-code-generator/issues/42
-  for (const [requestBodyContentType, definition] of Object.entries(
+  // todo: support multiple media types properly. https://github.com/mnahkies/openapi-code-generator/issues/42
+  const result = firstByBySupportedMediaTypes(
     requestBody.content,
-  )) {
+    supportedMediaTypes,
+  )
+
+  if (result) {
     return {
-      requestBodyContentType,
-      requestBodyParameter: {
+      isSupported: true,
+      contentType: result.contentType,
+      parameter: {
         name: "requestBody",
         description: requestBody.description,
         in: "body",
         required: requestBody.required,
-        schema: definition.schema,
+        schema: result.mediaType.schema,
         allowEmptyValue: false,
         deprecated: false,
       },
     }
   }
 
-  logger.warn("no content on defined request body ", {requestBody})
-  return {}
+  logger.warn("no supported content-type on defined request body ", {
+    requestBody,
+  })
+
+  const contentType = Object.keys(requestBody.content).sort().join(", ")
+
+  if (!contentType) {
+    return undefined
+  }
+
+  return {
+    isSupported: false,
+    contentType,
+    parameter: {
+      name: "requestBody",
+      description: requestBody.description,
+      in: "body",
+      required: requestBody.required,
+      schema: {type: "never", nullable: false, readOnly: false},
+      allowEmptyValue: false,
+      deprecated: false,
+    },
+  }
 }
 
 export function statusStringToType(status: string): string {

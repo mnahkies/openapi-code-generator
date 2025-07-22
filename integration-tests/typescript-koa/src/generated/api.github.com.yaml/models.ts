@@ -11791,7 +11791,7 @@ export type t_MarkdownRenderBodySchema = {
   text: string
 }
 
-export type t_MarkdownRenderRawBodySchema = string
+export type t_MarkdownRenderRawBodySchema = never
 
 export type t_MetaGetOctocatQuerySchema = {
   s?: string
@@ -15740,7 +15740,7 @@ export type t_ReposUpdateWebhookConfigForRepoParamSchema = {
   repo: string
 }
 
-export type t_ReposUploadReleaseAssetBodySchema = string
+export type t_ReposUploadReleaseAssetBodySchema = never
 
 export type t_ReposUploadReleaseAssetParamSchema = {
   owner: string

@@ -76,7 +76,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/service-status`
     const headers = this._headers(
-      {"x-ms-client-request-id": p["xMsClientRequestId"]},
+      {
+        Accept: "application/json",
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
       opts.headers,
     )
     const query = this._query({"api-version": p["apiVersion"]})
@@ -112,7 +115,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url =
       this.basePath +
       `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -141,6 +144,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Content-Type": "application/merge-patch+json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -180,6 +184,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "If-Match": p["ifMatch"],
         "If-None-Match": p["ifNoneMatch"],
         "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -221,6 +226,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
         "If-Match": p["ifMatch"],
@@ -257,7 +263,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/widgets`
     const headers = this._headers(
-      {"x-ms-client-request-id": p["xMsClientRequestId"]},
+      {
+        Accept: "application/json",
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
       opts.headers,
     )
     const query = this._query({
@@ -290,6 +299,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "If-Match": p["ifMatch"],
         "If-None-Match": p["ifNoneMatch"],
         "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -326,6 +336,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Content-Type": "application/merge-patch+json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -369,7 +380,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -407,6 +418,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}:scheduleRepairs`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Content-Type": "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -448,7 +460,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url =
       this.basePath +
       `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -475,6 +487,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Content-Type": "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -510,7 +523,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
-      {"x-ms-client-request-id": p["xMsClientRequestId"]},
+      {
+        Accept: "application/json",
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
       opts.headers,
     )
     const query = this._query({"api-version": p["apiVersion"]})
@@ -539,6 +555,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "If-Match": p["ifMatch"],
         "If-None-Match": p["ifNoneMatch"],
         "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -574,6 +591,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
         "If-Match": p["ifMatch"],
@@ -618,6 +636,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts:reorderParts`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Content-Type": "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -658,7 +677,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url =
       this.basePath +
       `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({"api-version": p["apiVersion"]})
 
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
@@ -687,6 +706,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Content-Type": "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
@@ -727,6 +747,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "If-Match": p["ifMatch"],
         "If-None-Match": p["ifNoneMatch"],
         "If-Unmodified-Since": p["ifUnmodifiedSince"],
@@ -768,6 +789,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Repeatability-Request-ID": p["repeatabilityRequestId"],
         "Repeatability-First-Sent": p["repeatabilityFirstSent"],
         "If-Match": p["ifMatch"],
@@ -800,7 +822,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
   > {
     const url = this.basePath + `/manufacturers`
     const headers = this._headers(
-      {"x-ms-client-request-id": p["xMsClientRequestId"]},
+      {
+        Accept: "application/json",
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
       opts.headers,
     )
     const query = this._query({"api-version": p["apiVersion"]})

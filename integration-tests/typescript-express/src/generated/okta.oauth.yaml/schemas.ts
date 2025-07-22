@@ -42,18 +42,6 @@ export const s_AmrValue = z.enum([
 
 export const s_ApplicationType = z.enum(["browser", "native", "service", "web"])
 
-export const s_BackchannelAuthorizeRequest = z.intersection(
-  z.object({
-    binding_message: z.string().optional(),
-    id_token_hint: z.string(),
-    login_hint: z.string(),
-    request: z.string().optional(),
-    request_expiry: z.coerce.number().min(1).max(300).optional(),
-    scope: z.string(),
-  }),
-  z.record(z.unknown()),
-)
-
 export const s_BackchannelAuthorizeResponse = z.object({
   auth_req_id: z.string().optional(),
   expires_in: z.coerce.number().min(1).max(300).optional(),
@@ -62,21 +50,11 @@ export const s_BackchannelAuthorizeResponse = z.object({
 
 export const s_BindingMethod = z.enum(["none", "prompt", "transfer"])
 
-export const s_ChallengeType = z.enum([
-  "http://auth0.com/oauth/grant-type/mfa-oob",
-  "http://auth0.com/oauth/grant-type/mfa-otp",
-])
-
 export const s_Channel = z.enum(["push", "sms", "voice"])
 
 export const s_Claim = z.string()
 
 export const s_CodeChallengeMethod = z.enum(["S256"])
-
-export const s_DeviceAuthorizeRequest = z.object({
-  client_id: z.string().optional(),
-  scope: z.string().optional(),
-})
 
 export const s_DeviceAuthorizeResponse = z.object({
   device_code: z.string().optional(),
@@ -148,12 +126,6 @@ export const s_JsonWebKeyStatus = z.enum(["ACTIVE", "INACTIVE"])
 export const s_JsonWebKeyType = z.enum(["EC", "RSA"])
 
 export const s_JsonWebKeyUse = z.enum(["enc", "sig"])
-
-export const s_LogoutWithPost = z.object({
-  id_token_hint: z.string(),
-  post_logout_redirect_uri: z.string().optional(),
-  state: z.string().optional(),
-})
 
 export const s_OAuthError = z.object({
   error: z.string().optional(),
@@ -243,13 +215,6 @@ export const s_TokenType = z.enum([
   "urn:x-oath:params:oauth:token-type:device-secret",
 ])
 
-export const s_TokenTypeHintIntrospect = z.enum([
-  "access_token",
-  "device_secret",
-  "id_token",
-  "refresh_token",
-])
-
 export const s_TokenTypeHintRevoke = z.enum([
   "access_token",
   "device_secret",
@@ -266,37 +231,6 @@ export const s_sub_id = z.object({
   id: z.string().optional(),
 })
 
-export const s_AuthorizeWithPost = z.object({
-  acr_values: z.intersection(s_AcrValue, z.string()).optional(),
-  client_id: z.string(),
-  code_challenge: z.string().optional(),
-  code_challenge_method: z
-    .intersection(s_CodeChallengeMethod, z.string())
-    .optional(),
-  display: z.string().optional(),
-  enroll_amr_values: z.intersection(s_AmrValue, z.string()).optional(),
-  idp: z.string().optional(),
-  idp_scope: z.string().optional(),
-  login_hint: z.string().optional(),
-  max_age: z.coerce.number().optional(),
-  nonce: z.string().optional(),
-  prompt: z.intersection(s_Prompt, z.string()).optional(),
-  redirect_uri: z.string(),
-  request: z.string().optional(),
-  request_uri: z.string().optional(),
-  response_mode: z.intersection(s_ResponseMode, z.string()).optional(),
-  response_type: z.intersection(s_ResponseTypesSupported, z.string()),
-  scope: z.string(),
-  sessionToken: z.string().optional(),
-  state: z.string(),
-})
-
-export const s_ChallengeRequest = z.object({
-  challenge_types_supported: z.array(s_ChallengeType).optional(),
-  channel_hint: s_Channel.optional(),
-  mfa_token: z.string(),
-})
-
 export const s_ChallengeResponse = z.object({
   binding_code: z.string().optional(),
   binding_method: s_BindingMethod.optional(),
@@ -309,11 +243,6 @@ export const s_ChallengeResponse = z.object({
 
 export const s_GlobalTokenRevocationRequest = z.object({
   sub_id: s_sub_id.optional(),
-})
-
-export const s_IntrospectionRequest = z.object({
-  token: z.string().optional(),
-  token_type_hint: s_TokenTypeHintIntrospect.optional(),
 })
 
 export const s_JsonWebKey = z.object({
@@ -366,11 +295,6 @@ export const s_OAuthMetadata = z.object({
     .optional(),
 })
 
-export const s_OobAuthenticateRequest = z.object({
-  channel_hint: s_Channel,
-  login_hint: z.string(),
-})
-
 export const s_OobAuthenticateResponse = z.object({
   binding_code: z.string().optional(),
   binding_method: s_BindingMethod.optional(),
@@ -384,8 +308,6 @@ export const s_RevokeRequest = z.object({
   token: z.string(),
   token_type_hint: s_TokenTypeHintRevoke.optional(),
 })
-
-export const s_TokenRequest = z.object({grant_type: s_GrantType.optional()})
 
 export const s_TokenResponse = z.object({
   access_token: z.string().optional(),

@@ -84,6 +84,8 @@ export type Parameters = {
     type: string
   }
   body: {
+    isSupported: boolean
+    contentType: string | undefined
     schema: string | undefined
     type: string
     isRequired: boolean
@@ -265,41 +267,49 @@ export class ServerOperationBuilder {
   }
 
   private requestBodyParameter(schemaSymbolName: string): Parameters["body"] {
-    const {requestBodyParameter} = requestBodyAsParameter(this.operation)
+    const requestBody = requestBodyAsParameter(this.operation)
 
-    const isRequired = Boolean(requestBodyParameter?.required)
+    const isRequired = Boolean(requestBody?.parameter?.required)
 
-    const schema = requestBodyParameter
+    const schema = requestBody?.parameter
       ? this.schemaBuilder.fromModel(
-          requestBodyParameter.schema,
-          requestBodyParameter.required,
+          requestBody.parameter.schema,
+          requestBody.parameter.required,
           true,
         )
       : undefined
 
     if (
-      requestBodyParameter &&
-      this.types.isEmptyObject(requestBodyParameter.schema)
+      requestBody?.parameter &&
+      this.types.isEmptyObject(requestBody.parameter.schema)
     ) {
       logger.warn(
         `[${this.route}]: skipping requestBody parameter that resolves to EmptyObject`,
       )
-      return {type: "void", schema: undefined, isRequired: false}
+      return {
+        isSupported: true,
+        type: "void",
+        contentType: undefined,
+        schema: undefined,
+        isRequired: false,
+      }
     }
 
     let type = "void"
 
-    if (schema && requestBodyParameter) {
+    if (schema && requestBody?.parameter) {
       type = this.types.schemaObjectToType(
         this.input.loader.addVirtualType(
           this.operationId,
           upperFirst(schemaSymbolName),
-          this.input.schema(requestBodyParameter.schema),
+          this.input.schema(requestBody.parameter.schema),
         ),
       )
     }
 
     return {
+      isSupported: Boolean(requestBody?.isSupported),
+      contentType: requestBody?.contentType,
       schema,
       type,
       isRequired,

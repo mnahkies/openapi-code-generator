@@ -27748,7 +27748,9 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const markdownRenderRawRequestBodySchema = z.string().optional()
+  // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported
+
+  const markdownRenderRawRequestBodySchema = z.never().optional()
 
   const markdownRenderRawResponseBodyValidator = responseValidationFactory(
     [
@@ -88821,7 +88823,9 @@ export function createRouter(implementation: Implementation): Router {
     label: z.string().optional(),
   })
 
-  const reposUploadReleaseAssetRequestBodySchema = z.string().optional()
+  // todo: request bodies with content-type 'application/octet-stream' not yet supported
+
+  const reposUploadReleaseAssetRequestBodySchema = z.never().optional()
 
   const reposUploadReleaseAssetResponseBodyValidator =
     responseValidationFactory(

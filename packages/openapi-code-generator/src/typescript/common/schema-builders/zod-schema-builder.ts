@@ -313,6 +313,10 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     return [zod, "any()"].filter(isDefined).join(".")
   }
 
+  public never(): string {
+    return [zod, "never()"].filter(isDefined).join(".")
+  }
+
   protected override unknown(): string {
     return [zod, "unknown()"].filter(isDefined).join(".")
   }

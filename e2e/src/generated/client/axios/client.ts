@@ -71,7 +71,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_getHeadersUndeclaredJson200Response>> {
     const url = `/headers/undeclared`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = await this._request({
       url: url,
@@ -98,6 +98,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     const url = `/headers/request`
     const headers = this._headers(
       {
+        Accept: "application/json",
         "Route-Level-Header": p["routeLevelHeader"],
         "Number-Header": p["numberHeader"],
         "Boolean-Header": p["booleanHeader"],
@@ -128,7 +129,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_RandomNumber>> {
     const url = `/validation/numbers/random-number`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
     const query = this._query({
       max: p["max"],
       min: p["min"],
@@ -155,7 +156,7 @@ export class E2ETestClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Enumerations>> {
     const url = `/validation/enums`
     const headers = this._headers(
-      {"Content-Type": "application/json"},
+      {Accept: "application/json", "Content-Type": "application/json"},
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -177,7 +178,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/responses/500`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     return this._request({
       url: url,
@@ -193,7 +194,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {
     const url = `/escape-hatches/plain-text`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = await this._request({
       url: url,
@@ -211,7 +212,7 @@ export class E2ETestClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/responses/empty`
-    const headers = this._headers({}, opts.headers)
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
 
     const res = await this._request({
       url: url,

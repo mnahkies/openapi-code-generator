@@ -191,11 +191,6 @@ export class TypeBuilder implements ICompilable {
           break
         }
 
-        case "any": {
-          result.push(this.config.allowAny ? "any" : "unknown")
-          break
-        }
-
         case "object": {
           const properties = Object.entries(schemaObject.properties)
             .sort(([a], [b]) => (a < b ? -1 : 1))
@@ -243,9 +238,23 @@ export class TypeBuilder implements ICompilable {
           break
         }
 
+        case "any": {
+          result.push(this.config.allowAny ? "any" : "unknown")
+          break
+        }
+
+        case "never": {
+          result.push("never")
+          break
+        }
+
+        case "null": {
+          throw new Error("unreachable - input should normalize this out")
+        }
+
         default: {
           throw new Error(
-            `unsupported type '${JSON.stringify(schemaObject, undefined, 2)}'`,
+            `unsupported type '${JSON.stringify(schemaObject satisfies never, undefined, 2)}'`,
           )
         }
       }
@@ -262,7 +271,7 @@ export class TypeBuilder implements ICompilable {
     return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 
-  isEmptyObject(schemaObject: MaybeIRModel) {
+  isEmptyObject(schemaObject: MaybeIRModel): boolean {
     const dereferenced = this.input.schema(schemaObject)
 
     return (

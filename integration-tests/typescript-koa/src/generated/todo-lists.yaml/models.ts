@@ -58,6 +58,4 @@ export type t_UpdateTodoListByIdParamSchema = {
   listId: string
 }
 
-export type t_UploadAttachmentBodySchema = {
-  file?: unknown
-}
+export type t_UploadAttachmentBodySchema = never
