@@ -283,14 +283,4 @@ export class TypeBuilder implements ICompilable {
       Object.keys(dereferenced.properties).length === 0
     )
   }
-
-  isNever(schemaObject?: MaybeIRModel): boolean {
-    if (!schemaObject) {
-      return false
-    }
-
-    const dereferenced = this.input.schema(schemaObject)
-
-    return dereferenced.type === "never"
-  }
 }

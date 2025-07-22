@@ -1,6 +1,5 @@
 import {logger} from "../../core/logger"
 import type {
-  IRMediaType,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
@@ -140,6 +139,12 @@ export function buildExport(args: ExportDefinition) {
   }
 }
 
+export type RequestBodyAsParameter = {
+  isSupported: boolean
+  parameter: IRParameter
+  contentType: string
+}
+
 export function requestBodyAsParameter(
   operation: IROperation,
   supportedMediaTypes = [
@@ -147,14 +152,11 @@ export function requestBodyAsParameter(
     "text/json",
     "application/merge-patch+json",
   ],
-): {
-  requestBodyParameter?: IRParameter
-  requestBodyContentType?: string
-} {
+): RequestBodyAsParameter | undefined {
   const {requestBody} = operation
 
   if (!requestBody) {
-    return {}
+    return undefined
   }
 
   const normalized = Object.entries(requestBody.content).map(([key, value]) => {
@@ -175,8 +177,9 @@ export function requestBodyAsParameter(
 
     if (result) {
       return {
-        requestBodyContentType: result.fullContentType,
-        requestBodyParameter: {
+        isSupported: true,
+        contentType: result.fullContentType,
+        parameter: {
           name: "requestBody",
           description: requestBody.description,
           in: "body",
@@ -196,12 +199,13 @@ export function requestBodyAsParameter(
   const first = normalized[0]
 
   if (!first) {
-    return {}
+    return undefined
   }
 
   return {
-    requestBodyContentType: first.fullContentType,
-    requestBodyParameter: {
+    isSupported: false,
+    contentType: first.fullContentType,
+    parameter: {
       name: "requestBody",
       description: requestBody.description,
       in: "body",

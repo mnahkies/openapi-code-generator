@@ -37,12 +37,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
 
   protected buildOperation(builder: ClientOperationBuilder): string {
     const {operationId, method, hasServers} = builder
-    const {requestBodyContentType, requestBodyParameter} =
-      builder.requestBodyAsParameter()
-
-    const requestBodyIsSupported = !this.types.isNever(
-      requestBodyParameter?.schema,
-    )
+    const requestBody = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
 
@@ -63,10 +58,10 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
     const fetchFragment = `this._fetch(url ${queryString ? "+ query" : ""},
     {${[
       `method: "${method}"`,
-      requestBodyParameter
-        ? requestBodyIsSupported
+      requestBody?.parameter
+        ? requestBody.isSupported
           ? "body"
-          : `// todo: request bodies with content-type '${requestBodyContentType}' not yet supported`
+          : `// todo: request bodies with content-type '${requestBody.contentType}' not yet supported`
         : "",
       "...opts",
       "headers",
@@ -81,7 +76,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
         ? `const headers = this._headers(${headers}, opts.headers)`
         : "const headers = this._headers({}, opts.headers)",
       queryString ? `const query = this._query({ ${queryString} })` : "",
-      requestBodyParameter && requestBodyIsSupported
+      requestBody?.parameter && requestBody.isSupported
         ? "const body = JSON.stringify(p.requestBody)"
         : "",
     ]
