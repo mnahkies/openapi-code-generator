@@ -2185,7 +2185,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       url,
       {
         method: "POST",
-        // todo: request bodies with content-type 'text/plain' not yet supported,
+        // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
         ...opts,
         headers,
       },

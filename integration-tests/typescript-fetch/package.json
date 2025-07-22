@@ -1,5 +1,5 @@
 {
-  "name": "typescript-fetch",
+  "name": "@integration/typescript-fetch",
   "version": "0.0.1",
   "main": "./dist/index.js",
   "author": "Michael Nahkies",

@@ -2599,7 +2599,7 @@ export class GitHubV3RestApiService {
       this.config.basePath + `/markdown/raw`,
       {
         headers,
-        // todo: request bodies with content-type 'text/plain' not yet supported,
+        // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
         observe: "response",
         reportProgress: false,
       },

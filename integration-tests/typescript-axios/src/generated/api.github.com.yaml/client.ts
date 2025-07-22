@@ -2331,7 +2331,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      // todo: request bodies with content-type 'text/plain' not yet supported,
+      // todo: request bodies with content-type 'text/plain, text/x-markdown' not yet supported,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,
