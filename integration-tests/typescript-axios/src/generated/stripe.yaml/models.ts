@@ -3034,19 +3034,19 @@ export type t_customer_tax_location = {
 }
 
 export type t_deleted_account = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "account" | UnknownEnumStringValue
 }
 
 export type t_deleted_apple_pay_domain = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "apple_pay_domain" | UnknownEnumStringValue
 }
 
 export type t_deleted_application = {
-  deleted: boolean
+  deleted: true
   id: string
   name?: (string | null) | undefined
   object: "application" | UnknownEnumStringValue
@@ -3054,26 +3054,26 @@ export type t_deleted_application = {
 
 export type t_deleted_bank_account = {
   currency?: (string | null) | undefined
-  deleted: boolean
+  deleted: true
   id: string
   object: "bank_account" | UnknownEnumStringValue
 }
 
 export type t_deleted_card = {
   currency?: (string | null) | undefined
-  deleted: boolean
+  deleted: true
   id: string
   object: "card" | UnknownEnumStringValue
 }
 
 export type t_deleted_coupon = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "coupon" | UnknownEnumStringValue
 }
 
 export type t_deleted_customer = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "customer" | UnknownEnumStringValue
 }
@@ -3082,7 +3082,7 @@ export type t_deleted_discount = {
   checkout_session?: (string | null) | undefined
   coupon: t_coupon
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
-  deleted: boolean
+  deleted: true
   id: string
   invoice?: (string | null) | undefined
   invoice_item?: (string | null) | undefined
@@ -3096,13 +3096,13 @@ export type t_deleted_discount = {
 export type t_deleted_external_account = t_deleted_bank_account | t_deleted_card
 
 export type t_deleted_invoice = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "invoice" | UnknownEnumStringValue
 }
 
 export type t_deleted_invoiceitem = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "invoiceitem" | UnknownEnumStringValue
 }
@@ -3110,85 +3110,85 @@ export type t_deleted_invoiceitem = {
 export type t_deleted_payment_source = t_deleted_bank_account | t_deleted_card
 
 export type t_deleted_person = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "person" | UnknownEnumStringValue
 }
 
 export type t_deleted_plan = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "plan" | UnknownEnumStringValue
 }
 
 export type t_deleted_price = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "price" | UnknownEnumStringValue
 }
 
 export type t_deleted_product = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "product" | UnknownEnumStringValue
 }
 
 export type t_deleted_product_feature = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "product_feature" | UnknownEnumStringValue
 }
 
 export type t_deleted_radar_value_list = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "radar.value_list" | UnknownEnumStringValue
 }
 
 export type t_deleted_radar_value_list_item = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "radar.value_list_item" | UnknownEnumStringValue
 }
 
 export type t_deleted_subscription_item = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "subscription_item" | UnknownEnumStringValue
 }
 
 export type t_deleted_tax_id = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "tax_id" | UnknownEnumStringValue
 }
 
 export type t_deleted_terminal_configuration = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "terminal.configuration" | UnknownEnumStringValue
 }
 
 export type t_deleted_terminal_location = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "terminal.location" | UnknownEnumStringValue
 }
 
 export type t_deleted_terminal_reader = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "terminal.reader" | UnknownEnumStringValue
 }
 
 export type t_deleted_test_helpers_test_clock = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "test_helpers.test_clock" | UnknownEnumStringValue
 }
 
 export type t_deleted_webhook_endpoint = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "webhook_endpoint" | UnknownEnumStringValue
 }
