@@ -1,4 +1,5 @@
 import {logger} from "../../core/logger"
+import type {Encoding} from "../../core/openapi-types"
 import type {
   IRMediaType,
   IROperation,
@@ -140,17 +141,17 @@ export function buildExport(args: ExportDefinition) {
   }
 }
 
-export type Serializer = "JSON.stringify" | "String"
+export type Serializer = "JSON.stringify" | "String" | "URLSearchParams"
 // TODO: support more serializations
 // | "Blob"
 // | "FormData"
-// | "URLSearchParams"
 
 export type RequestBodyAsParameter = {
   isSupported: boolean
   parameter: IRParameter
   contentType: string
   serializer: Serializer | undefined
+  encoding?: Record<string, Encoding>
 }
 
 function serializerForNormalizedContentType(contentType: string): Serializer {
@@ -164,10 +165,10 @@ function serializerForNormalizedContentType(contentType: string): Serializer {
     case "text/x-markdown":
       return "String"
 
+    case "application/x-www-form-urlencoded":
+      return "URLSearchParams"
+
     // TODO: support more serializations
-    // case "application/x-www-form-urlencoded":
-    //   return "URLSearchParams"
-    //
     // case "application/octet-stream":
     //   return "Blob"
     //
@@ -224,14 +225,7 @@ export function firstByBySupportedMediaTypes(
 
 export function requestBodyAsParameter(
   operation: IROperation,
-  supportedMediaTypes = [
-    "application/json",
-    "application/scim+json",
-    "application/merge-patch+json",
-    "text/json",
-    "text/plain",
-    "text/x-markdown",
-  ],
+  supportedMediaTypes: string[],
 ): RequestBodyAsParameter | undefined {
   const {requestBody} = operation
 
@@ -259,6 +253,7 @@ export function requestBodyAsParameter(
         deprecated: false,
       },
       serializer: result.serializer,
+      encoding: result.mediaType.encoding,
     }
   }
 

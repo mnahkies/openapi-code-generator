@@ -1,4 +1,8 @@
 import qs from "qs"
+import {
+  type Encoding,
+  requestBodyToUrlSearchParams,
+} from "./request-bodies/url-search-params"
 import type {
   AbstractFetchClientConfig,
   HeaderParams,
@@ -122,6 +126,14 @@ export abstract class AbstractFetchClient {
     this.setHeaders(headers, this.defaultHeaders, nullSet)
 
     return headers
+  }
+
+  // todo: rename requestBodyToUrlSearchParams
+  protected _toUrlSearchParams(
+    obj: Record<string, unknown>,
+    encoding: Record<string, Encoding> = {},
+  ): URLSearchParams {
+    return requestBodyToUrlSearchParams(obj, encoding)
   }
 
   private setHeaders(

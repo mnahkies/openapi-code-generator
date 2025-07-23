@@ -38,6 +38,9 @@ export class ClientOperationBuilder {
     private readonly models: TypeBuilder,
     private readonly schemaBuilder: SchemaBuilder,
     private readonly input: Input,
+    private readonly config: {
+      supportedMediaTypes: string[]
+    },
   ) {}
 
   get operationId(): string {
@@ -99,7 +102,10 @@ export class ClientOperationBuilder {
   }
 
   requestBodyAsParameter(): RequestBodyAsParameter | undefined {
-    const result = requestBodyAsParameter(this.operation)
+    const result = requestBodyAsParameter(
+      this.operation,
+      this.config.supportedMediaTypes,
+    )
     const schema =
       result?.parameter?.schema && this.input.schema(result?.parameter?.schema)
 

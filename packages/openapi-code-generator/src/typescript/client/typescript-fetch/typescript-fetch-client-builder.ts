@@ -1,3 +1,4 @@
+import {isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
 import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
@@ -10,6 +11,18 @@ import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
+  override capabilities = {
+    mediaTypes: [
+      "application/json",
+      "application/scim+json",
+      "application/merge-patch+json",
+      "application/x-www-form-urlencoded",
+      "text/json",
+      "text/plain",
+      "text/x-markdown",
+    ],
+  }
+
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-fetch-runtime/main")
@@ -137,6 +150,15 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
         return `JSON.stringify(p.${requestBody.parameter.name})`
       case "String":
         return `p.${requestBody.parameter.name}`
+      case "URLSearchParams":
+        return `p.${requestBody.parameter.name} ? this._toUrlSearchParams(${[
+          `p.${requestBody.parameter.name}`,
+          requestBody.encoding
+            ? JSON.stringify(requestBody.encoding)
+            : undefined,
+        ]
+          .filter(isDefined)
+          .join(", ")}) : undefined`
       default: {
         throw new Error(
           `typescript-fetch does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies never}'`,

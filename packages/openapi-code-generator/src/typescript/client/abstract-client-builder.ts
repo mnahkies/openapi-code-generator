@@ -9,6 +9,10 @@ import {ClientOperationBuilder} from "./client-operation-builder"
 import {ClientServersBuilder} from "./client-servers-builder"
 
 export abstract class AbstractClientBuilder implements ICompilable {
+  protected abstract readonly capabilities: {
+    mediaTypes: string[]
+  }
+
   private readonly operations: string[] = []
 
   protected readonly clientServersBuilder: ClientServersBuilder
@@ -46,6 +50,7 @@ export abstract class AbstractClientBuilder implements ICompilable {
       this.types,
       this.schemaBuilder,
       this.input,
+      {supportedMediaTypes: this.capabilities.mediaTypes},
     )
     this.clientServersBuilder.addOperation(operation)
     const result = this.buildOperation(builder)

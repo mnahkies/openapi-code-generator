@@ -5,6 +5,17 @@ import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class AngularServiceBuilder extends AbstractClientBuilder {
+  override capabilities = {
+    mediaTypes: [
+      "application/json",
+      "application/scim+json",
+      "application/merge-patch+json",
+      "text/json",
+      "text/plain",
+      "text/x-markdown",
+    ],
+  }
+
   protected buildImports(imports: ImportBuilder): void {
     imports.from("@angular/core").add("Injectable")
 
