@@ -5,18 +5,25 @@
 import {
   t_AcrValue,
   t_AmrValue,
+  t_AuthorizeWithPost,
+  t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
+  t_ChallengeRequest,
   t_ChallengeResponse,
   t_Client,
   t_CodeChallengeMethod,
+  t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
   t_Error,
   t_GlobalTokenRevocationRequest,
+  t_IntrospectionRequest,
   t_IntrospectionResponse,
+  t_LogoutWithPost,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OidcMetadata,
+  t_OobAuthenticateRequest,
   t_OobAuthenticateResponse,
   t_ParRequest,
   t_ParResponse,
@@ -24,6 +31,7 @@ import {
   t_ResponseMode,
   t_ResponseTypesSupported,
   t_RevokeRequest,
+  t_TokenRequest,
   t_TokenResponse,
   t_UserInfo,
 } from "./models"
@@ -141,29 +149,29 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
 
   async authorizeWithPost(
     p: {
-      requestBody: never
+      requestBody: t_AuthorizeWithPost
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/authorize`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async bcAuthorize(
     p: {
-      requestBody: never
+      requestBody: t_BackchannelAuthorizeRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -174,23 +182,23 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/bc/authorize`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async challenge(
     p: {
-      requestBody: never
+      requestBody: t_ChallengeRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -202,18 +210,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_OAuthError>
   > {
     const url = this.basePath + `/oauth2/v1/challenge`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async listClients(
@@ -332,7 +340,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
 
   async deviceAuthorize(
     p: {
-      requestBody: never
+      requestBody: t_DeviceAuthorizeRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -343,18 +351,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/device/authorize`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async globalTokenRevocation(
@@ -378,7 +386,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
 
   async introspect(
     p: {
-      requestBody: never
+      requestBody: t_IntrospectionRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -389,18 +397,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/introspect`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async oauthKeys(
@@ -439,29 +447,29 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
 
   async logoutWithPost(
     p: {
-      requestBody: never
+      requestBody: t_LogoutWithPost
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/logout`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async oobAuthenticate(
     p: {
-      requestBody: never
+      requestBody: t_OobAuthenticateRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -473,18 +481,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_OAuthError>
   > {
     const url = this.basePath + `/oauth2/v1/oob-authenticate`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async parOptions(
@@ -566,7 +574,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
 
   async token(
     p: {
-      requestBody: never
+      requestBody: t_TokenRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -577,18 +585,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/token`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async userinfo(
@@ -698,31 +706,31 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   async authorizeCustomAsWithPost(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_AuthorizeWithPost
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/authorize`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async bcAuthorizeCustomAs(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_BackchannelAuthorizeRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -734,24 +742,24 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/bc/authorize`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async challengeCustomAs(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_ChallengeRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -764,24 +772,24 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/challenge`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async deviceAuthorizeCustomAs(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_DeviceAuthorizeRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -794,24 +802,24 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     const url =
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/v1/device/authorize`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async introspectCustomAs(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_IntrospectionRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -823,18 +831,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/introspect`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async oauthKeysCustomAs(
@@ -875,31 +883,31 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   async logoutCustomAsWithPost(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_LogoutWithPost
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async oobAuthenticateCustomAs(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_OobAuthenticateRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -913,18 +921,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     const url =
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/v1/oob-authenticate`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async parOptionsCustomAs(
@@ -1012,7 +1020,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   async tokenCustomAs(
     p: {
       authorizationServerId: string
-      requestBody: never
+      requestBody: t_TokenRequest
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1023,18 +1031,18 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    return this._fetch(
-      url,
+    const headers = this._headers(
       {
-        method: "POST",
-        // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
-        ...opts,
-        headers,
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      timeout,
+      opts.headers,
     )
+    const body = p.requestBody
+      ? this._toUrlSearchParams(p.requestBody)
+      : undefined
+
+    return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
   async userinfoCustomAs(
