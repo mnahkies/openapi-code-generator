@@ -211,6 +211,10 @@ export const PermissiveBoolean = z.preprocess((value) => {
   return value
 }, z.boolean())
 
+export const PermissiveLiteralTrue = z.preprocess((value) => {
+  return PermissiveBoolean.parse(value)
+}, z.literal(true))
+
 export const s_account_annual_revenue = z.object({
   amount: z.coerce.number().nullable().optional(),
   currency: z.string().nullable().optional(),
@@ -987,19 +991,19 @@ export const s_customer_tax_location = z.object({
 })
 
 export const s_deleted_account = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["account"]),
 })
 
 export const s_deleted_apple_pay_domain = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["apple_pay_domain"]),
 })
 
 export const s_deleted_application = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   name: z.string().max(5000).nullable().optional(),
   object: z.enum(["application"]),
@@ -1007,122 +1011,122 @@ export const s_deleted_application = z.object({
 
 export const s_deleted_bank_account = z.object({
   currency: z.string().max(5000).nullable().optional(),
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["bank_account"]),
 })
 
 export const s_deleted_card = z.object({
   currency: z.string().max(5000).nullable().optional(),
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["card"]),
 })
 
 export const s_deleted_coupon = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["coupon"]),
 })
 
 export const s_deleted_customer = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["customer"]),
 })
 
 export const s_deleted_invoice = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["invoice"]),
 })
 
 export const s_deleted_invoiceitem = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["invoiceitem"]),
 })
 
 export const s_deleted_person = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["person"]),
 })
 
 export const s_deleted_plan = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["plan"]),
 })
 
 export const s_deleted_price = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["price"]),
 })
 
 export const s_deleted_product = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["product"]),
 })
 
 export const s_deleted_product_feature = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["product_feature"]),
 })
 
 export const s_deleted_radar_value_list = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["radar.value_list"]),
 })
 
 export const s_deleted_radar_value_list_item = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["radar.value_list_item"]),
 })
 
 export const s_deleted_subscription_item = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["subscription_item"]),
 })
 
 export const s_deleted_tax_id = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["tax_id"]),
 })
 
 export const s_deleted_terminal_configuration = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["terminal.configuration"]),
 })
 
 export const s_deleted_terminal_location = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["terminal.location"]),
 })
 
 export const s_deleted_terminal_reader = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["terminal.reader"]),
 })
 
 export const s_deleted_test_helpers_test_clock = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["test_helpers.test_clock"]),
 })
 
 export const s_deleted_webhook_endpoint = z.object({
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   object: z.enum(["webhook_endpoint"]),
 })
@@ -12767,7 +12771,7 @@ export const s_deleted_discount: z.ZodType<
     .union([z.string().max(5000), z.lazy(() => s_customer), s_deleted_customer])
     .nullable()
     .optional(),
-  deleted: PermissiveBoolean,
+  deleted: PermissiveLiteralTrue,
   id: z.string().max(5000),
   invoice: z.string().max(5000).nullable().optional(),
   invoice_item: z.string().max(5000).nullable().optional(),

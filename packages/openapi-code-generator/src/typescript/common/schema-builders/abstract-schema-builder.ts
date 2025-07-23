@@ -8,6 +8,7 @@ import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModelArray,
   IRModelBase,
+  IRModelBoolean,
   IRModelNumeric,
   IRModelObject,
   IRModelString,
@@ -229,7 +230,7 @@ export abstract class AbstractSchemaBuilder<
         result = this.number(model)
         break
       case "boolean":
-        result = this.boolean()
+        result = this.boolean(model)
         break
       case "array":
         result = this.array(model, [this.arrayItems(model.items)])
@@ -412,7 +413,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract string(model: IRModelString): string
 
-  protected abstract boolean(): string
+  protected abstract boolean(mode: IRModelBoolean): string
 
   public abstract any(): string
 

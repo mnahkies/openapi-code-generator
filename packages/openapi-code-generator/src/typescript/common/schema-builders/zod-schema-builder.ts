@@ -3,6 +3,7 @@ import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModel,
   IRModelArray,
+  IRModelBoolean,
   IRModelNumeric,
   IRModelString,
   MaybeIRModel,
@@ -31,6 +32,12 @@ export const staticSchemas = {
           }
           return value
         }, ${zod}.boolean())`,
+  PermissiveLiteralTrue: `${zod}.preprocess((value) => {
+          return PermissiveBoolean.parse(value)
+        }, ${zod}.literal(true))`,
+  PermissiveLiteralFalse: `${zod}.preprocess((value) => {
+          return PermissiveBoolean.parse(value)
+        }, ${zod}.literal(false))`,
 }
 type StaticSchemas = typeof staticSchemas
 
@@ -300,12 +307,28 @@ export class ZodBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected boolean() {
+  protected boolean(model: IRModelBoolean) {
     // if a boolean is coming from a query string / url parameter, then we need
     // to be a bit more lenient in our parsing.
     // todo: switch to stricter parsing when property is part of a request body/response
     // todo: might be nice to have an x-extension prop that lets the user define the
     //       true/false mapping in their schema.
+
+    if (model.enum) {
+      this.addStaticSchema("PermissiveBoolean")
+
+      return this.union(
+        model.enum.map((it) => {
+          if (it === "true") {
+            return this.addStaticSchema("PermissiveLiteralTrue")
+          } else if (it === "false") {
+            return this.addStaticSchema("PermissiveLiteralFalse")
+          }
+          throw new Error(`unsupported boolean enum value '${it}'`)
+        }),
+      )
+    }
+
     return this.addStaticSchema("PermissiveBoolean")
   }
 

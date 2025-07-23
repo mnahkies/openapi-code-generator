@@ -2490,19 +2490,19 @@ export type t_customer_tax_location = {
 }
 
 export type t_deleted_account = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "account"
 }
 
 export type t_deleted_apple_pay_domain = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "apple_pay_domain"
 }
 
 export type t_deleted_application = {
-  deleted: boolean
+  deleted: true
   id: string
   name?: string | null
   object: "application"
@@ -2510,26 +2510,26 @@ export type t_deleted_application = {
 
 export type t_deleted_bank_account = {
   currency?: string | null
-  deleted: boolean
+  deleted: true
   id: string
   object: "bank_account"
 }
 
 export type t_deleted_card = {
   currency?: string | null
-  deleted: boolean
+  deleted: true
   id: string
   object: "card"
 }
 
 export type t_deleted_coupon = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "coupon"
 }
 
 export type t_deleted_customer = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "customer"
 }
@@ -2538,7 +2538,7 @@ export type t_deleted_discount = {
   checkout_session?: string | null
   coupon: t_coupon
   customer?: string | t_customer | t_deleted_customer | null
-  deleted: boolean
+  deleted: true
   id: string
   invoice?: string | null
   invoice_item?: string | null
@@ -2552,13 +2552,13 @@ export type t_deleted_discount = {
 export type t_deleted_external_account = t_deleted_bank_account | t_deleted_card
 
 export type t_deleted_invoice = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "invoice"
 }
 
 export type t_deleted_invoiceitem = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "invoiceitem"
 }
@@ -2566,85 +2566,85 @@ export type t_deleted_invoiceitem = {
 export type t_deleted_payment_source = t_deleted_bank_account | t_deleted_card
 
 export type t_deleted_person = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "person"
 }
 
 export type t_deleted_plan = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "plan"
 }
 
 export type t_deleted_price = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "price"
 }
 
 export type t_deleted_product = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "product"
 }
 
 export type t_deleted_product_feature = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "product_feature"
 }
 
 export type t_deleted_radar_value_list = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "radar.value_list"
 }
 
 export type t_deleted_radar_value_list_item = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "radar.value_list_item"
 }
 
 export type t_deleted_subscription_item = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "subscription_item"
 }
 
 export type t_deleted_tax_id = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "tax_id"
 }
 
 export type t_deleted_terminal_configuration = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "terminal.configuration"
 }
 
 export type t_deleted_terminal_location = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "terminal.location"
 }
 
 export type t_deleted_terminal_reader = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "terminal.reader"
 }
 
 export type t_deleted_test_helpers_test_clock = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "test_helpers.test_clock"
 }
 
 export type t_deleted_webhook_endpoint = {
-  deleted: boolean
+  deleted: true
   id: string
   object: "webhook_endpoint"
 }

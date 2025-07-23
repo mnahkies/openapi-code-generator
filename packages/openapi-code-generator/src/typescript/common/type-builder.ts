@@ -159,7 +159,11 @@ export class TypeBuilder implements ICompilable {
         }
 
         case "boolean": {
-          result.push("boolean")
+          if (schemaObject.enum) {
+            result.push(...schemaObject.enum)
+          } else {
+            result.push("boolean")
+          }
           break
         }
 

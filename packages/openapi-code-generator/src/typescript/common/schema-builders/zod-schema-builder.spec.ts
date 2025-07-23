@@ -7,6 +7,7 @@ import type {
   IRModelObject,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
+import {isDefined} from "../../../core/utils"
 import {testVersions} from "../../../test/input.test-utils"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {
@@ -795,6 +796,32 @@ describe.each(testVersions)(
         type: "boolean",
       }
 
+      function inlineStaticSchemas(code: string) {
+        const importRegex = /import { ([^}]+) } from "\.\/unit-test\.schemas"\n/
+
+        const match = code.match(importRegex)?.[1]
+
+        if (match) {
+          const definitions = match
+            .split(",")
+            .map((s) => s.trim())
+            .map((it) => {
+              const definition = Reflect.get(staticSchemas, it)
+
+              if (definition) {
+                return `const ${it} = ${definition}`
+              }
+              return undefined
+            })
+            .filter(isDefined)
+            .join("\n")
+
+          return `${definitions}\n${code.replace(importRegex, "")}`
+        }
+
+        return code
+      }
+
       it("supports plain boolean", async () => {
         const {code} = await getActualFromModel({...base})
 
@@ -811,10 +838,7 @@ describe.each(testVersions)(
           default: false,
         })
 
-        const codeWithoutImport = code.replace(
-          'import { PermissiveBoolean } from "./unit-test.schemas"',
-          `const PermissiveBoolean = ${staticSchemas.PermissiveBoolean}`,
-        )
+        const codeWithoutImport = inlineStaticSchemas(code)
 
         expect(codeWithoutImport).toMatchInlineSnapshot(`
           "const PermissiveBoolean = z.preprocess((value) => {
@@ -840,10 +864,7 @@ describe.each(testVersions)(
           default: true,
         })
 
-        const codeWithoutImport = code.replace(
-          'import { PermissiveBoolean } from "./unit-test.schemas"',
-          `const PermissiveBoolean = ${staticSchemas.PermissiveBoolean}`,
-        )
+        const codeWithoutImport = inlineStaticSchemas(code)
 
         expect(codeWithoutImport).toMatchInlineSnapshot(`
           "const PermissiveBoolean = z.preprocess((value) => {
@@ -861,6 +882,70 @@ describe.each(testVersions)(
         await expect(
           executeBooleanTest(codeWithoutImport, undefined),
         ).resolves.toBe(true)
+      })
+
+      it("support enum of 'true'", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          enum: ["true"],
+        })
+
+        const codeWithoutImport = inlineStaticSchemas(code)
+
+        expect(codeWithoutImport).toMatchInlineSnapshot(`
+          "const PermissiveBoolean = z.preprocess((value) => {
+                    if(typeof value === "string" && (value === "true" || value === "false")) {
+                      return value === "true"
+                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                      return value === 1
+                    }
+                    return value
+                  }, z.boolean())
+          const PermissiveLiteralTrue = z.preprocess((value) => {
+                    return PermissiveBoolean.parse(value)
+                  }, z.literal(true))
+
+          const x = PermissiveLiteralTrue"
+        `)
+
+        await expect(executeBooleanTest(codeWithoutImport, true)).resolves.toBe(
+          true,
+        )
+        await expect(
+          executeBooleanTest(codeWithoutImport, false),
+        ).rejects.toThrow("Invalid literal value, expected true")
+      })
+
+      it("support enum of 'false'", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          enum: ["false"],
+        })
+
+        const codeWithoutImport = inlineStaticSchemas(code)
+
+        expect(codeWithoutImport).toMatchInlineSnapshot(`
+          "const PermissiveBoolean = z.preprocess((value) => {
+                    if(typeof value === "string" && (value === "true" || value === "false")) {
+                      return value === "true"
+                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                      return value === 1
+                    }
+                    return value
+                  }, z.boolean())
+          const PermissiveLiteralFalse = z.preprocess((value) => {
+                    return PermissiveBoolean.parse(value)
+                  }, z.literal(false))
+
+          const x = PermissiveLiteralFalse"
+        `)
+
+        await expect(
+          executeBooleanTest(codeWithoutImport, false),
+        ).resolves.toBe(false)
+        await expect(
+          executeBooleanTest(codeWithoutImport, true),
+        ).rejects.toThrow("Invalid literal value, expected false")
       })
 
       it("PermissiveBoolean works as expected", async () => {

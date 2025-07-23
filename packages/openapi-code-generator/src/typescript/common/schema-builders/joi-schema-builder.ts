@@ -3,6 +3,7 @@ import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModel,
   IRModelArray,
+  IRModelBoolean,
   IRModelNumeric,
   IRModelString,
   MaybeIRModel,
@@ -275,10 +276,23 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected boolean() {
-    return [joi, "boolean()", "truthy(1)", "falsy(0)"]
-      .filter(isDefined)
-      .join(".")
+  protected boolean(model: IRModelBoolean) {
+    const truthy = "truthy(1, '1')"
+    const falsy = "falsy(0, '0')"
+
+    if (model.enum) {
+      return [
+        joi,
+        "boolean()",
+        model.enum.includes("true") ? truthy : undefined,
+        model.enum.includes("false") ? falsy : undefined,
+        `valid(${model.enum.join(", ")})`,
+      ]
+        .filter(isDefined)
+        .join(".")
+    }
+
+    return [joi, "boolean()", truthy, falsy].filter(isDefined).join(".")
   }
 
   public any(): string {
