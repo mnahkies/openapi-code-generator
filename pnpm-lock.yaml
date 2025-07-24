@@ -23,6 +23,9 @@ importers:
       '@biomejs/wasm-nodejs':
         specifier: 2.1.2
         version: 2.1.2
+      '@commander-js/extra-typings':
+        specifier: ^14.0.0
+        version: 14.0.0(commander@14.0.0)
       '@swc/core':
         specifier: ^1.13.0
         version: 1.13.0(@swc/helpers@0.5.17)
@@ -47,6 +50,9 @@ importers:
       ajv-formats:
         specifier: ^3.0.1
         version: 3.0.1(ajv@8.17.1)
+      commander:
+        specifier: ^14.0.0
+        version: 14.0.0
       husky:
         specifier: ^9.1.7
         version: 9.1.7
