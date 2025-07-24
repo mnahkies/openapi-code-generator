@@ -109,6 +109,8 @@ export class ClientOperationBuilder {
     const schema =
       result?.parameter?.schema && this.input.schema(result?.parameter?.schema)
 
+    // todo: consider warning when serializer is URLSearchParams and the schema contains
+    //       constructs that combined with encoding are undefined/implementation defined behavior
     if (schema) {
       if (this.models.isEmptyObject(schema)) {
         logger.warn(
