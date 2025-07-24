@@ -26,7 +26,7 @@ const definitions = execSync("find ./integration-tests-definitions -type f")
 const config = program.parse().opts()
 
 const filteredTemplate = config.template
-const filteredSpec = path.normalize(config.spec)
+const filteredSpec = config.spec ? path.normalize(config.spec) : undefined
 
 console.info("filters", {filteredTemplate, filteredSpec})
 Promise.all(
