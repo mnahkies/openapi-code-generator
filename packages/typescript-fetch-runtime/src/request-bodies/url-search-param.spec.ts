@@ -17,6 +17,7 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
     )
 
     expect(actual.toString()).toStrictEqual(
+      // todo: original example from oas differs, https://github.com/OAI/OpenAPI-Specification/issues/4813
       "id=f81d4fae-7dec-11d0-a765-00a0c91e6bf6&address=%7B%22streetAddress%22%3A%22123+Example+Dr.%22%2C%22city%22%3A%22Somewhere%22%2C%22state%22%3A%22CA%22%2C%22zip%22%3A%2299999%2B1234%22%7D",
     )
   })
@@ -33,10 +34,11 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       explode: false,
       style: "form",
       string: "color=blue",
-      // TODO: is it correct to url encode these?
       array: "color=blue%2Cblack%2Cbrown",
+      // todo: original example from oas differs, https://github.com/OAI/OpenAPI-Specification/issues/4813
       // array: "color=blue,black,brown",
       object: "color=R%2C100%2CG%2C200%2CB%2C150",
+      // todo: original example from oas differs, https://github.com/OAI/OpenAPI-Specification/issues/4813
       // object: "color=R,100,G,200,B,150",
     },
     {
@@ -54,17 +56,11 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       style: "spaceDelimited",
       // note: undefined by spec
       string: "color=blue",
-      // TODO: is it correct to use + for spaces here?
-      //       RFC 1866 suggests yes:
-      //       "The form field names and values are escaped: space
-      //         characters are replaced by `+', and then reserved characters
-      //         are escaped as per [URL]; that is, non-alphanumeric
-      //         characters are replaced by `%HH', a percent sign and two
-      //         hexadecimal digits representing the ASCII code of the
-      //         character."
       array: "color=blue+black+brown",
+      // todo: original example from oas differs, https://github.com/OAI/OpenAPI-Specification/issues/4813
       // array: "color=blue%20black%20brown",
       object: "color=R+100+G+200+B+150",
+      // todo: original example from oas differs, https://github.com/OAI/OpenAPI-Specification/issues/4813
       // object: "color=R%20100%20G%20200%20B%20150",
     },
     {
@@ -90,8 +86,8 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       style: "deepObject",
       // note: undefined by spec
       string: "color=blue",
-      // note: undefined by spec
-      array: "color=blue&color=black&color=brown",
+      // note: undefined by spec; using stripe expectation of `color[0]=blue&color[1]=black&color[2]=brown`
+      array: "color%5B0%5D=blue&color%5B1%5D=black&color%5B2%5D=brown",
       object: "color%5BR%5D=100&color%5BG%5D=200&color%5BB%5D=150",
     },
     {
@@ -138,7 +134,13 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
     },
   )
 
-  describe("stripe style: 'deepObject' explode: true", () => {
+  describe("stripe /v1 api conventions; style: 'deepObject' explode: true", () => {
+    /**
+     * conventions based on the way the stripe nodejs sdk is implemented at time of writing,
+     * https://github.com/stripe/stripe-node/blob/67b2f17c813bef59635baa6d8b3f246a8c355431/src/utils.ts#L53-L69
+     * excluding their use of raw `[` / `]` characters rather than percent-encoded brackets.
+     */
+
     it("serializes a nested object correctly", () => {
       const actual = requestBodyToUrlSearchParams(
         {
@@ -162,6 +164,22 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       expect(actual.toString()).toStrictEqual(
         "components%5Baccount%5D%5Benabled%5D=true&components%5Baccount%5D%5Bfeatures%5D%5Bsome_flag%5D=false&components%5Baccount%5D%5Bfeatures%5D%5Bsome_other_flag%5D=true",
       )
+    })
+
+    it("serializes a nested array correctly", () => {
+      const actual = requestBodyToUrlSearchParams(
+        {
+          arr: ["red", "blue"],
+        },
+        {
+          arr: {
+            explode: true,
+            style: "deepObject",
+          },
+        },
+      )
+
+      expect(actual.toString()).toStrictEqual("arr%5B0%5D=red&arr%5B1%5D=blue")
     })
   })
 })

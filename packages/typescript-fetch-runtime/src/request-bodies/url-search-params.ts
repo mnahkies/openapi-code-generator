@@ -30,6 +30,10 @@ function addArrayValue(
   value: unknown[],
   encoding: Required<Encoding>,
 ) {
+  if (encoding.style === "deepObject" && encoding.explode) {
+    return addObjectValue(result, key, value, encoding)
+  }
+
   if (encoding.explode) {
     for (const it of value) {
       result.append(key, String(it))
