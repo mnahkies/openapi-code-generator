@@ -1,3 +1,4 @@
+import {isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
 import {union} from "../../common/type-utils"
 import {
@@ -14,6 +15,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
         "application/json",
         "application/scim+json",
         "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
         "text/json",
         "text/plain",
         "text/x-markdown",
@@ -184,9 +186,26 @@ ${this.legacyExports(clientName)}
         return `${param} !== undefined ? ${serialize} : null`
       }
 
+      case "URLSearchParams": {
+        const serialize = `this._requestBodyToUrlSearchParams(${[
+          param,
+          requestBody.encoding
+            ? JSON.stringify(requestBody.encoding)
+            : undefined,
+        ]
+          .filter(isDefined)
+          .join(", ")})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
       default: {
         throw new Error(
-          `typescript-axios does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies "URLSearchParams"}'`,
+          `typescript-axios does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies never}'`,
         )
       }
     }
