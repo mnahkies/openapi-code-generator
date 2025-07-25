@@ -162,9 +162,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -189,9 +187,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -217,9 +213,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -358,9 +352,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -404,9 +396,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -460,9 +450,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -488,9 +476,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -592,9 +578,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -720,9 +704,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -749,9 +731,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -779,9 +759,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -809,9 +787,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -838,9 +814,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -897,9 +871,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -928,9 +900,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -1038,9 +1008,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody)
-      : undefined
+    const body = this._requestBodyToUrlSearchParams(p.requestBody)
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }

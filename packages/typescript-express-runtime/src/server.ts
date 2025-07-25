@@ -1,7 +1,7 @@
 import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 
-import type {OptionsJson, OptionsText} from "body-parser"
+import type {OptionsJson, OptionsText, OptionsUrlencoded} from "body-parser"
 import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
 import express, {
   type ErrorRequestHandler,
@@ -83,7 +83,11 @@ export type ServerConfig = {
    **/
   body?:
     | "disabled"
-    | Partial<{json: OptionsJson; text: OptionsText}>
+    | Partial<{
+        json: OptionsJson
+        text: OptionsText
+        urlencoded: OptionsUrlencoded
+      }>
     | undefined
 
   /**
@@ -155,6 +159,7 @@ export async function startServer({
   if (body !== "disabled") {
     app.use(express.json(body?.json))
     app.use(express.text(body?.text))
+    app.use(express.urlencoded(body?.urlencoded ?? {extended: true}))
   }
 
   if (middleware) {

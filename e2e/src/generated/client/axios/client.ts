@@ -4,12 +4,14 @@
 
 import {
   t_Enumerations,
+  t_ProductOrder,
   t_RandomNumber,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
 } from "./models"
 import {
   s_Enumerations,
+  s_ProductOrder,
   s_RandomNumber,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
@@ -249,6 +251,28 @@ export class E2ETestClient extends AbstractAxiosClient {
     })
 
     return {...res, data: z.string().parse(res.data)}
+  }
+
+  async postMediaTypesXWwwFormUrlencoded(
+    p: {
+      requestBody: never
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_ProductOrder>> {
+    const url = `/media-types/x-www-form-urlencoded`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = await this._request({
+      url: url,
+      method: "POST",
+      // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: s_ProductOrder.parse(res.data)}
   }
 }
 

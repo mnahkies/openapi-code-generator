@@ -4,12 +4,14 @@
 
 import {
   t_Enumerations,
+  t_ProductOrder,
   t_RandomNumber,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
 } from "./models"
 import {
   s_Enumerations,
+  s_ProductOrder,
   s_RandomNumber,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
@@ -220,6 +222,34 @@ export class E2ETestClient extends AbstractFetchClient {
     )
 
     return responseValidationFactory([["200", z.string()]], undefined)(res)
+  }
+
+  async postMediaTypesXWwwFormUrlencoded(
+    p: {
+      requestBody: t_ProductOrder
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_ProductOrder>> {
+    const url = this.basePath + `/media-types/x-www-form-urlencoded`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      address: {style: "deepObject", explode: true},
+    })
+
+    const res = this._fetch(
+      url,
+      {method: "POST", body, ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory([["200", s_ProductOrder]], undefined)(res)
   }
 }
 

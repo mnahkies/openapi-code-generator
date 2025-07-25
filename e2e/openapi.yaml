@@ -145,6 +145,28 @@ paths:
               schema:
                 type: string
 
+  /media-types/x-www-form-urlencoded:
+    post:
+      tags:
+        - media types
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductOrder'
+            encoding:
+              address:
+                style: deepObject
+                explode: true
+        required: true
+      responses:
+        200:
+          description: Echoed back as JSON
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductOrder'
+
 components:
   responses:
     GetHeaders:
@@ -194,3 +216,18 @@ components:
               type: array
               items:
                 type: number
+    ProductOrder:
+      type: object
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: number
+          minimum: 1
+        address:
+          type: object
+          properties:
+            address1:
+              type: string
+            postcode:
+              type: string

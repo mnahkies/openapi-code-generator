@@ -2,7 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_PostMediaTypesTextRequestBodySchema} from "../models"
+import {
+  t_PostMediaTypesTextRequestBodySchema,
+  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
+  t_ProductOrder,
+} from "../models"
+import {s_ProductOrder} from "../schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -33,8 +38,26 @@ export type PostMediaTypesText = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostMediaTypesXWwwFormUrlencodedResponder = {
+  with200(): ExpressRuntimeResponse<t_ProductOrder>
+} & ExpressRuntimeResponder
+
+export type PostMediaTypesXWwwFormUrlencoded = (
+  params: Params<
+    void,
+    void,
+    t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
+    void
+  >,
+  respond: PostMediaTypesXWwwFormUrlencodedResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type MediaTypesImplementation = {
   postMediaTypesText: PostMediaTypesText
+  postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded
 }
 
 export function createMediaTypesRouter(
@@ -94,6 +117,67 @@ export function createMediaTypesRouter(
 
         if (body !== undefined) {
           res.json(postMediaTypesTextResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postMediaTypesXWwwFormUrlencodedRequestBodySchema = s_ProductOrder
+
+  const postMediaTypesXWwwFormUrlencodedResponseBodyValidator =
+    responseValidationFactory([["200", s_ProductOrder]], undefined)
+
+  // postMediaTypesXWwwFormUrlencoded
+  router.post(
+    `/media-types/x-www-form-urlencoded`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            postMediaTypesXWwwFormUrlencodedRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_ProductOrder>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postMediaTypesXWwwFormUrlencoded(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const {status, body} =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postMediaTypesXWwwFormUrlencodedResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }

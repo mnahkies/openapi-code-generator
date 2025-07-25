@@ -7,6 +7,17 @@ export type t_Enumerations = {
   starRatings: 1 | 2 | 3
 }
 
+export type t_ProductOrder = {
+  address?:
+    | {
+        address1?: string | undefined
+        postcode?: string | undefined
+      }
+    | undefined
+  quantity?: number | undefined
+  sku?: string | undefined
+}
+
 export type t_RandomNumber = {
   params?:
     | {
@@ -43,6 +54,17 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
 }
 
 export type t_PostMediaTypesTextBodySchema = string
+
+export type t_PostMediaTypesXWwwFormUrlencodedBodySchema = {
+  address?:
+    | {
+        address1?: string | undefined
+        postcode?: string | undefined
+      }
+    | undefined
+  quantity?: number | undefined
+  sku?: string | undefined
+}
 
 export type t_PostValidationEnumsBodySchema = {
   colors: "red" | "green" | "blue"

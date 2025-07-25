@@ -147,20 +147,30 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
       )
     }
 
+    const param = `p.${requestBody.parameter.name}`
+
     switch (requestBody.serializer) {
       case "JSON.stringify":
-        return `JSON.stringify(p.${requestBody.parameter.name})`
+        return `JSON.stringify(${param})`
       case "String":
-        return `p.${requestBody.parameter.name}`
-      case "URLSearchParams":
-        return `p.${requestBody.parameter.name} ? this._requestBodyToUrlSearchParams(${[
-          `p.${requestBody.parameter.name}`,
+        return `${param}`
+      case "URLSearchParams": {
+        const serialize = `this._requestBodyToUrlSearchParams(${[
+          param,
           requestBody.encoding
             ? JSON.stringify(requestBody.encoding)
             : undefined,
         ]
           .filter(isDefined)
-          .join(", ")}) : undefined`
+          .join(", ")})`
+
+        if (requestBody.parameter.required) {
+          return `${serialize}`
+        }
+
+        return `${param} ? ${serialize} : undefined`
+      }
+
       default: {
         throw new Error(
           `typescript-fetch does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies never}'`,

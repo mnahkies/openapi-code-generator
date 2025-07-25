@@ -79,18 +79,25 @@ import {
 import {
   s_AcrValue,
   s_AmrValue,
+  s_AuthorizeWithPost,
+  s_BackchannelAuthorizeRequest,
   s_BackchannelAuthorizeResponse,
+  s_ChallengeRequest,
   s_ChallengeResponse,
   s_Client,
   s_CodeChallengeMethod,
+  s_DeviceAuthorizeRequest,
   s_DeviceAuthorizeResponse,
   s_Error,
   s_GlobalTokenRevocationRequest,
+  s_IntrospectionRequest,
   s_IntrospectionResponse,
+  s_LogoutWithPost,
   s_OAuthError,
   s_OAuthKeys,
   s_OAuthMetadata,
   s_OidcMetadata,
+  s_OobAuthenticateRequest,
   s_OobAuthenticateResponse,
   s_ParRequest,
   s_ParResponse,
@@ -98,6 +105,7 @@ import {
   s_ResponseMode,
   s_ResponseTypesSupported,
   s_RevokeRequest,
+  s_TokenRequest,
   s_TokenResponse,
   s_UserInfo,
 } from "./schemas"
@@ -1198,9 +1206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const authorizeWithPostBodySchema = z.never()
+  const authorizeWithPostBodySchema = s_AuthorizeWithPost
 
   const authorizeWithPostResponseValidator = responseValidationFactory(
     [["429", s_Error]],
@@ -1251,9 +1257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const bcAuthorizeBodySchema = z.never()
+  const bcAuthorizeBodySchema = s_BackchannelAuthorizeRequest
 
   const bcAuthorizeResponseValidator = responseValidationFactory(
     [
@@ -1314,9 +1318,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const challengeBodySchema = z.never()
+  const challengeBodySchema = s_ChallengeRequest
 
   const challengeResponseValidator = responseValidationFactory(
     [
@@ -1769,9 +1771,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const deviceAuthorizeBodySchema = z.never()
+  const deviceAuthorizeBodySchema = s_DeviceAuthorizeRequest
 
   const deviceAuthorizeResponseValidator = responseValidationFactory(
     [
@@ -1901,9 +1901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const introspectBodySchema = z.never()
+  const introspectBodySchema = s_IntrospectionRequest
 
   const introspectResponseValidator = responseValidationFactory(
     [
@@ -2074,9 +2072,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const logoutWithPostBodySchema = z.never()
+  const logoutWithPostBodySchema = s_LogoutWithPost
 
   const logoutWithPostResponseValidator = responseValidationFactory(
     [
@@ -2129,9 +2125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const oobAuthenticateBodySchema = z.never()
+  const oobAuthenticateBodySchema = s_OobAuthenticateRequest
 
   const oobAuthenticateResponseValidator = responseValidationFactory(
     [
@@ -2432,9 +2426,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const tokenBodySchema = z.never()
+  const tokenBodySchema = s_TokenRequest
 
   const tokenResponseValidator = responseValidationFactory(
     [
@@ -2784,9 +2776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const authorizeCustomAsWithPostBodySchema = z.never()
+  const authorizeCustomAsWithPostBodySchema = s_AuthorizeWithPost
 
   const authorizeCustomAsWithPostResponseValidator = responseValidationFactory(
     [["429", s_Error]],
@@ -2845,9 +2835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const bcAuthorizeCustomAsBodySchema = z.never()
+  const bcAuthorizeCustomAsBodySchema = s_BackchannelAuthorizeRequest
 
   const bcAuthorizeCustomAsResponseValidator = responseValidationFactory(
     [
@@ -2920,9 +2908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const challengeCustomAsBodySchema = z.never()
+  const challengeCustomAsBodySchema = s_ChallengeRequest
 
   const challengeCustomAsResponseValidator = responseValidationFactory(
     [
@@ -2999,9 +2985,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const deviceAuthorizeCustomAsBodySchema = z.never()
+  const deviceAuthorizeCustomAsBodySchema = s_DeviceAuthorizeRequest
 
   const deviceAuthorizeCustomAsResponseValidator = responseValidationFactory(
     [
@@ -3074,9 +3058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const introspectCustomAsBodySchema = z.never()
+  const introspectCustomAsBodySchema = s_IntrospectionRequest
 
   const introspectCustomAsResponseValidator = responseValidationFactory(
     [
@@ -3277,9 +3259,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const logoutCustomAsWithPostBodySchema = z.never()
+  const logoutCustomAsWithPostBodySchema = s_LogoutWithPost
 
   const logoutCustomAsWithPostResponseValidator = responseValidationFactory(
     [
@@ -3344,9 +3324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const oobAuthenticateCustomAsBodySchema = z.never()
+  const oobAuthenticateCustomAsBodySchema = s_OobAuthenticateRequest
 
   const oobAuthenticateCustomAsResponseValidator = responseValidationFactory(
     [
@@ -3703,9 +3681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const tokenCustomAsBodySchema = z.never()
+  const tokenCustomAsBodySchema = s_TokenRequest
 
   const tokenCustomAsResponseValidator = responseValidationFactory(
     [
