@@ -46,3 +46,7 @@ export const s_getHeadersRequestJson200Response = z.object({
   rawHeaders: z.unknown().optional(),
   typedHeaders: z.unknown().optional(),
 })
+
+export const s_postValidationOptionalBodyJson200Response = z.object({
+  id: z.string().optional(),
+})

@@ -6,9 +6,16 @@ import {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,
   t_PostValidationEnumsRequestBodySchema,
+  t_PostValidationOptionalBodyRequestBodySchema,
   t_RandomNumber,
+  t_postValidationOptionalBodyJson200Response,
 } from "../models"
-import {s_Enumerations, s_RandomNumber} from "../schemas"
+import {
+  s_Enumerations,
+  s_RandomNumber,
+  s_postValidationOptionalBodyJson200Response,
+  s_postValidationOptionalBodyJsonRequestBody,
+} from "../schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -56,6 +63,24 @@ export type PostValidationEnums = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostValidationOptionalBodyResponder = {
+  with200(): ExpressRuntimeResponse<t_postValidationOptionalBodyJson200Response>
+  with204(): ExpressRuntimeResponse<void>
+} & ExpressRuntimeResponder
+
+export type PostValidationOptionalBody = (
+  params: Params<
+    void,
+    void,
+    t_PostValidationOptionalBodyRequestBodySchema | undefined,
+    void
+  >,
+  respond: PostValidationOptionalBodyResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type GetResponses500Responder = {
   with500(): ExpressRuntimeResponse<void>
 } & ExpressRuntimeResponder
@@ -83,6 +108,7 @@ export type GetResponsesEmpty = (
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
   postValidationEnums: PostValidationEnums
+  postValidationOptionalBody: PostValidationOptionalBody
   getResponses500: GetResponses500
   getResponsesEmpty: GetResponsesEmpty
 }
@@ -214,6 +240,79 @@ export function createValidationRouter(
 
         if (body !== undefined) {
           res.json(postValidationEnumsResponseBodyValidator(status, body))
+        } else {
+          res.end()
+        }
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
+
+  const postValidationOptionalBodyRequestBodySchema =
+    s_postValidationOptionalBodyJsonRequestBody.optional()
+
+  const postValidationOptionalBodyResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_postValidationOptionalBodyJson200Response],
+        ["204", z.undefined()],
+      ],
+      undefined,
+    )
+
+  // postValidationOptionalBody
+  router.post(
+    `/validation/optional-body`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            postValidationOptionalBodyRequestBodySchema,
+            req.body,
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
+        }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<t_postValidationOptionalBodyJson200Response>(
+              200,
+            )
+          },
+          with204() {
+            return new ExpressRuntimeResponse<void>(204)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postValidationOptionalBody(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const {status, body} =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        res.status(status)
+
+        if (body !== undefined) {
+          res.json(
+            postValidationOptionalBodyResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }

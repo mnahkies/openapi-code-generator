@@ -6,9 +6,16 @@ import {
   t_Enumerations,
   t_GetValidationNumbersRandomNumberQuerySchema,
   t_PostValidationEnumsBodySchema,
+  t_PostValidationOptionalBodyBodySchema,
   t_RandomNumber,
+  t_postValidationOptionalBodyJson200Response,
 } from "../models"
-import {s_Enumerations, s_RandomNumber} from "../schemas"
+import {
+  s_Enumerations,
+  s_RandomNumber,
+  s_postValidationOptionalBodyJson200Response,
+  s_postValidationOptionalBodyJsonRequestBody,
+} from "../schemas"
 import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
@@ -64,6 +71,28 @@ export type PostValidationEnums = (
   | typeof SkipResponse
 >
 
+export type PostValidationOptionalBodyResponder = {
+  with200(): KoaRuntimeResponse<t_postValidationOptionalBodyJson200Response>
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type PostValidationOptionalBody = (
+  params: Params<
+    void,
+    void,
+    t_PostValidationOptionalBodyBodySchema | undefined,
+    void
+  >,
+  respond: PostValidationOptionalBodyResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_postValidationOptionalBodyJson200Response>
+  | Response<204, void>
+  | typeof SkipResponse
+>
+
 export type GetResponses500Responder = {
   with500(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -93,6 +122,7 @@ export type GetResponsesEmpty = (
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
   postValidationEnums: PostValidationEnums
+  postValidationOptionalBody: PostValidationOptionalBody
   getResponses500: GetResponses500
   getResponsesEmpty: GetResponsesEmpty
 }
@@ -206,6 +236,66 @@ export function createValidationRouter(
     ctx.status = status
     return next()
   })
+
+  const postValidationOptionalBodyBodySchema =
+    s_postValidationOptionalBodyJsonRequestBody.optional()
+
+  const postValidationOptionalBodyResponseValidator = responseValidationFactory(
+    [
+      ["200", s_postValidationOptionalBodyJson200Response],
+      ["204", z.undefined()],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "postValidationOptionalBody",
+    "/validation/optional-body",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          postValidationOptionalBodyBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_postValidationOptionalBodyJson200Response>(
+            200,
+          )
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postValidationOptionalBody(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postValidationOptionalBodyResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const getResponses500ResponseValidator = responseValidationFactory(
     [["500", z.undefined()]],

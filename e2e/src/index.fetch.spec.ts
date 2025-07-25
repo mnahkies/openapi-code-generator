@@ -342,6 +342,23 @@ describe.each(startServerFunctions)(
       // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
     })
 
+    describe("POST /validation/optional-body", () => {
+      it("should send and accept the body if passed", async () => {
+        const res = await client.postValidationOptionalBody({
+          requestBody: {id: "123"},
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toMatchObject({id: "123"})
+      })
+      it("should omit the body if not passed", async () => {
+        const res = await client.postValidationOptionalBody()
+
+        await expect(res.text()).resolves.toBe("")
+        expect(res.status).toBe(204)
+      })
+    })
+
     describe("GET /responses/empty", () => {
       it("returns undefined", async () => {
         const res = await client.getResponsesEmpty()

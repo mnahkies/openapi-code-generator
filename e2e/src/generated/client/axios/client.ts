@@ -8,6 +8,8 @@ import {
   t_RandomNumber,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
+  t_postValidationOptionalBodyJson200Response,
+  t_postValidationOptionalBodyJsonRequestBody,
 } from "./models"
 import {
   s_Enumerations,
@@ -15,6 +17,7 @@ import {
   s_RandomNumber,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
+  s_postValidationOptionalBodyJson200Response,
 } from "./schemas"
 import {
   AbstractAxiosClient,
@@ -175,6 +178,43 @@ export class E2ETestClient extends AbstractAxiosClient {
     return {...res, data: s_Enumerations.parse(res.data)}
   }
 
+  async postValidationOptionalBody(
+    p: {
+      requestBody?: t_postValidationOptionalBodyJsonRequestBody
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    | AxiosResponse<t_postValidationOptionalBodyJson200Response>
+    | AxiosResponse<void>
+  > {
+    const url = `/validation/optional-body`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
+
+    const res = await this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {
+      ...res,
+      data: s_postValidationOptionalBodyJson200Response.parse(res.data),
+    }
+  }
+
   async getResponses500(
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -189,24 +229,6 @@ export class E2ETestClient extends AbstractAxiosClient {
       ...opts,
       headers,
     })
-  }
-
-  async getEscapeHatchesPlainText(
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<string>> {
-    const url = `/escape-hatches/plain-text`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    const res = await this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? {timeout} : {}),
-      ...opts,
-      headers,
-    })
-
-    return {...res, data: z.string().parse(res.data)}
   }
 
   async getResponsesEmpty(
@@ -239,7 +261,7 @@ export class E2ETestClient extends AbstractAxiosClient {
       {Accept: "application/json", "Content-Type": "text/plain"},
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body = p.requestBody
 
     const res = await this._request({
       url: url,
@@ -273,6 +295,24 @@ export class E2ETestClient extends AbstractAxiosClient {
     })
 
     return {...res, data: s_ProductOrder.parse(res.data)}
+  }
+
+  async getEscapeHatchesPlainText(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<string>> {
+    const url = `/escape-hatches/plain-text`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = await this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? {timeout} : {}),
+      ...opts,
+      headers,
+    })
+
+    return {...res, data: z.string().parse(res.data)}
   }
 }
 

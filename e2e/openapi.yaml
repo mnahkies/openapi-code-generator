@@ -53,6 +53,7 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/GetHeaders'
+
   /validation/numbers/random-number:
     get:
       tags:
@@ -101,6 +102,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Enumerations'
+  /validation/optional-body:
+    post:
+      tags:
+       - validation
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+        204:
+          description: ok
   /responses/500:
     get:
       tags:
@@ -108,17 +134,6 @@ paths:
       responses:
         500:
           description: Internal Server Error
-  /escape-hatches/plain-text:
-    get:
-      tags:
-        - escape hatches
-      responses:
-        200:
-          description: 'ok'
-          content:
-            text/plain:
-              schema:
-                type: string
   /responses/empty:
     get:
       tags:
@@ -144,7 +159,6 @@ paths:
             text/html:
               schema:
                 type: string
-
   /media-types/x-www-form-urlencoded:
     post:
       tags:
@@ -166,6 +180,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProductOrder'
+
+  /escape-hatches/plain-text:
+    get:
+      tags:
+        - escape hatches
+      responses:
+        200:
+          description: 'ok'
+          content:
+            text/plain:
+              schema:
+                type: string
 
 components:
   responses:

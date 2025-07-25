@@ -46,3 +46,11 @@ export type t_getHeadersUndeclaredJson200Response = {
   rawHeaders?: unknown | undefined
   typedHeaders?: unknown | undefined
 }
+
+export type t_postValidationOptionalBodyJson200Response = {
+  id?: string | undefined
+}
+
+export type t_postValidationOptionalBodyJsonRequestBody = {
+  id?: string | undefined
+}

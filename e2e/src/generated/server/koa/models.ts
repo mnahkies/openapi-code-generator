@@ -70,3 +70,11 @@ export type t_PostValidationEnumsBodySchema = {
   colors: "red" | "green" | "blue"
   starRatings: 1 | 2 | 3
 }
+
+export type t_PostValidationOptionalBodyBodySchema = {
+  id?: string | undefined
+}
+
+export type t_postValidationOptionalBodyJson200Response = {
+  id?: string | undefined
+}

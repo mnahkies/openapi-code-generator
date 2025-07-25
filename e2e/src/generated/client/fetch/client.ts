@@ -8,6 +8,8 @@ import {
   t_RandomNumber,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
+  t_postValidationOptionalBodyJson200Response,
+  t_postValidationOptionalBodyJsonRequestBody,
 } from "./models"
 import {
   s_Enumerations,
@@ -15,6 +17,7 @@ import {
   s_RandomNumber,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
+  s_postValidationOptionalBodyJson200Response,
 } from "./schemas"
 import {
   AbstractFetchClient,
@@ -165,6 +168,42 @@ export class E2ETestClient extends AbstractFetchClient {
     return responseValidationFactory([["200", s_Enumerations]], undefined)(res)
   }
 
+  async postValidationOptionalBody(
+    p: {
+      requestBody?: t_postValidationOptionalBodyJsonRequestBody
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_postValidationOptionalBodyJson200Response> | Res<204, void>
+  > {
+    const url = this.basePath + `/validation/optional-body`
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
+      opts.headers,
+    )
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
+
+    const res = this._fetch(
+      url,
+      {method: "POST", body, ...opts, headers},
+      timeout,
+    )
+
+    return responseValidationFactory(
+      [
+        ["200", s_postValidationOptionalBodyJson200Response],
+        ["204", z.any()],
+      ],
+      undefined,
+    )(res)
+  }
+
   async getResponses500(
     timeout?: number,
     opts: RequestInit = {},
@@ -175,18 +214,6 @@ export class E2ETestClient extends AbstractFetchClient {
     const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
 
     return responseValidationFactory([["500", z.any()]], undefined)(res)
-  }
-
-  async getEscapeHatchesPlainText(
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<Res<200, string>> {
-    const url = this.basePath + `/escape-hatches/plain-text`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
-
-    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
-
-    return responseValidationFactory([["200", z.string()]], undefined)(res)
   }
 
   async getResponsesEmpty(
@@ -250,6 +277,18 @@ export class E2ETestClient extends AbstractFetchClient {
     )
 
     return responseValidationFactory([["200", s_ProductOrder]], undefined)(res)
+  }
+
+  async getEscapeHatchesPlainText(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, string>> {
+    const url = this.basePath + `/escape-hatches/plain-text`
+    const headers = this._headers({Accept: "application/json"}, opts.headers)
+
+    const res = this._fetch(url, {method: "GET", ...opts, headers}, timeout)
+
+    return responseValidationFactory([["200", z.string()]], undefined)(res)
   }
 }
 

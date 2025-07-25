@@ -331,11 +331,32 @@ describe.each(startServerFunctions)(
       // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
     })
 
+    describe("POST /validation/optional-body", () => {
+      it("should send and accept the body if passed", async () => {
+        const res = await client.postValidationOptionalBody({
+          requestBody: {id: "123"},
+        })
+
+        expect(res.status).toBe(200)
+        expect(res.data).toMatchObject({id: "123"})
+      })
+      // TODO: axios' default response parsing doesn't handle endpoints that return optional responses well
+      //       probably need to implement our own transformResponse function that is aware of the expected
+      //       status code / content-types and parses appropriately, or uses the content-type response header.
+      it.skip("should omit the body if not passed", async () => {
+        const res = await client.postValidationOptionalBody()
+
+        expect(res.data).toEqual(undefined)
+        expect(res.status).toBe(204)
+      })
+    })
+
     describe("GET /responses/empty", () => {
       it("returns undefined", async () => {
         const {status, data} = await client.getResponsesEmpty()
 
         expect(status).toBe(204)
+        // TODO: this should really be undefined
         expect(data).toEqual("")
       })
     })
@@ -378,6 +399,7 @@ describe.each(startServerFunctions)(
         await expect(res.data).toBe("Some plain text")
       })
     })
+
     describe.skip("POST /media-types/x-www-form-urlencoded", () => {
       it("can send and parse application/x-www-form-urlencoded request bodies", async () => {
         const productOrder = {
