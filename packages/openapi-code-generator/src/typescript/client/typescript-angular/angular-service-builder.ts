@@ -35,7 +35,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
     const operationParameter = builder.methodParameter()
 
     const queryString = builder.queryString()
-    const headers = builder.headers()
+    const headers = builder.headers({nullContentTypeValue: "undefined"})
 
     const returnType = builder
       .returnType()

@@ -60,7 +60,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
     const operationParameter = builder.methodParameter()
 
     const queryString = builder.queryString()
-    const headers = builder.headers()
+    const headers = builder.headers({nullContentTypeValue: "undefined"})
 
     const returnType = builder
       .returnType()
@@ -150,10 +150,26 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
     const param = `p.${requestBody.parameter.name}`
 
     switch (requestBody.serializer) {
-      case "JSON.stringify":
-        return `JSON.stringify(${param})`
-      case "String":
-        return `${param}`
+      case "JSON.stringify": {
+        const serialize = `JSON.stringify(${param})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "String": {
+        const serialize = param
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
       case "URLSearchParams": {
         const serialize = `this._requestBodyToUrlSearchParams(${[
           param,
@@ -165,10 +181,10 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
           .join(", ")})`
 
         if (requestBody.parameter.required) {
-          return `${serialize}`
+          return serialize
         }
 
-        return `${param} ? ${serialize} : undefined`
+        return `${param} !== undefined ? ${serialize} : null`
       }
 
       default: {

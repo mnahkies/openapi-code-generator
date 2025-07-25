@@ -141,7 +141,11 @@ export class ClientOperationBuilder {
       .join(",\n")
   }
 
-  headers(): string {
+  headers({
+    nullContentTypeValue,
+  }: {
+    nullContentTypeValue: "undefined" | "false"
+  }): string {
     const {parameters} = this.operation
 
     const paramHeaders = parameters
@@ -152,14 +156,17 @@ export class ClientOperationBuilder {
     const hasContentTypeHeader = this.hasHeader("Content-Type")
     const requestBody = this.requestBodyAsParameter()
 
-    const result = [
-      // todo: generate prioritized accept header on supported content-type union
-      hasAcceptHeader ? undefined : "'Accept': 'application/json'",
+    const contentTypeHeader =
       !hasContentTypeHeader &&
       requestBody?.contentType &&
       requestBody.isSupported
-        ? `'Content-Type': '${requestBody.contentType}'`
-        : undefined,
+        ? `'Content-Type': ${requestBody.parameter.required ? `'${requestBody.contentType}'` : `p.${requestBody.parameter.name} !== undefined ? '${requestBody.contentType}' : ${nullContentTypeValue}`} `
+        : undefined
+
+    const result = [
+      // todo: generate prioritized accept header on supported content-type union
+      hasAcceptHeader ? undefined : "'Accept': 'application/json'",
+      contentTypeHeader,
     ]
       .concat(paramHeaders)
       .filter(isDefined)
