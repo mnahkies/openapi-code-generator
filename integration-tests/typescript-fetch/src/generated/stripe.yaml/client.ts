@@ -279,7 +279,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           collection_options: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -435,7 +435,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           components: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -1078,7 +1078,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_account: {explode: true, style: "deepObject"},
           business_profile: {explode: true, style: "deepObject"},
           capabilities: {explode: true, style: "deepObject"},
@@ -1677,7 +1677,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           business_profile: {explode: true, style: "deepObject"},
           capabilities: {explode: true, style: "deepObject"},
           company: {explode: true, style: "deepObject"},
@@ -1743,7 +1743,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_account: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -1839,7 +1839,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           documents: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -1916,7 +1916,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -2009,7 +2009,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_account: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -2108,7 +2108,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           documents: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -2137,7 +2137,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -2356,7 +2356,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           additional_tos_acceptances: {explode: true, style: "deepObject"},
           address: {explode: true, style: "deepObject"},
           address_kana: {explode: true, style: "deepObject"},
@@ -2578,7 +2578,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           additional_tos_acceptances: {explode: true, style: "deepObject"},
           address: {explode: true, style: "deepObject"},
           address_kana: {explode: true, style: "deepObject"},
@@ -2809,7 +2809,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           additional_tos_acceptances: {explode: true, style: "deepObject"},
           address: {explode: true, style: "deepObject"},
           address_kana: {explode: true, style: "deepObject"},
@@ -3031,7 +3031,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           additional_tos_acceptances: {explode: true, style: "deepObject"},
           address: {explode: true, style: "deepObject"},
           address_kana: {explode: true, style: "deepObject"},
@@ -3071,7 +3071,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -3133,7 +3133,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -3257,7 +3257,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -3302,7 +3302,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -3367,7 +3367,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -3439,7 +3439,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           scope: {explode: true, style: "deepObject"},
         })
@@ -3471,7 +3471,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           scope: {explode: true, style: "deepObject"},
         })
@@ -3713,7 +3713,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           usage_threshold: {explode: true, style: "deepObject"},
         })
@@ -3756,7 +3756,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -3783,7 +3783,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -3810,7 +3810,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -3981,7 +3981,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           amount: {explode: true, style: "deepObject"},
           applicability_config: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -4030,7 +4030,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           expires_at: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -4059,7 +4059,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -4086,7 +4086,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -4119,7 +4119,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           cancel: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -4152,7 +4152,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           payload: {explode: true, style: "deepObject"},
         })
@@ -4227,7 +4227,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           customer_mapping: {explode: true, style: "deepObject"},
           default_aggregation: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -4273,7 +4273,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -4300,7 +4300,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -4369,7 +4369,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -4527,7 +4527,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           business_profile: {explode: true, style: "deepObject"},
           default_return_url: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -4680,7 +4680,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           business_profile: {explode: true, style: "deepObject"},
           default_return_url: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -4809,7 +4809,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           flow_data: {explode: true, style: "deepObject"},
         })
@@ -4949,7 +4949,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           card: {explode: true, style: "deepObject"},
           destination: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -5059,7 +5059,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           fraud_details: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -5099,7 +5099,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           transfer_data: {explode: true, style: "deepObject"},
         })
@@ -5237,7 +5237,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           evidence: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -5266,7 +5266,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -5309,7 +5309,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -5390,7 +5390,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -5443,7 +5443,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -6552,7 +6552,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           adaptive_pricing: {explode: true, style: "deepObject"},
           after_expiration: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -6695,7 +6695,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           collected_information: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -6725,7 +6725,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -6829,7 +6829,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           beneficiary: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -6882,7 +6882,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           beneficiary: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -6911,7 +6911,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -7164,7 +7164,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           applies_to: {explode: true, style: "deepObject"},
           currency_options: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -7236,7 +7236,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           currency_options: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -7355,7 +7355,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           lines: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -7598,7 +7598,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -7626,7 +7626,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -7689,7 +7689,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           components: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -7959,7 +7959,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           address: {explode: true, style: "deepObject"},
           cash_balance: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -8177,7 +8177,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           address: {explode: true, style: "deepObject"},
           bank_account: {explode: true, style: "deepObject"},
           card: {explode: true, style: "deepObject"},
@@ -8260,7 +8260,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -8320,7 +8320,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -8420,7 +8420,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_account: {explode: true, style: "deepObject"},
           card: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -8455,7 +8455,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -8533,7 +8533,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           owner: {explode: true, style: "deepObject"},
@@ -8566,7 +8566,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           amounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -8666,7 +8666,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_account: {explode: true, style: "deepObject"},
           card: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -8701,7 +8701,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -8779,7 +8779,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           owner: {explode: true, style: "deepObject"},
@@ -8830,7 +8830,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           settings: {explode: true, style: "deepObject"},
         })
@@ -8963,7 +8963,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_transfer: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -9174,7 +9174,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bank_account: {explode: true, style: "deepObject"},
           card: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -9209,7 +9209,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -9287,7 +9287,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           owner: {explode: true, style: "deepObject"},
@@ -9319,7 +9319,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           amounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -9689,7 +9689,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           add_invoice_items: {explode: true, style: "deepObject"},
           application_fee_percent: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -9735,7 +9735,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -10123,7 +10123,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           add_invoice_items: {explode: true, style: "deepObject"},
           application_fee_percent: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -10349,7 +10349,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -10564,7 +10564,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           evidence: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -10593,7 +10593,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -10714,7 +10714,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -10765,7 +10765,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -10796,7 +10796,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -10823,7 +10823,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -10994,7 +10994,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           documents: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -11076,7 +11076,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -11126,7 +11126,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           expires_at: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -11319,7 +11319,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -11394,7 +11394,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           features: {explode: true, style: "deepObject"},
         })
@@ -11427,7 +11427,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           features: {explode: true, style: "deepObject"},
         })
@@ -11460,7 +11460,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           features: {explode: true, style: "deepObject"},
         })
@@ -11519,7 +11519,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           account_holder: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           filters: {explode: true, style: "deepObject"},
@@ -11694,7 +11694,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           replacements: {explode: true, style: "deepObject"},
@@ -11891,7 +11891,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           options: {explode: true, style: "deepObject"},
@@ -11967,7 +11967,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           options: {explode: true, style: "deepObject"},
@@ -12001,7 +12001,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -12032,7 +12032,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -12173,7 +12173,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -12204,7 +12204,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -12326,7 +12326,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           discounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -12432,7 +12432,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           discounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -12825,7 +12825,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           account_tax_ids: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
           custom_fields: {explode: true, style: "deepObject"},
@@ -13295,7 +13295,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           automatic_tax: {explode: true, style: "deepObject"},
           customer_details: {explode: true, style: "deepObject"},
           discounts: {explode: true, style: "deepObject"},
@@ -13683,7 +13683,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           account_tax_ids: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
           custom_fields: {explode: true, style: "deepObject"},
@@ -13838,7 +13838,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           invoice_metadata: {explode: true, style: "deepObject"},
           lines: {explode: true, style: "deepObject"},
@@ -13868,7 +13868,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -13896,7 +13896,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -14062,7 +14062,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           discounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -14097,7 +14097,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -14130,7 +14130,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           mandate: {explode: true, style: "deepObject"},
         })
@@ -14168,7 +14168,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           invoice_metadata: {explode: true, style: "deepObject"},
           lines: {explode: true, style: "deepObject"},
@@ -14197,7 +14197,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -14336,7 +14336,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           invoice_metadata: {explode: true, style: "deepObject"},
           lines: {explode: true, style: "deepObject"},
@@ -14365,7 +14365,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -14468,7 +14468,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -14504,7 +14504,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -14539,7 +14539,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -15577,7 +15577,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing: {explode: true, style: "deepObject"},
           company: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -16584,7 +16584,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing: {explode: true, style: "deepObject"},
           company: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -17626,7 +17626,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           pin: {explode: true, style: "deepObject"},
@@ -18619,7 +18619,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           pin: {explode: true, style: "deepObject"},
@@ -18824,7 +18824,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           evidence: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -18991,7 +18991,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           evidence: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -19026,7 +19026,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -19119,7 +19119,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           carrier_text: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -19192,7 +19192,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           card_logo: {explode: true, style: "deepObject"},
           carrier_text: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -19296,7 +19296,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -19391,7 +19391,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -19487,7 +19487,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -19546,7 +19546,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           account_holder: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           filters: {explode: true, style: "deepObject"},
@@ -19653,7 +19653,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -19724,7 +19724,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           features: {explode: true, style: "deepObject"},
         })
@@ -20914,7 +20914,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           automatic_payment_methods: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           mandate_data: {explode: true, style: "deepObject"},
@@ -22085,7 +22085,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           application_fee_amount: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -22124,7 +22124,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -22157,7 +22157,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -22198,7 +22198,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           transfer_data: {explode: true, style: "deepObject"},
@@ -23322,7 +23322,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           mandate_data: {explode: true, style: "deepObject"},
           off_session: {explode: true, style: "deepObject"},
@@ -23369,7 +23369,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           transfer_data: {explode: true, style: "deepObject"},
@@ -23402,7 +23402,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           amounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -23959,7 +23959,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           after_completion: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
           consent_collection: {explode: true, style: "deepObject"},
@@ -24499,7 +24499,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           after_completion: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
           custom_fields: {explode: true, style: "deepObject"},
@@ -24874,7 +24874,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           acss_debit: {explode: true, style: "deepObject"},
           affirm: {explode: true, style: "deepObject"},
           afterpay_clearpay: {explode: true, style: "deepObject"},
@@ -25236,7 +25236,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           acss_debit: {explode: true, style: "deepObject"},
           affirm: {explode: true, style: "deepObject"},
           afterpay_clearpay: {explode: true, style: "deepObject"},
@@ -25353,7 +25353,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -25398,7 +25398,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -25427,7 +25427,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -25836,7 +25836,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           acss_debit: {explode: true, style: "deepObject"},
           affirm: {explode: true, style: "deepObject"},
           afterpay_clearpay: {explode: true, style: "deepObject"},
@@ -25979,7 +25979,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing_details: {explode: true, style: "deepObject"},
           card: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -26014,7 +26014,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -26042,7 +26042,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -26133,7 +26133,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -26182,7 +26182,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -26210,7 +26210,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -26240,7 +26240,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -26356,7 +26356,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           product: {explode: true, style: "deepObject"},
@@ -26425,7 +26425,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -26588,7 +26588,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           currency_options: {explode: true, style: "deepObject"},
           custom_unit_amount: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -26716,7 +26716,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           currency_options: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -26865,7 +26865,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           default_price_data: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           images: {explode: true, style: "deepObject"},
@@ -26991,7 +26991,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           description: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           images: {explode: true, style: "deepObject"},
@@ -27061,7 +27061,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -27190,7 +27190,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           restrictions: {explode: true, style: "deepObject"},
@@ -27250,7 +27250,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           restrictions: {explode: true, style: "deepObject"},
@@ -27421,7 +27421,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           application_fee_amount: {explode: true, style: "deepObject"},
           application_fee_percent: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -27570,7 +27570,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           application_fee_amount: {explode: true, style: "deepObject"},
           application_fee_percent: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -27611,7 +27611,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -27638,7 +27638,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -27701,7 +27701,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -27889,7 +27889,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -28008,7 +28008,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -28069,7 +28069,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -28162,7 +28162,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -28211,7 +28211,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -28239,7 +28239,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -28955,7 +28955,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           parameters: {explode: true, style: "deepObject"},
         })
@@ -29095,7 +29095,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -29771,7 +29771,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           automatic_payment_methods: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           flow_directions: {explode: true, style: "deepObject"},
@@ -30358,7 +30358,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           flow_directions: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -30395,7 +30395,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -30970,7 +30970,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           mandate_data: {explode: true, style: "deepObject"},
           payment_method_data: {explode: true, style: "deepObject"},
@@ -31004,7 +31004,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           amounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -31126,7 +31126,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           delivery_estimate: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           fixed_amount: {explode: true, style: "deepObject"},
@@ -31197,7 +31197,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           fixed_amount: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -31228,7 +31228,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -31408,7 +31408,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           mandate: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -31545,7 +31545,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           mandate: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -31649,7 +31649,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           values: {explode: true, style: "deepObject"},
         })
@@ -31759,7 +31759,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing_thresholds: {explode: true, style: "deepObject"},
           discounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -31797,7 +31797,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {})
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {})
       : undefined
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
@@ -31888,7 +31888,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing_thresholds: {explode: true, style: "deepObject"},
           discounts: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -32178,7 +32178,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing_mode: {explode: true, style: "deepObject"},
           default_settings: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -32410,7 +32410,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           default_settings: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -32443,7 +32443,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -32472,7 +32472,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -32907,7 +32907,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           add_invoice_items: {explode: true, style: "deepObject"},
           application_fee_percent: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -33003,7 +33003,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           cancellation_details: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -33390,7 +33390,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           add_invoice_items: {explode: true, style: "deepObject"},
           application_fee_percent: {explode: true, style: "deepObject"},
           automatic_tax: {explode: true, style: "deepObject"},
@@ -33454,7 +33454,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           billing_mode: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -33489,7 +33489,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -33677,7 +33677,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           customer_details: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           line_items: {explode: true, style: "deepObject"},
@@ -34426,7 +34426,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           active_from: {explode: true, style: "deepObject"},
           country_options: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -34472,7 +34472,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           active_from: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           expires_at: {explode: true, style: "deepObject"},
@@ -34532,7 +34532,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           defaults: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           head_office: {explode: true, style: "deepObject"},
@@ -34566,7 +34566,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -34614,7 +34614,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           line_items: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -34908,7 +34908,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           owner: {explode: true, style: "deepObject"},
         })
@@ -35036,7 +35036,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -35107,7 +35107,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -35301,7 +35301,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bbpos_wisepos_e: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           offline: {explode: true, style: "deepObject"},
@@ -35518,7 +35518,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           bbpos_wisepos_e: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           offline: {explode: true, style: "deepObject"},
@@ -35552,7 +35552,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -35627,7 +35627,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           address: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -35706,7 +35706,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           address: {explode: true, style: "deepObject"},
           configuration_overrides: {explode: true, style: "deepObject"},
           display_name: {explode: true, style: "deepObject"},
@@ -35796,7 +35796,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -35865,7 +35865,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           label: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -35895,7 +35895,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -35955,7 +35955,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           inputs: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -35999,7 +35999,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           collect_config: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -36033,7 +36033,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           confirm_config: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -36077,7 +36077,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           process_config: {explode: true, style: "deepObject"},
         })
@@ -36115,7 +36115,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           process_config: {explode: true, style: "deepObject"},
         })
@@ -36155,7 +36155,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
           refund_payment_config: {explode: true, style: "deepObject"},
@@ -36196,7 +36196,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           cart: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
         })
@@ -36535,7 +36535,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           payment_method_data: {explode: true, style: "deepObject"},
           payment_method_options: {explode: true, style: "deepObject"},
@@ -36572,7 +36572,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37020,7 +37020,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           amount_details: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           fleet: {explode: true, style: "deepObject"},
@@ -37137,7 +37137,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           purchase_details: {explode: true, style: "deepObject"},
         })
@@ -37167,7 +37167,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37250,7 +37250,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           fleet: {explode: true, style: "deepObject"},
           fuel: {explode: true, style: "deepObject"},
@@ -37282,7 +37282,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37313,7 +37313,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37343,7 +37343,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37372,7 +37372,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37401,7 +37401,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37430,7 +37430,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37459,7 +37459,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37488,7 +37488,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37519,7 +37519,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37550,7 +37550,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37604,7 +37604,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           rejection_reasons: {explode: true, style: "deepObject"},
         })
@@ -37640,7 +37640,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -37669,7 +37669,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38086,7 +38086,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           merchant_data: {explode: true, style: "deepObject"},
           purchase_details: {explode: true, style: "deepObject"},
@@ -38505,7 +38505,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           merchant_data: {explode: true, style: "deepObject"},
           purchase_details: {explode: true, style: "deepObject"},
@@ -38537,7 +38537,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38564,7 +38564,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38601,7 +38601,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           card_present: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
           interac_present: {explode: true, style: "deepObject"},
@@ -38633,7 +38633,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38662,7 +38662,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38723,7 +38723,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38782,7 +38782,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38828,7 +38828,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           failure_details: {explode: true, style: "deepObject"},
         })
@@ -38858,7 +38858,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38887,7 +38887,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38926,7 +38926,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           tracking_details: {explode: true, style: "deepObject"},
         })
@@ -38956,7 +38956,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -38985,7 +38985,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -39028,7 +39028,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           returned_details: {explode: true, style: "deepObject"},
         })
@@ -39071,7 +39071,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           tracking_details: {explode: true, style: "deepObject"},
         })
@@ -39103,7 +39103,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -39134,7 +39134,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -39179,7 +39179,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           returned_details: {explode: true, style: "deepObject"},
         })
@@ -39219,7 +39219,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           initiating_payment_method_details: {
             explode: true,
@@ -39262,7 +39262,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           initiating_payment_method_details: {
             explode: true,
@@ -39678,7 +39678,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           account: {explode: true, style: "deepObject"},
           bank_account: {explode: true, style: "deepObject"},
           card: {explode: true, style: "deepObject"},
@@ -39795,7 +39795,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -39845,7 +39845,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -39873,7 +39873,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -39955,7 +39955,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40026,7 +40026,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40076,7 +40076,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40129,7 +40129,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40199,7 +40199,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40287,7 +40287,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40425,7 +40425,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           features: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
@@ -40531,7 +40531,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           features: {explode: true, style: "deepObject"},
           forwarding_settings: {explode: true, style: "deepObject"},
@@ -40572,7 +40572,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           forwarding_settings: {explode: true, style: "deepObject"},
         })
@@ -40658,7 +40658,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           card_issuing: {explode: true, style: "deepObject"},
           deposit_insurance: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -40742,7 +40742,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
           metadata: {explode: true, style: "deepObject"},
         })
@@ -40787,7 +40787,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -40922,7 +40922,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           destination_payment_method_data: {explode: true, style: "deepObject"},
           destination_payment_method_options: {
             explode: true,
@@ -40972,7 +40972,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -41064,7 +41064,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           destination_payment_method_data: {explode: true, style: "deepObject"},
           destination_payment_method_options: {
             explode: true,
@@ -41119,7 +41119,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           expand: {explode: true, style: "deepObject"},
         })
       : undefined
@@ -41810,7 +41810,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           description: {explode: true, style: "deepObject"},
           enabled_events: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
@@ -42123,7 +42123,7 @@ export class StripeApi extends AbstractFetchClient {
       opts.headers,
     )
     const body = p.requestBody
-      ? this._toUrlSearchParams(p.requestBody, {
+      ? this._requestBodyToUrlSearchParams(p.requestBody, {
           description: {explode: true, style: "deepObject"},
           enabled_events: {explode: true, style: "deepObject"},
           expand: {explode: true, style: "deepObject"},
