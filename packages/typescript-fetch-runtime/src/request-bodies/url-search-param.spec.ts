@@ -182,4 +182,29 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       expect(actual.toString()).toStrictEqual("arr%5B0%5D=red&arr%5B1%5D=blue")
     })
   })
+
+  describe("undefined / null handling", () => {
+    it("omits undefined values", () => {
+      const actual = requestBodyToUrlSearchParams({
+        id: "123",
+        description: null,
+      })
+      expect(actual.toString()).toStrictEqual("id=123")
+    })
+    it("omits null values", () => {
+      const actual = requestBodyToUrlSearchParams({
+        id: "123",
+        description: undefined,
+      })
+      expect(actual.toString()).toStrictEqual("id=123")
+    })
+    it("includes empty string values", () => {
+      const actual = requestBodyToUrlSearchParams({id: "123", description: ""})
+      expect(actual.toString()).toStrictEqual("id=123&description=")
+    })
+    it("includes 0 number values", () => {
+      const actual = requestBodyToUrlSearchParams({id: "123", description: 0})
+      expect(actual.toString()).toStrictEqual("id=123&description=0")
+    })
+  })
 })
