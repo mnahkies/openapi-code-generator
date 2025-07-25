@@ -12,15 +12,17 @@ import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
   override capabilities = {
-    mediaTypes: [
-      "application/json",
-      "application/scim+json",
-      "application/merge-patch+json",
-      "application/x-www-form-urlencoded",
-      "text/json",
-      "text/plain",
-      "text/x-markdown",
-    ],
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
   }
 
   protected buildImports(imports: ImportBuilder): void {

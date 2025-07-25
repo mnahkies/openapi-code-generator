@@ -98,7 +98,7 @@ export class ServerOperationBuilder {
     private readonly input: Input,
     private readonly types: TypeBuilder,
     private readonly schemaBuilder: SchemaBuilder,
-    private readonly config: {supportedMediaTypes: string[]},
+    private readonly config: {requestBody: {supportedMediaTypes: string[]}},
   ) {}
 
   get operationId(): string {
@@ -270,7 +270,7 @@ export class ServerOperationBuilder {
   private requestBodyParameter(schemaSymbolName: string): Parameters["body"] {
     const requestBody = requestBodyAsParameter(
       this.operation,
-      this.config.supportedMediaTypes,
+      this.config.requestBody.supportedMediaTypes,
     )
 
     const isRequired = Boolean(requestBody?.parameter?.required)

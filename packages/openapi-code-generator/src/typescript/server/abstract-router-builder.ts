@@ -11,14 +11,16 @@ import {
 
 export abstract class AbstractRouterBuilder implements ICompilable {
   protected readonly capabilities = {
-    mediaTypes: [
-      "application/json",
-      "application/scim+json",
-      "application/merge-patch+json",
-      "text/json",
-      "text/plain",
-      "text/x-markdown",
-    ],
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
   }
 
   private readonly statements: string[] = []
@@ -40,7 +42,11 @@ export abstract class AbstractRouterBuilder implements ICompilable {
       this.input,
       this.types,
       this.schemaBuilder,
-      {supportedMediaTypes: this.capabilities.mediaTypes},
+      {
+        requestBody: {
+          supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+        },
+      },
     )
     const result = this.buildOperation(builder)
     this.statements.push(result)

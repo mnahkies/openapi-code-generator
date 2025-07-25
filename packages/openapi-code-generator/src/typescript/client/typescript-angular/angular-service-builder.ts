@@ -6,14 +6,16 @@ import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class AngularServiceBuilder extends AbstractClientBuilder {
   override capabilities = {
-    mediaTypes: [
-      "application/json",
-      "application/scim+json",
-      "application/merge-patch+json",
-      "text/json",
-      "text/plain",
-      "text/x-markdown",
-    ],
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
   }
 
   protected buildImports(imports: ImportBuilder): void {

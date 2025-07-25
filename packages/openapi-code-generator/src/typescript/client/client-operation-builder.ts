@@ -39,7 +39,9 @@ export class ClientOperationBuilder {
     private readonly schemaBuilder: SchemaBuilder,
     private readonly input: Input,
     private readonly config: {
-      supportedMediaTypes: string[]
+      requestBody: {
+        supportedMediaTypes: string[]
+      }
     },
   ) {}
 
@@ -104,7 +106,7 @@ export class ClientOperationBuilder {
   requestBodyAsParameter(): RequestBodyAsParameter | undefined {
     const result = requestBodyAsParameter(
       this.operation,
-      this.config.supportedMediaTypes,
+      this.config.requestBody.supportedMediaTypes,
     )
     const schema =
       result?.parameter?.schema && this.input.schema(result?.parameter?.schema)
