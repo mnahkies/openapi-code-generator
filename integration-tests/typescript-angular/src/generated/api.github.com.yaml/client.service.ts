@@ -832,7 +832,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -2594,7 +2595,7 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "text/plain",
+      "Content-Type": p.requestBody !== undefined ? "text/plain" : undefined,
     })
     const body = p["requestBody"]
 
@@ -2864,7 +2865,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -2976,7 +2978,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -3260,7 +3263,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -3783,7 +3787,8 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -3825,7 +3830,8 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -6968,7 +6974,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -7038,7 +7045,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -7643,7 +7651,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -8080,7 +8089,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -8562,7 +8572,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -9947,7 +9958,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -10529,7 +10541,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -10657,7 +10670,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11120,7 +11134,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11224,7 +11239,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11320,7 +11336,8 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11402,7 +11419,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11459,7 +11477,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11786,7 +11805,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -11878,7 +11898,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -12116,7 +12137,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -12408,7 +12430,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -12657,7 +12680,8 @@ export class GitHubV3RestApiService {
   }): Observable<(HttpResponse<void> & {status: 204}) | HttpResponse<unknown>> {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -13530,7 +13554,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -13559,7 +13584,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -14670,7 +14696,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -14822,7 +14849,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -14899,7 +14927,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -14933,7 +14962,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -15181,7 +15211,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -15214,7 +15245,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -15948,7 +15980,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -16914,7 +16947,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -18372,7 +18406,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -18997,7 +19032,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -19460,7 +19496,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -19594,7 +19631,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -19813,7 +19851,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -19892,7 +19931,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -20097,7 +20137,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -20566,7 +20607,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -20595,7 +20637,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -20816,7 +20859,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -20861,7 +20905,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -20951,7 +20996,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -21448,7 +21494,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -21697,7 +21744,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -21812,7 +21860,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -22666,7 +22715,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -22952,7 +23002,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -23007,7 +23058,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -23108,7 +23160,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -23321,7 +23374,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -23492,7 +23546,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -23648,7 +23703,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -24051,7 +24107,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -24805,7 +24862,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -25752,7 +25810,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -26223,7 +26282,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -26325,7 +26385,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -26426,7 +26487,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -26528,7 +26590,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -26997,7 +27060,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 
@@ -27284,7 +27348,8 @@ export class GitHubV3RestApiService {
   > {
     const headers = this._headers({
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type":
+        p.requestBody !== undefined ? "application/json" : undefined,
     })
     const body = p["requestBody"]
 

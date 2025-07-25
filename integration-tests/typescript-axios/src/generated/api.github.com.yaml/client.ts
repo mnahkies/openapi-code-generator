@@ -748,10 +748,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation_token>> {
     const url = `/app/installations/${p["installationId"]}/access_tokens`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -2327,10 +2332,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/markdown/raw`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "text/plain"},
+      {
+        Accept: "application/json",
+        "Content-Type": p.requestBody !== undefined ? "text/plain" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body = p.requestBody !== undefined ? p.requestBody : null
 
     return this._request({
       url: url,
@@ -2568,10 +2576,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/notifications`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -2671,10 +2684,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread_subscription>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -2922,10 +2940,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_full>> {
     const url = `/orgs/${p["org"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -3470,10 +3493,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/selected-actions`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -3514,10 +3542,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/workflow`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -6508,10 +6541,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -6579,10 +6617,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -7160,10 +7203,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_invitation>> {
     const url = `/orgs/${p["org"]}/invitations`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -7550,10 +7598,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -8007,10 +8060,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<EmptyObject> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -9283,10 +9341,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -9851,10 +9914,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -9982,10 +10050,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -10435,10 +10508,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -10531,10 +10609,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -10627,10 +10710,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -10711,10 +10799,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -10758,10 +10851,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_card>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -11012,10 +11110,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/projects/${p["projectId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -11088,10 +11191,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -11306,10 +11414,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -11596,10 +11709,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -11842,10 +11960,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -12692,10 +12815,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -12721,10 +12849,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -13838,10 +13971,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -13979,10 +14117,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status_check_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -14052,10 +14195,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -14083,10 +14231,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -14316,10 +14469,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -14347,10 +14505,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -15019,10 +15182,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_autofix_commits_response>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix/commits`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -15823,10 +15991,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -17183,10 +17356,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -17809,10 +17987,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/forks`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -18236,10 +18419,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -18364,10 +18552,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -18577,10 +18770,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -18649,10 +18847,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_author>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -18844,10 +19047,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_invitation>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -19276,10 +19484,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -19305,10 +19518,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -19504,10 +19722,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -19546,10 +19769,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -19626,10 +19854,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -20083,10 +20316,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -20320,10 +20558,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_milestone>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -20433,10 +20676,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -21233,10 +21481,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -21485,10 +21738,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_merge_result>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -21536,10 +21794,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_simple>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -21634,10 +21897,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -21833,10 +22101,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -21991,10 +22264,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -22143,10 +22421,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -22522,10 +22805,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -23201,10 +23489,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_subscription>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -24107,10 +24400,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -24561,10 +24859,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -24653,10 +24956,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -24747,10 +25055,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -24839,10 +25152,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user>> {
     const url = `/user`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -25262,10 +25580,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,
@@ -25506,10 +25829,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_email[]>> {
     const url = `/user/emails`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : false,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._request({
       url: url,

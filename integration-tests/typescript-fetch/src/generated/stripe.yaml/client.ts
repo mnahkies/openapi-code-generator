@@ -1069,26 +1069,30 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bank_account: {explode: true, style: "deepObject"},
-          business_profile: {explode: true, style: "deepObject"},
-          capabilities: {explode: true, style: "deepObject"},
-          company: {explode: true, style: "deepObject"},
-          controller: {explode: true, style: "deepObject"},
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          groups: {explode: true, style: "deepObject"},
-          individual: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          settings: {explode: true, style: "deepObject"},
-          tos_acceptance: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bank_account: {explode: true, style: "deepObject"},
+            business_profile: {explode: true, style: "deepObject"},
+            capabilities: {explode: true, style: "deepObject"},
+            company: {explode: true, style: "deepObject"},
+            controller: {explode: true, style: "deepObject"},
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            groups: {explode: true, style: "deepObject"},
+            individual: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            settings: {explode: true, style: "deepObject"},
+            tos_acceptance: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -1668,24 +1672,28 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          business_profile: {explode: true, style: "deepObject"},
-          capabilities: {explode: true, style: "deepObject"},
-          company: {explode: true, style: "deepObject"},
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          groups: {explode: true, style: "deepObject"},
-          individual: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          settings: {explode: true, style: "deepObject"},
-          tos_acceptance: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            business_profile: {explode: true, style: "deepObject"},
+            capabilities: {explode: true, style: "deepObject"},
+            company: {explode: true, style: "deepObject"},
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            groups: {explode: true, style: "deepObject"},
+            individual: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            settings: {explode: true, style: "deepObject"},
+            tos_acceptance: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -1734,17 +1742,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bank_account: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bank_account: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -1830,17 +1842,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -1907,15 +1923,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2000,17 +2020,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bank_account: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bank_account: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2099,17 +2123,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2128,15 +2156,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2347,27 +2379,31 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          additional_tos_acceptances: {explode: true, style: "deepObject"},
-          address: {explode: true, style: "deepObject"},
-          address_kana: {explode: true, style: "deepObject"},
-          address_kanji: {explode: true, style: "deepObject"},
-          dob: {explode: true, style: "deepObject"},
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          full_name_aliases: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          registered_address: {explode: true, style: "deepObject"},
-          relationship: {explode: true, style: "deepObject"},
-          us_cfpb_data: {explode: true, style: "deepObject"},
-          verification: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            additional_tos_acceptances: {explode: true, style: "deepObject"},
+            address: {explode: true, style: "deepObject"},
+            address_kana: {explode: true, style: "deepObject"},
+            address_kanji: {explode: true, style: "deepObject"},
+            dob: {explode: true, style: "deepObject"},
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            full_name_aliases: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            registered_address: {explode: true, style: "deepObject"},
+            relationship: {explode: true, style: "deepObject"},
+            us_cfpb_data: {explode: true, style: "deepObject"},
+            verification: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2569,27 +2605,31 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          additional_tos_acceptances: {explode: true, style: "deepObject"},
-          address: {explode: true, style: "deepObject"},
-          address_kana: {explode: true, style: "deepObject"},
-          address_kanji: {explode: true, style: "deepObject"},
-          dob: {explode: true, style: "deepObject"},
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          full_name_aliases: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          registered_address: {explode: true, style: "deepObject"},
-          relationship: {explode: true, style: "deepObject"},
-          us_cfpb_data: {explode: true, style: "deepObject"},
-          verification: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            additional_tos_acceptances: {explode: true, style: "deepObject"},
+            address: {explode: true, style: "deepObject"},
+            address_kana: {explode: true, style: "deepObject"},
+            address_kanji: {explode: true, style: "deepObject"},
+            dob: {explode: true, style: "deepObject"},
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            full_name_aliases: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            registered_address: {explode: true, style: "deepObject"},
+            relationship: {explode: true, style: "deepObject"},
+            us_cfpb_data: {explode: true, style: "deepObject"},
+            verification: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2800,27 +2840,31 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          additional_tos_acceptances: {explode: true, style: "deepObject"},
-          address: {explode: true, style: "deepObject"},
-          address_kana: {explode: true, style: "deepObject"},
-          address_kanji: {explode: true, style: "deepObject"},
-          dob: {explode: true, style: "deepObject"},
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          full_name_aliases: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          registered_address: {explode: true, style: "deepObject"},
-          relationship: {explode: true, style: "deepObject"},
-          us_cfpb_data: {explode: true, style: "deepObject"},
-          verification: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            additional_tos_acceptances: {explode: true, style: "deepObject"},
+            address: {explode: true, style: "deepObject"},
+            address_kana: {explode: true, style: "deepObject"},
+            address_kanji: {explode: true, style: "deepObject"},
+            dob: {explode: true, style: "deepObject"},
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            full_name_aliases: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            registered_address: {explode: true, style: "deepObject"},
+            relationship: {explode: true, style: "deepObject"},
+            us_cfpb_data: {explode: true, style: "deepObject"},
+            verification: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3022,27 +3066,31 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          additional_tos_acceptances: {explode: true, style: "deepObject"},
-          address: {explode: true, style: "deepObject"},
-          address_kana: {explode: true, style: "deepObject"},
-          address_kanji: {explode: true, style: "deepObject"},
-          dob: {explode: true, style: "deepObject"},
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          full_name_aliases: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          registered_address: {explode: true, style: "deepObject"},
-          relationship: {explode: true, style: "deepObject"},
-          us_cfpb_data: {explode: true, style: "deepObject"},
-          verification: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            additional_tos_acceptances: {explode: true, style: "deepObject"},
+            address: {explode: true, style: "deepObject"},
+            address_kana: {explode: true, style: "deepObject"},
+            address_kanji: {explode: true, style: "deepObject"},
+            dob: {explode: true, style: "deepObject"},
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            full_name_aliases: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            registered_address: {explode: true, style: "deepObject"},
+            relationship: {explode: true, style: "deepObject"},
+            us_cfpb_data: {explode: true, style: "deepObject"},
+            verification: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3244,16 +3292,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3289,15 +3341,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3354,16 +3410,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3737,15 +3797,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3764,15 +3828,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -3791,15 +3859,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4009,17 +4081,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          expires_at: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            expires_at: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4038,15 +4114,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4065,15 +4145,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4246,15 +4330,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4273,15 +4361,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4342,15 +4434,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4651,20 +4747,24 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          business_profile: {explode: true, style: "deepObject"},
-          default_return_url: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          features: {explode: true, style: "deepObject"},
-          login_page: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            business_profile: {explode: true, style: "deepObject"},
+            default_return_url: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            features: {explode: true, style: "deepObject"},
+            login_page: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -4918,21 +5018,25 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          card: {explode: true, style: "deepObject"},
-          destination: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          radar_options: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            card: {explode: true, style: "deepObject"},
+            destination: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            radar_options: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5028,18 +5132,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          fraud_details: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            fraud_details: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5068,16 +5176,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5206,17 +5318,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          evidence: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            evidence: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5235,15 +5351,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5278,16 +5398,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5359,16 +5483,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -5412,16 +5540,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -6521,40 +6653,44 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          adaptive_pricing: {explode: true, style: "deepObject"},
-          after_expiration: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          consent_collection: {explode: true, style: "deepObject"},
-          custom_fields: {explode: true, style: "deepObject"},
-          custom_text: {explode: true, style: "deepObject"},
-          customer_update: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_creation: {explode: true, style: "deepObject"},
-          line_items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          optional_items: {explode: true, style: "deepObject"},
-          payment_intent_data: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-          payment_method_types: {explode: true, style: "deepObject"},
-          permissions: {explode: true, style: "deepObject"},
-          phone_number_collection: {explode: true, style: "deepObject"},
-          saved_payment_method_options: {explode: true, style: "deepObject"},
-          setup_intent_data: {explode: true, style: "deepObject"},
-          shipping_address_collection: {explode: true, style: "deepObject"},
-          shipping_options: {explode: true, style: "deepObject"},
-          subscription_data: {explode: true, style: "deepObject"},
-          tax_id_collection: {explode: true, style: "deepObject"},
-          wallet_options: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            adaptive_pricing: {explode: true, style: "deepObject"},
+            after_expiration: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            consent_collection: {explode: true, style: "deepObject"},
+            custom_fields: {explode: true, style: "deepObject"},
+            custom_text: {explode: true, style: "deepObject"},
+            customer_update: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_creation: {explode: true, style: "deepObject"},
+            line_items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            optional_items: {explode: true, style: "deepObject"},
+            payment_intent_data: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+            payment_method_types: {explode: true, style: "deepObject"},
+            permissions: {explode: true, style: "deepObject"},
+            phone_number_collection: {explode: true, style: "deepObject"},
+            saved_payment_method_options: {explode: true, style: "deepObject"},
+            setup_intent_data: {explode: true, style: "deepObject"},
+            shipping_address_collection: {explode: true, style: "deepObject"},
+            shipping_options: {explode: true, style: "deepObject"},
+            subscription_data: {explode: true, style: "deepObject"},
+            tax_id_collection: {explode: true, style: "deepObject"},
+            wallet_options: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -6664,18 +6800,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          collected_information: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          shipping_options: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            collected_information: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            shipping_options: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -6694,15 +6834,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -6849,17 +6993,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          beneficiary: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            beneficiary: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -6878,15 +7026,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -7131,18 +7283,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          applies_to: {explode: true, style: "deepObject"},
-          currency_options: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            applies_to: {explode: true, style: "deepObject"},
+            currency_options: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -7203,17 +7359,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          currency_options: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            currency_options: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -7563,16 +7723,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -7591,15 +7755,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -7922,23 +8090,27 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          address: {explode: true, style: "deepObject"},
-          cash_balance: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          preferred_locales: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-          tax: {explode: true, style: "deepObject"},
-          tax_id_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            address: {explode: true, style: "deepObject"},
+            cash_balance: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            preferred_locales: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+            tax: {explode: true, style: "deepObject"},
+            tax_id_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8140,24 +8312,28 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          address: {explode: true, style: "deepObject"},
-          bank_account: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          cash_balance: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          preferred_locales: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-          tax: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            address: {explode: true, style: "deepObject"},
+            bank_account: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            cash_balance: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            preferred_locales: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+            tax: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8281,16 +8457,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8381,18 +8561,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bank_account: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bank_account: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8416,15 +8600,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -8494,17 +8682,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          owner: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            owner: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8527,16 +8719,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          amounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8627,18 +8823,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bank_account: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bank_account: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8662,15 +8862,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -8740,17 +8944,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          owner: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            owner: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -8791,16 +8999,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          settings: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            settings: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9133,18 +9345,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bank_account: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bank_account: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9168,15 +9384,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -9246,17 +9466,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          owner: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            owner: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9278,16 +9502,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          amounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9648,29 +9876,33 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          add_invoice_items: {explode: true, style: "deepObject"},
-          application_fee_percent: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          billing_thresholds: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          payment_settings: {explode: true, style: "deepObject"},
-          pending_invoice_item_interval: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-          trial_end: {explode: true, style: "deepObject"},
-          trial_settings: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            add_invoice_items: {explode: true, style: "deepObject"},
+            application_fee_percent: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            billing_thresholds: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            payment_settings: {explode: true, style: "deepObject"},
+            pending_invoice_item_interval: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+            trial_end: {explode: true, style: "deepObject"},
+            trial_settings: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9694,15 +9926,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -10082,33 +10318,37 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          add_invoice_items: {explode: true, style: "deepObject"},
-          application_fee_percent: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          billing_thresholds: {explode: true, style: "deepObject"},
-          cancel_at: {explode: true, style: "deepObject"},
-          cancellation_details: {explode: true, style: "deepObject"},
-          default_source: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          pause_collection: {explode: true, style: "deepObject"},
-          payment_settings: {explode: true, style: "deepObject"},
-          pending_invoice_item_interval: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-          trial_end: {explode: true, style: "deepObject"},
-          trial_settings: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            add_invoice_items: {explode: true, style: "deepObject"},
+            application_fee_percent: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            billing_thresholds: {explode: true, style: "deepObject"},
+            cancel_at: {explode: true, style: "deepObject"},
+            cancellation_details: {explode: true, style: "deepObject"},
+            default_source: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            pause_collection: {explode: true, style: "deepObject"},
+            payment_settings: {explode: true, style: "deepObject"},
+            pending_invoice_item_interval: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+            trial_end: {explode: true, style: "deepObject"},
+            trial_settings: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -10521,17 +10761,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          evidence: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            evidence: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -10550,15 +10794,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -10720,16 +10968,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -10751,15 +11003,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -10778,15 +11034,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -10949,17 +11209,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          documents: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            documents: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11079,17 +11343,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          expires_at: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            expires_at: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11272,15 +11540,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11834,19 +12106,23 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          options: {explode: true, style: "deepObject"},
-          provided_details: {explode: true, style: "deepObject"},
-          related_person: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            options: {explode: true, style: "deepObject"},
+            provided_details: {explode: true, style: "deepObject"},
+            related_person: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11910,18 +12186,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          options: {explode: true, style: "deepObject"},
-          provided_details: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            options: {explode: true, style: "deepObject"},
+            provided_details: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11944,15 +12224,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11975,15 +12259,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12116,15 +12404,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12147,15 +12439,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12373,22 +12669,26 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          period: {explode: true, style: "deepObject"},
-          price_data: {explode: true, style: "deepObject"},
-          pricing: {explode: true, style: "deepObject"},
-          tax_code: {explode: true, style: "deepObject"},
-          tax_rates: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            period: {explode: true, style: "deepObject"},
+            price_data: {explode: true, style: "deepObject"},
+            pricing: {explode: true, style: "deepObject"},
+            tax_code: {explode: true, style: "deepObject"},
+            tax_rates: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12766,28 +13066,32 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          account_tax_ids: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          custom_fields: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          from_invoice: {explode: true, style: "deepObject"},
-          issuer: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          payment_settings: {explode: true, style: "deepObject"},
-          rendering: {explode: true, style: "deepObject"},
-          shipping_cost: {explode: true, style: "deepObject"},
-          shipping_details: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            account_tax_ids: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            custom_fields: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            from_invoice: {explode: true, style: "deepObject"},
+            issuer: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            payment_settings: {explode: true, style: "deepObject"},
+            rendering: {explode: true, style: "deepObject"},
+            shipping_cost: {explode: true, style: "deepObject"},
+            shipping_details: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -13236,23 +13540,27 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          automatic_tax: {explode: true, style: "deepObject"},
-          customer_details: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_items: {explode: true, style: "deepObject"},
-          issuer: {explode: true, style: "deepObject"},
-          on_behalf_of: {explode: true, style: "deepObject"},
-          schedule_details: {explode: true, style: "deepObject"},
-          subscription_details: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            automatic_tax: {explode: true, style: "deepObject"},
+            customer_details: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_items: {explode: true, style: "deepObject"},
+            issuer: {explode: true, style: "deepObject"},
+            on_behalf_of: {explode: true, style: "deepObject"},
+            schedule_details: {explode: true, style: "deepObject"},
+            subscription_details: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -13624,31 +13932,35 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          account_tax_ids: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          custom_fields: {explode: true, style: "deepObject"},
-          default_source: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          effective_at: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          issuer: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          number: {explode: true, style: "deepObject"},
-          on_behalf_of: {explode: true, style: "deepObject"},
-          payment_settings: {explode: true, style: "deepObject"},
-          rendering: {explode: true, style: "deepObject"},
-          shipping_cost: {explode: true, style: "deepObject"},
-          shipping_details: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            account_tax_ids: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            custom_fields: {explode: true, style: "deepObject"},
+            default_source: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            effective_at: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            issuer: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            number: {explode: true, style: "deepObject"},
+            on_behalf_of: {explode: true, style: "deepObject"},
+            payment_settings: {explode: true, style: "deepObject"},
+            rendering: {explode: true, style: "deepObject"},
+            shipping_cost: {explode: true, style: "deepObject"},
+            shipping_details: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -13807,15 +14119,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -13835,15 +14151,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14001,22 +14321,26 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          period: {explode: true, style: "deepObject"},
-          price_data: {explode: true, style: "deepObject"},
-          pricing: {explode: true, style: "deepObject"},
-          tax_amounts: {explode: true, style: "deepObject"},
-          tax_rates: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            period: {explode: true, style: "deepObject"},
+            price_data: {explode: true, style: "deepObject"},
+            pricing: {explode: true, style: "deepObject"},
+            tax_amounts: {explode: true, style: "deepObject"},
+            tax_rates: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14036,15 +14360,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14069,16 +14397,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          mandate: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            mandate: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14134,15 +14466,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14300,15 +14636,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14403,16 +14743,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14439,16 +14783,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14474,16 +14822,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -16517,21 +16869,25 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          billing: {explode: true, style: "deepObject"},
-          company: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          individual: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          preferred_locales: {explode: true, style: "deepObject"},
-          spending_controls: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            billing: {explode: true, style: "deepObject"},
+            company: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            individual: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            preferred_locales: {explode: true, style: "deepObject"},
+            spending_controls: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -18550,19 +18906,23 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          pin: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-          spending_controls: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            pin: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+            spending_controls: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -18755,18 +19115,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          evidence: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          treasury: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            evidence: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            treasury: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -18922,17 +19286,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          evidence: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            evidence: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -18957,16 +19325,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -19121,21 +19493,25 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          card_logo: {explode: true, style: "deepObject"},
-          carrier_text: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          lookup_key: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          name: {explode: true, style: "deepObject"},
-          preferences: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            card_logo: {explode: true, style: "deepObject"},
+            carrier_text: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            lookup_key: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            name: {explode: true, style: "deepObject"},
+            preferences: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -19225,16 +19601,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -19414,16 +19794,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -19578,15 +19962,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -22006,23 +22394,27 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          application_fee_amount: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-          payment_method_types: {explode: true, style: "deepObject"},
-          receipt_email: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            application_fee_amount: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+            payment_method_types: {explode: true, style: "deepObject"},
+            receipt_email: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -22045,15 +22437,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -22078,15 +22474,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -22119,17 +22519,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -23243,23 +23647,27 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          mandate_data: {explode: true, style: "deepObject"},
-          off_session: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-          payment_method_types: {explode: true, style: "deepObject"},
-          radar_options: {explode: true, style: "deepObject"},
-          receipt_email: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            mandate_data: {explode: true, style: "deepObject"},
+            off_session: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+            payment_method_types: {explode: true, style: "deepObject"},
+            radar_options: {explode: true, style: "deepObject"},
+            receipt_email: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -23321,16 +23729,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          amounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -24416,30 +24828,34 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          after_completion: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          custom_fields: {explode: true, style: "deepObject"},
-          custom_text: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          inactive_message: {explode: true, style: "deepObject"},
-          invoice_creation: {explode: true, style: "deepObject"},
-          line_items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          payment_intent_data: {explode: true, style: "deepObject"},
-          payment_method_types: {explode: true, style: "deepObject"},
-          phone_number_collection: {explode: true, style: "deepObject"},
-          restrictions: {explode: true, style: "deepObject"},
-          shipping_address_collection: {explode: true, style: "deepObject"},
-          subscription_data: {explode: true, style: "deepObject"},
-          tax_id_collection: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            after_completion: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            custom_fields: {explode: true, style: "deepObject"},
+            custom_text: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            inactive_message: {explode: true, style: "deepObject"},
+            invoice_creation: {explode: true, style: "deepObject"},
+            line_items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            payment_intent_data: {explode: true, style: "deepObject"},
+            payment_method_types: {explode: true, style: "deepObject"},
+            phone_number_collection: {explode: true, style: "deepObject"},
+            restrictions: {explode: true, style: "deepObject"},
+            shipping_address_collection: {explode: true, style: "deepObject"},
+            subscription_data: {explode: true, style: "deepObject"},
+            tax_id_collection: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -24791,67 +25207,71 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          acss_debit: {explode: true, style: "deepObject"},
-          affirm: {explode: true, style: "deepObject"},
-          afterpay_clearpay: {explode: true, style: "deepObject"},
-          alipay: {explode: true, style: "deepObject"},
-          alma: {explode: true, style: "deepObject"},
-          amazon_pay: {explode: true, style: "deepObject"},
-          apple_pay: {explode: true, style: "deepObject"},
-          apple_pay_later: {explode: true, style: "deepObject"},
-          au_becs_debit: {explode: true, style: "deepObject"},
-          bacs_debit: {explode: true, style: "deepObject"},
-          bancontact: {explode: true, style: "deepObject"},
-          billie: {explode: true, style: "deepObject"},
-          blik: {explode: true, style: "deepObject"},
-          boleto: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          cartes_bancaires: {explode: true, style: "deepObject"},
-          cashapp: {explode: true, style: "deepObject"},
-          customer_balance: {explode: true, style: "deepObject"},
-          eps: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          fpx: {explode: true, style: "deepObject"},
-          giropay: {explode: true, style: "deepObject"},
-          google_pay: {explode: true, style: "deepObject"},
-          grabpay: {explode: true, style: "deepObject"},
-          ideal: {explode: true, style: "deepObject"},
-          jcb: {explode: true, style: "deepObject"},
-          kakao_pay: {explode: true, style: "deepObject"},
-          klarna: {explode: true, style: "deepObject"},
-          konbini: {explode: true, style: "deepObject"},
-          kr_card: {explode: true, style: "deepObject"},
-          link: {explode: true, style: "deepObject"},
-          mobilepay: {explode: true, style: "deepObject"},
-          multibanco: {explode: true, style: "deepObject"},
-          naver_pay: {explode: true, style: "deepObject"},
-          nz_bank_account: {explode: true, style: "deepObject"},
-          oxxo: {explode: true, style: "deepObject"},
-          p24: {explode: true, style: "deepObject"},
-          pay_by_bank: {explode: true, style: "deepObject"},
-          payco: {explode: true, style: "deepObject"},
-          paynow: {explode: true, style: "deepObject"},
-          paypal: {explode: true, style: "deepObject"},
-          pix: {explode: true, style: "deepObject"},
-          promptpay: {explode: true, style: "deepObject"},
-          revolut_pay: {explode: true, style: "deepObject"},
-          samsung_pay: {explode: true, style: "deepObject"},
-          satispay: {explode: true, style: "deepObject"},
-          sepa_debit: {explode: true, style: "deepObject"},
-          sofort: {explode: true, style: "deepObject"},
-          swish: {explode: true, style: "deepObject"},
-          twint: {explode: true, style: "deepObject"},
-          us_bank_account: {explode: true, style: "deepObject"},
-          wechat_pay: {explode: true, style: "deepObject"},
-          zip: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            acss_debit: {explode: true, style: "deepObject"},
+            affirm: {explode: true, style: "deepObject"},
+            afterpay_clearpay: {explode: true, style: "deepObject"},
+            alipay: {explode: true, style: "deepObject"},
+            alma: {explode: true, style: "deepObject"},
+            amazon_pay: {explode: true, style: "deepObject"},
+            apple_pay: {explode: true, style: "deepObject"},
+            apple_pay_later: {explode: true, style: "deepObject"},
+            au_becs_debit: {explode: true, style: "deepObject"},
+            bacs_debit: {explode: true, style: "deepObject"},
+            bancontact: {explode: true, style: "deepObject"},
+            billie: {explode: true, style: "deepObject"},
+            blik: {explode: true, style: "deepObject"},
+            boleto: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            cartes_bancaires: {explode: true, style: "deepObject"},
+            cashapp: {explode: true, style: "deepObject"},
+            customer_balance: {explode: true, style: "deepObject"},
+            eps: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            fpx: {explode: true, style: "deepObject"},
+            giropay: {explode: true, style: "deepObject"},
+            google_pay: {explode: true, style: "deepObject"},
+            grabpay: {explode: true, style: "deepObject"},
+            ideal: {explode: true, style: "deepObject"},
+            jcb: {explode: true, style: "deepObject"},
+            kakao_pay: {explode: true, style: "deepObject"},
+            klarna: {explode: true, style: "deepObject"},
+            konbini: {explode: true, style: "deepObject"},
+            kr_card: {explode: true, style: "deepObject"},
+            link: {explode: true, style: "deepObject"},
+            mobilepay: {explode: true, style: "deepObject"},
+            multibanco: {explode: true, style: "deepObject"},
+            naver_pay: {explode: true, style: "deepObject"},
+            nz_bank_account: {explode: true, style: "deepObject"},
+            oxxo: {explode: true, style: "deepObject"},
+            p24: {explode: true, style: "deepObject"},
+            pay_by_bank: {explode: true, style: "deepObject"},
+            payco: {explode: true, style: "deepObject"},
+            paynow: {explode: true, style: "deepObject"},
+            paypal: {explode: true, style: "deepObject"},
+            pix: {explode: true, style: "deepObject"},
+            promptpay: {explode: true, style: "deepObject"},
+            revolut_pay: {explode: true, style: "deepObject"},
+            samsung_pay: {explode: true, style: "deepObject"},
+            satispay: {explode: true, style: "deepObject"},
+            sepa_debit: {explode: true, style: "deepObject"},
+            sofort: {explode: true, style: "deepObject"},
+            swish: {explode: true, style: "deepObject"},
+            twint: {explode: true, style: "deepObject"},
+            us_bank_account: {explode: true, style: "deepObject"},
+            wechat_pay: {explode: true, style: "deepObject"},
+            zip: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -25153,67 +25573,71 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          acss_debit: {explode: true, style: "deepObject"},
-          affirm: {explode: true, style: "deepObject"},
-          afterpay_clearpay: {explode: true, style: "deepObject"},
-          alipay: {explode: true, style: "deepObject"},
-          alma: {explode: true, style: "deepObject"},
-          amazon_pay: {explode: true, style: "deepObject"},
-          apple_pay: {explode: true, style: "deepObject"},
-          apple_pay_later: {explode: true, style: "deepObject"},
-          au_becs_debit: {explode: true, style: "deepObject"},
-          bacs_debit: {explode: true, style: "deepObject"},
-          bancontact: {explode: true, style: "deepObject"},
-          billie: {explode: true, style: "deepObject"},
-          blik: {explode: true, style: "deepObject"},
-          boleto: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          cartes_bancaires: {explode: true, style: "deepObject"},
-          cashapp: {explode: true, style: "deepObject"},
-          customer_balance: {explode: true, style: "deepObject"},
-          eps: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          fpx: {explode: true, style: "deepObject"},
-          giropay: {explode: true, style: "deepObject"},
-          google_pay: {explode: true, style: "deepObject"},
-          grabpay: {explode: true, style: "deepObject"},
-          ideal: {explode: true, style: "deepObject"},
-          jcb: {explode: true, style: "deepObject"},
-          kakao_pay: {explode: true, style: "deepObject"},
-          klarna: {explode: true, style: "deepObject"},
-          konbini: {explode: true, style: "deepObject"},
-          kr_card: {explode: true, style: "deepObject"},
-          link: {explode: true, style: "deepObject"},
-          mobilepay: {explode: true, style: "deepObject"},
-          multibanco: {explode: true, style: "deepObject"},
-          naver_pay: {explode: true, style: "deepObject"},
-          nz_bank_account: {explode: true, style: "deepObject"},
-          oxxo: {explode: true, style: "deepObject"},
-          p24: {explode: true, style: "deepObject"},
-          pay_by_bank: {explode: true, style: "deepObject"},
-          payco: {explode: true, style: "deepObject"},
-          paynow: {explode: true, style: "deepObject"},
-          paypal: {explode: true, style: "deepObject"},
-          pix: {explode: true, style: "deepObject"},
-          promptpay: {explode: true, style: "deepObject"},
-          revolut_pay: {explode: true, style: "deepObject"},
-          samsung_pay: {explode: true, style: "deepObject"},
-          satispay: {explode: true, style: "deepObject"},
-          sepa_debit: {explode: true, style: "deepObject"},
-          sofort: {explode: true, style: "deepObject"},
-          swish: {explode: true, style: "deepObject"},
-          twint: {explode: true, style: "deepObject"},
-          us_bank_account: {explode: true, style: "deepObject"},
-          wechat_pay: {explode: true, style: "deepObject"},
-          zip: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            acss_debit: {explode: true, style: "deepObject"},
+            affirm: {explode: true, style: "deepObject"},
+            afterpay_clearpay: {explode: true, style: "deepObject"},
+            alipay: {explode: true, style: "deepObject"},
+            alma: {explode: true, style: "deepObject"},
+            amazon_pay: {explode: true, style: "deepObject"},
+            apple_pay: {explode: true, style: "deepObject"},
+            apple_pay_later: {explode: true, style: "deepObject"},
+            au_becs_debit: {explode: true, style: "deepObject"},
+            bacs_debit: {explode: true, style: "deepObject"},
+            bancontact: {explode: true, style: "deepObject"},
+            billie: {explode: true, style: "deepObject"},
+            blik: {explode: true, style: "deepObject"},
+            boleto: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            cartes_bancaires: {explode: true, style: "deepObject"},
+            cashapp: {explode: true, style: "deepObject"},
+            customer_balance: {explode: true, style: "deepObject"},
+            eps: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            fpx: {explode: true, style: "deepObject"},
+            giropay: {explode: true, style: "deepObject"},
+            google_pay: {explode: true, style: "deepObject"},
+            grabpay: {explode: true, style: "deepObject"},
+            ideal: {explode: true, style: "deepObject"},
+            jcb: {explode: true, style: "deepObject"},
+            kakao_pay: {explode: true, style: "deepObject"},
+            klarna: {explode: true, style: "deepObject"},
+            konbini: {explode: true, style: "deepObject"},
+            kr_card: {explode: true, style: "deepObject"},
+            link: {explode: true, style: "deepObject"},
+            mobilepay: {explode: true, style: "deepObject"},
+            multibanco: {explode: true, style: "deepObject"},
+            naver_pay: {explode: true, style: "deepObject"},
+            nz_bank_account: {explode: true, style: "deepObject"},
+            oxxo: {explode: true, style: "deepObject"},
+            p24: {explode: true, style: "deepObject"},
+            pay_by_bank: {explode: true, style: "deepObject"},
+            payco: {explode: true, style: "deepObject"},
+            paynow: {explode: true, style: "deepObject"},
+            paypal: {explode: true, style: "deepObject"},
+            pix: {explode: true, style: "deepObject"},
+            promptpay: {explode: true, style: "deepObject"},
+            revolut_pay: {explode: true, style: "deepObject"},
+            samsung_pay: {explode: true, style: "deepObject"},
+            satispay: {explode: true, style: "deepObject"},
+            sepa_debit: {explode: true, style: "deepObject"},
+            sofort: {explode: true, style: "deepObject"},
+            swish: {explode: true, style: "deepObject"},
+            twint: {explode: true, style: "deepObject"},
+            us_bank_account: {explode: true, style: "deepObject"},
+            wechat_pay: {explode: true, style: "deepObject"},
+            zip: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -25313,15 +25737,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -25342,15 +25770,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -25751,67 +26183,71 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          acss_debit: {explode: true, style: "deepObject"},
-          affirm: {explode: true, style: "deepObject"},
-          afterpay_clearpay: {explode: true, style: "deepObject"},
-          alipay: {explode: true, style: "deepObject"},
-          alma: {explode: true, style: "deepObject"},
-          amazon_pay: {explode: true, style: "deepObject"},
-          au_becs_debit: {explode: true, style: "deepObject"},
-          bacs_debit: {explode: true, style: "deepObject"},
-          bancontact: {explode: true, style: "deepObject"},
-          billie: {explode: true, style: "deepObject"},
-          billing_details: {explode: true, style: "deepObject"},
-          blik: {explode: true, style: "deepObject"},
-          boleto: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          cashapp: {explode: true, style: "deepObject"},
-          crypto: {explode: true, style: "deepObject"},
-          customer_balance: {explode: true, style: "deepObject"},
-          eps: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          fpx: {explode: true, style: "deepObject"},
-          giropay: {explode: true, style: "deepObject"},
-          grabpay: {explode: true, style: "deepObject"},
-          ideal: {explode: true, style: "deepObject"},
-          interac_present: {explode: true, style: "deepObject"},
-          kakao_pay: {explode: true, style: "deepObject"},
-          klarna: {explode: true, style: "deepObject"},
-          konbini: {explode: true, style: "deepObject"},
-          kr_card: {explode: true, style: "deepObject"},
-          link: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          mobilepay: {explode: true, style: "deepObject"},
-          multibanco: {explode: true, style: "deepObject"},
-          naver_pay: {explode: true, style: "deepObject"},
-          nz_bank_account: {explode: true, style: "deepObject"},
-          oxxo: {explode: true, style: "deepObject"},
-          p24: {explode: true, style: "deepObject"},
-          pay_by_bank: {explode: true, style: "deepObject"},
-          payco: {explode: true, style: "deepObject"},
-          paynow: {explode: true, style: "deepObject"},
-          paypal: {explode: true, style: "deepObject"},
-          pix: {explode: true, style: "deepObject"},
-          promptpay: {explode: true, style: "deepObject"},
-          radar_options: {explode: true, style: "deepObject"},
-          revolut_pay: {explode: true, style: "deepObject"},
-          samsung_pay: {explode: true, style: "deepObject"},
-          satispay: {explode: true, style: "deepObject"},
-          sepa_debit: {explode: true, style: "deepObject"},
-          sofort: {explode: true, style: "deepObject"},
-          swish: {explode: true, style: "deepObject"},
-          twint: {explode: true, style: "deepObject"},
-          us_bank_account: {explode: true, style: "deepObject"},
-          wechat_pay: {explode: true, style: "deepObject"},
-          zip: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            acss_debit: {explode: true, style: "deepObject"},
+            affirm: {explode: true, style: "deepObject"},
+            afterpay_clearpay: {explode: true, style: "deepObject"},
+            alipay: {explode: true, style: "deepObject"},
+            alma: {explode: true, style: "deepObject"},
+            amazon_pay: {explode: true, style: "deepObject"},
+            au_becs_debit: {explode: true, style: "deepObject"},
+            bacs_debit: {explode: true, style: "deepObject"},
+            bancontact: {explode: true, style: "deepObject"},
+            billie: {explode: true, style: "deepObject"},
+            billing_details: {explode: true, style: "deepObject"},
+            blik: {explode: true, style: "deepObject"},
+            boleto: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            cashapp: {explode: true, style: "deepObject"},
+            crypto: {explode: true, style: "deepObject"},
+            customer_balance: {explode: true, style: "deepObject"},
+            eps: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            fpx: {explode: true, style: "deepObject"},
+            giropay: {explode: true, style: "deepObject"},
+            grabpay: {explode: true, style: "deepObject"},
+            ideal: {explode: true, style: "deepObject"},
+            interac_present: {explode: true, style: "deepObject"},
+            kakao_pay: {explode: true, style: "deepObject"},
+            klarna: {explode: true, style: "deepObject"},
+            konbini: {explode: true, style: "deepObject"},
+            kr_card: {explode: true, style: "deepObject"},
+            link: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            mobilepay: {explode: true, style: "deepObject"},
+            multibanco: {explode: true, style: "deepObject"},
+            naver_pay: {explode: true, style: "deepObject"},
+            nz_bank_account: {explode: true, style: "deepObject"},
+            oxxo: {explode: true, style: "deepObject"},
+            p24: {explode: true, style: "deepObject"},
+            pay_by_bank: {explode: true, style: "deepObject"},
+            payco: {explode: true, style: "deepObject"},
+            paynow: {explode: true, style: "deepObject"},
+            paypal: {explode: true, style: "deepObject"},
+            pix: {explode: true, style: "deepObject"},
+            promptpay: {explode: true, style: "deepObject"},
+            radar_options: {explode: true, style: "deepObject"},
+            revolut_pay: {explode: true, style: "deepObject"},
+            samsung_pay: {explode: true, style: "deepObject"},
+            satispay: {explode: true, style: "deepObject"},
+            sepa_debit: {explode: true, style: "deepObject"},
+            sofort: {explode: true, style: "deepObject"},
+            swish: {explode: true, style: "deepObject"},
+            twint: {explode: true, style: "deepObject"},
+            us_bank_account: {explode: true, style: "deepObject"},
+            wechat_pay: {explode: true, style: "deepObject"},
+            zip: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -25894,21 +26330,25 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          billing_details: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          link: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          pay_by_bank: {explode: true, style: "deepObject"},
-          us_bank_account: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            billing_details: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            link: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            pay_by_bank: {explode: true, style: "deepObject"},
+            us_bank_account: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -25955,15 +26395,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -26093,16 +26537,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -26121,15 +26569,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -26151,16 +26603,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -26334,16 +26790,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -26623,17 +27083,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          currency_options: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            currency_options: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -26896,23 +27360,27 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          description: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          images: {explode: true, style: "deepObject"},
-          marketing_features: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          package_dimensions: {explode: true, style: "deepObject"},
-          tax_code: {explode: true, style: "deepObject"},
-          unit_label: {explode: true, style: "deepObject"},
-          url: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            description: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            images: {explode: true, style: "deepObject"},
+            marketing_features: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            package_dimensions: {explode: true, style: "deepObject"},
+            tax_code: {explode: true, style: "deepObject"},
+            unit_label: {explode: true, style: "deepObject"},
+            url: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27151,17 +27619,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          restrictions: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            restrictions: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27322,30 +27794,34 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          application_fee_amount: {explode: true, style: "deepObject"},
-          application_fee_percent: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          description: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          footer: {explode: true, style: "deepObject"},
-          from_quote: {explode: true, style: "deepObject"},
-          header: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          line_items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          on_behalf_of: {explode: true, style: "deepObject"},
-          subscription_data: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            application_fee_amount: {explode: true, style: "deepObject"},
+            application_fee_percent: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            description: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            footer: {explode: true, style: "deepObject"},
+            from_quote: {explode: true, style: "deepObject"},
+            header: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            line_items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            on_behalf_of: {explode: true, style: "deepObject"},
+            subscription_data: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27471,29 +27947,33 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          application_fee_amount: {explode: true, style: "deepObject"},
-          application_fee_percent: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          description: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          footer: {explode: true, style: "deepObject"},
-          header: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          line_items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          on_behalf_of: {explode: true, style: "deepObject"},
-          subscription_data: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            application_fee_amount: {explode: true, style: "deepObject"},
+            application_fee_percent: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            description: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            footer: {explode: true, style: "deepObject"},
+            header: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            line_items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            on_behalf_of: {explode: true, style: "deepObject"},
+            subscription_data: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27512,15 +27992,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27539,15 +28023,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27602,15 +28090,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -27966,16 +28458,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -28059,16 +28555,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -28108,16 +28608,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -28136,15 +28640,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -28990,15 +29498,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -29666,23 +30178,27 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          automatic_payment_methods: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          flow_directions: {explode: true, style: "deepObject"},
-          mandate_data: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-          payment_method_types: {explode: true, style: "deepObject"},
-          single_use: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            automatic_payment_methods: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            flow_directions: {explode: true, style: "deepObject"},
+            mandate_data: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+            payment_method_types: {explode: true, style: "deepObject"},
+            single_use: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -30253,20 +30769,24 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          flow_directions: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-          payment_method_types: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            flow_directions: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+            payment_method_types: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -30290,15 +30810,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -30865,18 +31389,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          mandate_data: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            mandate_data: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -30899,16 +31427,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          amounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            amounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -31090,17 +31622,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          fixed_amount: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            fixed_amount: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -31121,15 +31657,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -31301,21 +31841,25 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          mandate: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          owner: {explode: true, style: "deepObject"},
-          receiver: {explode: true, style: "deepObject"},
-          redirect: {explode: true, style: "deepObject"},
-          source_order: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            mandate: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            owner: {explode: true, style: "deepObject"},
+            receiver: {explode: true, style: "deepObject"},
+            redirect: {explode: true, style: "deepObject"},
+            source_order: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -31438,19 +31982,23 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          mandate: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          owner: {explode: true, style: "deepObject"},
-          source_order: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            mandate: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            owner: {explode: true, style: "deepObject"},
+            source_order: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -31686,13 +32234,17 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {})
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {})
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -31777,20 +32329,24 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          billing_thresholds: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          price_data: {explode: true, style: "deepObject"},
-          tax_rates: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            billing_thresholds: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            price_data: {explode: true, style: "deepObject"},
+            tax_rates: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -32067,20 +32623,24 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          billing_mode: {explode: true, style: "deepObject"},
-          default_settings: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          phases: {explode: true, style: "deepObject"},
-          start_date: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            billing_mode: {explode: true, style: "deepObject"},
+            default_settings: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            phases: {explode: true, style: "deepObject"},
+            start_date: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -32299,18 +32859,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          default_settings: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          phases: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            default_settings: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            phases: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -32332,15 +32896,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -32361,15 +32929,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -32890,16 +33462,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          cancellation_details: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            cancellation_details: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "DELETE", body, ...opts, headers}, timeout)
   }
@@ -33277,35 +33853,39 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          add_invoice_items: {explode: true, style: "deepObject"},
-          application_fee_percent: {explode: true, style: "deepObject"},
-          automatic_tax: {explode: true, style: "deepObject"},
-          billing_thresholds: {explode: true, style: "deepObject"},
-          cancel_at: {explode: true, style: "deepObject"},
-          cancellation_details: {explode: true, style: "deepObject"},
-          default_source: {explode: true, style: "deepObject"},
-          default_tax_rates: {explode: true, style: "deepObject"},
-          description: {explode: true, style: "deepObject"},
-          discounts: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          invoice_settings: {explode: true, style: "deepObject"},
-          items: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          on_behalf_of: {explode: true, style: "deepObject"},
-          pause_collection: {explode: true, style: "deepObject"},
-          payment_settings: {explode: true, style: "deepObject"},
-          pending_invoice_item_interval: {explode: true, style: "deepObject"},
-          transfer_data: {explode: true, style: "deepObject"},
-          trial_end: {explode: true, style: "deepObject"},
-          trial_settings: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            add_invoice_items: {explode: true, style: "deepObject"},
+            application_fee_percent: {explode: true, style: "deepObject"},
+            automatic_tax: {explode: true, style: "deepObject"},
+            billing_thresholds: {explode: true, style: "deepObject"},
+            cancel_at: {explode: true, style: "deepObject"},
+            cancellation_details: {explode: true, style: "deepObject"},
+            default_source: {explode: true, style: "deepObject"},
+            default_tax_rates: {explode: true, style: "deepObject"},
+            description: {explode: true, style: "deepObject"},
+            discounts: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            invoice_settings: {explode: true, style: "deepObject"},
+            items: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            on_behalf_of: {explode: true, style: "deepObject"},
+            pause_collection: {explode: true, style: "deepObject"},
+            payment_settings: {explode: true, style: "deepObject"},
+            pending_invoice_item_interval: {explode: true, style: "deepObject"},
+            transfer_data: {explode: true, style: "deepObject"},
+            trial_end: {explode: true, style: "deepObject"},
+            trial_settings: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -33374,15 +33954,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -34353,17 +34937,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          active_from: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          expires_at: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            active_from: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            expires_at: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -34413,17 +35001,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          defaults: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          head_office: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            defaults: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            head_office: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -34980,16 +35572,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -35174,22 +35770,26 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bbpos_wisepos_e: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          offline: {explode: true, style: "deepObject"},
-          reboot_window: {explode: true, style: "deepObject"},
-          stripe_s700: {explode: true, style: "deepObject"},
-          tipping: {explode: true, style: "deepObject"},
-          verifone_p400: {explode: true, style: "deepObject"},
-          wifi: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bbpos_wisepos_e: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            offline: {explode: true, style: "deepObject"},
+            reboot_window: {explode: true, style: "deepObject"},
+            stripe_s700: {explode: true, style: "deepObject"},
+            tipping: {explode: true, style: "deepObject"},
+            verifone_p400: {explode: true, style: "deepObject"},
+            wifi: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -35391,22 +35991,26 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          bbpos_wisepos_e: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          offline: {explode: true, style: "deepObject"},
-          reboot_window: {explode: true, style: "deepObject"},
-          stripe_s700: {explode: true, style: "deepObject"},
-          tipping: {explode: true, style: "deepObject"},
-          verifone_p400: {explode: true, style: "deepObject"},
-          wifi: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            bbpos_wisepos_e: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            offline: {explode: true, style: "deepObject"},
+            reboot_window: {explode: true, style: "deepObject"},
+            stripe_s700: {explode: true, style: "deepObject"},
+            tipping: {explode: true, style: "deepObject"},
+            verifone_p400: {explode: true, style: "deepObject"},
+            wifi: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -35425,15 +36029,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -35577,19 +36185,23 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          address: {explode: true, style: "deepObject"},
-          configuration_overrides: {explode: true, style: "deepObject"},
-          display_name: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            address: {explode: true, style: "deepObject"},
+            configuration_overrides: {explode: true, style: "deepObject"},
+            display_name: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -35734,17 +36346,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          label: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            label: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -35764,15 +36380,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -36014,17 +36634,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          refund_payment_config: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            refund_payment_config: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -36392,18 +37016,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          payment_method_data: {explode: true, style: "deepObject"},
-          payment_method_options: {explode: true, style: "deepObject"},
-          shipping: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            payment_method_data: {explode: true, style: "deepObject"},
+            payment_method_options: {explode: true, style: "deepObject"},
+            shipping: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -36990,16 +37618,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          purchase_details: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            purchase_details: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37020,15 +37652,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37190,15 +37826,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37219,15 +37859,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37248,15 +37892,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37277,15 +37925,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37306,15 +37958,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37335,15 +37991,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37366,15 +38026,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37397,15 +38061,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -37512,15 +38180,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38376,15 +39048,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38403,15 +39079,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38440,17 +39120,21 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          card_present: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          interac_present: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            card_present: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            interac_present: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38472,15 +39156,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38501,15 +39189,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38663,16 +39355,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          failure_details: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            failure_details: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38693,15 +39389,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38722,15 +39422,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38789,15 +39493,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38818,15 +39526,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38861,16 +39573,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          returned_details: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            returned_details: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38934,15 +39650,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -38965,15 +39685,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39010,16 +39734,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          returned_details: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            returned_details: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39499,21 +40227,25 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          account: {explode: true, style: "deepObject"},
-          bank_account: {explode: true, style: "deepObject"},
-          card: {explode: true, style: "deepObject"},
-          cvc_update: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          person: {explode: true, style: "deepObject"},
-          pii: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            account: {explode: true, style: "deepObject"},
+            bank_account: {explode: true, style: "deepObject"},
+            card: {explode: true, style: "deepObject"},
+            cvc_update: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            person: {explode: true, style: "deepObject"},
+            pii: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39664,16 +40396,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39692,15 +40428,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39843,16 +40583,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39893,16 +40637,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -39946,16 +40694,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -40342,20 +41094,24 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          features: {explode: true, style: "deepObject"},
-          forwarding_settings: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-          nickname: {explode: true, style: "deepObject"},
-          platform_restrictions: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            features: {explode: true, style: "deepObject"},
+            forwarding_settings: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+            nickname: {explode: true, style: "deepObject"},
+            platform_restrictions: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -40383,16 +41139,20 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-          forwarding_settings: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+            forwarding_settings: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -40469,22 +41229,26 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          card_issuing: {explode: true, style: "deepObject"},
-          deposit_insurance: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          financial_addresses: {explode: true, style: "deepObject"},
-          inbound_transfers: {explode: true, style: "deepObject"},
-          intra_stripe_flows: {explode: true, style: "deepObject"},
-          outbound_payments: {explode: true, style: "deepObject"},
-          outbound_transfers: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            card_issuing: {explode: true, style: "deepObject"},
+            deposit_insurance: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            financial_addresses: {explode: true, style: "deepObject"},
+            inbound_transfers: {explode: true, style: "deepObject"},
+            intra_stripe_flows: {explode: true, style: "deepObject"},
+            outbound_payments: {explode: true, style: "deepObject"},
+            outbound_transfers: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -40596,15 +41360,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -40776,15 +41544,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -40918,15 +41690,19 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          expand: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            expand: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -41920,18 +42696,22 @@ export class StripeApi extends AbstractFetchClient {
     const headers = this._headers(
       {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type":
+          p.requestBody !== undefined
+            ? "application/x-www-form-urlencoded"
+            : undefined,
       },
       opts.headers,
     )
-    const body = p.requestBody
-      ? this._requestBodyToUrlSearchParams(p.requestBody, {
-          description: {explode: true, style: "deepObject"},
-          enabled_events: {explode: true, style: "deepObject"},
-          expand: {explode: true, style: "deepObject"},
-          metadata: {explode: true, style: "deepObject"},
-        })
-      : undefined
+    const body =
+      p.requestBody !== undefined
+        ? this._requestBodyToUrlSearchParams(p.requestBody, {
+            description: {explode: true, style: "deepObject"},
+            enabled_events: {explode: true, style: "deepObject"},
+            expand: {explode: true, style: "deepObject"},
+            metadata: {explode: true, style: "deepObject"},
+          })
+        : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
