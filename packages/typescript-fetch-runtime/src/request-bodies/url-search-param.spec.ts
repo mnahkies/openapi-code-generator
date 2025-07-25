@@ -207,4 +207,19 @@ describe("typescript-fetch-runtime/request-bodies/requestBodyToUrlSearchParams",
       expect(actual.toString()).toStrictEqual("id=123&description=0")
     })
   })
+
+  describe("explode: false, nested objects/arrays", () => {
+    it("uses a JSON serialization when no defined alternative exists", () => {
+      const actual = requestBodyToUrlSearchParams(
+        {
+          foo: {bar: {baz: true}},
+        },
+        {foo: {explode: false, style: "form"}},
+      )
+
+      expect(actual.toString()).toStrictEqual(
+        "foo=bar%2C%7B%22baz%22%3Atrue%7D",
+      )
+    })
+  })
 })

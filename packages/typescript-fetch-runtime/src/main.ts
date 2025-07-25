@@ -128,8 +128,7 @@ export abstract class AbstractFetchClient {
     return headers
   }
 
-  // todo: rename requestBodyToUrlSearchParams
-  protected _toUrlSearchParams(
+  protected _requestBodyToUrlSearchParams(
     obj: Record<string, unknown>,
     encoding: Record<string, Encoding> = {},
   ): URLSearchParams {

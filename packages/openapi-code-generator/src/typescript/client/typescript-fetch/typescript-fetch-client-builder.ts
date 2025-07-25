@@ -151,7 +151,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
       case "String":
         return `p.${requestBody.parameter.name}`
       case "URLSearchParams":
-        return `p.${requestBody.parameter.name} ? this._toUrlSearchParams(${[
+        return `p.${requestBody.parameter.name} ? this._requestBodyToUrlSearchParams(${[
           `p.${requestBody.parameter.name}`,
           requestBody.encoding
             ? JSON.stringify(requestBody.encoding)

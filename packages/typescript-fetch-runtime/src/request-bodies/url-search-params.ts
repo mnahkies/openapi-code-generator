@@ -68,12 +68,18 @@ function addObjectValue(
     }
   } else {
     if (["form", "spaceDelimited", "pipeDelimited"].includes(encoding.style)) {
-      // todo: nested objects / arrays?
       const sep = separators[encoding.style]
       result.append(
         key,
         Object.entries(value)
-          .map((entry) => entry.join(sep))
+          .map((entry) =>
+            [
+              entry[0],
+              typeof entry[1] === "object"
+                ? JSON.stringify(entry[1])
+                : entry[1],
+            ].join(sep),
+          )
           .join(sep),
       )
     } else {
@@ -82,16 +88,22 @@ function addObjectValue(
   }
 }
 
+/**
+ * Serializes a request body as `application/x-www-form-urlencoded` with the exact
+ * semantics defined by the provided encodings, falling back to the default encoding
+ * specified by the OAI specification.
+ */
 export function requestBodyToUrlSearchParams(
   obj: Record<string, unknown>,
-  allEncodings: Record<string, Encoding> = {},
+  encodings: Record<string, Encoding> = {},
 ): URLSearchParams {
   const result = new URLSearchParams()
 
   for (const [key, value] of Object.entries(obj)) {
-    const encoding = getEncoding(key, allEncodings)
+    const encoding = getEncoding(key, encodings)
 
     if (value === undefined || value === null) {
+      // RFC 1866 8.2.1: "Fields with null values may be omitted."
       continue
     }
 
