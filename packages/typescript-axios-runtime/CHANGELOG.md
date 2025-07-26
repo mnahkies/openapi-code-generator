@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.1...v0.21.0) (2025-07-26)
+
+### Bug Fixes
+
+- adjust typing to reflect that boolean request headers are supported ([#339](https://github.com/mnahkies/openapi-code-generator/issues/339)) ([17524a5](https://github.com/mnahkies/openapi-code-generator/commit/17524a5afd9dbce6d68c36057ec846b7c6b22bcc))
+
+### Features
+
+- support application/x-www-form-urlencoded request bodies ([#352](https://github.com/mnahkies/openapi-code-generator/issues/352)) ([0aecf2a](https://github.com/mnahkies/openapi-code-generator/commit/0aecf2adc436c5e342cc9cc47ee47aa84dd9314b))
+
 ## [0.20.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.0...v0.20.1) (2025-05-31)
 
 **Note:** Version bump only for package @nahkies/typescript-axios-runtime

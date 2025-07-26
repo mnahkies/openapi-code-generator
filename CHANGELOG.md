@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.1...v0.21.0) (2025-07-26)
+
+### Bug Fixes
+
+- adjust typing to reflect that boolean request headers are supported ([#339](https://github.com/mnahkies/openapi-code-generator/issues/339)) ([17524a5](https://github.com/mnahkies/openapi-code-generator/commit/17524a5afd9dbce6d68c36057ec846b7c6b22bcc))
+- check validator works ([#354](https://github.com/mnahkies/openapi-code-generator/issues/354)) ([28ad4e9](https://github.com/mnahkies/openapi-code-generator/commit/28ad4e9afb93d3a24819995066af1d407804d291))
+- **ci:** adjust workflow permissions ([#340](https://github.com/mnahkies/openapi-code-generator/issues/340)) ([5ad9298](https://github.com/mnahkies/openapi-code-generator/commit/5ad9298d9a2c7c491f5724af89e0abb684c034f5))
+- filter invalid request bodies ([#348](https://github.com/mnahkies/openapi-code-generator/issues/348)) ([39b5e3c](https://github.com/mnahkies/openapi-code-generator/commit/39b5e3c86cb31c495ea7fe136b9019be832bd69a))
+- improve request body / content-type handling ([#349](https://github.com/mnahkies/openapi-code-generator/issues/349)) ([7808634](https://github.com/mnahkies/openapi-code-generator/commit/7808634b0579a30bc52b4f9887cf34eebdb0aae8))
+- partial koa-body middlware options ([#346](https://github.com/mnahkies/openapi-code-generator/issues/346)) ([1dd0636](https://github.com/mnahkies/openapi-code-generator/commit/1dd063622da2f82874044b1c5765891995c1d7c1)), closes [/github.com/koajs/koa-body/blob/master/src/index.ts#L23](https://github.com//github.com/koajs/koa-body/blob/master/src/index.ts/issues/L23)
+- serialize scim json bodies ([#355](https://github.com/mnahkies/openapi-code-generator/issues/355)) ([619b014](https://github.com/mnahkies/openapi-code-generator/commit/619b014d617e281b9e57247d7c9394d4d7ea0ca2))
+
+### Features
+
+- allow mandatory server variables ([#341](https://github.com/mnahkies/openapi-code-generator/issues/341)) ([83673d8](https://github.com/mnahkies/openapi-code-generator/commit/83673d88478c14dd7816293cdf4d22239c584b42))
+- boolean schemas support enum ([#351](https://github.com/mnahkies/openapi-code-generator/issues/351)) ([46fea1e](https://github.com/mnahkies/openapi-code-generator/commit/46fea1ea9a64307fa2522d5bd2940e613b017b24))
+- read formatter config ([#343](https://github.com/mnahkies/openapi-code-generator/issues/343)) ([1d09da2](https://github.com/mnahkies/openapi-code-generator/commit/1d09da2d12bb25942d0fb9ec50126a1db53caa81))
+- support application/x-www-form-urlencoded request bodies ([#352](https://github.com/mnahkies/openapi-code-generator/issues/352)) ([0aecf2a](https://github.com/mnahkies/openapi-code-generator/commit/0aecf2adc436c5e342cc9cc47ee47aa84dd9314b))
+- support text/plain request bodies ([#350](https://github.com/mnahkies/openapi-code-generator/issues/350)) ([eba568f](https://github.com/mnahkies/openapi-code-generator/commit/eba568fbb694de40c374a06f7feefa15f6d6e7a9))
+
+### BREAKING CHANGES
+
+- `typescript-express` `ServerConfig['body']` shape
+  changed to accommodate configuring multiple body parsers
+
 ## [0.20.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.0...v0.20.1) (2025-05-31)
 
 ### Bug Fixes

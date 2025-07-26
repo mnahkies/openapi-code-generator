@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.21.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.1...v0.21.0) (2025-07-26)
+
+### Bug Fixes
+
+- partial koa-body middlware options ([#346](https://github.com/mnahkies/openapi-code-generator/issues/346)) ([1dd0636](https://github.com/mnahkies/openapi-code-generator/commit/1dd063622da2f82874044b1c5765891995c1d7c1)), closes [/github.com/koajs/koa-body/blob/master/src/index.ts#L23](https://github.com//github.com/koajs/koa-body/blob/master/src/index.ts/issues/L23)
+
 ## [0.20.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.0...v0.20.1) (2025-05-31)
 
 **Note:** Version bump only for package @nahkies/typescript-koa-runtime
