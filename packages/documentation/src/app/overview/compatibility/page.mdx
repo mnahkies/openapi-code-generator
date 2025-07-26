@@ -16,7 +16,7 @@ an understanding of what does / doesn't work.
   detailing your use-case, and we can work together to get support added / extended.
 
   We will also accept pull requests where implemented functionality follows the [OpenAPI
-  specification](https://swagger.io/specification/),
+  specification](https://spec.openapis.org/),
   and the output code is of a high quality in terms of developer experience and robustness. See
   [CONTRIBUTING.md](https://github.com/mnahkies/openapi-code-generator/blob/main/CONTRIBUTING.md)
   to get started
@@ -26,11 +26,12 @@ an understanding of what does / doesn't work.
 Most common functionality used by JSON based APIs should work.
 
 - Great support for `paths` using `application/json` request / response bodies
+- Decent support for `paths` using `application/x-www-form-urlencoded` request bodies
 - Comprehensive support for most `schema` properties, including json validation stuff like `minLength`,
 but only for `json` content types. Notable exceptions:
 - `readonly` is currently implemented incorrectly
 - `discriminator` is ignored, but `union` / `intersection` types will be generated based on `anyOf` / `allOf` so
-this isn't often an issue in practice
+this isn't an issue in practice
 - No support for security schemes, you'll need to fudge these as header parameters, or implement out-of-band
 for the specification for now.
 - No support for `webhooks` / `callbacks` yet
@@ -182,10 +183,10 @@ everything should just work as you'd guess/expect.
 | content                  |    🚫     |                                                            Not yet supported |
 
 ### Request Body Object
-Well-supported for `application/json` (including some variations like `application/scim+json`) and `text/plain` content types.
+Well-supported for `application/json` (including some variations like `application/scim+json`), `text/plain`,
+and `application/x-www-form-urlencoded` content types,
 
-Support for `multipart/form-data`, `application/x-www-form-urlencoded` and `application/octocat-stream`, etc
-planned to come soon.
+Support for `multipart/form-data`, `application/octocat-stream`, etc. planned to come soon.
 
 | Attribute                     | Supported |                                                          Notes |
 |:------------------------------|:---------:|---------------------------------------------------------------:|
@@ -195,12 +196,12 @@ planned to come soon.
 
 ### Media Type Object
 
-| Attribute                | Supported | Notes             |
-|:-------------------------|:---------:|:------------------|
-| [schema](#schema-object) |     ✅     |                   |
-| example                  |  __N/A__  | Ignored           |
-| examples                 |  __N/A__  | Ignored           |
-| encoding                 |    🚫     | Not yet supported |
+| Attribute                | Supported | Notes                                                            |
+|:-------------------------|:---------:|:-----------------------------------------------------------------|
+| [schema](#schema-object) |     ✅     |                                                                  |
+| example                  |  __N/A__  | Ignored                                                          |
+| examples                 |  __N/A__  | Ignored                                                          |
+| encoding                 |    🚧     | Supported for `application/x-www-form-urlencoded` request bodies |
 
 ### Responses Object
 Well supported.
@@ -281,17 +282,17 @@ as a breaking change prior to v1.
 | deprecated           |    🚫     | Not yet supported                                                                                                                                        |
 | xml                  |    🚫     | Not yet supported                                                                                                                                        |
 
+### Encoding Object
+| Attribute     | Supported | Notes                                                              |
+|:--------------|:---------:|:-------------------------------------------------------------------|
+| contentType   |    🚫     | Not yet supported                                                  |
+| headers       |    🚫     | Not yet supported                                                  |
+| style         |   ✅/🚧    | Only applies to `application/x-www-form-urlencoded` request bodies |
+| explode       |   ✅/🚧    | Only applies to `application/x-www-form-urlencoded` request bodies |
+| allowReserved |    🚫     | Not yet supported                                                  |
+
 ## Completely unsupported things
 The following objects are completely unsupported at this stage.
-
-### Encoding Object
-| Attribute     | Supported | Notes             |
-|:--------------|:---------:|:------------------|
-| contentType   |    🚫     | Not yet supported |
-| headers       |    🚫     | Not yet supported |
-| style         |    🚫     | Not yet supported |
-| explode       |    🚫     | Not yet supported |
-| allowReserved |    🚫     | Not yet supported |
 
 ### Callback Object
 The callback object is completely unsupported.

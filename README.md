@@ -6,7 +6,7 @@
 `@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
 and API server scaffolding (routing, validation, serialization) from api specifications.
 
-Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/),
+Currently, [OpenAPI 3.0.x](https://spec.openapis.org/oas/v3.0.4.html), [OpenAPI 3.1.x](https://spec.openapis.org/oas/v3.1.1.html),
 and [TypeSpec](https://typespec.io/) are supported as input specifications.
 
 With typescript templates for [koa](https://openapi-code-generator.nahkies.co.nz/guides/server-templates/typescript-koa), [express](https://openapi-code-generator.nahkies.co.nz/guides/server-templates/typescript-express), [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch), [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios), and [angular](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-angular) currently available.
