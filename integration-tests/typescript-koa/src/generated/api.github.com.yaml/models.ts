@@ -1105,6 +1105,10 @@ export type t_code_scanning_default_setup_update_response = {
   run_url?: string
 }
 
+export type t_code_scanning_options = {
+  allow_advanced?: boolean | null
+} | null
+
 export type t_code_scanning_organization_alert_items = {
   created_at: t_alert_created_at
   dismissal_approved_by?: t_nullable_simple_user
@@ -1245,7 +1249,9 @@ export type t_code_security_configuration = {
     runner_type?: "standard" | "labeled" | "not_set" | null
   } | null
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
-  code_scanning_options?: EmptyObject | null
+  code_scanning_options?: {
+    allow_advanced?: boolean | null
+  } | null
   created_at?: string
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
@@ -3113,7 +3119,7 @@ export type t_issue = {
   repository?: t_repository
   repository_url: string
   state: string
-  state_reason?: "completed" | "reopened" | "not_planned" | null
+  state_reason?: "completed" | "reopened" | "not_planned" | "duplicate" | null
   sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
@@ -3256,11 +3262,7 @@ export type t_issue_search_result_item = {
   score: number
   state: string
   state_reason?: string | null
-  sub_issues_summary?: {
-    completed: number
-    percent_completed: number
-    total: number
-  }
+  sub_issues_summary?: t_sub_issues_summary
   text_matches?: t_search_result_text_matches
   timeline_url?: string
   title: string
@@ -3341,6 +3343,7 @@ export type t_key = {
   created_at: string
   id: number
   key: string
+  last_used?: string | null
   read_only: boolean
   title: string
   url: string
@@ -3351,6 +3354,7 @@ export type t_key_simple = {
   created_at?: string
   id: number
   key: string
+  last_used?: string | null
 }
 
 export type t_label = {
@@ -3870,7 +3874,7 @@ export type t_nullable_issue = {
   repository?: t_repository
   repository_url: string
   state: string
-  state_reason?: "completed" | "reopened" | "not_planned" | null
+  state_reason?: "completed" | "reopened" | "not_planned" | "duplicate" | null
   sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
@@ -4296,6 +4300,8 @@ export type t_org_hook = {
 }
 
 export type t_org_membership = {
+  direct_membership?: boolean
+  enterprise_teams_providing_indirect_membership?: string[]
   organization: t_organization_simple
   organization_url: string
   permissions?: {
@@ -4310,7 +4316,22 @@ export type t_org_membership = {
 export type t_org_private_registry_configuration = {
   created_at: string
   name: string
-  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
+  registry_type:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
   updated_at: string
   username?: string | null
   visibility: "all" | "private" | "selected"
@@ -4319,7 +4340,22 @@ export type t_org_private_registry_configuration = {
 export type t_org_private_registry_configuration_with_selected_repositories = {
   created_at: string
   name: string
-  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
+  registry_type:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
   selected_repository_ids?: number[]
   updated_at: string
   username?: string
@@ -4332,6 +4368,28 @@ export type t_org_repo_custom_property_values = {
   repository_id: number
   repository_name: string
 }
+
+export type t_org_rules =
+  | t_repository_rule_creation
+  | t_repository_rule_update
+  | t_repository_rule_deletion
+  | t_repository_rule_required_linear_history
+  | t_repository_rule_required_deployments
+  | t_repository_rule_required_signatures
+  | t_repository_rule_pull_request
+  | t_repository_rule_required_status_checks
+  | t_repository_rule_non_fast_forward
+  | t_repository_rule_commit_message_pattern
+  | t_repository_rule_commit_author_email_pattern
+  | t_repository_rule_committer_email_pattern
+  | t_repository_rule_branch_name_pattern
+  | t_repository_rule_tag_name_pattern
+  | t_repository_rule_file_path_restriction
+  | t_repository_rule_max_file_path_length
+  | t_repository_rule_file_extension_restriction
+  | t_repository_rule_max_file_size
+  | t_repository_rule_workflows
+  | t_repository_rule_code_scanning
 
 export type t_org_ruleset_conditions =
   | (t_repository_ruleset_conditions &
@@ -5369,6 +5427,7 @@ export type t_release = {
   draft: boolean
   html_url: string
   id: number
+  immutable?: boolean
   mentions_count?: number
   name: string | null
   node_id: string
@@ -9948,6 +10007,8 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
+  code_scanning_options?: t_code_scanning_options
+  code_security?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -9959,6 +10020,7 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
   enforcement?: "enforced" | "unenforced"
   name: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
@@ -9987,6 +10049,8 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseBodySchema = {
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
+  code_scanning_options?: t_code_scanning_options
+  code_security?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -9998,6 +10062,7 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseBodySchema = {
   enforcement?: "enforced" | "unenforced"
   name: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
@@ -10125,6 +10190,7 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
+  code_security?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -10136,6 +10202,7 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
   enforcement?: "enforced" | "unenforced"
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
@@ -10165,6 +10232,7 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationBodySchema = {
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
+  code_security?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -10176,6 +10244,7 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationBodySchema = {
   enforcement?: "enforced" | "unenforced"
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
@@ -11720,7 +11789,7 @@ export type t_IssuesUpdateBodySchema = {
   )[]
   milestone?: string | number | null
   state?: "open" | "closed"
-  state_reason?: "completed" | "not_planned" | "reopened" | null
+  state_reason?: "completed" | "not_planned" | "duplicate" | "reopened" | null
   title?: string | number | null
   type?: string | null
 }
@@ -12896,7 +12965,22 @@ export type t_PackagesRestorePackageVersionForUserParamSchema = {
 export type t_PrivateRegistriesCreateOrgPrivateRegistryBodySchema = {
   encrypted_value: string
   key_id: string
-  registry_type: "maven_repository" | "nuget_feed" | "goproxy_server"
+  registry_type:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
   selected_repository_ids?: number[]
   url: string
   username?: string | null
@@ -12933,7 +13017,22 @@ export type t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema = {
 export type t_PrivateRegistriesUpdateOrgPrivateRegistryBodySchema = {
   encrypted_value?: string
   key_id?: string
-  registry_type?: "maven_repository" | "nuget_feed" | "goproxy_server"
+  registry_type?:
+    | "maven_repository"
+    | "nuget_feed"
+    | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
   selected_repository_ids?: number[]
   url?: string
   username?: string | null
@@ -12945,16 +13044,16 @@ export type t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema = {
   secret_name: string
 }
 
-export type t_ProjectsAddCollaboratorBodySchema = {
+export type t_ProjectsClassicAddCollaboratorBodySchema = {
   permission?: "read" | "write" | "admin"
 } | null
 
-export type t_ProjectsAddCollaboratorParamSchema = {
+export type t_ProjectsClassicAddCollaboratorParamSchema = {
   project_id: number
   username: string
 }
 
-export type t_ProjectsCreateCardBodySchema =
+export type t_ProjectsClassicCreateCardBodySchema =
   | {
       note: string | null
     }
@@ -12963,154 +13062,154 @@ export type t_ProjectsCreateCardBodySchema =
       content_type: string
     }
 
-export type t_ProjectsCreateCardParamSchema = {
+export type t_ProjectsClassicCreateCardParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsCreateColumnBodySchema = {
+export type t_ProjectsClassicCreateColumnBodySchema = {
   name: string
 }
 
-export type t_ProjectsCreateColumnParamSchema = {
+export type t_ProjectsClassicCreateColumnParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsCreateForAuthenticatedUserBodySchema = {
+export type t_ProjectsClassicCreateForAuthenticatedUserBodySchema = {
   body?: string | null
   name: string
 }
 
-export type t_ProjectsCreateForOrgBodySchema = {
+export type t_ProjectsClassicCreateForOrgBodySchema = {
   body?: string
   name: string
 }
 
-export type t_ProjectsCreateForOrgParamSchema = {
+export type t_ProjectsClassicCreateForOrgParamSchema = {
   org: string
 }
 
-export type t_ProjectsCreateForRepoBodySchema = {
+export type t_ProjectsClassicCreateForRepoBodySchema = {
   body?: string
   name: string
 }
 
-export type t_ProjectsCreateForRepoParamSchema = {
+export type t_ProjectsClassicCreateForRepoParamSchema = {
   owner: string
   repo: string
 }
 
-export type t_ProjectsDeleteParamSchema = {
+export type t_ProjectsClassicDeleteParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsDeleteCardParamSchema = {
+export type t_ProjectsClassicDeleteCardParamSchema = {
   card_id: number
 }
 
-export type t_ProjectsDeleteColumnParamSchema = {
+export type t_ProjectsClassicDeleteColumnParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsGetParamSchema = {
+export type t_ProjectsClassicGetParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsGetCardParamSchema = {
+export type t_ProjectsClassicGetCardParamSchema = {
   card_id: number
 }
 
-export type t_ProjectsGetColumnParamSchema = {
+export type t_ProjectsClassicGetColumnParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsGetPermissionForUserParamSchema = {
+export type t_ProjectsClassicGetPermissionForUserParamSchema = {
   project_id: number
   username: string
 }
 
-export type t_ProjectsListCardsParamSchema = {
+export type t_ProjectsClassicListCardsParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsListCardsQuerySchema = {
+export type t_ProjectsClassicListCardsQuerySchema = {
   archived_state?: "all" | "archived" | "not_archived"
   page?: number
   per_page?: number
 }
 
-export type t_ProjectsListCollaboratorsParamSchema = {
+export type t_ProjectsClassicListCollaboratorsParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsListCollaboratorsQuerySchema = {
+export type t_ProjectsClassicListCollaboratorsQuerySchema = {
   affiliation?: "outside" | "direct" | "all"
   page?: number
   per_page?: number
 }
 
-export type t_ProjectsListColumnsParamSchema = {
+export type t_ProjectsClassicListColumnsParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsListColumnsQuerySchema = {
+export type t_ProjectsClassicListColumnsQuerySchema = {
   page?: number
   per_page?: number
 }
 
-export type t_ProjectsListForOrgParamSchema = {
+export type t_ProjectsClassicListForOrgParamSchema = {
   org: string
 }
 
-export type t_ProjectsListForOrgQuerySchema = {
+export type t_ProjectsClassicListForOrgQuerySchema = {
   page?: number
   per_page?: number
   state?: "open" | "closed" | "all"
 }
 
-export type t_ProjectsListForRepoParamSchema = {
+export type t_ProjectsClassicListForRepoParamSchema = {
   owner: string
   repo: string
 }
 
-export type t_ProjectsListForRepoQuerySchema = {
+export type t_ProjectsClassicListForRepoQuerySchema = {
   page?: number
   per_page?: number
   state?: "open" | "closed" | "all"
 }
 
-export type t_ProjectsListForUserParamSchema = {
+export type t_ProjectsClassicListForUserParamSchema = {
   username: string
 }
 
-export type t_ProjectsListForUserQuerySchema = {
+export type t_ProjectsClassicListForUserQuerySchema = {
   page?: number
   per_page?: number
   state?: "open" | "closed" | "all"
 }
 
-export type t_ProjectsMoveCardBodySchema = {
+export type t_ProjectsClassicMoveCardBodySchema = {
   column_id?: number
   position: string
 }
 
-export type t_ProjectsMoveCardParamSchema = {
+export type t_ProjectsClassicMoveCardParamSchema = {
   card_id: number
 }
 
-export type t_ProjectsMoveColumnBodySchema = {
+export type t_ProjectsClassicMoveColumnBodySchema = {
   position: string
 }
 
-export type t_ProjectsMoveColumnParamSchema = {
+export type t_ProjectsClassicMoveColumnParamSchema = {
   column_id: number
 }
 
-export type t_ProjectsRemoveCollaboratorParamSchema = {
+export type t_ProjectsClassicRemoveCollaboratorParamSchema = {
   project_id: number
   username: string
 }
 
-export type t_ProjectsUpdateBodySchema = {
+export type t_ProjectsClassicUpdateBodySchema = {
   body?: string | null
   name?: string
   organization_permission?: "read" | "write" | "admin" | "none"
@@ -13118,24 +13217,24 @@ export type t_ProjectsUpdateBodySchema = {
   state?: string
 }
 
-export type t_ProjectsUpdateParamSchema = {
+export type t_ProjectsClassicUpdateParamSchema = {
   project_id: number
 }
 
-export type t_ProjectsUpdateCardBodySchema = {
+export type t_ProjectsClassicUpdateCardBodySchema = {
   archived?: boolean
   note?: string | null
 }
 
-export type t_ProjectsUpdateCardParamSchema = {
+export type t_ProjectsClassicUpdateCardParamSchema = {
   card_id: number
 }
 
-export type t_ProjectsUpdateColumnBodySchema = {
+export type t_ProjectsClassicUpdateColumnBodySchema = {
   name: string
 }
 
-export type t_ProjectsUpdateColumnParamSchema = {
+export type t_ProjectsClassicUpdateColumnParamSchema = {
   column_id: number
 }
 
@@ -14196,7 +14295,7 @@ export type t_ReposCreateOrgRulesetBodySchema = {
   conditions?: t_org_ruleset_conditions
   enforcement: t_repository_rule_enforcement
   name: string
-  rules?: t_repository_rule[]
+  rules?: t_org_rules[]
   target?: "branch" | "tag" | "push" | "repository"
 }
 
@@ -15622,7 +15721,7 @@ export type t_ReposUpdateOrgRulesetBodySchema = {
   conditions?: t_org_ruleset_conditions
   enforcement?: t_repository_rule_enforcement
   name?: string
-  rules?: t_repository_rule[]
+  rules?: t_org_rules[]
   target?: "branch" | "tag" | "push" | "repository"
 }
 

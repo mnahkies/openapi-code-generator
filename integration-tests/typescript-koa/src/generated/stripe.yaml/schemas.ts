@@ -805,6 +805,7 @@ export const s_checkout_paypal_payment_method_options = z.object({
 
 export const s_checkout_pix_payment_method_options = z.object({
   expires_after_seconds: z.coerce.number().nullable().optional(),
+  setup_future_usage: z.enum(["none"]).optional(),
 })
 
 export const s_checkout_revolut_pay_payment_method_options = z.object({
@@ -870,6 +871,12 @@ export const s_connect_embedded_financial_account_features = z.object({
 
 export const s_connect_embedded_financial_account_transactions_features =
   z.object({card_spend_dispute_management: PermissiveBoolean})
+
+export const s_connect_embedded_instant_payouts_promotion_features = z.object({
+  disable_stripe_user_authentication: PermissiveBoolean,
+  external_account_collection: PermissiveBoolean,
+  instant_payouts: PermissiveBoolean,
+})
 
 export const s_connect_embedded_issuing_card_features = z.object({
   card_management: PermissiveBoolean,
@@ -1331,8 +1338,8 @@ export const s_gelato_provided_details = z.object({
 })
 
 export const s_gelato_related_person = z.object({
-  account: z.string().max(5000).optional(),
-  person: z.string().max(5000).optional(),
+  account: z.string().max(5000),
+  person: z.string().max(5000),
 })
 
 export const s_gelato_report_document_options = z.object({
@@ -1477,6 +1484,7 @@ export const s_invoice_rendering_template = z.object({
 
 export const s_invoice_setting_checkout_rendering_options = z.object({
   amount_tax_display: z.string().max(5000).nullable().optional(),
+  template: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoice_setting_custom_field = z.object({
@@ -3518,6 +3526,7 @@ export const s_payment_method_details_card_wallet_samsung_pay = z.object({})
 export const s_payment_method_details_cashapp = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
   cashtag: z.string().max(5000).nullable().optional(),
+  transaction_id: z.string().max(5000).nullable().optional(),
 })
 
 export const s_payment_method_details_crypto = z.object({
@@ -4875,10 +4884,12 @@ export const s_portal_subscription_cancellation_reason = z.object({
   ),
 })
 
-export const s_portal_subscription_update_product = z.object({
-  prices: z.array(z.string().max(5000)),
-  product: z.string().max(5000),
-})
+export const s_portal_subscription_update_product_adjustable_quantity =
+  z.object({
+    enabled: PermissiveBoolean,
+    maximum: z.coerce.number().nullable().optional(),
+    minimum: z.coerce.number(),
+  })
 
 export const s_price_tier = z.object({
   flat_amount: z.coerce.number().nullable().optional(),
@@ -5540,11 +5551,17 @@ export const s_tax_product_registrations_resource_country_options_ca_province_st
 export const s_tax_product_registrations_resource_country_options_default =
   z.object({type: z.enum(["standard"])})
 
-export const s_tax_product_registrations_resource_country_options_default_inbound_goods =
-  z.object({type: z.enum(["standard"])})
+export const s_tax_product_registrations_resource_country_options_default_standard =
+  z.object({place_of_supply_scheme: z.enum(["inbound_goods", "standard"])})
 
 export const s_tax_product_registrations_resource_country_options_eu_standard =
-  z.object({place_of_supply_scheme: z.enum(["small_seller", "standard"])})
+  z.object({
+    place_of_supply_scheme: z.enum([
+      "inbound_goods",
+      "small_seller",
+      "standard",
+    ]),
+  })
 
 export const s_tax_product_registrations_resource_country_options_simplified =
   z.object({type: z.enum(["simplified"])})
@@ -6647,6 +6664,11 @@ export const s_connect_embedded_financial_account_transactions_config_claim =
     enabled: PermissiveBoolean,
     features: s_connect_embedded_financial_account_transactions_features,
   })
+
+export const s_connect_embedded_instant_payouts_promotion_config = z.object({
+  enabled: PermissiveBoolean,
+  features: s_connect_embedded_instant_payouts_promotion_features,
+})
 
 export const s_connect_embedded_issuing_card_config_claim = z.object({
   enabled: PermissiveBoolean,
@@ -8987,6 +9009,12 @@ export const s_portal_subscription_cancel = z.object({
   proration_behavior: z.enum(["always_invoice", "create_prorations", "none"]),
 })
 
+export const s_portal_subscription_update_product = z.object({
+  adjustable_quantity: s_portal_subscription_update_product_adjustable_quantity,
+  prices: z.array(z.string().max(5000)),
+  product: z.string().max(5000),
+})
+
 export const s_product_feature = z.object({
   entitlement_feature: s_entitlements_feature,
   id: z.string().max(5000),
@@ -9241,6 +9269,13 @@ export const s_tax_product_registrations_resource_country_options_canada =
     type: z.enum(["province_standard", "simplified", "standard"]),
   })
 
+export const s_tax_product_registrations_resource_country_options_default_inbound_goods =
+  z.object({
+    standard:
+      s_tax_product_registrations_resource_country_options_default_standard.optional(),
+    type: z.enum(["standard"]),
+  })
+
 export const s_tax_product_registrations_resource_country_options_europe =
   z.object({
     standard:
@@ -9396,7 +9431,9 @@ export const s_tax_transaction_line_item = z.object({
 
 export const s_terminal_configuration_configuration_resource_tipping = z.object(
   {
+    aed: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     aud: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    bgn: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     cad: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     chf: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     czk: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
@@ -9404,11 +9441,13 @@ export const s_terminal_configuration_configuration_resource_tipping = z.object(
     eur: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     gbp: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     hkd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    huf: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     jpy: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     myr: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     nok: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     nzd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     pln: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    ron: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     sek: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     sgd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     usd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
@@ -9633,6 +9672,8 @@ export const s_connect_embedded_account_session_create_components = z.object({
   financial_account: s_connect_embedded_financial_account_config_claim,
   financial_account_transactions:
     s_connect_embedded_financial_account_transactions_config_claim,
+  instant_payouts_promotion:
+    s_connect_embedded_instant_payouts_promotion_config,
   issuing_card: s_connect_embedded_issuing_card_config_claim,
   issuing_cards_list: s_connect_embedded_issuing_cards_list_config_claim,
   notification_banner: s_connect_embedded_account_config_claim,
@@ -11723,13 +11764,7 @@ export const s_capability: z.ZodType<t_capability, z.ZodTypeDef, unknown> =
     requested: PermissiveBoolean,
     requested_at: z.coerce.number().nullable().optional(),
     requirements: s_account_capability_requirements.optional(),
-    status: z.enum([
-      "active",
-      "disabled",
-      "inactive",
-      "pending",
-      "unrequested",
-    ]),
+    status: z.enum(["active", "inactive", "pending", "unrequested"]),
   })
 
 export const s_bank_account: z.ZodType<t_bank_account, z.ZodTypeDef, unknown> =
@@ -12371,6 +12406,7 @@ export const s_checkout_session: z.ZodType<
     .array(s_payment_pages_checkout_session_optional_item)
     .nullable()
     .optional(),
+  origin_context: z.enum(["mobile_app", "web"]).nullable().optional(),
   payment_intent: z
     .union([z.string().max(5000), z.lazy(() => s_payment_intent)])
     .nullable()

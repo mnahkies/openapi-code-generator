@@ -83,6 +83,7 @@ import {
   t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
+  t_code_scanning_options,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
   t_code_scanning_ref_full,
@@ -205,6 +206,7 @@ import {
   t_org_private_registry_configuration,
   t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
+  t_org_rules,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
@@ -1079,6 +1081,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "disabled"
           | "not_set"
           | UnknownEnumStringValue
+        code_scanning_options?: t_code_scanning_options
+        code_security?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependabot_alerts?:
           | "enabled"
           | "disabled"
@@ -1106,6 +1114,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name: string
         private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_protection?:
           | "enabled"
           | "disabled"
           | "not_set"
@@ -1220,6 +1233,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "disabled"
           | "not_set"
           | UnknownEnumStringValue
+        code_security?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependabot_alerts?:
           | "enabled"
           | "disabled"
@@ -1247,6 +1265,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name?: string
         private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_protection?:
           | "enabled"
           | "disabled"
           | "not_set"
@@ -4692,6 +4715,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "disabled"
           | "not_set"
           | UnknownEnumStringValue
+        code_scanning_options?: t_code_scanning_options
+        code_security?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependabot_alerts?:
           | "enabled"
           | "disabled"
@@ -4719,6 +4748,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name: string
         private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_protection?:
           | "enabled"
           | "disabled"
           | "not_set"
@@ -4868,6 +4902,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "disabled"
           | "not_set"
           | UnknownEnumStringValue
+        code_security?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependabot_alerts?:
           | "enabled"
           | "disabled"
@@ -4895,6 +4934,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name?: string
         private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_protection?:
           | "enabled"
           | "disabled"
           | "not_set"
@@ -7844,6 +7888,18 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "maven_repository"
           | "nuget_feed"
           | "goproxy_server"
+          | "npm_registry"
+          | "rubygems_server"
+          | "cargo_registry"
+          | "composer_repository"
+          | "docker_registry"
+          | "git_source"
+          | "helm_registry"
+          | "hex_organization"
+          | "hex_repository"
+          | "pub_repository"
+          | "python_index"
+          | "terraform_registry"
           | UnknownEnumStringValue
         selected_repository_ids?: number[]
         url: string
@@ -7919,6 +7975,18 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "maven_repository"
           | "nuget_feed"
           | "goproxy_server"
+          | "npm_registry"
+          | "rubygems_server"
+          | "cargo_registry"
+          | "composer_repository"
+          | "docker_registry"
+          | "git_source"
+          | "helm_registry"
+          | "hex_organization"
+          | "hex_repository"
+          | "pub_repository"
+          | "python_index"
+          | "terraform_registry"
           | UnknownEnumStringValue
         selected_repository_ids?: number[]
         url?: string
@@ -7959,7 +8027,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsListForOrg(
+  async projectsClassicListForOrg(
     p: {
       org: string
       state?: "open" | "closed" | "all" | UnknownEnumStringValue
@@ -7980,7 +8048,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsCreateForOrg(
+  async projectsClassicCreateForOrg(
     p: {
       org: string
       requestBody: {
@@ -8358,7 +8426,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         conditions?: t_org_ruleset_conditions
         enforcement: t_repository_rule_enforcement
         name: string
-        rules?: t_repository_rule[]
+        rules?: t_org_rules[]
         target?:
           | "branch"
           | "tag"
@@ -8465,7 +8533,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         conditions?: t_org_ruleset_conditions
         enforcement?: t_repository_rule_enforcement
         name?: string
-        rules?: t_repository_rule[]
+        rules?: t_org_rules[]
         target?:
           | "branch"
           | "tag"
@@ -9725,7 +9793,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
-  async projectsGetCard(
+  async projectsClassicGetCard(
     p: {
       cardId: number
     },
@@ -9744,7 +9812,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsUpdateCard(
+  async projectsClassicUpdateCard(
     p: {
       cardId: number
       requestBody?: {
@@ -9777,7 +9845,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
-  async projectsDeleteCard(
+  async projectsClassicDeleteCard(
     p: {
       cardId: number
     },
@@ -9803,7 +9871,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsMoveCard(
+  async projectsClassicMoveCard(
     p: {
       cardId: number
       requestBody: {
@@ -9854,7 +9922,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
-  async projectsGetColumn(
+  async projectsClassicGetColumn(
     p: {
       columnId: number
     },
@@ -9873,7 +9941,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsUpdateColumn(
+  async projectsClassicUpdateColumn(
     p: {
       columnId: number
       requestBody: {
@@ -9898,7 +9966,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
-  async projectsDeleteColumn(
+  async projectsClassicDeleteColumn(
     p: {
       columnId: number
     },
@@ -9916,7 +9984,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsListCards(
+  async projectsClassicListCards(
     p: {
       columnId: number
       archivedState?:
@@ -9946,7 +10014,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsCreateCard(
+  async projectsClassicCreateCard(
     p: {
       columnId: number
       requestBody:
@@ -9989,7 +10057,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
-  async projectsMoveColumn(
+  async projectsClassicMoveColumn(
     p: {
       columnId: number
       requestBody: {
@@ -10015,7 +10083,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
 
-  async projectsGet(
+  async projectsClassicGet(
     p: {
       projectId: number
     },
@@ -10033,7 +10101,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsUpdate(
+  async projectsClassicUpdate(
     p: {
       projectId: number
       requestBody?: {
@@ -10082,7 +10150,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
 
-  async projectsDelete(
+  async projectsClassicDelete(
     p: {
       projectId: number
     },
@@ -10109,7 +10177,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsListCollaborators(
+  async projectsClassicListCollaborators(
     p: {
       projectId: number
       affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
@@ -10137,7 +10205,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsAddCollaborator(
+  async projectsClassicAddCollaborator(
     p: {
       projectId: number
       username: string
@@ -10172,7 +10240,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
 
-  async projectsRemoveCollaborator(
+  async projectsClassicRemoveCollaborator(
     p: {
       projectId: number
       username: string
@@ -10195,7 +10263,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsGetPermissionForUser(
+  async projectsClassicGetPermissionForUser(
     p: {
       projectId: number
       username: string
@@ -10218,7 +10286,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsListColumns(
+  async projectsClassicListColumns(
     p: {
       projectId: number
       perPage?: number
@@ -10239,7 +10307,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsCreateColumn(
+  async projectsClassicCreateColumn(
     p: {
       projectId: number
       requestBody: {
@@ -17701,6 +17769,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         state_reason?:
           | "completed"
           | "not_planned"
+          | "duplicate"
           | "reopened"
           | UnknownEnumStringValue
           | null
@@ -19109,7 +19178,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "DELETE", ...opts, headers}, timeout)
   }
 
-  async projectsListForRepo(
+  async projectsClassicListForRepo(
     p: {
       owner: string
       repo: string
@@ -19138,7 +19207,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url + query, {method: "GET", ...opts, headers}, timeout)
   }
 
-  async projectsCreateForRepo(
+  async projectsClassicCreateForRepo(
     p: {
       owner: string
       repo: string
@@ -24515,7 +24584,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
   }
 
-  async projectsCreateForAuthenticatedUser(
+  async projectsClassicCreateForAuthenticatedUser(
     p: {
       requestBody: {
         body?: string | null
@@ -25696,7 +25765,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, {method: "POST", ...opts, headers}, timeout)
   }
 
-  async projectsListForUser(
+  async projectsClassicListForUser(
     p: {
       username: string
       state?: "open" | "closed" | "all" | UnknownEnumStringValue

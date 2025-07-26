@@ -913,47 +913,47 @@ import {
   t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryRequestBodySchema,
-  t_ProjectsAddCollaboratorParamSchema,
-  t_ProjectsAddCollaboratorRequestBodySchema,
-  t_ProjectsCreateCardParamSchema,
-  t_ProjectsCreateCardRequestBodySchema,
-  t_ProjectsCreateColumnParamSchema,
-  t_ProjectsCreateColumnRequestBodySchema,
-  t_ProjectsCreateForAuthenticatedUserRequestBodySchema,
-  t_ProjectsCreateForOrgParamSchema,
-  t_ProjectsCreateForOrgRequestBodySchema,
-  t_ProjectsCreateForRepoParamSchema,
-  t_ProjectsCreateForRepoRequestBodySchema,
-  t_ProjectsDeleteCardParamSchema,
-  t_ProjectsDeleteColumnParamSchema,
-  t_ProjectsDeleteParamSchema,
-  t_ProjectsGetCardParamSchema,
-  t_ProjectsGetColumnParamSchema,
-  t_ProjectsGetParamSchema,
-  t_ProjectsGetPermissionForUserParamSchema,
-  t_ProjectsListCardsParamSchema,
-  t_ProjectsListCardsQuerySchema,
-  t_ProjectsListCollaboratorsParamSchema,
-  t_ProjectsListCollaboratorsQuerySchema,
-  t_ProjectsListColumnsParamSchema,
-  t_ProjectsListColumnsQuerySchema,
-  t_ProjectsListForOrgParamSchema,
-  t_ProjectsListForOrgQuerySchema,
-  t_ProjectsListForRepoParamSchema,
-  t_ProjectsListForRepoQuerySchema,
-  t_ProjectsListForUserParamSchema,
-  t_ProjectsListForUserQuerySchema,
-  t_ProjectsMoveCardParamSchema,
-  t_ProjectsMoveCardRequestBodySchema,
-  t_ProjectsMoveColumnParamSchema,
-  t_ProjectsMoveColumnRequestBodySchema,
-  t_ProjectsRemoveCollaboratorParamSchema,
-  t_ProjectsUpdateCardParamSchema,
-  t_ProjectsUpdateCardRequestBodySchema,
-  t_ProjectsUpdateColumnParamSchema,
-  t_ProjectsUpdateColumnRequestBodySchema,
-  t_ProjectsUpdateParamSchema,
-  t_ProjectsUpdateRequestBodySchema,
+  t_ProjectsClassicAddCollaboratorParamSchema,
+  t_ProjectsClassicAddCollaboratorRequestBodySchema,
+  t_ProjectsClassicCreateCardParamSchema,
+  t_ProjectsClassicCreateCardRequestBodySchema,
+  t_ProjectsClassicCreateColumnParamSchema,
+  t_ProjectsClassicCreateColumnRequestBodySchema,
+  t_ProjectsClassicCreateForAuthenticatedUserRequestBodySchema,
+  t_ProjectsClassicCreateForOrgParamSchema,
+  t_ProjectsClassicCreateForOrgRequestBodySchema,
+  t_ProjectsClassicCreateForRepoParamSchema,
+  t_ProjectsClassicCreateForRepoRequestBodySchema,
+  t_ProjectsClassicDeleteCardParamSchema,
+  t_ProjectsClassicDeleteColumnParamSchema,
+  t_ProjectsClassicDeleteParamSchema,
+  t_ProjectsClassicGetCardParamSchema,
+  t_ProjectsClassicGetColumnParamSchema,
+  t_ProjectsClassicGetParamSchema,
+  t_ProjectsClassicGetPermissionForUserParamSchema,
+  t_ProjectsClassicListCardsParamSchema,
+  t_ProjectsClassicListCardsQuerySchema,
+  t_ProjectsClassicListCollaboratorsParamSchema,
+  t_ProjectsClassicListCollaboratorsQuerySchema,
+  t_ProjectsClassicListColumnsParamSchema,
+  t_ProjectsClassicListColumnsQuerySchema,
+  t_ProjectsClassicListForOrgParamSchema,
+  t_ProjectsClassicListForOrgQuerySchema,
+  t_ProjectsClassicListForRepoParamSchema,
+  t_ProjectsClassicListForRepoQuerySchema,
+  t_ProjectsClassicListForUserParamSchema,
+  t_ProjectsClassicListForUserQuerySchema,
+  t_ProjectsClassicMoveCardParamSchema,
+  t_ProjectsClassicMoveCardRequestBodySchema,
+  t_ProjectsClassicMoveColumnParamSchema,
+  t_ProjectsClassicMoveColumnRequestBodySchema,
+  t_ProjectsClassicRemoveCollaboratorParamSchema,
+  t_ProjectsClassicUpdateCardParamSchema,
+  t_ProjectsClassicUpdateCardRequestBodySchema,
+  t_ProjectsClassicUpdateColumnParamSchema,
+  t_ProjectsClassicUpdateColumnRequestBodySchema,
+  t_ProjectsClassicUpdateParamSchema,
+  t_ProjectsClassicUpdateRequestBodySchema,
   t_PullsCheckIfMergedParamSchema,
   t_PullsCreateParamSchema,
   t_PullsCreateReplyForReviewCommentParamSchema,
@@ -1894,6 +1894,7 @@ import {
   s_code_scanning_default_setup_options,
   s_code_scanning_default_setup_update,
   s_code_scanning_default_setup_update_response,
+  s_code_scanning_options,
   s_code_scanning_organization_alert_items,
   s_code_scanning_ref,
   s_code_scanning_ref_full,
@@ -2016,6 +2017,7 @@ import {
   s_org_private_registry_configuration,
   s_org_private_registry_configuration_with_selected_repositories,
   s_org_repo_custom_property_values,
+  s_org_rules,
   s_org_ruleset_conditions,
   s_organization_actions_secret,
   s_organization_actions_variable,
@@ -7723,25 +7725,25 @@ export type PrivateRegistriesDeleteOrgPrivateRegistry = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsListForOrgResponder = {
+export type ProjectsClassicListForOrgResponder = {
   with200(): ExpressRuntimeResponse<t_project[]>
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsListForOrg = (
+export type ProjectsClassicListForOrg = (
   params: Params<
-    t_ProjectsListForOrgParamSchema,
-    t_ProjectsListForOrgQuerySchema,
+    t_ProjectsClassicListForOrgParamSchema,
+    t_ProjectsClassicListForOrgQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListForOrgResponder,
+  respond: ProjectsClassicListForOrgResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsCreateForOrgResponder = {
+export type ProjectsClassicCreateForOrgResponder = {
   with201(): ExpressRuntimeResponse<t_project>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -7750,14 +7752,14 @@ export type ProjectsCreateForOrgResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsCreateForOrg = (
+export type ProjectsClassicCreateForOrg = (
   params: Params<
-    t_ProjectsCreateForOrgParamSchema,
+    t_ProjectsClassicCreateForOrgParamSchema,
     void,
-    t_ProjectsCreateForOrgRequestBodySchema,
+    t_ProjectsClassicCreateForOrgRequestBodySchema,
     void
   >,
-  respond: ProjectsCreateForOrgResponder,
+  respond: ProjectsClassicCreateForOrgResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -8984,7 +8986,7 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsGetCardResponder = {
+export type ProjectsClassicGetCardResponder = {
   with200(): ExpressRuntimeResponse<t_project_card>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -8992,15 +8994,15 @@ export type ProjectsGetCardResponder = {
   with404(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsGetCard = (
-  params: Params<t_ProjectsGetCardParamSchema, void, void, void>,
-  respond: ProjectsGetCardResponder,
+export type ProjectsClassicGetCard = (
+  params: Params<t_ProjectsClassicGetCardParamSchema, void, void, void>,
+  respond: ProjectsClassicGetCardResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsUpdateCardResponder = {
+export type ProjectsClassicUpdateCardResponder = {
   with200(): ExpressRuntimeResponse<t_project_card>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9009,20 +9011,20 @@ export type ProjectsUpdateCardResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsUpdateCard = (
+export type ProjectsClassicUpdateCard = (
   params: Params<
-    t_ProjectsUpdateCardParamSchema,
+    t_ProjectsClassicUpdateCardParamSchema,
     void,
-    t_ProjectsUpdateCardRequestBodySchema | undefined,
+    t_ProjectsClassicUpdateCardRequestBodySchema | undefined,
     void
   >,
-  respond: ProjectsUpdateCardResponder,
+  respond: ProjectsClassicUpdateCardResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsDeleteCardResponder = {
+export type ProjectsClassicDeleteCardResponder = {
   with204(): ExpressRuntimeResponse<void>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9034,15 +9036,15 @@ export type ProjectsDeleteCardResponder = {
   with404(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsDeleteCard = (
-  params: Params<t_ProjectsDeleteCardParamSchema, void, void, void>,
-  respond: ProjectsDeleteCardResponder,
+export type ProjectsClassicDeleteCard = (
+  params: Params<t_ProjectsClassicDeleteCardParamSchema, void, void, void>,
+  respond: ProjectsClassicDeleteCardResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsMoveCardResponder = {
+export type ProjectsClassicMoveCardResponder = {
   with201(): ExpressRuntimeResponse<EmptyObject>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9072,20 +9074,20 @@ export type ProjectsMoveCardResponder = {
   }>
 } & ExpressRuntimeResponder
 
-export type ProjectsMoveCard = (
+export type ProjectsClassicMoveCard = (
   params: Params<
-    t_ProjectsMoveCardParamSchema,
+    t_ProjectsClassicMoveCardParamSchema,
     void,
-    t_ProjectsMoveCardRequestBodySchema,
+    t_ProjectsClassicMoveCardRequestBodySchema,
     void
   >,
-  respond: ProjectsMoveCardResponder,
+  respond: ProjectsClassicMoveCardResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsGetColumnResponder = {
+export type ProjectsClassicGetColumnResponder = {
   with200(): ExpressRuntimeResponse<t_project_column>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9093,70 +9095,70 @@ export type ProjectsGetColumnResponder = {
   with404(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsGetColumn = (
-  params: Params<t_ProjectsGetColumnParamSchema, void, void, void>,
-  respond: ProjectsGetColumnResponder,
+export type ProjectsClassicGetColumn = (
+  params: Params<t_ProjectsClassicGetColumnParamSchema, void, void, void>,
+  respond: ProjectsClassicGetColumnResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsUpdateColumnResponder = {
+export type ProjectsClassicUpdateColumnResponder = {
   with200(): ExpressRuntimeResponse<t_project_column>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsUpdateColumn = (
+export type ProjectsClassicUpdateColumn = (
   params: Params<
-    t_ProjectsUpdateColumnParamSchema,
+    t_ProjectsClassicUpdateColumnParamSchema,
     void,
-    t_ProjectsUpdateColumnRequestBodySchema,
+    t_ProjectsClassicUpdateColumnRequestBodySchema,
     void
   >,
-  respond: ProjectsUpdateColumnResponder,
+  respond: ProjectsClassicUpdateColumnResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsDeleteColumnResponder = {
+export type ProjectsClassicDeleteColumnResponder = {
   with204(): ExpressRuntimeResponse<void>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsDeleteColumn = (
-  params: Params<t_ProjectsDeleteColumnParamSchema, void, void, void>,
-  respond: ProjectsDeleteColumnResponder,
+export type ProjectsClassicDeleteColumn = (
+  params: Params<t_ProjectsClassicDeleteColumnParamSchema, void, void, void>,
+  respond: ProjectsClassicDeleteColumnResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsListCardsResponder = {
+export type ProjectsClassicListCardsResponder = {
   with200(): ExpressRuntimeResponse<t_project_card[]>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsListCards = (
+export type ProjectsClassicListCards = (
   params: Params<
-    t_ProjectsListCardsParamSchema,
-    t_ProjectsListCardsQuerySchema,
+    t_ProjectsClassicListCardsParamSchema,
+    t_ProjectsClassicListCardsQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListCardsResponder,
+  respond: ProjectsClassicListCardsResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsCreateCardResponder = {
+export type ProjectsClassicCreateCardResponder = {
   with201(): ExpressRuntimeResponse<t_project_card>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9177,20 +9179,20 @@ export type ProjectsCreateCardResponder = {
   }>
 } & ExpressRuntimeResponder
 
-export type ProjectsCreateCard = (
+export type ProjectsClassicCreateCard = (
   params: Params<
-    t_ProjectsCreateCardParamSchema,
+    t_ProjectsClassicCreateCardParamSchema,
     void,
-    t_ProjectsCreateCardRequestBodySchema,
+    t_ProjectsClassicCreateCardRequestBodySchema,
     void
   >,
-  respond: ProjectsCreateCardResponder,
+  respond: ProjectsClassicCreateCardResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsMoveColumnResponder = {
+export type ProjectsClassicMoveColumnResponder = {
   with201(): ExpressRuntimeResponse<EmptyObject>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9198,35 +9200,35 @@ export type ProjectsMoveColumnResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsMoveColumn = (
+export type ProjectsClassicMoveColumn = (
   params: Params<
-    t_ProjectsMoveColumnParamSchema,
+    t_ProjectsClassicMoveColumnParamSchema,
     void,
-    t_ProjectsMoveColumnRequestBodySchema,
+    t_ProjectsClassicMoveColumnRequestBodySchema,
     void
   >,
-  respond: ProjectsMoveColumnResponder,
+  respond: ProjectsClassicMoveColumnResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsGetResponder = {
+export type ProjectsClassicGetResponder = {
   with200(): ExpressRuntimeResponse<t_project>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsGet = (
-  params: Params<t_ProjectsGetParamSchema, void, void, void>,
-  respond: ProjectsGetResponder,
+export type ProjectsClassicGet = (
+  params: Params<t_ProjectsClassicGetParamSchema, void, void, void>,
+  respond: ProjectsClassicGetResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsUpdateResponder = {
+export type ProjectsClassicUpdateResponder = {
   with200(): ExpressRuntimeResponse<t_project>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9240,20 +9242,20 @@ export type ProjectsUpdateResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsUpdate = (
+export type ProjectsClassicUpdate = (
   params: Params<
-    t_ProjectsUpdateParamSchema,
+    t_ProjectsClassicUpdateParamSchema,
     void,
-    t_ProjectsUpdateRequestBodySchema | undefined,
+    t_ProjectsClassicUpdateRequestBodySchema | undefined,
     void
   >,
-  respond: ProjectsUpdateResponder,
+  respond: ProjectsClassicUpdateResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsDeleteResponder = {
+export type ProjectsClassicDeleteResponder = {
   with204(): ExpressRuntimeResponse<void>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9266,15 +9268,15 @@ export type ProjectsDeleteResponder = {
   with410(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsDelete = (
-  params: Params<t_ProjectsDeleteParamSchema, void, void, void>,
-  respond: ProjectsDeleteResponder,
+export type ProjectsClassicDelete = (
+  params: Params<t_ProjectsClassicDeleteParamSchema, void, void, void>,
+  respond: ProjectsClassicDeleteResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsListCollaboratorsResponder = {
+export type ProjectsClassicListCollaboratorsResponder = {
   with200(): ExpressRuntimeResponse<t_simple_user[]>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9283,20 +9285,20 @@ export type ProjectsListCollaboratorsResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsListCollaborators = (
+export type ProjectsClassicListCollaborators = (
   params: Params<
-    t_ProjectsListCollaboratorsParamSchema,
-    t_ProjectsListCollaboratorsQuerySchema,
+    t_ProjectsClassicListCollaboratorsParamSchema,
+    t_ProjectsClassicListCollaboratorsQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListCollaboratorsResponder,
+  respond: ProjectsClassicListCollaboratorsResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsAddCollaboratorResponder = {
+export type ProjectsClassicAddCollaboratorResponder = {
   with204(): ExpressRuntimeResponse<void>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9305,20 +9307,20 @@ export type ProjectsAddCollaboratorResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsAddCollaborator = (
+export type ProjectsClassicAddCollaborator = (
   params: Params<
-    t_ProjectsAddCollaboratorParamSchema,
+    t_ProjectsClassicAddCollaboratorParamSchema,
     void,
-    t_ProjectsAddCollaboratorRequestBodySchema | undefined,
+    t_ProjectsClassicAddCollaboratorRequestBodySchema | undefined,
     void
   >,
-  respond: ProjectsAddCollaboratorResponder,
+  respond: ProjectsClassicAddCollaboratorResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsRemoveCollaboratorResponder = {
+export type ProjectsClassicRemoveCollaboratorResponder = {
   with204(): ExpressRuntimeResponse<void>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9327,15 +9329,20 @@ export type ProjectsRemoveCollaboratorResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsRemoveCollaborator = (
-  params: Params<t_ProjectsRemoveCollaboratorParamSchema, void, void, void>,
-  respond: ProjectsRemoveCollaboratorResponder,
+export type ProjectsClassicRemoveCollaborator = (
+  params: Params<
+    t_ProjectsClassicRemoveCollaboratorParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ProjectsClassicRemoveCollaboratorResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsGetPermissionForUserResponder = {
+export type ProjectsClassicGetPermissionForUserResponder = {
   with200(): ExpressRuntimeResponse<t_project_collaborator_permission>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9344,35 +9351,40 @@ export type ProjectsGetPermissionForUserResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsGetPermissionForUser = (
-  params: Params<t_ProjectsGetPermissionForUserParamSchema, void, void, void>,
-  respond: ProjectsGetPermissionForUserResponder,
+export type ProjectsClassicGetPermissionForUser = (
+  params: Params<
+    t_ProjectsClassicGetPermissionForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ProjectsClassicGetPermissionForUserResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsListColumnsResponder = {
+export type ProjectsClassicListColumnsResponder = {
   with200(): ExpressRuntimeResponse<t_project_column[]>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsListColumns = (
+export type ProjectsClassicListColumns = (
   params: Params<
-    t_ProjectsListColumnsParamSchema,
-    t_ProjectsListColumnsQuerySchema,
+    t_ProjectsClassicListColumnsParamSchema,
+    t_ProjectsClassicListColumnsQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListColumnsResponder,
+  respond: ProjectsClassicListColumnsResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsCreateColumnResponder = {
+export type ProjectsClassicCreateColumnResponder = {
   with201(): ExpressRuntimeResponse<t_project_column>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -9380,14 +9392,14 @@ export type ProjectsCreateColumnResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsCreateColumn = (
+export type ProjectsClassicCreateColumn = (
   params: Params<
-    t_ProjectsCreateColumnParamSchema,
+    t_ProjectsClassicCreateColumnParamSchema,
     void,
-    t_ProjectsCreateColumnRequestBodySchema,
+    t_ProjectsClassicCreateColumnRequestBodySchema,
     void
   >,
-  respond: ProjectsCreateColumnResponder,
+  respond: ProjectsClassicCreateColumnResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -15532,7 +15544,7 @@ export type ReposDisablePrivateVulnerabilityReporting = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsListForRepoResponder = {
+export type ProjectsClassicListForRepoResponder = {
   with200(): ExpressRuntimeResponse<t_project[]>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -15541,20 +15553,20 @@ export type ProjectsListForRepoResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsListForRepo = (
+export type ProjectsClassicListForRepo = (
   params: Params<
-    t_ProjectsListForRepoParamSchema,
-    t_ProjectsListForRepoQuerySchema,
+    t_ProjectsClassicListForRepoParamSchema,
+    t_ProjectsClassicListForRepoQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListForRepoResponder,
+  respond: ProjectsClassicListForRepoResponder,
   req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsCreateForRepoResponder = {
+export type ProjectsClassicCreateForRepoResponder = {
   with201(): ExpressRuntimeResponse<t_project>
   with401(): ExpressRuntimeResponse<t_basic_error>
   with403(): ExpressRuntimeResponse<t_basic_error>
@@ -15563,14 +15575,14 @@ export type ProjectsCreateForRepoResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsCreateForRepo = (
+export type ProjectsClassicCreateForRepo = (
   params: Params<
-    t_ProjectsCreateForRepoParamSchema,
+    t_ProjectsClassicCreateForRepoParamSchema,
     void,
-    t_ProjectsCreateForRepoRequestBodySchema,
+    t_ProjectsClassicCreateForRepoRequestBodySchema,
     void
   >,
-  respond: ProjectsCreateForRepoResponder,
+  respond: ProjectsClassicCreateForRepoResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -19536,7 +19548,7 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsCreateForAuthenticatedUserResponder = {
+export type ProjectsClassicCreateForAuthenticatedUserResponder = {
   with201(): ExpressRuntimeResponse<t_project>
   with304(): ExpressRuntimeResponse<void>
   with401(): ExpressRuntimeResponse<t_basic_error>
@@ -19544,14 +19556,14 @@ export type ProjectsCreateForAuthenticatedUserResponder = {
   with422(): ExpressRuntimeResponse<t_validation_error_simple>
 } & ExpressRuntimeResponder
 
-export type ProjectsCreateForAuthenticatedUser = (
+export type ProjectsClassicCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_ProjectsCreateForAuthenticatedUserRequestBodySchema,
+    t_ProjectsClassicCreateForAuthenticatedUserRequestBodySchema,
     void
   >,
-  respond: ProjectsCreateForAuthenticatedUserResponder,
+  respond: ProjectsClassicCreateForAuthenticatedUserResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -20496,19 +20508,19 @@ export type PackagesRestorePackageVersionForUser = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
-export type ProjectsListForUserResponder = {
+export type ProjectsClassicListForUserResponder = {
   with200(): ExpressRuntimeResponse<t_project[]>
   with422(): ExpressRuntimeResponse<t_validation_error>
 } & ExpressRuntimeResponder
 
-export type ProjectsListForUser = (
+export type ProjectsClassicListForUser = (
   params: Params<
-    t_ProjectsListForUserParamSchema,
-    t_ProjectsListForUserQuerySchema,
+    t_ProjectsClassicListForUserParamSchema,
+    t_ProjectsClassicListForUserQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListForUserResponder,
+  respond: ProjectsClassicListForUserResponder,
   req: Request,
   res: Response,
   next: NextFunction,
@@ -21046,8 +21058,8 @@ export type Implementation = {
   privateRegistriesGetOrgPrivateRegistry: PrivateRegistriesGetOrgPrivateRegistry
   privateRegistriesUpdateOrgPrivateRegistry: PrivateRegistriesUpdateOrgPrivateRegistry
   privateRegistriesDeleteOrgPrivateRegistry: PrivateRegistriesDeleteOrgPrivateRegistry
-  projectsListForOrg: ProjectsListForOrg
-  projectsCreateForOrg: ProjectsCreateForOrg
+  projectsClassicListForOrg: ProjectsClassicListForOrg
+  projectsClassicCreateForOrg: ProjectsClassicCreateForOrg
   orgsGetAllCustomProperties: OrgsGetAllCustomProperties
   orgsCreateOrUpdateCustomProperties: OrgsCreateOrUpdateCustomProperties
   orgsGetCustomProperty: OrgsGetCustomProperty
@@ -21121,25 +21133,25 @@ export type Implementation = {
   teamsRemoveRepoInOrg: TeamsRemoveRepoInOrg
   teamsListChildInOrg: TeamsListChildInOrg
   orgsEnableOrDisableSecurityProductOnAllOrgRepos: OrgsEnableOrDisableSecurityProductOnAllOrgRepos
-  projectsGetCard: ProjectsGetCard
-  projectsUpdateCard: ProjectsUpdateCard
-  projectsDeleteCard: ProjectsDeleteCard
-  projectsMoveCard: ProjectsMoveCard
-  projectsGetColumn: ProjectsGetColumn
-  projectsUpdateColumn: ProjectsUpdateColumn
-  projectsDeleteColumn: ProjectsDeleteColumn
-  projectsListCards: ProjectsListCards
-  projectsCreateCard: ProjectsCreateCard
-  projectsMoveColumn: ProjectsMoveColumn
-  projectsGet: ProjectsGet
-  projectsUpdate: ProjectsUpdate
-  projectsDelete: ProjectsDelete
-  projectsListCollaborators: ProjectsListCollaborators
-  projectsAddCollaborator: ProjectsAddCollaborator
-  projectsRemoveCollaborator: ProjectsRemoveCollaborator
-  projectsGetPermissionForUser: ProjectsGetPermissionForUser
-  projectsListColumns: ProjectsListColumns
-  projectsCreateColumn: ProjectsCreateColumn
+  projectsClassicGetCard: ProjectsClassicGetCard
+  projectsClassicUpdateCard: ProjectsClassicUpdateCard
+  projectsClassicDeleteCard: ProjectsClassicDeleteCard
+  projectsClassicMoveCard: ProjectsClassicMoveCard
+  projectsClassicGetColumn: ProjectsClassicGetColumn
+  projectsClassicUpdateColumn: ProjectsClassicUpdateColumn
+  projectsClassicDeleteColumn: ProjectsClassicDeleteColumn
+  projectsClassicListCards: ProjectsClassicListCards
+  projectsClassicCreateCard: ProjectsClassicCreateCard
+  projectsClassicMoveColumn: ProjectsClassicMoveColumn
+  projectsClassicGet: ProjectsClassicGet
+  projectsClassicUpdate: ProjectsClassicUpdate
+  projectsClassicDelete: ProjectsClassicDelete
+  projectsClassicListCollaborators: ProjectsClassicListCollaborators
+  projectsClassicAddCollaborator: ProjectsClassicAddCollaborator
+  projectsClassicRemoveCollaborator: ProjectsClassicRemoveCollaborator
+  projectsClassicGetPermissionForUser: ProjectsClassicGetPermissionForUser
+  projectsClassicListColumns: ProjectsClassicListColumns
+  projectsClassicCreateColumn: ProjectsClassicCreateColumn
   rateLimitGet: RateLimitGet
   reposGet: ReposGet
   reposUpdate: ReposUpdate
@@ -21491,8 +21503,8 @@ export type Implementation = {
   reposCheckPrivateVulnerabilityReporting: ReposCheckPrivateVulnerabilityReporting
   reposEnablePrivateVulnerabilityReporting: ReposEnablePrivateVulnerabilityReporting
   reposDisablePrivateVulnerabilityReporting: ReposDisablePrivateVulnerabilityReporting
-  projectsListForRepo: ProjectsListForRepo
-  projectsCreateForRepo: ProjectsCreateForRepo
+  projectsClassicListForRepo: ProjectsClassicListForRepo
+  projectsClassicCreateForRepo: ProjectsClassicCreateForRepo
   reposGetCustomPropertiesValues: ReposGetCustomPropertiesValues
   reposCreateOrUpdateCustomPropertiesValues: ReposCreateOrUpdateCustomPropertiesValues
   pullsList: PullsList
@@ -21711,7 +21723,7 @@ export type Implementation = {
   packagesGetPackageVersionForAuthenticatedUser: PackagesGetPackageVersionForAuthenticatedUser
   packagesDeletePackageVersionForAuthenticatedUser: PackagesDeletePackageVersionForAuthenticatedUser
   packagesRestorePackageVersionForAuthenticatedUser: PackagesRestorePackageVersionForAuthenticatedUser
-  projectsCreateForAuthenticatedUser: ProjectsCreateForAuthenticatedUser
+  projectsClassicCreateForAuthenticatedUser: ProjectsClassicCreateForAuthenticatedUser
   usersListPublicEmailsForAuthenticatedUser: UsersListPublicEmailsForAuthenticatedUser
   reposListForAuthenticatedUser: ReposListForAuthenticatedUser
   reposCreateForAuthenticatedUser: ReposCreateForAuthenticatedUser
@@ -21760,7 +21772,7 @@ export type Implementation = {
   packagesGetPackageVersionForUser: PackagesGetPackageVersionForUser
   packagesDeletePackageVersionForUser: PackagesDeletePackageVersionForUser
   packagesRestorePackageVersionForUser: PackagesRestorePackageVersionForUser
-  projectsListForUser: ProjectsListForUser
+  projectsClassicListForUser: ProjectsClassicListForUser
   activityListReceivedEventsForUser: ActivityListReceivedEventsForUser
   activityListReceivedPublicEventsForUser: ActivityListReceivedPublicEventsForUser
   reposListForUser: ReposListForUser
@@ -24339,6 +24351,7 @@ export function createRouter(implementation: Implementation): Router {
         .enum(["enabled", "disabled", "code_security", "secret_protection"])
         .optional()
         .default("disabled"),
+      code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
       dependency_graph: z
         .enum(["enabled", "disabled", "not_set"])
         .optional()
@@ -24358,6 +24371,7 @@ export function createRouter(implementation: Implementation): Router {
         .enum(["enabled", "disabled", "not_set"])
         .optional()
         .default("disabled"),
+      code_scanning_options: s_code_scanning_options.optional(),
       code_scanning_default_setup: z
         .enum(["enabled", "disabled", "not_set"])
         .optional()
@@ -24368,6 +24382,7 @@ export function createRouter(implementation: Implementation): Router {
         .enum(["enabled", "disabled", "not_set"])
         .optional()
         .default("disabled"),
+      secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
       secret_scanning: z
         .enum(["enabled", "disabled", "not_set"])
         .optional()
@@ -24673,6 +24688,7 @@ export function createRouter(implementation: Implementation): Router {
     advanced_security: z
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional(),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph_autosubmit_action: z
       .enum(["enabled", "disabled", "not_set"])
@@ -24693,6 +24709,7 @@ export function createRouter(implementation: Implementation): Router {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -36861,6 +36878,7 @@ export function createRouter(implementation: Implementation): Router {
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional()
       .default("disabled"),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -36880,6 +36898,7 @@ export function createRouter(implementation: Implementation): Router {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    code_scanning_options: s_code_scanning_options.optional(),
     code_scanning_default_setup: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -36890,6 +36909,7 @@ export function createRouter(implementation: Implementation): Router {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("not_set"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -37286,6 +37306,7 @@ export function createRouter(implementation: Implementation): Router {
     advanced_security: z
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional(),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph_autosubmit_action: z
       .enum(["enabled", "disabled", "not_set"])
@@ -37306,6 +37327,7 @@ export function createRouter(implementation: Implementation): Router {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -47384,7 +47406,23 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const privateRegistriesCreateOrgPrivateRegistryRequestBodySchema = z.object({
-    registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
+    registry_type: z.enum([
+      "maven_repository",
+      "nuget_feed",
+      "goproxy_server",
+      "npm_registry",
+      "rubygems_server",
+      "cargo_registry",
+      "composer_repository",
+      "docker_registry",
+      "git_source",
+      "helm_registry",
+      "hex_organization",
+      "hex_repository",
+      "pub_repository",
+      "python_index",
+      "terraform_registry",
+    ]),
     url: z.string(),
     username: z.string().nullable().optional(),
     encrypted_value: z
@@ -47655,7 +47693,23 @@ export function createRouter(implementation: Implementation): Router {
 
   const privateRegistriesUpdateOrgPrivateRegistryRequestBodySchema = z.object({
     registry_type: z
-      .enum(["maven_repository", "nuget_feed", "goproxy_server"])
+      .enum([
+        "maven_repository",
+        "nuget_feed",
+        "goproxy_server",
+        "npm_registry",
+        "rubygems_server",
+        "cargo_registry",
+        "composer_repository",
+        "docker_registry",
+        "git_source",
+        "helm_registry",
+        "hex_organization",
+        "hex_repository",
+        "pub_repository",
+        "python_index",
+        "terraform_registry",
+      ])
       .optional(),
     url: z.string().optional(),
     username: z.string().nullable().optional(),
@@ -47843,35 +47897,36 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsListForOrgParamSchema = z.object({org: z.string()})
+  const projectsClassicListForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsListForOrgQuerySchema = z.object({
+  const projectsClassicListForOrgQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional().default("open"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListForOrgResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project)],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicListForOrgResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_project)],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsListForOrg
+  // projectsClassicListForOrg
   router.get(
     `/orgs/:org/projects`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsListForOrgParamSchema,
+            projectsClassicListForOrgParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: parseRequestInput(
-            projectsListForOrgQuerySchema,
+            projectsClassicListForOrgQuerySchema,
             req.query,
             RequestInputType.QueryString,
           ),
@@ -47892,7 +47947,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsListForOrg(input, responder, req, res, next)
+          .projectsClassicListForOrg(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -47910,7 +47965,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsListForOrgResponseBodyValidator(status, body))
+          res.json(projectsClassicListForOrgResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -47920,39 +47975,40 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsCreateForOrgParamSchema = z.object({org: z.string()})
+  const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsCreateForOrgRequestBodySchema = z.object({
+  const projectsClassicCreateForOrgRequestBodySchema = z.object({
     name: z.string(),
     body: z.string().optional(),
   })
 
-  const projectsCreateForOrgResponseBodyValidator = responseValidationFactory(
-    [
-      ["201", s_project],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicCreateForOrgResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["201", s_project],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsCreateForOrg
+  // projectsClassicCreateForOrg
   router.post(
     `/orgs/:org/projects`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsCreateForOrgParamSchema,
+            projectsClassicCreateForOrgParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsCreateForOrgRequestBodySchema,
+            projectsClassicCreateForOrgRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -47984,7 +48040,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsCreateForOrg(input, responder, req, res, next)
+          .projectsClassicCreateForOrg(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -48002,7 +48058,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsCreateForOrgResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicCreateForOrgResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -49178,7 +49236,7 @@ export function createRouter(implementation: Implementation): Router {
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
     conditions: s_org_ruleset_conditions.optional(),
-    rules: z.array(s_repository_rule).optional(),
+    rules: z.array(s_org_rules).optional(),
   })
 
   const reposCreateOrgRulesetResponseBodyValidator = responseValidationFactory(
@@ -49505,7 +49563,7 @@ export function createRouter(implementation: Implementation): Router {
       enforcement: s_repository_rule_enforcement.optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
       conditions: s_org_ruleset_conditions.optional(),
-      rules: z.array(s_repository_rule).optional(),
+      rules: z.array(s_org_rules).optional(),
     })
     .optional()
 
@@ -53824,9 +53882,11 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsGetCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicGetCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsGetCardResponseBodyValidator = responseValidationFactory(
+  const projectsClassicGetCardResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_project_card],
       ["304", z.undefined()],
@@ -53837,14 +53897,14 @@ export function createRouter(implementation: Implementation): Router {
     undefined,
   )
 
-  // projectsGetCard
+  // projectsClassicGetCard
   router.get(
     `/projects/columns/cards/:card_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsGetCardParamSchema,
+            projectsClassicGetCardParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -53875,7 +53935,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsGetCard(input, responder, req, res, next)
+          .projectsClassicGetCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -53893,7 +53953,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsGetCardResponseBodyValidator(status, body))
+          res.json(projectsClassicGetCardResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -53903,41 +53963,44 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsUpdateCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicUpdateCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsUpdateCardRequestBodySchema = z
+  const projectsClassicUpdateCardRequestBodySchema = z
     .object({
       note: z.string().nullable().optional(),
       archived: PermissiveBoolean.optional(),
     })
     .optional()
 
-  const projectsUpdateCardResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", s_project_card],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicUpdateCardResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_project_card],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsUpdateCard
+  // projectsClassicUpdateCard
   router.patch(
     `/projects/columns/cards/:card_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsUpdateCardParamSchema,
+            projectsClassicUpdateCardParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsUpdateCardRequestBodySchema,
+            projectsClassicUpdateCardRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -53969,7 +54032,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsUpdateCard(input, responder, req, res, next)
+          .projectsClassicUpdateCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -53987,7 +54050,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsUpdateCardResponseBodyValidator(status, body))
+          res.json(projectsClassicUpdateCardResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -53997,34 +54060,37 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsDeleteCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicDeleteCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsDeleteCardResponseBodyValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
+  const projectsClassicDeleteCardResponseBodyValidator =
+    responseValidationFactory(
       [
-        "403",
-        z.object({
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z.array(z.string()).optional(),
-        }),
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        [
+          "403",
+          z.object({
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+            errors: z.array(z.string()).optional(),
+          }),
+        ],
+        ["404", s_basic_error],
       ],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
+      undefined,
+    )
 
-  // projectsDeleteCard
+  // projectsClassicDeleteCard
   router.delete(
     `/projects/columns/cards/:card_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsDeleteCardParamSchema,
+            projectsClassicDeleteCardParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -54059,7 +54125,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsDeleteCard(input, responder, req, res, next)
+          .projectsClassicDeleteCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54077,7 +54143,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsDeleteCardResponseBodyValidator(status, body))
+          res.json(projectsClassicDeleteCardResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54087,70 +54153,73 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsMoveCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicMoveCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsMoveCardRequestBodySchema = z.object({
+  const projectsClassicMoveCardRequestBodySchema = z.object({
     position: z.string().regex(new RegExp("^(?:top|bottom|after:\\d+)$")),
     column_id: z.coerce.number().optional(),
   })
 
-  const projectsMoveCardResponseBodyValidator = responseValidationFactory(
-    [
-      ["201", z.object({})],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
+  const projectsClassicMoveCardResponseBodyValidator =
+    responseValidationFactory(
       [
-        "403",
-        z.object({
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z
-            .array(
-              z.object({
-                code: z.string().optional(),
-                message: z.string().optional(),
-                resource: z.string().optional(),
-                field: z.string().optional(),
-              }),
-            )
-            .optional(),
-        }),
+        ["201", z.object({})],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        [
+          "403",
+          z.object({
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.string().optional(),
+                  message: z.string().optional(),
+                  resource: z.string().optional(),
+                  field: z.string().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
+        ["422", s_validation_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.string().optional(),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
       ],
-      ["422", s_validation_error],
-      [
-        "503",
-        z.object({
-          code: z.string().optional(),
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z
-            .array(
-              z.object({
-                code: z.string().optional(),
-                message: z.string().optional(),
-              }),
-            )
-            .optional(),
-        }),
-      ],
-    ],
-    undefined,
-  )
+      undefined,
+    )
 
-  // projectsMoveCard
+  // projectsClassicMoveCard
   router.post(
     `/projects/columns/cards/:card_id/moves`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsMoveCardParamSchema,
+            projectsClassicMoveCardParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsMoveCardRequestBodySchema,
+            projectsClassicMoveCardRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54203,7 +54272,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsMoveCard(input, responder, req, res, next)
+          .projectsClassicMoveCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54221,7 +54290,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsMoveCardResponseBodyValidator(status, body))
+          res.json(projectsClassicMoveCardResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54231,27 +54300,30 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsGetColumnParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicGetColumnParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsGetColumnResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", s_project_column],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicGetColumnResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_project_column],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
 
-  // projectsGetColumn
+  // projectsClassicGetColumn
   router.get(
     `/projects/columns/:column_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsGetColumnParamSchema,
+            projectsClassicGetColumnParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -54282,7 +54354,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsGetColumn(input, responder, req, res, next)
+          .projectsClassicGetColumn(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54300,7 +54372,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsGetColumnResponseBodyValidator(status, body))
+          res.json(projectsClassicGetColumnResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54310,36 +54382,39 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsUpdateColumnParamSchema = z.object({
+  const projectsClassicUpdateColumnParamSchema = z.object({
     column_id: z.coerce.number(),
   })
 
-  const projectsUpdateColumnRequestBodySchema = z.object({name: z.string()})
+  const projectsClassicUpdateColumnRequestBodySchema = z.object({
+    name: z.string(),
+  })
 
-  const projectsUpdateColumnResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", s_project_column],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicUpdateColumnResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", s_project_column],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
 
-  // projectsUpdateColumn
+  // projectsClassicUpdateColumn
   router.patch(
     `/projects/columns/:column_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsUpdateColumnParamSchema,
+            projectsClassicUpdateColumnParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsUpdateColumnRequestBodySchema,
+            projectsClassicUpdateColumnRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54365,7 +54440,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsUpdateColumn(input, responder, req, res, next)
+          .projectsClassicUpdateColumn(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54383,7 +54458,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsUpdateColumnResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicUpdateColumnResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -54393,28 +54470,29 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsDeleteColumnParamSchema = z.object({
+  const projectsClassicDeleteColumnParamSchema = z.object({
     column_id: z.coerce.number(),
   })
 
-  const projectsDeleteColumnResponseBodyValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicDeleteColumnResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
 
-  // projectsDeleteColumn
+  // projectsClassicDeleteColumn
   router.delete(
     `/projects/columns/:column_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsDeleteColumnParamSchema,
+            projectsClassicDeleteColumnParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -54442,7 +54520,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsDeleteColumn(input, responder, req, res, next)
+          .projectsClassicDeleteColumn(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54460,7 +54538,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsDeleteColumnResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicDeleteColumnResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -54470,9 +54550,11 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsListCardsParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicListCardsParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsListCardsQuerySchema = z.object({
+  const projectsClassicListCardsQuerySchema = z.object({
     archived_state: z
       .enum(["all", "archived", "not_archived"])
       .optional()
@@ -54481,29 +54563,30 @@ export function createRouter(implementation: Implementation): Router {
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListCardsResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project_card)],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicListCardsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_project_card)],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
 
-  // projectsListCards
+  // projectsClassicListCards
   router.get(
     `/projects/columns/:column_id/cards`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsListCardsParamSchema,
+            projectsClassicListCardsParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: parseRequestInput(
-            projectsListCardsQuerySchema,
+            projectsClassicListCardsQuerySchema,
             req.query,
             RequestInputType.QueryString,
           ),
@@ -54530,7 +54613,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsListCards(input, responder, req, res, next)
+          .projectsClassicListCards(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54548,7 +54631,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsListCardsResponseBodyValidator(status, body))
+          res.json(projectsClassicListCardsResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54558,54 +54641,57 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsCreateCardParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicCreateCardParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsCreateCardRequestBodySchema = z.union([
+  const projectsClassicCreateCardRequestBodySchema = z.union([
     z.object({note: z.string().nullable()}),
     z.object({content_id: z.coerce.number(), content_type: z.string()}),
   ])
 
-  const projectsCreateCardResponseBodyValidator = responseValidationFactory(
-    [
-      ["201", s_project_card],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["422", z.union([s_validation_error, s_validation_error_simple])],
+  const projectsClassicCreateCardResponseBodyValidator =
+    responseValidationFactory(
       [
-        "503",
-        z.object({
-          code: z.string().optional(),
-          message: z.string().optional(),
-          documentation_url: z.string().optional(),
-          errors: z
-            .array(
-              z.object({
-                code: z.string().optional(),
-                message: z.string().optional(),
-              }),
-            )
-            .optional(),
-        }),
+        ["201", s_project_card],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["422", z.union([s_validation_error, s_validation_error_simple])],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+            errors: z
+              .array(
+                z.object({
+                  code: z.string().optional(),
+                  message: z.string().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        ],
       ],
-    ],
-    undefined,
-  )
+      undefined,
+    )
 
-  // projectsCreateCard
+  // projectsClassicCreateCard
   router.post(
     `/projects/columns/:column_id/cards`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsCreateCardParamSchema,
+            projectsClassicCreateCardParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsCreateCardRequestBodySchema,
+            projectsClassicCreateCardRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54649,7 +54735,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsCreateCard(input, responder, req, res, next)
+          .projectsClassicCreateCard(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54667,7 +54753,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsCreateCardResponseBodyValidator(status, body))
+          res.json(projectsClassicCreateCardResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54677,37 +54763,40 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsMoveColumnParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicMoveColumnParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsMoveColumnRequestBodySchema = z.object({
+  const projectsClassicMoveColumnRequestBodySchema = z.object({
     position: z.string().regex(new RegExp("^(?:first|last|after:\\d+)$")),
   })
 
-  const projectsMoveColumnResponseBodyValidator = responseValidationFactory(
-    [
-      ["201", z.object({})],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicMoveColumnResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["201", z.object({})],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsMoveColumn
+  // projectsClassicMoveColumn
   router.post(
     `/projects/columns/:column_id/moves`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsMoveColumnParamSchema,
+            projectsClassicMoveColumnParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsMoveColumnRequestBodySchema,
+            projectsClassicMoveColumnRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54736,7 +54825,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsMoveColumn(input, responder, req, res, next)
+          .projectsClassicMoveColumn(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54754,7 +54843,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsMoveColumnResponseBodyValidator(status, body))
+          res.json(projectsClassicMoveColumnResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54764,9 +54853,11 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsGetParamSchema = z.object({project_id: z.coerce.number()})
+  const projectsClassicGetParamSchema = z.object({
+    project_id: z.coerce.number(),
+  })
 
-  const projectsGetResponseBodyValidator = responseValidationFactory(
+  const projectsClassicGetResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_project],
       ["304", z.undefined()],
@@ -54776,14 +54867,14 @@ export function createRouter(implementation: Implementation): Router {
     undefined,
   )
 
-  // projectsGet
+  // projectsClassicGet
   router.get(
     `/projects/:project_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsGetParamSchema,
+            projectsClassicGetParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -54811,7 +54902,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsGet(input, responder, req, res, next)
+          .projectsClassicGet(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54829,7 +54920,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsGetResponseBodyValidator(status, body))
+          res.json(projectsClassicGetResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54839,9 +54930,11 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsUpdateParamSchema = z.object({project_id: z.coerce.number()})
+  const projectsClassicUpdateParamSchema = z.object({
+    project_id: z.coerce.number(),
+  })
 
-  const projectsUpdateRequestBodySchema = z
+  const projectsClassicUpdateRequestBodySchema = z
     .object({
       name: z.string().optional(),
       body: z.string().nullable().optional(),
@@ -54853,7 +54946,7 @@ export function createRouter(implementation: Implementation): Router {
     })
     .optional()
 
-  const projectsUpdateResponseBodyValidator = responseValidationFactory(
+  const projectsClassicUpdateResponseBodyValidator = responseValidationFactory(
     [
       ["200", s_project],
       ["304", z.undefined()],
@@ -54873,20 +54966,20 @@ export function createRouter(implementation: Implementation): Router {
     undefined,
   )
 
-  // projectsUpdate
+  // projectsClassicUpdate
   router.patch(
     `/projects/:project_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsUpdateParamSchema,
+            projectsClassicUpdateParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsUpdateRequestBodySchema,
+            projectsClassicUpdateRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -54925,7 +55018,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsUpdate(input, responder, req, res, next)
+          .projectsClassicUpdate(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -54943,7 +55036,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsUpdateResponseBodyValidator(status, body))
+          res.json(projectsClassicUpdateResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -54953,9 +55046,11 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsDeleteParamSchema = z.object({project_id: z.coerce.number()})
+  const projectsClassicDeleteParamSchema = z.object({
+    project_id: z.coerce.number(),
+  })
 
-  const projectsDeleteResponseBodyValidator = responseValidationFactory(
+  const projectsClassicDeleteResponseBodyValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
       ["304", z.undefined()],
@@ -54974,14 +55069,14 @@ export function createRouter(implementation: Implementation): Router {
     undefined,
   )
 
-  // projectsDelete
+  // projectsClassicDelete
   router.delete(
     `/projects/:project_id`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsDeleteParamSchema,
+            projectsClassicDeleteParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -55019,7 +55114,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsDelete(input, responder, req, res, next)
+          .projectsClassicDelete(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55037,7 +55132,7 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsDeleteResponseBodyValidator(status, body))
+          res.json(projectsClassicDeleteResponseBodyValidator(status, body))
         } else {
           res.end()
         }
@@ -55047,17 +55142,17 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsListCollaboratorsParamSchema = z.object({
+  const projectsClassicListCollaboratorsParamSchema = z.object({
     project_id: z.coerce.number(),
   })
 
-  const projectsListCollaboratorsQuerySchema = z.object({
+  const projectsClassicListCollaboratorsQuerySchema = z.object({
     affiliation: z.enum(["outside", "direct", "all"]).optional().default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListCollaboratorsResponseBodyValidator =
+  const projectsClassicListCollaboratorsResponseBodyValidator =
     responseValidationFactory(
       [
         ["200", z.array(s_simple_user)],
@@ -55070,19 +55165,19 @@ export function createRouter(implementation: Implementation): Router {
       undefined,
     )
 
-  // projectsListCollaborators
+  // projectsClassicListCollaborators
   router.get(
     `/projects/:project_id/collaborators`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsListCollaboratorsParamSchema,
+            projectsClassicListCollaboratorsParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: parseRequestInput(
-            projectsListCollaboratorsQuerySchema,
+            projectsClassicListCollaboratorsQuerySchema,
             req.query,
             RequestInputType.QueryString,
           ),
@@ -55115,7 +55210,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsListCollaborators(input, responder, req, res, next)
+          .projectsClassicListCollaborators(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55133,7 +55228,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsListCollaboratorsResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicListCollaboratorsResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -55143,12 +55240,12 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsAddCollaboratorParamSchema = z.object({
+  const projectsClassicAddCollaboratorParamSchema = z.object({
     project_id: z.coerce.number(),
     username: z.string(),
   })
 
-  const projectsAddCollaboratorRequestBodySchema = z
+  const projectsClassicAddCollaboratorRequestBodySchema = z
     .object({
       permission: z
         .enum(["read", "write", "admin"])
@@ -55158,7 +55255,7 @@ export function createRouter(implementation: Implementation): Router {
     .nullable()
     .optional()
 
-  const projectsAddCollaboratorResponseBodyValidator =
+  const projectsClassicAddCollaboratorResponseBodyValidator =
     responseValidationFactory(
       [
         ["204", z.undefined()],
@@ -55171,20 +55268,20 @@ export function createRouter(implementation: Implementation): Router {
       undefined,
     )
 
-  // projectsAddCollaborator
+  // projectsClassicAddCollaborator
   router.put(
     `/projects/:project_id/collaborators/:username`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsAddCollaboratorParamSchema,
+            projectsClassicAddCollaboratorParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsAddCollaboratorRequestBodySchema,
+            projectsClassicAddCollaboratorRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55216,7 +55313,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsAddCollaborator(input, responder, req, res, next)
+          .projectsClassicAddCollaborator(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55234,7 +55331,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsAddCollaboratorResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicAddCollaboratorResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -55244,12 +55343,12 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsRemoveCollaboratorParamSchema = z.object({
+  const projectsClassicRemoveCollaboratorParamSchema = z.object({
     project_id: z.coerce.number(),
     username: z.string(),
   })
 
-  const projectsRemoveCollaboratorResponseBodyValidator =
+  const projectsClassicRemoveCollaboratorResponseBodyValidator =
     responseValidationFactory(
       [
         ["204", z.undefined()],
@@ -55262,14 +55361,14 @@ export function createRouter(implementation: Implementation): Router {
       undefined,
     )
 
-  // projectsRemoveCollaborator
+  // projectsClassicRemoveCollaborator
   router.delete(
     `/projects/:project_id/collaborators/:username`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsRemoveCollaboratorParamSchema,
+            projectsClassicRemoveCollaboratorParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -55303,7 +55402,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsRemoveCollaborator(input, responder, req, res, next)
+          .projectsClassicRemoveCollaborator(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55322,7 +55421,10 @@ export function createRouter(implementation: Implementation): Router {
 
         if (body !== undefined) {
           res.json(
-            projectsRemoveCollaboratorResponseBodyValidator(status, body),
+            projectsClassicRemoveCollaboratorResponseBodyValidator(
+              status,
+              body,
+            ),
           )
         } else {
           res.end()
@@ -55333,12 +55435,12 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsGetPermissionForUserParamSchema = z.object({
+  const projectsClassicGetPermissionForUserParamSchema = z.object({
     project_id: z.coerce.number(),
     username: z.string(),
   })
 
-  const projectsGetPermissionForUserResponseBodyValidator =
+  const projectsClassicGetPermissionForUserResponseBodyValidator =
     responseValidationFactory(
       [
         ["200", s_project_collaborator_permission],
@@ -55351,14 +55453,14 @@ export function createRouter(implementation: Implementation): Router {
       undefined,
     )
 
-  // projectsGetPermissionForUser
+  // projectsClassicGetPermissionForUser
   router.get(
     `/projects/:project_id/collaborators/:username/permission`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsGetPermissionForUserParamSchema,
+            projectsClassicGetPermissionForUserParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
@@ -55394,7 +55496,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsGetPermissionForUser(input, responder, req, res, next)
+          .projectsClassicGetPermissionForUser(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55413,7 +55515,10 @@ export function createRouter(implementation: Implementation): Router {
 
         if (body !== undefined) {
           res.json(
-            projectsGetPermissionForUserResponseBodyValidator(status, body),
+            projectsClassicGetPermissionForUserResponseBodyValidator(
+              status,
+              body,
+            ),
           )
         } else {
           res.end()
@@ -55424,38 +55529,39 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsListColumnsParamSchema = z.object({
+  const projectsClassicListColumnsParamSchema = z.object({
     project_id: z.coerce.number(),
   })
 
-  const projectsListColumnsQuerySchema = z.object({
+  const projectsClassicListColumnsQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListColumnsResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project_column)],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicListColumnsResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_project_column)],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
 
-  // projectsListColumns
+  // projectsClassicListColumns
   router.get(
     `/projects/:project_id/columns`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsListColumnsParamSchema,
+            projectsClassicListColumnsParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: parseRequestInput(
-            projectsListColumnsQuerySchema,
+            projectsClassicListColumnsQuerySchema,
             req.query,
             RequestInputType.QueryString,
           ),
@@ -55482,7 +55588,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsListColumns(input, responder, req, res, next)
+          .projectsClassicListColumns(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55500,7 +55606,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsListColumnsResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicListColumnsResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -55510,37 +55618,40 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsCreateColumnParamSchema = z.object({
+  const projectsClassicCreateColumnParamSchema = z.object({
     project_id: z.coerce.number(),
   })
 
-  const projectsCreateColumnRequestBodySchema = z.object({name: z.string()})
+  const projectsClassicCreateColumnRequestBodySchema = z.object({
+    name: z.string(),
+  })
 
-  const projectsCreateColumnResponseBodyValidator = responseValidationFactory(
-    [
-      ["201", s_project_column],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicCreateColumnResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["201", s_project_column],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsCreateColumn
+  // projectsClassicCreateColumn
   router.post(
     `/projects/:project_id/columns`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsCreateColumnParamSchema,
+            projectsClassicCreateColumnParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsCreateColumnRequestBodySchema,
+            projectsClassicCreateColumnRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -55569,7 +55680,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsCreateColumn(input, responder, req, res, next)
+          .projectsClassicCreateColumn(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -55587,7 +55698,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsCreateColumnResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicCreateColumnResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -79961,7 +80074,7 @@ export function createRouter(implementation: Implementation): Router {
       assignee: z.string().nullable().optional(),
       state: z.enum(["open", "closed"]).optional(),
       state_reason: z
-        .enum(["completed", "not_planned", "reopened"])
+        .enum(["completed", "not_planned", "duplicate", "reopened"])
         .nullable()
         .optional(),
       milestone: z.union([z.string(), z.coerce.number()]).nullable().optional(),
@@ -84690,42 +84803,43 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsListForRepoParamSchema = z.object({
+  const projectsClassicListForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
   })
 
-  const projectsListForRepoQuerySchema = z.object({
+  const projectsClassicListForRepoQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional().default("open"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListForRepoResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project)],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicListForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_project)],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsListForRepo
+  // projectsClassicListForRepo
   router.get(
     `/repos/:owner/:repo/projects`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsListForRepoParamSchema,
+            projectsClassicListForRepoParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: parseRequestInput(
-            projectsListForRepoQuerySchema,
+            projectsClassicListForRepoQuerySchema,
             req.query,
             RequestInputType.QueryString,
           ),
@@ -84758,7 +84872,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsListForRepo(input, responder, req, res, next)
+          .projectsClassicListForRepo(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -84776,7 +84890,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsListForRepoResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicListForRepoResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -84786,42 +84902,43 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsCreateForRepoParamSchema = z.object({
+  const projectsClassicCreateForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
   })
 
-  const projectsCreateForRepoRequestBodySchema = z.object({
+  const projectsClassicCreateForRepoRequestBodySchema = z.object({
     name: z.string(),
     body: z.string().optional(),
   })
 
-  const projectsCreateForRepoResponseBodyValidator = responseValidationFactory(
-    [
-      ["201", s_project],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicCreateForRepoResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["201", s_project],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
-  // projectsCreateForRepo
+  // projectsClassicCreateForRepo
   router.post(
     `/repos/:owner/:repo/projects`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsCreateForRepoParamSchema,
+            projectsClassicCreateForRepoParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: undefined,
           body: parseRequestInput(
-            projectsCreateForRepoRequestBodySchema,
+            projectsClassicCreateForRepoRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -84853,7 +84970,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsCreateForRepo(input, responder, req, res, next)
+          .projectsClassicCreateForRepo(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -84871,7 +84988,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsCreateForRepoResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicCreateForRepoResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }
@@ -103524,12 +103643,12 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsCreateForAuthenticatedUserRequestBodySchema = z.object({
+  const projectsClassicCreateForAuthenticatedUserRequestBodySchema = z.object({
     name: z.string(),
     body: z.string().nullable().optional(),
   })
 
-  const projectsCreateForAuthenticatedUserResponseBodyValidator =
+  const projectsClassicCreateForAuthenticatedUserResponseBodyValidator =
     responseValidationFactory(
       [
         ["201", s_project],
@@ -103541,7 +103660,7 @@ export function createRouter(implementation: Implementation): Router {
       undefined,
     )
 
-  // projectsCreateForAuthenticatedUser
+  // projectsClassicCreateForAuthenticatedUser
   router.post(
     `/user/projects`,
     async (req: Request, res: Response, next: NextFunction) => {
@@ -103550,7 +103669,7 @@ export function createRouter(implementation: Implementation): Router {
           params: undefined,
           query: undefined,
           body: parseRequestInput(
-            projectsCreateForAuthenticatedUserRequestBodySchema,
+            projectsClassicCreateForAuthenticatedUserRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
           ),
@@ -103579,7 +103698,13 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsCreateForAuthenticatedUser(input, responder, req, res, next)
+          .projectsClassicCreateForAuthenticatedUser(
+            input,
+            responder,
+            req,
+            res,
+            next,
+          )
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -103598,7 +103723,7 @@ export function createRouter(implementation: Implementation): Router {
 
         if (body !== undefined) {
           res.json(
-            projectsCreateForAuthenticatedUserResponseBodyValidator(
+            projectsClassicCreateForAuthenticatedUserResponseBodyValidator(
               status,
               body,
             ),
@@ -107833,35 +107958,36 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  const projectsListForUserParamSchema = z.object({username: z.string()})
+  const projectsClassicListForUserParamSchema = z.object({username: z.string()})
 
-  const projectsListForUserQuerySchema = z.object({
+  const projectsClassicListForUserQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional().default("open"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListForUserResponseBodyValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_project)],
-      ["422", s_validation_error],
-    ],
-    undefined,
-  )
+  const projectsClassicListForUserResponseBodyValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_project)],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
 
-  // projectsListForUser
+  // projectsClassicListForUser
   router.get(
     `/users/:username/projects`,
     async (req: Request, res: Response, next: NextFunction) => {
       try {
         const input = {
           params: parseRequestInput(
-            projectsListForUserParamSchema,
+            projectsClassicListForUserParamSchema,
             req.params,
             RequestInputType.RouteParam,
           ),
           query: parseRequestInput(
-            projectsListForUserQuerySchema,
+            projectsClassicListForUserQuerySchema,
             req.query,
             RequestInputType.QueryString,
           ),
@@ -107882,7 +108008,7 @@ export function createRouter(implementation: Implementation): Router {
         }
 
         const response = await implementation
-          .projectsListForUser(input, responder, req, res, next)
+          .projectsClassicListForUser(input, responder, req, res, next)
           .catch((err) => {
             throw ExpressRuntimeError.HandlerError(err)
           })
@@ -107900,7 +108026,9 @@ export function createRouter(implementation: Implementation): Router {
         res.status(status)
 
         if (body !== undefined) {
-          res.json(projectsListForUserResponseBodyValidator(status, body))
+          res.json(
+            projectsClassicListForUserResponseBodyValidator(status, body),
+          )
         } else {
           res.end()
         }

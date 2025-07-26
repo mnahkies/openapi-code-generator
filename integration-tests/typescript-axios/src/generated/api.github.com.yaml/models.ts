@@ -1272,6 +1272,10 @@ export type t_code_scanning_default_setup_update_response = {
   run_url?: string | undefined
 }
 
+export type t_code_scanning_options = {
+  allow_advanced?: (boolean | null) | undefined
+} | null
+
 export type t_code_scanning_organization_alert_items = {
   created_at: t_alert_created_at
   dismissal_approved_by?: t_nullable_simple_user | undefined
@@ -1441,7 +1445,11 @@ export type t_code_security_configuration = {
   code_scanning_delegated_alert_dismissal?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
-  code_scanning_options?: (EmptyObject | null) | undefined
+  code_scanning_options?:
+    | ({
+        allow_advanced?: (boolean | null) | undefined
+      } | null)
+    | undefined
   created_at?: string | undefined
   dependabot_alerts?:
     | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -3552,7 +3560,14 @@ export type t_issue = {
   repository_url: string
   state: string
   state_reason?:
-    | ("completed" | "reopened" | "not_planned" | UnknownEnumStringValue | null)
+    | (
+        | "completed"
+        | "reopened"
+        | "not_planned"
+        | "duplicate"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   sub_issues_summary?: t_sub_issues_summary | undefined
   timeline_url?: string | undefined
@@ -3698,13 +3713,7 @@ export type t_issue_search_result_item = {
   score: number
   state: string
   state_reason?: (string | null) | undefined
-  sub_issues_summary?:
-    | {
-        completed: number
-        percent_completed: number
-        total: number
-      }
-    | undefined
+  sub_issues_summary?: t_sub_issues_summary | undefined
   text_matches?: t_search_result_text_matches | undefined
   timeline_url?: string | undefined
   title: string
@@ -3793,6 +3802,7 @@ export type t_key = {
   created_at: string
   id: number
   key: string
+  last_used?: (string | null) | undefined
   read_only: boolean
   title: string
   url: string
@@ -3803,6 +3813,7 @@ export type t_key_simple = {
   created_at?: string | undefined
   id: number
   key: string
+  last_used?: (string | null) | undefined
 }
 
 export type t_label = {
@@ -4350,7 +4361,14 @@ export type t_nullable_issue = {
   repository_url: string
   state: string
   state_reason?:
-    | ("completed" | "reopened" | "not_planned" | UnknownEnumStringValue | null)
+    | (
+        | "completed"
+        | "reopened"
+        | "not_planned"
+        | "duplicate"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   sub_issues_summary?: t_sub_issues_summary | undefined
   timeline_url?: string | undefined
@@ -4795,6 +4813,8 @@ export type t_org_hook = {
 }
 
 export type t_org_membership = {
+  direct_membership?: boolean | undefined
+  enterprise_teams_providing_indirect_membership?: string[] | undefined
   organization: t_organization_simple
   organization_url: string
   permissions?:
@@ -4815,6 +4835,18 @@ export type t_org_private_registry_configuration = {
     | "maven_repository"
     | "nuget_feed"
     | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
     | UnknownEnumStringValue
   updated_at: string
   username?: (string | null) | undefined
@@ -4828,6 +4860,18 @@ export type t_org_private_registry_configuration_with_selected_repositories = {
     | "maven_repository"
     | "nuget_feed"
     | "goproxy_server"
+    | "npm_registry"
+    | "rubygems_server"
+    | "cargo_registry"
+    | "composer_repository"
+    | "docker_registry"
+    | "git_source"
+    | "helm_registry"
+    | "hex_organization"
+    | "hex_repository"
+    | "pub_repository"
+    | "python_index"
+    | "terraform_registry"
     | UnknownEnumStringValue
   selected_repository_ids?: number[] | undefined
   updated_at: string
@@ -4841,6 +4885,28 @@ export type t_org_repo_custom_property_values = {
   repository_id: number
   repository_name: string
 }
+
+export type t_org_rules =
+  | t_repository_rule_creation
+  | t_repository_rule_update
+  | t_repository_rule_deletion
+  | t_repository_rule_required_linear_history
+  | t_repository_rule_required_deployments
+  | t_repository_rule_required_signatures
+  | t_repository_rule_pull_request
+  | t_repository_rule_required_status_checks
+  | t_repository_rule_non_fast_forward
+  | t_repository_rule_commit_message_pattern
+  | t_repository_rule_commit_author_email_pattern
+  | t_repository_rule_committer_email_pattern
+  | t_repository_rule_branch_name_pattern
+  | t_repository_rule_tag_name_pattern
+  | t_repository_rule_file_path_restriction
+  | t_repository_rule_max_file_path_length
+  | t_repository_rule_file_extension_restriction
+  | t_repository_rule_max_file_size
+  | t_repository_rule_workflows
+  | t_repository_rule_code_scanning
 
 export type t_org_ruleset_conditions =
   | (t_repository_ruleset_conditions &
@@ -6043,6 +6109,7 @@ export type t_release = {
   draft: boolean
   html_url: string
   id: number
+  immutable?: boolean | undefined
   mentions_count?: number | undefined
   name: string | null
   node_id: string

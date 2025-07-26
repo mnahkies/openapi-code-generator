@@ -83,6 +83,7 @@ import {
   t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
+  t_code_scanning_options,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
   t_code_scanning_ref_full,
@@ -205,6 +206,7 @@ import {
   t_org_private_registry_configuration,
   t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
+  t_org_rules,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
@@ -1329,6 +1331,12 @@ export class GitHubV3RestApiService {
         | "disabled"
         | "not_set"
         | UnknownEnumStringValue
+      code_scanning_options?: t_code_scanning_options
+      code_security?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
       dependabot_alerts?:
         | "enabled"
         | "disabled"
@@ -1356,6 +1364,11 @@ export class GitHubV3RestApiService {
       enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
       name: string
       private_vulnerability_reporting?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
+      secret_protection?:
         | "enabled"
         | "disabled"
         | "not_set"
@@ -1482,6 +1495,11 @@ export class GitHubV3RestApiService {
         | "disabled"
         | "not_set"
         | UnknownEnumStringValue
+      code_security?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
       dependabot_alerts?:
         | "enabled"
         | "disabled"
@@ -1509,6 +1527,11 @@ export class GitHubV3RestApiService {
       enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
       name?: string
       private_vulnerability_reporting?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
+      secret_protection?:
         | "enabled"
         | "disabled"
         | "not_set"
@@ -5502,6 +5525,12 @@ export class GitHubV3RestApiService {
         | "disabled"
         | "not_set"
         | UnknownEnumStringValue
+      code_scanning_options?: t_code_scanning_options
+      code_security?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
       dependabot_alerts?:
         | "enabled"
         | "disabled"
@@ -5529,6 +5558,11 @@ export class GitHubV3RestApiService {
       enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
       name: string
       private_vulnerability_reporting?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
+      secret_protection?:
         | "enabled"
         | "disabled"
         | "not_set"
@@ -5697,6 +5731,11 @@ export class GitHubV3RestApiService {
         | "disabled"
         | "not_set"
         | UnknownEnumStringValue
+      code_security?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
       dependabot_alerts?:
         | "enabled"
         | "disabled"
@@ -5724,6 +5763,11 @@ export class GitHubV3RestApiService {
       enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
       name?: string
       private_vulnerability_reporting?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+        | UnknownEnumStringValue
+      secret_protection?:
         | "enabled"
         | "disabled"
         | "not_set"
@@ -9206,6 +9250,18 @@ export class GitHubV3RestApiService {
         | "maven_repository"
         | "nuget_feed"
         | "goproxy_server"
+        | "npm_registry"
+        | "rubygems_server"
+        | "cargo_registry"
+        | "composer_repository"
+        | "docker_registry"
+        | "git_source"
+        | "helm_registry"
+        | "hex_organization"
+        | "hex_repository"
+        | "pub_repository"
+        | "python_index"
+        | "terraform_registry"
         | UnknownEnumStringValue
       selected_repository_ids?: number[]
       url: string
@@ -9291,6 +9347,18 @@ export class GitHubV3RestApiService {
         | "maven_repository"
         | "nuget_feed"
         | "goproxy_server"
+        | "npm_registry"
+        | "rubygems_server"
+        | "cargo_registry"
+        | "composer_repository"
+        | "docker_registry"
+        | "git_source"
+        | "helm_registry"
+        | "hex_organization"
+        | "hex_repository"
+        | "pub_repository"
+        | "python_index"
+        | "terraform_registry"
         | UnknownEnumStringValue
       selected_repository_ids?: number[]
       url?: string
@@ -9345,7 +9413,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsListForOrg(p: {
+  projectsClassicListForOrg(p: {
     org: string
     state?: "open" | "closed" | "all" | UnknownEnumStringValue
     perPage?: number
@@ -9374,7 +9442,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsCreateForOrg(p: {
+  projectsClassicCreateForOrg(p: {
     org: string
     requestBody: {
       body?: string
@@ -9824,7 +9892,7 @@ export class GitHubV3RestApiService {
       conditions?: t_org_ruleset_conditions
       enforcement: t_repository_rule_enforcement
       name: string
-      rules?: t_repository_rule[]
+      rules?: t_org_rules[]
       target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
     }
   }): Observable<
@@ -9947,7 +10015,7 @@ export class GitHubV3RestApiService {
       conditions?: t_org_ruleset_conditions
       enforcement?: t_repository_rule_enforcement
       name?: string
-      rules?: t_repository_rule[]
+      rules?: t_org_rules[]
       target?: "branch" | "tag" | "push" | "repository" | UnknownEnumStringValue
     }
   }): Observable<
@@ -11437,7 +11505,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsGetCard(p: {
+  projectsClassicGetCard(p: {
     cardId: number
   }): Observable<
     | (HttpResponse<t_project_card> & {status: 200})
@@ -11460,7 +11528,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsUpdateCard(p: {
+  projectsClassicUpdateCard(p: {
     cardId: number
     requestBody?: {
       archived?: boolean
@@ -11494,7 +11562,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsDeleteCard(p: {cardId: number}): Observable<
+  projectsClassicDeleteCard(p: {cardId: number}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -11519,7 +11587,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsMoveCard(p: {
+  projectsClassicMoveCard(p: {
     cardId: number
     requestBody: {
       column_id?: number
@@ -11569,7 +11637,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsGetColumn(p: {
+  projectsClassicGetColumn(p: {
     columnId: number
   }): Observable<
     | (HttpResponse<t_project_column> & {status: 200})
@@ -11592,7 +11660,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsUpdateColumn(p: {
+  projectsClassicUpdateColumn(p: {
     columnId: number
     requestBody: {
       name: string
@@ -11622,7 +11690,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsDeleteColumn(p: {
+  projectsClassicDeleteColumn(p: {
     columnId: number
   }): Observable<
     | (HttpResponse<void> & {status: 204})
@@ -11644,7 +11712,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsListCards(p: {
+  projectsClassicListCards(p: {
     columnId: number
     archivedState?: "all" | "archived" | "not_archived" | UnknownEnumStringValue
     perPage?: number
@@ -11675,7 +11743,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsCreateCard(p: {
+  projectsClassicCreateCard(p: {
     columnId: number
     requestBody:
       | {
@@ -11722,7 +11790,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsMoveColumn(p: {
+  projectsClassicMoveColumn(p: {
     columnId: number
     requestBody: {
       position: string
@@ -11753,7 +11821,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsGet(p: {
+  projectsClassicGet(p: {
     projectId: number
   }): Observable<
     | (HttpResponse<t_project> & {status: 200})
@@ -11775,7 +11843,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsUpdate(p: {
+  projectsClassicUpdate(p: {
     projectId: number
     requestBody?: {
       body?: string | null
@@ -11822,7 +11890,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsDelete(p: {projectId: number}): Observable<
+  projectsClassicDelete(p: {projectId: number}): Observable<
     | (HttpResponse<void> & {status: 204})
     | (HttpResponse<void> & {status: 304})
     | (HttpResponse<t_basic_error> & {status: 401})
@@ -11848,7 +11916,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsListCollaborators(p: {
+  projectsClassicListCollaborators(p: {
     projectId: number
     affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
     perPage?: number
@@ -11881,7 +11949,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsAddCollaborator(p: {
+  projectsClassicAddCollaborator(p: {
     projectId: number
     username: string
     requestBody?: {
@@ -11916,7 +11984,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsRemoveCollaborator(p: {
+  projectsClassicRemoveCollaborator(p: {
     projectId: number
     username: string
   }): Observable<
@@ -11942,7 +12010,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsGetPermissionForUser(p: {
+  projectsClassicGetPermissionForUser(p: {
     projectId: number
     username: string
   }): Observable<
@@ -11968,7 +12036,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsListColumns(p: {
+  projectsClassicListColumns(p: {
     projectId: number
     perPage?: number
     page?: number
@@ -11994,7 +12062,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsCreateColumn(p: {
+  projectsClassicCreateColumn(p: {
     projectId: number
     requestBody: {
       name: string
@@ -20585,6 +20653,7 @@ export class GitHubV3RestApiService {
       state_reason?:
         | "completed"
         | "not_planned"
+        | "duplicate"
         | "reopened"
         | UnknownEnumStringValue
         | null
@@ -22254,7 +22323,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsListForRepo(p: {
+  projectsClassicListForRepo(p: {
     owner: string
     repo: string
     state?: "open" | "closed" | "all" | UnknownEnumStringValue
@@ -22288,7 +22357,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsCreateForRepo(p: {
+  projectsClassicCreateForRepo(p: {
     owner: string
     repo: string
     requestBody: {
@@ -28537,7 +28606,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsCreateForAuthenticatedUser(p: {
+  projectsClassicCreateForAuthenticatedUser(p: {
     requestBody: {
       body?: string | null
       name: string
@@ -29952,7 +30021,7 @@ export class GitHubV3RestApiService {
     )
   }
 
-  projectsListForUser(p: {
+  projectsClassicListForUser(p: {
     username: string
     state?: "open" | "closed" | "all" | UnknownEnumStringValue
     perPage?: number

@@ -15423,6 +15423,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      instant_payouts_promotion: z
+        .object({
+          enabled: PermissiveBoolean,
+          features: z
+            .object({
+              disable_stripe_user_authentication: PermissiveBoolean.optional(),
+              external_account_collection: PermissiveBoolean.optional(),
+              instant_payouts: PermissiveBoolean.optional(),
+            })
+            .optional(),
+        })
+        .optional(),
       issuing_card: z
         .object({
           enabled: PermissiveBoolean,
@@ -22986,6 +22998,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.array(
                 z.object({
+                  adjustable_quantity: z
+                    .object({
+                      enabled: PermissiveBoolean,
+                      maximum: z.coerce.number().optional(),
+                      minimum: z.coerce.number().optional(),
+                    })
+                    .optional(),
                   prices: z.array(z.string().max(5000)),
                   product: z.string().max(5000),
                 }),
@@ -23234,6 +23253,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .union([
                   z.array(
                     z.object({
+                      adjustable_quantity: z
+                        .object({
+                          enabled: PermissiveBoolean,
+                          maximum: z.coerce.number().optional(),
+                          minimum: z.coerce.number().optional(),
+                        })
+                        .optional(),
                       prices: z.array(z.string().max(5000)),
                       product: z.string().max(5000),
                     }),
@@ -24970,6 +24996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     amount_tax_display: z
                       .enum(["", "exclude_tax", "include_inclusive_tax"])
                       .optional(),
+                    template: z.string().max(5000).optional(),
                   }),
                   z.enum([""]),
                 ])
@@ -25083,6 +25110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
+      origin_context: z.enum(["mobile_app", "web"]).optional(),
       payment_intent_data: z
         .object({
           application_fee_amount: z.coerce.number().optional(),
@@ -25411,7 +25439,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           pix: z
-            .object({expires_after_seconds: z.coerce.number().optional()})
+            .object({
+              expires_after_seconds: z.coerce.number().optional(),
+              setup_future_usage: z.enum(["none"]).optional(),
+            })
             .optional(),
           revolut_pay: z
             .object({
@@ -25509,6 +25540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -31791,7 +31823,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      cancel_at: z.coerce.number().optional(),
+      cancel_at: z
+        .union([
+          z.coerce.number(),
+          z.enum(["max_period_end", "min_period_end"]),
+        ])
+        .optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
@@ -32366,7 +32403,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+      cancel_at: z
+        .union([
+          z.coerce.number(),
+          z.enum([""]),
+          z.enum(["max_period_end", "min_period_end"]),
+        ])
+        .optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
         .object({
@@ -38629,6 +38672,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     z.enum([""]),
                   ])
                   .optional(),
+                duration: z
+                  .object({
+                    interval: z.enum(["day", "month", "week", "year"]),
+                    interval_count: z.coerce.number().optional(),
+                  })
+                  .optional(),
                 end_date: z
                   .union([z.coerce.number(), z.enum(["now"])])
                   .optional(),
@@ -38725,7 +38774,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           billing_mode: z
             .object({type: z.enum(["classic", "flexible"])})
             .optional(),
-          cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+          cancel_at: z
+            .union([
+              z.coerce.number(),
+              z.enum([""]),
+              z.enum(["max_period_end", "min_period_end"]),
+            ])
+            .optional(),
           cancel_at_period_end: PermissiveBoolean.optional(),
           cancel_now: PermissiveBoolean.optional(),
           default_tax_rates: z
@@ -52126,6 +52181,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   amount_tax_display: z
                     .enum(["", "exclude_tax", "include_inclusive_tax"])
                     .optional(),
+                  template: z.string().max(5000).optional(),
                 }),
                 z.enum([""]),
               ])
@@ -52143,7 +52199,33 @@ export function createRouter(implementation: Implementation): KoaRouter {
             minimum: z.coerce.number().optional(),
           })
           .optional(),
-        price: z.string().max(5000),
+        price: z.string().max(5000).optional(),
+        price_data: z
+          .object({
+            currency: z.string(),
+            product: z.string().max(5000).optional(),
+            product_data: z
+              .object({
+                description: z.string().max(40000).optional(),
+                images: z.array(z.string()).optional(),
+                metadata: z.record(z.string()).optional(),
+                name: z.string().max(5000),
+                tax_code: z.string().max(5000).optional(),
+              })
+              .optional(),
+            recurring: z
+              .object({
+                interval: z.enum(["day", "month", "week", "year"]),
+                interval_count: z.coerce.number().optional(),
+              })
+              .optional(),
+            tax_behavior: z
+              .enum(["exclusive", "inclusive", "unspecified"])
+              .optional(),
+            unit_amount: z.coerce.number().optional(),
+            unit_amount_decimal: z.string().optional(),
+          })
+          .optional(),
         quantity: z.coerce.number(),
       }),
     ),
@@ -52758,6 +52840,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     amount_tax_display: z
                       .enum(["", "exclude_tax", "include_inclusive_tax"])
                       .optional(),
+                    template: z.string().max(5000).optional(),
                   }),
                   z.enum([""]),
                 ])
@@ -60142,6 +60225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "America/Coral_Harbour",
             "America/Cordoba",
             "America/Costa_Rica",
+            "America/Coyhaique",
             "America/Creston",
             "America/Cuiaba",
             "America/Curacao",
@@ -65356,6 +65440,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 z.enum([""]),
               ])
               .optional(),
+            duration: z
+              .object({
+                interval: z.enum(["day", "month", "week", "year"]),
+                interval_count: z.coerce.number().optional(),
+              })
+              .optional(),
             end_date: z.coerce.number().optional(),
             invoice_settings: z
               .object({
@@ -65697,6 +65787,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 ),
                 z.enum([""]),
               ])
+              .optional(),
+            duration: z
+              .object({
+                interval: z.enum(["day", "month", "week", "year"]),
+                interval_count: z.coerce.number().optional(),
+              })
               .optional(),
             end_date: z.union([z.coerce.number(), z.enum(["now"])]).optional(),
             invoice_settings: z
@@ -66172,7 +66268,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.enum([""]),
       ])
       .optional(),
-    cancel_at: z.coerce.number().optional(),
+    cancel_at: z
+      .union([z.coerce.number(), z.enum(["max_period_end", "min_period_end"])])
+      .optional(),
     cancel_at_period_end: PermissiveBoolean.optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
@@ -66818,7 +66916,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
+      cancel_at: z
+        .union([
+          z.coerce.number(),
+          z.enum([""]),
+          z.enum(["max_period_end", "min_period_end"]),
+        ])
+        .optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
         .object({
@@ -67884,50 +67988,183 @@ export function createRouter(implementation: Implementation): KoaRouter {
     active_from: z.union([z.enum(["now"]), z.coerce.number()]),
     country: z.string().max(5000),
     country_options: z.object({
-      ae: z.object({type: z.enum(["standard"])}).optional(),
-      al: z.object({type: z.enum(["standard"])}).optional(),
+      ae: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      al: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       am: z.object({type: z.enum(["simplified"])}).optional(),
-      ao: z.object({type: z.enum(["standard"])}).optional(),
+      ao: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       at: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      au: z.object({type: z.enum(["standard"])}).optional(),
-      aw: z.object({type: z.enum(["standard"])}).optional(),
+      au: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      aw: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       az: z.object({type: z.enum(["simplified"])}).optional(),
-      ba: z.object({type: z.enum(["standard"])}).optional(),
-      bb: z.object({type: z.enum(["standard"])}).optional(),
-      bd: z.object({type: z.enum(["standard"])}).optional(),
+      ba: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      bb: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      bd: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       be: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      bf: z.object({type: z.enum(["standard"])}).optional(),
+      bf: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       bg: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      bh: z.object({type: z.enum(["standard"])}).optional(),
+      bh: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       bj: z.object({type: z.enum(["simplified"])}).optional(),
-      bs: z.object({type: z.enum(["standard"])}).optional(),
+      bs: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       by: z.object({type: z.enum(["simplified"])}).optional(),
       ca: z
         .object({
@@ -67937,8 +68174,30 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["province_standard", "simplified", "standard"]),
         })
         .optional(),
-      cd: z.object({type: z.enum(["standard"])}).optional(),
-      ch: z.object({type: z.enum(["standard"])}).optional(),
+      cd: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      ch: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       cl: z.object({type: z.enum(["simplified"])}).optional(),
       cm: z.object({type: z.enum(["simplified"])}).optional(),
       co: z.object({type: z.enum(["simplified"])}).optional(),
@@ -67948,7 +68207,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -67958,7 +68221,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -67968,7 +68235,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -67978,7 +68249,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -67989,7 +68264,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68000,18 +68279,37 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      et: z.object({type: z.enum(["standard"])}).optional(),
+      et: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       fi: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68021,20 +68319,50 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      gb: z.object({type: z.enum(["standard"])}).optional(),
+      gb: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       ge: z.object({type: z.enum(["simplified"])}).optional(),
-      gn: z.object({type: z.enum(["standard"])}).optional(),
+      gn: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       gr: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68044,7 +68372,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68054,7 +68386,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68065,25 +68401,55 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
       in: z.object({type: z.enum(["simplified"])}).optional(),
-      is: z.object({type: z.enum(["standard"])}).optional(),
+      is: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       it: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      jp: z.object({type: z.enum(["standard"])}).optional(),
+      jp: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       ke: z.object({type: z.enum(["simplified"])}).optional(),
       kg: z.object({type: z.enum(["simplified"])}).optional(),
       kh: z.object({type: z.enum(["simplified"])}).optional(),
@@ -68094,7 +68460,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68104,7 +68474,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68114,7 +68488,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68122,14 +68500,51 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       ma: z.object({type: z.enum(["simplified"])}).optional(),
       md: z.object({type: z.enum(["simplified"])}).optional(),
-      me: z.object({type: z.enum(["standard"])}).optional(),
-      mk: z.object({type: z.enum(["standard"])}).optional(),
-      mr: z.object({type: z.enum(["standard"])}).optional(),
+      me: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      mk: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      mr: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       mt: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68142,23 +68557,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      no: z.object({type: z.enum(["standard"])}).optional(),
+      no: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       np: z.object({type: z.enum(["simplified"])}).optional(),
-      nz: z.object({type: z.enum(["standard"])}).optional(),
-      om: z.object({type: z.enum(["standard"])}).optional(),
+      nz: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
+      om: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       pe: z.object({type: z.enum(["simplified"])}).optional(),
       ph: z.object({type: z.enum(["simplified"])}).optional(),
       pl: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68168,7 +68624,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68178,31 +68638,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      rs: z.object({type: z.enum(["standard"])}).optional(),
+      rs: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       ru: z.object({type: z.enum(["simplified"])}).optional(),
       sa: z.object({type: z.enum(["simplified"])}).optional(),
       se: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
-      sg: z.object({type: z.enum(["standard"])}).optional(),
+      sg: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       si: z
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
@@ -68212,14 +68706,29 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           standard: z
             .object({
-              place_of_supply_scheme: z.enum(["small_seller", "standard"]),
+              place_of_supply_scheme: z.enum([
+                "inbound_goods",
+                "small_seller",
+                "standard",
+              ]),
             })
             .optional(),
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
       sn: z.object({type: z.enum(["simplified"])}).optional(),
-      sr: z.object({type: z.enum(["standard"])}).optional(),
+      sr: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       th: z.object({type: z.enum(["simplified"])}).optional(),
       tj: z.object({type: z.enum(["simplified"])}).optional(),
       tr: z.object({type: z.enum(["simplified"])}).optional(),
@@ -68258,12 +68767,45 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ]),
         })
         .optional(),
-      uy: z.object({type: z.enum(["standard"])}).optional(),
+      uy: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       uz: z.object({type: z.enum(["simplified"])}).optional(),
       vn: z.object({type: z.enum(["simplified"])}).optional(),
-      za: z.object({type: z.enum(["standard"])}).optional(),
+      za: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
       zm: z.object({type: z.enum(["simplified"])}).optional(),
-      zw: z.object({type: z.enum(["standard"])}).optional(),
+      zw: z
+        .object({
+          standard: z
+            .object({
+              place_of_supply_scheme: z
+                .enum(["inbound_goods", "standard"])
+                .optional(),
+            })
+            .optional(),
+          type: z.enum(["standard"]),
+        })
+        .optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
@@ -69820,7 +70362,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
       tipping: z
         .union([
           z.object({
+            aed: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
             aud: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
+            bgn: z
               .object({
                 fixed_amounts: z.array(z.coerce.number()).optional(),
                 percentages: z.array(z.coerce.number()).optional(),
@@ -69876,6 +70432,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 smart_tip_threshold: z.coerce.number().optional(),
               })
               .optional(),
+            huf: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
             jpy: z
               .object({
                 fixed_amounts: z.array(z.coerce.number()).optional(),
@@ -69905,6 +70468,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               })
               .optional(),
             pln: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
+            ron: z
               .object({
                 fixed_amounts: z.array(z.coerce.number()).optional(),
                 percentages: z.array(z.coerce.number()).optional(),
@@ -70211,7 +70781,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
       tipping: z
         .union([
           z.object({
+            aed: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
             aud: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
+            bgn: z
               .object({
                 fixed_amounts: z.array(z.coerce.number()).optional(),
                 percentages: z.array(z.coerce.number()).optional(),
@@ -70267,6 +70851,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 smart_tip_threshold: z.coerce.number().optional(),
               })
               .optional(),
+            huf: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
             jpy: z
               .object({
                 fixed_amounts: z.array(z.coerce.number()).optional(),
@@ -70296,6 +70887,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               })
               .optional(),
             pln: z
+              .object({
+                fixed_amounts: z.array(z.coerce.number()).optional(),
+                percentages: z.array(z.coerce.number()).optional(),
+                smart_tip_threshold: z.coerce.number().optional(),
+              })
+              .optional(),
+            ron: z
               .object({
                 fixed_amounts: z.array(z.coerce.number()).optional(),
                 percentages: z.array(z.coerce.number()).optional(),
@@ -81180,6 +81778,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "2025-04-30.basil",
         "2025-05-28.basil",
         "2025-06-30.basil",
+        "2025-07-30.basil",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),

@@ -1,5 +1,4 @@
 import path from "node:path"
-import stripJsonComments from "strip-json-comments"
 import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
 
@@ -22,6 +21,8 @@ export async function loadTypescriptFormatterConfig(
 
   if (biomeConfigFile) {
     const rawConfig = await fsAdaptor.readFile(biomeConfigFile)
+
+    const stripJsonComments = (await import("strip-json-comments")).default
 
     return {
       type: "biome",

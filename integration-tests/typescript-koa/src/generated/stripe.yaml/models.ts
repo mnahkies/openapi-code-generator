@@ -1169,7 +1169,7 @@ export type t_capability = {
   requested: boolean
   requested_at?: number | null
   requirements?: t_account_capability_requirements
-  status: "active" | "disabled" | "inactive" | "pending" | "unrequested"
+  status: "active" | "inactive" | "pending" | "unrequested"
 }
 
 export type t_card = {
@@ -1398,6 +1398,7 @@ export type t_checkout_session = {
   mode: "payment" | "setup" | "subscription"
   object: "checkout.session"
   optional_items?: t_payment_pages_checkout_session_optional_item[] | null
+  origin_context?: "mobile_app" | "web" | null
   payment_intent?: string | t_payment_intent | null
   payment_link?: string | t_payment_link | null
   payment_method_collection?: "always" | "if_required" | null
@@ -1620,6 +1621,7 @@ export type t_checkout_paypal_payment_method_options = {
 
 export type t_checkout_pix_payment_method_options = {
   expires_after_seconds?: number | null
+  setup_future_usage?: "none"
 }
 
 export type t_checkout_revolut_pay_payment_method_options = {
@@ -1968,6 +1970,7 @@ export type t_connect_embedded_account_session_create_components = {
   documents: t_connect_embedded_base_config_claim
   financial_account: t_connect_embedded_financial_account_config_claim
   financial_account_transactions: t_connect_embedded_financial_account_transactions_config_claim
+  instant_payouts_promotion: t_connect_embedded_instant_payouts_promotion_config
   issuing_card: t_connect_embedded_issuing_card_config_claim
   issuing_cards_list: t_connect_embedded_issuing_cards_list_config_claim
   notification_banner: t_connect_embedded_account_config_claim
@@ -2018,6 +2021,17 @@ export type t_connect_embedded_financial_account_transactions_config_claim = {
 
 export type t_connect_embedded_financial_account_transactions_features = {
   card_spend_dispute_management: boolean
+}
+
+export type t_connect_embedded_instant_payouts_promotion_config = {
+  enabled: boolean
+  features: t_connect_embedded_instant_payouts_promotion_features
+}
+
+export type t_connect_embedded_instant_payouts_promotion_features = {
+  disable_stripe_user_authentication: boolean
+  external_account_collection: boolean
+  instant_payouts: boolean
 }
 
 export type t_connect_embedded_issuing_card_config_claim = {
@@ -3317,8 +3331,8 @@ export type t_gelato_provided_details = {
 }
 
 export type t_gelato_related_person = {
-  account?: string
-  person?: string
+  account: string
+  person: string
 }
 
 export type t_gelato_report_document_options = {
@@ -3703,6 +3717,7 @@ export type t_invoice_rendering_template = {
 
 export type t_invoice_setting_checkout_rendering_options = {
   amount_tax_display?: string | null
+  template?: string | null
 }
 
 export type t_invoice_setting_custom_field = {
@@ -8737,6 +8752,7 @@ export type t_payment_method_details_card_wallet_visa_checkout = {
 export type t_payment_method_details_cashapp = {
   buyer_id?: string | null
   cashtag?: string | null
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_crypto = {
@@ -10567,8 +10583,15 @@ export type t_portal_subscription_update = {
 }
 
 export type t_portal_subscription_update_product = {
+  adjustable_quantity: t_portal_subscription_update_product_adjustable_quantity
   prices: string[]
   product: string
+}
+
+export type t_portal_subscription_update_product_adjustable_quantity = {
+  enabled: boolean
+  maximum?: number | null
+  minimum: number
 }
 
 export type t_price = {
@@ -12638,11 +12661,17 @@ export type t_tax_product_registrations_resource_country_options_default = {
 
 export type t_tax_product_registrations_resource_country_options_default_inbound_goods =
   {
+    standard?: t_tax_product_registrations_resource_country_options_default_standard
     type: "standard"
   }
 
+export type t_tax_product_registrations_resource_country_options_default_standard =
+  {
+    place_of_supply_scheme: "inbound_goods" | "standard"
+  }
+
 export type t_tax_product_registrations_resource_country_options_eu_standard = {
-  place_of_supply_scheme: "small_seller" | "standard"
+  place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
 }
 
 export type t_tax_product_registrations_resource_country_options_europe = {
@@ -13129,7 +13158,9 @@ export type t_terminal_configuration_configuration_resource_reboot_window = {
 }
 
 export type t_terminal_configuration_configuration_resource_tipping = {
+  aed?: t_terminal_configuration_configuration_resource_currency_specific_config
   aud?: t_terminal_configuration_configuration_resource_currency_specific_config
+  bgn?: t_terminal_configuration_configuration_resource_currency_specific_config
   cad?: t_terminal_configuration_configuration_resource_currency_specific_config
   chf?: t_terminal_configuration_configuration_resource_currency_specific_config
   czk?: t_terminal_configuration_configuration_resource_currency_specific_config
@@ -13137,11 +13168,13 @@ export type t_terminal_configuration_configuration_resource_tipping = {
   eur?: t_terminal_configuration_configuration_resource_currency_specific_config
   gbp?: t_terminal_configuration_configuration_resource_currency_specific_config
   hkd?: t_terminal_configuration_configuration_resource_currency_specific_config
+  huf?: t_terminal_configuration_configuration_resource_currency_specific_config
   jpy?: t_terminal_configuration_configuration_resource_currency_specific_config
   myr?: t_terminal_configuration_configuration_resource_currency_specific_config
   nok?: t_terminal_configuration_configuration_resource_currency_specific_config
   nzd?: t_terminal_configuration_configuration_resource_currency_specific_config
   pln?: t_terminal_configuration_configuration_resource_currency_specific_config
+  ron?: t_terminal_configuration_configuration_resource_currency_specific_config
   sek?: t_terminal_configuration_configuration_resource_currency_specific_config
   sgd?: t_terminal_configuration_configuration_resource_currency_specific_config
   usd?: t_terminal_configuration_configuration_resource_currency_specific_config
@@ -17436,6 +17469,14 @@ export type t_PostAccountSessionsBodySchema = {
         card_spend_dispute_management?: boolean
       }
     }
+    instant_payouts_promotion?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+        instant_payouts?: boolean
+      }
+    }
     issuing_card?: {
       enabled: boolean
       features?: {
@@ -19592,6 +19633,11 @@ export type t_PostBillingPortalConfigurationsBodySchema = {
       enabled: boolean
       products?:
         | {
+            adjustable_quantity?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+            }
             prices: string[]
             product: string
           }[]
@@ -19659,6 +19705,11 @@ export type t_PostBillingPortalConfigurationsConfigurationBodySchema = {
       enabled?: boolean
       products?:
         | {
+            adjustable_quantity?: {
+              enabled: boolean
+              maximum?: number
+              minimum?: number
+            }
             prices: string[]
             product: string
           }[]
@@ -20165,6 +20216,7 @@ export type t_PostCheckoutSessionsBodySchema = {
       rendering_options?:
         | {
             amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+            template?: string
           }
         | ""
     }
@@ -20255,6 +20307,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     price: string
     quantity: number
   }[]
+  origin_context?: "mobile_app" | "web"
   payment_intent_data?: {
     application_fee_amount?: number
     capture_method?: "automatic" | "automatic_async" | "manual"
@@ -20484,6 +20537,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     }
     pix?: {
       expires_after_seconds?: number
+      setup_future_usage?: "none"
     }
     revolut_pay?: {
       setup_future_usage?: "none" | "off_session"
@@ -20554,6 +20608,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     | "mobilepay"
     | "multibanco"
     | "naver_pay"
+    | "nz_bank_account"
     | "oxxo"
     | "p24"
     | "pay_by_bank"
@@ -21814,7 +21869,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
         reset_billing_cycle_anchor?: boolean
       }
     | ""
-  cancel_at?: number
+  cancel_at?: number | "max_period_end" | "min_period_end"
   cancel_at_period_end?: boolean
   collection_method?: "charge_automatically" | "send_invoice"
   currency?: string
@@ -22053,7 +22108,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
           reset_billing_cycle_anchor?: boolean
         }
       | ""
-    cancel_at?: number | ""
+    cancel_at?: number | "" | "max_period_end" | "min_period_end"
     cancel_at_period_end?: boolean
     cancellation_details?: {
       comment?: string | ""
@@ -23317,6 +23372,10 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
             promotion_code?: string
           }[]
         | ""
+      duration?: {
+        interval: "day" | "month" | "week" | "year"
+        interval_count?: number
+      }
       end_date?: number | "now"
       invoice_settings?: {
         account_tax_ids?: string[] | ""
@@ -23379,7 +23438,7 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
     billing_mode?: {
       type: "classic" | "flexible"
     }
-    cancel_at?: number | ""
+    cancel_at?: number | "" | "max_period_end" | "min_period_end"
     cancel_at_period_end?: boolean
     cancel_now?: boolean
     default_tax_rates?: string[] | ""
@@ -30830,6 +30889,7 @@ export type t_PostPaymentLinksBodySchema = {
       rendering_options?:
         | {
             amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+            template?: string
           }
         | ""
     }
@@ -30840,7 +30900,27 @@ export type t_PostPaymentLinksBodySchema = {
       maximum?: number
       minimum?: number
     }
-    price: string
+    price?: string
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      recurring?: {
+        interval: "day" | "month" | "week" | "year"
+        interval_count?: number
+      }
+      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
     quantity: number
   }[]
   metadata?: {
@@ -31286,6 +31366,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
       rendering_options?:
         | {
             amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+            template?: string
           }
         | ""
     }
@@ -33338,6 +33419,7 @@ export type t_PostReportingReportRunsBodySchema = {
       | "America/Coral_Harbour"
       | "America/Cordoba"
       | "America/Costa_Rica"
+      | "America/Coyhaique"
       | "America/Creston"
       | "America/Cuiaba"
       | "America/Curacao"
@@ -35654,6 +35736,10 @@ export type t_PostSubscriptionSchedulesBodySchema = {
           promotion_code?: string
         }[]
       | ""
+    duration?: {
+      interval: "day" | "month" | "week" | "year"
+      interval_count?: number
+    }
     end_date?: number
     invoice_settings?: {
       account_tax_ids?: string[] | ""
@@ -35797,6 +35883,10 @@ export type t_PostSubscriptionSchedulesScheduleBodySchema = {
           promotion_code?: string
         }[]
       | ""
+    duration?: {
+      interval: "day" | "month" | "week" | "year"
+      interval_count?: number
+    }
     end_date?: number | "now"
     invoice_settings?: {
       account_tax_ids?: string[] | ""
@@ -35921,7 +36011,7 @@ export type t_PostSubscriptionsBodySchema = {
         reset_billing_cycle_anchor?: boolean
       }
     | ""
-  cancel_at?: number
+  cancel_at?: number | "max_period_end" | "min_period_end"
   cancel_at_period_end?: boolean
   collection_method?: "charge_automatically" | "send_invoice"
   currency?: string
@@ -36158,7 +36248,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
         reset_billing_cycle_anchor?: boolean
       }
     | ""
-  cancel_at?: number | ""
+  cancel_at?: number | "" | "max_period_end" | "min_period_end"
   cancel_at_period_end?: boolean
   cancellation_details?: {
     comment?: string | ""
@@ -36763,63 +36853,96 @@ export type t_PostTaxRegistrationsBodySchema = {
   country: string
   country_options: {
     ae?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     al?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     am?: {
       type: "simplified"
     }
     ao?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     at?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     au?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     aw?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     az?: {
       type: "simplified"
     }
     ba?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     bb?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     bd?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     be?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     bf?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     bg?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     bh?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     bj?: {
       type: "simplified"
     }
     bs?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     by?: {
@@ -36832,9 +36955,15 @@ export type t_PostTaxRegistrationsBodySchema = {
       type: "province_standard" | "simplified" | "standard"
     }
     cd?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     ch?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     cl?: {
@@ -36854,25 +36983,25 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     cy?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     cz?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     de?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     dk?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -36881,7 +37010,7 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     ee?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -36890,49 +37019,58 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     es?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     et?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     fi?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     fr?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     gb?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     ge?: {
       type: "simplified"
     }
     gn?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     gr?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     hr?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     hu?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -36941,7 +37079,7 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     ie?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -36949,15 +37087,21 @@ export type t_PostTaxRegistrationsBodySchema = {
       type: "simplified"
     }
     is?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     it?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     jp?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     ke?: {
@@ -36980,19 +37124,19 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     lt?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     lu?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     lv?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -37003,17 +37147,26 @@ export type t_PostTaxRegistrationsBodySchema = {
       type: "simplified"
     }
     me?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     mk?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     mr?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     mt?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -37028,20 +37181,29 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     nl?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     no?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     np?: {
       type: "simplified"
     }
     nz?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     om?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     pe?: {
@@ -37052,23 +37214,26 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     pl?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     pt?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     ro?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     rs?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     ru?: {
@@ -37079,22 +37244,25 @@ export type t_PostTaxRegistrationsBodySchema = {
     }
     se?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     sg?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     si?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
     sk?: {
       standard?: {
-        place_of_supply_scheme: "small_seller" | "standard"
+        place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
       }
       type: "ioss" | "oss_non_union" | "oss_union" | "standard"
     }
@@ -37102,6 +37270,9 @@ export type t_PostTaxRegistrationsBodySchema = {
       type: "simplified"
     }
     sr?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     th?: {
@@ -37147,6 +37318,9 @@ export type t_PostTaxRegistrationsBodySchema = {
         | "state_sales_tax"
     }
     uy?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     uz?: {
@@ -37156,12 +37330,18 @@ export type t_PostTaxRegistrationsBodySchema = {
       type: "simplified"
     }
     za?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
     zm?: {
       type: "simplified"
     }
     zw?: {
+      standard?: {
+        place_of_supply_scheme?: "inbound_goods" | "standard"
+      }
       type: "standard"
     }
   }
@@ -37252,7 +37432,17 @@ export type t_PostTerminalConfigurationsBodySchema = {
   }
   tipping?:
     | {
+        aed?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
         aud?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        bgn?: {
           fixed_amounts?: number[]
           percentages?: number[]
           smart_tip_threshold?: number
@@ -37292,6 +37482,11 @@ export type t_PostTerminalConfigurationsBodySchema = {
           percentages?: number[]
           smart_tip_threshold?: number
         }
+        huf?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
         jpy?: {
           fixed_amounts?: number[]
           percentages?: number[]
@@ -37313,6 +37508,11 @@ export type t_PostTerminalConfigurationsBodySchema = {
           smart_tip_threshold?: number
         }
         pln?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        ron?: {
           fixed_amounts?: number[]
           percentages?: number[]
           smart_tip_threshold?: number
@@ -37387,7 +37587,17 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
     | ""
   tipping?:
     | {
+        aed?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
         aud?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        bgn?: {
           fixed_amounts?: number[]
           percentages?: number[]
           smart_tip_threshold?: number
@@ -37427,6 +37637,11 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
           percentages?: number[]
           smart_tip_threshold?: number
         }
+        huf?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
         jpy?: {
           fixed_amounts?: number[]
           percentages?: number[]
@@ -37448,6 +37663,11 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
           smart_tip_threshold?: number
         }
         pln?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        ron?: {
           fixed_amounts?: number[]
           percentages?: number[]
           smart_tip_threshold?: number
@@ -40611,6 +40831,7 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "2025-04-30.basil"
     | "2025-05-28.basil"
     | "2025-06-30.basil"
+    | "2025-07-30.basil"
   connect?: boolean
   description?: string | ""
   enabled_events: (

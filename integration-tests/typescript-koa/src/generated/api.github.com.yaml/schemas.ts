@@ -749,6 +749,10 @@ export const s_code_scanning_default_setup_update_response = z.object({
   run_url: z.string().optional(),
 })
 
+export const s_code_scanning_options = z
+  .object({allow_advanced: PermissiveBoolean.nullable().optional()})
+  .nullable()
+
 export const s_code_scanning_ref = z.string()
 
 export const s_code_scanning_ref_full = z
@@ -810,7 +814,10 @@ export const s_code_security_configuration = z.object({
   dependabot_security_updates: z
     .enum(["enabled", "disabled", "not_set"])
     .optional(),
-  code_scanning_options: z.object({}).nullable().optional(),
+  code_scanning_options: z
+    .object({allow_advanced: PermissiveBoolean.nullable().optional()})
+    .nullable()
+    .optional(),
   code_scanning_default_setup: z
     .enum(["enabled", "disabled", "not_set"])
     .optional(),
@@ -1392,7 +1399,7 @@ export const s_deploy_key = z.object({
   created_at: z.string(),
   read_only: PermissiveBoolean,
   added_by: z.string().nullable().optional(),
-  last_used: z.string().nullable().optional(),
+  last_used: z.string().datetime({offset: true}).nullable().optional(),
   enabled: PermissiveBoolean.optional(),
 })
 
@@ -1882,12 +1889,14 @@ export const s_key = z.object({
   created_at: z.string().datetime({offset: true}),
   verified: PermissiveBoolean,
   read_only: PermissiveBoolean,
+  last_used: z.string().datetime({offset: true}).nullable().optional(),
 })
 
 export const s_key_simple = z.object({
   id: z.coerce.number(),
   key: z.string(),
   created_at: z.string().datetime({offset: true}).optional(),
+  last_used: z.string().datetime({offset: true}).nullable().optional(),
 })
 
 export const s_label = z.object({
@@ -2182,7 +2191,23 @@ export const s_org_hook = z.object({
 
 export const s_org_private_registry_configuration = z.object({
   name: z.string(),
-  registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
+  registry_type: z.enum([
+    "maven_repository",
+    "nuget_feed",
+    "goproxy_server",
+    "npm_registry",
+    "rubygems_server",
+    "cargo_registry",
+    "composer_repository",
+    "docker_registry",
+    "git_source",
+    "helm_registry",
+    "hex_organization",
+    "hex_repository",
+    "pub_repository",
+    "python_index",
+    "terraform_registry",
+  ]),
   username: z.string().nullable().optional(),
   visibility: z.enum(["all", "private", "selected"]),
   created_at: z.string().datetime({offset: true}),
@@ -2192,7 +2217,23 @@ export const s_org_private_registry_configuration = z.object({
 export const s_org_private_registry_configuration_with_selected_repositories =
   z.object({
     name: z.string(),
-    registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
+    registry_type: z.enum([
+      "maven_repository",
+      "nuget_feed",
+      "goproxy_server",
+      "npm_registry",
+      "rubygems_server",
+      "cargo_registry",
+      "composer_repository",
+      "docker_registry",
+      "git_source",
+      "helm_registry",
+      "hex_organization",
+      "hex_repository",
+      "pub_repository",
+      "python_index",
+      "terraform_registry",
+    ]),
     username: z.string().optional(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
@@ -4715,6 +4756,11 @@ export const s_org_membership = z.object({
   url: z.string(),
   state: z.enum(["active", "pending"]),
   role: z.enum(["admin", "member", "billing_manager"]),
+  direct_membership: PermissiveBoolean.optional(),
+  enterprise_teams_providing_indirect_membership: z
+    .array(z.string())
+    .max(100)
+    .optional(),
   organization_url: z.string(),
   organization: s_organization_simple,
   user: s_nullable_simple_user,
@@ -6878,7 +6924,7 @@ export const s_issue = z.object({
   number: z.coerce.number(),
   state: z.string(),
   state_reason: z
-    .enum(["completed", "reopened", "not_planned"])
+    .enum(["completed", "reopened", "not_planned", "duplicate"])
     .nullable()
     .optional(),
   title: z.string(),
@@ -6972,13 +7018,7 @@ export const s_issue_search_result_item = z.object({
       description: z.string().nullable().optional(),
     }),
   ),
-  sub_issues_summary: z
-    .object({
-      total: z.coerce.number(),
-      completed: z.coerce.number(),
-      percent_completed: z.coerce.number(),
-    })
-    .optional(),
+  sub_issues_summary: s_sub_issues_summary.optional(),
   state: z.string(),
   state_reason: z.string().nullable().optional(),
   assignee: s_nullable_simple_user,
@@ -7112,7 +7152,7 @@ export const s_nullable_issue = z
     number: z.coerce.number(),
     state: z.string(),
     state_reason: z
-      .enum(["completed", "reopened", "not_planned"])
+      .enum(["completed", "reopened", "not_planned", "duplicate"])
       .nullable()
       .optional(),
     title: z.string(),
@@ -7163,6 +7203,29 @@ export const s_nullable_issue = z
     sub_issues_summary: s_sub_issues_summary.optional(),
   })
   .nullable()
+
+export const s_org_rules = z.union([
+  s_repository_rule_creation,
+  s_repository_rule_update,
+  s_repository_rule_deletion,
+  s_repository_rule_required_linear_history,
+  s_repository_rule_required_deployments,
+  s_repository_rule_required_signatures,
+  s_repository_rule_pull_request,
+  s_repository_rule_required_status_checks,
+  s_repository_rule_non_fast_forward,
+  s_repository_rule_commit_message_pattern,
+  s_repository_rule_commit_author_email_pattern,
+  s_repository_rule_committer_email_pattern,
+  s_repository_rule_branch_name_pattern,
+  s_repository_rule_tag_name_pattern,
+  s_repository_rule_file_path_restriction,
+  s_repository_rule_max_file_path_length,
+  s_repository_rule_file_extension_restriction,
+  s_repository_rule_max_file_size,
+  s_repository_rule_workflows,
+  s_repository_rule_code_scanning,
+])
 
 export const s_org_ruleset_conditions = z.union([
   s_repository_ruleset_conditions.merge(
@@ -7503,6 +7566,7 @@ export const s_release = z.object({
   body: z.string().nullable().optional(),
   draft: PermissiveBoolean,
   prerelease: PermissiveBoolean,
+  immutable: PermissiveBoolean.optional(),
   created_at: z.string().datetime({offset: true}),
   published_at: z.string().datetime({offset: true}).nullable(),
   author: s_simple_user,
