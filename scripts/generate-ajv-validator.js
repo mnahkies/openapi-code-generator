@@ -160,7 +160,7 @@ compileOpenapi30Standalone().then((output) =>
   ),
 )
 
-compileOpenapi31Standalone().then((output) =>
+compileOpenapi31Standalone(true).then((output) =>
   writeOutput(
     path.join(outputDir, "openapi-3.1-specification-validator.js"),
     output,
