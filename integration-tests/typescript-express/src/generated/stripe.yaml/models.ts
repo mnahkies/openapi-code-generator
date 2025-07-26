@@ -1260,7 +1260,7 @@ export type t_capability = {
   requested: boolean
   requested_at?: (number | null) | undefined
   requirements?: t_account_capability_requirements | undefined
-  status: "active" | "disabled" | "inactive" | "pending" | "unrequested"
+  status: "active" | "inactive" | "pending" | "unrequested"
 }
 
 export type t_card = {
@@ -1520,6 +1520,7 @@ export type t_checkout_session = {
   optional_items?:
     | (t_payment_pages_checkout_session_optional_item[] | null)
     | undefined
+  origin_context?: ("mobile_app" | "web" | null) | undefined
   payment_intent?: (string | t_payment_intent | null) | undefined
   payment_link?: (string | t_payment_link | null) | undefined
   payment_method_collection?: ("always" | "if_required" | null) | undefined
@@ -1769,6 +1770,7 @@ export type t_checkout_paypal_payment_method_options = {
 
 export type t_checkout_pix_payment_method_options = {
   expires_after_seconds?: (number | null) | undefined
+  setup_future_usage?: "none" | undefined
 }
 
 export type t_checkout_revolut_pay_payment_method_options = {
@@ -2139,6 +2141,7 @@ export type t_connect_embedded_account_session_create_components = {
   documents: t_connect_embedded_base_config_claim
   financial_account: t_connect_embedded_financial_account_config_claim
   financial_account_transactions: t_connect_embedded_financial_account_transactions_config_claim
+  instant_payouts_promotion: t_connect_embedded_instant_payouts_promotion_config
   issuing_card: t_connect_embedded_issuing_card_config_claim
   issuing_cards_list: t_connect_embedded_issuing_cards_list_config_claim
   notification_banner: t_connect_embedded_account_config_claim
@@ -2189,6 +2192,17 @@ export type t_connect_embedded_financial_account_transactions_config_claim = {
 
 export type t_connect_embedded_financial_account_transactions_features = {
   card_spend_dispute_management: boolean
+}
+
+export type t_connect_embedded_instant_payouts_promotion_config = {
+  enabled: boolean
+  features: t_connect_embedded_instant_payouts_promotion_features
+}
+
+export type t_connect_embedded_instant_payouts_promotion_features = {
+  disable_stripe_user_authentication: boolean
+  external_account_collection: boolean
+  instant_payouts: boolean
 }
 
 export type t_connect_embedded_issuing_card_config_claim = {
@@ -3579,8 +3593,8 @@ export type t_gelato_provided_details = {
 }
 
 export type t_gelato_related_person = {
-  account?: string | undefined
-  person?: string | undefined
+  account: string
+  person: string
 }
 
 export type t_gelato_report_document_options = {
@@ -4011,6 +4025,7 @@ export type t_invoice_rendering_template = {
 
 export type t_invoice_setting_checkout_rendering_options = {
   amount_tax_display?: (string | null) | undefined
+  template?: (string | null) | undefined
 }
 
 export type t_invoice_setting_custom_field = {
@@ -9543,6 +9558,7 @@ export type t_payment_method_details_card_wallet_visa_checkout = {
 export type t_payment_method_details_cashapp = {
   buyer_id?: (string | null) | undefined
   cashtag?: (string | null) | undefined
+  transaction_id?: (string | null) | undefined
 }
 
 export type t_payment_method_details_crypto = {
@@ -11489,8 +11505,15 @@ export type t_portal_subscription_update = {
 }
 
 export type t_portal_subscription_update_product = {
+  adjustable_quantity: t_portal_subscription_update_product_adjustable_quantity
   prices: string[]
   product: string
+}
+
+export type t_portal_subscription_update_product_adjustable_quantity = {
+  enabled: boolean
+  maximum?: (number | null) | undefined
+  minimum: number
 }
 
 export type t_price = {
@@ -13847,11 +13870,19 @@ export type t_tax_product_registrations_resource_country_options_default = {
 
 export type t_tax_product_registrations_resource_country_options_default_inbound_goods =
   {
+    standard?:
+      | t_tax_product_registrations_resource_country_options_default_standard
+      | undefined
     type: "standard"
   }
 
+export type t_tax_product_registrations_resource_country_options_default_standard =
+  {
+    place_of_supply_scheme: "inbound_goods" | "standard"
+  }
+
 export type t_tax_product_registrations_resource_country_options_eu_standard = {
-  place_of_supply_scheme: "small_seller" | "standard"
+  place_of_supply_scheme: "inbound_goods" | "small_seller" | "standard"
 }
 
 export type t_tax_product_registrations_resource_country_options_europe = {
@@ -14369,7 +14400,13 @@ export type t_terminal_configuration_configuration_resource_reboot_window = {
 }
 
 export type t_terminal_configuration_configuration_resource_tipping = {
+  aed?:
+    | t_terminal_configuration_configuration_resource_currency_specific_config
+    | undefined
   aud?:
+    | t_terminal_configuration_configuration_resource_currency_specific_config
+    | undefined
+  bgn?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
   cad?:
@@ -14393,6 +14430,9 @@ export type t_terminal_configuration_configuration_resource_tipping = {
   hkd?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
+  huf?:
+    | t_terminal_configuration_configuration_resource_currency_specific_config
+    | undefined
   jpy?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
@@ -14406,6 +14446,9 @@ export type t_terminal_configuration_configuration_resource_tipping = {
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
   pln?:
+    | t_terminal_configuration_configuration_resource_currency_specific_config
+    | undefined
+  ron?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
   sek?:
@@ -19126,6 +19169,18 @@ export type t_PostAccountSessionsRequestBodySchema = {
             | undefined
         }
       | undefined
+    instant_payouts_promotion?:
+      | {
+          enabled: boolean
+          features?:
+            | {
+                disable_stripe_user_authentication?: boolean | undefined
+                external_account_collection?: boolean | undefined
+                instant_payouts?: boolean | undefined
+              }
+            | undefined
+        }
+      | undefined
     issuing_card?:
       | {
           enabled: boolean
@@ -22082,6 +22137,13 @@ export type t_PostBillingPortalConfigurationsRequestBodySchema = {
           products?:
             | (
                 | {
+                    adjustable_quantity?:
+                      | {
+                          enabled: boolean
+                          maximum?: number | undefined
+                          minimum?: number | undefined
+                        }
+                      | undefined
                     prices: string[]
                     product: string
                   }[]
@@ -22198,6 +22260,13 @@ export type t_PostBillingPortalConfigurationsConfigurationRequestBodySchema = {
               products?:
                 | (
                     | {
+                        adjustable_quantity?:
+                          | {
+                              enabled: boolean
+                              maximum?: number | undefined
+                              minimum?: number | undefined
+                            }
+                          | undefined
                         prices: string[]
                         product: string
                       }[]
@@ -22852,6 +22921,7 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
                         amount_tax_display?:
                           | ("" | "exclude_tax" | "include_inclusive_tax")
                           | undefined
+                        template?: string | undefined
                       }
                     | ""
                   )
@@ -22969,6 +23039,7 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
         quantity: number
       }[]
     | undefined
+  origin_context?: ("mobile_app" | "web") | undefined
   payment_intent_data?:
     | {
         application_fee_amount?: number | undefined
@@ -23312,6 +23383,7 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
         pix?:
           | {
               expires_after_seconds?: number | undefined
+              setup_future_usage?: "none" | undefined
             }
           | undefined
         revolut_pay?:
@@ -23411,6 +23483,7 @@ export type t_PostCheckoutSessionsRequestBodySchema = {
         | "mobilepay"
         | "multibanco"
         | "naver_pay"
+        | "nz_bank_account"
         | "oxxo"
         | "p24"
         | "pay_by_bank"
@@ -24967,7 +25040,7 @@ export type t_PostCustomersCustomerSubscriptionsRequestBodySchema = {
         | ""
       )
     | undefined
-  cancel_at?: number | undefined
+  cancel_at?: (number | "max_period_end" | "min_period_end") | undefined
   cancel_at_period_end?: boolean | undefined
   collection_method?: ("charge_automatically" | "send_invoice") | undefined
   currency?: string | undefined
@@ -25312,7 +25385,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdRequestBody
           | ""
         )
       | undefined
-    cancel_at?: (number | "") | undefined
+    cancel_at?: (number | "" | "max_period_end" | "min_period_end") | undefined
     cancel_at_period_end?: boolean | undefined
     cancellation_details?:
       | {
@@ -26952,6 +27025,12 @@ export type t_PostInvoicesCreatePreviewRequestBodySchema = {
                     | ""
                   )
                 | undefined
+              duration?:
+                | {
+                    interval: "day" | "month" | "week" | "year"
+                    interval_count?: number | undefined
+                  }
+                | undefined
               end_date?: (number | "now") | undefined
               invoice_settings?:
                 | {
@@ -27043,7 +27122,9 @@ export type t_PostInvoicesCreatePreviewRequestBodySchema = {
               type: "classic" | "flexible"
             }
           | undefined
-        cancel_at?: (number | "") | undefined
+        cancel_at?:
+          | (number | "" | "max_period_end" | "min_period_end")
+          | undefined
         cancel_at_period_end?: boolean | undefined
         cancel_now?: boolean | undefined
         default_tax_rates?: (string[] | "") | undefined
@@ -35894,6 +35975,7 @@ export type t_PostPaymentLinksRequestBodySchema = {
                         amount_tax_display?:
                           | ("" | "exclude_tax" | "include_inclusive_tax")
                           | undefined
+                        template?: string | undefined
                       }
                     | ""
                   )
@@ -35910,7 +35992,35 @@ export type t_PostPaymentLinksRequestBodySchema = {
           minimum?: number | undefined
         }
       | undefined
-    price: string
+    price?: string | undefined
+    price_data?:
+      | {
+          currency: string
+          product?: string | undefined
+          product_data?:
+            | {
+                description?: string | undefined
+                images?: string[] | undefined
+                metadata?:
+                  | {
+                      [key: string]: string | undefined
+                    }
+                  | undefined
+                name: string
+                tax_code?: string | undefined
+              }
+            | undefined
+          recurring?:
+            | {
+                interval: "day" | "month" | "week" | "year"
+                interval_count?: number | undefined
+              }
+            | undefined
+          tax_behavior?: ("exclusive" | "inclusive" | "unspecified") | undefined
+          unit_amount?: number | undefined
+          unit_amount_decimal?: string | undefined
+        }
+      | undefined
     quantity: number
   }[]
   metadata?:
@@ -36442,6 +36552,7 @@ export type t_PostPaymentLinksPaymentLinkRequestBodySchema = {
                         amount_tax_display?:
                           | ("" | "exclude_tax" | "include_inclusive_tax")
                           | undefined
+                        template?: string | undefined
                       }
                     | ""
                   )
@@ -39208,6 +39319,7 @@ export type t_PostReportingReportRunsRequestBodySchema = {
               | "America/Coral_Harbour"
               | "America/Cordoba"
               | "America/Costa_Rica"
+              | "America/Coyhaique"
               | "America/Creston"
               | "America/Cuiaba"
               | "America/Curacao"
@@ -42042,6 +42154,12 @@ export type t_PostSubscriptionSchedulesRequestBodySchema = {
               | ""
             )
           | undefined
+        duration?:
+          | {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number | undefined
+            }
+          | undefined
         end_date?: number | undefined
         invoice_settings?:
           | {
@@ -42254,6 +42372,12 @@ export type t_PostSubscriptionSchedulesScheduleRequestBodySchema = {
               | ""
             )
           | undefined
+        duration?:
+          | {
+              interval: "day" | "month" | "week" | "year"
+              interval_count?: number | undefined
+            }
+          | undefined
         end_date?: (number | "now") | undefined
         invoice_settings?:
           | {
@@ -42418,7 +42542,7 @@ export type t_PostSubscriptionsRequestBodySchema = {
         | ""
       )
     | undefined
-  cancel_at?: number | undefined
+  cancel_at?: (number | "max_period_end" | "min_period_end") | undefined
   cancel_at_period_end?: boolean | undefined
   collection_method?: ("charge_automatically" | "send_invoice") | undefined
   currency?: string | undefined
@@ -42763,7 +42887,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdRequestBodySchema = {
         | ""
       )
     | undefined
-  cancel_at?: (number | "") | undefined
+  cancel_at?: (number | "" | "max_period_end" | "min_period_end") | undefined
   cancel_at_period_end?: boolean | undefined
   cancellation_details?:
     | {
@@ -43493,11 +43617,25 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
   country_options: {
     ae?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     al?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43508,6 +43646,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     ao?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43515,7 +43660,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43523,11 +43671,25 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     au?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     aw?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43538,16 +43700,37 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     ba?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     bb?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     bd?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43555,7 +43738,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43563,6 +43749,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     bf?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43570,7 +43763,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43578,6 +43774,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     bh?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43588,6 +43791,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     bs?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43608,11 +43818,25 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     cd?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     ch?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43645,7 +43869,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43655,7 +43882,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43665,7 +43895,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43675,7 +43908,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43690,7 +43926,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43705,7 +43944,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43713,6 +43955,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     et?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43720,7 +43969,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43730,7 +43982,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43738,6 +43993,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     gb?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43748,6 +44010,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     gn?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43755,7 +44024,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43765,7 +44037,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43775,7 +44050,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43790,7 +44068,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43803,6 +44084,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     is?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43810,7 +44098,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43818,6 +44109,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     jp?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43855,7 +44153,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43865,7 +44166,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43875,7 +44179,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43893,16 +44200,37 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     me?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     mk?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     mr?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43910,7 +44238,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43935,7 +44266,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43943,6 +44277,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     no?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43953,11 +44294,25 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     nz?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
     om?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -43975,7 +44330,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43985,7 +44343,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -43995,7 +44356,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -44003,6 +44367,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     rs?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -44020,7 +44391,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -44028,6 +44402,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     sg?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -44035,7 +44416,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -44045,7 +44429,10 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | {
           standard?:
             | {
-                place_of_supply_scheme: "small_seller" | "standard"
+                place_of_supply_scheme:
+                  | "inbound_goods"
+                  | "small_seller"
+                  | "standard"
               }
             | undefined
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
@@ -44058,6 +44445,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     sr?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -44125,6 +44519,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     uy?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -44140,6 +44541,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     za?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -44150,6 +44558,13 @@ export type t_PostTaxRegistrationsRequestBodySchema = {
       | undefined
     zw?:
       | {
+          standard?:
+            | {
+                place_of_supply_scheme?:
+                  | ("inbound_goods" | "standard")
+                  | undefined
+              }
+            | undefined
           type: "standard"
         }
       | undefined
@@ -44267,7 +44682,21 @@ export type t_PostTerminalConfigurationsRequestBodySchema = {
   tipping?:
     | (
         | {
+            aed?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
             aud?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            bgn?:
               | {
                   fixed_amounts?: number[] | undefined
                   percentages?: number[] | undefined
@@ -44323,6 +44752,13 @@ export type t_PostTerminalConfigurationsRequestBodySchema = {
                   smart_tip_threshold?: number | undefined
                 }
               | undefined
+            huf?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
             jpy?:
               | {
                   fixed_amounts?: number[] | undefined
@@ -44352,6 +44788,13 @@ export type t_PostTerminalConfigurationsRequestBodySchema = {
                 }
               | undefined
             pln?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            ron?:
               | {
                   fixed_amounts?: number[] | undefined
                   percentages?: number[] | undefined
@@ -44464,7 +44907,21 @@ export type t_PostTerminalConfigurationsConfigurationRequestBodySchema = {
   tipping?:
     | (
         | {
+            aed?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
             aud?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            bgn?:
               | {
                   fixed_amounts?: number[] | undefined
                   percentages?: number[] | undefined
@@ -44520,6 +44977,13 @@ export type t_PostTerminalConfigurationsConfigurationRequestBodySchema = {
                   smart_tip_threshold?: number | undefined
                 }
               | undefined
+            huf?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
             jpy?:
               | {
                   fixed_amounts?: number[] | undefined
@@ -44549,6 +45013,13 @@ export type t_PostTerminalConfigurationsConfigurationRequestBodySchema = {
                 }
               | undefined
             pln?:
+              | {
+                  fixed_amounts?: number[] | undefined
+                  percentages?: number[] | undefined
+                  smart_tip_threshold?: number | undefined
+                }
+              | undefined
+            ron?:
               | {
                   fixed_amounts?: number[] | undefined
                   percentages?: number[] | undefined
@@ -48319,6 +48790,7 @@ export type t_PostWebhookEndpointsRequestBodySchema = {
         | "2025-04-30.basil"
         | "2025-05-28.basil"
         | "2025-06-30.basil"
+        | "2025-07-30.basil"
       )
     | undefined
   connect?: boolean | undefined

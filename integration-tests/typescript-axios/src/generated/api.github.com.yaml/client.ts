@@ -82,6 +82,7 @@ import {
   t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
+  t_code_scanning_options,
   t_code_scanning_organization_alert_items,
   t_code_scanning_ref,
   t_code_scanning_ref_full,
@@ -204,6 +205,7 @@ import {
   t_org_private_registry_configuration,
   t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
+  t_org_rules,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
@@ -1221,6 +1223,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_delegated_alert_dismissal?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
+        code_scanning_options?: t_code_scanning_options | undefined
+        code_security?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_alerts?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
@@ -1244,6 +1250,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | undefined
         name: string
         private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
+        secret_protection?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning?:
@@ -1348,6 +1357,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_delegated_alert_dismissal?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
+        code_security?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_alerts?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
@@ -1371,6 +1383,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | undefined
         name?: string | undefined
         private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
+        secret_protection?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning?:
@@ -5199,6 +5214,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_delegated_alert_dismissal?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
+        code_scanning_options?: t_code_scanning_options | undefined
+        code_security?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_alerts?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
@@ -5222,6 +5241,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | undefined
         name: string
         private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
+        secret_protection?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning?:
@@ -5366,6 +5388,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_delegated_alert_dismissal?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
+        code_security?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_alerts?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
@@ -5389,6 +5414,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | undefined
         name?: string | undefined
         private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
+        secret_protection?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning?:
@@ -8634,6 +8662,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "maven_repository"
           | "nuget_feed"
           | "goproxy_server"
+          | "npm_registry"
+          | "rubygems_server"
+          | "cargo_registry"
+          | "composer_repository"
+          | "docker_registry"
+          | "git_source"
+          | "helm_registry"
+          | "hex_organization"
+          | "hex_repository"
+          | "pub_repository"
+          | "python_index"
+          | "terraform_registry"
           | UnknownEnumStringValue
         selected_repository_ids?: number[] | undefined
         url: string
@@ -8719,6 +8759,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               | "maven_repository"
               | "nuget_feed"
               | "goproxy_server"
+              | "npm_registry"
+              | "rubygems_server"
+              | "cargo_registry"
+              | "composer_repository"
+              | "docker_registry"
+              | "git_source"
+              | "helm_registry"
+              | "hex_organization"
+              | "hex_repository"
+              | "pub_repository"
+              | "python_index"
+              | "terraform_registry"
               | UnknownEnumStringValue
             )
           | undefined
@@ -8770,7 +8822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsListForOrg(
+  async projectsClassicListForOrg(
     p: {
       org: string
       state?: "open" | "closed" | "all" | UnknownEnumStringValue
@@ -8797,7 +8849,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsCreateForOrg(
+  async projectsClassicCreateForOrg(
     p: {
       org: string
       requestBody: {
@@ -9215,7 +9267,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         conditions?: t_org_ruleset_conditions | undefined
         enforcement: t_repository_rule_enforcement
         name: string
-        rules?: t_repository_rule[] | undefined
+        rules?: t_org_rules[] | undefined
         target?:
           | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
           | undefined
@@ -9330,7 +9382,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         conditions?: t_org_ruleset_conditions | undefined
         enforcement?: t_repository_rule_enforcement | undefined
         name?: string | undefined
-        rules?: t_repository_rule[] | undefined
+        rules?: t_org_rules[] | undefined
         target?:
           | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
           | undefined
@@ -10819,7 +10871,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsGetCard(
+  async projectsClassicGetCard(
     p: {
       cardId: number
     },
@@ -10838,7 +10890,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsUpdateCard(
+  async projectsClassicUpdateCard(
     p: {
       cardId: number
       requestBody?: {
@@ -10871,7 +10923,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsDeleteCard(
+  async projectsClassicDeleteCard(
     p: {
       cardId: number
     },
@@ -10890,7 +10942,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsMoveCard(
+  async projectsClassicMoveCard(
     p: {
       cardId: number
       requestBody: {
@@ -10918,7 +10970,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsGetColumn(
+  async projectsClassicGetColumn(
     p: {
       columnId: number
     },
@@ -10937,7 +10989,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsUpdateColumn(
+  async projectsClassicUpdateColumn(
     p: {
       columnId: number
       requestBody: {
@@ -10964,7 +11016,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsDeleteColumn(
+  async projectsClassicDeleteColumn(
     p: {
       columnId: number
     },
@@ -10983,7 +11035,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsListCards(
+  async projectsClassicListCards(
     p: {
       columnId: number
       archivedState?:
@@ -11014,7 +11066,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsCreateCard(
+  async projectsClassicCreateCard(
     p: {
       columnId: number
       requestBody:
@@ -11046,7 +11098,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsMoveColumn(
+  async projectsClassicMoveColumn(
     p: {
       columnId: number
       requestBody: {
@@ -11073,7 +11125,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsGet(
+  async projectsClassicGet(
     p: {
       projectId: number
     },
@@ -11092,7 +11144,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsUpdate(
+  async projectsClassicUpdate(
     p: {
       projectId: number
       requestBody?: {
@@ -11130,7 +11182,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsDelete(
+  async projectsClassicDelete(
     p: {
       projectId: number
     },
@@ -11149,7 +11201,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsListCollaborators(
+  async projectsClassicListCollaborators(
     p: {
       projectId: number
       affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
@@ -11176,7 +11228,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsAddCollaborator(
+  async projectsClassicAddCollaborator(
     p: {
       projectId: number
       username: string
@@ -11211,7 +11263,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsRemoveCollaborator(
+  async projectsClassicRemoveCollaborator(
     p: {
       projectId: number
       username: string
@@ -11231,7 +11283,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsGetPermissionForUser(
+  async projectsClassicGetPermissionForUser(
     p: {
       projectId: number
       username: string
@@ -11251,7 +11303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsListColumns(
+  async projectsClassicListColumns(
     p: {
       projectId: number
       perPage?: number
@@ -11273,7 +11325,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsCreateColumn(
+  async projectsClassicCreateColumn(
     p: {
       projectId: number
       requestBody: {
@@ -19470,6 +19522,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | (
               | "completed"
               | "not_planned"
+              | "duplicate"
               | "reopened"
               | UnknownEnumStringValue
               | null
@@ -21060,7 +21113,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsListForRepo(
+  async projectsClassicListForRepo(
     p: {
       owner: string
       repo: string
@@ -21088,7 +21141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsCreateForRepo(
+  async projectsClassicCreateForRepo(
     p: {
       owner: string
       repo: string
@@ -26873,7 +26926,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsCreateForAuthenticatedUser(
+  async projectsClassicCreateForAuthenticatedUser(
     p: {
       requestBody: {
         body?: (string | null) | undefined
@@ -28164,7 +28217,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async projectsListForUser(
+  async projectsClassicListForUser(
     p: {
       username: string
       state?: "open" | "closed" | "all" | UnknownEnumStringValue

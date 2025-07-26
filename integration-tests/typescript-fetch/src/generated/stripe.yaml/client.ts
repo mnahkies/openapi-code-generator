@@ -343,6 +343,14 @@ export class StripeApi extends AbstractFetchClient {
               card_spend_dispute_management?: boolean
             }
           }
+          instant_payouts_promotion?: {
+            enabled: boolean
+            features?: {
+              disable_stripe_user_authentication?: boolean
+              external_account_collection?: boolean
+              instant_payouts?: boolean
+            }
+          }
           issuing_card?: {
             enabled: boolean
             features?: {
@@ -4559,6 +4567,11 @@ export class StripeApi extends AbstractFetchClient {
             enabled: boolean
             products?:
               | {
+                  adjustable_quantity?: {
+                    enabled: boolean
+                    maximum?: number
+                    minimum?: number
+                  }
                   prices: string[]
                   product: string
                 }[]
@@ -4703,6 +4716,11 @@ export class StripeApi extends AbstractFetchClient {
             enabled?: boolean
             products?:
               | {
+                  adjustable_quantity?: {
+                    enabled: boolean
+                    maximum?: number
+                    minimum?: number
+                  }
                   prices: string[]
                   product: string
                 }[]
@@ -5741,6 +5759,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "exclude_tax"
                     | "include_inclusive_tax"
                     | UnknownEnumStringValue
+                  template?: string
                 }
               | ""
               | UnknownEnumStringValue
@@ -5842,6 +5861,7 @@ export class StripeApi extends AbstractFetchClient {
           price: string
           quantity: number
         }[]
+        origin_context?: "mobile_app" | "web" | UnknownEnumStringValue
         payment_intent_data?: {
           application_fee_amount?: number
           capture_method?:
@@ -6149,6 +6169,7 @@ export class StripeApi extends AbstractFetchClient {
           }
           pix?: {
             expires_after_seconds?: number
+            setup_future_usage?: "none" | UnknownEnumStringValue
           }
           revolut_pay?: {
             setup_future_usage?: "none" | "off_session" | UnknownEnumStringValue
@@ -6236,6 +6257,7 @@ export class StripeApi extends AbstractFetchClient {
           | "mobilepay"
           | "multibanco"
           | "naver_pay"
+          | "nz_bank_account"
           | "oxxo"
           | "p24"
           | "pay_by_bank"
@@ -9596,7 +9618,11 @@ export class StripeApi extends AbstractFetchClient {
             }
           | ""
           | UnknownEnumStringValue
-        cancel_at?: number
+        cancel_at?:
+          | number
+          | "max_period_end"
+          | "min_period_end"
+          | UnknownEnumStringValue
         cancel_at_period_end?: boolean
         collection_method?:
           | "charge_automatically"
@@ -9890,6 +9916,7 @@ export class StripeApi extends AbstractFetchClient {
             application_fee_percent: {explode: true, style: "deepObject"},
             automatic_tax: {explode: true, style: "deepObject"},
             billing_thresholds: {explode: true, style: "deepObject"},
+            cancel_at: {explode: true, style: "deepObject"},
             default_tax_rates: {explode: true, style: "deepObject"},
             discounts: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
@@ -10003,7 +10030,12 @@ export class StripeApi extends AbstractFetchClient {
             }
           | ""
           | UnknownEnumStringValue
-        cancel_at?: number | "" | UnknownEnumStringValue
+        cancel_at?:
+          | number
+          | ""
+          | UnknownEnumStringValue
+          | "max_period_end"
+          | "min_period_end"
         cancel_at_period_end?: boolean
         cancellation_details?: {
           comment?: string | "" | UnknownEnumStringValue
@@ -13384,6 +13416,15 @@ export class StripeApi extends AbstractFetchClient {
                 }[]
               | ""
               | UnknownEnumStringValue
+            duration?: {
+              interval:
+                | "day"
+                | "month"
+                | "week"
+                | "year"
+                | UnknownEnumStringValue
+              interval_count?: number
+            }
             end_date?: number | "now" | UnknownEnumStringValue
             invoice_settings?: {
               account_tax_ids?: string[] | "" | UnknownEnumStringValue
@@ -13469,7 +13510,12 @@ export class StripeApi extends AbstractFetchClient {
           billing_mode?: {
             type: "classic" | "flexible" | UnknownEnumStringValue
           }
-          cancel_at?: number | "" | UnknownEnumStringValue
+          cancel_at?:
+            | number
+            | ""
+            | UnknownEnumStringValue
+            | "max_period_end"
+            | "min_period_end"
           cancel_at_period_end?: boolean
           cancel_now?: boolean
           default_tax_rates?: string[] | "" | UnknownEnumStringValue
@@ -23901,6 +23947,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "exclude_tax"
                     | "include_inclusive_tax"
                     | UnknownEnumStringValue
+                  template?: string
                 }
               | ""
               | UnknownEnumStringValue
@@ -23912,7 +23959,36 @@ export class StripeApi extends AbstractFetchClient {
             maximum?: number
             minimum?: number
           }
-          price: string
+          price?: string
+          price_data?: {
+            currency: string
+            product?: string
+            product_data?: {
+              description?: string
+              images?: string[]
+              metadata?: {
+                [key: string]: string | undefined
+              }
+              name: string
+              tax_code?: string
+            }
+            recurring?: {
+              interval:
+                | "day"
+                | "month"
+                | "week"
+                | "year"
+                | UnknownEnumStringValue
+              interval_count?: number
+            }
+            tax_behavior?:
+              | "exclusive"
+              | "inclusive"
+              | "unspecified"
+              | UnknownEnumStringValue
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
           quantity: number
         }[]
         metadata?: {
@@ -24448,6 +24524,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "exclude_tax"
                     | "include_inclusive_tax"
                     | UnknownEnumStringValue
+                  template?: string
                 }
               | ""
               | UnknownEnumStringValue
@@ -28849,6 +28926,7 @@ export class StripeApi extends AbstractFetchClient {
             | "America/Coral_Harbour"
             | "America/Cordoba"
             | "America/Costa_Rica"
+            | "America/Coyhaique"
             | "America/Creston"
             | "America/Cuiaba"
             | "America/Curacao"
@@ -32545,6 +32623,10 @@ export class StripeApi extends AbstractFetchClient {
               }[]
             | ""
             | UnknownEnumStringValue
+          duration?: {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+          }
           end_date?: number
           invoice_settings?: {
             account_tax_ids?: string[] | "" | UnknownEnumStringValue
@@ -32776,6 +32858,10 @@ export class StripeApi extends AbstractFetchClient {
               }[]
             | ""
             | UnknownEnumStringValue
+          duration?: {
+            interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
+            interval_count?: number
+          }
           end_date?: number | "now" | UnknownEnumStringValue
           invoice_settings?: {
             account_tax_ids?: string[] | "" | UnknownEnumStringValue
@@ -33085,7 +33171,11 @@ export class StripeApi extends AbstractFetchClient {
             }
           | ""
           | UnknownEnumStringValue
-        cancel_at?: number
+        cancel_at?:
+          | number
+          | "max_period_end"
+          | "min_period_end"
+          | UnknownEnumStringValue
         cancel_at_period_end?: boolean
         collection_method?:
           | "charge_automatically"
@@ -33379,6 +33469,7 @@ export class StripeApi extends AbstractFetchClient {
       billing_cycle_anchor_config: {explode: true, style: "deepObject"},
       billing_mode: {explode: true, style: "deepObject"},
       billing_thresholds: {explode: true, style: "deepObject"},
+      cancel_at: {explode: true, style: "deepObject"},
       default_tax_rates: {explode: true, style: "deepObject"},
       discounts: {explode: true, style: "deepObject"},
       expand: {explode: true, style: "deepObject"},
@@ -33537,7 +33628,12 @@ export class StripeApi extends AbstractFetchClient {
             }
           | ""
           | UnknownEnumStringValue
-        cancel_at?: number | "" | UnknownEnumStringValue
+        cancel_at?:
+          | number
+          | ""
+          | UnknownEnumStringValue
+          | "max_period_end"
+          | "min_period_end"
         cancel_at_period_end?: boolean
         cancellation_details?: {
           comment?: string | "" | UnknownEnumStringValue
@@ -34258,20 +34354,39 @@ export class StripeApi extends AbstractFetchClient {
         country: string
         country_options: {
           ae?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           al?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           am?: {
             type: "simplified" | UnknownEnumStringValue
           }
           ao?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           at?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34284,26 +34399,57 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           au?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           aw?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           az?: {
             type: "simplified" | UnknownEnumStringValue
           }
           ba?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           bb?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           bd?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           be?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34316,11 +34462,18 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           bf?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           bg?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34333,12 +34486,24 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           bh?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           bj?: {
             type: "simplified" | UnknownEnumStringValue
           }
           bs?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           by?: {
@@ -34355,9 +34520,21 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           cd?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           ch?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           cl?: {
@@ -34378,6 +34555,7 @@ export class StripeApi extends AbstractFetchClient {
           cy?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34392,6 +34570,7 @@ export class StripeApi extends AbstractFetchClient {
           cz?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34406,6 +34585,7 @@ export class StripeApi extends AbstractFetchClient {
           de?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34420,6 +34600,7 @@ export class StripeApi extends AbstractFetchClient {
           dk?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34437,6 +34618,7 @@ export class StripeApi extends AbstractFetchClient {
           ee?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34454,6 +34636,7 @@ export class StripeApi extends AbstractFetchClient {
           es?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34466,11 +34649,18 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           et?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           fi?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34485,6 +34675,7 @@ export class StripeApi extends AbstractFetchClient {
           fr?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34497,17 +34688,30 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           gb?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           ge?: {
             type: "simplified" | UnknownEnumStringValue
           }
           gn?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           gr?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34522,6 +34726,7 @@ export class StripeApi extends AbstractFetchClient {
           hr?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34536,6 +34741,7 @@ export class StripeApi extends AbstractFetchClient {
           hu?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34553,6 +34759,7 @@ export class StripeApi extends AbstractFetchClient {
           ie?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34568,11 +34775,18 @@ export class StripeApi extends AbstractFetchClient {
             type: "simplified" | UnknownEnumStringValue
           }
           is?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           it?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34585,6 +34799,12 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           jp?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           ke?: {
@@ -34608,6 +34828,7 @@ export class StripeApi extends AbstractFetchClient {
           lt?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34622,6 +34843,7 @@ export class StripeApi extends AbstractFetchClient {
           lu?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34636,6 +34858,7 @@ export class StripeApi extends AbstractFetchClient {
           lv?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34654,17 +34877,36 @@ export class StripeApi extends AbstractFetchClient {
             type: "simplified" | UnknownEnumStringValue
           }
           me?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           mk?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           mr?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           mt?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34688,6 +34930,7 @@ export class StripeApi extends AbstractFetchClient {
           nl?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34700,15 +34943,33 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           no?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           np?: {
             type: "simplified" | UnknownEnumStringValue
           }
           nz?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           om?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           pe?: {
@@ -34720,6 +34981,7 @@ export class StripeApi extends AbstractFetchClient {
           pl?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34734,6 +34996,7 @@ export class StripeApi extends AbstractFetchClient {
           pt?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34748,6 +35011,7 @@ export class StripeApi extends AbstractFetchClient {
           ro?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34760,6 +35024,12 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           rs?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           ru?: {
@@ -34771,6 +35041,7 @@ export class StripeApi extends AbstractFetchClient {
           se?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34783,11 +35054,18 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           sg?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           si?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34802,6 +35080,7 @@ export class StripeApi extends AbstractFetchClient {
           sk?: {
             standard?: {
               place_of_supply_scheme:
+                | "inbound_goods"
                 | "small_seller"
                 | "standard"
                 | UnknownEnumStringValue
@@ -34817,6 +35096,12 @@ export class StripeApi extends AbstractFetchClient {
             type: "simplified" | UnknownEnumStringValue
           }
           sr?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           th?: {
@@ -34864,6 +35149,12 @@ export class StripeApi extends AbstractFetchClient {
               | UnknownEnumStringValue
           }
           uy?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           uz?: {
@@ -34873,12 +35164,24 @@ export class StripeApi extends AbstractFetchClient {
             type: "simplified" | UnknownEnumStringValue
           }
           za?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
           zm?: {
             type: "simplified" | UnknownEnumStringValue
           }
           zw?: {
+            standard?: {
+              place_of_supply_scheme?:
+                | "inbound_goods"
+                | "standard"
+                | UnknownEnumStringValue
+            }
             type: "standard" | UnknownEnumStringValue
           }
         }
@@ -35648,7 +35951,17 @@ export class StripeApi extends AbstractFetchClient {
         }
         tipping?:
           | {
+              aed?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               aud?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              bgn?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -35688,6 +36001,11 @@ export class StripeApi extends AbstractFetchClient {
                 percentages?: number[]
                 smart_tip_threshold?: number
               }
+              huf?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               jpy?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
@@ -35709,6 +36027,11 @@ export class StripeApi extends AbstractFetchClient {
                 smart_tip_threshold?: number
               }
               pln?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              ron?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -35862,7 +36185,17 @@ export class StripeApi extends AbstractFetchClient {
           | UnknownEnumStringValue
         tipping?:
           | {
+              aed?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               aud?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              bgn?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -35902,6 +36235,11 @@ export class StripeApi extends AbstractFetchClient {
                 percentages?: number[]
                 smart_tip_threshold?: number
               }
+              huf?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               jpy?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
@@ -35923,6 +36261,11 @@ export class StripeApi extends AbstractFetchClient {
                 smart_tip_threshold?: number
               }
               pln?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              ron?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -42119,6 +42462,7 @@ export class StripeApi extends AbstractFetchClient {
           | "2025-04-30.basil"
           | "2025-05-28.basil"
           | "2025-06-30.basil"
+          | "2025-07-30.basil"
           | UnknownEnumStringValue
         connect?: boolean
         description?: string | "" | UnknownEnumStringValue

@@ -390,6 +390,18 @@ export class StripeApi extends AbstractAxiosClient {
                   | undefined
               }
             | undefined
+          instant_payouts_promotion?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
+                      disable_stripe_user_authentication?: boolean | undefined
+                      external_account_collection?: boolean | undefined
+                      instant_payouts?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
           issuing_card?:
             | {
                 enabled: boolean
@@ -5846,6 +5858,13 @@ export class StripeApi extends AbstractAxiosClient {
                 products?:
                   | (
                       | {
+                          adjustable_quantity?:
+                            | {
+                                enabled: boolean
+                                maximum?: number | undefined
+                                minimum?: number | undefined
+                              }
+                            | undefined
                           prices: string[]
                           product: string
                         }[]
@@ -6049,6 +6068,13 @@ export class StripeApi extends AbstractAxiosClient {
                     products?:
                       | (
                           | {
+                              adjustable_quantity?:
+                                | {
+                                    enabled: boolean
+                                    maximum?: number | undefined
+                                    minimum?: number | undefined
+                                  }
+                                | undefined
                               prices: string[]
                               product: string
                             }[]
@@ -7424,6 +7450,7 @@ export class StripeApi extends AbstractAxiosClient {
                                     | UnknownEnumStringValue
                                   )
                                 | undefined
+                              template?: string | undefined
                             }
                           | ""
                           | UnknownEnumStringValue
@@ -7554,6 +7581,9 @@ export class StripeApi extends AbstractAxiosClient {
               price: string
               quantity: number
             }[]
+          | undefined
+        origin_context?:
+          | ("mobile_app" | "web" | UnknownEnumStringValue)
           | undefined
         payment_intent_data?:
           | {
@@ -8039,6 +8069,9 @@ export class StripeApi extends AbstractAxiosClient {
               pix?:
                 | {
                     expires_after_seconds?: number | undefined
+                    setup_future_usage?:
+                      | ("none" | UnknownEnumStringValue)
+                      | undefined
                   }
                 | undefined
               revolut_pay?:
@@ -8166,6 +8199,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "mobilepay"
               | "multibanco"
               | "naver_pay"
+              | "nz_bank_account"
               | "oxxo"
               | "p24"
               | "pay_by_bank"
@@ -12147,7 +12181,14 @@ export class StripeApi extends AbstractAxiosClient {
               | UnknownEnumStringValue
             )
           | undefined
-        cancel_at?: number | undefined
+        cancel_at?:
+          | (
+              | number
+              | "max_period_end"
+              | "min_period_end"
+              | UnknownEnumStringValue
+            )
+          | undefined
         cancel_at_period_end?: boolean | undefined
         collection_method?:
           | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
@@ -12547,6 +12588,7 @@ export class StripeApi extends AbstractAxiosClient {
             application_fee_percent: {explode: true, style: "deepObject"},
             automatic_tax: {explode: true, style: "deepObject"},
             billing_thresholds: {explode: true, style: "deepObject"},
+            cancel_at: {explode: true, style: "deepObject"},
             default_tax_rates: {explode: true, style: "deepObject"},
             discounts: {explode: true, style: "deepObject"},
             expand: {explode: true, style: "deepObject"},
@@ -12696,7 +12738,15 @@ export class StripeApi extends AbstractAxiosClient {
               | UnknownEnumStringValue
             )
           | undefined
-        cancel_at?: (number | "" | UnknownEnumStringValue) | undefined
+        cancel_at?:
+          | (
+              | number
+              | ""
+              | UnknownEnumStringValue
+              | "max_period_end"
+              | "min_period_end"
+            )
+          | undefined
         cancel_at_period_end?: boolean | undefined
         cancellation_details?:
           | {
@@ -16845,6 +16895,17 @@ export class StripeApi extends AbstractAxiosClient {
                           | UnknownEnumStringValue
                         )
                       | undefined
+                    duration?:
+                      | {
+                          interval:
+                            | "day"
+                            | "month"
+                            | "week"
+                            | "year"
+                            | UnknownEnumStringValue
+                          interval_count?: number | undefined
+                        }
+                      | undefined
                     end_date?:
                       | (number | "now" | UnknownEnumStringValue)
                       | undefined
@@ -16973,7 +17034,15 @@ export class StripeApi extends AbstractAxiosClient {
                     type: "classic" | "flexible" | UnknownEnumStringValue
                   }
                 | undefined
-              cancel_at?: (number | "" | UnknownEnumStringValue) | undefined
+              cancel_at?:
+                | (
+                    | number
+                    | ""
+                    | UnknownEnumStringValue
+                    | "max_period_end"
+                    | "min_period_end"
+                  )
+                | undefined
               cancel_at_period_end?: boolean | undefined
               cancel_now?: boolean | undefined
               default_tax_rates?:
@@ -29885,6 +29954,7 @@ export class StripeApi extends AbstractAxiosClient {
                                     | UnknownEnumStringValue
                                   )
                                 | undefined
+                              template?: string | undefined
                             }
                           | ""
                           | UnknownEnumStringValue
@@ -29902,7 +29972,47 @@ export class StripeApi extends AbstractAxiosClient {
                 minimum?: number | undefined
               }
             | undefined
-          price: string
+          price?: string | undefined
+          price_data?:
+            | {
+                currency: string
+                product?: string | undefined
+                product_data?:
+                  | {
+                      description?: string | undefined
+                      images?: string[] | undefined
+                      metadata?:
+                        | {
+                            [key: string]: string | undefined
+                          }
+                        | undefined
+                      name: string
+                      tax_code?: string | undefined
+                    }
+                  | undefined
+                recurring?:
+                  | {
+                      interval:
+                        | "day"
+                        | "month"
+                        | "week"
+                        | "year"
+                        | UnknownEnumStringValue
+                      interval_count?: number | undefined
+                    }
+                  | undefined
+                tax_behavior?:
+                  | (
+                      | "exclusive"
+                      | "inclusive"
+                      | "unspecified"
+                      | UnknownEnumStringValue
+                    )
+                  | undefined
+                unit_amount?: number | undefined
+                unit_amount_decimal?: string | undefined
+              }
+            | undefined
           quantity: number
         }[]
         metadata?:
@@ -30541,6 +30651,7 @@ export class StripeApi extends AbstractAxiosClient {
                                     | UnknownEnumStringValue
                                   )
                                 | undefined
+                              template?: string | undefined
                             }
                           | ""
                           | UnknownEnumStringValue
@@ -36295,6 +36406,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | "America/Coral_Harbour"
                     | "America/Cordoba"
                     | "America/Costa_Rica"
+                    | "America/Coyhaique"
                     | "America/Creston"
                     | "America/Cuiaba"
                     | "America/Curacao"
@@ -40866,6 +40978,17 @@ export class StripeApi extends AbstractAxiosClient {
                     | UnknownEnumStringValue
                   )
                 | undefined
+              duration?:
+                | {
+                    interval:
+                      | "day"
+                      | "month"
+                      | "week"
+                      | "year"
+                      | UnknownEnumStringValue
+                    interval_count?: number | undefined
+                  }
+                | undefined
               end_date?: number | undefined
               invoice_settings?:
                 | {
@@ -41182,6 +41305,17 @@ export class StripeApi extends AbstractAxiosClient {
                     | ""
                     | UnknownEnumStringValue
                   )
+                | undefined
+              duration?:
+                | {
+                    interval:
+                      | "day"
+                      | "month"
+                      | "week"
+                      | "year"
+                      | UnknownEnumStringValue
+                    interval_count?: number | undefined
+                  }
                 | undefined
               end_date?: (number | "now" | UnknownEnumStringValue) | undefined
               invoice_settings?:
@@ -41565,7 +41699,14 @@ export class StripeApi extends AbstractAxiosClient {
               | UnknownEnumStringValue
             )
           | undefined
-        cancel_at?: number | undefined
+        cancel_at?:
+          | (
+              | number
+              | "max_period_end"
+              | "min_period_end"
+              | UnknownEnumStringValue
+            )
+          | undefined
         cancel_at_period_end?: boolean | undefined
         collection_method?:
           | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue)
@@ -41965,6 +42106,7 @@ export class StripeApi extends AbstractAxiosClient {
       billing_cycle_anchor_config: {explode: true, style: "deepObject"},
       billing_mode: {explode: true, style: "deepObject"},
       billing_thresholds: {explode: true, style: "deepObject"},
+      cancel_at: {explode: true, style: "deepObject"},
       default_tax_rates: {explode: true, style: "deepObject"},
       discounts: {explode: true, style: "deepObject"},
       expand: {explode: true, style: "deepObject"},
@@ -42168,7 +42310,15 @@ export class StripeApi extends AbstractAxiosClient {
               | UnknownEnumStringValue
             )
           | undefined
-        cancel_at?: (number | "" | UnknownEnumStringValue) | undefined
+        cancel_at?:
+          | (
+              | number
+              | ""
+              | UnknownEnumStringValue
+              | "max_period_end"
+              | "min_period_end"
+            )
+          | undefined
         cancel_at_period_end?: boolean | undefined
         cancellation_details?:
           | {
@@ -43075,11 +43225,33 @@ export class StripeApi extends AbstractAxiosClient {
         country_options: {
           ae?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           al?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43090,6 +43262,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           ao?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43098,6 +43281,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43113,11 +43297,33 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           au?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           aw?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43128,16 +43334,49 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           ba?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           bb?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           bd?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43146,6 +43385,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43161,6 +43401,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           bf?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43169,6 +43420,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43184,6 +43436,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           bh?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43194,6 +43457,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           bs?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43218,11 +43492,33 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           cd?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           ch?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43256,6 +43552,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43274,6 +43571,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43292,6 +43590,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43310,6 +43609,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43333,6 +43633,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43356,6 +43657,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43371,6 +43673,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           et?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43379,6 +43692,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43397,6 +43711,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43412,6 +43727,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           gb?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43422,6 +43748,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           gn?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43430,6 +43767,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43448,6 +43786,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43466,6 +43805,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43489,6 +43829,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43509,6 +43850,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           is?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43517,6 +43869,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43532,6 +43885,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           jp?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43570,6 +43934,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43588,6 +43953,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43606,6 +43972,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43631,16 +43998,49 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           me?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           mk?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           mr?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43649,6 +44049,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43682,6 +44083,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43697,6 +44099,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           no?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43707,11 +44120,33 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           nz?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
           om?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43730,6 +44165,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43748,6 +44184,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43766,6 +44203,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43781,6 +44219,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           rs?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43799,6 +44248,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43814,6 +44264,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           sg?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43822,6 +44283,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43840,6 +44302,7 @@ export class StripeApi extends AbstractAxiosClient {
                 standard?:
                   | {
                       place_of_supply_scheme:
+                        | "inbound_goods"
                         | "small_seller"
                         | "standard"
                         | UnknownEnumStringValue
@@ -43860,6 +44323,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           sr?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43929,6 +44403,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           uy?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43944,6 +44429,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           za?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -43954,6 +44450,17 @@ export class StripeApi extends AbstractAxiosClient {
             | undefined
           zw?:
             | {
+                standard?:
+                  | {
+                      place_of_supply_scheme?:
+                        | (
+                            | "inbound_goods"
+                            | "standard"
+                            | UnknownEnumStringValue
+                          )
+                        | undefined
+                    }
+                  | undefined
                 type: "standard" | UnknownEnumStringValue
               }
             | undefined
@@ -44871,7 +45378,21 @@ export class StripeApi extends AbstractAxiosClient {
         tipping?:
           | (
               | {
+                  aed?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
                   aud?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
+                  bgn?:
                     | {
                         fixed_amounts?: number[] | undefined
                         percentages?: number[] | undefined
@@ -44927,6 +45448,13 @@ export class StripeApi extends AbstractAxiosClient {
                         smart_tip_threshold?: number | undefined
                       }
                     | undefined
+                  huf?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
                   jpy?:
                     | {
                         fixed_amounts?: number[] | undefined
@@ -44956,6 +45484,13 @@ export class StripeApi extends AbstractAxiosClient {
                       }
                     | undefined
                   pln?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
+                  ron?:
                     | {
                         fixed_amounts?: number[] | undefined
                         percentages?: number[] | undefined
@@ -45161,7 +45696,21 @@ export class StripeApi extends AbstractAxiosClient {
         tipping?:
           | (
               | {
+                  aed?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
                   aud?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
+                  bgn?:
                     | {
                         fixed_amounts?: number[] | undefined
                         percentages?: number[] | undefined
@@ -45217,6 +45766,13 @@ export class StripeApi extends AbstractAxiosClient {
                         smart_tip_threshold?: number | undefined
                       }
                     | undefined
+                  huf?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
                   jpy?:
                     | {
                         fixed_amounts?: number[] | undefined
@@ -45246,6 +45802,13 @@ export class StripeApi extends AbstractAxiosClient {
                       }
                     | undefined
                   pln?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
+                  ron?:
                     | {
                         fixed_amounts?: number[] | undefined
                         percentages?: number[] | undefined
@@ -52677,6 +53240,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "2025-04-30.basil"
               | "2025-05-28.basil"
               | "2025-06-30.basil"
+              | "2025-07-30.basil"
               | UnknownEnumStringValue
             )
           | undefined

@@ -1331,7 +1331,6 @@ export type t_capability = {
   requirements?: t_account_capability_requirements
   status:
     | "active"
-    | "disabled"
     | "inactive"
     | "pending"
     | "unrequested"
@@ -1577,6 +1576,7 @@ export type t_checkout_session = {
   mode: "payment" | "setup" | "subscription" | UnknownEnumStringValue
   object: "checkout.session" | UnknownEnumStringValue
   optional_items?: t_payment_pages_checkout_session_optional_item[] | null
+  origin_context?: "mobile_app" | "web" | UnknownEnumStringValue | null
   payment_intent?: string | t_payment_intent | null
   payment_link?: string | t_payment_link | null
   payment_method_collection?:
@@ -1859,6 +1859,7 @@ export type t_checkout_paypal_payment_method_options = {
 
 export type t_checkout_pix_payment_method_options = {
   expires_after_seconds?: number | null
+  setup_future_usage?: "none" | UnknownEnumStringValue
 }
 
 export type t_checkout_revolut_pay_payment_method_options = {
@@ -2236,6 +2237,7 @@ export type t_connect_embedded_account_session_create_components = {
   documents: t_connect_embedded_base_config_claim
   financial_account: t_connect_embedded_financial_account_config_claim
   financial_account_transactions: t_connect_embedded_financial_account_transactions_config_claim
+  instant_payouts_promotion: t_connect_embedded_instant_payouts_promotion_config
   issuing_card: t_connect_embedded_issuing_card_config_claim
   issuing_cards_list: t_connect_embedded_issuing_cards_list_config_claim
   notification_banner: t_connect_embedded_account_config_claim
@@ -2286,6 +2288,17 @@ export type t_connect_embedded_financial_account_transactions_config_claim = {
 
 export type t_connect_embedded_financial_account_transactions_features = {
   card_spend_dispute_management: boolean
+}
+
+export type t_connect_embedded_instant_payouts_promotion_config = {
+  enabled: boolean
+  features: t_connect_embedded_instant_payouts_promotion_features
+}
+
+export type t_connect_embedded_instant_payouts_promotion_features = {
+  disable_stripe_user_authentication: boolean
+  external_account_collection: boolean
+  instant_payouts: boolean
 }
 
 export type t_connect_embedded_issuing_card_config_claim = {
@@ -3670,8 +3683,8 @@ export type t_gelato_provided_details = {
 }
 
 export type t_gelato_related_person = {
-  account?: string
-  person?: string
+  account: string
+  person: string
 }
 
 export type t_gelato_report_document_options = {
@@ -4116,6 +4129,7 @@ export type t_invoice_rendering_template = {
 
 export type t_invoice_setting_checkout_rendering_options = {
   amount_tax_display?: string | null
+  template?: string | null
 }
 
 export type t_invoice_setting_custom_field = {
@@ -9406,6 +9420,7 @@ export type t_payment_method_details_card_wallet_visa_checkout = {
 export type t_payment_method_details_cashapp = {
   buyer_id?: string | null
   cashtag?: string | null
+  transaction_id?: string | null
 }
 
 export type t_payment_method_details_crypto = {
@@ -11349,8 +11364,15 @@ export type t_portal_subscription_update = {
 }
 
 export type t_portal_subscription_update_product = {
+  adjustable_quantity: t_portal_subscription_update_product_adjustable_quantity
   prices: string[]
   product: string
+}
+
+export type t_portal_subscription_update_product_adjustable_quantity = {
+  enabled: boolean
+  maximum?: number | null
+  minimum: number
 }
 
 export type t_price = {
@@ -13550,11 +13572,24 @@ export type t_tax_product_registrations_resource_country_options_default = {
 
 export type t_tax_product_registrations_resource_country_options_default_inbound_goods =
   {
+    standard?: t_tax_product_registrations_resource_country_options_default_standard
     type: "standard" | UnknownEnumStringValue
   }
 
+export type t_tax_product_registrations_resource_country_options_default_standard =
+  {
+    place_of_supply_scheme:
+      | "inbound_goods"
+      | "standard"
+      | UnknownEnumStringValue
+  }
+
 export type t_tax_product_registrations_resource_country_options_eu_standard = {
-  place_of_supply_scheme: "small_seller" | "standard" | UnknownEnumStringValue
+  place_of_supply_scheme:
+    | "inbound_goods"
+    | "small_seller"
+    | "standard"
+    | UnknownEnumStringValue
 }
 
 export type t_tax_product_registrations_resource_country_options_europe = {
@@ -14071,7 +14106,9 @@ export type t_terminal_configuration_configuration_resource_reboot_window = {
 }
 
 export type t_terminal_configuration_configuration_resource_tipping = {
+  aed?: t_terminal_configuration_configuration_resource_currency_specific_config
   aud?: t_terminal_configuration_configuration_resource_currency_specific_config
+  bgn?: t_terminal_configuration_configuration_resource_currency_specific_config
   cad?: t_terminal_configuration_configuration_resource_currency_specific_config
   chf?: t_terminal_configuration_configuration_resource_currency_specific_config
   czk?: t_terminal_configuration_configuration_resource_currency_specific_config
@@ -14079,11 +14116,13 @@ export type t_terminal_configuration_configuration_resource_tipping = {
   eur?: t_terminal_configuration_configuration_resource_currency_specific_config
   gbp?: t_terminal_configuration_configuration_resource_currency_specific_config
   hkd?: t_terminal_configuration_configuration_resource_currency_specific_config
+  huf?: t_terminal_configuration_configuration_resource_currency_specific_config
   jpy?: t_terminal_configuration_configuration_resource_currency_specific_config
   myr?: t_terminal_configuration_configuration_resource_currency_specific_config
   nok?: t_terminal_configuration_configuration_resource_currency_specific_config
   nzd?: t_terminal_configuration_configuration_resource_currency_specific_config
   pln?: t_terminal_configuration_configuration_resource_currency_specific_config
+  ron?: t_terminal_configuration_configuration_resource_currency_specific_config
   sek?: t_terminal_configuration_configuration_resource_currency_specific_config
   sgd?: t_terminal_configuration_configuration_resource_currency_specific_config
   usd?: t_terminal_configuration_configuration_resource_currency_specific_config

@@ -913,47 +913,47 @@ import {
   t_PrivateRegistriesListOrgPrivateRegistriesQuerySchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryBodySchema,
   t_PrivateRegistriesUpdateOrgPrivateRegistryParamSchema,
-  t_ProjectsAddCollaboratorBodySchema,
-  t_ProjectsAddCollaboratorParamSchema,
-  t_ProjectsCreateCardBodySchema,
-  t_ProjectsCreateCardParamSchema,
-  t_ProjectsCreateColumnBodySchema,
-  t_ProjectsCreateColumnParamSchema,
-  t_ProjectsCreateForAuthenticatedUserBodySchema,
-  t_ProjectsCreateForOrgBodySchema,
-  t_ProjectsCreateForOrgParamSchema,
-  t_ProjectsCreateForRepoBodySchema,
-  t_ProjectsCreateForRepoParamSchema,
-  t_ProjectsDeleteCardParamSchema,
-  t_ProjectsDeleteColumnParamSchema,
-  t_ProjectsDeleteParamSchema,
-  t_ProjectsGetCardParamSchema,
-  t_ProjectsGetColumnParamSchema,
-  t_ProjectsGetParamSchema,
-  t_ProjectsGetPermissionForUserParamSchema,
-  t_ProjectsListCardsParamSchema,
-  t_ProjectsListCardsQuerySchema,
-  t_ProjectsListCollaboratorsParamSchema,
-  t_ProjectsListCollaboratorsQuerySchema,
-  t_ProjectsListColumnsParamSchema,
-  t_ProjectsListColumnsQuerySchema,
-  t_ProjectsListForOrgParamSchema,
-  t_ProjectsListForOrgQuerySchema,
-  t_ProjectsListForRepoParamSchema,
-  t_ProjectsListForRepoQuerySchema,
-  t_ProjectsListForUserParamSchema,
-  t_ProjectsListForUserQuerySchema,
-  t_ProjectsMoveCardBodySchema,
-  t_ProjectsMoveCardParamSchema,
-  t_ProjectsMoveColumnBodySchema,
-  t_ProjectsMoveColumnParamSchema,
-  t_ProjectsRemoveCollaboratorParamSchema,
-  t_ProjectsUpdateBodySchema,
-  t_ProjectsUpdateCardBodySchema,
-  t_ProjectsUpdateCardParamSchema,
-  t_ProjectsUpdateColumnBodySchema,
-  t_ProjectsUpdateColumnParamSchema,
-  t_ProjectsUpdateParamSchema,
+  t_ProjectsClassicAddCollaboratorBodySchema,
+  t_ProjectsClassicAddCollaboratorParamSchema,
+  t_ProjectsClassicCreateCardBodySchema,
+  t_ProjectsClassicCreateCardParamSchema,
+  t_ProjectsClassicCreateColumnBodySchema,
+  t_ProjectsClassicCreateColumnParamSchema,
+  t_ProjectsClassicCreateForAuthenticatedUserBodySchema,
+  t_ProjectsClassicCreateForOrgBodySchema,
+  t_ProjectsClassicCreateForOrgParamSchema,
+  t_ProjectsClassicCreateForRepoBodySchema,
+  t_ProjectsClassicCreateForRepoParamSchema,
+  t_ProjectsClassicDeleteCardParamSchema,
+  t_ProjectsClassicDeleteColumnParamSchema,
+  t_ProjectsClassicDeleteParamSchema,
+  t_ProjectsClassicGetCardParamSchema,
+  t_ProjectsClassicGetColumnParamSchema,
+  t_ProjectsClassicGetParamSchema,
+  t_ProjectsClassicGetPermissionForUserParamSchema,
+  t_ProjectsClassicListCardsParamSchema,
+  t_ProjectsClassicListCardsQuerySchema,
+  t_ProjectsClassicListCollaboratorsParamSchema,
+  t_ProjectsClassicListCollaboratorsQuerySchema,
+  t_ProjectsClassicListColumnsParamSchema,
+  t_ProjectsClassicListColumnsQuerySchema,
+  t_ProjectsClassicListForOrgParamSchema,
+  t_ProjectsClassicListForOrgQuerySchema,
+  t_ProjectsClassicListForRepoParamSchema,
+  t_ProjectsClassicListForRepoQuerySchema,
+  t_ProjectsClassicListForUserParamSchema,
+  t_ProjectsClassicListForUserQuerySchema,
+  t_ProjectsClassicMoveCardBodySchema,
+  t_ProjectsClassicMoveCardParamSchema,
+  t_ProjectsClassicMoveColumnBodySchema,
+  t_ProjectsClassicMoveColumnParamSchema,
+  t_ProjectsClassicRemoveCollaboratorParamSchema,
+  t_ProjectsClassicUpdateBodySchema,
+  t_ProjectsClassicUpdateCardBodySchema,
+  t_ProjectsClassicUpdateCardParamSchema,
+  t_ProjectsClassicUpdateColumnBodySchema,
+  t_ProjectsClassicUpdateColumnParamSchema,
+  t_ProjectsClassicUpdateParamSchema,
   t_PullsCheckIfMergedParamSchema,
   t_PullsCreateBodySchema,
   t_PullsCreateParamSchema,
@@ -1894,6 +1894,7 @@ import {
   s_code_scanning_default_setup_options,
   s_code_scanning_default_setup_update,
   s_code_scanning_default_setup_update_response,
+  s_code_scanning_options,
   s_code_scanning_organization_alert_items,
   s_code_scanning_ref,
   s_code_scanning_ref_full,
@@ -2016,6 +2017,7 @@ import {
   s_org_private_registry_configuration,
   s_org_private_registry_configuration_with_selected_repositories,
   s_org_repo_custom_property_values,
+  s_org_rules,
   s_org_ruleset_conditions,
   s_organization_actions_secret,
   s_organization_actions_variable,
@@ -9476,19 +9478,19 @@ export type PrivateRegistriesDeleteOrgPrivateRegistry = (
   | typeof SkipResponse
 >
 
-export type ProjectsListForOrgResponder = {
+export type ProjectsClassicListForOrgResponder = {
   with200(): KoaRuntimeResponse<t_project[]>
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsListForOrg = (
+export type ProjectsClassicListForOrg = (
   params: Params<
-    t_ProjectsListForOrgParamSchema,
-    t_ProjectsListForOrgQuerySchema,
+    t_ProjectsClassicListForOrgParamSchema,
+    t_ProjectsClassicListForOrgQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListForOrgResponder,
+  respond: ProjectsClassicListForOrgResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -9498,7 +9500,7 @@ export type ProjectsListForOrg = (
   | typeof SkipResponse
 >
 
-export type ProjectsCreateForOrgResponder = {
+export type ProjectsClassicCreateForOrgResponder = {
   with201(): KoaRuntimeResponse<t_project>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -9507,14 +9509,14 @@ export type ProjectsCreateForOrgResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsCreateForOrg = (
+export type ProjectsClassicCreateForOrg = (
   params: Params<
-    t_ProjectsCreateForOrgParamSchema,
+    t_ProjectsClassicCreateForOrgParamSchema,
     void,
-    t_ProjectsCreateForOrgBodySchema,
+    t_ProjectsClassicCreateForOrgBodySchema,
     void
   >,
-  respond: ProjectsCreateForOrgResponder,
+  respond: ProjectsClassicCreateForOrgResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11019,7 +11021,7 @@ export type OrgsEnableOrDisableSecurityProductOnAllOrgRepos = (
   | typeof SkipResponse
 >
 
-export type ProjectsGetCardResponder = {
+export type ProjectsClassicGetCardResponder = {
   with200(): KoaRuntimeResponse<t_project_card>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11027,9 +11029,9 @@ export type ProjectsGetCardResponder = {
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsGetCard = (
-  params: Params<t_ProjectsGetCardParamSchema, void, void, void>,
-  respond: ProjectsGetCardResponder,
+export type ProjectsClassicGetCard = (
+  params: Params<t_ProjectsClassicGetCardParamSchema, void, void, void>,
+  respond: ProjectsClassicGetCardResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11042,7 +11044,7 @@ export type ProjectsGetCard = (
   | typeof SkipResponse
 >
 
-export type ProjectsUpdateCardResponder = {
+export type ProjectsClassicUpdateCardResponder = {
   with200(): KoaRuntimeResponse<t_project_card>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11051,14 +11053,14 @@ export type ProjectsUpdateCardResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsUpdateCard = (
+export type ProjectsClassicUpdateCard = (
   params: Params<
-    t_ProjectsUpdateCardParamSchema,
+    t_ProjectsClassicUpdateCardParamSchema,
     void,
-    t_ProjectsUpdateCardBodySchema | undefined,
+    t_ProjectsClassicUpdateCardBodySchema | undefined,
     void
   >,
-  respond: ProjectsUpdateCardResponder,
+  respond: ProjectsClassicUpdateCardResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11072,7 +11074,7 @@ export type ProjectsUpdateCard = (
   | typeof SkipResponse
 >
 
-export type ProjectsDeleteCardResponder = {
+export type ProjectsClassicDeleteCardResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11084,9 +11086,9 @@ export type ProjectsDeleteCardResponder = {
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsDeleteCard = (
-  params: Params<t_ProjectsDeleteCardParamSchema, void, void, void>,
-  respond: ProjectsDeleteCardResponder,
+export type ProjectsClassicDeleteCard = (
+  params: Params<t_ProjectsClassicDeleteCardParamSchema, void, void, void>,
+  respond: ProjectsClassicDeleteCardResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11106,7 +11108,7 @@ export type ProjectsDeleteCard = (
   | typeof SkipResponse
 >
 
-export type ProjectsMoveCardResponder = {
+export type ProjectsClassicMoveCardResponder = {
   with201(): KoaRuntimeResponse<EmptyObject>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11132,14 +11134,14 @@ export type ProjectsMoveCardResponder = {
   }>
 } & KoaRuntimeResponder
 
-export type ProjectsMoveCard = (
+export type ProjectsClassicMoveCard = (
   params: Params<
-    t_ProjectsMoveCardParamSchema,
+    t_ProjectsClassicMoveCardParamSchema,
     void,
-    t_ProjectsMoveCardBodySchema,
+    t_ProjectsClassicMoveCardBodySchema,
     void
   >,
-  respond: ProjectsMoveCardResponder,
+  respond: ProjectsClassicMoveCardResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11176,7 +11178,7 @@ export type ProjectsMoveCard = (
   | typeof SkipResponse
 >
 
-export type ProjectsGetColumnResponder = {
+export type ProjectsClassicGetColumnResponder = {
   with200(): KoaRuntimeResponse<t_project_column>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11184,9 +11186,9 @@ export type ProjectsGetColumnResponder = {
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsGetColumn = (
-  params: Params<t_ProjectsGetColumnParamSchema, void, void, void>,
-  respond: ProjectsGetColumnResponder,
+export type ProjectsClassicGetColumn = (
+  params: Params<t_ProjectsClassicGetColumnParamSchema, void, void, void>,
+  respond: ProjectsClassicGetColumnResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11199,21 +11201,21 @@ export type ProjectsGetColumn = (
   | typeof SkipResponse
 >
 
-export type ProjectsUpdateColumnResponder = {
+export type ProjectsClassicUpdateColumnResponder = {
   with200(): KoaRuntimeResponse<t_project_column>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsUpdateColumn = (
+export type ProjectsClassicUpdateColumn = (
   params: Params<
-    t_ProjectsUpdateColumnParamSchema,
+    t_ProjectsClassicUpdateColumnParamSchema,
     void,
-    t_ProjectsUpdateColumnBodySchema,
+    t_ProjectsClassicUpdateColumnBodySchema,
     void
   >,
-  respond: ProjectsUpdateColumnResponder,
+  respond: ProjectsClassicUpdateColumnResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11225,16 +11227,16 @@ export type ProjectsUpdateColumn = (
   | typeof SkipResponse
 >
 
-export type ProjectsDeleteColumnResponder = {
+export type ProjectsClassicDeleteColumnResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsDeleteColumn = (
-  params: Params<t_ProjectsDeleteColumnParamSchema, void, void, void>,
-  respond: ProjectsDeleteColumnResponder,
+export type ProjectsClassicDeleteColumn = (
+  params: Params<t_ProjectsClassicDeleteColumnParamSchema, void, void, void>,
+  respond: ProjectsClassicDeleteColumnResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11246,21 +11248,21 @@ export type ProjectsDeleteColumn = (
   | typeof SkipResponse
 >
 
-export type ProjectsListCardsResponder = {
+export type ProjectsClassicListCardsResponder = {
   with200(): KoaRuntimeResponse<t_project_card[]>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsListCards = (
+export type ProjectsClassicListCards = (
   params: Params<
-    t_ProjectsListCardsParamSchema,
-    t_ProjectsListCardsQuerySchema,
+    t_ProjectsClassicListCardsParamSchema,
+    t_ProjectsClassicListCardsQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListCardsResponder,
+  respond: ProjectsClassicListCardsResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11272,7 +11274,7 @@ export type ProjectsListCards = (
   | typeof SkipResponse
 >
 
-export type ProjectsCreateCardResponder = {
+export type ProjectsClassicCreateCardResponder = {
   with201(): KoaRuntimeResponse<t_project_card>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11289,14 +11291,14 @@ export type ProjectsCreateCardResponder = {
   }>
 } & KoaRuntimeResponder
 
-export type ProjectsCreateCard = (
+export type ProjectsClassicCreateCard = (
   params: Params<
-    t_ProjectsCreateCardParamSchema,
+    t_ProjectsClassicCreateCardParamSchema,
     void,
-    t_ProjectsCreateCardBodySchema,
+    t_ProjectsClassicCreateCardBodySchema,
     void
   >,
-  respond: ProjectsCreateCardResponder,
+  respond: ProjectsClassicCreateCardResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11321,7 +11323,7 @@ export type ProjectsCreateCard = (
   | typeof SkipResponse
 >
 
-export type ProjectsMoveColumnResponder = {
+export type ProjectsClassicMoveColumnResponder = {
   with201(): KoaRuntimeResponse<EmptyObject>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11329,14 +11331,14 @@ export type ProjectsMoveColumnResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsMoveColumn = (
+export type ProjectsClassicMoveColumn = (
   params: Params<
-    t_ProjectsMoveColumnParamSchema,
+    t_ProjectsClassicMoveColumnParamSchema,
     void,
-    t_ProjectsMoveColumnBodySchema,
+    t_ProjectsClassicMoveColumnBodySchema,
     void
   >,
-  respond: ProjectsMoveColumnResponder,
+  respond: ProjectsClassicMoveColumnResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11349,16 +11351,16 @@ export type ProjectsMoveColumn = (
   | typeof SkipResponse
 >
 
-export type ProjectsGetResponder = {
+export type ProjectsClassicGetResponder = {
   with200(): KoaRuntimeResponse<t_project>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsGet = (
-  params: Params<t_ProjectsGetParamSchema, void, void, void>,
-  respond: ProjectsGetResponder,
+export type ProjectsClassicGet = (
+  params: Params<t_ProjectsClassicGetParamSchema, void, void, void>,
+  respond: ProjectsClassicGetResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11370,7 +11372,7 @@ export type ProjectsGet = (
   | typeof SkipResponse
 >
 
-export type ProjectsUpdateResponder = {
+export type ProjectsClassicUpdateResponder = {
   with200(): KoaRuntimeResponse<t_project>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11384,14 +11386,14 @@ export type ProjectsUpdateResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsUpdate = (
+export type ProjectsClassicUpdate = (
   params: Params<
-    t_ProjectsUpdateParamSchema,
+    t_ProjectsClassicUpdateParamSchema,
     void,
-    t_ProjectsUpdateBodySchema | undefined,
+    t_ProjectsClassicUpdateBodySchema | undefined,
     void
   >,
-  respond: ProjectsUpdateResponder,
+  respond: ProjectsClassicUpdateResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11413,7 +11415,7 @@ export type ProjectsUpdate = (
   | typeof SkipResponse
 >
 
-export type ProjectsDeleteResponder = {
+export type ProjectsClassicDeleteResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11426,9 +11428,9 @@ export type ProjectsDeleteResponder = {
   with410(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsDelete = (
-  params: Params<t_ProjectsDeleteParamSchema, void, void, void>,
-  respond: ProjectsDeleteResponder,
+export type ProjectsClassicDelete = (
+  params: Params<t_ProjectsClassicDeleteParamSchema, void, void, void>,
+  respond: ProjectsClassicDeleteResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11449,7 +11451,7 @@ export type ProjectsDelete = (
   | typeof SkipResponse
 >
 
-export type ProjectsListCollaboratorsResponder = {
+export type ProjectsClassicListCollaboratorsResponder = {
   with200(): KoaRuntimeResponse<t_simple_user[]>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11458,14 +11460,14 @@ export type ProjectsListCollaboratorsResponder = {
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
-export type ProjectsListCollaborators = (
+export type ProjectsClassicListCollaborators = (
   params: Params<
-    t_ProjectsListCollaboratorsParamSchema,
-    t_ProjectsListCollaboratorsQuerySchema,
+    t_ProjectsClassicListCollaboratorsParamSchema,
+    t_ProjectsClassicListCollaboratorsQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListCollaboratorsResponder,
+  respond: ProjectsClassicListCollaboratorsResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11479,7 +11481,7 @@ export type ProjectsListCollaborators = (
   | typeof SkipResponse
 >
 
-export type ProjectsAddCollaboratorResponder = {
+export type ProjectsClassicAddCollaboratorResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11488,14 +11490,14 @@ export type ProjectsAddCollaboratorResponder = {
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
-export type ProjectsAddCollaborator = (
+export type ProjectsClassicAddCollaborator = (
   params: Params<
-    t_ProjectsAddCollaboratorParamSchema,
+    t_ProjectsClassicAddCollaboratorParamSchema,
     void,
-    t_ProjectsAddCollaboratorBodySchema | undefined,
+    t_ProjectsClassicAddCollaboratorBodySchema | undefined,
     void
   >,
-  respond: ProjectsAddCollaboratorResponder,
+  respond: ProjectsClassicAddCollaboratorResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11509,7 +11511,7 @@ export type ProjectsAddCollaborator = (
   | typeof SkipResponse
 >
 
-export type ProjectsRemoveCollaboratorResponder = {
+export type ProjectsClassicRemoveCollaboratorResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11518,9 +11520,14 @@ export type ProjectsRemoveCollaboratorResponder = {
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
-export type ProjectsRemoveCollaborator = (
-  params: Params<t_ProjectsRemoveCollaboratorParamSchema, void, void, void>,
-  respond: ProjectsRemoveCollaboratorResponder,
+export type ProjectsClassicRemoveCollaborator = (
+  params: Params<
+    t_ProjectsClassicRemoveCollaboratorParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ProjectsClassicRemoveCollaboratorResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11534,7 +11541,7 @@ export type ProjectsRemoveCollaborator = (
   | typeof SkipResponse
 >
 
-export type ProjectsGetPermissionForUserResponder = {
+export type ProjectsClassicGetPermissionForUserResponder = {
   with200(): KoaRuntimeResponse<t_project_collaborator_permission>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11543,9 +11550,14 @@ export type ProjectsGetPermissionForUserResponder = {
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
-export type ProjectsGetPermissionForUser = (
-  params: Params<t_ProjectsGetPermissionForUserParamSchema, void, void, void>,
-  respond: ProjectsGetPermissionForUserResponder,
+export type ProjectsClassicGetPermissionForUser = (
+  params: Params<
+    t_ProjectsClassicGetPermissionForUserParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ProjectsClassicGetPermissionForUserResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11559,21 +11571,21 @@ export type ProjectsGetPermissionForUser = (
   | typeof SkipResponse
 >
 
-export type ProjectsListColumnsResponder = {
+export type ProjectsClassicListColumnsResponder = {
   with200(): KoaRuntimeResponse<t_project_column[]>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
 
-export type ProjectsListColumns = (
+export type ProjectsClassicListColumns = (
   params: Params<
-    t_ProjectsListColumnsParamSchema,
-    t_ProjectsListColumnsQuerySchema,
+    t_ProjectsClassicListColumnsParamSchema,
+    t_ProjectsClassicListColumnsQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListColumnsResponder,
+  respond: ProjectsClassicListColumnsResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -11585,7 +11597,7 @@ export type ProjectsListColumns = (
   | typeof SkipResponse
 >
 
-export type ProjectsCreateColumnResponder = {
+export type ProjectsClassicCreateColumnResponder = {
   with201(): KoaRuntimeResponse<t_project_column>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -11593,14 +11605,14 @@ export type ProjectsCreateColumnResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsCreateColumn = (
+export type ProjectsClassicCreateColumn = (
   params: Params<
-    t_ProjectsCreateColumnParamSchema,
+    t_ProjectsClassicCreateColumnParamSchema,
     void,
-    t_ProjectsCreateColumnBodySchema,
+    t_ProjectsClassicCreateColumnBodySchema,
     void
   >,
-  respond: ProjectsCreateColumnResponder,
+  respond: ProjectsClassicCreateColumnResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -19633,7 +19645,7 @@ export type ReposDisablePrivateVulnerabilityReporting = (
   | typeof SkipResponse
 >
 
-export type ProjectsListForRepoResponder = {
+export type ProjectsClassicListForRepoResponder = {
   with200(): KoaRuntimeResponse<t_project[]>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -19642,14 +19654,14 @@ export type ProjectsListForRepoResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsListForRepo = (
+export type ProjectsClassicListForRepo = (
   params: Params<
-    t_ProjectsListForRepoParamSchema,
-    t_ProjectsListForRepoQuerySchema,
+    t_ProjectsClassicListForRepoParamSchema,
+    t_ProjectsClassicListForRepoQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListForRepoResponder,
+  respond: ProjectsClassicListForRepoResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -19663,7 +19675,7 @@ export type ProjectsListForRepo = (
   | typeof SkipResponse
 >
 
-export type ProjectsCreateForRepoResponder = {
+export type ProjectsClassicCreateForRepoResponder = {
   with201(): KoaRuntimeResponse<t_project>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -19672,14 +19684,14 @@ export type ProjectsCreateForRepoResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsCreateForRepo = (
+export type ProjectsClassicCreateForRepo = (
   params: Params<
-    t_ProjectsCreateForRepoParamSchema,
+    t_ProjectsClassicCreateForRepoParamSchema,
     void,
-    t_ProjectsCreateForRepoBodySchema,
+    t_ProjectsClassicCreateForRepoBodySchema,
     void
   >,
-  respond: ProjectsCreateForRepoResponder,
+  respond: ProjectsClassicCreateForRepoResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -24944,7 +24956,7 @@ export type PackagesRestorePackageVersionForAuthenticatedUser = (
   | typeof SkipResponse
 >
 
-export type ProjectsCreateForAuthenticatedUserResponder = {
+export type ProjectsClassicCreateForAuthenticatedUserResponder = {
   with201(): KoaRuntimeResponse<t_project>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -24952,14 +24964,14 @@ export type ProjectsCreateForAuthenticatedUserResponder = {
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
-export type ProjectsCreateForAuthenticatedUser = (
+export type ProjectsClassicCreateForAuthenticatedUser = (
   params: Params<
     void,
     void,
-    t_ProjectsCreateForAuthenticatedUserBodySchema,
+    t_ProjectsClassicCreateForAuthenticatedUserBodySchema,
     void
   >,
-  respond: ProjectsCreateForAuthenticatedUserResponder,
+  respond: ProjectsClassicCreateForAuthenticatedUserResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -26183,19 +26195,19 @@ export type PackagesRestorePackageVersionForUser = (
   | typeof SkipResponse
 >
 
-export type ProjectsListForUserResponder = {
+export type ProjectsClassicListForUserResponder = {
   with200(): KoaRuntimeResponse<t_project[]>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
-export type ProjectsListForUser = (
+export type ProjectsClassicListForUser = (
   params: Params<
-    t_ProjectsListForUserParamSchema,
-    t_ProjectsListForUserQuerySchema,
+    t_ProjectsClassicListForUserParamSchema,
+    t_ProjectsClassicListForUserQuerySchema,
     void,
     void
   >,
-  respond: ProjectsListForUserResponder,
+  respond: ProjectsClassicListForUserResponder,
   ctx: RouterContext,
   next: Next,
 ) => Promise<
@@ -26782,8 +26794,8 @@ export type Implementation = {
   privateRegistriesGetOrgPrivateRegistry: PrivateRegistriesGetOrgPrivateRegistry
   privateRegistriesUpdateOrgPrivateRegistry: PrivateRegistriesUpdateOrgPrivateRegistry
   privateRegistriesDeleteOrgPrivateRegistry: PrivateRegistriesDeleteOrgPrivateRegistry
-  projectsListForOrg: ProjectsListForOrg
-  projectsCreateForOrg: ProjectsCreateForOrg
+  projectsClassicListForOrg: ProjectsClassicListForOrg
+  projectsClassicCreateForOrg: ProjectsClassicCreateForOrg
   orgsGetAllCustomProperties: OrgsGetAllCustomProperties
   orgsCreateOrUpdateCustomProperties: OrgsCreateOrUpdateCustomProperties
   orgsGetCustomProperty: OrgsGetCustomProperty
@@ -26857,25 +26869,25 @@ export type Implementation = {
   teamsRemoveRepoInOrg: TeamsRemoveRepoInOrg
   teamsListChildInOrg: TeamsListChildInOrg
   orgsEnableOrDisableSecurityProductOnAllOrgRepos: OrgsEnableOrDisableSecurityProductOnAllOrgRepos
-  projectsGetCard: ProjectsGetCard
-  projectsUpdateCard: ProjectsUpdateCard
-  projectsDeleteCard: ProjectsDeleteCard
-  projectsMoveCard: ProjectsMoveCard
-  projectsGetColumn: ProjectsGetColumn
-  projectsUpdateColumn: ProjectsUpdateColumn
-  projectsDeleteColumn: ProjectsDeleteColumn
-  projectsListCards: ProjectsListCards
-  projectsCreateCard: ProjectsCreateCard
-  projectsMoveColumn: ProjectsMoveColumn
-  projectsGet: ProjectsGet
-  projectsUpdate: ProjectsUpdate
-  projectsDelete: ProjectsDelete
-  projectsListCollaborators: ProjectsListCollaborators
-  projectsAddCollaborator: ProjectsAddCollaborator
-  projectsRemoveCollaborator: ProjectsRemoveCollaborator
-  projectsGetPermissionForUser: ProjectsGetPermissionForUser
-  projectsListColumns: ProjectsListColumns
-  projectsCreateColumn: ProjectsCreateColumn
+  projectsClassicGetCard: ProjectsClassicGetCard
+  projectsClassicUpdateCard: ProjectsClassicUpdateCard
+  projectsClassicDeleteCard: ProjectsClassicDeleteCard
+  projectsClassicMoveCard: ProjectsClassicMoveCard
+  projectsClassicGetColumn: ProjectsClassicGetColumn
+  projectsClassicUpdateColumn: ProjectsClassicUpdateColumn
+  projectsClassicDeleteColumn: ProjectsClassicDeleteColumn
+  projectsClassicListCards: ProjectsClassicListCards
+  projectsClassicCreateCard: ProjectsClassicCreateCard
+  projectsClassicMoveColumn: ProjectsClassicMoveColumn
+  projectsClassicGet: ProjectsClassicGet
+  projectsClassicUpdate: ProjectsClassicUpdate
+  projectsClassicDelete: ProjectsClassicDelete
+  projectsClassicListCollaborators: ProjectsClassicListCollaborators
+  projectsClassicAddCollaborator: ProjectsClassicAddCollaborator
+  projectsClassicRemoveCollaborator: ProjectsClassicRemoveCollaborator
+  projectsClassicGetPermissionForUser: ProjectsClassicGetPermissionForUser
+  projectsClassicListColumns: ProjectsClassicListColumns
+  projectsClassicCreateColumn: ProjectsClassicCreateColumn
   rateLimitGet: RateLimitGet
   reposGet: ReposGet
   reposUpdate: ReposUpdate
@@ -27227,8 +27239,8 @@ export type Implementation = {
   reposCheckPrivateVulnerabilityReporting: ReposCheckPrivateVulnerabilityReporting
   reposEnablePrivateVulnerabilityReporting: ReposEnablePrivateVulnerabilityReporting
   reposDisablePrivateVulnerabilityReporting: ReposDisablePrivateVulnerabilityReporting
-  projectsListForRepo: ProjectsListForRepo
-  projectsCreateForRepo: ProjectsCreateForRepo
+  projectsClassicListForRepo: ProjectsClassicListForRepo
+  projectsClassicCreateForRepo: ProjectsClassicCreateForRepo
   reposGetCustomPropertiesValues: ReposGetCustomPropertiesValues
   reposCreateOrUpdateCustomPropertiesValues: ReposCreateOrUpdateCustomPropertiesValues
   pullsList: PullsList
@@ -27447,7 +27459,7 @@ export type Implementation = {
   packagesGetPackageVersionForAuthenticatedUser: PackagesGetPackageVersionForAuthenticatedUser
   packagesDeletePackageVersionForAuthenticatedUser: PackagesDeletePackageVersionForAuthenticatedUser
   packagesRestorePackageVersionForAuthenticatedUser: PackagesRestorePackageVersionForAuthenticatedUser
-  projectsCreateForAuthenticatedUser: ProjectsCreateForAuthenticatedUser
+  projectsClassicCreateForAuthenticatedUser: ProjectsClassicCreateForAuthenticatedUser
   usersListPublicEmailsForAuthenticatedUser: UsersListPublicEmailsForAuthenticatedUser
   reposListForAuthenticatedUser: ReposListForAuthenticatedUser
   reposCreateForAuthenticatedUser: ReposCreateForAuthenticatedUser
@@ -27496,7 +27508,7 @@ export type Implementation = {
   packagesGetPackageVersionForUser: PackagesGetPackageVersionForUser
   packagesDeletePackageVersionForUser: PackagesDeletePackageVersionForUser
   packagesRestorePackageVersionForUser: PackagesRestorePackageVersionForUser
-  projectsListForUser: ProjectsListForUser
+  projectsClassicListForUser: ProjectsClassicListForUser
   activityListReceivedEventsForUser: ActivityListReceivedEventsForUser
   activityListReceivedPublicEventsForUser: ActivityListReceivedPublicEventsForUser
   reposListForUser: ReposListForUser
@@ -29658,6 +29670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional()
       .default("disabled"),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -29677,6 +29690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    code_scanning_options: s_code_scanning_options.optional(),
     code_scanning_default_setup: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -29687,6 +29701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -29951,6 +29966,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     advanced_security: z
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional(),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph_autosubmit_action: z
       .enum(["enabled", "disabled", "not_set"])
@@ -29971,6 +29987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -40150,6 +40167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional()
       .default("disabled"),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -40169,6 +40187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    code_scanning_options: s_code_scanning_options.optional(),
     code_scanning_default_setup: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -40179,6 +40198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("not_set"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -40517,6 +40537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     advanced_security: z
       .enum(["enabled", "disabled", "code_security", "secret_protection"])
       .optional(),
+    code_security: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
     dependency_graph_autosubmit_action: z
       .enum(["enabled", "disabled", "not_set"])
@@ -40537,6 +40558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_protection: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -49154,7 +49176,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const privateRegistriesCreateOrgPrivateRegistryBodySchema = z.object({
-    registry_type: z.enum(["maven_repository", "nuget_feed", "goproxy_server"]),
+    registry_type: z.enum([
+      "maven_repository",
+      "nuget_feed",
+      "goproxy_server",
+      "npm_registry",
+      "rubygems_server",
+      "cargo_registry",
+      "composer_repository",
+      "docker_registry",
+      "git_source",
+      "helm_registry",
+      "hex_organization",
+      "hex_repository",
+      "pub_repository",
+      "python_index",
+      "terraform_registry",
+    ]),
     url: z.string(),
     username: z.string().nullable().optional(),
     encrypted_value: z
@@ -49377,7 +49415,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const privateRegistriesUpdateOrgPrivateRegistryBodySchema = z.object({
     registry_type: z
-      .enum(["maven_repository", "nuget_feed", "goproxy_server"])
+      .enum([
+        "maven_repository",
+        "nuget_feed",
+        "goproxy_server",
+        "npm_registry",
+        "rubygems_server",
+        "cargo_registry",
+        "composer_repository",
+        "docker_registry",
+        "git_source",
+        "helm_registry",
+        "hex_organization",
+        "hex_repository",
+        "pub_repository",
+        "python_index",
+        "terraform_registry",
+      ])
       .optional(),
     url: z.string().optional(),
     username: z.string().nullable().optional(),
@@ -49529,15 +49583,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsListForOrgParamSchema = z.object({org: z.string()})
+  const projectsClassicListForOrgParamSchema = z.object({org: z.string()})
 
-  const projectsListForOrgQuerySchema = z.object({
+  const projectsClassicListForOrgQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional().default("open"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListForOrgResponseValidator = responseValidationFactory(
+  const projectsClassicListForOrgResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project)],
       ["422", s_validation_error_simple],
@@ -49545,85 +49599,90 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("projectsListForOrg", "/orgs/:org/projects", async (ctx, next) => {
-    const input = {
-      params: parseRequestInput(
-        projectsListForOrgParamSchema,
-        ctx.params,
-        RequestInputType.RouteParam,
-      ),
-      query: parseRequestInput(
-        projectsListForOrgQuerySchema,
-        ctx.query,
-        RequestInputType.QueryString,
-      ),
-      body: undefined,
-      headers: undefined,
-    }
-
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_project[]>(200)
-      },
-      with422() {
-        return new KoaRuntimeResponse<t_validation_error_simple>(422)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
-    const response = await implementation
-      .projectsListForOrg(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
-
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-    ctx.body = projectsListForOrgResponseValidator(status, body)
-    ctx.status = status
-    return next()
-  })
-
-  const projectsCreateForOrgParamSchema = z.object({org: z.string()})
-
-  const projectsCreateForOrgBodySchema = z.object({
-    name: z.string(),
-    body: z.string().optional(),
-  })
-
-  const projectsCreateForOrgResponseValidator = responseValidationFactory(
-    [
-      ["201", s_project],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
-
-  router.post(
-    "projectsCreateForOrg",
+  router.get(
+    "projectsClassicListForOrg",
     "/orgs/:org/projects",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsCreateForOrgParamSchema,
+          projectsClassicListForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          projectsClassicListForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_project[]>(200)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .projectsClassicListForOrg(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = projectsClassicListForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const projectsClassicCreateForOrgParamSchema = z.object({org: z.string()})
+
+  const projectsClassicCreateForOrgBodySchema = z.object({
+    name: z.string(),
+    body: z.string().optional(),
+  })
+
+  const projectsClassicCreateForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_project],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "projectsClassicCreateForOrg",
+    "/orgs/:org/projects",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          projectsClassicCreateForOrgParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsCreateForOrgBodySchema,
+          projectsClassicCreateForOrgBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -49655,7 +49714,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsCreateForOrg(input, responder, ctx, next)
+        .projectsClassicCreateForOrg(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -49668,7 +49727,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsCreateForOrgResponseValidator(status, body)
+      ctx.body = projectsClassicCreateForOrgResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -50666,7 +50725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     enforcement: s_repository_rule_enforcement,
     bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
     conditions: s_org_ruleset_conditions.optional(),
-    rules: z.array(s_repository_rule).optional(),
+    rules: z.array(s_org_rules).optional(),
   })
 
   const reposCreateOrgRulesetResponseValidator = responseValidationFactory(
@@ -50953,7 +51012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       enforcement: s_repository_rule_enforcement.optional(),
       bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
       conditions: s_org_ruleset_conditions.optional(),
-      rules: z.array(s_repository_rule).optional(),
+      rules: z.array(s_org_rules).optional(),
     })
     .optional()
 
@@ -54586,9 +54645,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsGetCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicGetCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsGetCardResponseValidator = responseValidationFactory(
+  const projectsClassicGetCardResponseValidator = responseValidationFactory(
     [
       ["200", s_project_card],
       ["304", z.undefined()],
@@ -54600,12 +54661,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.get(
-    "projectsGetCard",
+    "projectsClassicGetCard",
     "/projects/columns/cards/:card_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsGetCardParamSchema,
+          projectsClassicGetCardParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -54636,7 +54697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsGetCard(input, responder, ctx, next)
+        .projectsClassicGetCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -54649,22 +54710,24 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsGetCardResponseValidator(status, body)
+      ctx.body = projectsClassicGetCardResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsUpdateCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicUpdateCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsUpdateCardBodySchema = z
+  const projectsClassicUpdateCardBodySchema = z
     .object({
       note: z.string().nullable().optional(),
       archived: PermissiveBoolean.optional(),
     })
     .optional()
 
-  const projectsUpdateCardResponseValidator = responseValidationFactory(
+  const projectsClassicUpdateCardResponseValidator = responseValidationFactory(
     [
       ["200", s_project_card],
       ["304", z.undefined()],
@@ -54677,18 +54740,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.patch(
-    "projectsUpdateCard",
+    "projectsClassicUpdateCard",
     "/projects/columns/cards/:card_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsUpdateCardParamSchema,
+          projectsClassicUpdateCardParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsUpdateCardBodySchema,
+          projectsClassicUpdateCardBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54720,7 +54783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsUpdateCard(input, responder, ctx, next)
+        .projectsClassicUpdateCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -54733,15 +54796,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsUpdateCardResponseValidator(status, body)
+      ctx.body = projectsClassicUpdateCardResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsDeleteCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicDeleteCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsDeleteCardResponseValidator = responseValidationFactory(
+  const projectsClassicDeleteCardResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
       ["304", z.undefined()],
@@ -54760,12 +54825,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.delete(
-    "projectsDeleteCard",
+    "projectsClassicDeleteCard",
     "/projects/columns/cards/:card_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsDeleteCardParamSchema,
+          projectsClassicDeleteCardParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -54800,7 +54865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsDeleteCard(input, responder, ctx, next)
+        .projectsClassicDeleteCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -54813,20 +54878,22 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsDeleteCardResponseValidator(status, body)
+      ctx.body = projectsClassicDeleteCardResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsMoveCardParamSchema = z.object({card_id: z.coerce.number()})
+  const projectsClassicMoveCardParamSchema = z.object({
+    card_id: z.coerce.number(),
+  })
 
-  const projectsMoveCardBodySchema = z.object({
+  const projectsClassicMoveCardBodySchema = z.object({
     position: z.string().regex(new RegExp("^(?:top|bottom|after:\\d+)$")),
     column_id: z.coerce.number().optional(),
   })
 
-  const projectsMoveCardResponseValidator = responseValidationFactory(
+  const projectsClassicMoveCardResponseValidator = responseValidationFactory(
     [
       ["201", z.object({})],
       ["304", z.undefined()],
@@ -54870,18 +54937,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.post(
-    "projectsMoveCard",
+    "projectsClassicMoveCard",
     "/projects/columns/cards/:card_id/moves",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsMoveCardParamSchema,
+          projectsClassicMoveCardParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsMoveCardBodySchema,
+          projectsClassicMoveCardBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -54930,7 +54997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsMoveCard(input, responder, ctx, next)
+        .projectsClassicMoveCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -54943,15 +55010,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsMoveCardResponseValidator(status, body)
+      ctx.body = projectsClassicMoveCardResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsGetColumnParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicGetColumnParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsGetColumnResponseValidator = responseValidationFactory(
+  const projectsClassicGetColumnResponseValidator = responseValidationFactory(
     [
       ["200", s_project_column],
       ["304", z.undefined()],
@@ -54963,12 +55032,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.get(
-    "projectsGetColumn",
+    "projectsClassicGetColumn",
     "/projects/columns/:column_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsGetColumnParamSchema,
+          projectsClassicGetColumnParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -54999,7 +55068,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsGetColumn(input, responder, ctx, next)
+        .projectsClassicGetColumn(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55012,41 +55081,42 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsGetColumnResponseValidator(status, body)
+      ctx.body = projectsClassicGetColumnResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsUpdateColumnParamSchema = z.object({
+  const projectsClassicUpdateColumnParamSchema = z.object({
     column_id: z.coerce.number(),
   })
 
-  const projectsUpdateColumnBodySchema = z.object({name: z.string()})
+  const projectsClassicUpdateColumnBodySchema = z.object({name: z.string()})
 
-  const projectsUpdateColumnResponseValidator = responseValidationFactory(
-    [
-      ["200", s_project_column],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicUpdateColumnResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_project_column],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
 
   router.patch(
-    "projectsUpdateColumn",
+    "projectsClassicUpdateColumn",
     "/projects/columns/:column_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsUpdateColumnParamSchema,
+          projectsClassicUpdateColumnParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsUpdateColumnBodySchema,
+          projectsClassicUpdateColumnBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55072,7 +55142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsUpdateColumn(input, responder, ctx, next)
+        .projectsClassicUpdateColumn(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55085,33 +55155,34 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsUpdateColumnResponseValidator(status, body)
+      ctx.body = projectsClassicUpdateColumnResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsDeleteColumnParamSchema = z.object({
+  const projectsClassicDeleteColumnParamSchema = z.object({
     column_id: z.coerce.number(),
   })
 
-  const projectsDeleteColumnResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-    ],
-    undefined,
-  )
+  const projectsClassicDeleteColumnResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+      ],
+      undefined,
+    )
 
   router.delete(
-    "projectsDeleteColumn",
+    "projectsClassicDeleteColumn",
     "/projects/columns/:column_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsDeleteColumnParamSchema,
+          projectsClassicDeleteColumnParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -55139,7 +55210,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsDeleteColumn(input, responder, ctx, next)
+        .projectsClassicDeleteColumn(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55152,15 +55223,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsDeleteColumnResponseValidator(status, body)
+      ctx.body = projectsClassicDeleteColumnResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsListCardsParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicListCardsParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsListCardsQuerySchema = z.object({
+  const projectsClassicListCardsQuerySchema = z.object({
     archived_state: z
       .enum(["all", "archived", "not_archived"])
       .optional()
@@ -55169,7 +55242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListCardsResponseValidator = responseValidationFactory(
+  const projectsClassicListCardsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project_card)],
       ["304", z.undefined()],
@@ -55180,17 +55253,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.get(
-    "projectsListCards",
+    "projectsClassicListCards",
     "/projects/columns/:column_id/cards",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsListCardsParamSchema,
+          projectsClassicListCardsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsListCardsQuerySchema,
+          projectsClassicListCardsQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -55217,7 +55290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsListCards(input, responder, ctx, next)
+        .projectsClassicListCards(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55230,20 +55303,22 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsListCardsResponseValidator(status, body)
+      ctx.body = projectsClassicListCardsResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsCreateCardParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicCreateCardParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsCreateCardBodySchema = z.union([
+  const projectsClassicCreateCardBodySchema = z.union([
     z.object({note: z.string().nullable()}),
     z.object({content_id: z.coerce.number(), content_type: z.string()}),
   ])
 
-  const projectsCreateCardResponseValidator = responseValidationFactory(
+  const projectsClassicCreateCardResponseValidator = responseValidationFactory(
     [
       ["201", s_project_card],
       ["304", z.undefined()],
@@ -55271,18 +55346,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.post(
-    "projectsCreateCard",
+    "projectsClassicCreateCard",
     "/projects/columns/:column_id/cards",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsCreateCardParamSchema,
+          projectsClassicCreateCardParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsCreateCardBodySchema,
+          projectsClassicCreateCardBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55324,7 +55399,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsCreateCard(input, responder, ctx, next)
+        .projectsClassicCreateCard(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55337,19 +55412,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsCreateCardResponseValidator(status, body)
+      ctx.body = projectsClassicCreateCardResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsMoveColumnParamSchema = z.object({column_id: z.coerce.number()})
+  const projectsClassicMoveColumnParamSchema = z.object({
+    column_id: z.coerce.number(),
+  })
 
-  const projectsMoveColumnBodySchema = z.object({
+  const projectsClassicMoveColumnBodySchema = z.object({
     position: z.string().regex(new RegExp("^(?:first|last|after:\\d+)$")),
   })
 
-  const projectsMoveColumnResponseValidator = responseValidationFactory(
+  const projectsClassicMoveColumnResponseValidator = responseValidationFactory(
     [
       ["201", z.object({})],
       ["304", z.undefined()],
@@ -55361,18 +55438,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.post(
-    "projectsMoveColumn",
+    "projectsClassicMoveColumn",
     "/projects/columns/:column_id/moves",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsMoveColumnParamSchema,
+          projectsClassicMoveColumnParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsMoveColumnBodySchema,
+          projectsClassicMoveColumnBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55401,7 +55478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsMoveColumn(input, responder, ctx, next)
+        .projectsClassicMoveColumn(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55414,15 +55491,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsMoveColumnResponseValidator(status, body)
+      ctx.body = projectsClassicMoveColumnResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsGetParamSchema = z.object({project_id: z.coerce.number()})
+  const projectsClassicGetParamSchema = z.object({
+    project_id: z.coerce.number(),
+  })
 
-  const projectsGetResponseValidator = responseValidationFactory(
+  const projectsClassicGetResponseValidator = responseValidationFactory(
     [
       ["200", s_project],
       ["304", z.undefined()],
@@ -55432,58 +55511,64 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.get("projectsGet", "/projects/:project_id", async (ctx, next) => {
-    const input = {
-      params: parseRequestInput(
-        projectsGetParamSchema,
-        ctx.params,
-        RequestInputType.RouteParam,
-      ),
-      query: undefined,
-      body: undefined,
-      headers: undefined,
-    }
+  router.get(
+    "projectsClassicGet",
+    "/projects/:project_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          projectsClassicGetParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_project>(200)
-      },
-      with304() {
-        return new KoaRuntimeResponse<void>(304)
-      },
-      with401() {
-        return new KoaRuntimeResponse<t_basic_error>(401)
-      },
-      with403() {
-        return new KoaRuntimeResponse<t_basic_error>(403)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_project>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
 
-    const response = await implementation
-      .projectsGet(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
+      const response = await implementation
+        .projectsClassicGet(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = projectsGetResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      ctx.body = projectsClassicGetResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const projectsClassicUpdateParamSchema = z.object({
+    project_id: z.coerce.number(),
   })
 
-  const projectsUpdateParamSchema = z.object({project_id: z.coerce.number()})
-
-  const projectsUpdateBodySchema = z
+  const projectsClassicUpdateBodySchema = z
     .object({
       name: z.string().optional(),
       body: z.string().nullable().optional(),
@@ -55495,7 +55580,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     })
     .optional()
 
-  const projectsUpdateResponseValidator = responseValidationFactory(
+  const projectsClassicUpdateResponseValidator = responseValidationFactory(
     [
       ["200", s_project],
       ["304", z.undefined()],
@@ -55515,75 +55600,81 @@ export function createRouter(implementation: Implementation): KoaRouter {
     undefined,
   )
 
-  router.patch("projectsUpdate", "/projects/:project_id", async (ctx, next) => {
-    const input = {
-      params: parseRequestInput(
-        projectsUpdateParamSchema,
-        ctx.params,
-        RequestInputType.RouteParam,
-      ),
-      query: undefined,
-      body: parseRequestInput(
-        projectsUpdateBodySchema,
-        Reflect.get(ctx.request, "body"),
-        RequestInputType.RequestBody,
-      ),
-      headers: undefined,
-    }
+  router.patch(
+    "projectsClassicUpdate",
+    "/projects/:project_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          projectsClassicUpdateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          projectsClassicUpdateBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_project>(200)
-      },
-      with304() {
-        return new KoaRuntimeResponse<void>(304)
-      },
-      with401() {
-        return new KoaRuntimeResponse<t_basic_error>(401)
-      },
-      with403() {
-        return new KoaRuntimeResponse<{
-          documentation_url?: string
-          errors?: string[]
-          message?: string
-        }>(403)
-      },
-      with404() {
-        return new KoaRuntimeResponse<void>(404)
-      },
-      with410() {
-        return new KoaRuntimeResponse<t_basic_error>(410)
-      },
-      with422() {
-        return new KoaRuntimeResponse<t_validation_error_simple>(422)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_project>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<{
+            documentation_url?: string
+            errors?: string[]
+            message?: string
+          }>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
 
-    const response = await implementation
-      .projectsUpdate(input, responder, ctx, next)
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
+      const response = await implementation
+        .projectsClassicUpdate(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
 
-    // escape hatch to allow responses to be sent by the implementation handler
-    if (response === SkipResponse) {
-      return
-    }
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
 
-    const {status, body} =
-      response instanceof KoaRuntimeResponse ? response.unpack() : response
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = projectsUpdateResponseValidator(status, body)
-    ctx.status = status
-    return next()
+      ctx.body = projectsClassicUpdateResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const projectsClassicDeleteParamSchema = z.object({
+    project_id: z.coerce.number(),
   })
 
-  const projectsDeleteParamSchema = z.object({project_id: z.coerce.number()})
-
-  const projectsDeleteResponseValidator = responseValidationFactory(
+  const projectsClassicDeleteResponseValidator = responseValidationFactory(
     [
       ["204", z.undefined()],
       ["304", z.undefined()],
@@ -55603,12 +55694,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.delete(
-    "projectsDelete",
+    "projectsClassicDelete",
     "/projects/:project_id",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsDeleteParamSchema,
+          projectsClassicDeleteParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -55646,7 +55737,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsDelete(input, responder, ctx, next)
+        .projectsClassicDelete(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55659,46 +55750,47 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsDeleteResponseValidator(status, body)
+      ctx.body = projectsClassicDeleteResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsListCollaboratorsParamSchema = z.object({
+  const projectsClassicListCollaboratorsParamSchema = z.object({
     project_id: z.coerce.number(),
   })
 
-  const projectsListCollaboratorsQuerySchema = z.object({
+  const projectsClassicListCollaboratorsQuerySchema = z.object({
     affiliation: z.enum(["outside", "direct", "all"]).optional().default("all"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListCollaboratorsResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_simple_user)],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-    ],
-    undefined,
-  )
+  const projectsClassicListCollaboratorsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_simple_user)],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
 
   router.get(
-    "projectsListCollaborators",
+    "projectsClassicListCollaborators",
     "/projects/:project_id/collaborators",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsListCollaboratorsParamSchema,
+          projectsClassicListCollaboratorsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsListCollaboratorsQuerySchema,
+          projectsClassicListCollaboratorsQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -55731,7 +55823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsListCollaborators(input, responder, ctx, next)
+        .projectsClassicListCollaborators(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55744,18 +55836,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsListCollaboratorsResponseValidator(status, body)
+      ctx.body = projectsClassicListCollaboratorsResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsAddCollaboratorParamSchema = z.object({
+  const projectsClassicAddCollaboratorParamSchema = z.object({
     project_id: z.coerce.number(),
     username: z.string(),
   })
 
-  const projectsAddCollaboratorBodySchema = z
+  const projectsClassicAddCollaboratorBodySchema = z
     .object({
       permission: z
         .enum(["read", "write", "admin"])
@@ -55765,31 +55857,32 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .nullable()
     .optional()
 
-  const projectsAddCollaboratorResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-    ],
-    undefined,
-  )
+  const projectsClassicAddCollaboratorResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
 
   router.put(
-    "projectsAddCollaborator",
+    "projectsClassicAddCollaborator",
     "/projects/:project_id/collaborators/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsAddCollaboratorParamSchema,
+          projectsClassicAddCollaboratorParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsAddCollaboratorBodySchema,
+          projectsClassicAddCollaboratorBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -55821,7 +55914,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsAddCollaborator(input, responder, ctx, next)
+        .projectsClassicAddCollaborator(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55834,36 +55927,37 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsAddCollaboratorResponseValidator(status, body)
+      ctx.body = projectsClassicAddCollaboratorResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsRemoveCollaboratorParamSchema = z.object({
+  const projectsClassicRemoveCollaboratorParamSchema = z.object({
     project_id: z.coerce.number(),
     username: z.string(),
   })
 
-  const projectsRemoveCollaboratorResponseValidator = responseValidationFactory(
-    [
-      ["204", z.undefined()],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["422", s_validation_error],
-    ],
-    undefined,
-  )
+  const projectsClassicRemoveCollaboratorResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_validation_error],
+      ],
+      undefined,
+    )
 
   router.delete(
-    "projectsRemoveCollaborator",
+    "projectsClassicRemoveCollaborator",
     "/projects/:project_id/collaborators/:username",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsRemoveCollaboratorParamSchema,
+          projectsClassicRemoveCollaboratorParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -55897,7 +55991,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsRemoveCollaborator(input, responder, ctx, next)
+        .projectsClassicRemoveCollaborator(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55910,18 +56004,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsRemoveCollaboratorResponseValidator(status, body)
+      ctx.body = projectsClassicRemoveCollaboratorResponseValidator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
   )
 
-  const projectsGetPermissionForUserParamSchema = z.object({
+  const projectsClassicGetPermissionForUserParamSchema = z.object({
     project_id: z.coerce.number(),
     username: z.string(),
   })
 
-  const projectsGetPermissionForUserResponseValidator =
+  const projectsClassicGetPermissionForUserResponseValidator =
     responseValidationFactory(
       [
         ["200", s_project_collaborator_permission],
@@ -55935,12 +56032,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     )
 
   router.get(
-    "projectsGetPermissionForUser",
+    "projectsClassicGetPermissionForUser",
     "/projects/:project_id/collaborators/:username/permission",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsGetPermissionForUserParamSchema,
+          projectsClassicGetPermissionForUserParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
@@ -55974,7 +56071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsGetPermissionForUser(input, responder, ctx, next)
+        .projectsClassicGetPermissionForUser(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -55987,22 +56084,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsGetPermissionForUserResponseValidator(status, body)
+      ctx.body = projectsClassicGetPermissionForUserResponseValidator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },
   )
 
-  const projectsListColumnsParamSchema = z.object({
+  const projectsClassicListColumnsParamSchema = z.object({
     project_id: z.coerce.number(),
   })
 
-  const projectsListColumnsQuerySchema = z.object({
+  const projectsClassicListColumnsQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListColumnsResponseValidator = responseValidationFactory(
+  const projectsClassicListColumnsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project_column)],
       ["304", z.undefined()],
@@ -56013,17 +56113,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.get(
-    "projectsListColumns",
+    "projectsClassicListColumns",
     "/projects/:project_id/columns",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsListColumnsParamSchema,
+          projectsClassicListColumnsParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsListColumnsQuerySchema,
+          projectsClassicListColumnsQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -56050,7 +56150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsListColumns(input, responder, ctx, next)
+        .projectsClassicListColumns(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56063,42 +56163,43 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsListColumnsResponseValidator(status, body)
+      ctx.body = projectsClassicListColumnsResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsCreateColumnParamSchema = z.object({
+  const projectsClassicCreateColumnParamSchema = z.object({
     project_id: z.coerce.number(),
   })
 
-  const projectsCreateColumnBodySchema = z.object({name: z.string()})
+  const projectsClassicCreateColumnBodySchema = z.object({name: z.string()})
 
-  const projectsCreateColumnResponseValidator = responseValidationFactory(
-    [
-      ["201", s_project_column],
-      ["304", z.undefined()],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicCreateColumnResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_project_column],
+        ["304", z.undefined()],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
   router.post(
-    "projectsCreateColumn",
+    "projectsClassicCreateColumn",
     "/projects/:project_id/columns",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsCreateColumnParamSchema,
+          projectsClassicCreateColumnParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsCreateColumnBodySchema,
+          projectsClassicCreateColumnBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -56127,7 +56228,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsCreateColumn(input, responder, ctx, next)
+        .projectsClassicCreateColumn(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -56140,7 +56241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsCreateColumnResponseValidator(status, body)
+      ctx.body = projectsClassicCreateColumnResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -77013,7 +77114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       assignee: z.string().nullable().optional(),
       state: z.enum(["open", "closed"]).optional(),
       state_reason: z
-        .enum(["completed", "not_planned", "reopened"])
+        .enum(["completed", "not_planned", "duplicate", "reopened"])
         .nullable()
         .optional(),
       milestone: z.union([z.string(), z.coerce.number()]).nullable().optional(),
@@ -81106,18 +81207,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsListForRepoParamSchema = z.object({
+  const projectsClassicListForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
   })
 
-  const projectsListForRepoQuerySchema = z.object({
+  const projectsClassicListForRepoQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional().default("open"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListForRepoResponseValidator = responseValidationFactory(
+  const projectsClassicListForRepoResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project)],
       ["401", s_basic_error],
@@ -81130,17 +81231,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.get(
-    "projectsListForRepo",
+    "projectsClassicListForRepo",
     "/repos/:owner/:repo/projects",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsListForRepoParamSchema,
+          projectsClassicListForRepoParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsListForRepoQuerySchema,
+          projectsClassicListForRepoQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -81173,7 +81274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsListForRepo(input, responder, ctx, next)
+        .projectsClassicListForRepo(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -81186,47 +81287,48 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsListForRepoResponseValidator(status, body)
+      ctx.body = projectsClassicListForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
     },
   )
 
-  const projectsCreateForRepoParamSchema = z.object({
+  const projectsClassicCreateForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
   })
 
-  const projectsCreateForRepoBodySchema = z.object({
+  const projectsClassicCreateForRepoBodySchema = z.object({
     name: z.string(),
     body: z.string().optional(),
   })
 
-  const projectsCreateForRepoResponseValidator = responseValidationFactory(
-    [
-      ["201", s_project],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["410", s_basic_error],
-      ["422", s_validation_error_simple],
-    ],
-    undefined,
-  )
+  const projectsClassicCreateForRepoResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_project],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["410", s_basic_error],
+        ["422", s_validation_error_simple],
+      ],
+      undefined,
+    )
 
   router.post(
-    "projectsCreateForRepo",
+    "projectsClassicCreateForRepo",
     "/repos/:owner/:repo/projects",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsCreateForRepoParamSchema,
+          projectsClassicCreateForRepoParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: undefined,
         body: parseRequestInput(
-          projectsCreateForRepoBodySchema,
+          projectsClassicCreateForRepoBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -81258,7 +81360,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsCreateForRepo(input, responder, ctx, next)
+        .projectsClassicCreateForRepo(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -81271,7 +81373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsCreateForRepoResponseValidator(status, body)
+      ctx.body = projectsClassicCreateForRepoResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -97088,12 +97190,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsCreateForAuthenticatedUserBodySchema = z.object({
+  const projectsClassicCreateForAuthenticatedUserBodySchema = z.object({
     name: z.string(),
     body: z.string().nullable().optional(),
   })
 
-  const projectsCreateForAuthenticatedUserResponseValidator =
+  const projectsClassicCreateForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
         ["201", s_project],
@@ -97106,14 +97208,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     )
 
   router.post(
-    "projectsCreateForAuthenticatedUser",
+    "projectsClassicCreateForAuthenticatedUser",
     "/user/projects",
     async (ctx, next) => {
       const input = {
         params: undefined,
         query: undefined,
         body: parseRequestInput(
-          projectsCreateForAuthenticatedUserBodySchema,
+          projectsClassicCreateForAuthenticatedUserBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
@@ -97142,7 +97244,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsCreateForAuthenticatedUser(input, responder, ctx, next)
+        .projectsClassicCreateForAuthenticatedUser(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -97155,7 +97257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsCreateForAuthenticatedUserResponseValidator(
+      ctx.body = projectsClassicCreateForAuthenticatedUserResponseValidator(
         status,
         body,
       )
@@ -100725,15 +100827,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const projectsListForUserParamSchema = z.object({username: z.string()})
+  const projectsClassicListForUserParamSchema = z.object({username: z.string()})
 
-  const projectsListForUserQuerySchema = z.object({
+  const projectsClassicListForUserQuerySchema = z.object({
     state: z.enum(["open", "closed", "all"]).optional().default("open"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
 
-  const projectsListForUserResponseValidator = responseValidationFactory(
+  const projectsClassicListForUserResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_project)],
       ["422", s_validation_error],
@@ -100742,17 +100844,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   router.get(
-    "projectsListForUser",
+    "projectsClassicListForUser",
     "/users/:username/projects",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          projectsListForUserParamSchema,
+          projectsClassicListForUserParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          projectsListForUserQuerySchema,
+          projectsClassicListForUserQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -100773,7 +100875,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .projectsListForUser(input, responder, ctx, next)
+        .projectsClassicListForUser(input, responder, ctx, next)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -100786,7 +100888,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const {status, body} =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = projectsListForUserResponseValidator(status, body)
+      ctx.body = projectsClassicListForUserResponseValidator(status, body)
       ctx.status = status
       return next()
     },
