@@ -7,8 +7,8 @@
 `@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
 and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
 
-Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/),
-and [TypeSpec](https://typespec.io/) are supported an input specifications.
+Currently, [OpenAPI 3.0.x](https://spec.openapis.org/oas/v3.0.4.html), [OpenAPI 3.1.x](https://spec.openapis.org/oas/v3.1.1.html),
+and [TypeSpec](https://typespec.io/) are supported as input specifications.
 
 <!-- toc -->
 
@@ -34,7 +34,7 @@ for handwritten release notes, or [CHANGELOG.md](https://github.com/mnahkies/ope
 This project is still in beta, and breaking changes are still likely to be made before moving to v1.
 However, these are considered thoughtfully and we aim to minimise disruption.
 
-In general what is implemented works well, but there are still parts of the OpenAPI specification that
+In general, what is implemented works well, but there are still parts of the OpenAPI specification that
 haven't been implemented, so YMMV.
 
 ## More information / contributing

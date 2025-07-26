@@ -120,6 +120,7 @@
     "openapi",
     "openapi3",
     "typespec",
+    "swagger",
     "typescript",
     "zod",
     "api",
