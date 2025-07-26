@@ -396,7 +396,7 @@ describe.each(startServerFunctions)(
         })
 
         expect(res.status).toBe(200)
-        await expect(res.data).toBe("Some plain text")
+        expect(res.data).toBe("Some plain text")
       })
     })
 
@@ -415,7 +415,7 @@ describe.each(startServerFunctions)(
           requestBody: productOrder,
         })
         expect(res.status).toBe(200)
-        await expect(res.data).toStrictEqual(productOrder)
+        expect(res.data).toStrictEqual(productOrder)
       })
     })
   },

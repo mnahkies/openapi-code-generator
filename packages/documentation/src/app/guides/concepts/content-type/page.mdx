@@ -1,0 +1,97 @@
+---
+title: Content-Type
+description: Understand which `Content-Type` are supported by the different code generation templates.
+---
+
+# Content-Type
+
+Content type refers to the media type used for request and response bodies. This page outlines which are
+currently supported by the code generator and any further considerations.
+
+## `application/json`
+
+| Template           | Supported | Notes |
+|:-------------------|:---------:|------:|
+| typescript-angular |     ✅     |       |
+| typescript-axios   |     ✅     |       |
+| typescript-express |     ✅     |       |
+| typescript-fetch   |     ✅     |       |
+| typescript-koa     |     ✅     |       |
+
+The code generation works best with JSON content right now. It can be considered fully supported
+across both requests and responses.
+
+Additionally, specialized JSON `Content-Type` are supported such as `application/merge-patch+json`
+and `application/scim+json`, and the clients will send the exact `Content-Type` as defined in your
+openapi specification.
+
+Eg: if `application/json;okta-version=1.0.0` is defined as the request body media type, this exact
+string will be sent to the server in the `Content-Type` header.
+
+## `application/x-www-form-urlencoded`
+
+| Template           | Supported |                                           Notes |
+|:-------------------|:---------:|------------------------------------------------:|
+| typescript-angular |    🚫     |                                                 |
+| typescript-axios   |     ✅     |                                                 |
+| typescript-express |    🚧     | Encoding (`style`/`explode`) currently ignored. |
+| typescript-fetch   |     ✅     |                                                 |
+| typescript-koa     |    🚧     | Encoding (`style`/`explode`) currently ignored. |
+
+There is fairly good support for form data requests across the client and server templates. The clients support,
+and respect `encoding` such that you can customize the serialization of nested objects and arrays.
+
+However, to quote [whatwg](https://url.spec.whatwg.org/#application/x-www-form-urlencoded):
+
+> The application/x-www-form-urlencoded format is in many ways an aberrant monstrosity, the result of many years
+> of implementation accidents and compromises leading to a set of requirements necessary for interoperability,
+> but in no way representing good design practices.
+
+It's a format rife with issues, and undefined behavior. It's strongly recommended that you use `application/json`
+instead where possible, and limit the usage of `application/x-www-form-urlencoded` to endpoints that are handling
+plain html forum submissions, with a flat schema structure. This should largely avoid the undefined behavior.
+
+See the test suite at [url-search-param.spec.ts](https://github.com/mnahkies/openapi-code-generator/blob/main/packages/typescript-fetch-runtime/src/request-bodies/url-search-param.spec.ts)
+for details of how the `style` and `explode` properties of encoding impact serialization of request bodies in the client templates.
+
+Briefly:
+- [RFC 1866 8.2.1.](https://www.rfc-editor.org/rfc/rfc1866#section-8.2) is strictly followed,
+  meaning all non-alphanumeric characters are percent-encoded, always. Including `[]` and `:`.
+  Spaces are special cased and converted to `+`
+- `style: deepObject` with `explode: true` encoding aligns to the way the Stripe API and [JSON API](https://jsonapi.org/recommendations/#filtering) work.
+  Namely using `[]` to represent sub-paths. Eg: `{"foo": {"bar": {"baz": true}}}` becomes `foo[bar][baz]=true` (with percent-encoding applied)
+
+## `text/plain`
+
+| Template           | Supported |                                                               Notes |
+|:-------------------|:---------:|--------------------------------------------------------------------:|
+| typescript-angular |    🚫     |                                                                     |
+| typescript-axios   |     ✅     |                                                                     |
+| typescript-express |    🚧     | Supported for request bodies, responses require use of escape-hatch |
+| typescript-fetch   |     ✅     |                                                                     |
+| typescript-koa     |    🚧     | Supported for request bodies, responses require use of escape-hatch |
+
+Plain text requests and responses are fully supported by the client templates, and partially supported
+by the server templates. Full support is expected to land soon.
+
+## `multipart/form-data`
+
+🚫 Not yet supported. Coming soon.
+
+## `application/octet-stream`
+
+🚫 Not yet supported. Coming soon.
+
+## Selecting between multiple possible `Content-Type`
+
+It's possible for endpoints to define multiple acceptable `Content-Type` for their request bodies, and responses.
+
+Currently, the code generation does not support selecting between these at runtime, but rather picks the best supported
+one and generates code for that.
+
+Its planned to improve this in future, by using the `Accept` header for true content negotiation across all supported
+media types, and some way to qualify the content type of the request body when making client calls.
+
+## Other formats
+
+Is there another format you'd like to see supported? Open an [issue over on github](https://github.com/mnahkies/openapi-code-generator/issues) and it will be considered.
