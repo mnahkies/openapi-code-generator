@@ -158,6 +158,7 @@ function serializerForNormalizedContentType(contentType: string): Serializer {
   switch (contentType) {
     case "application/json":
     case "text/json":
+    case "application/scim+json":
     case "application/merge-patch+json":
       return "JSON.stringify"
 
