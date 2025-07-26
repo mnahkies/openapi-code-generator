@@ -4,10 +4,22 @@ import {
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
+  type PostValidationOptionalBody,
 } from "../../generated/server/koa/routes/validation"
 
 const postValidationEnums: PostValidationEnums = async ({body}, respond) => {
   return respond.with200().body(body)
+}
+
+const postValidationOptionalBody: PostValidationOptionalBody = async (
+  {body},
+  respond,
+) => {
+  if (body) {
+    return respond.with200().body(body)
+  } else {
+    return respond.with204()
+  }
 }
 
 const getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber =
@@ -49,6 +61,7 @@ const getResponses500: GetResponses500 = async () => {
 export function createValidationRouter() {
   return createRouter({
     postValidationEnums,
+    postValidationOptionalBody,
     getValidationNumbersRandomNumber,
     getResponsesEmpty,
     getResponses500,

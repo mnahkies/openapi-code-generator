@@ -40,6 +40,39 @@ export type t_ApplicationType =
   | "web"
   | UnknownEnumStringValue
 
+export type t_AuthorizeWithPost = {
+  acr_values?: (t_AcrValue & string) | undefined
+  client_id: string
+  code_challenge?: string | undefined
+  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
+  display?: string | undefined
+  enroll_amr_values?: (t_AmrValue & string) | undefined
+  idp?: string | undefined
+  idp_scope?: string | undefined
+  login_hint?: string | undefined
+  max_age?: number | undefined
+  nonce?: string | undefined
+  prompt?: (t_Prompt & string) | undefined
+  redirect_uri: string
+  request?: string | undefined
+  request_uri?: string | undefined
+  response_mode?: (t_ResponseMode & string) | undefined
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string | undefined
+  state: string
+}
+
+export type t_BackchannelAuthorizeRequest = {
+  binding_message?: string | undefined
+  id_token_hint: string
+  login_hint: string
+  request?: string | undefined
+  request_expiry?: number | undefined
+  scope: string
+  [key: string]: unknown | undefined
+}
+
 export type t_BackchannelAuthorizeResponse = {
   auth_req_id?: string | undefined
   expires_in?: number | undefined
@@ -52,6 +85,12 @@ export type t_BindingMethod =
   | "transfer"
   | UnknownEnumStringValue
 
+export type t_ChallengeRequest = {
+  challenge_types_supported?: t_ChallengeType[] | undefined
+  channel_hint?: t_Channel | undefined
+  mfa_token: string
+}
+
 export type t_ChallengeResponse = {
   binding_code?: string | undefined
   binding_method?: t_BindingMethod | undefined
@@ -61,6 +100,11 @@ export type t_ChallengeResponse = {
   interval?: number | undefined
   oob_code?: string | undefined
 }
+
+export type t_ChallengeType =
+  | "http://auth0.com/oauth/grant-type/mfa-oob"
+  | "http://auth0.com/oauth/grant-type/mfa-otp"
+  | UnknownEnumStringValue
 
 export type t_Channel = "push" | "sms" | "voice" | UnknownEnumStringValue
 
@@ -94,6 +138,11 @@ export type t_Client = {
 }
 
 export type t_CodeChallengeMethod = "S256" | UnknownEnumStringValue
+
+export type t_DeviceAuthorizeRequest = {
+  client_id?: string | undefined
+  scope?: string | undefined
+}
 
 export type t_DeviceAuthorizeResponse = {
   device_code?: string | undefined
@@ -146,6 +195,11 @@ export type t_GrantType =
   | "http://auth0.com/oauth/grant-type/mfa-oob"
   | UnknownEnumStringValue
 
+export type t_IntrospectionRequest = {
+  token?: string | undefined
+  token_type_hint?: t_TokenTypeHintIntrospect | undefined
+}
+
 export type t_IntrospectionResponse = {
   active?: boolean | undefined
   aud?: string | undefined
@@ -177,6 +231,12 @@ export type t_JsonWebKeyStatus = "ACTIVE" | "INACTIVE" | UnknownEnumStringValue
 export type t_JsonWebKeyType = "EC" | "RSA" | UnknownEnumStringValue
 
 export type t_JsonWebKeyUse = "enc" | "sig" | UnknownEnumStringValue
+
+export type t_LogoutWithPost = {
+  id_token_hint: string
+  post_logout_redirect_uri?: string | undefined
+  state?: string | undefined
+}
 
 export type t_OAuthError = {
   error?: string | undefined
@@ -234,6 +294,11 @@ export type t_OAuthMetadata = {
 export type t_OidcMetadata = t_OAuthMetadata & {
   id_token_signing_alg_values_supported?: t_SigningAlgorithm[] | undefined
   userinfo_endpoint?: string | undefined
+}
+
+export type t_OobAuthenticateRequest = {
+  channel_hint: t_Channel
+  login_hint: string
 }
 
 export type t_OobAuthenticateResponse = {
@@ -325,6 +390,10 @@ export type t_SubjectType = "pairwise" | "public" | UnknownEnumStringValue
 
 export type t_TokenDeliveryMode = "poll" | UnknownEnumStringValue
 
+export type t_TokenRequest = {
+  grant_type?: t_GrantType | undefined
+}
+
 export type t_TokenResponse = {
   access_token?: string | undefined
   device_secret?: string | undefined
@@ -347,6 +416,13 @@ export type t_TokenType =
   | "urn:ietf:params:oauth:token-type:saml2"
   | "urn:okta:oauth:token-type:web_sso_token"
   | "urn:x-oath:params:oauth:token-type:device-secret"
+  | UnknownEnumStringValue
+
+export type t_TokenTypeHintIntrospect =
+  | "access_token"
+  | "device_secret"
+  | "id_token"
+  | "refresh_token"
   | UnknownEnumStringValue
 
 export type t_TokenTypeHintRevoke =

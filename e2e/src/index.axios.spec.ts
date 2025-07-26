@@ -1,8 +1,8 @@
 import type {Server} from "node:http"
 import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
 import type {AxiosError} from "axios"
-import {ApiClient} from "./generated/client/axios/client"
-import {E2ETestClientServers} from "./generated/client/fetch/client"
+import {ApiClient, E2ETestClientServers} from "./generated/client/axios/client"
+import type {t_ProductOrder} from "./generated/client/axios/models"
 import {startServerFunctions} from "./index"
 import {numberBetween} from "./test-utils"
 
@@ -331,11 +331,32 @@ describe.each(startServerFunctions)(
       // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
     })
 
+    describe("POST /validation/optional-body", () => {
+      it("should send and accept the body if passed", async () => {
+        const res = await client.postValidationOptionalBody({
+          requestBody: {id: "123"},
+        })
+
+        expect(res.status).toBe(200)
+        expect(res.data).toMatchObject({id: "123"})
+      })
+      // TODO: axios' default response parsing doesn't handle endpoints that return optional responses well
+      //       probably need to implement our own transformResponse function that is aware of the expected
+      //       status code / content-types and parses appropriately, or uses the content-type response header.
+      it.skip("should omit the body if not passed", async () => {
+        const res = await client.postValidationOptionalBody()
+
+        expect(res.data).toEqual(undefined)
+        expect(res.status).toBe(204)
+      })
+    })
+
     describe("GET /responses/empty", () => {
       it("returns undefined", async () => {
         const {status, data} = await client.getResponsesEmpty()
 
         expect(status).toBe(204)
+        // TODO: this should really be undefined
         expect(data).toEqual("")
       })
     })
@@ -369,13 +390,32 @@ describe.each(startServerFunctions)(
     })
 
     describe("POST /media-types/text", () => {
-      it("can do use text/plain", async () => {
+      it("can send and parse text/plain request bodies", async () => {
         const res = await client.postMediaTypesText({
           requestBody: "Some plain text",
         })
 
         expect(res.status).toBe(200)
-        await expect(res.data).toBe("Some plain text")
+        expect(res.data).toBe("Some plain text")
+      })
+    })
+
+    describe("POST /media-types/x-www-form-urlencoded", () => {
+      it("can send and parse application/x-www-form-urlencoded request bodies", async () => {
+        const productOrder = {
+          sku: "sku_123",
+          quantity: 2,
+          address: {
+            address1: "Green Park",
+            postcode: "SW1A 1AA",
+          },
+        } satisfies t_ProductOrder
+
+        const res = await client.postMediaTypesXWwwFormUrlencoded({
+          requestBody: productOrder,
+        })
+        expect(res.status).toBe(200)
+        expect(res.data).toStrictEqual(productOrder)
       })
     })
   },

@@ -6,6 +6,10 @@ import axios, {
   type RawAxiosRequestHeaders,
 } from "axios"
 import qs from "qs"
+import {
+  type Encoding,
+  requestBodyToUrlSearchParams,
+} from "./request-bodies/url-search-params"
 
 export type QueryParams = {
   [name: string]:
@@ -108,6 +112,13 @@ export abstract class AbstractAxiosClient {
     this.setHeaders(headers, optsHeaders)
 
     return headers
+  }
+
+  protected _requestBodyToUrlSearchParams(
+    obj: Record<string, unknown>,
+    encoding: Record<string, Encoding> = {},
+  ): URLSearchParams {
+    return requestBodyToUrlSearchParams(obj, encoding)
   }
 
   private setHeaders(

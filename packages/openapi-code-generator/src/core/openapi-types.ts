@@ -141,7 +141,24 @@ export interface Callback {
 export interface MediaType {
   schema: Schema | Reference
   // todo: https://github.com/mnahkies/openapi-code-generator/issues/53
-  encoding: unknown
+  encoding: Record<string, Encoding>
+}
+
+export type Style =
+  | "deepObject"
+  | "form"
+  | "label"
+  | "matrix"
+  | "pipeDelimited"
+  | "simple"
+  | "spaceDelimited"
+
+export interface Encoding {
+  allowReserved?: boolean
+  contentType?: string
+  explode?: boolean
+  headers?: Record<string, Header | Reference>
+  style?: Style
 }
 
 export interface Components {

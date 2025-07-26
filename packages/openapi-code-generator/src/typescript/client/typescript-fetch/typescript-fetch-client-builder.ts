@@ -1,3 +1,4 @@
+import {isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
 import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
@@ -10,6 +11,20 @@ import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
+  override capabilities = {
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
+  }
+
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-fetch-runtime/main")
@@ -45,7 +60,7 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
     const operationParameter = builder.methodParameter()
 
     const queryString = builder.queryString()
-    const headers = builder.headers()
+    const headers = builder.headers({nullContentTypeValue: "undefined"})
 
     const returnType = builder
       .returnType()
@@ -132,11 +147,46 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
       )
     }
 
+    const param = `p.${requestBody.parameter.name}`
+
     switch (requestBody.serializer) {
-      case "JSON.stringify":
-        return `JSON.stringify(p.${requestBody.parameter.name})`
-      case "String":
-        return `p.${requestBody.parameter.name}`
+      case "JSON.stringify": {
+        const serialize = `JSON.stringify(${param})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "String": {
+        const serialize = param
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "URLSearchParams": {
+        const serialize = `this._requestBodyToUrlSearchParams(${[
+          param,
+          requestBody.encoding
+            ? JSON.stringify(requestBody.encoding)
+            : undefined,
+        ]
+          .filter(isDefined)
+          .join(", ")})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
       default: {
         throw new Error(
           `typescript-fetch does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies never}'`,

@@ -15,6 +15,17 @@ export type t_Enumerations = {
   starRatings: 1 | 2 | 3 | UnknownEnumNumberValue
 }
 
+export type t_ProductOrder = {
+  address?:
+    | {
+        address1?: string | undefined
+        postcode?: string | undefined
+      }
+    | undefined
+  quantity?: number | undefined
+  sku?: string | undefined
+}
+
 export type t_RandomNumber = {
   params?:
     | {
@@ -34,4 +45,12 @@ export type t_getHeadersRequestJson200Response = {
 export type t_getHeadersUndeclaredJson200Response = {
   rawHeaders?: unknown | undefined
   typedHeaders?: unknown | undefined
+}
+
+export type t_postValidationOptionalBodyJson200Response = {
+  id?: string | undefined
+}
+
+export type t_postValidationOptionalBodyJsonRequestBody = {
+  id?: string | undefined
 }

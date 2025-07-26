@@ -79,18 +79,25 @@ import {
 import {
   s_AcrValue,
   s_AmrValue,
+  s_AuthorizeWithPost,
+  s_BackchannelAuthorizeRequest,
   s_BackchannelAuthorizeResponse,
+  s_ChallengeRequest,
   s_ChallengeResponse,
   s_Client,
   s_CodeChallengeMethod,
+  s_DeviceAuthorizeRequest,
   s_DeviceAuthorizeResponse,
   s_Error,
   s_GlobalTokenRevocationRequest,
+  s_IntrospectionRequest,
   s_IntrospectionResponse,
+  s_LogoutWithPost,
   s_OAuthError,
   s_OAuthKeys,
   s_OAuthMetadata,
   s_OidcMetadata,
+  s_OobAuthenticateRequest,
   s_OobAuthenticateResponse,
   s_ParRequest,
   s_ParResponse,
@@ -98,6 +105,7 @@ import {
   s_ResponseMode,
   s_ResponseTypesSupported,
   s_RevokeRequest,
+  s_TokenRequest,
   s_TokenResponse,
   s_UserInfo,
 } from "./schemas"
@@ -1013,9 +1021,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const authorizeWithPostRequestBodySchema = z.never()
+  const authorizeWithPostRequestBodySchema = s_AuthorizeWithPost
 
   const authorizeWithPostResponseBodyValidator = responseValidationFactory(
     [["429", s_Error]],
@@ -1076,9 +1082,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const bcAuthorizeRequestBodySchema = z.never()
+  const bcAuthorizeRequestBodySchema = s_BackchannelAuthorizeRequest
 
   const bcAuthorizeResponseBodyValidator = responseValidationFactory(
     [
@@ -1155,9 +1159,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const challengeRequestBodySchema = z.never()
+  const challengeRequestBodySchema = s_ChallengeRequest
 
   const challengeResponseBodyValidator = responseValidationFactory(
     [
@@ -1697,9 +1699,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const deviceAuthorizeRequestBodySchema = z.never()
+  const deviceAuthorizeRequestBodySchema = s_DeviceAuthorizeRequest
 
   const deviceAuthorizeResponseBodyValidator = responseValidationFactory(
     [
@@ -1849,9 +1849,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const introspectRequestBodySchema = z.never()
+  const introspectRequestBodySchema = s_IntrospectionRequest
 
   const introspectResponseBodyValidator = responseValidationFactory(
     [
@@ -2064,9 +2062,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const logoutWithPostRequestBodySchema = z.never()
+  const logoutWithPostRequestBodySchema = s_LogoutWithPost
 
   const logoutWithPostResponseBodyValidator = responseValidationFactory(
     [
@@ -2133,9 +2129,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const oobAuthenticateRequestBodySchema = z.never()
+  const oobAuthenticateRequestBodySchema = s_OobAuthenticateRequest
 
   const oobAuthenticateResponseBodyValidator = responseValidationFactory(
     [
@@ -2506,9 +2500,7 @@ export function createRouter(implementation: Implementation): Router {
     },
   )
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const tokenRequestBodySchema = z.never()
+  const tokenRequestBodySchema = s_TokenRequest
 
   const tokenResponseBodyValidator = responseValidationFactory(
     [
@@ -2932,9 +2924,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const authorizeCustomAsWithPostRequestBodySchema = z.never()
+  const authorizeCustomAsWithPostRequestBodySchema = s_AuthorizeWithPost
 
   const authorizeCustomAsWithPostResponseBodyValidator =
     responseValidationFactory([["429", s_Error]], undefined)
@@ -3001,9 +2991,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const bcAuthorizeCustomAsRequestBodySchema = z.never()
+  const bcAuthorizeCustomAsRequestBodySchema = s_BackchannelAuthorizeRequest
 
   const bcAuthorizeCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3088,9 +3076,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const challengeCustomAsRequestBodySchema = z.never()
+  const challengeCustomAsRequestBodySchema = s_ChallengeRequest
 
   const challengeCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3177,9 +3163,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const deviceAuthorizeCustomAsRequestBodySchema = z.never()
+  const deviceAuthorizeCustomAsRequestBodySchema = s_DeviceAuthorizeRequest
 
   const deviceAuthorizeCustomAsResponseBodyValidator =
     responseValidationFactory(
@@ -3263,9 +3247,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const introspectCustomAsRequestBodySchema = z.never()
+  const introspectCustomAsRequestBodySchema = s_IntrospectionRequest
 
   const introspectCustomAsResponseBodyValidator = responseValidationFactory(
     [
@@ -3496,9 +3478,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const logoutCustomAsWithPostRequestBodySchema = z.never()
+  const logoutCustomAsWithPostRequestBodySchema = s_LogoutWithPost
 
   const logoutCustomAsWithPostResponseBodyValidator = responseValidationFactory(
     [
@@ -3573,9 +3553,7 @@ export function createRouter(implementation: Implementation): Router {
     authorizationServerId: z.string(),
   })
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const oobAuthenticateCustomAsRequestBodySchema = z.never()
+  const oobAuthenticateCustomAsRequestBodySchema = s_OobAuthenticateRequest
 
   const oobAuthenticateCustomAsResponseBodyValidator =
     responseValidationFactory(
@@ -3983,9 +3961,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const tokenCustomAsParamSchema = z.object({authorizationServerId: z.string()})
 
-  // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported
-
-  const tokenCustomAsRequestBodySchema = z.never()
+  const tokenCustomAsRequestBodySchema = s_TokenRequest
 
   const tokenCustomAsResponseBodyValidator = responseValidationFactory(
     [

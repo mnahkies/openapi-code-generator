@@ -2,7 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_PostMediaTypesTextBodySchema} from "../models"
+import {
+  t_PostMediaTypesTextBodySchema,
+  t_PostMediaTypesXWwwFormUrlencodedBodySchema,
+  t_ProductOrder,
+} from "../models"
+import {s_ProductOrder} from "../schemas"
 import KoaRouter, {RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
@@ -36,8 +41,29 @@ export type PostMediaTypesText = (
   KoaRuntimeResponse<unknown> | Response<200, string> | typeof SkipResponse
 >
 
+export type PostMediaTypesXWwwFormUrlencodedResponder = {
+  with200(): KoaRuntimeResponse<t_ProductOrder>
+} & KoaRuntimeResponder
+
+export type PostMediaTypesXWwwFormUrlencoded = (
+  params: Params<
+    void,
+    void,
+    t_PostMediaTypesXWwwFormUrlencodedBodySchema,
+    void
+  >,
+  respond: PostMediaTypesXWwwFormUrlencodedResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ProductOrder>
+  | typeof SkipResponse
+>
+
 export type MediaTypesImplementation = {
   postMediaTypesText: PostMediaTypesText
+  postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded
 }
 
 export function createMediaTypesRouter(
@@ -91,6 +117,55 @@ export function createMediaTypesRouter(
     ctx.status = status
     return next()
   })
+
+  const postMediaTypesXWwwFormUrlencodedBodySchema = s_ProductOrder
+
+  const postMediaTypesXWwwFormUrlencodedResponseValidator =
+    responseValidationFactory([["200", s_ProductOrder]], undefined)
+
+  router.post(
+    "postMediaTypesXWwwFormUrlencoded",
+    "/media-types/x-www-form-urlencoded",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          postMediaTypesXWwwFormUrlencodedBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ProductOrder>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postMediaTypesXWwwFormUrlencoded(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postMediaTypesXWwwFormUrlencodedResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   return router
 }

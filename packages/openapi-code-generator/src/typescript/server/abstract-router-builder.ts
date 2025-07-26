@@ -10,6 +10,20 @@ import {
 } from "./server-operation-builder"
 
 export abstract class AbstractRouterBuilder implements ICompilable {
+  protected readonly capabilities = {
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
+  }
+
   private readonly statements: string[] = []
 
   protected constructor(
@@ -29,6 +43,11 @@ export abstract class AbstractRouterBuilder implements ICompilable {
       this.input,
       this.types,
       this.schemaBuilder,
+      {
+        requestBody: {
+          supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+        },
+      },
     )
     const result = this.buildOperation(builder)
     this.statements.push(result)

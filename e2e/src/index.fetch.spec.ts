@@ -1,6 +1,7 @@
 import type {Server} from "node:http"
 import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
 import {ApiClient, E2ETestClientServers} from "./generated/client/fetch/client"
+import type {t_ProductOrder} from "./generated/client/fetch/models"
 import {startServerFunctions} from "./index"
 import {numberBetween} from "./test-utils"
 
@@ -341,6 +342,23 @@ describe.each(startServerFunctions)(
       // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
     })
 
+    describe("POST /validation/optional-body", () => {
+      it("should send and accept the body if passed", async () => {
+        const res = await client.postValidationOptionalBody({
+          requestBody: {id: "123"},
+        })
+
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toMatchObject({id: "123"})
+      })
+      it("should omit the body if not passed", async () => {
+        const res = await client.postValidationOptionalBody()
+
+        await expect(res.text()).resolves.toBe("")
+        expect(res.status).toBe(204)
+      })
+    })
+
     describe("GET /responses/empty", () => {
       it("returns undefined", async () => {
         const res = await client.getResponsesEmpty()
@@ -373,13 +391,32 @@ describe.each(startServerFunctions)(
     })
 
     describe("POST /media-types/text", () => {
-      it("can do use text/plain", async () => {
+      it("can send and parse text/plain request bodies", async () => {
         const res = await client.postMediaTypesText({
           requestBody: "Some plain text",
         })
 
         expect(res.status).toBe(200)
         await expect(res.text()).resolves.toBe("Some plain text")
+      })
+    })
+
+    describe("POST /media-types/x-www-form-urlencoded", () => {
+      it("can send and parse application/x-www-form-urlencoded request bodies", async () => {
+        const productOrder = {
+          sku: "sku_123",
+          quantity: 2,
+          address: {
+            address1: "Green Park",
+            postcode: "SW1A 1AA",
+          },
+        } satisfies t_ProductOrder
+
+        const res = await client.postMediaTypesXWwwFormUrlencoded({
+          requestBody: productOrder,
+        })
+        expect(res.status).toBe(200)
+        await expect(res.json()).resolves.toStrictEqual(productOrder)
       })
     })
   },

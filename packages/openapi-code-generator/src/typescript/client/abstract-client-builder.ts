@@ -8,7 +8,13 @@ import {union} from "../common/type-utils"
 import {ClientOperationBuilder} from "./client-operation-builder"
 import {ClientServersBuilder} from "./client-servers-builder"
 
+export type ClientBuilderCapabilities = {
+  requestBody: {mediaTypes: string[]}
+}
+
 export abstract class AbstractClientBuilder implements ICompilable {
+  protected abstract readonly capabilities: ClientBuilderCapabilities
+
   private readonly operations: string[] = []
 
   protected readonly clientServersBuilder: ClientServersBuilder
@@ -46,6 +52,11 @@ export abstract class AbstractClientBuilder implements ICompilable {
       this.types,
       this.schemaBuilder,
       this.input,
+      {
+        requestBody: {
+          supportedMediaTypes: this.capabilities.requestBody.mediaTypes,
+        },
+      },
     )
     this.clientServersBuilder.addOperation(operation)
     const result = this.buildOperation(builder)

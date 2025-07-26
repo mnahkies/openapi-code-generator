@@ -5,6 +5,19 @@ import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class AngularServiceBuilder extends AbstractClientBuilder {
+  override capabilities = {
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
+  }
+
   protected buildImports(imports: ImportBuilder): void {
     imports.from("@angular/core").add("Injectable")
 
@@ -22,7 +35,7 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
     const operationParameter = builder.methodParameter()
 
     const queryString = builder.queryString()
-    const headers = builder.headers()
+    const headers = builder.headers({nullContentTypeValue: "undefined"})
 
     const returnType = builder
       .returnType()

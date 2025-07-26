@@ -700,10 +700,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/access_tokens`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2180,10 +2185,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, string> | Res<304, void>> {
     const url = this.basePath + `/markdown/raw`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "text/plain"},
+      {
+        Accept: "application/json",
+        "Content-Type": p.requestBody !== undefined ? "text/plain" : undefined,
+      },
       opts.headers,
     )
-    const body = p.requestBody
+    const body = p.requestBody !== undefined ? p.requestBody : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -2398,10 +2406,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/notifications`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -2487,10 +2500,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -2716,10 +2734,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -3169,10 +3192,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -3200,10 +3228,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<204, void>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -5939,10 +5972,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -5991,10 +6029,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_webhook_config>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -6485,10 +6528,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -6838,10 +6886,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -7222,10 +7275,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -8425,10 +8483,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -8908,10 +8971,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -9013,10 +9081,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -9395,10 +9468,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -9480,10 +9558,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -9557,10 +9640,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -9624,10 +9712,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -9671,10 +9764,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -9971,10 +10069,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -10056,10 +10159,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -10264,10 +10372,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -10518,10 +10631,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -10733,10 +10851,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -11494,10 +11617,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -11518,10 +11646,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12459,10 +12592,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -12581,10 +12719,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -12646,10 +12789,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12674,10 +12822,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -12868,10 +13021,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -12894,10 +13052,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -13540,10 +13703,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix/commits`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -14447,10 +14615,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -15692,10 +15865,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -16228,10 +16406,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -16603,10 +16786,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -16708,10 +16896,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -16895,10 +17088,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_import> | Res<503, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -16960,10 +17158,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -17111,10 +17314,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -17522,10 +17730,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -17546,10 +17759,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -17733,10 +17951,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -17774,10 +17997,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -17854,10 +18082,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -18259,10 +18492,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -18455,10 +18693,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -18552,10 +18795,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -19265,10 +19513,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -19525,10 +19778,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -19569,10 +19827,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -19657,10 +19920,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }
@@ -19844,10 +20112,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -19980,10 +20253,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -20103,10 +20381,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -20447,10 +20730,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -21129,10 +21417,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_repository_subscription>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -21934,10 +22227,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -22310,10 +22608,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -22389,10 +22692,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -22463,10 +22771,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PUT", body, ...opts, headers}, timeout)
   }
@@ -22548,10 +22861,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -22957,10 +23275,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "PATCH", body, ...opts, headers}, timeout)
   }
@@ -23200,10 +23523,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/user/emails`
     const headers = this._headers(
-      {Accept: "application/json", "Content-Type": "application/json"},
+      {
+        Accept: "application/json",
+        "Content-Type":
+          p.requestBody !== undefined ? "application/json" : undefined,
+      },
       opts.headers,
     )
-    const body = JSON.stringify(p.requestBody)
+    const body =
+      p.requestBody !== undefined ? JSON.stringify(p.requestBody) : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }

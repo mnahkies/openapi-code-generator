@@ -18,6 +18,14 @@ export const s_Enumerations = z.object({
   starRatings: z.union([z.literal(1), z.literal(2), z.literal(3)]),
 })
 
+export const s_ProductOrder = z.object({
+  sku: z.string().optional(),
+  quantity: z.coerce.number().min(1).optional(),
+  address: z
+    .object({address1: z.string().optional(), postcode: z.string().optional()})
+    .optional(),
+})
+
 export const s_RandomNumber = z.object({
   result: z.coerce.number().optional(),
   params: z
@@ -37,4 +45,12 @@ export const s_getHeadersUndeclaredJson200Response = z.object({
 export const s_getHeadersRequestJson200Response = z.object({
   rawHeaders: z.unknown().optional(),
   typedHeaders: z.unknown().optional(),
+})
+
+export const s_postValidationOptionalBodyJsonRequestBody = z.object({
+  id: z.string().optional(),
+})
+
+export const s_postValidationOptionalBodyJson200Response = z.object({
+  id: z.string().optional(),
 })

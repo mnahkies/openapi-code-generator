@@ -2,6 +2,7 @@ import {SkipResponse} from "@nahkies/typescript-koa-runtime/server"
 import {
   createRouter,
   type PostMediaTypesText,
+  type PostMediaTypesXWwwFormUrlencoded,
 } from "../../generated/server/koa/routes/media-types"
 
 const postMediaTypesText: PostMediaTypesText = async (
@@ -18,8 +19,14 @@ const postMediaTypesText: PostMediaTypesText = async (
   return SkipResponse
 }
 
+const postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded =
+  async ({body}, respond) => {
+    return respond.with200().body(body)
+  }
+
 export function createMediaTypesRouter() {
   return createRouter({
     postMediaTypesText,
+    postMediaTypesXWwwFormUrlencoded,
   })
 }

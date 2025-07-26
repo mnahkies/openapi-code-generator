@@ -1,3 +1,4 @@
+import type {Style} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -171,5 +172,10 @@ export interface IRResponse {
 export interface IRMediaType {
   schema: MaybeIRModel
   // todo: https://github.com/mnahkies/openapi-code-generator/issues/53
-  encoding: unknown
+  encoding: Record<string, IREncoding>
+}
+
+export interface IREncoding {
+  style?: Style
+  explode?: boolean
 }

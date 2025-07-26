@@ -1,10 +1,28 @@
+import {isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
 import {union} from "../../common/type-utils"
-import {asyncMethod} from "../../common/typescript-common"
+import {
+  asyncMethod,
+  type RequestBodyAsParameter,
+} from "../../common/typescript-common"
 import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
+  override capabilities = {
+    requestBody: {
+      mediaTypes: [
+        "application/json",
+        "application/scim+json",
+        "application/merge-patch+json",
+        "application/x-www-form-urlencoded",
+        "text/json",
+        "text/plain",
+        "text/x-markdown",
+      ],
+    },
+  }
+
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-axios-runtime/main")
@@ -22,7 +40,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
     const operationParameter = builder.methodParameter()
 
     const queryString = builder.queryString()
-    const headers = builder.headers()
+    const headers = builder.headers({nullContentTypeValue: "false"})
 
     const returnType =
       union(
@@ -72,7 +90,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
         : "const headers = this._headers({}, opts.headers)",
       queryString ? `const query = this._query({ ${queryString} })` : "",
       requestBody?.parameter && requestBody.isSupported
-        ? "const body = JSON.stringify(p.requestBody)"
+        ? `const body = ${this.serializeRequestBody(requestBody)}`
         : "",
     ]
       .filter(Boolean)
@@ -136,5 +154,60 @@ export class ${clientName} extends AbstractAxiosClient {
 
 ${this.legacyExports(clientName)}
 `
+  }
+
+  private serializeRequestBody(requestBody: RequestBodyAsParameter) {
+    if (!requestBody.serializer) {
+      throw new Error(
+        `missing serializer on requestBody ${JSON.stringify(requestBody, undefined, 2)}`,
+      )
+    }
+
+    const param = `p.${requestBody.parameter.name}`
+
+    switch (requestBody.serializer) {
+      case "JSON.stringify": {
+        const serialize = `JSON.stringify(${param})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "String": {
+        const serialize = param
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "URLSearchParams": {
+        const serialize = `this._requestBodyToUrlSearchParams(${[
+          param,
+          requestBody.encoding
+            ? JSON.stringify(requestBody.encoding)
+            : undefined,
+        ]
+          .filter(isDefined)
+          .join(", ")})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      default: {
+        throw new Error(
+          `typescript-axios does not support request bodies of content-type '${requestBody.contentType}' using serializer '${requestBody.serializer satisfies never}'`,
+        )
+      }
+    }
   }
 }
