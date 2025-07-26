@@ -2191,7 +2191,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       },
       opts.headers,
     )
-    const body = p.requestBody
+    const body = p.requestBody !== undefined ? p.requestBody : null
 
     return this._fetch(url, {method: "POST", body, ...opts, headers}, timeout)
   }

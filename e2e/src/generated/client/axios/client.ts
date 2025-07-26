@@ -277,18 +277,27 @@ export class E2ETestClient extends AbstractAxiosClient {
 
   async postMediaTypesXWwwFormUrlencoded(
     p: {
-      requestBody: never
+      requestBody: t_ProductOrder
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_ProductOrder>> {
     const url = `/media-types/x-www-form-urlencoded`
-    const headers = this._headers({Accept: "application/json"}, opts.headers)
+    const headers = this._headers(
+      {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      opts.headers,
+    )
+    const body = this._requestBodyToUrlSearchParams(p.requestBody, {
+      address: {style: "deepObject", explode: true},
+    })
 
     const res = await this._request({
       url: url,
       method: "POST",
-      // todo: request bodies with content-type 'application/x-www-form-urlencoded' not yet supported,
+      data: body,
       ...(timeout ? {timeout} : {}),
       ...opts,
       headers,

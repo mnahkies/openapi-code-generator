@@ -400,7 +400,7 @@ describe.each(startServerFunctions)(
       })
     })
 
-    describe.skip("POST /media-types/x-www-form-urlencoded", () => {
+    describe("POST /media-types/x-www-form-urlencoded", () => {
       it("can send and parse application/x-www-form-urlencoded request bodies", async () => {
         const productOrder = {
           sku: "sku_123",
@@ -412,7 +412,6 @@ describe.each(startServerFunctions)(
         } satisfies t_ProductOrder
 
         const res = await client.postMediaTypesXWwwFormUrlencoded({
-          // @ts-expect-error: axios doesn't explicitly support this yet.
           requestBody: productOrder,
         })
         expect(res.status).toBe(200)

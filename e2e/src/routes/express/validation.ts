@@ -14,9 +14,7 @@ const postValidationEnums: PostValidationEnums = async ({body}, respond) => {
 const postValidationOptionalBody: PostValidationOptionalBody = async (
   {body},
   respond,
-  req,
 ) => {
-  console.log(req.body)
   if (body) {
     return respond.with200().body(body)
   } else {
