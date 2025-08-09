@@ -26,6 +26,7 @@ import {
   Params,
   SkipResponse,
   StatusCode,
+  sendResponse,
 } from "@nahkies/typescript-express-runtime/server"
 import {
   parseRequestInput,
@@ -173,15 +174,12 @@ export function createValidationRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getValidationNumbersRandomNumberResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getValidationNumbersRandomNumberResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -236,13 +234,12 @@ export function createValidationRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postValidationEnumsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postValidationEnumsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -307,15 +304,12 @@ export function createValidationRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postValidationOptionalBodyResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postValidationOptionalBodyResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -364,13 +358,12 @@ export function createValidationRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getResponses500ResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getResponses500ResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -419,13 +412,12 @@ export function createValidationRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getResponsesEmptyResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getResponsesEmptyResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  t_PostMediaTypesOctetStreamBodySchema,
   t_PostMediaTypesTextBodySchema,
   t_PostMediaTypesXWwwFormUrlencodedBodySchema,
   t_ProductOrder,
@@ -20,6 +21,7 @@ import {
   Response,
   SkipResponse,
   StatusCode,
+  parseOctetStream,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   parseRequestInput,
@@ -61,9 +63,23 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   | typeof SkipResponse
 >
 
+export type PostMediaTypesOctetStreamResponder = {
+  with200(): KoaRuntimeResponse<Blob>
+} & KoaRuntimeResponder
+
+export type PostMediaTypesOctetStream = (
+  params: Params<void, void, t_PostMediaTypesOctetStreamBodySchema, void>,
+  respond: PostMediaTypesOctetStreamResponder,
+  ctx: RouterContext,
+  next: Next,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, Blob> | typeof SkipResponse
+>
+
 export type MediaTypesImplementation = {
   postMediaTypesText: PostMediaTypesText
   postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded
+  postMediaTypesOctetStream: PostMediaTypesOctetStream
 }
 
 export function createMediaTypesRouter(
@@ -162,6 +178,57 @@ export function createMediaTypesRouter(
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postMediaTypesXWwwFormUrlencodedResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postMediaTypesOctetStreamBodySchema = z.any()
+
+  const postMediaTypesOctetStreamResponseValidator = responseValidationFactory(
+    [["200", z.any()]],
+    undefined,
+  )
+
+  router.post(
+    "postMediaTypesOctetStream",
+    "/media-types/octet-stream",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          postMediaTypesOctetStreamBodySchema,
+          await parseOctetStream(ctx),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<Blob>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postMediaTypesOctetStream(input, responder, ctx, next)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      // escape hatch to allow responses to be sent by the implementation handler
+      if (response === SkipResponse) {
+        return
+      }
+
+      const {status, body} =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postMediaTypesOctetStreamResponseValidator(status, body)
       ctx.status = status
       return next()
     },

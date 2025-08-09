@@ -53,6 +53,8 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
   min?: number | undefined
 }
 
+export type t_PostMediaTypesOctetStreamBodySchema = Blob
+
 export type t_PostMediaTypesTextBodySchema = string
 
 export type t_PostMediaTypesXWwwFormUrlencodedBodySchema = {
