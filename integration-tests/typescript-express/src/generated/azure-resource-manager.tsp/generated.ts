@@ -50,6 +50,7 @@ import {
   ServerConfig,
   SkipResponse,
   StatusCode,
+  sendResponse,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -305,13 +306,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(operationsListResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          operationsListResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -385,13 +385,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(employeesGetResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, employeesGetResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -480,13 +474,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(employeesCreateOrUpdateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesCreateOrUpdateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -568,13 +561,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(employeesUpdateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesUpdateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -656,13 +648,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(employeesDeleteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesDeleteResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -745,13 +736,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(employeesCheckExistenceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesCheckExistenceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -827,15 +817,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            employeesListByResourceGroupResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesListByResourceGroupResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -906,15 +893,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            employeesListBySubscriptionResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesListBySubscriptionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -994,13 +978,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(employeesMoveResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          employeesMoveResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

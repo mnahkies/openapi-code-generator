@@ -15839,7 +15839,7 @@ export type t_ReposUpdateWebhookConfigForRepoParamSchema = {
   repo: string
 }
 
-export type t_ReposUploadReleaseAssetBodySchema = never
+export type t_ReposUploadReleaseAssetBodySchema = Blob
 
 export type t_ReposUploadReleaseAssetParamSchema = {
   owner: string

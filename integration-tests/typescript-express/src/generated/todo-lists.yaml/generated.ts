@@ -36,6 +36,7 @@ import {
   StatusCode,
   StatusCode4xx,
   StatusCode5xx,
+  sendResponse,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -242,13 +243,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTodoListsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTodoListsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -312,13 +307,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTodoListByIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTodoListByIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -388,13 +382,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(updateTodoListByIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          updateTodoListByIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -458,13 +451,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteTodoListByIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteTodoListByIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -541,13 +533,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTodoListItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTodoListItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -612,13 +603,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(createTodoListItemResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          createTodoListItemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -667,13 +657,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(listAttachmentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          listAttachmentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -730,13 +719,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(uploadAttachmentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          uploadAttachmentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

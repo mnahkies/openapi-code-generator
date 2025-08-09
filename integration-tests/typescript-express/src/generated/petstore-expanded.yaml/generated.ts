@@ -22,6 +22,7 @@ import {
   ServerConfig,
   SkipResponse,
   StatusCode,
+  sendResponse,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -152,13 +153,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(findPetsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, findPetsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -216,13 +211,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(addPetResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, addPetResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -280,13 +269,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(findPetByIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, findPetByIdResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -344,13 +327,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deletePetResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, deletePetResponseBodyValidator)
       } catch (error) {
         next(error)
       }

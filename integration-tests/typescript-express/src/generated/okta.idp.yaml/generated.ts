@@ -78,6 +78,7 @@ import {
   ServerConfig,
   SkipResponse,
   StatusCode,
+  sendResponse,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -782,15 +783,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            createAppAuthenticatorEnrollmentResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          createAppAuthenticatorEnrollmentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -871,18 +869,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            verifyAppAuthenticatorPushNotificationChallengeResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          verifyAppAuthenticatorPushNotificationChallengeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -961,15 +953,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            updateAppAuthenticatorEnrollmentResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          updateAppAuthenticatorEnrollmentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1041,15 +1030,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAppAuthenticatorEnrollmentResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteAppAuthenticatorEnrollmentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1120,18 +1106,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            listAppAuthenticatorPendingPushNotificationChallengesResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          listAppAuthenticatorPendingPushNotificationChallengesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1198,13 +1178,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(listAuthenticatorsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          listAuthenticatorsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1279,13 +1258,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAuthenticatorResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAuthenticatorResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1354,13 +1332,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(listEnrollmentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          listEnrollmentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1432,13 +1409,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEnrollmentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getEnrollmentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1517,13 +1493,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(updateEnrollmentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          updateEnrollmentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -1578,13 +1553,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(listEmailsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, listEmailsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -1662,13 +1631,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(createEmailResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, createEmailResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -1729,13 +1692,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEmailResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getEmailResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -1804,13 +1761,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteEmailResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, deleteEmailResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -1924,13 +1875,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(sendEmailChallengeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          sendEmailChallengeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2042,15 +1992,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            pollChallengeForEmailMagicLinkResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          pollChallengeForEmailMagicLinkResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2130,13 +2077,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(verifyEmailOtpResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          verifyEmailOtpResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2191,13 +2137,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(listOktaApplicationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          listOktaApplicationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2252,13 +2197,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getOrganizationResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getOrganizationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2313,13 +2257,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPasswordResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getPasswordResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -2390,13 +2328,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(createPasswordResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          createPasswordResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2467,13 +2404,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(replacePasswordResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          replacePasswordResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2532,13 +2468,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deletePasswordResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deletePasswordResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -2593,13 +2528,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(listPhonesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, listPhonesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -2680,13 +2609,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(createPhoneResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, createPhoneResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -2751,13 +2674,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPhoneResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getPhoneResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -2826,13 +2743,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deletePhoneResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, deletePhoneResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -2945,13 +2856,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(sendPhoneChallengeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          sendPhoneChallengeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -3036,13 +2946,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(verifyPhoneChallengeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          verifyPhoneChallengeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -3097,13 +3006,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProfileResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getProfileResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -3170,13 +3073,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(replaceProfileResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          replaceProfileResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -3231,13 +3133,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProfileSchemaResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getProfileSchemaResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -3296,13 +3197,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
