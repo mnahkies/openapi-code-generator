@@ -9,6 +9,7 @@ import {
   Params,
   SkipResponse,
   StatusCode,
+  sendResponse,
 } from "@nahkies/typescript-express-runtime/server"
 import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod"
 import {NextFunction, Request, Response, Router} from "express"
@@ -75,13 +76,12 @@ export function createEscapeHatchesRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEscapeHatchesPlainTextResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getEscapeHatchesPlainTextResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

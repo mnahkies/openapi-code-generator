@@ -1257,6 +1257,7 @@ import {
   ServerConfig,
   SkipResponse,
   StatusCode,
+  sendResponse,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
 import {
@@ -7676,7 +7677,7 @@ export type GetQuotesQuoteLineItems = (
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
 export type GetQuotesQuotePdfResponder = {
-  with200(): ExpressRuntimeResponse<string>
+  with200(): ExpressRuntimeResponse<Blob>
   withDefault(status: StatusCode): ExpressRuntimeResponse<t_error>
 } & ExpressRuntimeResponder
 
@@ -12072,13 +12073,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getAccountResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -12149,13 +12144,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountLinksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -12408,13 +12402,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -12508,13 +12501,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getAccountsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -13227,13 +13214,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postAccountsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -13293,13 +13274,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteAccountsAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -13372,13 +13352,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14062,13 +14041,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14163,15 +14141,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountBankAccountsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountBankAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14230,18 +14205,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountBankAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteAccountsAccountBankAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14313,15 +14282,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountBankAccountsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountBankAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14411,18 +14377,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountBankAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountBankAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14511,15 +14471,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountCapabilitiesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountCapabilitiesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14597,18 +14554,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountCapabilitiesCapabilityResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountCapabilitiesCapabilityResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14684,18 +14635,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountCapabilitiesCapabilityResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountCapabilitiesCapabilityResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14790,18 +14735,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountExternalAccountsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountExternalAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14896,18 +14835,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountExternalAccountsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountExternalAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -14972,18 +14905,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountExternalAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteAccountsAccountExternalAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15061,18 +14988,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountExternalAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountExternalAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15168,18 +15089,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountExternalAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountExternalAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15245,15 +15160,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountLoginLinksResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountLoginLinksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15355,13 +15267,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsAccountPeopleResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountPeopleResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15627,13 +15538,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsAccountPeopleResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountPeopleResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15692,18 +15602,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountPeoplePersonResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteAccountsAccountPeoplePersonResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -15775,15 +15679,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountPeoplePersonResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountPeoplePersonResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16050,15 +15951,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountPeoplePersonResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountPeoplePersonResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16160,13 +16058,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAccountsAccountPersonsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountPersonsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16432,15 +16329,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountPersonsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountPersonsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16499,18 +16393,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteAccountsAccountPersonsPersonResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteAccountsAccountPersonsPersonResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16582,15 +16470,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getAccountsAccountPersonsPersonResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAccountsAccountPersonsPersonResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16857,15 +16742,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postAccountsAccountPersonsPersonResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountPersonsPersonResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -16932,13 +16814,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAccountsAccountRejectResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAccountsAccountRejectResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17022,13 +16903,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplePayDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getApplePayDomainsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17089,13 +16969,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postApplePayDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postApplePayDomainsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17153,15 +17032,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteApplePayDomainsDomainResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteApplePayDomainsDomainResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17232,13 +17108,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplePayDomainsDomainResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getApplePayDomainsDomainResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17333,13 +17208,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplicationFeesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getApplicationFeesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17411,15 +17285,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getApplicationFeesFeeRefundsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getApplicationFeesFeeRefundsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17489,15 +17360,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postApplicationFeesFeeRefundsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postApplicationFeesFeeRefundsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17568,13 +17436,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getApplicationFeesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getApplicationFeesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17644,15 +17511,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postApplicationFeesIdRefundResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postApplicationFeesIdRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17744,15 +17608,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getApplicationFeesIdRefundsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getApplicationFeesIdRefundsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17822,15 +17683,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postApplicationFeesIdRefundsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postApplicationFeesIdRefundsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17917,13 +17775,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAppsSecretsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAppsSecretsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -17990,13 +17847,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAppsSecretsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAppsSecretsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18061,13 +17917,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postAppsSecretsDeleteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postAppsSecretsDeleteResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18137,13 +17992,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getAppsSecretsFindResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getAppsSecretsFindResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18208,13 +18062,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getBalanceResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -18315,13 +18163,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceHistoryResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBalanceHistoryResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18392,13 +18239,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceHistoryIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBalanceHistoryIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18499,13 +18345,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceTransactionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBalanceTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18576,13 +18421,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBalanceTransactionsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBalanceTransactionsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18667,13 +18511,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingAlertsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingAlertsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18750,13 +18593,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingAlertsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingAlertsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18827,13 +18669,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingAlertsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingAlertsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18899,15 +18740,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingAlertsIdActivateResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingAlertsIdActivateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -18973,15 +18811,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingAlertsIdArchiveResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingAlertsIdArchiveResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19047,15 +18882,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingAlertsIdDeactivateResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingAlertsIdDeactivateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19134,15 +18966,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingCreditBalanceSummaryResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingCreditBalanceSummaryResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19231,18 +19060,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingCreditBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingCreditBalanceTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19324,18 +19147,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingCreditBalanceTransactionsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingCreditBalanceTransactionsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19422,13 +19239,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingCreditGrantsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingCreditGrantsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19505,13 +19321,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingCreditGrantsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingCreditGrantsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19582,13 +19397,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingCreditGrantsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingCreditGrantsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19658,13 +19472,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingCreditGrantsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingCreditGrantsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19730,15 +19543,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingCreditGrantsIdExpireResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingCreditGrantsIdExpireResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19804,15 +19614,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingCreditGrantsIdVoidResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingCreditGrantsIdVoidResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19878,15 +19685,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingMeterEventAdjustmentsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingMeterEventAdjustmentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -19950,13 +19754,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingMeterEventsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingMeterEventsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20040,13 +19843,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingMetersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingMetersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20116,13 +19918,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingMetersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingMetersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20193,13 +19994,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getBillingMetersIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingMetersIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20268,13 +20068,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingMetersIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingMetersIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20340,15 +20139,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingMetersIdDeactivateResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingMetersIdDeactivateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20447,15 +20243,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingMetersIdEventSummariesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingMetersIdEventSummariesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20521,15 +20314,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingMetersIdReactivateResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingMetersIdReactivateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20618,15 +20408,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingPortalConfigurationsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingPortalConfigurationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20798,15 +20585,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingPortalConfigurationsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingPortalConfigurationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -20888,18 +20672,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getBillingPortalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getBillingPortalConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21097,18 +20875,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postBillingPortalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingPortalConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21278,13 +21050,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postBillingPortalSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postBillingPortalSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21381,13 +21152,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getChargesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -21517,13 +21282,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postChargesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -21610,13 +21369,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getChargesSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21687,13 +21445,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesChargeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getChargesChargeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21785,13 +21542,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21869,13 +21625,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeCaptureResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeCaptureResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -21946,13 +21701,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesChargeDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getChargesChargeDisputeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22161,13 +21915,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeDisputeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22233,15 +21986,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postChargesChargeDisputeCloseResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeDisputeCloseResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22318,13 +22068,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeRefundResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22414,13 +22163,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getChargesChargeRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getChargesChargeRefundsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22500,13 +22248,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postChargesChargeRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeRefundsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22578,15 +22325,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getChargesChargeRefundsRefundResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getChargesChargeRefundsRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22656,15 +22400,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postChargesChargeRefundsRefundResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postChargesChargeRefundsRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -22764,13 +22505,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCheckoutSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCheckoutSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -23942,13 +23682,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCheckoutSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCheckoutSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24019,15 +23758,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCheckoutSessionsSessionResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCheckoutSessionsSessionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24178,15 +23914,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCheckoutSessionsSessionResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCheckoutSessionsSessionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24252,18 +23985,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCheckoutSessionsSessionExpireResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCheckoutSessionsSessionExpireResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24355,18 +24082,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCheckoutSessionsSessionLineItemsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCheckoutSessionsSessionLineItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24449,13 +24170,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateOrdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getClimateOrdersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24521,13 +24241,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postClimateOrdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postClimateOrdersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24600,13 +24319,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateOrdersOrderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getClimateOrdersOrderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24685,13 +24403,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postClimateOrdersOrderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postClimateOrdersOrderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24757,15 +24474,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postClimateOrdersOrderCancelResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postClimateOrdersOrderCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24848,13 +24562,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateProductsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getClimateProductsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -24925,13 +24638,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateProductsProductResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getClimateProductsProductResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25014,13 +24726,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getClimateSuppliersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getClimateSuppliersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25091,15 +24802,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getClimateSuppliersSupplierResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getClimateSuppliersSupplierResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25176,18 +24884,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getConfirmationTokensConfirmationTokenResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getConfirmationTokensConfirmationTokenResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25270,13 +24972,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCountrySpecsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCountrySpecsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25349,13 +25050,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCountrySpecsCountryResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCountrySpecsCountryResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25449,13 +25149,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCouponsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getCouponsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -25533,13 +25227,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCouponsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postCouponsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -25599,13 +25287,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteCouponsCouponResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCouponsCouponResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25676,13 +25363,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCouponsCouponResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCouponsCouponResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25755,13 +25441,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCouponsCouponResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCouponsCouponResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25857,13 +25542,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCreditNotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCreditNotesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -25979,13 +25663,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCreditNotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCreditNotesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26112,13 +25795,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCreditNotesPreviewResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCreditNotesPreviewResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26264,15 +25946,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCreditNotesPreviewLinesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCreditNotesPreviewLinesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26364,15 +26043,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCreditNotesCreditNoteLinesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCreditNotesCreditNoteLinesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26443,13 +26119,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCreditNotesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCreditNotesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26519,13 +26194,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCreditNotesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCreditNotesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26591,13 +26265,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCreditNotesIdVoidResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCreditNotesIdVoidResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26683,13 +26356,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCustomerSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomerSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -26785,13 +26457,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getCustomersResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -27060,13 +26726,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCustomersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27153,13 +26818,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27217,13 +26881,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteCustomersCustomerResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27298,13 +26961,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersCustomerResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27500,13 +27162,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postCustomersCustomerResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27604,18 +27265,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerBalanceTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27696,18 +27351,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerBalanceTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27789,18 +27438,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27883,18 +27526,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerBalanceTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -27986,15 +27623,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBankAccountsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerBankAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28099,18 +27733,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBankAccountsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerBankAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28193,18 +27821,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerBankAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerBankAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28276,18 +27898,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerBankAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerBankAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28399,18 +28015,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBankAccountsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerBankAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28486,18 +28096,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerBankAccountsIdVerifyResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerBankAccountsIdVerifyResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28589,13 +28193,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getCustomersCustomerCardsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerCardsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28700,15 +28303,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerCardsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerCardsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28785,15 +28385,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerCardsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerCardsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28865,15 +28462,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCardsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerCardsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -28985,15 +28579,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerCardsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerCardsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29064,15 +28655,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCashBalanceResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerCashBalanceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29147,15 +28735,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerCashBalanceResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerCashBalanceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29253,18 +28838,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCashBalanceTransactionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerCashBalanceTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29346,18 +28925,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerCashBalanceTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerCashBalanceTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29415,15 +28988,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerDiscountResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerDiscountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29494,15 +29064,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerDiscountResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerDiscountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29589,18 +29156,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerFundingInstructionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerFundingInstructionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29745,18 +29306,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerPaymentMethodsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerPaymentMethodsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29834,18 +29389,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerPaymentMethodsPaymentMethodResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerPaymentMethodsPaymentMethodResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -29944,15 +29493,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSourcesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerSourcesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30057,15 +29603,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSourcesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerSourcesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30142,15 +29685,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerSourcesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerSourcesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30222,15 +29762,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSourcesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerSourcesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30342,15 +29879,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSourcesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerSourcesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30426,18 +29960,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSourcesIdVerifyResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerSourcesIdVerifyResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30529,18 +30057,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSubscriptionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerSubscriptionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -30964,18 +30486,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSubscriptionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerSubscriptionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -31054,18 +30570,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -31145,18 +30655,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -31625,18 +31129,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerSubscriptionsSubscriptionExposedIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -31702,18 +31200,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -31793,18 +31285,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -31896,15 +31382,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerTaxIdsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerTaxIdsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32083,15 +31566,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postCustomersCustomerTaxIdsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postCustomersCustomerTaxIdsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32150,15 +31630,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteCustomersCustomerTaxIdsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteCustomersCustomerTaxIdsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32230,15 +31707,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getCustomersCustomerTaxIdsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getCustomersCustomerTaxIdsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32334,13 +31808,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getDisputesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getDisputesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -32413,13 +31881,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getDisputesDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getDisputesDisputeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32630,13 +32097,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postDisputesDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postDisputesDisputeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32702,13 +32168,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postDisputesDisputeCloseResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postDisputesDisputeCloseResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32793,18 +32258,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getEntitlementsActiveEntitlementsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getEntitlementsActiveEntitlementsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32880,18 +32339,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getEntitlementsActiveEntitlementsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getEntitlementsActiveEntitlementsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -32980,13 +32433,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEntitlementsFeaturesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getEntitlementsFeaturesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33047,13 +32499,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postEntitlementsFeaturesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postEntitlementsFeaturesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33124,13 +32575,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEntitlementsFeaturesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getEntitlementsFeaturesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33201,15 +32651,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postEntitlementsFeaturesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postEntitlementsFeaturesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33275,13 +32722,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postEphemeralKeysResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postEphemeralKeysResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33349,13 +32795,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteEphemeralKeysKeyResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteEphemeralKeysKeyResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33457,13 +32902,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEventsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getEventsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -33534,13 +32973,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getEventsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getEventsIdResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -33623,13 +33056,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getExchangeRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getExchangeRatesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33702,13 +33134,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getExchangeRatesRateIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getExchangeRatesRateIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33797,13 +33228,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postExternalAccountsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postExternalAccountsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -33899,13 +33329,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFileLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getFileLinksResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -33968,13 +33392,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postFileLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFileLinksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34045,13 +33468,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFileLinksLinkResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFileLinksLinkResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34123,13 +33545,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postFileLinksLinkResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFileLinksLinkResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34244,13 +33665,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFilesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getFilesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -34310,13 +33725,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postFilesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postFilesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -34387,13 +33796,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getFilesFileResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getFilesFileResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -34487,15 +33890,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsAccountsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFinancialConnectionsAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34577,18 +33977,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsAccountsAccountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFinancialConnectionsAccountsAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34665,18 +34059,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountDisconnectResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFinancialConnectionsAccountsAccountDisconnectResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34775,18 +34163,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsAccountsAccountOwnersResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFinancialConnectionsAccountsAccountOwnersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34865,18 +34247,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountRefreshResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFinancialConnectionsAccountsAccountRefreshResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -34955,18 +34331,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountSubscribeResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFinancialConnectionsAccountsAccountSubscribeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35044,18 +34414,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsAccountsAccountUnsubscribeResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFinancialConnectionsAccountsAccountUnsubscribeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35146,15 +34510,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postFinancialConnectionsSessionsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postFinancialConnectionsSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35236,18 +34597,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsSessionsSessionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFinancialConnectionsSessionsSessionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35347,18 +34702,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsTransactionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFinancialConnectionsTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35440,18 +34789,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getFinancialConnectionsTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getFinancialConnectionsTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35542,13 +34885,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getForwardingRequestsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getForwardingRequestsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35630,13 +34972,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postForwardingRequestsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postForwardingRequestsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35707,13 +35048,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getForwardingRequestsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getForwardingRequestsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35814,15 +35154,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationReportsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIdentityVerificationReportsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -35904,18 +35241,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationReportsReportResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIdentityVerificationReportsReportResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36018,15 +35349,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationSessionsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIdentityVerificationSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36120,15 +35448,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIdentityVerificationSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36210,18 +35535,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIdentityVerificationSessionsSessionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIdentityVerificationSessionsSessionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36322,18 +35641,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsSessionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIdentityVerificationSessionsSessionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36410,18 +35723,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsSessionCancelResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIdentityVerificationSessionsSessionCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36498,18 +35805,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIdentityVerificationSessionsSessionRedactResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIdentityVerificationSessionsSessionRedactResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36600,13 +35901,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicePaymentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoicePaymentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36677,15 +35977,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoicePaymentsInvoicePaymentResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoicePaymentsInvoicePaymentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36770,15 +36067,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoiceRenderingTemplatesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoiceRenderingTemplatesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36856,18 +36150,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoiceRenderingTemplatesTemplateResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoiceRenderingTemplatesTemplateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -36939,18 +36227,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoiceRenderingTemplatesTemplateArchiveResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoiceRenderingTemplatesTemplateArchiveResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37022,18 +36304,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoiceRenderingTemplatesTemplateUnarchiveResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoiceRenderingTemplatesTemplateUnarchiveResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37130,13 +36406,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoiceitemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoiceitemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37236,13 +36511,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoiceitemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoiceitemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37300,15 +36574,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteInvoiceitemsInvoiceitemResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteInvoiceitemsInvoiceitemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37379,15 +36650,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getInvoiceitemsInvoiceitemResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoiceitemsInvoiceitemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37495,15 +36763,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoiceitemsInvoiceitemResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoiceitemsInvoiceitemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -37616,13 +36881,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getInvoicesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -38009,13 +37268,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postInvoicesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -38576,13 +37829,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesCreatePreviewResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesCreatePreviewResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -38669,13 +37921,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoicesSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -38735,13 +37986,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteInvoicesInvoiceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteInvoicesInvoiceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -38814,13 +38064,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesInvoiceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoicesInvoiceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39222,13 +38471,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoiceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39411,15 +38659,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceAddLinesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceAddLinesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39488,15 +38733,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceAttachPaymentResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceAttachPaymentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39565,15 +38807,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceFinalizeResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceFinalizeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39665,13 +38904,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getInvoicesInvoiceLinesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getInvoicesInvoiceLinesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39851,18 +39089,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceLinesLineItemIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceLinesLineItemIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -39934,18 +39166,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceMarkUncollectibleResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceMarkUncollectibleResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40021,13 +39247,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoicePayResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoicePayResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40100,15 +39325,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceRemoveLinesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceRemoveLinesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40174,13 +39396,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoiceSendResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceSendResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40363,15 +39584,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postInvoicesInvoiceUpdateLinesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceUpdateLinesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40437,13 +39655,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postInvoicesInvoiceVoidResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postInvoicesInvoiceVoidResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40544,13 +39761,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingAuthorizationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingAuthorizationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40627,18 +39843,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingAuthorizationsAuthorizationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingAuthorizationsAuthorizationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40713,18 +39923,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingAuthorizationsAuthorizationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingAuthorizationsAuthorizationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40800,18 +40004,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingAuthorizationsAuthorizationApproveResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingAuthorizationsAuthorizationApproveResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40886,18 +40084,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingAuthorizationsAuthorizationDeclineResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingAuthorizationsAuthorizationDeclineResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -40998,13 +40190,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingCardholdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingCardholdersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -42045,13 +41236,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingCardholdersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingCardholdersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -42122,15 +41312,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingCardholdersCardholderResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingCardholdersCardholderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -43179,15 +42366,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingCardholdersCardholderResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingCardholdersCardholderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -43288,13 +42472,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingCardsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingCardsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -44322,13 +43505,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingCardsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingCardsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -44399,13 +43581,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingCardsCardResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingCardsCardResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -45433,13 +44614,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingCardsCardResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingCardsCardResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -45537,13 +44717,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingDisputesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingDisputesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -45787,13 +44966,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingDisputesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingDisputesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -45864,13 +45042,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingDisputesDisputeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingDisputesDisputeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46118,15 +45295,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingDisputesDisputeResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingDisputesDisputeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46195,15 +45369,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingDisputesDisputeSubmitResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingDisputesDisputeSubmitResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46303,15 +45474,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingPersonalizationDesignsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingPersonalizationDesignsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46389,18 +45557,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingPersonalizationDesignsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingPersonalizationDesignsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46482,18 +45644,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46598,18 +45754,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingPersonalizationDesignsPersonalizationDesignResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46698,13 +45848,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingPhysicalBundlesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingPhysicalBundlesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46781,18 +45930,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingPhysicalBundlesPhysicalBundleResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingPhysicalBundlesPhysicalBundleResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46863,15 +46006,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingSettlementsSettlementResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingSettlementsSettlementResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -46940,15 +46080,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingSettlementsSettlementResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingSettlementsSettlementResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47044,13 +46181,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingTokensResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingTokensResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47123,13 +46259,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingTokensTokenResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingTokensTokenResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47198,13 +46333,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postIssuingTokensTokenResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingTokensTokenResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47304,13 +46438,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getIssuingTransactionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47381,18 +46514,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getIssuingTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getIssuingTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47461,18 +46588,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postIssuingTransactionsTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postIssuingTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47563,13 +46684,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postLinkAccountSessionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postLinkAccountSessionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47645,15 +46765,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getLinkAccountSessionsSessionResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getLinkAccountSessionsSessionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47746,13 +46863,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getLinkedAccountsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getLinkedAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47828,13 +46944,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getLinkedAccountsAccountResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getLinkedAccountsAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -47905,18 +47020,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postLinkedAccountsAccountDisconnectResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postLinkedAccountsAccountDisconnectResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -48009,15 +47118,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getLinkedAccountsAccountOwnersResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getLinkedAccountsAccountOwnersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -48089,15 +47195,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postLinkedAccountsAccountRefreshResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postLinkedAccountsAccountRefreshResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -48168,13 +47271,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getMandatesMandateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getMandatesMandateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -48269,13 +47371,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentIntentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -49464,13 +48565,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -49558,13 +48658,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentIntentsSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentIntentsSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -49636,13 +48735,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentIntentsIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -50814,13 +49912,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -50896,18 +49993,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentApplyCustomerBalanceResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentApplyCustomerBalanceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -50978,15 +50069,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentCancelResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -51063,15 +50151,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentCaptureResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentCaptureResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -52267,15 +51352,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentConfirmResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentConfirmResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -52356,18 +51438,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentIncrementAuthorizationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentIncrementAuthorizationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -52444,18 +51520,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentIntentsIntentVerifyMicrodepositsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentIntentsIntentVerifyMicrodepositsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -52539,13 +51609,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentLinksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -53144,13 +52213,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentLinksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentLinksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -53221,15 +52289,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentLinksPaymentLinkResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentLinksPaymentLinkResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -53801,15 +52866,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentLinksPaymentLinkResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentLinksPaymentLinkResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -53901,18 +52963,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentLinksPaymentLinkLineItemsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentLinksPaymentLinkLineItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -54000,15 +53056,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodConfigurationsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentMethodConfigurationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -54439,15 +53492,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodConfigurationsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodConfigurationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -54529,18 +53579,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentMethodConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -54985,18 +54029,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55085,13 +54123,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentMethodDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentMethodDomainsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55151,13 +54188,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentMethodDomainsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodDomainsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55234,18 +54270,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55320,18 +54350,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodDomainsPaymentMethodDomainResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55402,18 +54426,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodDomainsPaymentMethodDomainValidateResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodDomainsPaymentMethodDomainValidateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55549,13 +54567,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPaymentMethodsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentMethodsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -55929,13 +54946,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPaymentMethodsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56006,15 +55022,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPaymentMethodsPaymentMethodResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPaymentMethodsPaymentMethodResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56126,15 +55139,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodsPaymentMethodResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodsPaymentMethodResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56207,18 +55217,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodsPaymentMethodAttachResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodsPaymentMethodAttachResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56290,18 +55294,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPaymentMethodsPaymentMethodDetachResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPaymentMethodsPaymentMethodDetachResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56408,13 +55406,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPayoutsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getPayoutsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -56482,13 +55474,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postPayoutsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -56559,13 +55545,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPayoutsPayoutResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPayoutsPayoutResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56634,13 +55619,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsPayoutResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPayoutsPayoutResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56706,13 +55690,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsPayoutCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPayoutsPayoutCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56781,13 +55764,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPayoutsPayoutReverseResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPayoutsPayoutReverseResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -56883,13 +55865,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPlansResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getPlansResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -56991,13 +55967,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPlansResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postPlansResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -57055,13 +56025,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deletePlansPlanResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deletePlansPlanResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -57132,13 +56101,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPlansPlanResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getPlansPlanResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -57211,13 +56174,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPlansPlanResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPlansPlanResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -57328,13 +56290,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPricesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getPricesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -57477,13 +56433,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPricesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postPricesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -57570,13 +56520,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPricesSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPricesSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -57647,13 +56596,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPricesPriceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPricesPriceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -57762,13 +56710,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPricesPriceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPricesPriceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -57871,13 +56818,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProductsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getProductsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -58014,13 +56955,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postProductsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postProductsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -58107,13 +57042,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProductsSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getProductsSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58171,13 +57105,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteProductsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteProductsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58248,13 +57181,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getProductsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getProductsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58347,13 +57279,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postProductsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postProductsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58445,15 +57376,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getProductsProductFeaturesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getProductsProductFeaturesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58520,15 +57448,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postProductsProductFeaturesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postProductsProductFeaturesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58587,15 +57512,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteProductsProductFeaturesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteProductsProductFeaturesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58667,15 +57589,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getProductsProductFeaturesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getProductsProductFeaturesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58773,13 +57692,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getPromotionCodesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPromotionCodesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58856,13 +57774,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postPromotionCodesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPromotionCodesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -58933,15 +57850,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getPromotionCodesPromotionCodeResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getPromotionCodesPromotionCodeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59018,15 +57932,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postPromotionCodesPromotionCodeResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postPromotionCodesPromotionCodeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59112,13 +58023,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getQuotesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -59309,13 +58214,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postQuotesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -59386,13 +58285,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesQuoteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getQuotesQuoteResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59580,13 +58478,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postQuotesQuoteResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59654,13 +58551,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteAcceptResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postQuotesQuoteAcceptResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59728,13 +58624,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postQuotesQuoteCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59832,18 +58727,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getQuotesQuoteComputedUpfrontLineItemsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getQuotesQuoteComputedUpfrontLineItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -59912,13 +58801,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postQuotesQuoteFinalizeResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postQuotesQuoteFinalizeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60010,13 +58898,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesQuoteLineItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getQuotesQuoteLineItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60035,7 +58922,7 @@ export function createRouter(implementation: Implementation): Router {
   })
 
   const getQuotesQuotePdfResponseBodyValidator = responseValidationFactory(
-    [["200", z.string()]],
+    [["200", z.any()]],
     s_error,
   )
 
@@ -60061,7 +58948,7 @@ export function createRouter(implementation: Implementation): Router {
 
         const responder = {
           with200() {
-            return new ExpressRuntimeResponse<string>(200)
+            return new ExpressRuntimeResponse<Blob>(200)
           },
           withDefault(status: StatusCode) {
             return new ExpressRuntimeResponse<t_error>(status)
@@ -60087,13 +58974,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getQuotesQuotePdfResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getQuotesQuotePdfResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60193,15 +59079,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarEarlyFraudWarningsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRadarEarlyFraudWarningsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60278,18 +59161,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarEarlyFraudWarningsEarlyFraudWarningResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRadarEarlyFraudWarningsEarlyFraudWarningResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60388,13 +59265,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRadarValueListItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRadarValueListItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60454,13 +59330,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRadarValueListItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postRadarValueListItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60523,15 +59398,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteRadarValueListItemsItemResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteRadarValueListItemsItemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60602,15 +59474,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarValueListItemsItemResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRadarValueListItemsItemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60706,13 +59575,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRadarValueListsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRadarValueListsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60789,13 +59657,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRadarValueListsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postRadarValueListsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60853,15 +59720,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteRadarValueListsValueListResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteRadarValueListsValueListResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -60932,15 +59796,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getRadarValueListsValueListResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRadarValueListsValueListResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -61011,15 +59872,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postRadarValueListsValueListResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postRadarValueListsValueListResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -61115,13 +59973,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getRefundsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -61196,13 +60048,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRefundsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postRefundsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -61273,13 +60119,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getRefundsRefundResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getRefundsRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -61348,13 +60193,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRefundsRefundResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postRefundsRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -61418,13 +60262,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postRefundsRefundCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postRefundsRefundCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -61521,13 +60364,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReportingReportRunsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getReportingReportRunsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62240,13 +61082,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postReportingReportRunsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postReportingReportRunsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62317,15 +61158,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getReportingReportRunsReportRunResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getReportingReportRunsReportRunResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62406,13 +61244,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReportingReportTypesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getReportingReportTypesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62483,18 +61320,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getReportingReportTypesReportTypeResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getReportingReportTypesReportTypeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62588,13 +61419,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReviewsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getReviewsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -62665,13 +61490,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getReviewsReviewResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getReviewsReviewResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62737,13 +61561,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postReviewsReviewApproveResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postReviewsReviewApproveResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62838,13 +61661,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSetupAttemptsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSetupAttemptsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -62941,13 +61763,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSetupIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSetupIntentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -63594,13 +62415,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSetupIntentsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSetupIntentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -63674,13 +62494,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSetupIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSetupIntentsIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -64302,13 +63121,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSetupIntentsIntentResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSetupIntentsIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -64379,15 +63197,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSetupIntentsIntentCancelResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSetupIntentsIntentCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65031,15 +63846,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSetupIntentsIntentConfirmResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSetupIntentsIntentConfirmResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65116,18 +63928,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSetupIntentsIntentVerifyMicrodepositsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSetupIntentsIntentVerifyMicrodepositsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65223,13 +64029,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getShippingRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getShippingRatesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65326,13 +64131,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postShippingRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postShippingRatesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65403,18 +64207,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getShippingRatesShippingRateTokenResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getShippingRatesShippingRateTokenResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65501,18 +64299,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postShippingRatesShippingRateTokenResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postShippingRatesShippingRateTokenResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65582,13 +64374,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSigmaSavedQueriesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSigmaSavedQueriesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65675,15 +64466,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSigmaScheduledQueryRunsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSigmaScheduledQueryRunsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65760,18 +64548,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSigmaScheduledQueryRunsScheduledQueryRunResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSigmaScheduledQueryRunsScheduledQueryRunResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -65935,13 +64717,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSourcesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postSourcesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -66013,13 +64789,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSourcesSourceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSourcesSourceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66171,13 +64946,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSourcesSourceResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSourcesSourceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66259,18 +65033,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSourcesSourceMandateNotificationsMandateNotificationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSourcesSourceMandateNotificationsMandateNotificationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66362,18 +65130,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSourcesSourceSourceTransactionsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSourcesSourceSourceTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66453,18 +65215,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSourcesSourceSourceTransactionsSourceTransactionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSourcesSourceSourceTransactionsSourceTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66531,13 +65287,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSourcesSourceVerifyResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSourcesSourceVerifyResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66624,13 +65379,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66739,13 +65493,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionItemsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66817,15 +65570,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteSubscriptionItemsItemResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteSubscriptionItemsItemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -66896,13 +65646,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionItemsItemResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionItemsItemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67019,13 +65768,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionItemsItemResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionItemsItemResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67158,13 +65906,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionSchedulesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionSchedulesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67449,13 +66196,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionSchedulesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionSchedulesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67526,15 +66272,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSubscriptionSchedulesScheduleResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionSchedulesScheduleResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67826,18 +66569,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionSchedulesScheduleResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionSchedulesScheduleResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67913,18 +66650,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionSchedulesScheduleCancelResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionSchedulesScheduleCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -67999,18 +66730,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionSchedulesScheduleReleaseResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionSchedulesScheduleReleaseResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -68147,13 +66872,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -68575,13 +67299,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postSubscriptionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -68668,13 +67391,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getSubscriptionsSearchResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionsSearchResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -68768,18 +67490,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteSubscriptionsSubscriptionExposedIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -68856,18 +67572,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getSubscriptionsSubscriptionExposedIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -69331,18 +68041,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionsSubscriptionExposedIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionsSubscriptionExposedIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -69406,18 +68110,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteSubscriptionsSubscriptionExposedIdDiscountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -69490,18 +68188,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionsSubscriptionMigrateResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionsSubscriptionMigrateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -69574,18 +68266,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postSubscriptionsSubscriptionResumeResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postSubscriptionsSubscriptionResumeResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -69819,13 +68505,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxCalculationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxCalculationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -69896,15 +68581,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxCalculationsCalculationResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxCalculationsCalculationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -70005,18 +68687,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxCalculationsCalculationLineItemsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxCalculationsCalculationLineItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -70100,13 +68776,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRegistrationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxRegistrationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -70989,13 +69664,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRegistrationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxRegistrationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71066,13 +69740,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRegistrationsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxRegistrationsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71144,13 +69817,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRegistrationsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxRegistrationsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71215,13 +69887,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxSettingsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxSettingsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71303,13 +69974,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxSettingsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxSettingsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71377,18 +70047,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTaxTransactionsCreateFromCalculationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxTransactionsCreateFromCalculationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71466,18 +70130,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTaxTransactionsCreateReversalResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxTransactionsCreateReversalResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71548,15 +70206,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxTransactionsTransactionResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxTransactionsTransactionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71657,18 +70312,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTaxTransactionsTransactionLineItemsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxTransactionsTransactionLineItemsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71751,13 +70400,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxCodesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTaxCodesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -71828,13 +70471,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxCodesIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxCodesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -71924,13 +70566,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxIdsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTaxIdsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -72110,13 +70746,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxIdsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postTaxIdsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -72174,13 +70804,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(deleteTaxIdsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteTaxIdsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -72251,13 +70880,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxIdsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTaxIdsIdResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -72353,13 +70976,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTaxRatesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -72446,13 +71063,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRatesResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postTaxRatesResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -72525,13 +71136,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTaxRatesTaxRateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTaxRatesTaxRateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -72626,13 +71236,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTaxRatesTaxRateResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTaxRatesTaxRateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -72720,13 +71329,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalConfigurationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTerminalConfigurationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -72984,15 +71592,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalConfigurationsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalConfigurationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73061,18 +71666,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTerminalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteTerminalConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73162,18 +71761,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTerminalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTerminalConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73479,18 +72072,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalConfigurationsConfigurationResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalConfigurationsConfigurationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73551,15 +72138,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalConnectionTokensResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalConnectionTokensResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73645,13 +72229,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalLocationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTerminalLocationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73722,13 +72305,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTerminalLocationsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalLocationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73786,15 +72368,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTerminalLocationsLocationResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteTerminalLocationsLocationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73870,15 +72449,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTerminalLocationsLocationResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTerminalLocationsLocationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -73966,15 +72542,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalLocationsLocationResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalLocationsLocationResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74073,13 +72646,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalReadersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTerminalReadersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74143,13 +72715,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTerminalReadersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74207,15 +72778,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTerminalReadersReaderResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteTerminalReadersReaderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74296,13 +72864,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTerminalReadersReaderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTerminalReadersReaderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74382,13 +72949,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTerminalReadersReaderResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74460,18 +73026,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderCancelActionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderCancelActionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74583,18 +73143,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderCollectInputsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderCollectInputsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74680,18 +73234,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderCollectPaymentMethodResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74766,18 +73314,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderConfirmPaymentIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74864,18 +73406,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderProcessPaymentIntentResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderProcessPaymentIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -74954,18 +73490,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderProcessSetupIntentResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderProcessSetupIntentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -75048,18 +73578,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderRefundPaymentResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderRefundPaymentResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -75146,18 +73670,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTerminalReadersReaderSetReaderDisplayResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTerminalReadersReaderSetReaderDisplayResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -75546,18 +74064,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersConfirmationTokensResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersConfirmationTokensResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -75638,18 +74150,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersCustomersCustomerFundCashBalanceResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersCustomersCustomerFundCashBalanceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76141,18 +74647,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76340,18 +74840,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsAuthorizationCaptureResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76421,18 +74915,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsAuthorizationExpireResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76572,18 +75060,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76656,18 +75138,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76741,18 +75217,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsAuthorizationIncrementResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76827,18 +75297,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingAuthorizationsAuthorizationReverseResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76910,18 +75374,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingDeliverResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingCardsCardShippingDeliverResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -76993,18 +75451,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingFailResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingCardsCardShippingFailResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77076,18 +75528,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingReturnResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingCardsCardShippingReturnResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77159,18 +75605,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingShipResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingCardsCardShippingShipResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77242,18 +75682,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingCardsCardShippingSubmitResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingCardsCardShippingSubmitResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77328,18 +75762,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77414,18 +75842,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77531,18 +75953,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77609,18 +76025,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingSettlementsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingSettlementsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -77691,18 +76101,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingSettlementsSettlementCompleteResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingSettlementsSettlementCompleteResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -78188,18 +76592,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingTransactionsCreateForceCaptureResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingTransactionsCreateForceCaptureResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -78685,18 +77083,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingTransactionsCreateUnlinkedRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -78770,18 +77162,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersIssuingTransactionsTransactionRefundResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersIssuingTransactionsTransactionRefundResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -78847,18 +77233,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersRefundsRefundExpireResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersRefundsRefundExpireResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -78940,18 +77320,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTerminalReadersReaderPresentPaymentMethodResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79026,18 +77400,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTerminalReadersReaderSucceedInputCollectionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79107,18 +77475,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTerminalReadersReaderTimeoutInputCollectionResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79205,13 +77567,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTestHelpersTestClocksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTestHelpersTestClocksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79271,13 +77632,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTestHelpersTestClocksResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTestClocksResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79346,18 +77706,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteTestHelpersTestClocksTestClockResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteTestHelpersTestClocksTestClockResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79428,18 +77782,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTestHelpersTestClocksTestClockResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTestHelpersTestClocksTestClockResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79512,18 +77860,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTestClocksTestClockAdvanceResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTestClocksTestClockAdvanceResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79618,18 +77960,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryInboundTransfersIdFailResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryInboundTransfersIdFailResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79701,18 +78037,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryInboundTransfersIdReturnResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryInboundTransfersIdReturnResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79784,18 +78114,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryInboundTransfersIdSucceedResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryInboundTransfersIdSucceedResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79878,18 +78202,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundPaymentsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -79961,18 +78279,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdFailResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundPaymentsIdFailResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80044,18 +78356,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdPostResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundPaymentsIdPostResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80147,18 +78453,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundPaymentsIdReturnResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundPaymentsIdReturnResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80241,18 +78541,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80322,18 +78616,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80403,18 +78691,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80506,18 +78788,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80598,18 +78874,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryReceivedCreditsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryReceivedCreditsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -80690,18 +78960,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTestHelpersTreasuryReceivedDebitsResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTestHelpersTreasuryReceivedDebitsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -81238,13 +79502,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTokensResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postTokensResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -81315,13 +79573,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTokensTokenResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTokensTokenResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -81427,13 +79684,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTopupsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTopupsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -81500,13 +79751,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTopupsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, postTopupsResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -81577,13 +79822,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTopupsTopupResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTopupsTopupResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -81653,13 +79897,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTopupsTopupResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTopupsTopupResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -81727,13 +79970,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTopupsTopupCancelResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTopupsTopupCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -81829,13 +80071,7 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTransfersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(res, status, body, getTransfersResponseBodyValidator)
       } catch (error) {
         next(error)
       }
@@ -81903,13 +80139,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTransfersResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTransfersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82001,13 +80236,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTransfersIdReversalsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTransfersIdReversalsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82079,13 +80313,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTransfersIdReversalsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTransfersIdReversalsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82158,13 +80391,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTransfersTransferResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTransfersTransferResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82236,13 +80468,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postTransfersTransferResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTransfersTransferResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82314,15 +80545,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTransfersTransferReversalsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTransfersTransferReversalsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82392,15 +80620,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTransfersTransferReversalsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTransfersTransferReversalsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82487,15 +80712,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryCreditReversalsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryCreditReversalsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82555,15 +80777,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryCreditReversalsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryCreditReversalsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82640,18 +80859,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryCreditReversalsCreditReversalResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryCreditReversalsCreditReversalResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82739,13 +80952,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryDebitReversalsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryDebitReversalsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82805,15 +81017,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryDebitReversalsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryDebitReversalsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -82890,18 +81099,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryDebitReversalsDebitReversalResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryDebitReversalsDebitReversalResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83000,15 +81203,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryFinancialAccountsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryFinancialAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83104,15 +81304,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryFinancialAccountsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83189,18 +81386,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryFinancialAccountsFinancialAccountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryFinancialAccountsFinancialAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83322,18 +81513,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsFinancialAccountResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryFinancialAccountsFinancialAccountResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83413,18 +81598,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsFinancialAccountCloseResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryFinancialAccountsFinancialAccountCloseResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83506,18 +81685,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83621,18 +81794,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryFinancialAccountsFinancialAccountFeaturesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83720,15 +81887,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryInboundTransfersResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryInboundTransfersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83793,15 +81957,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryInboundTransfersResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryInboundTransfersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83872,15 +82033,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryInboundTransfersIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryInboundTransfersIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -83952,18 +82110,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryInboundTransfersInboundTransferCancelResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryInboundTransfersInboundTransferCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84066,15 +82218,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundPaymentsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryOutboundPaymentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84189,15 +82338,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundPaymentsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryOutboundPaymentsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84268,15 +82414,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundPaymentsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryOutboundPaymentsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84348,18 +82491,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundPaymentsIdCancelResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryOutboundPaymentsIdCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84447,15 +82584,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundTransfersResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryOutboundTransfersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84536,15 +82670,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundTransfersResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryOutboundTransfersResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84621,18 +82752,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryOutboundTransfersOutboundTransferResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryOutboundTransfersOutboundTransferResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84703,18 +82828,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postTreasuryOutboundTransfersOutboundTransferCancelResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postTreasuryOutboundTransfersOutboundTransferCancelResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84811,15 +82930,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryReceivedCreditsResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryReceivedCreditsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84890,15 +83006,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryReceivedCreditsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryReceivedCreditsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -84984,13 +83097,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryReceivedDebitsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryReceivedDebitsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85061,15 +83173,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryReceivedDebitsIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryReceivedDebitsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85181,15 +83290,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryTransactionEntriesResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryTransactionEntriesResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85260,15 +83366,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getTreasuryTransactionEntriesIdResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryTransactionEntriesIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85381,13 +83484,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryTransactionsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryTransactionsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85458,13 +83560,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getTreasuryTransactionsIdResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getTreasuryTransactionsIdResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85547,13 +83648,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getWebhookEndpointsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getWebhookEndpointsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -85982,13 +84082,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postWebhookEndpointsResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postWebhookEndpointsResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -86052,18 +84151,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            deleteWebhookEndpointsWebhookEndpointResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          deleteWebhookEndpointsWebhookEndpointResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -86134,18 +84227,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            getWebhookEndpointsWebhookEndpointResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getWebhookEndpointsWebhookEndpointResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -86466,18 +84553,12 @@ export function createRouter(implementation: Implementation): Router {
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(
-            postWebhookEndpointsWebhookEndpointResponseBodyValidator(
-              status,
-              body,
-            ),
-          )
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postWebhookEndpointsWebhookEndpointResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

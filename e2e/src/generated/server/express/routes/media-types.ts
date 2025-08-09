@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  t_PostMediaTypesOctetStreamRequestBodySchema,
   t_PostMediaTypesTextRequestBodySchema,
   t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
   t_ProductOrder,
@@ -18,6 +19,8 @@ import {
   Params,
   SkipResponse,
   StatusCode,
+  parseOctetStream,
+  sendResponse,
 } from "@nahkies/typescript-express-runtime/server"
 import {
   parseRequestInput,
@@ -55,9 +58,27 @@ export type PostMediaTypesXWwwFormUrlencoded = (
   next: NextFunction,
 ) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
 
+export type PostMediaTypesOctetStreamResponder = {
+  with200(): ExpressRuntimeResponse<Blob>
+} & ExpressRuntimeResponder
+
+export type PostMediaTypesOctetStream = (
+  params: Params<
+    void,
+    void,
+    t_PostMediaTypesOctetStreamRequestBodySchema,
+    void
+  >,
+  respond: PostMediaTypesOctetStreamResponder,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<ExpressRuntimeResponse<unknown> | typeof SkipResponse>
+
 export type MediaTypesImplementation = {
   postMediaTypesText: PostMediaTypesText
   postMediaTypesXWwwFormUrlencoded: PostMediaTypesXWwwFormUrlencoded
+  postMediaTypesOctetStream: PostMediaTypesOctetStream
 }
 
 export function createMediaTypesRouter(
@@ -113,13 +134,12 @@ export function createMediaTypesRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(postMediaTypesTextResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          postMediaTypesTextResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -172,15 +192,70 @@ export function createMediaTypesRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
+        await sendResponse(
+          res,
+          status,
+          body,
+          postMediaTypesXWwwFormUrlencodedResponseBodyValidator,
+        )
+      } catch (error) {
+        next(error)
+      }
+    },
+  )
 
-        if (body !== undefined) {
-          res.json(
-            postMediaTypesXWwwFormUrlencodedResponseBodyValidator(status, body),
-          )
-        } else {
-          res.end()
+  const postMediaTypesOctetStreamRequestBodySchema = z.any()
+
+  const postMediaTypesOctetStreamResponseBodyValidator =
+    responseValidationFactory([["200", z.any()]], undefined)
+
+  // postMediaTypesOctetStream
+  router.post(
+    `/media-types/octet-stream`,
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const input = {
+          params: undefined,
+          query: undefined,
+          body: parseRequestInput(
+            postMediaTypesOctetStreamRequestBodySchema,
+            await parseOctetStream(req),
+            RequestInputType.RequestBody,
+          ),
+          headers: undefined,
         }
+
+        const responder = {
+          with200() {
+            return new ExpressRuntimeResponse<Blob>(200)
+          },
+          withStatus(status: StatusCode) {
+            return new ExpressRuntimeResponse(status)
+          },
+        }
+
+        const response = await implementation
+          .postMediaTypesOctetStream(input, responder, req, res, next)
+          .catch((err) => {
+            throw ExpressRuntimeError.HandlerError(err)
+          })
+
+        // escape hatch to allow responses to be sent by the implementation handler
+        if (response === SkipResponse) {
+          return
+        }
+
+        const {status, body} =
+          response instanceof ExpressRuntimeResponse
+            ? response.unpack()
+            : response
+
+        await sendResponse(
+          res,
+          status,
+          body,
+          postMediaTypesOctetStreamResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

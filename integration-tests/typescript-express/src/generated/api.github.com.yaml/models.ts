@@ -16538,7 +16538,7 @@ export type t_ReposUploadReleaseAssetQuerySchema = {
   name: string
 }
 
-export type t_ReposUploadReleaseAssetRequestBodySchema = never
+export type t_ReposUploadReleaseAssetRequestBodySchema = Blob
 
 export type t_SearchCodeQuerySchema = {
   order?: ("desc" | "asc") | undefined

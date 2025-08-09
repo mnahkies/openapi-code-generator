@@ -6,9 +6,12 @@ import Cors, {type CorsOptions, type CorsOptionsDelegate} from "cors"
 import express, {
   type ErrorRequestHandler,
   type Express,
+  type Response as ExpressResponse,
+  type Request,
   type RequestHandler,
   type Router,
 } from "express"
+import getRawBody from "raw-body"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -40,6 +43,8 @@ export type Response<Status extends StatusCode, Type> = {
   status: Status
   body: Type
 }
+
+export type ResponseValidator = (status: number, value: unknown) => any
 
 export const SkipResponse = Symbol("skip response processing")
 
@@ -203,4 +208,65 @@ export async function startServer({
       reject(err)
     }
   })
+}
+
+export async function parseOctetStream(
+  req: Request,
+): Promise<Blob | undefined> {
+  const contentLength = req.headers["content-length"]
+    ? parseInt(req.headers["content-length"], 10)
+    : undefined
+
+  if (!contentLength) {
+    throw new Error("No content length provided")
+  }
+
+  const body = await getRawBody(req, {
+    length: contentLength,
+    limit: "1mb",
+  })
+
+  if (!body) {
+    return undefined
+  }
+
+  if (!Buffer.isBuffer(body)) {
+    throw new Error("body must be a buffer")
+  }
+
+  const blob = new Blob([new Uint8Array(body)], {
+    type: "application/octet-stream",
+  })
+
+  return blob
+}
+
+export async function sendResponse(
+  res: ExpressResponse,
+  status: number,
+  body: unknown,
+  validator: ResponseValidator,
+) {
+  res.status(status)
+
+  if (body === undefined) {
+    res.end()
+    return
+  }
+
+  if (body instanceof Blob) {
+    await sendBlob(res, body)
+  } else {
+    res.json(validator(status, body))
+  }
+}
+
+export async function sendBlob(res: ExpressResponse, body: Blob) {
+  const arrayBuffer = await body.arrayBuffer()
+  const buffer = Buffer.from(arrayBuffer)
+
+  res.setHeader("Content-Type", body.type ?? "application/octet-stream")
+  res.setHeader("Content-Length", buffer.length)
+
+  res.send(buffer)
 }

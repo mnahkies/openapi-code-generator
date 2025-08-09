@@ -9784,7 +9784,7 @@ export type GetQuotesQuoteLineItems = (
 >
 
 export type GetQuotesQuotePdfResponder = {
-  with200(): KoaRuntimeResponse<string>
+  with200(): KoaRuntimeResponse<Blob>
   withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
 } & KoaRuntimeResponder
 
@@ -9800,7 +9800,7 @@ export type GetQuotesQuotePdf = (
   next: Next,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, string>
+  | Response<200, Blob>
   | Response<StatusCode, t_error>
   | typeof SkipResponse
 >
@@ -58782,7 +58782,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getQuotesQuotePdfResponseValidator = responseValidationFactory(
-    [["200", z.string()]],
+    [["200", z.any()]],
     s_error,
   )
 
@@ -58807,7 +58807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<string>(200)
+          return new KoaRuntimeResponse<Blob>(200)
         },
         withDefault(status: StatusCode) {
           return new KoaRuntimeResponse<t_error>(status)

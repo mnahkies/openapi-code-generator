@@ -44,6 +44,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "raw-body": "^3.0.0",
     "tslib": "^2.8.1"
   },
   "peerDependencies": {

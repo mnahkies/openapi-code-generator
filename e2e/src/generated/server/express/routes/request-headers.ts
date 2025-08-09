@@ -22,6 +22,7 @@ import {
   Params,
   SkipResponse,
   StatusCode,
+  sendResponse,
 } from "@nahkies/typescript-express-runtime/server"
 import {
   parseRequestInput,
@@ -108,13 +109,12 @@ export function createRequestHeadersRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getHeadersUndeclaredResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getHeadersUndeclaredResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }
@@ -177,13 +177,12 @@ export function createRequestHeadersRouter(
             ? response.unpack()
             : response
 
-        res.status(status)
-
-        if (body !== undefined) {
-          res.json(getHeadersRequestResponseBodyValidator(status, body))
-        } else {
-          res.end()
-        }
+        await sendResponse(
+          res,
+          status,
+          body,
+          getHeadersRequestResponseBodyValidator,
+        )
       } catch (error) {
         next(error)
       }

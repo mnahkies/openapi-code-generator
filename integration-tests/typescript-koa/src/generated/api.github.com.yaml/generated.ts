@@ -2165,6 +2165,7 @@ import {
   ServerConfig,
   SkipResponse,
   StatusCode,
+  parseOctetStream,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
@@ -84771,9 +84772,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     label: z.string().optional(),
   })
 
-  // todo: request bodies with content-type 'application/octet-stream' not yet supported
-
-  const reposUploadReleaseAssetBodySchema = z.never().optional()
+  const reposUploadReleaseAssetBodySchema = z.any().optional()
 
   const reposUploadReleaseAssetResponseValidator = responseValidationFactory(
     [
@@ -84800,7 +84799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
         body: parseRequestInput(
           reposUploadReleaseAssetBodySchema,
-          Reflect.get(ctx.request, "body"),
+          await parseOctetStream(ctx),
           RequestInputType.RequestBody,
         ),
         headers: undefined,

@@ -49,6 +49,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "StatusCode4xx",
         "StatusCode5xx",
         "startServer",
+        "parseOctetStream",
       )
 
     this.imports
@@ -142,7 +143,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${builder.rout
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, ctx.query, RequestInputType.QueryString)` : "undefined"},
-    body: ${params.body.schema ? `parseRequestInput(${symbols.requestBodySchema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)` : "undefined"},
+    body: ${params.body.schema ? (params.body.contentType === "application/octet-stream" ? `parseRequestInput(${symbols.requestBodySchema}, await parseOctetStream(ctx), RequestInputType.RequestBody)` : `parseRequestInput(${symbols.requestBodySchema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)`) : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
    }
 
