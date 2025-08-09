@@ -16,6 +16,7 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
         "application/scim+json",
         "application/merge-patch+json",
         "application/x-www-form-urlencoded",
+        "application/octet-stream",
         "text/json",
         "text/plain",
         "text/x-markdown",
@@ -67,6 +68,9 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
     const axiosFragment = `this._request({${[
       `url: url ${queryString ? "+ query" : ""}`,
       `method: "${method}"`,
+      responseSchema?.type === "Blob"
+        ? "responseType: 'arraybuffer'"
+        : undefined,
       requestBody?.parameter
         ? requestBody.isSupported
           ? "data: body"
@@ -102,7 +106,9 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
 
     return {...res, data: ${this.schemaBuilder.parse(
       responseSchema.schema,
-      "res.data",
+      responseSchema.type === "Blob"
+        ? "new Blob([res.data], {type: res.headers['content-type'] || 'application/octet-stream'})"
+        : "res.data",
     )}}
     `
         : `return ${axiosFragment}`
@@ -195,6 +201,16 @@ ${this.legacyExports(clientName)}
         ]
           .filter(isDefined)
           .join(", ")})`
+
+        if (requestBody.parameter.required) {
+          return serialize
+        }
+
+        return `${param} !== undefined ? ${serialize} : null`
+      }
+
+      case "Blob": {
+        const serialize = param
 
         if (requestBody.parameter.required) {
           return serialize

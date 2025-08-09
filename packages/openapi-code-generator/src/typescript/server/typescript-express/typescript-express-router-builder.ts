@@ -52,6 +52,8 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
         "StatusCode3xx",
         "StatusCode4xx",
         "StatusCode5xx",
+        "parseOctetStream",
+        "sendResponse",
       )
 
     this.imports
@@ -134,7 +136,7 @@ router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, req.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, req.query, RequestInputType.QueryString)` : "undefined"},
-    body: ${params.body.schema ? `parseRequestInput(${symbols.requestBodySchema}, req.body, RequestInputType.RequestBody)` : "undefined"},
+    body: ${params.body.schema ? (params.body.contentType === "application/octet-stream" ? `parseRequestInput(${symbols.requestBodySchema}, await parseOctetStream(req), RequestInputType.RequestBody)` : `parseRequestInput(${symbols.requestBodySchema}, req.body, RequestInputType.RequestBody)`) : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
    }
 
@@ -150,13 +152,7 @@ router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request
 
    const { status, body } = response instanceof ExpressRuntimeResponse ? response.unpack() : response
 
-    res.status(status)
-
-    if (body !== undefined) {
-      res.json(${symbols.responseBodyValidator}(status, body))
-    } else {
-      res.end()
-    }
+   await sendResponse(res, status, body, ${symbols.responseBodyValidator})
   } catch (error) {
     next(error)
   }

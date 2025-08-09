@@ -2,9 +2,10 @@ import type {Server} from "node:http"
 import type {AddressInfo, ListenOptions} from "node:net"
 import Cors from "@koa/cors"
 import type Router from "@koa/router"
-import Koa, {type Middleware} from "koa"
+import Koa, {type Context, type Middleware} from "koa"
+import type {KoaBodyMiddlewareOptions} from "koa-body"
 import KoaBody from "koa-body"
-import type {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
+import getRawBody from "raw-body"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -103,6 +104,38 @@ export type Params<Params, Query, Body, Header> = {
   query: Query
   body: Body
   headers: Header
+}
+
+export async function parseOctetStream(
+  ctx: Context,
+): Promise<Blob | undefined> {
+  const contentLength = ctx.req.headers["content-length"]
+    ? parseInt(ctx.req.headers["content-length"], 10)
+    : undefined
+
+  if (!contentLength) {
+    throw new Error("No content length provided")
+  }
+
+  const body = await getRawBody(ctx.req, {
+    length: contentLength,
+    limit: "1mb",
+  })
+
+  if (!body) {
+    return undefined
+  }
+
+  if (!Buffer.isBuffer(body)) {
+    throw new Error("body must be a buffer")
+  }
+
+  const blob = new Blob([new Uint8Array(body)], {
+    type: "application/octet-stream",
+  })
+
+  ctx.body = blob
+  return blob
 }
 
 /**

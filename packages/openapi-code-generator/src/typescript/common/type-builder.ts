@@ -174,6 +174,11 @@ export class TypeBuilder implements ICompilable {
             if (schemaObject["x-enum-extensibility"] === "open") {
               result.push(this.addStaticType("UnknownEnumStringValue"))
             }
+          } else if (
+            schemaObject.format === "binary" ||
+            schemaObject.format === "byte"
+          ) {
+            result.push("Blob")
           } else {
             result.push("string")
           }
