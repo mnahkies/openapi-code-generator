@@ -43,6 +43,7 @@
     "@biomejs/js-api": "2.0.3",
     "@biomejs/wasm-nodejs": "2.1.2",
     "@commander-js/extra-typings": "^14.0.0",
+    "@jest/reporters": "^30.0.5",
     "@swc/core": "^1.13.2",
     "@swc/jest": "^0.2.39",
     "@tsconfig/node24": "^24.0.1",
