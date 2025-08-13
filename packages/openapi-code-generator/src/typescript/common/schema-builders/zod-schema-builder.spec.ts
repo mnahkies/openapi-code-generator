@@ -558,7 +558,7 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().nullable().default(null)"',
         )
 
-        await expect(execute(undefined)).resolves.toBeNull
+        await expect(execute(undefined)).resolves.toBeNull()
       })
     })
 
@@ -734,7 +734,7 @@ describe.each(testVersions)(
           '"const x = z.string().nullable().default(null)"',
         )
 
-        await expect(execute(undefined)).resolves.toBeNull
+        await expect(execute(undefined)).resolves.toBeNull()
       })
 
       it("supports empty string default values", async () => {
@@ -934,8 +934,9 @@ describe.each(testVersions)(
           const x = PermissiveBoolean.nullable().default(null)"
         `)
 
-        await expect(executeBooleanTest(codeWithoutImport, undefined)).resolves
-          .toBeNull
+        await expect(
+          executeBooleanTest(codeWithoutImport, undefined),
+        ).resolves.toBeNull()
       })
 
       it("support enum of 'true'", async () => {
@@ -1266,7 +1267,7 @@ describe.each(testVersions)(
           `"const x = z.object({}).nullable().default(null)"`,
         )
 
-        await expect(execute(undefined)).resolves.toBeNull
+        await expect(execute(undefined)).resolves.toBeNull()
       })
     })
 
