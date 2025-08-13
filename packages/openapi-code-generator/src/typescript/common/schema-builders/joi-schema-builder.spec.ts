@@ -625,6 +625,20 @@ describe.each(testVersions)(
 
         await expect(execute(undefined)).resolves.toBe(0)
       })
+
+      it("supports default values of null when nullable", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.number().allow(null).default(null)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBeNull()
+      })
     })
 
     describe("strings", () => {
@@ -766,6 +780,20 @@ describe.each(testVersions)(
         await expect(execute(undefined)).resolves.toBe("example")
       })
 
+      it("supports default values of null when nullable", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().allow(null).default(null)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBeNull()
+      })
+
       it("supports empty string default values", async () => {
         const {code, execute} = await getActualFromModel({
           ...base,
@@ -904,6 +932,20 @@ describe.each(testVersions)(
         )
 
         await expect(execute(undefined)).resolves.toBe(true)
+      })
+
+      it("supports default values of null when nullable", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.boolean().truthy(1, "1").falsy(0, "0").allow(null).default(null)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBeNull()
       })
 
       it("support enum of 'true'", async () => {
