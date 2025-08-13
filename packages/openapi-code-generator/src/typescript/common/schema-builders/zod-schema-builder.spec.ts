@@ -546,6 +546,20 @@ describe.each(testVersions)(
 
         await expect(execute(undefined)).resolves.toBe(0)
       })
+
+      it("supports default values of null when nullable", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.coerce.number().nullable().default(null)"',
+        )
+
+        await expect(execute(undefined)).resolves.toBeNull
+      })
     })
 
     describe("strings", () => {
@@ -707,6 +721,20 @@ describe.each(testVersions)(
         )
 
         await expect(execute(undefined)).resolves.toBe("example")
+      })
+
+      it("supports default values of null when nullable", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.string().nullable().default(null)"',
+        )
+
+        await expect(execute(undefined)).resolves.toBeNull
       })
 
       it("supports empty string default values", async () => {
@@ -882,6 +910,32 @@ describe.each(testVersions)(
         await expect(
           executeBooleanTest(codeWithoutImport, undefined),
         ).resolves.toBe(true)
+      })
+
+      it("supports default values of null when nullable", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        const codeWithoutImport = inlineStaticSchemas(code)
+
+        expect(codeWithoutImport).toMatchInlineSnapshot(`
+          "const PermissiveBoolean = z.preprocess((value) => {
+                    if(typeof value === "string" && (value === "true" || value === "false")) {
+                      return value === "true"
+                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                      return value === 1
+                    }
+                    return value
+                  }, z.boolean())
+
+          const x = PermissiveBoolean.nullable().default(null)"
+        `)
+
+        await expect(executeBooleanTest(codeWithoutImport, undefined)).resolves
+          .toBeNull
       })
 
       it("support enum of 'true'", async () => {
@@ -1199,6 +1253,20 @@ describe.each(testVersions)(
           name: "example",
           age: 22,
         })
+      })
+
+      it("supports null default when nullable", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          nullable: true,
+          default: null,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.object({}).nullable().default(null)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBeNull
       })
     })
 
