@@ -313,7 +313,10 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     // for stuff like this, eg: https://github.com/github/rest-api-description/issues/3878
     // lets coerce defaults to be strings when the model type is expecting that.
     const needsWrapping =
-      model.type === "string" && typeof model.default !== "string"
+      model.type === "string" &&
+      typeof model.default !== "string" &&
+      !(model.nullable && model.default === null)
+
     const defaultValue = JSON.stringify(model.default)
 
     return [
