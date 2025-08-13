@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.21.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.21.0...v0.21.1) (2025-08-13)
+
+### Bug Fixes
+
+- coercion of null default values for string schemas ([#360](https://github.com/mnahkies/openapi-code-generator/issues/360)) ([6a4b1ad](https://github.com/mnahkies/openapi-code-generator/commit/6a4b1ad7c5535ed92e200227cb2f8f141d1e89dd))
+- joi supports string values with null default ([#361](https://github.com/mnahkies/openapi-code-generator/issues/361)) ([a0c3762](https://github.com/mnahkies/openapi-code-generator/commit/a0c3762aaad3a34d69589d3b78093129056cd46a))
+
 # [0.21.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.20.1...v0.21.0) (2025-07-26)
 
 ### Bug Fixes
