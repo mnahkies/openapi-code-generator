@@ -24,7 +24,6 @@ onlyBuiltDependencies:
 
 overrides:
   '@types/node': 22.16.5
-  zod: 3.25.74
 
 preferWorkspacePackages: true
 
