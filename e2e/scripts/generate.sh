@@ -2,7 +2,7 @@
 
 set -e
 
-SCHEMA_BUILDER=zod
+SCHEMA_BUILDER="${SCHEMA_BUILDER:-zod}"
 
 pnpm openapi-code-generator \
   --input ./openapi.yaml \

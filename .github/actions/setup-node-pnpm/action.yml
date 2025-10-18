@@ -1,0 +1,29 @@
+name: Setup Node and pnpm
+
+description: Install pnpm and setup Node with pnpm cache
+
+inputs:
+  node-version:
+    description: Node.js version to use (e.g., 20.x)
+    required: true
+  registry-url:
+    description: NPM registry URL
+    required: false
+    default: https://registry.npmjs.org
+  cache:
+    description: Enable package manager cache
+    required: false
+    default: pnpm
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
+
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+      with:
+        registry-url: ${{ inputs.registry-url }}
+        node-version: ${{ inputs.node-version }}
+        cache: ${{ inputs.cache }}
