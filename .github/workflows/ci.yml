@@ -30,7 +30,6 @@ jobs:
 
       - run: node ./scripts/generate-ajv-validator.js
       - run: pnpm tsc -b tsconfig.json
-      - run: pnpm ci-test
       - run: pnpm ci-lint
 
       - name: Check for uncommitted changes
@@ -43,13 +42,14 @@ jobs:
               --exclude='./.git' \
               --exclude='./coverage' \
               --exclude='./**/*.log' \
-              -czf ${{ runner.temp }}/workspace.tar.gz .
+              -cvf ${{ runner.temp }}/workspace.tar .
 
       - name: Upload workspace
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: workspace-${{ matrix.node-version }}
-          path: ${{ runner.temp }}/workspace.tar.gz
+          path: ${{ runner.temp }}/workspace.tar
+          retention-days: 7
 
   build-docs:
     needs: build
@@ -78,11 +78,44 @@ jobs:
         uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: workspace-${{ matrix.node-version }}
-          path: .
+          path: ${{runner.temp}}
+      - name: Extract workspace
+        run: |
+          tar -xf ${{runner.temp}}/workspace.tar -C .
 
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm --filter @nahkies/openapi-code-generator-documentation build
+
+  unit:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: *node-versions
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+      - name: setup
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Download built workspace
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: workspace-${{ matrix.node-version }}
+          path: .
+      - name: Extract workspace
+        run: |
+          tar -xf ${{runner.temp}}/workspace.tar -C .
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run ci-test
+
+      - name: Check for uncommitted changes
+        run: ./scripts/assert-clean-working-directory.sh
 
   integration:
     needs: build
@@ -105,6 +138,9 @@ jobs:
         with:
           name: workspace-${{ matrix.node-version }}
           path: .
+      - name: Extract workspace
+        run: |
+          tar -xf ${{runner.temp}}/workspace.tar -C .
 
       - run: pnpm install --frozen-lockfile
 
@@ -136,6 +172,9 @@ jobs:
         with:
           name: workspace-${{ matrix.node-version }}
           path: .
+      - name: Extract workspace
+        run: |
+          tar -xf ${{runner.temp}}/workspace.tar -C .
 
       - run: pnpm install --frozen-lockfile
 
