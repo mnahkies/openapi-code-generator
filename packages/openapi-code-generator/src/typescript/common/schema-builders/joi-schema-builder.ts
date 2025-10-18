@@ -27,6 +27,8 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   JoiBuilder,
   StaticSchemas
 > {
+  readonly type = "joi"
+
   static async fromInput(
     filename: string,
     input: Input,

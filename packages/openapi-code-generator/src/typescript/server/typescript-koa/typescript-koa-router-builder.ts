@@ -2,9 +2,7 @@ import type {Input} from "../../../core/input"
 import {isDefined, titleCase} from "../../../core/utils"
 import type {ServerImplementationMethod} from "../../../templates.types"
 import type {ImportBuilder} from "../../common/import-builder"
-import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import type {SchemaBuilder} from "../../common/schema-builders/schema-builder"
-import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
 import type {TypeBuilder} from "../../common/type-builder"
 import {constStatement, object} from "../../common/type-utils"
 import {buildExport} from "../../common/typescript-common"
@@ -59,14 +57,28 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     this.imports.addModule("KoaRouter", "@koa/router")
     this.imports.from("@koa/router").add("RouterContext")
 
-    if (this.schemaBuilder instanceof ZodBuilder) {
-      this.imports
-        .from("@nahkies/typescript-koa-runtime/zod")
-        .add("parseRequestInput", "responseValidationFactory")
-    } else if (this.schemaBuilder instanceof JoiBuilder) {
-      this.imports
-        .from("@nahkies/typescript-koa-runtime/joi")
-        .add("parseRequestInput", "responseValidationFactory")
+    const schemaBuilderType = this.schemaBuilder.type
+
+    switch (schemaBuilderType) {
+      case "joi": {
+        this.imports
+          .from("@nahkies/typescript-koa-runtime/joi")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+
+      case "zod": {
+        this.imports
+          .from("@nahkies/typescript-koa-runtime/zod")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
+
+      default: {
+        throw new Error(
+          `unsupported schema builder type '${schemaBuilderType satisfies never}'`,
+        )
+      }
     }
   }
 
