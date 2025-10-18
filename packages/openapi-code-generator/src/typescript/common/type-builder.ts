@@ -3,7 +3,7 @@ import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {logger} from "../../core/logger"
 import type {Reference} from "../../core/openapi-types"
 import type {MaybeIRModel} from "../../core/openapi-types-normalized"
-import {getTypeNameFromRef, isRef} from "../../core/openapi-utils"
+import {getNameFromRef, isRef} from "../../core/openapi-utils"
 import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import {
@@ -67,11 +67,15 @@ export class TypeBuilder implements ICompilable {
     )
   }
 
+  getTypeNameFromRef(reference: Reference) {
+    return getNameFromRef(reference, "t_")
+  }
+
   protected add({$ref}: Reference): string {
     this.parent?.add({$ref})
     this.referenced.add($ref)
 
-    const name = getTypeNameFromRef({$ref})
+    const name = this.getTypeNameFromRef({$ref})
 
     this.imports?.addSingle(name, this.filename)
 
@@ -117,7 +121,7 @@ export class TypeBuilder implements ICompilable {
   }
 
   private generateModelFromRef($ref: string): string {
-    const name = getTypeNameFromRef({$ref})
+    const name = this.getTypeNameFromRef({$ref})
     const schemaObject = this.input.schema({$ref})
 
     return buildExport({

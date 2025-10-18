@@ -67,14 +67,20 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return `await ${schema}.validateAsync(${value})`
   }
 
+  public schemaTypeForType(type: string): string {
+    return type ? `${joi}.Schema<${type}>` : ""
+  }
+
   protected schemaFromRef(reference: Reference): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
+    // const type = this.typeBuilder.schemaObjectToType(reference)
     const value = this.fromModel(schemaObject, true)
 
     return {
       name,
+      // type: this.schemaTypeForType(type),
       type: "",
       value: `${value}.id("${name}")`,
       kind: "const",

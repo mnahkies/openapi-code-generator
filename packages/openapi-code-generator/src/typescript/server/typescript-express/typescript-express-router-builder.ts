@@ -146,7 +146,7 @@ router.${builder.method.toLowerCase()}(\`${builder.route}\`, async (req: Request
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, req.params, RequestInputType.RouteParam)` : "undefined"},
     query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, req.query, RequestInputType.QueryString)` : "undefined"},
-    body: ${params.body.schema ? `parseRequestInput(${symbols.requestBodySchema}, req.body, RequestInputType.RequestBody)` : "undefined"},
+    body: ${params.body.schema ? `parseRequestInput(${symbols.requestBodySchema}, req.body, RequestInputType.RequestBody)${!params.body.isSupported ? " as never" : ""}` : "undefined"},
     headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, req.headers, RequestInputType.RequestHeader)` : "undefined"}
    }
 
