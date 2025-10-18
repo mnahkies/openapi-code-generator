@@ -43,6 +43,7 @@ jobs:
               --exclude='./.git' \
               --exclude='./coverage' \
               --exclude='./**/*.log' \
+              --exclude='./workspace.tar.gz' \
               -czf workspace.tar.gz .
 
       - name: Upload workspace
