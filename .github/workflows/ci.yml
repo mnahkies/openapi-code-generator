@@ -6,8 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-env:
-  NODE_VERSIONS: '["20.x","22.x","24.x"]'
 
 permissions:
   contents: read
@@ -17,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ${{ fromJSON(env.NODE_VERSIONS) }}
+        node-version: &node-versions [20.x, 22.x, 24.x]
 
     steps:
       - name: setup
@@ -61,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ${{ fromJSON(env.NODE_VERSIONS) }}
+        node-version: *node-versions
         schema-builder: [joi, zod]
     steps:
       - name: setup
@@ -89,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ${{ fromJSON(env.NODE_VERSIONS) }}
+        node-version: *node-versions
     steps:
       - name: setup
         uses: ./.github/actions/setup-node-pnpm
