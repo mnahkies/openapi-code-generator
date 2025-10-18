@@ -57,8 +57,10 @@ export class ImportBuilder {
       Object.entries(builder.imports).forEach(([key, value]) => {
         // biome-ignore lint/suspicious/noAssignInExpressions: todo
         const imports = (result.imports[key] = result.imports[key] ?? new Set())
-        // biome-ignore lint/complexity/noForEach: todo
-        value.forEach((it) => imports.add(it))
+
+        for (const it of value) {
+          imports.add(it)
+        }
       })
 
       // biome-ignore lint/complexity/noForEach: todo

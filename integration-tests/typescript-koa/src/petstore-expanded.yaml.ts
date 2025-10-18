@@ -49,7 +49,7 @@ export async function genericErrorMiddleware(ctx: Context, next: Next) {
       ctx.body = {
         message: "request validation failed",
         code: 400,
-        // @ts-ignore - petstore example doesn't include metadata on it's errors
+        // @ts-expect-error - petstore example doesn't include metadata on it's errors
         meta: err.cause instanceof ZodError ? {issues: err.cause.issues} : {},
       } satisfies t_Error
       return

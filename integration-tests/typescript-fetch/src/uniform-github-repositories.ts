@@ -30,7 +30,7 @@ async function main() {
   }
 
   if (Reflect.has(global, "gc")) {
-    // @ts-ignore
+    // @ts-expect-error
     global.gc()
   }
 

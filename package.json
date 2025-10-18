@@ -39,9 +39,9 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.1.2",
-    "@biomejs/js-api": "2.0.3",
-    "@biomejs/wasm-nodejs": "2.1.2",
+    "@biomejs/biome": "2.2.5",
+    "@biomejs/js-api": "3.0.0",
+    "@biomejs/wasm-nodejs": "2.2.5",
     "@commander-js/extra-typings": "^14.0.0",
     "@jest/reporters": "^30.0.5",
     "@swc/core": "^1.13.2",
