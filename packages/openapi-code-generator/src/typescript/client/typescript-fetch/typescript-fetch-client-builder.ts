@@ -1,7 +1,5 @@
 import {isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../../common/import-builder"
-import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
-import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
 import {union} from "../../common/type-utils"
 import {
   asyncMethod,
@@ -40,15 +38,27 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
         "StatusCode",
       )
 
+    const schemaBuilderType = this.schemaBuilder.type
+
     if (this.config.enableRuntimeResponseValidation) {
-      if (this.schemaBuilder instanceof ZodBuilder) {
-        imports
-          .from("@nahkies/typescript-fetch-runtime/zod")
-          .add("responseValidationFactory")
-      } else if (this.schemaBuilder instanceof JoiBuilder) {
-        imports
-          .from("@nahkies/typescript-fetch-runtime/joi")
-          .add("responseValidationFactory")
+      switch (schemaBuilderType) {
+        case "joi": {
+          imports
+            .from("@nahkies/typescript-fetch-runtime/joi")
+            .add("responseValidationFactory")
+          break
+        }
+        case "zod": {
+          imports
+            .from("@nahkies/typescript-fetch-runtime/zod")
+            .add("responseValidationFactory")
+          break
+        }
+        default: {
+          throw new Error(
+            `unsupported schema builder type '${schemaBuilderType satisfies never}'`,
+          )
+        }
       }
     }
   }

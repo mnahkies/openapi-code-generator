@@ -45,6 +45,8 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   ZodBuilder,
   StaticSchemas
 > {
+  readonly type = "zod"
+
   static async fromInput(
     filename: string,
     input: Input,

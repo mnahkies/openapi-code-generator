@@ -20,6 +20,7 @@ import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
 import {buildExport, type ExportDefinition} from "../typescript-common"
+import type {SchemaBuilderType} from "./schema-builder"
 
 export type SchemaBuilderConfig = {
   allowAny: boolean
@@ -30,6 +31,8 @@ export abstract class AbstractSchemaBuilder<
   StaticSchemas extends {[key: string]: string},
 > implements ICompilable
 {
+  public abstract readonly type: SchemaBuilderType
+
   private readonly graph: DependencyGraph
 
   protected readonly schemaBuilderImports = new ImportBuilder()
