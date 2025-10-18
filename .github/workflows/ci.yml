@@ -53,6 +53,7 @@ jobs:
             .
             !node_modules/**
             !**/node_modules/**
+            !**/.next/**
             !.git/**
             !coverage/**
             !**/*.log
@@ -86,6 +87,7 @@ jobs:
       - run: pnpm integration:validate
 
       - name: Check for uncommitted changes
+        if: ${{ matrix.schema-builder == 'zod' }}
         run: ./scripts/assert-clean-working-directory.sh
 
   e2e:
