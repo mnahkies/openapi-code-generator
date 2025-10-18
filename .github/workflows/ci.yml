@@ -43,14 +43,13 @@ jobs:
               --exclude='./.git' \
               --exclude='./coverage' \
               --exclude='./**/*.log' \
-              --exclude='./workspace.tar.gz' \
-              -czf workspace.tar.gz .
+              -czf ${{ runner.temp }}/workspace.tar.gz .
 
       - name: Upload workspace
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: workspace-${{ matrix.node-version }}
-          path: workspace.tar.gz
+          path: ${{ runner.temp }}/workspace.tar.gz
 
   build-docs:
     needs: build
