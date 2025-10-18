@@ -123,7 +123,7 @@ jobs:
     strategy:
       matrix:
         node-version: *node-versions
-        schema-builder: [joi, zod]
+        schema-builder: [joi, zod-v3, zod-v4]
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
@@ -149,7 +149,7 @@ jobs:
       - run: pnpm integration:validate
 
       - name: Check for uncommitted changes
-        if: ${{ matrix.schema-builder == 'zod' }}
+        if: ${{ matrix.schema-builder == 'zod-v4' }}
         run: ./scripts/assert-clean-working-directory.sh
 
   e2e:
@@ -178,7 +178,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: SCHEMA_BUILDER=zod pnpm e2e:generate
+      - run: SCHEMA_BUILDER=zod-v3 pnpm e2e:generate
+      - run: pnpm e2e:validate
+
+      - run: SCHEMA_BUILDER=zod-v4 pnpm e2e:generate
       - run: pnpm e2e:validate
 
       - name: Check for uncommitted changes

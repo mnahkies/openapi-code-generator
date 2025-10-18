@@ -66,14 +66,18 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
-
-      case "zod": {
+      case "zod-v3": {
         this.imports
           .from("@nahkies/typescript-koa-runtime/zod")
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
-
+      case "zod-v4": {
+        this.imports
+          .from("@nahkies/typescript-koa-runtime/zod-v4")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
       default: {
         throw new Error(
           `unsupported schema builder type '${schemaBuilderType satisfies never}'`,

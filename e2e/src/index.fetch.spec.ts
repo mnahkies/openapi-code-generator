@@ -244,7 +244,9 @@ describe.each(startServerFunctions)(
         await expect(res.json()).resolves.toMatchObject({
           message: "Request validation failed parsing request header",
           phase: "request_validation",
-          cause: expect.stringContaining("Expected number, received nan"),
+          cause: expect.stringMatching(
+            /Expected number, received nan|Invalid input: expected number, received NaN/,
+          ),
         })
       })
 
@@ -259,7 +261,9 @@ describe.each(startServerFunctions)(
         await expect(res.json()).resolves.toMatchObject({
           message: "Request validation failed parsing request header",
           phase: "request_validation",
-          cause: expect.stringContaining("Expected boolean, received string"),
+          cause: expect.stringMatching(
+            /Expected boolean, received string|Invalid input: expected boolean, received string/,
+          ),
         })
       })
     })
@@ -292,7 +296,9 @@ describe.each(startServerFunctions)(
         await expect(res.json()).resolves.toMatchObject({
           message: "Request validation failed parsing querystring",
           phase: "request_validation",
-          cause: expect.stringContaining("Expected number, received nan"),
+          cause: expect.stringMatching(
+            /Expected number, received nan|Invalid input: expected number, received NaN/,
+          ),
         })
       })
 

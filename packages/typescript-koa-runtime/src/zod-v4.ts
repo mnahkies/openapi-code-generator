@@ -1,5 +1,8 @@
-import type {z} from "zod/v3"
-import {ExpressRuntimeError, type RequestInputType} from "./errors"
+import type {z} from "zod/v4"
+import {KoaRuntimeError, type RequestInputType} from "./errors"
+
+/** @deprecated: update and re-generate to import from @nahkies/typescript-koa-runtime/server directly */
+export type {Params} from "./server"
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
   schema: Schema,
@@ -19,7 +22,7 @@ export function parseRequestInput<Schema extends z.ZodTypeAny>(
   try {
     return schema?.parse(input)
   } catch (err) {
-    throw ExpressRuntimeError.RequestError(err, type)
+    throw KoaRuntimeError.RequestError(err, type)
   }
 }
 
@@ -50,7 +53,7 @@ export function responseValidationFactory(
       // TODO: throw on unmatched response
       return value
     } catch (err) {
-      throw ExpressRuntimeError.ResponseError(err)
+      throw KoaRuntimeError.ResponseError(err)
     }
   }
 }

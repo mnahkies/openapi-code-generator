@@ -11,7 +11,7 @@ import type React from "react"
 import type {PropsWithChildren} from "react"
 import {useCallback, useEffect, useRef, useState} from "react"
 import {useForm} from "react-hook-form"
-import {z} from "zod"
+import {z} from "zod/v4"
 import {LoadingSpinner} from "@/lib/loading-spinner"
 import {sampleFilenames} from "@/lib/playground/consts"
 import {ControlledSelect} from "@/lib/playground/controls/controlled-select"
@@ -48,7 +48,7 @@ const defaultConfig = {
   output: "/generated",
   template: "typescript-fetch",
   inputType: "openapi3",
-  schemaBuilder: "zod",
+  schemaBuilder: "zod-v4",
   enableRuntimeResponseValidation: true,
   extractInlineSchemas: true,
   allowUnusedImports: false,

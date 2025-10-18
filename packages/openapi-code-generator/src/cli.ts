@@ -13,7 +13,7 @@ import {
   InvalidArgumentError,
   Option,
 } from "@commander-js/extra-typings"
-import {z} from "zod"
+import {z} from "zod/v4"
 import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import type {OperationGroupStrategy} from "./core/input"
@@ -110,8 +110,8 @@ const program = new Command()
       "(typescript) runtime schema parsing library to use",
     )
       .env("OPENAPI_SCHEMA_BUILDER")
-      .choices(["zod", "joi"] as const)
-      .default("zod" as const)
+      .choices(["zod", "zod-v3", "zod-v4", "joi"] as const)
+      .default("zod-v3" as const)
       .makeOptionMandatory(),
   )
   .addOption(
@@ -239,22 +239,28 @@ const program = new Command()
   .showHelpAfterError()
 
 async function formatterFactory(config: TypescriptFormatterConfig) {
-  if (config?.type === "prettier") {
-    const {TypescriptFormatterPrettier} = await import(
-      "./typescript/common/typescript-formatter.prettier.js"
-    )
-    return TypescriptFormatterPrettier.create()
+  const type = config?.type
+
+  switch (type) {
+    case "prettier": {
+      const {TypescriptFormatterPrettier} = await import(
+        "./typescript/common/typescript-formatter.prettier.js"
+      )
+      return TypescriptFormatterPrettier.create()
+    }
+
+    case undefined:
+    case "biome": {
+      const {TypescriptFormatterBiome} = await import(
+        "./typescript/common/typescript-formatter.biome.js"
+      )
+
+      return TypescriptFormatterBiome.createNodeFormatter(config?.config)
+    }
+    default: {
+      throw new Error(`unsupported formatter type '${type satisfies never}'`)
+    }
   }
-
-  if (config?.type === "biome" || !config) {
-    const {TypescriptFormatterBiome} = await import(
-      "./typescript/common/typescript-formatter.biome.js"
-    )
-
-    return TypescriptFormatterBiome.createNodeFormatter(config?.config)
-  }
-
-  throw new Error(`unsupported formatter type '${Reflect.get(config, "type")}'`)
 }
 
 async function main() {
@@ -277,6 +283,13 @@ async function main() {
       )
     },
   )
+
+  if (config.schemaBuilder === "zod") {
+    logger.warn(
+      "---schema-builder=zod is deprecated, use `zod-v3` or `zod-v4` instead",
+    )
+    config.schemaBuilder = "zod-v3"
+  }
 
   const outputPath = path.join(process.cwd(), config.output)
   const formatterOptions = await loadTypescriptFormatterConfig(

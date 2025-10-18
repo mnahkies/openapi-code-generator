@@ -62,7 +62,7 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
       const schemaBuilder = await schemaBuilderFactory(
         "./unit-test.schemas.ts",
         input,
-        "zod",
+        "zod-v4",
         {allowAny: true},
         typeBuilder,
       )

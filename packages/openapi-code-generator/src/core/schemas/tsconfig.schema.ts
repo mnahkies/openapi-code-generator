@@ -1,4 +1,4 @@
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type TsConfig = z.infer<typeof tsconfigSchema>
 export type TsCompilerOptions = TsConfig["compilerOptions"]

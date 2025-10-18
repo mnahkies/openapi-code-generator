@@ -13,8 +13,8 @@ const program = new Command()
       "(typescript) runtime schema parsing library to use",
     )
       .env("OPENAPI_SCHEMA_BUILDER")
-      .choices(["zod", "joi"])
-      .default("zod"),
+      .choices(["zod", "zod-v3", "zod-v4", "joi"])
+      .default("zod-v4"),
   )
   .showHelpAfterError()
 
