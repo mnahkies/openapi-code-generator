@@ -19,6 +19,7 @@ import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
 import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
+import type {TypeBuilder} from "../type-builder"
 import {buildExport, type ExportDefinition} from "../typescript-common"
 import type {SchemaBuilderType} from "./schema-builder"
 
@@ -35,12 +36,14 @@ export abstract class AbstractSchemaBuilder<
 
   private readonly graph: DependencyGraph
 
+  protected readonly typeBuilder: TypeBuilder
   protected readonly schemaBuilderImports = new ImportBuilder()
 
   protected constructor(
     public readonly filename: string,
     protected readonly input: Input,
     protected readonly config: SchemaBuilderConfig,
+    typeBuilder: TypeBuilder,
     private readonly availableStaticSchemas: StaticSchemas,
     private readonly referenced: Record<string, Reference> = {},
     private readonly referencedStaticSchemas = new Set<keyof StaticSchemas>(),
@@ -50,6 +53,7 @@ export abstract class AbstractSchemaBuilder<
     this.graph =
       parent?.graph ?? buildDependencyGraph(this.input, getSchemaNameFromRef)
     this.importHelpers(this.schemaBuilderImports)
+    this.typeBuilder = typeBuilder.withImports(this.schemaBuilderImports)
   }
 
   abstract withImports(imports: ImportBuilder): SubClass
@@ -143,6 +147,8 @@ export abstract class AbstractSchemaBuilder<
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
+
+  public abstract schemaTypeForType(type: string): string
 
   protected abstract schemaFromRef(reference: Reference): ExportDefinition
 

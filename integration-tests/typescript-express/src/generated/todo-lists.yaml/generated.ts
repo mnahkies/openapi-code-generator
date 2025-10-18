@@ -701,7 +701,7 @@ export function createRouter(implementation: Implementation): Router {
             uploadAttachmentRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
-          ),
+          ) as never,
           headers: undefined,
         }
 

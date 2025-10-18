@@ -8,12 +8,10 @@ import type {
   IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
-import {
-  getSchemaNameFromRef,
-  getTypeNameFromRef,
-} from "../../../core/openapi-utils"
+import {getSchemaNameFromRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
+import type {TypeBuilder} from "../type-builder"
 import {quotedStringLiteral} from "../type-utils"
 import type {ExportDefinition} from "../typescript-common"
 import {
@@ -51,8 +49,15 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
+    typeBuilder: TypeBuilder,
   ): Promise<ZodBuilder> {
-    return new ZodBuilder(filename, input, schemaBuilderConfig, staticSchemas)
+    return new ZodBuilder(
+      filename,
+      input,
+      schemaBuilderConfig,
+      typeBuilder,
+      staticSchemas,
+    )
   }
 
   override withImports(imports: ImportBuilder): ZodBuilder {
@@ -60,6 +65,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
       this.filename,
       this.input,
       this.config,
+      this.typeBuilder,
       staticSchemas,
       {},
       new Set(),
@@ -76,6 +82,10 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     return `${schema}.parse(${value})`
   }
 
+  public schemaTypeForType(type: string): string {
+    return type ? `${zod}.ZodType<${type}, z.ZodTypeDef, unknown>` : ""
+  }
+
   protected schemaFromRef(reference: Reference): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
@@ -86,13 +96,12 @@ export class ZodBuilder extends AbstractSchemaBuilder<
 
     // todo: bit hacky, but it will work for now.
     if (value.includes("z.lazy(")) {
-      type = getTypeNameFromRef(reference)
-      this.schemaBuilderImports.addSingle(type, "./models")
+      type = this.typeBuilder.schemaObjectToType(reference)
     }
 
     return {
       name,
-      type: type ? `${zod}.ZodType<${type}, z.ZodTypeDef, unknown>` : "",
+      type: this.schemaTypeForType(type),
       value,
       kind: "const",
     }

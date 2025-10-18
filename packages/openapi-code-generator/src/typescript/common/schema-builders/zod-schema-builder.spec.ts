@@ -168,7 +168,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { t_Recursive } from "./models"
+        "import { t_Recursive } from "./unit-test.types"
         import { z } from "zod"
 
         export const s_Recursive: z.ZodType<t_Recursive, z.ZodTypeDef, unknown> =

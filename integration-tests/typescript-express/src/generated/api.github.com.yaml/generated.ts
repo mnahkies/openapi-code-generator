@@ -88973,7 +88973,7 @@ export function createRouter(implementation: Implementation): Router {
             reposUploadReleaseAssetRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
-          ),
+          ) as never,
           headers: undefined,
         }
 

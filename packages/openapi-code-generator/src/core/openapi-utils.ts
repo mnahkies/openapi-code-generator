@@ -32,10 +32,6 @@ export function extractPlaceholders(
   }))
 }
 
-export function getTypeNameFromRef(reference: Reference) {
-  return getNameFromRef(reference, "t_")
-}
-
 export function getSchemaNameFromRef(reference: Reference) {
   return getNameFromRef(reference, "s_")
 }

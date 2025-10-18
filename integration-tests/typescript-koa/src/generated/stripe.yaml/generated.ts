@@ -35104,7 +35104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         postFilesBodySchema,
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
-      ),
+      ) as never,
       headers: undefined,
     }
 

@@ -28,6 +28,7 @@ export async function generateTypescriptExpress(
     input,
     config.schemaBuilder,
     {allowAny},
+    rootTypeBuilder,
   )
 
   const server = new ExpressServerBuilder(

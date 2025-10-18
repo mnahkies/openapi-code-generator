@@ -84802,7 +84802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           reposUploadReleaseAssetBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
-        ),
+        ) as never,
         headers: undefined,
       }
 
