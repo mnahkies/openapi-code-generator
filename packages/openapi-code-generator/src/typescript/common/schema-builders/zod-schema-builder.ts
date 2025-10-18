@@ -96,8 +96,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
 
     // todo: bit hacky, but it will work for now.
     if (value.includes("z.lazy(")) {
-      type = this.typeBuilder.getTypeNameFromRef(reference)
-      this.schemaBuilderImports.addSingle(type, this.typeBuilder.filename)
+      type = this.typeBuilder.schemaObjectToType(reference)
     }
 
     return {

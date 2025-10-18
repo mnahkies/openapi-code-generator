@@ -34278,7 +34278,7 @@ export function createRouter(implementation: Implementation): Router {
             postFilesRequestBodySchema,
             req.body,
             RequestInputType.RequestBody,
-          ),
+          ) as never,
           headers: undefined,
         }
 
