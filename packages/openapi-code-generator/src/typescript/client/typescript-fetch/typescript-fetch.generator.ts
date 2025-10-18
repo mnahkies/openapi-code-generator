@@ -21,6 +21,7 @@ export async function generateTypescriptFetch(
     input,
     config.schemaBuilder,
     {allowAny},
+    rootTypeBuilder,
   )
 
   const imports = new ImportBuilder()

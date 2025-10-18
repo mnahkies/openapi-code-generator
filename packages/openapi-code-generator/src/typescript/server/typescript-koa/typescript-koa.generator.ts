@@ -28,6 +28,7 @@ export async function generateTypescriptKoa(
     input,
     config.schemaBuilder,
     {allowAny},
+    rootTypeBuilder,
   )
 
   const server = new KoaServerBuilder(

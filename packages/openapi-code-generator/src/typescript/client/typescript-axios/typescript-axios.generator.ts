@@ -22,6 +22,7 @@ export async function generateTypescriptAxios(
     input,
     config.schemaBuilder,
     {allowAny},
+    rootTypeBuilder,
   )
 
   const imports = new ImportBuilder()

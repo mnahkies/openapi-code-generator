@@ -22,6 +22,7 @@ export async function generateTypescriptAngular(
     input,
     config.schemaBuilder,
     {allowAny},
+    rootTypeBuilder,
   )
 
   const imports = new ImportBuilder()

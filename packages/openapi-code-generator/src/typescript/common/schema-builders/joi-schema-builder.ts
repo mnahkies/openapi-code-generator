@@ -11,6 +11,7 @@ import type {
 import {getSchemaNameFromRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
+import type {TypeBuilder} from "../type-builder"
 import {quotedStringLiteral} from "../type-utils"
 import type {ExportDefinition} from "../typescript-common"
 import {
@@ -33,8 +34,15 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
+    typeBuilder: TypeBuilder,
   ): Promise<JoiBuilder> {
-    return new JoiBuilder(filename, input, schemaBuilderConfig, staticSchemas)
+    return new JoiBuilder(
+      filename,
+      input,
+      schemaBuilderConfig,
+      typeBuilder,
+      staticSchemas,
+    )
   }
 
   override withImports(imports: ImportBuilder): JoiBuilder {
@@ -42,6 +50,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       this.filename,
       this.input,
       this.config,
+      this.typeBuilder,
       staticSchemas,
       {},
       new Set(),

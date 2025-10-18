@@ -14,6 +14,7 @@ import {
 } from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
 import type {ImportBuilder} from "../import-builder"
+import type {TypeBuilder} from "../type-builder"
 import {quotedStringLiteral} from "../type-utils"
 import type {ExportDefinition} from "../typescript-common"
 import {
@@ -51,8 +52,15 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
+    typeBuilder: TypeBuilder,
   ): Promise<ZodBuilder> {
-    return new ZodBuilder(filename, input, schemaBuilderConfig, staticSchemas)
+    return new ZodBuilder(
+      filename,
+      input,
+      schemaBuilderConfig,
+      typeBuilder,
+      staticSchemas,
+    )
   }
 
   override withImports(imports: ImportBuilder): ZodBuilder {
@@ -60,6 +68,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
       this.filename,
       this.input,
       this.config,
+      this.typeBuilder,
       staticSchemas,
       {},
       new Set(),
@@ -87,7 +96,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     // todo: bit hacky, but it will work for now.
     if (value.includes("z.lazy(")) {
       type = getTypeNameFromRef(reference)
-      this.schemaBuilderImports.addSingle(type, "./models")
+      this.schemaBuilderImports.addSingle(type, this.typeBuilder.filename)
     }
 
     return {

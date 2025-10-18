@@ -64,6 +64,7 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
         input,
         "zod",
         {allowAny: true},
+        typeBuilder,
       )
       const serverRouterBuilder = new KoaRouterBuilder(
         "unit-test.ts",
