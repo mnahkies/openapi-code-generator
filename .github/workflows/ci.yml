@@ -36,19 +36,20 @@ jobs:
       - name: Check for uncommitted changes
         run: ./scripts/assert-clean-working-directory.sh
 
-      - name: Upload built workspace (without node_modules)
+      - name: Create workspace archive
+        run: |
+          tar --exclude='./node_modules' \
+              --exclude='./**/node_modules' \
+              --exclude='./.git' \
+              --exclude='./coverage' \
+              --exclude='./**/*.log' \
+              -czf workspace.tar.gz .
+
+      - name: Upload workspace
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: workspace-${{ matrix.node-version }}
-          compression-level: 6
-          include-hidden-files: true
-          path: |
-            .
-            !node_modules/**
-            !**/node_modules/**
-            !.git/**
-            !coverage/**
-            !**/*.log
+          path: workspace.tar.gz
 
   build-docs:
     needs: build
