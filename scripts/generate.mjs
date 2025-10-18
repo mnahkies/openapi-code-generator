@@ -7,6 +7,15 @@ import {Command, Option} from "@commander-js/extra-typings"
 const program = new Command()
   .addOption(new Option("-t --template <value>", "filter to a single template"))
   .addOption(new Option("-s --spec <value>", "filter to a single spec"))
+  .addOption(
+    new Option(
+      "--schema-builder <value>",
+      "(typescript) runtime schema parsing library to use",
+    )
+      .env("OPENAPI_SCHEMA_BUILDER")
+      .choices(["zod", "joi"])
+      .default("zod"),
+  )
   .showHelpAfterError()
 
 const templates = execSync(
@@ -24,6 +33,8 @@ const definitions = execSync("find ./integration-tests-definitions -type f")
   .filter(Boolean)
 
 const config = program.parse().opts()
+
+const schemaBuilder = config.schemaBuilder
 
 const filteredTemplate = config.template
 const filteredSpec = config.spec ? path.normalize(config.spec) : undefined
@@ -59,7 +70,7 @@ async function runSingle(templatePath, input) {
     `--input-type=${inputType}`,
     `--output="integration-tests/${template}/src/generated/${filename}"`,
     `--template="${template}"`,
-    "--schema-builder=zod",
+    `--schema-builder=${schemaBuilder}`,
   ]
 
   try {

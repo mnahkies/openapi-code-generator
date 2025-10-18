@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  NODE_VERSIONS: '["20.x","22.x","24.x"]'
+
 permissions:
   contents: read
 
@@ -14,22 +17,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x, 22.x, 24.x]
+        node-version: ${{ fromJSON(env.NODE_VERSIONS) }}
 
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - name: setup
+        uses: ./.github/actions/setup-node-pnpm
         with:
-          fetch-depth: 0
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4.2.0
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
-        with:
-          registry-url: "https://registry.npmjs.org"
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
 
       - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
         id: nextjs-cache
@@ -45,35 +39,73 @@ jobs:
       - run: pnpm ci-test
       - run: pnpm ci-lint
 
+      - name: Check for uncommitted changes
+        run: ./scripts/assert-clean-working-directory.sh
+
+      - name: Upload built workspace (without node_modules)
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: workspace-${{ matrix.node-version }}
+          compression-level: 6
+          include-hidden-files: true
+          path: |
+            .
+            !node_modules/**
+            !**/node_modules/**
+            !.git/**
+            !coverage/**
+            !**/*.log
+
+  integration:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ${{ fromJSON(env.NODE_VERSIONS) }}
+        schema-builder: [joi, zod]
+    steps:
+      - name: setup
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Download built workspace
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: workspace-${{ matrix.node-version }}
+          path: .
+
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm integration:generate
+      - run: pnpm integration:clean
+      - run: pnpm integration:generate --schema-builder ${{ matrix.schema-builder }}
       - run: pnpm integration:validate
 
-      - run: pnpm e2e:generate
+      - name: Check for uncommitted changes
+        run: ./scripts/assert-clean-working-directory.sh
+
+  e2e:
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ${{ fromJSON(env.NODE_VERSIONS) }}
+    steps:
+      - name: setup
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Download built workspace
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: workspace-${{ matrix.node-version }}
+          path: .
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: SCHEMA_BUILDER=zod pnpm e2e:generate
       - run: pnpm e2e:validate
 
       - name: Check for uncommitted changes
         run: ./scripts/assert-clean-working-directory.sh
-# TODO: figure out how to do this safely, eg: no risk of external contributors exfiltrating publish secret.
-#    - name: Configure Git User
-#      run: |
-#        git config --global user.email "support@nahkies.co.nz"
-#        git config --global user.name "$GITHUB_ACTOR"
-#
-#    - name: Check if able to publish changes
-#      run: npm whoami
-#      env:
-#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-#
-#    - name: Publish to NPM
-#      run: echo 'publish release' #pnpm lerna publish --no-private --force-publish --yes --conventional-commits
-#      if: github.ref == 'refs/heads/main'
-#      env:
-#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-#
-#    - name: Publish to NPM (Alpha)
-#      run: echo 'publish alpha release' #pnpm lerna publish --no-private --force-publish --yes --conventional-commits --canary
-#      if: github.ref != 'refs/heads/main'
-#      env:
-#        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
