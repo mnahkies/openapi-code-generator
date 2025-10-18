@@ -13,6 +13,80 @@ import { Callout, Steps } from 'nextra/components'
 </Callout>
 
 <Steps>
+### 13 Aug 2025 (v0.21.1)
+Bug fix release for #360 / #361 - previously nullable string schemas with a default of `null` would instead default to the string `"null"` - thanks @geuben!
+
+**Bug Fixes**
+* fix: coercion of null default values by @geuben in https://github.com/mnahkies/openapi-code-generator/pull/360
+* fix: joi supports string values with null default by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/361
+
+**Misc**
+* chore: add @jest/reporters by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/362
+
+* @geuben made their first contribution in https://github.com/mnahkies/openapi-code-generator/pull/360
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.21.0...v0.21.1
+
+### 26 Jul 2025 (v0.21.0)
+This is a bigger than normal release, and contains a number of **potentially breaking** changes - however in general, these are making it clearer when the code generator doesn't support something properly (eg: it was probably already broken).
+
+The primary changes are:
+- Unsupported `Content-Type` will now generate `never` as their typescript type
+- HTML form data submissions (`application/x-www-form-urlencoded`) are now supported
+- `text/plain` request bodies are also now supported
+- The CLI will auto-detect your formatter (biome/prettier) config and then use that config / formatter during code generation
+- Boolean schemas can now include an `enum` to restrict them to literal `true` or `false`
+- Server urls now allow "required" variables/placeholders
+
+As well as several minor bug fixes, and maintenance chores. Most notably switching to `pnpm` which will hopefully help prevent issues with missing dependencies or misaligned peer dependencies in future.
+
+**Features**
+* feat: allow mandatory server variables by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/341
+* feat: read formatter config by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/343
+* feat: support text/plain request bodies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/350
+* feat: boolean schemas support enum by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/351
+* feat: support application/x-www-form-urlencoded request bodies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/352
+
+**Bug Fixes**
+* fix: adjust typing to reflect that boolean request headers are supported by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/339
+* fix: partial koa-body middlware options by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/346
+* fix: filter invalid request bodies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/348
+* chore: switch to pnpm and fix peer dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/345
+* fix: improve request body / content-type handling by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/349
+* fix: serialize scim json bodies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/355
+
+**Misc**
+* chore(deps): update all dependencies by @renovate[bot] in https://github.com/mnahkies/openapi-code-generator/pull/338
+* fix(ci): adjust workflow permissions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/340
+* chore: upgrade deps / refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/342
+* chore: adjust webpack config to allow node: protocol imports by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/344
+* chore: upgrade biome to v2 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/347
+* chore: generate.mjs supports filtering by template/spec by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/353
+* fix: check validator works by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/354
+* chore: refresh deps / data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/356
+* docs: update compatibility by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/357
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.20.1...v0.21.0
+
+### 31 May 2025 (v0.20.1)
+This is a bug fix release that fixes some edge cases and adds compatibility with NodeJS v24.
+
+**Bug fixes**
+* fix: array schema output order by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/329
+* fix: error if route placeholder present without matching path parameter by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/331
+* fix: fetch proxy compatible with node 24 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/333
+
+**Misc**
+* refactor: tidy up dependency-graph by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/335
+* docs: per page descriptions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/328
+* chore: node v24 / update deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/332
+* chore: refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/334
+* ci: publish docs on tag push by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/336
+* fix: bump engines by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/337
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.20.0...v0.20.1
+
 ### 5 May 2025 (v0.20.0)
 The main feature in this release is a new `typescript-express` server generation template. Its very similar in function to the `typescript-koa` template, but allows use of the express middleware ecosystem.
 
