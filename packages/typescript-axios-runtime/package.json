@@ -36,11 +36,11 @@
     "axios": "^1.6.0"
   },
   "devDependencies": {
-    "@jest/globals": "^30.0.5",
+    "@jest/globals": "^30.2.0",
     "@types/qs": "^6.14.0",
-    "axios": "^1.11.0",
-    "jest": "^30.0.5",
-    "typescript": "~5.9.3"
+    "axios": "^1.12.2",
+    "jest": "^30.2.0",
+    "typescript": "^5.9.3"
   },
   "files": [
     "src",
