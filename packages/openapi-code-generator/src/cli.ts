@@ -110,8 +110,8 @@ const program = new Command()
       "(typescript) runtime schema parsing library to use",
     )
       .env("OPENAPI_SCHEMA_BUILDER")
-      .choices(["zod", "zod-v3", "zod-v4", "joi"] as const)
-      .default("zod-v3" as const)
+      .choices(["zod-v3", "zod-v4", "joi"] as const)
+      .default("zod-v4" as const)
       .makeOptionMandatory(),
   )
   .addOption(
@@ -283,13 +283,6 @@ async function main() {
       )
     },
   )
-
-  if (config.schemaBuilder === "zod") {
-    logger.warn(
-      "---schema-builder=zod is deprecated, use `zod-v3` or `zod-v4` instead",
-    )
-    config.schemaBuilder = "zod-v3"
-  }
 
   const outputPath = path.join(process.cwd(), config.output)
   const formatterOptions = await loadTypescriptFormatterConfig(
