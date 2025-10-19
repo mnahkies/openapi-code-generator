@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -15,18 +15,18 @@ export const PermissiveBoolean = z.preprocess((value) => {
 
 export const s_AppAuthenticatorEnrollment = z.object({
   authenticatorId: z.string().optional(),
-  createdDate: z.string().datetime({offset: true}).optional(),
+  createdDate: z.iso.datetime({offset: true}).optional(),
   device: z
     .object({
       id: z.string().optional(),
       status: z.enum(["ACTIVE"]).optional(),
-      createdDate: z.string().datetime({offset: true}).optional(),
-      lastUpdated: z.string().datetime({offset: true}).optional(),
+      createdDate: z.iso.datetime({offset: true}).optional(),
+      lastUpdated: z.iso.datetime({offset: true}).optional(),
       clientInstanceId: z.string().optional(),
     })
     .optional(),
   id: z.string().optional(),
-  lastUpdated: z.string().datetime({offset: true}).optional(),
+  lastUpdated: z.iso.datetime({offset: true}).optional(),
   links: z
     .object({
       self: z
@@ -44,8 +44,8 @@ export const s_AppAuthenticatorEnrollment = z.object({
       push: z
         .object({
           id: z.string().optional(),
-          createdDate: z.string().datetime({offset: true}).optional(),
-          lastUpdated: z.string().datetime({offset: true}).optional(),
+          createdDate: z.iso.datetime({offset: true}).optional(),
+          lastUpdated: z.iso.datetime({offset: true}).optional(),
           links: z
             .object({
               pending: z
@@ -266,8 +266,8 @@ export const s_Phone = z.object({
 })
 
 export const s_Profile = z.object({
-  createdAt: z.string().datetime({offset: true}).optional(),
-  modifiedAt: z.string().datetime({offset: true}).optional(),
+  createdAt: z.iso.datetime({offset: true}).optional(),
+  modifiedAt: z.iso.datetime({offset: true}).optional(),
   profile: z.object({}).optional(),
   _links: z
     .object({
@@ -319,7 +319,7 @@ export const s_AppAuthenticatorEnrollmentRequest = z.object({
     clientInstanceBundleId: z.string(),
     platform: z.enum(["ANDROID", "IOS"]),
     manufacturer: z.string().optional(),
-    deviceAttestation: z.record(z.unknown()).optional(),
+    deviceAttestation: z.record(z.string(), z.unknown()).optional(),
     clientInstanceVersion: z.string(),
     clientInstanceDeviceSdkVersion: z.string(),
     model: z.string().optional(),

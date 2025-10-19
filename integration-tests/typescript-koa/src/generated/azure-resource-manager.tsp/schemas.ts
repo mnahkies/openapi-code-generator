@@ -6,7 +6,7 @@ import {
   t_Azure_ResourceManager_CommonTypes_ErrorDetail,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
 } from "./models"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -68,15 +68,15 @@ export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
 export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
   createdBy: z.string().optional(),
   createdByType: s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
-  createdAt: z.string().datetime({offset: true}).optional(),
+  createdAt: z.iso.datetime({offset: true}).optional(),
   lastModifiedBy: z.string().optional(),
   lastModifiedByType:
     s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
-  lastModifiedAt: z.string().datetime({offset: true}).optional(),
+  lastModifiedAt: z.iso.datetime({offset: true}).optional(),
 })
 
 export const s_EmployeeUpdate = z.object({
-  tags: z.record(z.string()).optional(),
+  tags: z.record(z.string(), z.string()).optional(),
   properties: s_EmployeeUpdateProperties.optional(),
 })
 
@@ -102,28 +102,22 @@ export const s_EmployeeListResult = z.object({
   nextLink: z.string().optional(),
 })
 
-export const s_Azure_ResourceManager_CommonTypes_ErrorResponse: z.ZodType<
-  t_Azure_ResourceManager_CommonTypes_ErrorResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  error: z.lazy(() =>
-    s_Azure_ResourceManager_CommonTypes_ErrorDetail.optional(),
-  ),
-})
+export const s_Azure_ResourceManager_CommonTypes_ErrorResponse: z.ZodType<t_Azure_ResourceManager_CommonTypes_ErrorResponse> =
+  z.object({
+    error: z.lazy(() =>
+      s_Azure_ResourceManager_CommonTypes_ErrorDetail.optional(),
+    ),
+  })
 
-export const s_Azure_ResourceManager_CommonTypes_ErrorDetail: z.ZodType<
-  t_Azure_ResourceManager_CommonTypes_ErrorDetail,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.string().optional(),
-  message: z.string().optional(),
-  target: z.string().optional(),
-  details: z
-    .array(z.lazy(() => s_Azure_ResourceManager_CommonTypes_ErrorDetail))
-    .optional(),
-  additionalInfo: z
-    .array(s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo)
-    .optional(),
-})
+export const s_Azure_ResourceManager_CommonTypes_ErrorDetail: z.ZodType<t_Azure_ResourceManager_CommonTypes_ErrorDetail> =
+  z.object({
+    code: z.string().optional(),
+    message: z.string().optional(),
+    target: z.string().optional(),
+    details: z
+      .array(z.lazy(() => s_Azure_ResourceManager_CommonTypes_ErrorDetail))
+      .optional(),
+    additionalInfo: z
+      .array(s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo)
+      .optional(),
+  })

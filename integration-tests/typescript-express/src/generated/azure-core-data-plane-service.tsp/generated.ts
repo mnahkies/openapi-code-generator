@@ -112,9 +112,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod"
+} from "@nahkies/typescript-express-runtime/zod-v4"
 import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type GetServiceStatusResponder = {
   with200(): ExpressRuntimeResponse<{
@@ -1496,10 +1496,10 @@ export function createRouter(implementation: Implementation): Router {
           result: z
             .object({
               requestState: s_WidgetRepairState,
-              scheduledDateTime: z.string().datetime({offset: true}),
-              createdDateTime: z.string().datetime({offset: true}),
-              updatedDateTime: z.string().datetime({offset: true}),
-              completedDateTime: z.string().datetime({offset: true}),
+              scheduledDateTime: z.iso.datetime({offset: true}),
+              createdDateTime: z.iso.datetime({offset: true}),
+              updatedDateTime: z.iso.datetime({offset: true}),
+              completedDateTime: z.iso.datetime({offset: true}),
             })
             .optional(),
         }),

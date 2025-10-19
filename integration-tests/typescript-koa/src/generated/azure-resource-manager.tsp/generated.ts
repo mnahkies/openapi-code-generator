@@ -57,9 +57,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type OperationsListResponder = {
   with200(): KoaRuntimeResponse<t_OperationListResult>

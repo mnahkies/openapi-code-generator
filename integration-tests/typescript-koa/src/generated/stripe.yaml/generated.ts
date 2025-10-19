@@ -1264,9 +1264,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type GetAccountResponder = {
   with200(): KoaRuntimeResponse<t_account>
@@ -16166,7 +16166,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           last_name_kana: z.string().max(5000).optional(),
           last_name_kanji: z.string().max(5000).optional(),
           maiden_name: z.string().max(5000).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
@@ -16209,7 +16211,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       settings: z
         .object({
           bacs_debit_payments: z
@@ -16961,7 +16965,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           last_name_kana: z.string().max(5000).optional(),
           last_name_kanji: z.string().max(5000).optional(),
           maiden_name: z.string().max(5000).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
@@ -17004,7 +17010,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       settings: z
         .object({
           bacs_debit_payments: z
@@ -17222,7 +17230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       default_for_currency: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       external_account: z.string().max(5000).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -17433,7 +17441,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
     })
     .optional()
@@ -17847,7 +17857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       default_for_currency: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       external_account: z.string().max(5000).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -18064,7 +18074,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
     })
     .optional()
@@ -18386,7 +18398,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -18777,7 +18791,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -19136,7 +19152,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -19527,7 +19545,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -20180,7 +20200,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postApplicationFeesFeeRefundsIdBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -20467,7 +20489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -21911,7 +21933,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     effective_at: z.coerce.number().optional(),
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(100).optional(),
     priority: z.coerce.number().optional(),
   })
@@ -22045,7 +22067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       expires_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -22293,7 +22315,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
     identifier: z.string().max(100).optional(),
-    payload: z.record(z.string()),
+    payload: z.record(z.string(), z.string()),
     timestamp: z.coerce.number().optional(),
   })
 
@@ -23033,7 +23055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
     }),
     login_page: z.object({enabled: PermissiveBoolean}).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
   })
 
   const postBillingPortalConfigurationsResponseValidator =
@@ -23292,7 +23314,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       login_page: z.object({enabled: PermissiveBoolean}).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -23636,7 +23660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -23657,7 +23681,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       on_behalf_of: z.string().max(5000).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
@@ -23892,7 +23918,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       fraud_details: z
         .object({user_report: z.enum(["", "fraudulent", "safe"])})
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       receipt_email: z.string().max(5000).optional(),
       shipping: z
         .object({
@@ -24257,7 +24285,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       submit: PermissiveBoolean.optional(),
     })
     .optional()
@@ -24389,7 +24419,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       instructions_email: z.string().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       payment_intent: z.string().max(5000).optional(),
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
@@ -24551,7 +24583,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       customer: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       instructions_email: z.string().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       origin: z.enum(["customer_balance"]).optional(),
       payment_intent: z.string().max(5000).optional(),
       reason: z
@@ -24694,7 +24728,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postChargesChargeRefundsRefundBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -24989,7 +25025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   type: z.enum(["account", "self"]),
                 })
                 .optional(),
-              metadata: z.record(z.string()).optional(),
+              metadata: z.record(z.string(), z.string()).optional(),
               rendering_options: z
                 .union([
                   z.object({
@@ -25025,7 +25061,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .object({
                     description: z.string().max(40000).optional(),
                     images: z.array(z.string()).optional(),
-                    metadata: z.record(z.string()).optional(),
+                    metadata: z.record(z.string(), z.string()).optional(),
                     name: z.string().max(5000),
                     tax_code: z.string().max(5000).optional(),
                   })
@@ -25093,7 +25129,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "zh-TW",
         ])
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       mode: z.enum(["payment", "setup", "subscription"]).optional(),
       optional_items: z
         .array(
@@ -25118,7 +25154,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .enum(["automatic", "automatic_async", "manual"])
             .optional(),
           description: z.string().max(1000).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           on_behalf_of: z.string().optional(),
           receipt_email: z.string().optional(),
           setup_future_usage: z.enum(["off_session", "on_session"]).optional(),
@@ -25588,7 +25624,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       setup_intent_data: z
         .object({
           description: z.string().max(1000).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           on_behalf_of: z.string().optional(),
         })
         .optional(),
@@ -25879,6 +25915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     currency: z.string(),
                     currency_options: z
                       .record(
+                        z.string(),
                         z.object({
                           amount: z.coerce.number(),
                           tax_behavior: z
@@ -25889,7 +25926,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       .optional(),
                   })
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
@@ -25922,7 +25959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           on_behalf_of: z.string().optional(),
           proration_behavior: z.enum(["create_prorations", "none"]).optional(),
           transfer_data: z
@@ -26109,7 +26146,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       shipping_options: z
         .union([
           z.array(
@@ -26152,6 +26191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       currency: z.string(),
                       currency_options: z
                         .record(
+                          z.string(),
                           z.object({
                             amount: z.coerce.number(),
                             tax_behavior: z
@@ -26162,7 +26202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         .optional(),
                     })
                     .optional(),
-                  metadata: z.record(z.string()).optional(),
+                  metadata: z.record(z.string(), z.string()).optional(),
                   tax_behavior: z
                     .enum(["exclusive", "inclusive", "unspecified"])
                     .optional(),
@@ -26468,7 +26508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     beneficiary: z.object({public_name: z.string().max(5000)}).optional(),
     currency: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     metric_tons: z.string().optional(),
     product: z.string().max(5000),
   })
@@ -26605,7 +26645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -27329,14 +27369,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       currency: z.string().optional(),
       currency_options: z
-        .record(z.object({amount_off: z.coerce.number()}))
+        .record(z.string(), z.object({amount_off: z.coerce.number()}))
         .optional(),
       duration: z.enum(["forever", "once", "repeating"]).optional(),
       duration_in_months: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       id: z.string().max(5000).optional(),
       max_redemptions: z.coerce.number().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(40).optional(),
       percent_off: z.coerce.number().optional(),
       redeem_by: z.coerce.number().optional(),
@@ -27515,10 +27557,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postCouponsCouponBodySchema = z
     .object({
       currency_options: z
-        .record(z.object({amount_off: z.coerce.number()}))
+        .record(z.string(), z.object({amount_off: z.coerce.number()}))
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(40).optional(),
     })
     .optional()
@@ -27699,7 +27743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     memo: z.string().max(5000).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
       .enum([
@@ -27815,7 +27859,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     memo: z.string().max(5000).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
       .enum([
@@ -27940,7 +27984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     memo: z.string().max(5000).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
       .enum([
@@ -28192,7 +28236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       memo: z.string().max(5000).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -28543,7 +28587,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(256).optional(),
       next_invoice_sequence: z.coerce.number().optional(),
       payment_method: z.string().max(5000).optional(),
@@ -28999,7 +29045,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -29054,7 +29100,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(256).optional(),
       next_invoice_sequence: z.coerce.number().optional(),
       phone: z.string().max(20).optional(),
@@ -29245,7 +29293,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     currency: z.string(),
     description: z.string().max(350).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
   })
 
   const postCustomersCustomerBalanceTransactionsResponseValidator =
@@ -29397,7 +29447,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       description: z.string().max(350).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -29588,7 +29640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -29597,7 +29649,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       source: z.string().max(5000).optional(),
     })
     .optional()
@@ -29824,7 +29876,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -30104,7 +30158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -30113,7 +30167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       source: z.string().max(5000).optional(),
     })
     .optional()
@@ -30333,7 +30387,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -31286,7 +31342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -31295,7 +31351,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       source: z.string().max(5000).optional(),
     })
     .optional()
@@ -31513,7 +31569,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -31884,7 +31942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 z.enum([""]),
               ])
               .optional(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             price: z.string().max(5000).optional(),
             price_data: z
               .object({
@@ -31908,7 +31966,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       payment_behavior: z
         .enum([
@@ -32485,7 +32545,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ])
               .optional(),
             id: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             price: z.string().max(5000).optional(),
             price_data: z
               .object({
@@ -32509,7 +32571,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       pause_collection: z
         .union([
@@ -33635,7 +33699,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       submit: PermissiveBoolean.optional(),
     })
     .optional()
@@ -34004,7 +34070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postEntitlementsFeaturesBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(80),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(80),
   })
 
@@ -34137,7 +34203,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(80).optional(),
     })
     .optional()
@@ -34645,7 +34713,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
     })
     .optional()
@@ -34798,7 +34868,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
     file: z.string().max(5000),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
   })
 
   const postFileLinksResponseValidator = responseValidationFactory(
@@ -34920,7 +34992,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expires_at: z
         .union([z.enum(["now"]), z.coerce.number(), z.enum([""])])
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -36189,7 +36263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postForwardingRequestsBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     payment_method: z.string().max(5000),
     replacements: z.array(
       z.enum([
@@ -36607,7 +36681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       client_reference_id: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       options: z
         .object({
           document: z
@@ -36771,7 +36845,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIdentityVerificationSessionsSessionBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       options: z
         .object({
           document: z
@@ -37558,7 +37632,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     invoice: z.string().max(5000).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     period: z
       .object({end: z.coerce.number(), start: z.coerce.number()})
       .optional(),
@@ -37775,7 +37851,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       period: z
         .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
@@ -38024,7 +38102,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["account", "self"]),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       number: z.string().max(26).optional(),
       on_behalf_of: z.string().optional(),
       payment_settings: z
@@ -38251,6 +38331,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   currency: z.string(),
                   currency_options: z
                     .record(
+                      z.string(),
                       z.object({
                         amount: z.coerce.number(),
                         tax_behavior: z
@@ -38261,7 +38342,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     .optional(),
                 })
                 .optional(),
-              metadata: z.record(z.string()).optional(),
+              metadata: z.record(z.string(), z.string()).optional(),
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
@@ -38548,7 +38629,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ])
               .optional(),
             invoiceitem: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             period: z
               .object({end: z.coerce.number(), start: z.coerce.number()})
               .optional(),
@@ -38715,7 +38798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         z.enum([""]),
                       ])
                       .optional(),
-                    metadata: z.record(z.string()).optional(),
+                    metadata: z.record(z.string(), z.string()).optional(),
                     price: z.string().max(5000).optional(),
                     price_data: z
                       .object({
@@ -38739,7 +38822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   }),
                 ),
                 iterations: z.coerce.number().optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 on_behalf_of: z.string().optional(),
                 proration_behavior: z
                   .enum(["always_invoice", "create_prorations", "none"])
@@ -38811,7 +38894,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .optional(),
                 id: z.string().max(5000).optional(),
                 metadata: z
-                  .union([z.record(z.string()), z.enum([""])])
+                  .union([z.record(z.string(), z.string()), z.enum([""])])
                   .optional(),
                 price: z.string().max(5000).optional(),
                 price_data: z
@@ -39167,7 +39250,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["account", "self"]),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       number: z.union([z.string().max(26), z.enum([""])]).optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       payment_settings: z
@@ -39394,6 +39479,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     currency: z.string(),
                     currency_options: z
                       .record(
+                        z.string(),
                         z.object({
                           amount: z.coerce.number(),
                           tax_behavior: z
@@ -39404,7 +39490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       .optional(),
                   })
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
@@ -39508,7 +39594,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postInvoicesInvoiceAddLinesBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    invoice_metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    invoice_metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     lines: z.array(
       z.object({
         amount: z.coerce.number().optional(),
@@ -39527,7 +39615,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ])
           .optional(),
         invoice_item: z.string().max(5000).optional(),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+        metadata: z
+          .union([z.record(z.string(), z.string()), z.enum([""])])
+          .optional(),
         period: z
           .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
@@ -39539,7 +39629,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .object({
                 description: z.string().max(40000).optional(),
                 images: z.array(z.string()).optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 name: z.string().max(5000),
                 tax_code: z.string().max(5000).optional(),
               })
@@ -39921,7 +40011,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       period: z
         .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
@@ -39933,7 +40025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               description: z.string().max(40000).optional(),
               images: z.array(z.string()).optional(),
-              metadata: z.record(z.string()).optional(),
+              metadata: z.record(z.string(), z.string()).optional(),
               name: z.string().max(5000),
               tax_code: z.string().max(5000).optional(),
             })
@@ -40220,7 +40312,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postInvoicesInvoiceRemoveLinesBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    invoice_metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    invoice_metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     lines: z.array(
       z.object({
         behavior: z.enum(["delete", "unassign"]),
@@ -40353,7 +40447,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postInvoicesInvoiceUpdateLinesBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    invoice_metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    invoice_metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     lines: z.array(
       z.object({
         amount: z.coerce.number().optional(),
@@ -40372,7 +40468,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ])
           .optional(),
         id: z.string().max(5000),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+        metadata: z
+          .union([z.record(z.string(), z.string()), z.enum([""])])
+          .optional(),
         period: z
           .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
@@ -40384,7 +40482,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .object({
                 description: z.string().max(40000).optional(),
                 images: z.array(z.string()).optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 name: z.string().max(5000),
                 tax_code: z.string().max(5000).optional(),
               })
@@ -40763,7 +40861,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingAuthorizationsAuthorizationBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -40832,7 +40932,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -40905,7 +41007,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingAuthorizationsAuthorizationDeclineBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -41118,7 +41222,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
       })
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string(),
     phone_number: z.string().optional(),
     preferred_locales: z
@@ -42229,7 +42333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       phone_number: z.string().optional(),
       preferred_locales: z
         .array(z.enum(["de", "en", "es", "fr", "it"]))
@@ -43315,7 +43419,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     currency: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string().optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     personalization_design: z.string().max(5000).optional(),
     pin: z
       .object({encrypted_number: z.string().max(5000).optional()})
@@ -44403,7 +44507,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       cancellation_reason: z.enum(["lost", "stolen"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       personalization_design: z.string().max(5000).optional(),
       pin: z
         .object({encrypted_number: z.string().max(5000).optional()})
@@ -45697,7 +45803,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       transaction: z.string().max(5000).optional(),
       treasury: z.object({received_debit: z.string().max(5000)}).optional(),
     })
@@ -46010,7 +46116,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -46077,7 +46185,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingDisputesDisputeSubmitBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -46243,7 +46353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(200).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(200).optional(),
     physical_bundle: z.string().max(5000),
     preferences: z.object({is_default: PermissiveBoolean}).optional(),
@@ -46412,7 +46522,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       lookup_key: z.union([z.string().max(200), z.enum([""])]).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       name: z.union([z.string().max(200), z.enum([""])]).optional(),
       physical_bundle: z.string().max(5000).optional(),
       preferences: z.object({is_default: PermissiveBoolean}).optional(),
@@ -46714,7 +46824,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingSettlementsSettlementBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -47167,7 +47277,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postIssuingTransactionsTransactionBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -47952,7 +48064,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.enum([""]),
       ])
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     off_session: z
       .union([PermissiveBoolean, z.enum(["one_off", "recurring"])])
       .optional(),
@@ -48123,7 +48235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         konbini: z.object({}).optional(),
         kr_card: z.object({}).optional(),
         link: z.object({}).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         mobilepay: z.object({}).optional(),
         multibanco: z.object({}).optional(),
         naver_pay: z
@@ -49268,7 +49380,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       customer: z.string().max(5000).optional(),
       description: z.string().max(1000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_configuration: z.string().max(100).optional(),
       payment_method_data: z
@@ -49435,7 +49549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -50572,7 +50686,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       application_fee_amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       final_capture: PermissiveBoolean.optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
@@ -50844,7 +50960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -51836,7 +51952,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     application_fee_amount: z.coerce.number().optional(),
     description: z.string().max(1000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     statement_descriptor: z.string().max(22).optional(),
     transfer_data: z.object({amount: z.coerce.number().optional()}).optional(),
   })
@@ -52174,7 +52290,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 type: z.enum(["account", "self"]),
               })
               .optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             rendering_options: z
               .union([
                 z.object({
@@ -52208,7 +52326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .object({
                 description: z.string().max(40000).optional(),
                 images: z.array(z.string()).optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 name: z.string().max(5000),
                 tax_code: z.string().max(5000).optional(),
               })
@@ -52229,7 +52347,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         quantity: z.coerce.number(),
       }),
     ),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     on_behalf_of: z.string().optional(),
     optional_items: z
       .array(
@@ -52252,7 +52370,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .enum(["automatic", "automatic_async", "manual"])
           .optional(),
         description: z.string().max(1000).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         setup_future_usage: z.enum(["off_session", "on_session"]).optional(),
         statement_descriptor: z.string().max(22).optional(),
         statement_descriptor_suffix: z.string().max(22).optional(),
@@ -52572,7 +52690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
           })
           .optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         trial_period_days: z.coerce.number().optional(),
         trial_settings: z
           .object({
@@ -52832,7 +52950,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 })
                 .optional(),
               metadata: z
-                .union([z.record(z.string()), z.enum([""])])
+                .union([z.record(z.string(), z.string()), z.enum([""])])
                 .optional(),
               rendering_options: z
                 .union([
@@ -52864,11 +52982,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       payment_intent_data: z
         .object({
           description: z.union([z.string().max(1000), z.enum([""])]).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           statement_descriptor: z
             .union([z.string().max(22), z.enum([""])])
             .optional(),
@@ -53200,7 +53320,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           trial_period_days: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
@@ -55067,7 +55189,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       konbini: z.object({}).optional(),
       kr_card: z.object({}).optional(),
       link: z.object({}).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       mobilepay: z.object({}).optional(),
       multibanco: z.object({}).optional(),
       naver_pay: z
@@ -55365,7 +55487,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       link: z.object({}).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       pay_by_bank: z.object({}).optional(),
       us_bank_account: z
         .object({
@@ -55666,7 +55790,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     description: z.string().max(5000).optional(),
     destination: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     method: z.enum(["instant", "standard"]).optional(),
     source_type: z.enum(["bank_account", "card", "fpx"]).optional(),
     statement_descriptor: z.string().max(22).optional(),
@@ -55788,7 +55912,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postPayoutsPayoutBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -55915,7 +56041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postPayoutsPayoutReverseBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -56073,7 +56199,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string().max(5000).optional(),
     interval: z.enum(["day", "month", "week", "year"]),
     interval_count: z.coerce.number().optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     meter: z.string().max(5000).optional(),
     nickname: z.string().max(5000).optional(),
     product: z
@@ -56081,7 +56209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           active: PermissiveBoolean.optional(),
           id: z.string().max(5000).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           name: z.string().max(5000),
           statement_descriptor: z.string().max(22).optional(),
           tax_code: z.string().max(5000).optional(),
@@ -56276,7 +56404,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nickname: z.string().max(5000).optional(),
       product: z.string().max(5000).optional(),
       trial_period_days: z.coerce.number().optional(),
@@ -56444,6 +56574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     currency: z.string(),
     currency_options: z
       .record(
+        z.string(),
         z.object({
           custom_unit_amount: z
             .object({
@@ -56482,14 +56613,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(200).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     nickname: z.string().max(5000).optional(),
     product: z.string().max(5000).optional(),
     product_data: z
       .object({
         active: PermissiveBoolean.optional(),
         id: z.string().max(5000).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         name: z.string().max(5000),
         statement_descriptor: z.string().max(22).optional(),
         tax_code: z.string().max(5000).optional(),
@@ -56723,6 +56854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       currency_options: z
         .union([
           z.record(
+            z.string(),
             z.object({
               custom_unit_amount: z
                 .object({
@@ -56755,7 +56887,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       lookup_key: z.string().max(200).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nickname: z.string().max(5000).optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
@@ -56918,6 +57052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         currency: z.string(),
         currency_options: z
           .record(
+            z.string(),
             z.object({
               custom_unit_amount: z
                 .object({
@@ -56954,7 +57089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             preset: z.coerce.number().optional(),
           })
           .optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         recurring: z
           .object({
             interval: z.enum(["day", "month", "week", "year"]),
@@ -56975,7 +57110,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     marketing_features: z
       .array(z.object({name: z.string().max(5000)}))
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(5000),
     package_dimensions: z
       .object({
@@ -57244,7 +57379,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       marketing_features: z
         .union([z.array(z.object({name: z.string().max(5000)})), z.enum([""])])
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       package_dimensions: z
         .union([
@@ -57688,11 +57825,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
     max_redemptions: z.coerce.number().optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     restrictions: z
       .object({
         currency_options: z
-          .record(z.object({minimum_amount: z.coerce.number().optional()}))
+          .record(
+            z.string(),
+            z.object({minimum_amount: z.coerce.number().optional()}),
+          )
           .optional(),
         first_time_transaction: PermissiveBoolean.optional(),
         minimum_amount: z.coerce.number().optional(),
@@ -57828,11 +57968,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       restrictions: z
         .object({
           currency_options: z
-            .record(z.object({minimum_amount: z.coerce.number().optional()}))
+            .record(
+              z.string(),
+              z.object({minimum_amount: z.coerce.number().optional()}),
+            )
             .optional(),
         })
         .optional(),
@@ -58071,7 +58216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       subscription_data: z
         .object({
@@ -58086,7 +58231,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           trial_period_days: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
@@ -58314,7 +58459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       subscription_data: z
         .object({
@@ -58326,7 +58471,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           trial_period_days: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
@@ -59395,7 +59540,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "us_bank_account_fingerprint",
       ])
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(100),
   })
 
@@ -59580,7 +59725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       alias: z.string().max(100).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       name: z.string().max(100).optional(),
     })
     .optional()
@@ -59735,7 +59880,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       customer: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       instructions_email: z.string().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       origin: z.enum(["customer_balance"]).optional(),
       payment_intent: z.string().max(5000).optional(),
       reason: z
@@ -59862,7 +60009,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postRefundsRefundBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -61419,7 +61568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       on_behalf_of: z.string().optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_configuration: z.string().max(100).optional(),
@@ -61587,7 +61736,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -62106,7 +62255,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       description: z.string().max(1000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       flow_directions: z.array(z.enum(["inbound", "outbound"])).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_configuration: z.string().max(100).optional(),
       payment_method_data: z
@@ -62273,7 +62424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -62981,7 +63132,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -63603,6 +63754,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         currency: z.string(),
         currency_options: z
           .record(
+            z.string(),
             z.object({
               amount: z.coerce.number(),
               tax_behavior: z
@@ -63613,7 +63765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
       })
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
     tax_code: z.string().optional(),
     type: z.enum(["fixed_amount"]).optional(),
@@ -63749,6 +63901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({
           currency_options: z
             .record(
+              z.string(),
               z.object({
                 amount: z.coerce.number().optional(),
                 tax_behavior: z
@@ -63759,7 +63912,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
@@ -64090,7 +64245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       original_source: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -64307,7 +64462,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       owner: z
         .object({
           address: z
@@ -64826,7 +64983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ])
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     payment_behavior: z
       .enum([
         "allow_incomplete",
@@ -65073,7 +65230,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       payment_behavior: z
         .enum([
@@ -65358,7 +65517,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       from_subscription: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       phases: z
         .array(
           z.object({
@@ -65481,7 +65642,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     z.enum([""]),
                   ])
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 price: z.string().max(5000).optional(),
                 price_data: z
                   .object({
@@ -65505,7 +65666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               }),
             ),
             iterations: z.coerce.number().optional(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             on_behalf_of: z.string().optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
@@ -65707,7 +65868,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       phases: z
         .array(
           z.object({
@@ -65829,7 +65992,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     z.enum([""]),
                   ])
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 price: z.string().max(5000).optional(),
                 price_data: z
                   .object({
@@ -65853,7 +66016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               }),
             ),
             iterations: z.coerce.number().optional(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             on_behalf_of: z.string().optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
@@ -66328,7 +66491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           price: z.string().max(5000).optional(),
           price_data: z
             .object({
@@ -66352,7 +66515,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         }),
       )
       .optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     off_session: PermissiveBoolean.optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
     payment_behavior: z
@@ -66999,7 +67164,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ])
               .optional(),
             id: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             price: z.string().max(5000).optional(),
             price_data: z
               .object({
@@ -67023,7 +67190,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       pause_collection: z
@@ -67660,7 +67829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     line_items: z.array(
       z.object({
         amount: z.coerce.number(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         product: z.string().max(5000).optional(),
         quantity: z.coerce.number().optional(),
         reference: z.string().max(500).optional(),
@@ -69132,7 +69301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTaxTransactionsCreateFromCalculationBodySchema = z.object({
     calculation: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     posted_at: z.coerce.number().optional(),
     reference: z.string().max(500),
   })
@@ -69198,14 +69367,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           amount: z.coerce.number(),
           amount_tax: z.coerce.number(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           original_line_item: z.string().max(5000),
           quantity: z.coerce.number().optional(),
           reference: z.string().max(500),
         }),
       )
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     mode: z.enum(["full", "partial"]),
     original_transaction: z.string().max(5000),
     reference: z.string().max(500),
@@ -70029,7 +70198,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     inclusive: PermissiveBoolean,
     jurisdiction: z.string().max(50).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     percentage: z.coerce.number(),
     state: z.string().max(5000).optional(),
     tax_type: z
@@ -70181,7 +70350,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       display_name: z.string().max(50).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       jurisdiction: z.string().max(50).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       state: z.string().max(5000).optional(),
       tax_type: z
         .enum([
@@ -71192,7 +71363,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration_overrides: z.string().max(500).optional(),
     display_name: z.string().max(1000),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
   })
 
   const postTerminalLocationsResponseValidator = responseValidationFactory(
@@ -71394,7 +71567,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       display_name: z.union([z.string().max(1000), z.enum([""])]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -71556,7 +71731,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
     label: z.string().max(5000).optional(),
     location: z.string().max(5000).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     registration_code: z.string().max(5000),
   })
 
@@ -71750,7 +71927,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       label: z.union([z.string().max(5000), z.enum([""])]).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -71927,7 +72106,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ]),
       }),
     ),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
   })
 
   const postTerminalReadersReaderCollectInputsResponseValidator =
@@ -72310,7 +72489,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       amount: z.coerce.number().optional(),
       charge: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       payment_intent: z.string().max(5000).optional(),
       refund_application_fee: PermissiveBoolean.optional(),
       refund_payment_config: z
@@ -72625,7 +72804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -77606,7 +77785,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               last_name_kanji: z.string().max(5000).optional(),
               maiden_name: z.string().max(5000).optional(),
               metadata: z
-                .union([z.record(z.string()), z.enum([""])])
+                .union([z.record(z.string(), z.string()), z.enum([""])])
                 .optional(),
               phone: z.string().optional(),
               political_exposure: z.enum(["existing", "none"]).optional(),
@@ -77792,7 +77971,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           last_name_kana: z.string().max(5000).optional(),
           last_name_kanji: z.string().max(5000).optional(),
           maiden_name: z.string().max(5000).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           nationality: z.string().max(5000).optional(),
           phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
@@ -78115,7 +78296,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     currency: z.string(),
     description: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     source: z.string().max(5000).optional(),
     statement_descriptor: z.string().max(15).optional(),
     transfer_group: z.string().optional(),
@@ -78238,7 +78421,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -78452,7 +78637,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     description: z.string().max(5000).optional(),
     destination: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     source_transaction: z.string().optional(),
     source_type: z.enum(["bank_account", "card", "fpx"]).optional(),
     transfer_group: z.string().optional(),
@@ -78602,7 +78787,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       refund_application_fee: PermissiveBoolean.optional(),
     })
     .optional()
@@ -78740,7 +78927,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -78876,7 +79065,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postTransfersTransferReversalsIdBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -79018,7 +79209,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTreasuryCreditReversalsBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     received_credit: z.string().max(5000),
   })
 
@@ -79227,7 +79418,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postTreasuryDebitReversalsBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     received_debit: z.string().max(5000),
   })
 
@@ -79479,7 +79670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
       })
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     nickname: z.union([z.string().max(5000), z.enum([""])]).optional(),
     platform_restrictions: z
       .object({
@@ -79662,7 +79853,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["financial_account", "payment_method"]),
         })
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       nickname: z.union([z.string().max(5000), z.enum([""])]).optional(),
       platform_restrictions: z
         .object({
@@ -80083,7 +80274,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     description: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     origin_payment_method: z.string().max(5000),
     statement_descriptor: z.string().max(10).optional(),
   })
@@ -80404,7 +80595,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           })
           .optional(),
         financial_account: z.string().optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         type: z.enum(["financial_account", "us_bank_account"]),
         us_bank_account: z
           .object({
@@ -80432,7 +80623,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     statement_descriptor: z.string().max(5000).optional(),
   })
 
@@ -80725,7 +80916,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     statement_descriptor: z.string().max(5000).optional(),
   })
 
@@ -82031,7 +82222,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ]),
     ),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     url: z.string(),
   })
 
@@ -82472,7 +82665,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         )
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       url: z.string().optional(),
     })
     .optional()

@@ -85,9 +85,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
   with200(): KoaRuntimeResponse<t_AppAuthenticatorEnrollment>
@@ -1704,7 +1704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const createEmailBodySchema = z.object({
-    profile: z.object({email: z.string().email()}),
+    profile: z.object({email: z.email()}),
     sendEmail: PermissiveBoolean.optional().default(true),
     state: z.string().optional(),
     role: z.enum(["PRIMARY", "SECONDARY"]).optional(),

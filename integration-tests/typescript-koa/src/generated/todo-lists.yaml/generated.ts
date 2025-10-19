@@ -43,9 +43,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type GetTodoListsResponder = {
   with200(): KoaRuntimeResponse<t_TodoList[]>
@@ -224,7 +224,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
   const getTodoListsQuerySchema = z.object({
-    created: z.string().datetime({offset: true}).optional(),
+    created: z.iso.datetime({offset: true}).optional(),
     statuses: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -467,8 +467,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           id: z.string(),
           content: z.string(),
-          createdAt: z.string().datetime({offset: true}),
-          completedAt: z.string().datetime({offset: true}).optional(),
+          createdAt: z.iso.datetime({offset: true}),
+          completedAt: z.iso.datetime({offset: true}).optional(),
         }),
       ],
       ["5XX", z.object({message: z.string(), code: z.string()})],
@@ -532,7 +532,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const createTodoListItemBodySchema = z.object({
     id: z.string(),
     content: z.string(),
-    completedAt: z.string().datetime({offset: true}).optional(),
+    completedAt: z.iso.datetime({offset: true}).optional(),
   })
 
   const createTodoListItemResponseValidator = responseValidationFactory(
