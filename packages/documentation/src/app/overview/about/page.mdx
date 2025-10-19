@@ -10,11 +10,16 @@ import {Callout} from "nextra/components"
 `@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
 and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
 
-Currently, [OpenAPI 3.0.x](https://spec.openapis.org/oas/v3.0.4.html), [OpenAPI 3.1.x](https://spec.openapis.org/oas/v3.1.1.html),
-and [TypeSpec](https://typespec.io/) are supported an input specifications.
+Currently, [OpenAPI 3.0.x](https://spec.openapis.org/oas/v3.0.4.html), [OpenAPI 3.1.x](https://spec.openapis.org/oas/v3.1.1.html), and [TypeSpec](https://typespec.io/) are supported input specifications.
 
 This gives you amazing auto-complete, and compile-time safety. Typescript's expressive type system is used to
 make the generated clients feel idiomatic, and as close to handwritten as possible.
+
+## Features
+- **Code generation** from OpenAPI 3 and TypeSpec specifications
+- **Server scaffolding** templates for express, koa
+- **Client SDK** templates for fetch, axios, and angular
+- **Runtime validation** and **serialization** using `zod` (either v4 or v3), or `joi`, of request and response bodies
 
 ![Github API Example](/example.png)
 

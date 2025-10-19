@@ -45,8 +45,12 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-fetch-runtime/main.d.ts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/zod.d.ts",
-        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/zod-v3.d.ts",
+        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod-v3.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/zod-v4.d.ts",
+        path: "/node_modules/@nahkies/typescript-fetch-runtime/zod-v4.d.ts",
       },
       {
         uri: "https://unpkg.com/@nahkies/typescript-fetch-runtime@latest/dist/joi.d.ts",
@@ -85,8 +89,12 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.ts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/zod.d.ts",
-        path: "/node_modules/@nahkies/typescript-koa-runtime/zod.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/zod-v3.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/zod-v3.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/zod-v4.d.ts",
+        path: "/node_modules/@nahkies/typescript-koa-runtime/zod-v4.d.ts",
       },
       {
         uri: "https://unpkg.com/@nahkies/typescript-koa-runtime@latest/dist/joi.d.ts",
@@ -107,8 +115,12 @@ export const loadRuntimeTypes = async (
         path: "/node_modules/@nahkies/typescript-koa-runtime/errors.d.ts",
       },
       {
-        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod.d.ts",
-        path: "/node_modules/@nahkies/typescript-express-runtime/zod.d.ts",
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod-v3.d.ts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/zod-v3.d.ts",
+      },
+      {
+        uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/zod-v4.d.ts",
+        path: "/node_modules/@nahkies/typescript-express-runtime/zod-v4.d.ts",
       },
       {
         uri: "https://unpkg.com/@nahkies/typescript-express-runtime@latest/dist/joi.d.ts",
@@ -138,7 +150,7 @@ export const loadRuntimeTypes = async (
     preloadPackages: true,
     shareCache: true,
     versions: {
-      zod: "3.24.1",
+      zod: "4.1.12",
     },
   })
 }

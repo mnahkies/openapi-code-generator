@@ -65,14 +65,18 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
-
-      case "zod": {
+      case "zod-v3": {
         this.imports
-          .from("@nahkies/typescript-express-runtime/zod")
+          .from("@nahkies/typescript-express-runtime/zod-v3")
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
-
+      case "zod-v4": {
+        this.imports
+          .from("@nahkies/typescript-express-runtime/zod-v4")
+          .add("parseRequestInput", "responseValidationFactory")
+        break
+      }
       default: {
         throw new Error(
           `unsupported schema builder type '${schemaBuilderType satisfies never}'`,

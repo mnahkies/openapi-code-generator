@@ -25,8 +25,8 @@ import {
   Res,
   Server,
 } from "@nahkies/typescript-fetch-runtime/main"
-import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod"
-import {z} from "zod"
+import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v4"
+import {z} from "zod/v4"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {

@@ -16,21 +16,17 @@ import {
   irModelString,
   schemaBuilderTestHarness,
 } from "./schema-builder.test-utils"
-import {staticSchemas} from "./zod-schema-builder"
+import {staticSchemas} from "./zod-v4-schema-builder"
 
 describe.each(testVersions)(
-  "%s - typescript/common/schema-builders/zod-schema-builder",
+  "%s - typescript/common/schema-builders/zod-v4-schema-builder",
   (version) => {
     const executeParseSchema = async (code: string) => {
-      return vm.runInNewContext(
-        code,
-        // Note: done this way for consistency with joi tests
-        {z: require("zod").z, RegExp},
-      )
+      return vm.runInNewContext(code, {z: require("zod/v4").z, RegExp})
     }
 
     const {getActualFromModel, getActual} = schemaBuilderTestHarness(
-      "zod",
+      "zod-v4",
       version,
       executeParseSchema,
     )
@@ -45,13 +41,13 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const s_SimpleObject = z.object({
           str: z.string(),
           num: z.coerce.number(),
           date: z.string(),
-          datetime: z.string().datetime({ offset: true }),
+          datetime: z.iso.datetime({ offset: true }),
           optional_str: z.string().optional(),
           required_nullable: z.string().nullable(),
           $ref: z.string().optional(),
@@ -71,7 +67,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const PermissiveBoolean = z.preprocess((value) => {
           if (typeof value === "string" && (value === "true" || value === "false")) {
@@ -111,7 +107,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const s_OneOf = z.union([
           z.object({ strs: z.array(z.string()) }),
@@ -131,7 +127,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const s_AnyOf = z.union([z.coerce.number(), z.string()])"
       `)
@@ -147,7 +143,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const s_Base = z.object({
           name: z.string(),
@@ -169,10 +165,11 @@ describe.each(testVersions)(
 
       expect(schemas).toMatchInlineSnapshot(`
         "import { t_Recursive } from "./unit-test.types"
-        import { z } from "zod"
+        import { z } from "zod/v4"
 
-        export const s_Recursive: z.ZodType<t_Recursive, z.ZodTypeDef, unknown> =
-          z.object({ child: z.lazy(() => s_Recursive.optional()) })"
+        export const s_Recursive: z.ZodType<t_Recursive> = z.object({
+          child: z.lazy(() => s_Recursive.optional()),
+        })"
       `)
     })
 
@@ -186,7 +183,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const s_AOrdering = z.object({ name: z.string().optional() })
 
@@ -212,7 +209,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { z } from "zod"
+        "import { z } from "zod/v4"
 
         export const s_Enums = z.object({
           str: z.enum(["foo", "bar"]).nullable().optional(),
@@ -237,9 +234,9 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import { z } from "zod"
+          "import { z } from "zod/v4"
 
-          export const s_AdditionalPropertiesBool = z.record(z.unknown())"
+          export const s_AdditionalPropertiesBool = z.record(z.string(), z.unknown())"
         `)
       })
 
@@ -255,9 +252,12 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import { z } from "zod"
+          "import { z } from "zod/v4"
 
-          export const s_AdditionalPropertiesUnknownEmptySchema = z.record(z.unknown())"
+          export const s_AdditionalPropertiesUnknownEmptySchema = z.record(
+            z.string(),
+            z.unknown(),
+          )"
         `)
       })
 
@@ -273,10 +273,11 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import { z } from "zod"
+          "import { z } from "zod/v4"
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = z.record(
-            z.record(z.unknown()),
+            z.string(),
+            z.record(z.string(), z.unknown()),
           )"
         `)
       })
@@ -293,13 +294,16 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import { z } from "zod"
+          "import { z } from "zod/v4"
 
           export const s_NamedNullableStringEnum = z
             .enum(["", "one", "two", "three"])
             .nullable()
 
-          export const s_AdditionalPropertiesSchema = z.record(s_NamedNullableStringEnum)"
+          export const s_AdditionalPropertiesSchema = z.record(
+            z.string(),
+            s_NamedNullableStringEnum,
+          )"
         `)
       })
 
@@ -315,11 +319,11 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import { z } from "zod"
+          "import { z } from "zod/v4"
 
           export const s_AdditionalPropertiesMixed = z.intersection(
             z.object({ id: z.string().optional(), name: z.string().optional() }),
-            z.record(z.unknown()),
+            z.record(z.string(), z.unknown()),
           )"
         `)
       })
@@ -340,7 +344,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot('"const x = z.coerce.number()"')
         await expect(execute(123)).resolves.toBe(123)
         await expect(execute("not a number 123")).rejects.toThrow(
-          "Expected number, received nan",
+          "Invalid input: expected number, received NaN",
         )
       })
 
@@ -356,7 +360,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(123)).rejects.toThrow(
-          "Invalid literal value, expected 404",
+          "Invalid input: expected 404",
         )
         await expect(execute(404)).resolves.toBe(404)
       })
@@ -380,7 +384,7 @@ describe.each(testVersions)(
         await expect(execute(123)).resolves.toBe(123)
         await expect(execute(404)).resolves.toBe(404)
         await expect(execute("not a number")).rejects.toThrow(
-          "Expected number, received string",
+          "Invalid input: expected number, received string",
         )
       })
 
@@ -395,7 +399,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(5)).rejects.toThrow(
-          "Number must be greater than or equal to 10",
+          "Too small: expected number to be >=10",
         )
         await expect(execute(20)).resolves.toBe(20)
       })
@@ -411,7 +415,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(25)).rejects.toThrow(
-          "Number must be less than or equal to 16",
+          "Too big: expected number to be <=16",
         )
         await expect(execute(8)).resolves.toBe(8)
       })
@@ -428,10 +432,10 @@ describe.each(testVersions)(
         )
 
         await expect(execute(5)).rejects.toThrow(
-          "Number must be greater than or equal to 10",
+          "Too small: expected number to be >=10",
         )
         await expect(execute(25)).rejects.toThrow(
-          "Number must be less than or equal to 24",
+          "Too big: expected number to be <=24",
         )
         await expect(execute(20)).resolves.toBe(20)
       })
@@ -447,7 +451,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(4)).rejects.toThrow(
-          "Number must be greater than 4",
+          "Too small: expected number to be >4",
         )
         await expect(execute(20)).resolves.toBe(20)
       })
@@ -462,7 +466,9 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().lt(4)"',
         )
 
-        await expect(execute(4)).rejects.toThrow("Number must be less than 4")
+        await expect(execute(4)).rejects.toThrow(
+          "Too big: expected number to be <4",
+        )
         await expect(execute(3)).resolves.toBe(3)
       })
 
@@ -477,7 +483,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(11)).rejects.toThrow(
-          "Number must be a multiple of 4",
+          "Invalid number: must be a multiple of 4",
         )
         await expect(execute(16)).resolves.toBe(16)
       })
@@ -495,13 +501,13 @@ describe.each(testVersions)(
         )
 
         await expect(execute(11)).rejects.toThrow(
-          "Number must be a multiple of 4",
+          "Invalid number: must be a multiple of 4",
         )
         await expect(execute(8)).rejects.toThrow(
-          "Number must be greater than or equal to 10",
+          "Too small: expected number to be >=10",
         )
         await expect(execute(24)).rejects.toThrow(
-          "Number must be less than or equal to 20",
+          "Too big: expected number to be <=20",
         )
         await expect(execute(16)).resolves.toBe(16)
       })
@@ -517,7 +523,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(-1)).rejects.toThrow(
-          "Number must be greater than or equal to 0",
+          "Too small: expected number to be >=0",
         )
       })
 
@@ -576,7 +582,7 @@ describe.each(testVersions)(
 
         await expect(execute("a string")).resolves.toBe("a string")
         await expect(execute(123)).rejects.toThrow(
-          "Expected string, received number",
+          "Invalid input: expected string, received number",
         )
       })
 
@@ -597,7 +603,7 @@ describe.each(testVersions)(
         }
 
         await expect(execute("orange")).rejects.toThrow(
-          "Invalid enum value. Expected 'red' | 'blue' | 'green', received 'orange'",
+          `Invalid option: expected one of \\"red\\"|\\"blue\\"|\\"green\\"`,
         )
       })
 
@@ -621,7 +627,7 @@ describe.each(testVersions)(
         }
         await expect(execute("orange")).resolves.toBe("orange")
         await expect(execute(404)).rejects.toThrow(
-          "Expected string, received number",
+          "Invalid input: expected string, received number",
         )
       })
 
@@ -646,7 +652,7 @@ describe.each(testVersions)(
         await expect(execute("a string")).resolves.toBe("a string")
         await expect(execute(null)).resolves.toBe(null)
         await expect(execute(123)).rejects.toThrow(
-          "Expected string, received number",
+          "Invalid input: expected string, received number",
         )
       })
 
@@ -659,7 +665,7 @@ describe.each(testVersions)(
 
         await expect(execute("12345678")).resolves.toBe("12345678")
         await expect(execute("1234567")).rejects.toThrow(
-          "String must contain at least 8 character(s)",
+          "Too small: expected string to have >=8 characters",
         )
       })
 
@@ -672,7 +678,7 @@ describe.each(testVersions)(
 
         await expect(execute("12345678")).resolves.toBe("12345678")
         await expect(execute("123456789")).rejects.toThrow(
-          "String must contain at most 8 character(s)",
+          "Too big: expected string to have <=8 characters",
         )
       })
 
@@ -686,7 +692,9 @@ describe.each(testVersions)(
         )
 
         await expect(execute('"pk/1234"')).resolves.toBe('"pk/1234"')
-        await expect(execute("pk/abcd")).rejects.toThrow("invalid_string")
+        await expect(execute("pk/abcd")).rejects.toThrow(
+          `Invalid string: must match pattern /\\"pk\\\\/\\\\d+\\"/`,
+        )
       })
 
       it("supports pattern with minLength / maxLength", async () => {
@@ -701,12 +709,14 @@ describe.each(testVersions)(
         )
 
         await expect(execute("pk-12")).resolves.toBe("pk-12")
-        await expect(execute("pk-ab")).rejects.toThrow("invalid_string")
+        await expect(execute("pk-ab")).rejects.toThrow(
+          `Invalid string: must match pattern /pk-\\\\d+/`,
+        )
         await expect(execute("pk-1")).rejects.toThrow(
-          "String must contain at least 5 character(s)",
+          "Too small: expected string to have >=5 characters",
         )
         await expect(execute("pk-123456")).rejects.toThrow(
-          "String must contain at most 8 character(s)",
+          "Too big: expected string to have <=8 characters",
         )
       })
 
@@ -783,7 +793,7 @@ describe.each(testVersions)(
             format: "email",
           })
 
-          expect(code).toMatchInlineSnapshot('"const x = z.string().email()"')
+          expect(code).toMatchInlineSnapshot('"const x = z.email()"')
 
           await expect(execute("test@example.com")).resolves.toBe(
             "test@example.com",
@@ -797,14 +807,14 @@ describe.each(testVersions)(
           })
 
           expect(code).toMatchInlineSnapshot(
-            '"const x = z.string().datetime({ offset: true })"',
+            '"const x = z.iso.datetime({ offset: true })"',
           )
 
           await expect(execute("2024-05-25T08:20:00.000Z")).resolves.toBe(
             "2024-05-25T08:20:00.000Z",
           )
           await expect(execute("some string")).rejects.toThrow(
-            "Invalid datetime",
+            "Invalid ISO datetime",
           )
         })
       })
@@ -968,7 +978,7 @@ describe.each(testVersions)(
         )
         await expect(
           executeBooleanTest(codeWithoutImport, false),
-        ).rejects.toThrow("Invalid literal value, expected true")
+        ).rejects.toThrow("Invalid input: expected true")
       })
 
       it("support enum of 'false'", async () => {
@@ -1000,7 +1010,7 @@ describe.each(testVersions)(
         ).resolves.toBe(false)
         await expect(
           executeBooleanTest(codeWithoutImport, true),
-        ).rejects.toThrow("Invalid literal value, expected false")
+        ).rejects.toThrow("Invalid input: expected false")
       })
 
       it("PermissiveBoolean works as expected", async () => {
@@ -1018,16 +1028,16 @@ describe.each(testVersions)(
         await expect(executeBooleanTest(code, 1)).resolves.toBe(true)
 
         await expect(executeBooleanTest(code, 12)).rejects.toThrow(
-          "Expected boolean, received number",
+          "Invalid input: expected boolean, received number",
         )
         await expect(executeBooleanTest(code, "yup")).rejects.toThrow(
-          "Expected boolean, received string",
+          "Invalid input: expected boolean, received string",
         )
         await expect(executeBooleanTest(code, [])).rejects.toThrow(
-          "Expected boolean, received array",
+          "Invalid input: expected boolean, received array",
         )
         await expect(executeBooleanTest(code, {})).rejects.toThrow(
-          "Expected boolean, received object",
+          "Invalid input: expected boolean, received Object",
         )
       })
     })
@@ -1052,7 +1062,7 @@ describe.each(testVersions)(
           "bar",
         ])
         await expect(execute([1, 2])).rejects.toThrow(
-          "Expected string, received number",
+          "Invalid input: expected string, received number",
         )
       })
 
@@ -1094,7 +1104,7 @@ describe.each(testVersions)(
           "bar",
         ])
         await expect(execute(["foo"])).rejects.toThrow(
-          "Array must contain at least 2 element(s)",
+          "Too small: expected array to have >=2 items",
         )
       })
 
@@ -1113,7 +1123,7 @@ describe.each(testVersions)(
           "bar",
         ])
         await expect(execute(["foo", "bar", "foobar"])).rejects.toThrow(
-          "Array must contain at most 2 element(s)",
+          "Too big: expected array to have <=2 items",
         )
       })
 
@@ -1138,10 +1148,10 @@ describe.each(testVersions)(
 
         await expect(execute([1, 2])).resolves.toStrictEqual([1, 2])
         await expect(execute([])).rejects.toThrow(
-          "Array must contain at least 1 element(s)",
+          "Too small: expected array to have >=1 items",
         )
         await expect(execute([1, 2, 3, 4])).rejects.toThrow(
-          "Array must contain at most 3 element(s)",
+          "Too big: expected array to have <=3 items",
         )
         await expect(execute([3, 3, 3])).rejects.toThrow(
           "Array must contain unique element(s)",
@@ -1207,7 +1217,9 @@ describe.each(testVersions)(
           age: 35,
         })
 
-        await expect(execute({age: 35})).rejects.toThrow("Required")
+        await expect(execute({age: 35})).rejects.toThrow(
+          "Invalid input: expected string, received undefined",
+        )
       })
 
       it("supports record objects", async () => {
@@ -1221,15 +1233,15 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          '"const x = z.record(z.coerce.number())"',
+          '"const x = z.record(z.string(), z.coerce.number())"',
         )
 
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
         await expect(execute({key: "string"})).rejects.toThrow(
-          // TODO: the error here would be better if we avoided using coerce
-          "Expected number, received nan",
+          // todo: the error here would be better if we avoided using coerce
+          "Invalid input: expected number, received NaN",
         )
       })
 
@@ -1250,7 +1262,7 @@ describe.each(testVersions)(
             .default({ name: "example", age: 22 })"
         `)
 
-        await expect(execute(undefined)).resolves.toStrictEqual({
+        await expect(execute(undefined)).resolves.toEqual({
           name: "example",
           age: 22,
         })
@@ -1285,7 +1297,9 @@ describe.each(testVersions)(
 
         await expect(execute("some string")).resolves.toEqual("some string")
         await expect(execute(1234)).resolves.toEqual(1234)
-        await expect(execute(undefined)).rejects.toThrow("Required")
+        await expect(execute(undefined)).rejects.toThrow(
+          "Invalid input: expected string, received undefined",
+        )
       })
 
       it("can union an intersected object and string", async () => {
@@ -1321,7 +1335,10 @@ describe.each(testVersions)(
           foo: "bla",
           bar: "foobar",
         })
-        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
+        // todo: the error here is not great, zod doesn't mention that the received object doesn't match the possible object
+        await expect(execute({foo: "bla"})).rejects.toThrow(
+          "Invalid input: expected string, received undefined",
+        )
       })
     })
 
@@ -1350,7 +1367,9 @@ describe.each(testVersions)(
           foo: "bla",
           bar: "foobar",
         })
-        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
+        await expect(execute({foo: "bla"})).rejects.toThrow(
+          "Invalid input: expected string, received undefined",
+        )
       })
 
       it("can intersect unions", async () => {
@@ -1392,7 +1411,9 @@ describe.each(testVersions)(
           id: "1234",
           bar: "bla",
         })
-        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
+        await expect(execute({foo: "bla"})).rejects.toThrow(
+          "Invalid input: expected string, received undefined",
+        )
       })
     })
 
@@ -1436,7 +1457,9 @@ describe.each(testVersions)(
           config,
         )
 
-        expect(code).toMatchInlineSnapshot('"const x = z.record(z.any())"')
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.record(z.string(), z.any())"',
+        )
 
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
@@ -1445,7 +1468,7 @@ describe.each(testVersions)(
           key: "string",
         })
         await expect(execute(123)).rejects.toThrow(
-          "Expected object, received number",
+          "Invalid input: expected record, received number",
         )
       })
 
@@ -1465,7 +1488,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = z.array(z.record(z.any()))"`,
+          `"const x = z.array(z.record(z.string(), z.any()))"`,
         )
 
         await expect(execute([{key: 1}])).resolves.toEqual([
@@ -1474,7 +1497,7 @@ describe.each(testVersions)(
           },
         ])
         await expect(execute({key: "string"})).rejects.toThrow(
-          "Expected array, received object",
+          "Invalid input: expected array, received Object",
         )
       })
 
@@ -1489,7 +1512,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
         await expect(execute({any: "object"})).resolves.toEqual({})
         await expect(execute("some string")).rejects.toThrow(
-          "Expected object, received string",
+          "Invalid input: expected object, received string",
         )
       })
     })
@@ -1534,7 +1557,9 @@ describe.each(testVersions)(
           config,
         )
 
-        expect(code).toMatchInlineSnapshot(`"const x = z.record(z.unknown())"`)
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.record(z.string(), z.unknown())"`,
+        )
 
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
@@ -1543,7 +1568,7 @@ describe.each(testVersions)(
           key: "string",
         })
         await expect(execute(123)).rejects.toThrow(
-          "Expected object, received number",
+          "Invalid input: expected record, received number",
         )
       })
 
@@ -1563,7 +1588,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = z.array(z.record(z.unknown()))"`,
+          `"const x = z.array(z.record(z.string(), z.unknown()))"`,
         )
 
         await expect(execute([{key: 1}])).resolves.toEqual([
@@ -1572,7 +1597,7 @@ describe.each(testVersions)(
           },
         ])
         await expect(execute({key: "string"})).rejects.toThrow(
-          "Expected array, received object",
+          "Invalid input: expected array, received Object",
         )
       })
 
@@ -1587,7 +1612,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
         await expect(execute({any: "object"})).resolves.toEqual({})
         await expect(execute("some string")).rejects.toThrow(
-          "Expected object, received string",
+          "Invalid input: expected object, received string",
         )
       })
     })

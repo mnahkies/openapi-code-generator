@@ -1,4 +1,4 @@
-import type {z} from "zod"
+import type {z} from "zod/v3"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
 
 /** @deprecated: update and re-generate to import from @nahkies/typescript-koa-runtime/server directly */

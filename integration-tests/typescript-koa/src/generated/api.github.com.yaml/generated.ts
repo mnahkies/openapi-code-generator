@@ -2170,9 +2170,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type MetaRootResponder = {
   with200(): KoaRuntimeResponse<t_root>
@@ -27779,7 +27779,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               webhook_secret: z.string().nullable(),
               pem: z.string(),
             }),
-            z.record(z.unknown()),
+            z.record(z.string(), z.unknown()),
           ),
         ),
       ],
@@ -28080,7 +28080,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -28218,7 +28218,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsListInstallationsQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     outdated: z.string().optional(),
   })
 
@@ -29478,7 +29478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const credentialsRevokeResponseValidator = responseValidationFactory(
     [
-      ["202", z.record(z.unknown())],
+      ["202", z.record(z.string(), z.unknown())],
       ["422", s_validation_error_simple],
       ["500", s_basic_error],
     ],
@@ -29535,7 +29535,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const emojisGetResponseValidator = responseValidationFactory(
     [
-      ["200", z.record(z.string())],
+      ["200", z.record(z.string(), z.string())],
       ["304", z.undefined()],
     ],
     undefined,
@@ -30180,7 +30180,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codeSecurityAttachEnterpriseConfigurationResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["409", s_basic_error],
@@ -30752,7 +30752,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const gistsListQuerySchema = z.object({
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -30814,7 +30814,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gistsCreateBodySchema = z.object({
     description: z.string().optional(),
-    files: z.record(z.object({content: z.string()})),
+    files: z.record(z.string(), z.object({content: z.string()})),
     public: z
       .union([
         PermissiveBoolean.default(false),
@@ -30887,7 +30887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const gistsListPublicQuerySchema = z.object({
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -30952,7 +30952,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const gistsListStarredQuerySchema = z.object({
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -31105,6 +31105,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       description: z.string().optional(),
       files: z
         .record(
+          z.string(),
           z
             .object({
               content: z.string().optional(),
@@ -32313,7 +32314,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional()
       .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     collab: PermissiveBoolean.optional(),
     orgs: PermissiveBoolean.optional(),
     owned: PermissiveBoolean.optional(),
@@ -33151,8 +33152,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const activityListNotificationsForAuthenticatedUserQuerySchema = z.object({
     all: PermissiveBoolean.optional().default(false),
     participating: PermissiveBoolean.optional().default(false),
-    since: z.string().datetime({offset: true}).optional(),
-    before: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
+    before: z.iso.datetime({offset: true}).optional(),
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(50),
   })
@@ -33235,7 +33236,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const activityMarkNotificationsAsReadBodySchema = z
     .object({
-      last_read_at: z.string().datetime({offset: true}).optional(),
+      last_read_at: z.iso.datetime({offset: true}).optional(),
       read: PermissiveBoolean.optional(),
     })
     .optional()
@@ -34309,7 +34310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsDeleteResponseValidator = responseValidationFactory(
     [
-      ["202", z.record(z.unknown())],
+      ["202", z.record(z.string(), z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -38901,14 +38902,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           attestations_subject_digests: z
             .record(
+              z.string(),
               z
                 .array(
                   z.object({
                     bundle: z
                       .object({
                         mediaType: z.string().optional(),
-                        verificationMaterial: z.record(z.unknown()).optional(),
-                        dsseEnvelope: z.record(z.unknown()).optional(),
+                        verificationMaterial: z
+                          .record(z.string(), z.unknown())
+                          .optional(),
+                        dsseEnvelope: z
+                          .record(z.string(), z.unknown())
+                          .optional(),
                       })
                       .optional(),
                     repository_id: z.coerce.number().optional(),
@@ -39236,8 +39242,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 bundle: z
                   .object({
                     mediaType: z.string().optional(),
-                    verificationMaterial: z.record(z.unknown()).optional(),
-                    dsseEnvelope: z.record(z.unknown()).optional(),
+                    verificationMaterial: z
+                      .record(z.string(), z.unknown())
+                      .optional(),
+                    dsseEnvelope: z.record(z.string(), z.unknown()).optional(),
                   })
                   .optional(),
                 repository_id: z.coerce.number().optional(),
@@ -39637,7 +39645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     description: z.string().min(1).max(255),
     managers: z.array(z.string()).max(10).optional(),
     team_managers: z.array(z.string()).max(10).optional(),
-    ends_at: z.string().datetime({offset: true}),
+    ends_at: z.iso.datetime({offset: true}),
     contact_link: z.string().nullable().optional(),
     code_scanning_alerts: z
       .array(
@@ -39826,7 +39834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     description: z.string().min(1).max(255).optional(),
     managers: z.array(z.string()).max(10).optional(),
     team_managers: z.array(z.string()).max(10).optional(),
-    ends_at: z.string().datetime({offset: true}).optional(),
+    ends_at: z.iso.datetime({offset: true}).optional(),
     contact_link: z.string().nullable().optional(),
     state: s_campaign_state.optional(),
   })
@@ -40746,7 +40754,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codeSecurityAttachConfigurationResponseValidator =
-    responseValidationFactory([["202", z.record(z.unknown())]], undefined)
+    responseValidationFactory(
+      [["202", z.record(z.string(), z.unknown())]],
+      undefined,
+    )
 
   router.post(
     "codeSecurityAttachConfiguration",
@@ -44044,7 +44055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -45672,7 +45683,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional()
       .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -46030,7 +46041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteFromOrganizationResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -48423,8 +48434,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     repository: z.string().optional(),
     permission: z.string().optional(),
-    last_used_before: z.string().datetime({offset: true}).optional(),
-    last_used_after: z.string().datetime({offset: true}).optional(),
+    last_used_before: z.iso.datetime({offset: true}).optional(),
+    last_used_after: z.iso.datetime({offset: true}).optional(),
     token_id: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -48519,7 +48530,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", s_validation_error],
@@ -48767,8 +48778,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     repository: z.string().optional(),
     permission: z.string().optional(),
-    last_used_before: z.string().datetime({offset: true}).optional(),
-    last_used_after: z.string().datetime({offset: true}).optional(),
+    last_used_before: z.iso.datetime({offset: true}).optional(),
+    last_used_after: z.iso.datetime({offset: true}).optional(),
     token_id: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
@@ -48859,7 +48870,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
     [
-      ["202", z.record(z.unknown())],
+      ["202", z.record(z.string(), z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -50581,7 +50592,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-    custom_properties: z.record(z.unknown()).optional(),
+    custom_properties: z.record(z.string(), z.unknown()).optional(),
   })
 
   const reposCreateInOrgResponseValidator = responseValidationFactory(
@@ -58949,7 +58960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
-    created: z.string().datetime({offset: true}).optional(),
+    created: z.iso.datetime({offset: true}).optional(),
     exclude_pull_requests: PermissiveBoolean.optional().default(false),
     check_suite_id: z.coerce.number().optional(),
     head_sha: z.string().optional(),
@@ -61037,7 +61048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateWorkflowDispatchBodySchema = z.object({
     ref: z.string(),
-    inputs: z.record(z.unknown()).optional(),
+    inputs: z.record(z.string(), z.unknown()).optional(),
   })
 
   const actionsCreateWorkflowDispatchResponseValidator =
@@ -61176,7 +61187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
-    created: z.string().datetime({offset: true}).optional(),
+    created: z.iso.datetime({offset: true}).optional(),
     exclude_pull_requests: PermissiveBoolean.optional().default(false),
     check_suite_id: z.coerce.number().optional(),
     head_sha: z.string().optional(),
@@ -61524,8 +61535,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposCreateAttestationBodySchema = z.object({
     bundle: z.object({
       mediaType: z.string().optional(),
-      verificationMaterial: z.record(z.unknown()).optional(),
-      dsseEnvelope: z.record(z.unknown()).optional(),
+      verificationMaterial: z.record(z.string(), z.unknown()).optional(),
+      dsseEnvelope: z.record(z.string(), z.unknown()).optional(),
     }),
   })
 
@@ -61618,8 +61629,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 bundle: z
                   .object({
                     mediaType: z.string().optional(),
-                    verificationMaterial: z.record(z.unknown()).optional(),
-                    dsseEnvelope: z.record(z.unknown()).optional(),
+                    verificationMaterial: z
+                      .record(z.string(), z.unknown())
+                      .optional(),
+                    dsseEnvelope: z.record(z.string(), z.unknown()).optional(),
                   })
                   .optional(),
                 repository_id: z.coerce.number().optional(),
@@ -64600,10 +64613,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const checksCreateBodySchema = z.union([
-    z.intersection(z.object({status: z.object({})}), z.record(z.unknown())),
+    z.intersection(
+      z.object({status: z.object({})}),
+      z.record(z.string(), z.unknown()),
+    ),
     z.intersection(
       z.object({status: z.object({}).optional()}),
-      z.record(z.unknown()),
+      z.record(z.string(), z.unknown()),
     ),
   ])
 
@@ -64725,7 +64741,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string().optional(),
     details_url: z.string().optional(),
     external_id: z.string().optional(),
-    started_at: z.string().datetime({offset: true}).optional(),
+    started_at: z.iso.datetime({offset: true}).optional(),
     status: z
       .enum([
         "queued",
@@ -64748,7 +64764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "timed_out",
       ])
       .optional(),
-    completed_at: z.string().datetime({offset: true}).optional(),
+    completed_at: z.iso.datetime({offset: true}).optional(),
     output: z
       .object({
         title: z.string().optional(),
@@ -66053,7 +66069,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeScanningGetAnalysisResponseValidator = responseValidationFactory(
     [
-      ["200", z.record(z.unknown())],
+      ["200", z.record(z.string(), z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_basic_error],
@@ -66914,7 +66930,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ref: s_code_scanning_ref_full,
     sarif: s_code_scanning_analysis_sarif_file,
     checkout_uri: z.string().optional(),
-    started_at: z.string().datetime({offset: true}).optional(),
+    started_at: z.iso.datetime({offset: true}).optional(),
     tool_name: z.string().optional(),
     validate: PermissiveBoolean.optional(),
   })
@@ -69013,8 +69029,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     path: z.string().optional(),
     author: z.string().optional(),
     committer: z.string().optional(),
-    since: z.string().datetime({offset: true}).optional(),
-    until: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
+    until: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -71157,7 +71173,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     auto_merge: PermissiveBoolean.optional().default(true),
     required_contexts: z.array(z.string()).optional(),
     payload: z
-      .union([z.record(z.unknown()), z.string().default("")])
+      .union([z.record(z.string(), z.unknown()), z.string().default("")])
       .optional(),
     environment: z.string().optional().default("production"),
     description: z.string().nullable().optional().default(""),
@@ -71584,7 +71600,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateDispatchEventBodySchema = z.object({
     event_type: z.string().min(1).max(100),
-    client_payload: z.record(z.unknown()).optional(),
+    client_payload: z.record(z.string(), z.unknown()).optional(),
   })
 
   const reposCreateDispatchEventResponseValidator = responseValidationFactory(
@@ -73602,14 +73618,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .object({
         name: z.string(),
         email: z.string(),
-        date: z.string().datetime({offset: true}).optional(),
+        date: z.iso.datetime({offset: true}).optional(),
       })
       .optional(),
     committer: z
       .object({
         name: z.string().optional(),
         email: z.string().optional(),
-        date: z.string().datetime({offset: true}).optional(),
+        date: z.iso.datetime({offset: true}).optional(),
       })
       .optional(),
     signature: z.string().optional(),
@@ -74096,7 +74112,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .object({
         name: z.string(),
         email: z.string(),
-        date: z.string().datetime({offset: true}).optional(),
+        date: z.iso.datetime({offset: true}).optional(),
       })
       .optional(),
   })
@@ -75021,7 +75037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -76222,7 +76238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional()
       .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -76419,7 +76435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const issuesListCommentsForRepoQuerySchema = z.object({
     sort: z.enum(["created", "updated"]).optional().default("created"),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -77425,7 +77441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const issuesListCommentsQuerySchema = z.object({
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -79743,7 +79759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     title: z.string(),
     state: z.enum(["open", "closed"]).optional().default("open"),
     description: z.string().optional(),
-    due_on: z.string().datetime({offset: true}).optional(),
+    due_on: z.iso.datetime({offset: true}).optional(),
   })
 
   const issuesCreateMilestoneResponseValidator = responseValidationFactory(
@@ -79881,7 +79897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       title: z.string().optional(),
       state: z.enum(["open", "closed"]).optional().default("open"),
       description: z.string().optional(),
-      due_on: z.string().datetime({offset: true}).optional(),
+      due_on: z.iso.datetime({offset: true}).optional(),
     })
     .optional()
 
@@ -80069,8 +80085,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     {
       all: PermissiveBoolean.optional().default(false),
       participating: PermissiveBoolean.optional().default(false),
-      since: z.string().datetime({offset: true}).optional(),
-      before: z.string().datetime({offset: true}).optional(),
+      since: z.iso.datetime({offset: true}).optional(),
+      before: z.iso.datetime({offset: true}).optional(),
       per_page: z.coerce.number().optional().default(30),
       page: z.coerce.number().optional().default(1),
     },
@@ -80142,7 +80158,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const activityMarkRepoNotificationsAsReadBodySchema = z
-    .object({last_read_at: z.string().datetime({offset: true}).optional()})
+    .object({last_read_at: z.iso.datetime({offset: true}).optional()})
     .optional()
 
   const activityMarkRepoNotificationsAsReadResponseValidator =
@@ -81678,7 +81694,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const pullsListReviewCommentsForRepoQuerySchema = z.object({
     sort: z.enum(["created", "updated", "created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -82438,7 +82454,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const pullsListReviewCommentsQuerySchema = z.object({
     sort: z.enum(["created", "updated"]).optional().default("created"),
     direction: z.enum(["asc", "desc"]).optional(),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -86704,7 +86720,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["400", s_scim_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -86932,7 +86948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetCodeFrequencyStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_code_frequency_stat)],
-      ["202", z.record(z.unknown())],
+      ["202", z.record(z.string(), z.unknown())],
       ["204", z.undefined()],
       ["422", z.undefined()],
     ],
@@ -87003,7 +87019,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_commit_activity)],
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["204", z.undefined()],
       ],
       undefined,
@@ -87069,7 +87085,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetContributorsStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_contributor_activity)],
-      ["202", z.record(z.unknown())],
+      ["202", z.record(z.string(), z.unknown())],
       ["204", z.undefined()],
     ],
     undefined,
@@ -93042,7 +93058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.unknown())],
+        ["202", z.record(z.string(), z.unknown())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -95185,7 +95201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional()
       .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })
@@ -97359,8 +97375,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     direction: z.enum(["asc", "desc"]).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
-    since: z.string().datetime({offset: true}).optional(),
-    before: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
+    before: z.iso.datetime({offset: true}).optional(),
   })
 
   const reposListForAuthenticatedUserResponseValidator =
@@ -98974,14 +98990,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           attestations_subject_digests: z
             .record(
+              z.string(),
               z
                 .array(
                   z.object({
                     bundle: z
                       .object({
                         mediaType: z.string().optional(),
-                        verificationMaterial: z.record(z.unknown()).optional(),
-                        dsseEnvelope: z.record(z.unknown()).optional(),
+                        verificationMaterial: z
+                          .record(z.string(), z.unknown())
+                          .optional(),
+                        dsseEnvelope: z
+                          .record(z.string(), z.unknown())
+                          .optional(),
                       })
                       .optional(),
                     repository_id: z.coerce.number().optional(),
@@ -99313,8 +99334,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 bundle: z
                   .object({
                     mediaType: z.string().optional(),
-                    verificationMaterial: z.record(z.unknown()).optional(),
-                    dsseEnvelope: z.record(z.unknown()).optional(),
+                    verificationMaterial: z
+                      .record(z.string(), z.unknown())
+                      .optional(),
+                    dsseEnvelope: z.record(z.string(), z.unknown()).optional(),
                   })
                   .optional(),
                 repository_id: z.coerce.number().optional(),
@@ -99844,7 +99867,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const gistsListForUserParamSchema = z.object({username: z.string()})
 
   const gistsListForUserQuerySchema = z.object({
-    since: z.string().datetime({offset: true}).optional(),
+    since: z.iso.datetime({offset: true}).optional(),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
   })

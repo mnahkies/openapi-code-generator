@@ -25,7 +25,7 @@ import {
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import {AxiosRequestConfig, AxiosResponse} from "axios"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {

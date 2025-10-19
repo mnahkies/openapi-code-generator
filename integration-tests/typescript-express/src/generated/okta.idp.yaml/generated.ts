@@ -83,9 +83,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod"
+} from "@nahkies/typescript-express-runtime/zod-v4"
 import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
   with200(): ExpressRuntimeResponse<t_AppAuthenticatorEnrollment>
@@ -1592,7 +1592,7 @@ export function createRouter(implementation: Implementation): Router {
   )
 
   const createEmailRequestBodySchema = z.object({
-    profile: z.object({email: z.string().email()}),
+    profile: z.object({email: z.email()}),
     sendEmail: PermissiveBoolean.optional().default(true),
     state: z.string().optional(),
     role: z.enum(["PRIMARY", "SECONDARY"]).optional(),

@@ -48,7 +48,7 @@ See also [quick start](../../getting-started/quick-start) guide
       --input-type openapi3 \
       --output ./src/clients/some-service \
       --template typescript-fetch \
-      --schema-builder zod
+      --schema-builder zod-v4
     ```
   </Tabs.Tab>
 
@@ -59,7 +59,7 @@ See also [quick start](../../getting-started/quick-start) guide
       --input-type typespec \
       --output ./src/clients/some-service \
       --template typescript-fetch \
-      --schema-builder zod
+      --schema-builder zod-v4
     ```
   </Tabs.Tab>
 </Tabs>
@@ -69,7 +69,7 @@ Running the above will output these files into `./src/clients/some-service`:
 
 - `./client.ts`: exports a class `ApiClient` that implements methods for calling each endpoint
 - `./models.ts`: exports typescript types
-- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (default `zod`)
+- `./schemas.ts`: exports runtime parsers using the chosen `schema-builder` (by default, using `zod`)
 
 Once generated usage should look something like this:
 

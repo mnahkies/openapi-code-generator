@@ -39,19 +39,19 @@ export const staticSchemas = {
 }
 type StaticSchemas = typeof staticSchemas
 
-export class ZodBuilder extends AbstractSchemaBuilder<
-  ZodBuilder,
+export class ZodV3Builder extends AbstractSchemaBuilder<
+  ZodV3Builder,
   StaticSchemas
 > {
-  readonly type = "zod"
+  readonly type = "zod-v3"
 
   static async fromInput(
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
     typeBuilder: TypeBuilder,
-  ): Promise<ZodBuilder> {
-    return new ZodBuilder(
+  ): Promise<ZodV3Builder> {
+    return new ZodV3Builder(
       filename,
       input,
       schemaBuilderConfig,
@@ -60,8 +60,8 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     )
   }
 
-  override withImports(imports: ImportBuilder): ZodBuilder {
-    return new ZodBuilder(
+  override withImports(imports: ImportBuilder): ZodV3Builder {
+    return new ZodV3Builder(
       this.filename,
       this.input,
       this.config,
@@ -75,7 +75,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   }
 
   protected importHelpers(imports: ImportBuilder) {
-    imports.from("zod").add(zod)
+    imports.from("zod/v3").add(zod)
   }
 
   public parse(schema: string, value: string): string {

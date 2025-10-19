@@ -48,9 +48,15 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
             .add("responseValidationFactory")
           break
         }
-        case "zod": {
+        case "zod-v3": {
           imports
-            .from("@nahkies/typescript-fetch-runtime/zod")
+            .from("@nahkies/typescript-fetch-runtime/zod-v3")
+            .add("responseValidationFactory")
+          break
+        }
+        case "zod-v4": {
+          imports
+            .from("@nahkies/typescript-fetch-runtime/zod-v4")
             .add("responseValidationFactory")
           break
         }

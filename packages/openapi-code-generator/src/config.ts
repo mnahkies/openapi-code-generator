@@ -1,4 +1,4 @@
-import {z} from "zod"
+import {z} from "zod/v4"
 import type {GenericLoaderRequestHeaders} from "./core/loaders/generic.loader"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {tsconfigSchema} from "./core/schemas/tsconfig.schema"
@@ -17,7 +17,7 @@ export type Config = {
     | "typescript-angular"
     | "typescript-koa"
     | "typescript-express"
-  schemaBuilder: "zod" | "joi"
+  schemaBuilder: "zod-v3" | "zod-v4" | "joi"
   enableRuntimeResponseValidation: boolean
   enableTypedBasePaths: boolean
   extractInlineSchemas: boolean
@@ -33,7 +33,7 @@ export type Config = {
 
 const templatesSchema = z.enum(templateNames)
 
-const schemaBuilderSchema = z.enum(["zod", "joi"])
+const schemaBuilderSchema = z.enum(["zod-v3", "zod-v4", "joi"])
 
 const groupingStrategySchema = z.enum(["none", "first-slug", "first-tag"])
 
@@ -66,6 +66,9 @@ export const configSchema = z.object({
   tsServerImplementationMethod: tsServerImplementationSchema,
   tsCompilerOptions: tsconfigSchema.shape.compilerOptions,
   remoteSpecRequestHeaders: z
-    .record(z.array(z.object({name: z.string(), value: z.string()})))
+    .record(
+      z.string(),
+      z.array(z.object({name: z.string(), value: z.string()})),
+    )
     .optional(),
 })

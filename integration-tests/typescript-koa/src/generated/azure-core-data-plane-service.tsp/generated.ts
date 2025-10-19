@@ -114,9 +114,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type GetServiceStatusResponder = {
   with200(): KoaRuntimeResponse<{
@@ -1553,10 +1553,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           result: z
             .object({
               requestState: s_WidgetRepairState,
-              scheduledDateTime: z.string().datetime({offset: true}),
-              createdDateTime: z.string().datetime({offset: true}),
-              updatedDateTime: z.string().datetime({offset: true}),
-              completedDateTime: z.string().datetime({offset: true}),
+              scheduledDateTime: z.iso.datetime({offset: true}),
+              createdDateTime: z.iso.datetime({offset: true}),
+              updatedDateTime: z.iso.datetime({offset: true}),
+              completedDateTime: z.iso.datetime({offset: true}),
             })
             .optional(),
         }),

@@ -7,7 +7,7 @@ import {
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_InnerError,
 } from "./models"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export const s_Azure_Core_Foundations_OperationState = z.union([
   z.enum(["NotStarted", "Running", "Succeeded", "Failed", "Canceled"]),
@@ -69,10 +69,10 @@ export const s_WidgetPart = z.object({
 
 export const s_WidgetRepairRequest = z.object({
   requestState: s_WidgetRepairState,
-  scheduledDateTime: z.string().datetime({offset: true}),
-  createdDateTime: z.string().datetime({offset: true}),
-  updatedDateTime: z.string().datetime({offset: true}),
-  completedDateTime: z.string().datetime({offset: true}),
+  scheduledDateTime: z.iso.datetime({offset: true}),
+  createdDateTime: z.iso.datetime({offset: true}),
+  updatedDateTime: z.iso.datetime({offset: true}),
+  completedDateTime: z.iso.datetime({offset: true}),
 })
 
 export const s_PagedManufacturer = z.object({
@@ -90,29 +90,20 @@ export const s_PagedWidgetPart = z.object({
   nextLink: z.string().optional(),
 })
 
-export const s_Azure_Core_Foundations_ErrorResponse: z.ZodType<
-  t_Azure_Core_Foundations_ErrorResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({error: z.lazy(() => s_Azure_Core_Foundations_Error)})
+export const s_Azure_Core_Foundations_ErrorResponse: z.ZodType<t_Azure_Core_Foundations_ErrorResponse> =
+  z.object({error: z.lazy(() => s_Azure_Core_Foundations_Error)})
 
-export const s_Azure_Core_Foundations_Error: z.ZodType<
-  t_Azure_Core_Foundations_Error,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.string(),
-  message: z.string(),
-  target: z.string().optional(),
-  details: z.array(z.lazy(() => s_Azure_Core_Foundations_Error)).optional(),
-  innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
-})
+export const s_Azure_Core_Foundations_Error: z.ZodType<t_Azure_Core_Foundations_Error> =
+  z.object({
+    code: z.string(),
+    message: z.string(),
+    target: z.string().optional(),
+    details: z.array(z.lazy(() => s_Azure_Core_Foundations_Error)).optional(),
+    innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
+  })
 
-export const s_Azure_Core_Foundations_InnerError: z.ZodType<
-  t_Azure_Core_Foundations_InnerError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.string().optional(),
-  innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
-})
+export const s_Azure_Core_Foundations_InnerError: z.ZodType<t_Azure_Core_Foundations_InnerError> =
+  z.object({
+    code: z.string().optional(),
+    innererror: z.lazy(() => s_Azure_Core_Foundations_InnerError.optional()),
+  })

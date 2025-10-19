@@ -1262,9 +1262,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod"
+} from "@nahkies/typescript-express-runtime/zod-v4"
 import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type GetAccountResponder = {
   with200(): ExpressRuntimeResponse<t_account>
@@ -13008,7 +13008,9 @@ export function createRouter(implementation: Implementation): Router {
           last_name_kana: z.string().max(5000).optional(),
           last_name_kanji: z.string().max(5000).optional(),
           maiden_name: z.string().max(5000).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
@@ -13051,7 +13053,9 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       settings: z
         .object({
           bacs_debit_payments: z
@@ -13837,7 +13841,9 @@ export function createRouter(implementation: Implementation): Router {
           last_name_kana: z.string().max(5000).optional(),
           last_name_kanji: z.string().max(5000).optional(),
           maiden_name: z.string().max(5000).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
           registered_address: z
@@ -13880,7 +13886,9 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       settings: z
         .object({
           bacs_debit_payments: z
@@ -14108,7 +14116,7 @@ export function createRouter(implementation: Implementation): Router {
       default_for_currency: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       external_account: z.string().max(5000).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -14355,7 +14363,9 @@ export function createRouter(implementation: Implementation): Router {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
     })
     .optional()
@@ -14841,7 +14851,7 @@ export function createRouter(implementation: Implementation): Router {
       default_for_currency: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
       external_account: z.string().max(5000).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -15106,7 +15116,9 @@ export function createRouter(implementation: Implementation): Router {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
     })
     .optional()
@@ -15469,7 +15481,9 @@ export function createRouter(implementation: Implementation): Router {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -15892,7 +15906,9 @@ export function createRouter(implementation: Implementation): Router {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -16274,7 +16290,9 @@ export function createRouter(implementation: Implementation): Router {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -16699,7 +16717,9 @@ export function createRouter(implementation: Implementation): Router {
       last_name_kana: z.string().max(5000).optional(),
       last_name_kanji: z.string().max(5000).optional(),
       maiden_name: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nationality: z.string().max(5000).optional(),
       person_token: z.string().max(5000).optional(),
       phone: z.string().optional(),
@@ -17434,7 +17454,9 @@ export function createRouter(implementation: Implementation): Router {
   const postApplicationFeesFeeRefundsIdRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -17767,7 +17789,7 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -19453,7 +19475,7 @@ export function createRouter(implementation: Implementation): Router {
     effective_at: z.coerce.number().optional(),
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(100).optional(),
     priority: z.coerce.number().optional(),
   })
@@ -19603,7 +19625,7 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       expires_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -19897,7 +19919,7 @@ export function createRouter(implementation: Implementation): Router {
     event_name: z.string().max(100),
     expand: z.array(z.string().max(5000)).optional(),
     identifier: z.string().max(100).optional(),
-    payload: z.record(z.string()),
+    payload: z.record(z.string(), z.string()),
     timestamp: z.coerce.number().optional(),
   })
 
@@ -20743,7 +20765,7 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
     }),
     login_page: z.object({enabled: PermissiveBoolean}).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
   })
 
   const postBillingPortalConfigurationsResponseBodyValidator =
@@ -21031,7 +21053,9 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       login_page: z.object({enabled: PermissiveBoolean}).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -21412,7 +21436,7 @@ export function createRouter(implementation: Implementation): Router {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -21433,7 +21457,9 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       on_behalf_of: z.string().max(5000).optional(),
       radar_options: z
         .object({session: z.string().max(5000).optional()})
@@ -21710,7 +21736,9 @@ export function createRouter(implementation: Implementation): Router {
       fraud_details: z
         .object({user_report: z.enum(["", "fraudulent", "safe"])})
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       receipt_email: z.string().max(5000).optional(),
       shipping: z
         .object({
@@ -22105,7 +22133,9 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       submit: PermissiveBoolean.optional(),
     })
     .optional()
@@ -22257,7 +22287,9 @@ export function createRouter(implementation: Implementation): Router {
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       instructions_email: z.string().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       payment_intent: z.string().max(5000).optional(),
       reason: z
         .enum(["duplicate", "fraudulent", "requested_by_customer"])
@@ -22438,7 +22470,9 @@ export function createRouter(implementation: Implementation): Router {
       customer: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       instructions_email: z.string().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       origin: z.enum(["customer_balance"]).optional(),
       payment_intent: z.string().max(5000).optional(),
       reason: z
@@ -22601,7 +22635,9 @@ export function createRouter(implementation: Implementation): Router {
   const postChargesChargeRefundsRefundRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -22918,7 +22954,7 @@ export function createRouter(implementation: Implementation): Router {
                   type: z.enum(["account", "self"]),
                 })
                 .optional(),
-              metadata: z.record(z.string()).optional(),
+              metadata: z.record(z.string(), z.string()).optional(),
               rendering_options: z
                 .union([
                   z.object({
@@ -22954,7 +22990,7 @@ export function createRouter(implementation: Implementation): Router {
                   .object({
                     description: z.string().max(40000).optional(),
                     images: z.array(z.string()).optional(),
-                    metadata: z.record(z.string()).optional(),
+                    metadata: z.record(z.string(), z.string()).optional(),
                     name: z.string().max(5000),
                     tax_code: z.string().max(5000).optional(),
                   })
@@ -23022,7 +23058,7 @@ export function createRouter(implementation: Implementation): Router {
           "zh-TW",
         ])
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       mode: z.enum(["payment", "setup", "subscription"]).optional(),
       optional_items: z
         .array(
@@ -23047,7 +23083,7 @@ export function createRouter(implementation: Implementation): Router {
             .enum(["automatic", "automatic_async", "manual"])
             .optional(),
           description: z.string().max(1000).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           on_behalf_of: z.string().optional(),
           receipt_email: z.string().optional(),
           setup_future_usage: z.enum(["off_session", "on_session"]).optional(),
@@ -23517,7 +23553,7 @@ export function createRouter(implementation: Implementation): Router {
       setup_intent_data: z
         .object({
           description: z.string().max(1000).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           on_behalf_of: z.string().optional(),
         })
         .optional(),
@@ -23808,6 +23844,7 @@ export function createRouter(implementation: Implementation): Router {
                     currency: z.string(),
                     currency_options: z
                       .record(
+                        z.string(),
                         z.object({
                           amount: z.coerce.number(),
                           tax_behavior: z
@@ -23818,7 +23855,7 @@ export function createRouter(implementation: Implementation): Router {
                       .optional(),
                   })
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
@@ -23851,7 +23888,7 @@ export function createRouter(implementation: Implementation): Router {
                 .optional(),
             })
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           on_behalf_of: z.string().optional(),
           proration_behavior: z.enum(["create_prorations", "none"]).optional(),
           transfer_data: z
@@ -24058,7 +24095,9 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       shipping_options: z
         .union([
           z.array(
@@ -24101,6 +24140,7 @@ export function createRouter(implementation: Implementation): Router {
                       currency: z.string(),
                       currency_options: z
                         .record(
+                          z.string(),
                           z.object({
                             amount: z.coerce.number(),
                             tax_behavior: z
@@ -24111,7 +24151,7 @@ export function createRouter(implementation: Implementation): Router {
                         .optional(),
                     })
                     .optional(),
-                  metadata: z.record(z.string()).optional(),
+                  metadata: z.record(z.string(), z.string()).optional(),
                   tax_behavior: z
                     .enum(["exclusive", "inclusive", "unspecified"])
                     .optional(),
@@ -24467,7 +24507,7 @@ export function createRouter(implementation: Implementation): Router {
     beneficiary: z.object({public_name: z.string().max(5000)}).optional(),
     currency: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     metric_tons: z.string().optional(),
     product: z.string().max(5000),
   })
@@ -24628,7 +24668,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -25470,14 +25510,16 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       currency: z.string().optional(),
       currency_options: z
-        .record(z.object({amount_off: z.coerce.number()}))
+        .record(z.string(), z.object({amount_off: z.coerce.number()}))
         .optional(),
       duration: z.enum(["forever", "once", "repeating"]).optional(),
       duration_in_months: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       id: z.string().max(5000).optional(),
       max_redemptions: z.coerce.number().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(40).optional(),
       percent_off: z.coerce.number().optional(),
       redeem_by: z.coerce.number().optional(),
@@ -25694,10 +25736,12 @@ export function createRouter(implementation: Implementation): Router {
   const postCouponsCouponRequestBodySchema = z
     .object({
       currency_options: z
-        .record(z.object({amount_off: z.coerce.number()}))
+        .record(z.string(), z.object({amount_off: z.coerce.number()}))
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(40).optional(),
     })
     .optional()
@@ -25906,7 +25950,7 @@ export function createRouter(implementation: Implementation): Router {
       )
       .optional(),
     memo: z.string().max(5000).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
       .enum([
@@ -26036,7 +26080,7 @@ export function createRouter(implementation: Implementation): Router {
       )
       .optional(),
     memo: z.string().max(5000).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
       .enum([
@@ -26171,7 +26215,7 @@ export function createRouter(implementation: Implementation): Router {
       )
       .optional(),
     memo: z.string().max(5000).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     out_of_band_amount: z.coerce.number().optional(),
     reason: z
       .enum([
@@ -26462,7 +26506,7 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       memo: z.string().max(5000).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -26857,7 +26901,9 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(256).optional(),
       next_invoice_sequence: z.coerce.number().optional(),
       payment_method: z.string().max(5000).optional(),
@@ -27357,7 +27403,7 @@ export function createRouter(implementation: Implementation): Router {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -27412,7 +27458,9 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(256).optional(),
       next_invoice_sequence: z.coerce.number().optional(),
       phone: z.string().max(20).optional(),
@@ -27631,7 +27679,9 @@ export function createRouter(implementation: Implementation): Router {
     currency: z.string(),
     description: z.string().max(350).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
   })
 
   const postCustomersCustomerBalanceTransactionsResponseBodyValidator =
@@ -27817,7 +27867,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       description: z.string().max(350).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -28034,7 +28086,7 @@ export function createRouter(implementation: Implementation): Router {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -28043,7 +28095,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       source: z.string().max(5000).optional(),
     })
     .optional()
@@ -28312,7 +28364,9 @@ export function createRouter(implementation: Implementation): Router {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -28635,7 +28689,7 @@ export function createRouter(implementation: Implementation): Router {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -28644,7 +28698,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       source: z.string().max(5000).optional(),
     })
     .optional()
@@ -28898,7 +28952,9 @@ export function createRouter(implementation: Implementation): Router {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -29992,7 +30048,7 @@ export function createRouter(implementation: Implementation): Router {
             cvc: z.string().max(5000).optional(),
             exp_month: z.coerce.number(),
             exp_year: z.coerce.number(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             name: z.string().max(5000).optional(),
             number: z.string().max(5000),
             object: z.enum(["card"]).optional(),
@@ -30001,7 +30057,7 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       source: z.string().max(5000).optional(),
     })
     .optional()
@@ -30255,7 +30311,9 @@ export function createRouter(implementation: Implementation): Router {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -30670,7 +30728,7 @@ export function createRouter(implementation: Implementation): Router {
                 z.enum([""]),
               ])
               .optional(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             price: z.string().max(5000).optional(),
             price_data: z
               .object({
@@ -30694,7 +30752,9 @@ export function createRouter(implementation: Implementation): Router {
           }),
         )
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       payment_behavior: z
         .enum([
@@ -31312,7 +31372,7 @@ export function createRouter(implementation: Implementation): Router {
                 .optional(),
               id: z.string().max(5000).optional(),
               metadata: z
-                .union([z.record(z.string()), z.enum([""])])
+                .union([z.record(z.string(), z.string()), z.enum([""])])
                 .optional(),
               price: z.string().max(5000).optional(),
               price_data: z
@@ -31337,7 +31397,9 @@ export function createRouter(implementation: Implementation): Router {
             }),
           )
           .optional(),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+        metadata: z
+          .union([z.record(z.string(), z.string()), z.enum([""])])
+          .optional(),
         off_session: PermissiveBoolean.optional(),
         pause_collection: z
           .union([
@@ -32572,7 +32634,9 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       submit: PermissiveBoolean.optional(),
     })
     .optional()
@@ -32996,7 +33060,7 @@ export function createRouter(implementation: Implementation): Router {
   const postEntitlementsFeaturesRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(80),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(80),
   })
 
@@ -33145,7 +33209,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(80).optional(),
     })
     .optional()
@@ -33739,7 +33805,9 @@ export function createRouter(implementation: Implementation): Router {
       exp_month: z.string().max(5000).optional(),
       exp_year: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
     })
     .optional()
@@ -33916,7 +33984,9 @@ export function createRouter(implementation: Implementation): Router {
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
     file: z.string().max(5000),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
   })
 
   const postFileLinksResponseBodyValidator = responseValidationFactory(
@@ -34066,7 +34136,9 @@ export function createRouter(implementation: Implementation): Router {
       expires_at: z
         .union([z.enum(["now"]), z.coerce.number(), z.enum([""])])
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -35557,7 +35629,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postForwardingRequestsRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     payment_method: z.string().max(5000),
     replacements: z.array(
       z.enum([
@@ -36037,7 +36109,7 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       client_reference_id: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       options: z
         .object({
           document: z
@@ -36235,7 +36307,7 @@ export function createRouter(implementation: Implementation): Router {
   const postIdentityVerificationSessionsSessionRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       options: z
         .object({
           document: z
@@ -37163,7 +37235,9 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     invoice: z.string().max(5000).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     period: z
       .object({end: z.coerce.number(), start: z.coerce.number()})
       .optional(),
@@ -37416,7 +37490,9 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       period: z
         .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
@@ -37691,7 +37767,9 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["account", "self"]),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       number: z.string().max(26).optional(),
       on_behalf_of: z.string().optional(),
       payment_settings: z
@@ -37918,6 +37996,7 @@ export function createRouter(implementation: Implementation): Router {
                   currency: z.string(),
                   currency_options: z
                     .record(
+                      z.string(),
                       z.object({
                         amount: z.coerce.number(),
                         tax_behavior: z
@@ -37928,7 +38007,7 @@ export function createRouter(implementation: Implementation): Router {
                     .optional(),
                 })
                 .optional(),
-              metadata: z.record(z.string()).optional(),
+              metadata: z.record(z.string(), z.string()).optional(),
               tax_behavior: z
                 .enum(["exclusive", "inclusive", "unspecified"])
                 .optional(),
@@ -38229,7 +38308,9 @@ export function createRouter(implementation: Implementation): Router {
               ])
               .optional(),
             invoiceitem: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             period: z
               .object({end: z.coerce.number(), start: z.coerce.number()})
               .optional(),
@@ -38396,7 +38477,7 @@ export function createRouter(implementation: Implementation): Router {
                         z.enum([""]),
                       ])
                       .optional(),
-                    metadata: z.record(z.string()).optional(),
+                    metadata: z.record(z.string(), z.string()).optional(),
                     price: z.string().max(5000).optional(),
                     price_data: z
                       .object({
@@ -38420,7 +38501,7 @@ export function createRouter(implementation: Implementation): Router {
                   }),
                 ),
                 iterations: z.coerce.number().optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 on_behalf_of: z.string().optional(),
                 proration_behavior: z
                   .enum(["always_invoice", "create_prorations", "none"])
@@ -38492,7 +38573,7 @@ export function createRouter(implementation: Implementation): Router {
                   .optional(),
                 id: z.string().max(5000).optional(),
                 metadata: z
-                  .union([z.record(z.string()), z.enum([""])])
+                  .union([z.record(z.string(), z.string()), z.enum([""])])
                   .optional(),
                 price: z.string().max(5000).optional(),
                 price_data: z
@@ -38890,7 +38971,9 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["account", "self"]),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       number: z.union([z.string().max(26), z.enum([""])]).optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       payment_settings: z
@@ -39117,6 +39200,7 @@ export function createRouter(implementation: Implementation): Router {
                     currency: z.string(),
                     currency_options: z
                       .record(
+                        z.string(),
                         z.object({
                           amount: z.coerce.number(),
                           tax_behavior: z
@@ -39127,7 +39211,7 @@ export function createRouter(implementation: Implementation): Router {
                       .optional(),
                   })
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 tax_behavior: z
                   .enum(["exclusive", "inclusive", "unspecified"])
                   .optional(),
@@ -39241,7 +39325,9 @@ export function createRouter(implementation: Implementation): Router {
 
   const postInvoicesInvoiceAddLinesRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    invoice_metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    invoice_metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     lines: z.array(
       z.object({
         amount: z.coerce.number().optional(),
@@ -39260,7 +39346,9 @@ export function createRouter(implementation: Implementation): Router {
           ])
           .optional(),
         invoice_item: z.string().max(5000).optional(),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+        metadata: z
+          .union([z.record(z.string(), z.string()), z.enum([""])])
+          .optional(),
         period: z
           .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
@@ -39272,7 +39360,7 @@ export function createRouter(implementation: Implementation): Router {
               .object({
                 description: z.string().max(40000).optional(),
                 images: z.array(z.string()).optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 name: z.string().max(5000),
                 tax_code: z.string().max(5000).optional(),
               })
@@ -39701,7 +39789,9 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       period: z
         .object({end: z.coerce.number(), start: z.coerce.number()})
         .optional(),
@@ -39713,7 +39803,7 @@ export function createRouter(implementation: Implementation): Router {
             .object({
               description: z.string().max(40000).optional(),
               images: z.array(z.string()).optional(),
-              metadata: z.record(z.string()).optional(),
+              metadata: z.record(z.string(), z.string()).optional(),
               name: z.string().max(5000),
               tax_code: z.string().max(5000).optional(),
             })
@@ -40040,7 +40130,9 @@ export function createRouter(implementation: Implementation): Router {
 
   const postInvoicesInvoiceRemoveLinesRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    invoice_metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    invoice_metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     lines: z.array(
       z.object({
         behavior: z.enum(["delete", "unassign"]),
@@ -40193,7 +40285,9 @@ export function createRouter(implementation: Implementation): Router {
 
   const postInvoicesInvoiceUpdateLinesRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    invoice_metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    invoice_metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     lines: z.array(
       z.object({
         amount: z.coerce.number().optional(),
@@ -40212,7 +40306,9 @@ export function createRouter(implementation: Implementation): Router {
           ])
           .optional(),
         id: z.string().max(5000),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+        metadata: z
+          .union([z.record(z.string(), z.string()), z.enum([""])])
+          .optional(),
         period: z
           .object({end: z.coerce.number(), start: z.coerce.number()})
           .optional(),
@@ -40224,7 +40320,7 @@ export function createRouter(implementation: Implementation): Router {
               .object({
                 description: z.string().max(40000).optional(),
                 images: z.array(z.string()).optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 name: z.string().max(5000),
                 tax_code: z.string().max(5000).optional(),
               })
@@ -40652,7 +40748,9 @@ export function createRouter(implementation: Implementation): Router {
   const postIssuingAuthorizationsAuthorizationRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -40739,7 +40837,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -40825,7 +40925,9 @@ export function createRouter(implementation: Implementation): Router {
   const postIssuingAuthorizationsAuthorizationDeclineRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -41061,7 +41163,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
       })
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string(),
     phone_number: z.string().optional(),
     preferred_locales: z
@@ -42194,7 +42296,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       phone_number: z.string().optional(),
       preferred_locales: z
         .array(z.enum(["de", "en", "es", "fr", "it"]))
@@ -43306,7 +43408,7 @@ export function createRouter(implementation: Implementation): Router {
     currency: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string().optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     personalization_design: z.string().max(5000).optional(),
     pin: z
       .object({encrypted_number: z.string().max(5000).optional()})
@@ -44418,7 +44520,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       cancellation_reason: z.enum(["lost", "stolen"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       personalization_design: z.string().max(5000).optional(),
       pin: z
         .object({encrypted_number: z.string().max(5000).optional()})
@@ -45732,7 +45836,7 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       transaction: z.string().max(5000).optional(),
       treasury: z.object({received_debit: z.string().max(5000)}).optional(),
     })
@@ -46063,7 +46167,9 @@ export function createRouter(implementation: Implementation): Router {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -46140,7 +46246,9 @@ export function createRouter(implementation: Implementation): Router {
   const postIssuingDisputesDisputeSubmitRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -46330,7 +46438,7 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(200).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(200).optional(),
     physical_bundle: z.string().max(5000),
     preferences: z.object({is_default: PermissiveBoolean}).optional(),
@@ -46528,7 +46636,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
         expand: z.array(z.string().max(5000)).optional(),
         lookup_key: z.union([z.string().max(200), z.enum([""])]).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         name: z.union([z.string().max(200), z.enum([""])]).optional(),
         physical_bundle: z.string().max(5000).optional(),
         preferences: z.object({is_default: PermissiveBoolean}).optional(),
@@ -46885,7 +46993,7 @@ export function createRouter(implementation: Implementation): Router {
   const postIssuingSettlementsSettlementRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -47406,7 +47514,9 @@ export function createRouter(implementation: Implementation): Router {
   const postIssuingTransactionsTransactionRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -48321,7 +48431,7 @@ export function createRouter(implementation: Implementation): Router {
         z.enum([""]),
       ])
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     off_session: z
       .union([PermissiveBoolean, z.enum(["one_off", "recurring"])])
       .optional(),
@@ -48492,7 +48602,7 @@ export function createRouter(implementation: Implementation): Router {
         konbini: z.object({}).optional(),
         kr_card: z.object({}).optional(),
         link: z.object({}).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         mobilepay: z.object({}).optional(),
         multibanco: z.object({}).optional(),
         naver_pay: z
@@ -49666,7 +49776,9 @@ export function createRouter(implementation: Implementation): Router {
       customer: z.string().max(5000).optional(),
       description: z.string().max(1000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_configuration: z.string().max(100).optional(),
       payment_method_data: z
@@ -49833,7 +49945,7 @@ export function createRouter(implementation: Implementation): Router {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -51003,7 +51115,9 @@ export function createRouter(implementation: Implementation): Router {
       application_fee_amount: z.coerce.number().optional(),
       expand: z.array(z.string().max(5000)).optional(),
       final_capture: PermissiveBoolean.optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       statement_descriptor: z.string().max(22).optional(),
       statement_descriptor_suffix: z.string().max(22).optional(),
       transfer_data: z
@@ -51287,7 +51401,7 @@ export function createRouter(implementation: Implementation): Router {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -52292,7 +52406,7 @@ export function createRouter(implementation: Implementation): Router {
       application_fee_amount: z.coerce.number().optional(),
       description: z.string().max(1000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       statement_descriptor: z.string().max(22).optional(),
       transfer_data: z
         .object({amount: z.coerce.number().optional()})
@@ -52671,7 +52785,9 @@ export function createRouter(implementation: Implementation): Router {
                 type: z.enum(["account", "self"]),
               })
               .optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             rendering_options: z
               .union([
                 z.object({
@@ -52705,7 +52821,7 @@ export function createRouter(implementation: Implementation): Router {
               .object({
                 description: z.string().max(40000).optional(),
                 images: z.array(z.string()).optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 name: z.string().max(5000),
                 tax_code: z.string().max(5000).optional(),
               })
@@ -52726,7 +52842,7 @@ export function createRouter(implementation: Implementation): Router {
         quantity: z.coerce.number(),
       }),
     ),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     on_behalf_of: z.string().optional(),
     optional_items: z
       .array(
@@ -52749,7 +52865,7 @@ export function createRouter(implementation: Implementation): Router {
           .enum(["automatic", "automatic_async", "manual"])
           .optional(),
         description: z.string().max(1000).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         setup_future_usage: z.enum(["off_session", "on_session"]).optional(),
         statement_descriptor: z.string().max(22).optional(),
         statement_descriptor_suffix: z.string().max(22).optional(),
@@ -53069,7 +53185,7 @@ export function createRouter(implementation: Implementation): Router {
               .optional(),
           })
           .optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         trial_period_days: z.coerce.number().optional(),
         trial_settings: z
           .object({
@@ -53353,7 +53469,7 @@ export function createRouter(implementation: Implementation): Router {
                 })
                 .optional(),
               metadata: z
-                .union([z.record(z.string()), z.enum([""])])
+                .union([z.record(z.string(), z.string()), z.enum([""])])
                 .optional(),
               rendering_options: z
                 .union([
@@ -53385,11 +53501,13 @@ export function createRouter(implementation: Implementation): Router {
           }),
         )
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       payment_intent_data: z
         .object({
           description: z.union([z.string().max(1000), z.enum([""])]).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           statement_descriptor: z
             .union([z.string().max(22), z.enum([""])])
             .optional(),
@@ -53721,7 +53839,9 @@ export function createRouter(implementation: Implementation): Router {
                 .optional(),
             })
             .optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           trial_period_days: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
@@ -55744,7 +55864,7 @@ export function createRouter(implementation: Implementation): Router {
       konbini: z.object({}).optional(),
       kr_card: z.object({}).optional(),
       link: z.object({}).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       mobilepay: z.object({}).optional(),
       multibanco: z.object({}).optional(),
       naver_pay: z
@@ -56064,7 +56184,9 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       link: z.object({}).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       pay_by_bank: z.object({}).optional(),
       us_bank_account: z
         .object({
@@ -56427,7 +56549,7 @@ export function createRouter(implementation: Implementation): Router {
     description: z.string().max(5000).optional(),
     destination: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     method: z.enum(["instant", "standard"]).optional(),
     source_type: z.enum(["bank_account", "card", "fpx"]).optional(),
     statement_descriptor: z.string().max(22).optional(),
@@ -56577,7 +56699,9 @@ export function createRouter(implementation: Implementation): Router {
   const postPayoutsPayoutRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -56726,7 +56850,7 @@ export function createRouter(implementation: Implementation): Router {
   const postPayoutsPayoutReverseRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
     })
     .optional()
 
@@ -56906,7 +57030,9 @@ export function createRouter(implementation: Implementation): Router {
     id: z.string().max(5000).optional(),
     interval: z.enum(["day", "month", "week", "year"]),
     interval_count: z.coerce.number().optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     meter: z.string().max(5000).optional(),
     nickname: z.string().max(5000).optional(),
     product: z
@@ -56914,7 +57040,7 @@ export function createRouter(implementation: Implementation): Router {
         z.object({
           active: PermissiveBoolean.optional(),
           id: z.string().max(5000).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           name: z.string().max(5000),
           statement_descriptor: z.string().max(22).optional(),
           tax_code: z.string().max(5000).optional(),
@@ -57151,7 +57277,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nickname: z.string().max(5000).optional(),
       product: z.string().max(5000).optional(),
       trial_period_days: z.coerce.number().optional(),
@@ -57347,6 +57475,7 @@ export function createRouter(implementation: Implementation): Router {
     currency: z.string(),
     currency_options: z
       .record(
+        z.string(),
         z.object({
           custom_unit_amount: z
             .object({
@@ -57385,14 +57514,14 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     lookup_key: z.string().max(200).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     nickname: z.string().max(5000).optional(),
     product: z.string().max(5000).optional(),
     product_data: z
       .object({
         active: PermissiveBoolean.optional(),
         id: z.string().max(5000).optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         name: z.string().max(5000),
         statement_descriptor: z.string().max(22).optional(),
         tax_code: z.string().max(5000).optional(),
@@ -57668,6 +57797,7 @@ export function createRouter(implementation: Implementation): Router {
       currency_options: z
         .union([
           z.record(
+            z.string(),
             z.object({
               custom_unit_amount: z
                 .object({
@@ -57700,7 +57830,9 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       lookup_key: z.string().max(200).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       nickname: z.string().max(5000).optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
@@ -57891,6 +58023,7 @@ export function createRouter(implementation: Implementation): Router {
         currency: z.string(),
         currency_options: z
           .record(
+            z.string(),
             z.object({
               custom_unit_amount: z
                 .object({
@@ -57927,7 +58060,7 @@ export function createRouter(implementation: Implementation): Router {
             preset: z.coerce.number().optional(),
           })
           .optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         recurring: z
           .object({
             interval: z.enum(["day", "month", "week", "year"]),
@@ -57948,7 +58081,7 @@ export function createRouter(implementation: Implementation): Router {
     marketing_features: z
       .array(z.object({name: z.string().max(5000)}))
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(5000),
     package_dimensions: z
       .object({
@@ -58273,7 +58406,9 @@ export function createRouter(implementation: Implementation): Router {
       marketing_features: z
         .union([z.array(z.object({name: z.string().max(5000)})), z.enum([""])])
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       name: z.string().max(5000).optional(),
       package_dimensions: z
         .union([
@@ -58794,11 +58929,14 @@ export function createRouter(implementation: Implementation): Router {
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
     max_redemptions: z.coerce.number().optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     restrictions: z
       .object({
         currency_options: z
-          .record(z.object({minimum_amount: z.coerce.number().optional()}))
+          .record(
+            z.string(),
+            z.object({minimum_amount: z.coerce.number().optional()}),
+          )
           .optional(),
         first_time_transaction: PermissiveBoolean.optional(),
         minimum_amount: z.coerce.number().optional(),
@@ -58956,11 +59094,16 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       restrictions: z
         .object({
           currency_options: z
-            .record(z.object({minimum_amount: z.coerce.number().optional()}))
+            .record(
+              z.string(),
+              z.object({minimum_amount: z.coerce.number().optional()}),
+            )
             .optional(),
         })
         .optional(),
@@ -59225,7 +59368,7 @@ export function createRouter(implementation: Implementation): Router {
           }),
         )
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       subscription_data: z
         .object({
@@ -59240,7 +59383,7 @@ export function createRouter(implementation: Implementation): Router {
               z.enum([""]),
             ])
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           trial_period_days: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
@@ -59496,7 +59639,7 @@ export function createRouter(implementation: Implementation): Router {
           }),
         )
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       subscription_data: z
         .object({
@@ -59508,7 +59651,7 @@ export function createRouter(implementation: Implementation): Router {
               z.enum([""]),
             ])
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           trial_period_days: z
             .union([z.coerce.number(), z.enum([""])])
             .optional(),
@@ -60736,7 +60879,7 @@ export function createRouter(implementation: Implementation): Router {
         "us_bank_account_fingerprint",
       ])
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     name: z.string().max(100),
   })
 
@@ -60955,7 +61098,7 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       alias: z.string().max(100).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       name: z.string().max(100).optional(),
     })
     .optional()
@@ -61136,7 +61279,9 @@ export function createRouter(implementation: Implementation): Router {
       customer: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       instructions_email: z.string().optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       origin: z.enum(["customer_balance"]).optional(),
       payment_intent: z.string().max(5000).optional(),
       reason: z
@@ -61291,7 +61436,9 @@ export function createRouter(implementation: Implementation): Router {
   const postRefundsRefundRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -62987,7 +63134,7 @@ export function createRouter(implementation: Implementation): Router {
           z.enum([""]),
         ])
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       on_behalf_of: z.string().optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_configuration: z.string().max(100).optional(),
@@ -63155,7 +63302,7 @@ export function createRouter(implementation: Implementation): Router {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -63698,7 +63845,9 @@ export function createRouter(implementation: Implementation): Router {
       description: z.string().max(1000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       flow_directions: z.array(z.enum(["inbound", "outbound"])).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       payment_method: z.string().max(5000).optional(),
       payment_method_configuration: z.string().max(100).optional(),
       payment_method_data: z
@@ -63865,7 +64014,7 @@ export function createRouter(implementation: Implementation): Router {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -64595,7 +64744,7 @@ export function createRouter(implementation: Implementation): Router {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -65261,6 +65410,7 @@ export function createRouter(implementation: Implementation): Router {
         currency: z.string(),
         currency_options: z
           .record(
+            z.string(),
             z.object({
               amount: z.coerce.number(),
               tax_behavior: z
@@ -65271,7 +65421,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
       })
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
     tax_code: z.string().optional(),
     type: z.enum(["fixed_amount"]).optional(),
@@ -65433,6 +65583,7 @@ export function createRouter(implementation: Implementation): Router {
         .object({
           currency_options: z
             .record(
+              z.string(),
               z.object({
                 amount: z.coerce.number().optional(),
                 tax_behavior: z
@@ -65443,7 +65594,9 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
         .optional(),
@@ -65820,7 +65973,7 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       original_source: z.string().max(5000).optional(),
       owner: z
         .object({
@@ -66065,7 +66218,9 @@ export function createRouter(implementation: Implementation): Router {
             .optional(),
         })
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       owner: z
         .object({
           address: z
@@ -66654,7 +66809,7 @@ export function createRouter(implementation: Implementation): Router {
       ])
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     payment_behavior: z
       .enum([
         "allow_incomplete",
@@ -66931,7 +67086,9 @@ export function createRouter(implementation: Implementation): Router {
         ])
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       payment_behavior: z
         .enum([
@@ -67235,7 +67392,9 @@ export function createRouter(implementation: Implementation): Router {
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       from_subscription: z.string().max(5000).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       phases: z
         .array(
           z.object({
@@ -67358,7 +67517,7 @@ export function createRouter(implementation: Implementation): Router {
                     z.enum([""]),
                   ])
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 price: z.string().max(5000).optional(),
                 price_data: z
                   .object({
@@ -67382,7 +67541,7 @@ export function createRouter(implementation: Implementation): Router {
               }),
             ),
             iterations: z.coerce.number().optional(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             on_behalf_of: z.string().optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
@@ -67604,7 +67763,9 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       end_behavior: z.enum(["cancel", "none", "release", "renew"]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       phases: z
         .array(
           z.object({
@@ -67726,7 +67887,7 @@ export function createRouter(implementation: Implementation): Router {
                     z.enum([""]),
                   ])
                   .optional(),
-                metadata: z.record(z.string()).optional(),
+                metadata: z.record(z.string(), z.string()).optional(),
                 price: z.string().max(5000).optional(),
                 price_data: z
                   .object({
@@ -67750,7 +67911,7 @@ export function createRouter(implementation: Implementation): Router {
               }),
             ),
             iterations: z.coerce.number().optional(),
-            metadata: z.record(z.string()).optional(),
+            metadata: z.record(z.string(), z.string()).optional(),
             on_behalf_of: z.string().optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
@@ -68287,7 +68448,7 @@ export function createRouter(implementation: Implementation): Router {
               z.enum([""]),
             ])
             .optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           price: z.string().max(5000).optional(),
           price_data: z
             .object({
@@ -68311,7 +68472,9 @@ export function createRouter(implementation: Implementation): Router {
         }),
       )
       .optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     off_session: PermissiveBoolean.optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
     payment_behavior: z
@@ -69018,7 +69181,9 @@ export function createRouter(implementation: Implementation): Router {
               ])
               .optional(),
             id: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+            metadata: z
+              .union([z.record(z.string(), z.string()), z.enum([""])])
+              .optional(),
             price: z.string().max(5000).optional(),
             price_data: z
               .object({
@@ -69042,7 +69207,9 @@ export function createRouter(implementation: Implementation): Router {
           }),
         )
         .optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       off_session: PermissiveBoolean.optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
       pause_collection: z
@@ -69739,7 +69906,7 @@ export function createRouter(implementation: Implementation): Router {
     line_items: z.array(
       z.object({
         amount: z.coerce.number(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         product: z.string().max(5000).optional(),
         quantity: z.coerce.number().optional(),
         reference: z.string().max(500).optional(),
@@ -71319,7 +71486,7 @@ export function createRouter(implementation: Implementation): Router {
   const postTaxTransactionsCreateFromCalculationRequestBodySchema = z.object({
     calculation: z.string().max(5000),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     posted_at: z.coerce.number().optional(),
     reference: z.string().max(500),
   })
@@ -71403,14 +71570,14 @@ export function createRouter(implementation: Implementation): Router {
         z.object({
           amount: z.coerce.number(),
           amount_tax: z.coerce.number(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           original_line_item: z.string().max(5000),
           quantity: z.coerce.number().optional(),
           reference: z.string().max(500),
         }),
       )
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     mode: z.enum(["full", "partial"]),
     original_transaction: z.string().max(5000),
     reference: z.string().max(500),
@@ -72374,7 +72541,7 @@ export function createRouter(implementation: Implementation): Router {
     expand: z.array(z.string().max(5000)).optional(),
     inclusive: PermissiveBoolean,
     jurisdiction: z.string().max(50).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     percentage: z.coerce.number(),
     state: z.string().max(5000).optional(),
     tax_type: z
@@ -72550,7 +72717,9 @@ export function createRouter(implementation: Implementation): Router {
       display_name: z.string().max(50).optional(),
       expand: z.array(z.string().max(5000)).optional(),
       jurisdiction: z.string().max(50).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       state: z.string().max(5000).optional(),
       tax_type: z
         .enum([
@@ -73670,7 +73839,9 @@ export function createRouter(implementation: Implementation): Router {
     configuration_overrides: z.string().max(500).optional(),
     display_name: z.string().max(1000),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
   })
 
   const postTerminalLocationsResponseBodyValidator = responseValidationFactory(
@@ -73906,7 +74077,9 @@ export function createRouter(implementation: Implementation): Router {
         .optional(),
       display_name: z.union([z.string().max(1000), z.enum([""])]).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -74090,7 +74263,9 @@ export function createRouter(implementation: Implementation): Router {
     expand: z.array(z.string().max(5000)).optional(),
     label: z.string().max(5000).optional(),
     location: z.string().max(5000).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     registration_code: z.string().max(5000),
   })
 
@@ -74317,7 +74492,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       expand: z.array(z.string().max(5000)).optional(),
       label: z.union([z.string().max(5000), z.enum([""])]).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -74523,7 +74700,7 @@ export function createRouter(implementation: Implementation): Router {
         ]),
       }),
     ),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
   })
 
   const postTerminalReadersReaderCollectInputsResponseBodyValidator =
@@ -74981,7 +75158,7 @@ export function createRouter(implementation: Implementation): Router {
       amount: z.coerce.number().optional(),
       charge: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       payment_intent: z.string().max(5000).optional(),
       refund_application_fee: PermissiveBoolean.optional(),
       refund_payment_config: z
@@ -75332,7 +75509,7 @@ export function createRouter(implementation: Implementation): Router {
           konbini: z.object({}).optional(),
           kr_card: z.object({}).optional(),
           link: z.object({}).optional(),
-          metadata: z.record(z.string()).optional(),
+          metadata: z.record(z.string(), z.string()).optional(),
           mobilepay: z.object({}).optional(),
           multibanco: z.object({}).optional(),
           naver_pay: z
@@ -80894,7 +81071,7 @@ export function createRouter(implementation: Implementation): Router {
               last_name_kanji: z.string().max(5000).optional(),
               maiden_name: z.string().max(5000).optional(),
               metadata: z
-                .union([z.record(z.string()), z.enum([""])])
+                .union([z.record(z.string(), z.string()), z.enum([""])])
                 .optional(),
               phone: z.string().optional(),
               political_exposure: z.enum(["existing", "none"]).optional(),
@@ -81080,7 +81257,9 @@ export function createRouter(implementation: Implementation): Router {
           last_name_kana: z.string().max(5000).optional(),
           last_name_kanji: z.string().max(5000).optional(),
           maiden_name: z.string().max(5000).optional(),
-          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          metadata: z
+            .union([z.record(z.string(), z.string()), z.enum([""])])
+            .optional(),
           nationality: z.string().max(5000).optional(),
           phone: z.string().optional(),
           political_exposure: z.enum(["existing", "none"]).optional(),
@@ -81445,7 +81624,9 @@ export function createRouter(implementation: Implementation): Router {
     currency: z.string(),
     description: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     source: z.string().max(5000).optional(),
     statement_descriptor: z.string().max(15).optional(),
     transfer_group: z.string().optional(),
@@ -81596,7 +81777,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -81848,7 +82031,7 @@ export function createRouter(implementation: Implementation): Router {
     description: z.string().max(5000).optional(),
     destination: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     source_transaction: z.string().optional(),
     source_type: z.enum(["bank_account", "card", "fpx"]).optional(),
     transfer_group: z.string().optional(),
@@ -82023,7 +82206,9 @@ export function createRouter(implementation: Implementation): Router {
       amount: z.coerce.number().optional(),
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       refund_application_fee: PermissiveBoolean.optional(),
     })
     .optional()
@@ -82179,7 +82364,9 @@ export function createRouter(implementation: Implementation): Router {
     .object({
       description: z.string().max(5000).optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -82337,7 +82524,9 @@ export function createRouter(implementation: Implementation): Router {
   const postTransfersTransferReversalsIdRequestBodySchema = z
     .object({
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
     })
     .optional()
 
@@ -82504,7 +82693,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postTreasuryCreditReversalsRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     received_credit: z.string().max(5000),
   })
 
@@ -82754,7 +82943,7 @@ export function createRouter(implementation: Implementation): Router {
 
   const postTreasuryDebitReversalsRequestBodySchema = z.object({
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     received_debit: z.string().max(5000),
   })
 
@@ -83046,7 +83235,7 @@ export function createRouter(implementation: Implementation): Router {
           .optional(),
       })
       .optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     nickname: z.union([z.string().max(5000), z.enum([""])]).optional(),
     platform_restrictions: z
       .object({
@@ -83254,7 +83443,7 @@ export function createRouter(implementation: Implementation): Router {
           type: z.enum(["financial_account", "payment_method"]),
         })
         .optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.record(z.string(), z.string()).optional(),
       nickname: z.union([z.string().max(5000), z.enum([""])]).optional(),
       platform_restrictions: z
         .object({
@@ -83741,7 +83930,7 @@ export function createRouter(implementation: Implementation): Router {
     description: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     origin_payment_method: z.string().max(5000),
     statement_descriptor: z.string().max(10).optional(),
   })
@@ -84110,7 +84299,7 @@ export function createRouter(implementation: Implementation): Router {
           })
           .optional(),
         financial_account: z.string().optional(),
-        metadata: z.record(z.string()).optional(),
+        metadata: z.record(z.string(), z.string()).optional(),
         type: z.enum(["financial_account", "us_bank_account"]),
         us_bank_account: z
           .object({
@@ -84138,7 +84327,7 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     statement_descriptor: z.string().max(5000).optional(),
   })
 
@@ -84485,7 +84674,7 @@ export function createRouter(implementation: Implementation): Router {
       .optional(),
     expand: z.array(z.string().max(5000)).optional(),
     financial_account: z.string(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.record(z.string(), z.string()).optional(),
     statement_descriptor: z.string().max(5000).optional(),
   })
 
@@ -85929,7 +86118,9 @@ export function createRouter(implementation: Implementation): Router {
       ]),
     ),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    metadata: z
+      .union([z.record(z.string(), z.string()), z.enum([""])])
+      .optional(),
     url: z.string(),
   })
 
@@ -86410,7 +86601,9 @@ export function createRouter(implementation: Implementation): Router {
         )
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      metadata: z
+        .union([z.record(z.string(), z.string()), z.enum([""])])
+        .optional(),
       url: z.string().optional(),
     })
     .optional()
