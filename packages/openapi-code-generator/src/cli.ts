@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 
-import "source-map-support/register"
+import * as nodeModule from "node:module"
+
+// note: support added in v22.14.0
+if (Reflect.has(nodeModule, "setSourceMapsSupport")) {
+  nodeModule.setSourceMapsSupport(true)
+}
 
 import path from "node:path"
 import {
