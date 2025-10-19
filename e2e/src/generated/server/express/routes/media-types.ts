@@ -22,9 +22,9 @@ import {
 import {
   parseRequestInput,
   responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod"
+} from "@nahkies/typescript-express-runtime/zod-v4"
 import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type PostMediaTypesTextResponder = {
   with200(): ExpressRuntimeResponse<string>

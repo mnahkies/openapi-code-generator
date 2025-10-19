@@ -12,9 +12,9 @@ import {
   SkipResponse,
   StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
-import {responseValidationFactory} from "@nahkies/typescript-koa-runtime/zod"
+import {responseValidationFactory} from "@nahkies/typescript-koa-runtime/zod-v4"
 import {Next} from "koa"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export type GetEscapeHatchesPlainTextResponder = {
   with200(): KoaRuntimeResponse<string>

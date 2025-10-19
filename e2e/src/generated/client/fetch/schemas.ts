@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {UnknownEnumNumberValue, UnknownEnumStringValue} from "./models"
-import {z} from "zod"
+import {z} from "zod/v4"
 
 export const s_Enumerations = z.object({
   colors: z.union([
