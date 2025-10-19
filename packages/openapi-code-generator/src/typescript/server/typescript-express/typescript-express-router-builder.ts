@@ -67,7 +67,7 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
       }
       case "zod-v3": {
         this.imports
-          .from("@nahkies/typescript-express-runtime/zod")
+          .from("@nahkies/typescript-express-runtime/zod-v3")
           .add("parseRequestInput", "responseValidationFactory")
         break
       }

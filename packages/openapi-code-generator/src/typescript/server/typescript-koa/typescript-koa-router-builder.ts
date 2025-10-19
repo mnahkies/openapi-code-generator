@@ -68,7 +68,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
       }
       case "zod-v3": {
         this.imports
-          .from("@nahkies/typescript-koa-runtime/zod")
+          .from("@nahkies/typescript-koa-runtime/zod-v3")
           .add("parseRequestInput", "responseValidationFactory")
         break
       }
