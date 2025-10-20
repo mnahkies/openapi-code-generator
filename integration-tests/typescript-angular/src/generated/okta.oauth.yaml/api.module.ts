@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {OktaOpenIdConnectOAuth20Service} from "./client.service"
+import {OktaOpenIdConnectOAuth20Service} from "./client.service.ts"
 
 @NgModule({
   imports: [],

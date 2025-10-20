@@ -49,7 +49,7 @@ import type {
   t_MoveResponse,
   t_OperationListResult,
   t_OperationsListQuerySchema,
-} from "./models"
+} from "./models.ts"
 import {
   s_Azure_Core_uuid,
   s_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -59,7 +59,7 @@ import {
   s_MoveRequest,
   s_MoveResponse,
   s_OperationListResult,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type OperationsListResponder = {
   with200(): KoaRuntimeResponse<t_OperationListResult>

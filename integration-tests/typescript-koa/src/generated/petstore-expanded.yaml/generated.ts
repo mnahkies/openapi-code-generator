@@ -30,8 +30,8 @@ import type {
   t_FindPetByIdParamSchema,
   t_FindPetsQuerySchema,
   t_Pet,
-} from "./models"
-import {s_Error, s_NewPet, s_Pet} from "./schemas"
+} from "./models.ts"
+import {s_Error, s_NewPet, s_Pet} from "./schemas.ts"
 
 export type FindPetsResponder = {
   with200(): KoaRuntimeResponse<t_Pet[]>

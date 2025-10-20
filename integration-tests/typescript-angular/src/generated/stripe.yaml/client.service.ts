@@ -164,7 +164,7 @@ import type {
   t_treasury_transaction_entry,
   t_webhook_endpoint,
   UnknownEnumStringValue,
-} from "./models"
+} from "./models.ts"
 
 export class StripeApiServiceServersOperations {
   static postFiles(

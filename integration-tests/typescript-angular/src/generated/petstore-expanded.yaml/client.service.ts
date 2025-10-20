@@ -5,7 +5,7 @@
 import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
 import {Injectable} from "@angular/core"
 import type {Observable} from "rxjs"
-import type {t_Error, t_NewPet, t_Pet} from "./models"
+import type {t_Error, t_NewPet, t_Pet} from "./models.ts"
 
 export class SwaggerPetstoreServiceServers {
   static default(): Server<"SwaggerPetstoreService"> {

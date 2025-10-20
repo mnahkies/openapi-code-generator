@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {SwaggerPetstoreService} from "./client.service"
+import {SwaggerPetstoreService} from "./client.service.ts"
 
 @NgModule({
   imports: [],
