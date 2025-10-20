@@ -6,8 +6,8 @@ import axios, {type AxiosResponse, isAxiosError} from "axios"
 import {
   ApiClient,
   GitHubV3RestApiServers,
-} from "./generated/api.github.com.yaml/client"
-import type {t_repository} from "./generated/api.github.com.yaml/models"
+} from "./generated/api.github.com.yaml/client.ts"
+import type {t_repository} from "./generated/api.github.com.yaml/models.ts"
 
 const client = new ApiClient({
   axios: axios.create({

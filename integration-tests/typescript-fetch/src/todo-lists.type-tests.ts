@@ -1,4 +1,4 @@
-import {TodoListsExampleApiServers} from "./generated/todo-lists.yaml/client"
+import {TodoListsExampleApiServers} from "./generated/todo-lists.yaml/client.ts"
 
 TodoListsExampleApiServers.server()
 
