@@ -9,6 +9,7 @@
     "clean": "rm -rf ./dist && rm -rf ./src/generated",
     "validate": "tsc -p ./tsconfig.json"
   },
+  "type": "module",
   "dependencies": {
     "@nahkies/typescript-fetch-runtime": "workspace:*",
     "dotenv": "^17.2.3",

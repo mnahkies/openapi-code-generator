@@ -6,6 +6,9 @@
     "rootDir": "./src",
     /* exercise the code path where exactOptionalPropertyTypes is enabled */
     "exactOptionalPropertyTypes": true,
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "verbatimModuleSyntax": true,
+    "rewriteRelativeImportExtensions": true
+
   }
 }

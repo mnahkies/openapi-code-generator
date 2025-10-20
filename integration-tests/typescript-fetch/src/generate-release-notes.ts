@@ -3,7 +3,7 @@ import path from "node:path"
 import {
   GitHubV3RestApi,
   GitHubV3RestApiServers,
-} from "./generated/api.github.com.yaml/client"
+} from "./generated/api.github.com.yaml/client.ts"
 
 function formatDate(dateStr: string | null) {
   if (!dateStr) return ""

@@ -5,6 +5,7 @@
   "author": "Michael Nahkies",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
     "clean": "rm -rf ./dist && rm -rf ./src/generated",
     "validate": "tsc -p ./tsconfig.json"
