@@ -22,8 +22,8 @@ Dependencies:
 ### Install dependencies
 First install the CLI and the required runtime packages to your project:
 ```sh npm2yarn
-npm i --dev @nahkies/openapi-code-generator
-npm i @nahkies/typescript-fetch-runtime
+npm i --save-dev @nahkies/openapi-code-generator
+npm i --save @nahkies/typescript-fetch-runtime
 ```
 
 See also [quick start](../../getting-started/quick-start) guide
@@ -43,7 +43,7 @@ See also [quick start](../../getting-started/quick-start) guide
 
   <Tabs.Tab>
     ```sh npm2yarn
-    npm run openapi-code-generator \
+    npm exec -- openapi-code-generator \
       --input ./openapi.yaml \
       --input-type openapi3 \
       --output ./src/clients/some-service \
@@ -54,7 +54,7 @@ See also [quick start](../../getting-started/quick-start) guide
 
   <Tabs.Tab>
     ```sh npm2yarn
-    npm run openapi-code-generator \
+    npm exec -- openapi-code-generator \
       --input ./typespec.tsp \
       --input-type typespec \
       --output ./src/clients/some-service \

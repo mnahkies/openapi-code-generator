@@ -18,8 +18,8 @@ See [integration-tests/typescript-express](https://github.com/mnahkies/openapi-c
 ### Install dependencies
 First install the CLI and the required runtime packages to your project:
 ```sh npm2yarn
-npm i --dev @nahkies/openapi-code-generator @types/express
-npm i @nahkies/typescript-express-runtime express zod
+npm i --save-dev @nahkies/openapi-code-generator @types/express
+npm i --save @nahkies/typescript-express-runtime express zod
 ```
 
 See also [quick start](../../getting-started/quick-start) guide
@@ -29,7 +29,7 @@ See also [quick start](../../getting-started/quick-start) guide
 
   <Tabs.Tab>
     ```sh npm2yarn
-    npm run openapi-code-generator \
+    npm exec -- openapi-code-generator \
       --input ./openapi.yaml \
       --input-type openapi3 \
       --output ./src/generated \
@@ -39,7 +39,7 @@ See also [quick start](../../getting-started/quick-start) guide
   </Tabs.Tab>
   <Tabs.Tab>
     ```sh npm2yarn
-    npm run openapi-code-generator \
+    npm exec -- openapi-code-generator \
       --input ./typespec.tsp \
       --input-type typespec \
       --output ./src/generated \

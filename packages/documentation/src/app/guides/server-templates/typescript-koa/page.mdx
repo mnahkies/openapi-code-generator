@@ -19,8 +19,8 @@ See [integration-tests/typescript-koa](https://github.com/mnahkies/openapi-code-
 ### Install dependencies
 First install the CLI and the required runtime packages to your project:
 ```sh npm2yarn
-npm i --dev @nahkies/openapi-code-generator @types/koa @types/koa__router
-npm i @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
+npm i --save-dev @nahkies/openapi-code-generator @types/koa @types/koa__router
+npm i --save @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
 ```
 
 See also [quick start](../../getting-started/quick-start) guide
@@ -30,7 +30,7 @@ See also [quick start](../../getting-started/quick-start) guide
 
   <Tabs.Tab>
     ```sh npm2yarn
-    npm run openapi-code-generator \
+    npm exec -- openapi-code-generator \
       --input ./openapi.yaml \
       --input-type openapi3 \
       --output ./src \
@@ -40,7 +40,7 @@ See also [quick start](../../getting-started/quick-start) guide
   </Tabs.Tab>
   <Tabs.Tab>
     ```sh npm2yarn
-    npm run openapi-code-generator \
+    npm exec -- openapi-code-generator \
       --input ./typespec.tsp \
       --input-type typespec \
       --output ./src \
