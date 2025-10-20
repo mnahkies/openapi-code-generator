@@ -26,8 +26,8 @@ You can check the version we develop and test against [here](https://github.com/
       {<h3>Install dependencies</h3>}
       First install the CLI and the required runtime packages to your project:
       ```sh npm2yarn
-      npm i --dev @nahkies/openapi-code-generator
-      npm i @nahkies/typescript-fetch-runtime
+      npm i --save-dev @nahkies/openapi-code-generator
+      npm i --save @nahkies/typescript-fetch-runtime
       ```
 
       You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
@@ -38,7 +38,7 @@ You can check the version we develop and test against [here](https://github.com/
 
       You can provide either a local file path or url for the input file.
       ```sh npm2yarn
-      npm run openapi-code-generator \
+      npm exec -- openapi-code-generator \
       --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
       --output ./src/generated/clients/some-service \
       --template typescript-fetch
@@ -56,8 +56,8 @@ You can check the version we develop and test against [here](https://github.com/
       {<h3>Install dependencies</h3>}
       First install the CLI and the required runtime packages to your project:
       ```sh npm2yarn
-      npm i --dev @nahkies/openapi-code-generator
-      npm i axios @nahkies/typescript-axios-runtime
+      npm i --save-dev @nahkies/openapi-code-generator
+      npm i --save axios @nahkies/typescript-axios-runtime
       ```
 
       You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
@@ -68,7 +68,7 @@ You can check the version we develop and test against [here](https://github.com/
 
       You can provide either a local file path or url for the input file.
       ```sh npm2yarn
-      npm run openapi-code-generator \
+      npm exec -- openapi-code-generator \
       --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
       --output ./src/generated/clients/some-service \
       --template typescript-axios
@@ -87,8 +87,8 @@ You can check the version we develop and test against [here](https://github.com/
       {<h3>Install dependencies</h3>}
       First install the CLI and the required runtime packages to your project:
       ```sh npm2yarn
-      npm i --dev @nahkies/openapi-code-generator @types/koa @types/koa__router
-      npm i @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
+      npm i --save-dev @nahkies/openapi-code-generator @types/koa @types/koa__router
+      npm i --save @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
       ```
 
       You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
@@ -99,7 +99,7 @@ You can check the version we develop and test against [here](https://github.com/
       {<h3>Run generation</h3>}
       This will generate the server router and validation logic to `./src/generated`
       ```sh npm2yarn
-      npm run openapi-code-generator \
+      npm exec -- openapi-code-generator \
       --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
       --output ./src/generated \
       --template typescript-koa
@@ -120,8 +120,8 @@ You can check the version we develop and test against [here](https://github.com/
       {<h3>Install dependencies</h3>}
       First install the CLI and the required runtime packages to your project:
       ```sh npm2yarn
-      npm i --dev @nahkies/openapi-code-generator @types/express
-      npm i @nahkies/typescript-express-runtime express zod
+      npm i --save-dev @nahkies/openapi-code-generator @types/express
+      npm i --save @nahkies/typescript-express-runtime express zod
       ```
 
       You could also run the cli through `npx`, or install it globally if you prefer, but it's recommended to pin its
@@ -132,7 +132,7 @@ You can check the version we develop and test against [here](https://github.com/
       {<h3>Run generation</h3>}
       This will generate the server router and validation logic to `./src/generated`
       ```sh npm2yarn
-      npm run openapi-code-generator \
+      npm exec -- openapi-code-generator \
       --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
       --output ./src/generated \
       --template typescript-express
@@ -152,7 +152,7 @@ You can check the version we develop and test against [here](https://github.com/
 ## CLI options
 See the [cli reference](../reference/cli-options) for the full range of supported options, or try
 ```sh npm2yarn
-npm run openapi-code-generator --help
+npm exec -- openapi-code-generator --help
 ```
 
 ## Typespec specifications
@@ -160,7 +160,7 @@ If you want to use [typespec](https://typespec.io/) instead of [openapi3](https:
 as your input specifications, additionally install the typespec compiler and supporting packages.
 
 ```sh npm2yarn
-npm i --dev @typespec/compiler @typespec/http @typespec/openapi @typespec/openapi3 @typespec/versioning
+npm i --save-dev @typespec/compiler @typespec/http @typespec/openapi @typespec/openapi3 @typespec/versioning
 ```
 
 Depending on how your `typespec` specification is written, you may need to install additional packages such
@@ -168,7 +168,7 @@ as `@typespec/rest`.
 
 You can then generate like so:
 ```sh npm2yarn
-npm run openapi-code-generator \
+npm exec -- openapi-code-generator \
   --input ./some-service.tsp \ # or https://example.com/some-service.tsp
   --input-type=typespec \
   --output ./src/generated/clients/some-service \
