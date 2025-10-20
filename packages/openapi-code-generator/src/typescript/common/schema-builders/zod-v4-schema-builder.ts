@@ -227,6 +227,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
         this.schemaBuilderImports.addSingle(
           "UnknownEnumNumberValue",
           "./models",
+          false,
         )
         return [
           this.union([
@@ -278,6 +279,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
         this.schemaBuilderImports.addSingle(
           "UnknownEnumStringValue",
           "./models",
+          false,
         )
         return this.union([
           this.stringEnum(model),

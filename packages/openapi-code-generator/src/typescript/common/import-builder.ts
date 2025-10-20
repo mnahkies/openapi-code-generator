@@ -1,27 +1,37 @@
 import path from "node:path"
 
 export class ImportBuilder {
-  private readonly imports: Record<string, Set<string>> = {}
+  private readonly imports: Record<
+    string,
+    {values: Set<string>; types: Set<string>}
+  > = {}
   private readonly importAll: Record<string, string> = {}
 
   constructor(private readonly unit?: {filename: string}) {}
 
   from(from: string) {
-    return {
-      add: (...names: string[]): this => {
+    const chain = {
+      add: (...names: string[]) => {
         for (const it of names) {
-          this.addSingle(it, from)
+          this.addSingle(it, from, false)
         }
-        return this
+        return chain
       },
-      all: (name: string): this => {
+      addType: (...names: string[]) => {
+        for (const it of names) {
+          this.addSingle(it, from, true)
+        }
+        return chain
+      },
+      all: (name: string) => {
         this.addModule(name, from)
-        return this
+        return chain
       },
     }
+    return chain
   }
 
-  addSingle(name: string, from: string): void {
+  addSingle(name: string, from: string, isType: boolean): void {
     if (!name) {
       throw new Error(`cannot addSingle with name '${name}'`)
     }
@@ -30,7 +40,7 @@ export class ImportBuilder {
       throw new Error(`cannot addSingle with from '${from}'`)
     }
 
-    this.add(name, from, false)
+    this.add(name, from, false, isType)
   }
 
   addModule(name: string, from: string): void {
@@ -42,7 +52,8 @@ export class ImportBuilder {
       throw new Error(`cannot addModule with from '${from}'`)
     }
 
-    this.add(name, from, true)
+    // todo: add support for importing whole module as a type
+    this.add(name, from, true, false)
   }
 
   static merge(
@@ -51,42 +62,71 @@ export class ImportBuilder {
   ): ImportBuilder {
     const result = new ImportBuilder(unit)
 
-    // biome-ignore lint/complexity/noForEach: todo
-    builders.forEach((builder) => {
-      // biome-ignore lint/complexity/noForEach: todo
-      Object.entries(builder.imports).forEach(([key, value]) => {
-        // biome-ignore lint/suspicious/noAssignInExpressions: todo
-        const imports = (result.imports[key] = result.imports[key] ?? new Set())
-
-        for (const it of value) {
-          imports.add(it)
+    for (const builder of builders) {
+      for (const [key, {values, types}] of Object.entries(builder.imports)) {
+        if (!result.imports[key]) {
+          result.imports[key] = {
+            values: new Set(),
+            types: new Set(),
+          }
         }
-      })
 
-      // biome-ignore lint/complexity/noForEach: todo
-      Object.entries(builder.importAll).forEach(([key, value]) => {
+        const imports = result.imports[key]
+
+        for (const it of values) {
+          imports.values.add(it)
+        }
+        for (const it of types) {
+          imports.types.add(it)
+        }
+      }
+
+      for (const [key, value] of Object.entries(builder.importAll)) {
         if (result.importAll[key] && result.importAll[key] !== value) {
           throw new Error("cannot merge imports with colliding importAlls")
         }
 
         result.importAll[key] = value
-      })
-    })
+      }
+    }
 
     return result
   }
 
-  private add(name: string, from: string, isAll: boolean): void {
+  private add(
+    name: string,
+    from: string,
+    isAll: boolean,
+    isType: boolean,
+  ): void {
     // biome-ignore lint/style/noParameterAssign: normalization
     from = this.normalizeFrom(from)
-    // biome-ignore lint/suspicious/noAssignInExpressions: init
-    const imports = (this.imports[from] =
-      this.imports[from] ?? new Set<string>())
+
+    if (!this.imports[from]) {
+      this.imports[from] = {
+        values: new Set(),
+        types: new Set(),
+      }
+    }
+
+    let imports = this.imports[from]
+
+    if (!imports) {
+      imports = {
+        values: new Set(),
+        types: new Set(),
+      }
+      this.imports[from] = imports
+    }
 
     if (isAll) {
       this.importAll[from] = name
     } else {
-      imports.add(name)
+      if (isType) {
+        imports.types.add(name)
+      } else {
+        imports.values.add(name)
+      }
     }
   }
 
@@ -140,10 +180,19 @@ export class ImportBuilder {
     )
       .sort()
       .map((from) => {
-        // biome-ignore lint/style/noNonNullAssertion: todo
-        const individualImports = Array.from(this.imports[from]!.values())
-          .sort()
-          .filter(hasImport)
+        const valueImports = Array.from(
+          (this.imports[from]?.values ?? new Set()).values(),
+        )
+        const typeImports = Array.from(
+          (this.imports[from]?.types ?? new Set()).values(),
+        )
+
+        const individualImports = valueImports
+          .map((it) => ({name: it, isType: false}))
+          .concat(typeImports.map((it) => ({name: it, isType: true})))
+          .sort((a, b) => (a.name < b.name ? -1 : 1))
+          .filter((it) => hasImport(it.name))
+          .map((it) => (it.isType ? `type ${it.name}` : it.name))
           .join(", ")
 
         const importAll = this.importAll[from]

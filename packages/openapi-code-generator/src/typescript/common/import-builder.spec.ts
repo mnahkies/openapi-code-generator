@@ -12,8 +12,8 @@ describe("typescript/common/import-builder", () => {
   it("can import individual exports", () => {
     const builder = new ImportBuilder()
 
-    builder.addSingle("Cat", "./models.ts")
-    builder.addSingle("Dog", "./models.ts")
+    builder.addSingle("Cat", "./models.ts", false)
+    builder.addSingle("Dog", "./models.ts", false)
 
     expect(builder.toString()).toBe("import {Cat, Dog} from './models'")
   })
@@ -21,8 +21,8 @@ describe("typescript/common/import-builder", () => {
   it("can import a whole module, and individual exports", () => {
     const builder = new ImportBuilder()
 
-    builder.addSingle("Next", "koa")
-    builder.addSingle("Context", "koa")
+    builder.addSingle("Next", "koa", false)
+    builder.addSingle("Context", "koa", false)
     builder.addModule("koa", "koa")
 
     expect(builder.toString()).toBe("import koa, {Context, Next} from 'koa'")
@@ -32,7 +32,7 @@ describe("typescript/common/import-builder", () => {
     it("same directory", () => {
       const builder = new ImportBuilder({filename: "./foo/example.ts"})
 
-      builder.addSingle("Cat", "./foo/models.ts")
+      builder.addSingle("Cat", "./foo/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from './models'")
     })
@@ -40,7 +40,7 @@ describe("typescript/common/import-builder", () => {
     it("parent directory", () => {
       const builder = new ImportBuilder({filename: "./foo/example.ts"})
 
-      builder.addSingle("Cat", "./models.ts")
+      builder.addSingle("Cat", "./models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from '../models'")
     })
@@ -48,7 +48,7 @@ describe("typescript/common/import-builder", () => {
     it("child directory", () => {
       const builder = new ImportBuilder({filename: "./example.ts"})
 
-      builder.addSingle("Cat", "./foo/models.ts")
+      builder.addSingle("Cat", "./foo/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from './foo/models'")
     })
@@ -56,9 +56,20 @@ describe("typescript/common/import-builder", () => {
     it("sibling directory", () => {
       const builder = new ImportBuilder({filename: "./foo/example.ts"})
 
-      builder.addSingle("Cat", "./bar/models.ts")
+      builder.addSingle("Cat", "./bar/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from '../bar/models'")
+    })
+  })
+
+  describe("type imports", () => {
+    it("can import types", () => {
+      const builder = new ImportBuilder()
+
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", true)
+
+      expect(builder.toString()).toBe("import {Cat, type Dog} from './models'")
     })
   })
 })

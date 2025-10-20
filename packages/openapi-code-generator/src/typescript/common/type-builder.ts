@@ -77,7 +77,7 @@ export class TypeBuilder implements ICompilable {
 
     const name = this.getTypeNameFromRef({$ref})
 
-    this.imports?.addSingle(name, this.filename)
+    this.imports?.addSingle(name, this.filename, true)
 
     return name
   }
@@ -85,7 +85,7 @@ export class TypeBuilder implements ICompilable {
   protected addStaticType(name: StaticType): string {
     this.parent?.addStaticType(name)
     this.referencedStaticTypes.add(name)
-    this.imports?.addSingle(name, this.filename)
+    this.imports?.addSingle(name, this.filename, true)
 
     return name
   }

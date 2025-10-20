@@ -12,7 +12,8 @@ export class ExpressServerBuilder implements ICompilable {
   ) {
     this.imports
       .from("@nahkies/typescript-express-runtime/server")
-      .add("startServer", "ServerConfig")
+      .add("startServer")
+      .addType("ServerConfig")
   }
 
   toString(): string {

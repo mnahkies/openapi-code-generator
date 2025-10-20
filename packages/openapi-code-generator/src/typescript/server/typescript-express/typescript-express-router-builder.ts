@@ -33,17 +33,17 @@ export class ExpressRouterBuilder extends AbstractRouterBuilder {
   protected buildImports(): void {
     this.imports
       .from("express")
-      .add("Router", "Request", "Response", "NextFunction")
+      .add("Router")
+      .addType("Request", "Response", "NextFunction")
 
     this.imports.from("express").all("express")
 
     this.imports
       .from("@nahkies/typescript-express-runtime/server")
-      .add(
+      .add("ExpressRuntimeResponse", "SkipResponse")
+      .addType(
         "ExpressRuntimeResponder",
-        "ExpressRuntimeResponse",
         "Params",
-        "SkipResponse",
         "StatusCode",
         "StatusCode1xx",
         "StatusCode2xx",
