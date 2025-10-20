@@ -96,7 +96,7 @@ import type {
   t_TokenResponse,
   t_UserInfo,
   t_UserinfoCustomAsParamSchema,
-} from "./models"
+} from "./models.ts"
 import {
   s_AcrValue,
   s_AmrValue,
@@ -129,7 +129,7 @@ import {
   s_TokenRequest,
   s_TokenResponse,
   s_UserInfo,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type GetWellKnownOpenIdConfigurationResponder = {
   with200(): KoaRuntimeResponse<t_OidcMetadata>

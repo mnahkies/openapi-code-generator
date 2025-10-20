@@ -1104,7 +1104,7 @@ import type {
   t_treasury_transaction,
   t_treasury_transaction_entry,
   t_webhook_endpoint,
-} from "./models"
+} from "./models.ts"
 import {
   PermissiveBoolean,
   s_account,
@@ -1264,7 +1264,7 @@ import {
   s_treasury_transaction,
   s_treasury_transaction_entry,
   s_webhook_endpoint,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type GetAccountResponder = {
   with200(): ExpressRuntimeResponse<t_account>

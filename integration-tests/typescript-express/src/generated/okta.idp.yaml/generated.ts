@@ -66,7 +66,7 @@ import type {
   t_VerifyEmailOtpRequestBodySchema,
   t_VerifyPhoneChallengeParamSchema,
   t_VerifyPhoneChallengeRequestBodySchema,
-} from "./models"
+} from "./models.ts"
 import {
   PermissiveBoolean,
   s_AppAuthenticatorEnrollment,
@@ -85,7 +85,7 @@ import {
   s_Schema,
   s_UpdateAppAuthenticatorEnrollmentRequest,
   s_UpdateAuthenticatorEnrollmentRequest,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
   with200(): ExpressRuntimeResponse<t_AppAuthenticatorEnrollment>
