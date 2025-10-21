@@ -9,6 +9,5 @@
     "noUnusedLocals": true,
     "verbatimModuleSyntax": true,
     "rewriteRelativeImportExtensions": true
-
   }
 }
