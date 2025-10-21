@@ -185,21 +185,32 @@ export class ImportBuilder {
         )
         const typeImports = Array.from(
           (this.imports[from]?.types ?? new Set()).values(),
-        )
+        ).filter((it) => !valueImports.includes(it))
 
-        const individualImports = valueImports
-          .map((it) => ({name: it, isType: false}))
-          .concat(typeImports.map((it) => ({name: it, isType: true})))
-          .sort((a, b) => (a.name < b.name ? -1 : 1))
-          .filter((it) => hasImport(it.name))
-          .map((it) => (it.isType ? `type ${it.name}` : it.name))
-          .join(", ")
+        const combinedImports = [
+          ...valueImports.map((it) => ({name: it, isType: false})),
+          ...typeImports.map((it) => ({name: it, isType: true})),
+        ]
 
         const importAll = this.importAll[from]
+        const hasImportAll = importAll && hasImport(importAll)
+
+        const isAllTypeImports =
+          combinedImports.every((it) => it.isType) && !hasImportAll
+
+        const individualImports = combinedImports
+          .sort((a, b) => (a.name < b.name ? -1 : 1))
+          .filter((it) => hasImport(it.name))
+          .map((it) =>
+            it.isType && !isAllTypeImports ? `type ${it.name}` : it.name,
+          )
+          .join(", ")
 
         const imports = [
-          importAll && hasImport(importAll) ? importAll : "",
-          individualImports.length > 0 ? `{${individualImports}}` : "",
+          hasImportAll ? importAll : "",
+          individualImports.length > 0
+            ? `${isAllTypeImports ? "type " : ""}{${individualImports}}`
+            : "",
         ]
           .filter(Boolean)
           .join(", ")
