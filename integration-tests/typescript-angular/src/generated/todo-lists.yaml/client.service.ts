@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,

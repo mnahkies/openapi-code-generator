@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   EmptyObject,
   UnknownEnumStringValue,
   t_account,
@@ -165,10 +165,10 @@ import {
 } from "./models"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-  StatusCode,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class StripeApiServersOperations {

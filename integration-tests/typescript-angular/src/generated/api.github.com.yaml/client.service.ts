@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   EmptyObject,
   UnknownEnumStringValue,
   t_actions_billing_usage,

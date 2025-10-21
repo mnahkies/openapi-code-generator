@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
@@ -11,12 +11,12 @@ import {
 } from "./models"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-  StatusCode,
-  StatusCode4xx,
-  StatusCode5xx,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
+  type StatusCode4xx,
+  type StatusCode5xx,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class TodoListsExampleApiServersOperations {

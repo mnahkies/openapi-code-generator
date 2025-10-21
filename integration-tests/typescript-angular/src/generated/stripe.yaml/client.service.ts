@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   UnknownEnumStringValue,
   t_account,
   t_account_link,

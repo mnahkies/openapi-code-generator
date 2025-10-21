@@ -2,13 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_NewPet, t_Pet} from "./models"
+import type {t_NewPet, t_Pet} from "./models"
 import {
   AbstractAxiosClient,
-  AbstractAxiosConfig,
-  Server,
+  type AbstractAxiosConfig,
+  type Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import {AxiosRequestConfig, AxiosResponse} from "axios"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class SwaggerPetstoreServers {
   static default(): Server<"SwaggerPetstore"> {

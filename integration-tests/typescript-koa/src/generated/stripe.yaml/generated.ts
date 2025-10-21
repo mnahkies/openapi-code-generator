@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_DeleteAccountsAccountBankAccountsIdParamSchema,
   t_DeleteAccountsAccountExternalAccountsIdParamSchema,
   t_DeleteAccountsAccountParamSchema,
@@ -1246,26 +1246,26 @@ import {
   s_treasury_transaction_entry,
   s_webhook_endpoint,
 } from "./schemas"
-import KoaRouter, {RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
+  type KoaRuntimeResponder,
   KoaRuntimeResponse,
-  Params,
-  Response,
-  ServerConfig,
+  type Params,
+  type Response,
+  type ServerConfig,
   SkipResponse,
-  StatusCode,
+  type StatusCode,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import {Next} from "koa"
+import type {Next} from "koa"
 import {z} from "zod/v4"
 
 export type GetAccountResponder = {

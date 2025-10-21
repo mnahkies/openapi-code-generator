@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {
-  ServerConfig,
+  type ServerConfig,
   startServer,
 } from "@nahkies/typescript-express-runtime/server"
 

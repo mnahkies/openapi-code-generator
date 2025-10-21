@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Azure_ResourceManager_CommonTypes_ErrorDetail,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
 } from "./models"

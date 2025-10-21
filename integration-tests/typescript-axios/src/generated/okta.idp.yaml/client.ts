@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   EmptyObject,
   UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
@@ -23,10 +23,10 @@ import {
 } from "./models"
 import {
   AbstractAxiosClient,
-  AbstractAxiosConfig,
-  Server,
+  type AbstractAxiosConfig,
+  type Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import {AxiosRequestConfig, AxiosResponse} from "axios"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class MyAccountManagementServers {
   static default(): Server<"MyAccountManagement"> {

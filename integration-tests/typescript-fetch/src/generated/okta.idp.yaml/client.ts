@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   EmptyObject,
   UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
@@ -24,9 +24,9 @@ import {
 } from "./models"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class MyAccountManagementServers {

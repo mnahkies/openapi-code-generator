@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_OperationState,
@@ -22,10 +22,10 @@ import {
 } from "./models"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-  StatusCode,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class ContosoWidgetManagerServers {

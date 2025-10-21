@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Azure_Core_uuid,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,

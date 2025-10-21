@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_AcrValue,
   t_AmrValue,
   t_BackchannelAuthorizeResponse,

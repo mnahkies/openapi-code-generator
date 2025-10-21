@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Enumerations,
   t_ProductOrder,
   t_RandomNumber,
@@ -21,9 +21,9 @@ import {
 } from "./schemas"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
 } from "@nahkies/typescript-fetch-runtime/main"
 import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v4"
 import {z} from "zod/v4"

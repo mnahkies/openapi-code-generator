@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Enumerations,
   t_ProductOrder,
   t_RandomNumber,
@@ -21,10 +21,10 @@ import {
 } from "./schemas"
 import {
   AbstractAxiosClient,
-  AbstractAxiosConfig,
-  Server,
+  type AbstractAxiosConfig,
+  type Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import {AxiosRequestConfig, AxiosResponse} from "axios"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import {z} from "zod/v4"
 
 export class E2ETestClientServers {

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_account,
   t_account_branding_settings,
   t_account_invoices_settings,

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_OperationState,
   t_Azure_Core_uuid,
@@ -21,10 +21,10 @@ import {
 } from "./models"
 import {
   AbstractAxiosClient,
-  AbstractAxiosConfig,
-  Server,
+  type AbstractAxiosConfig,
+  type Server,
 } from "@nahkies/typescript-axios-runtime/main"
-import {AxiosRequestConfig, AxiosResponse} from "axios"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class ContosoWidgetManagerServers {
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import type {
   t_Azure_Core_uuid,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,
@@ -14,10 +14,10 @@ import {
 } from "./models"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-  StatusCode,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class ContosoProviderHubClientServers {
