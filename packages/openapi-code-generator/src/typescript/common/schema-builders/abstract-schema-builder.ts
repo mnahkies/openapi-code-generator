@@ -65,7 +65,7 @@ export abstract class AbstractSchemaBuilder<
     this.referenced[name] = reference
 
     if (this.imports) {
-      this.imports.addSingle(name, this.filename)
+      this.imports.addSingle(name, this.filename, false)
     }
 
     return name
@@ -78,7 +78,7 @@ export abstract class AbstractSchemaBuilder<
 
     this.parent?.addStaticSchema(name)
     this.referencedStaticSchemas.add(name)
-    this.imports?.addSingle(name, this.filename)
+    this.imports?.addSingle(name, this.filename, false)
 
     return name
   }

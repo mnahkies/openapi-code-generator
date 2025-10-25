@@ -26,9 +26,9 @@ export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-fetch-runtime/main")
-      .add(
+      .add("AbstractFetchClient")
+      .addType(
         "AbstractFetchClientConfig",
-        "AbstractFetchClient",
         "Server",
         "Res",
         "StatusCode2xx",

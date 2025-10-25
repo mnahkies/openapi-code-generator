@@ -12,7 +12,8 @@ export class KoaServerBuilder implements ICompilable {
   ) {
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
-      .add("startServer", "ServerConfig")
+      .add("startServer")
+      .addType("ServerConfig")
   }
 
   toString(): string {

@@ -3,29 +3,29 @@
 /* eslint-disable */
 
 import {
+  AbstractAxiosClient,
+  type AbstractAxiosConfig,
+  type Server,
+} from "@nahkies/typescript-axios-runtime/main"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
+import {z} from "zod/v4"
+import type {
   t_Enumerations,
-  t_ProductOrder,
-  t_RandomNumber,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
+  t_ProductOrder,
   t_postValidationOptionalBodyJson200Response,
   t_postValidationOptionalBodyJsonRequestBody,
+  t_RandomNumber,
 } from "./models"
 import {
   s_Enumerations,
-  s_ProductOrder,
-  s_RandomNumber,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
+  s_ProductOrder,
   s_postValidationOptionalBodyJson200Response,
+  s_RandomNumber,
 } from "./schemas"
-import {
-  AbstractAxiosClient,
-  AbstractAxiosConfig,
-  Server,
-} from "@nahkies/typescript-axios-runtime/main"
-import {AxiosRequestConfig, AxiosResponse} from "axios"
-import {z} from "zod/v4"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {

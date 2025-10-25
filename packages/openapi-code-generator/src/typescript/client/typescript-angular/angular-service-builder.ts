@@ -23,9 +23,10 @@ export class AngularServiceBuilder extends AbstractClientBuilder {
 
     imports
       .from("@angular/common/http")
-      .add("HttpClient", "HttpHeaders", "HttpParams", "HttpResponse")
+      .add("HttpClient", "HttpParams")
+      .addType("HttpResponse")
 
-    imports.from("rxjs").add("Observable")
+    imports.from("rxjs").addType("Observable")
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {

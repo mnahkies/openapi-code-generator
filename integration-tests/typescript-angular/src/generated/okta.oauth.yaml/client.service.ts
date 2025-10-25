@@ -2,7 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import type {Observable} from "rxjs"
+import type {
   t_AcrValue,
   t_AmrValue,
   t_BackchannelAuthorizeResponse,
@@ -27,9 +30,6 @@ import {
   t_TokenResponse,
   t_UserInfo,
 } from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
-import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
 
 export class OktaOpenIdConnectOAuth20ServiceServers {
   static default(): Server<"OktaOpenIdConnectOAuth20Service"> {

@@ -2,7 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import {z} from "zod/v4"
+import type {
   t_account,
   t_account_branding_settings,
   t_account_invoices_settings,
@@ -200,7 +201,6 @@ import {
   t_treasury_transaction_entry,
   t_treasury_transactions_resource_flow_details,
 } from "./models"
-import {z} from "zod/v4"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {

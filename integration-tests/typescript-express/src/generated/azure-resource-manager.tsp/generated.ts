@@ -3,6 +3,25 @@
 /* eslint-disable */
 
 import {
+  ExpressRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-express-runtime/errors"
+import {
+  type ExpressRuntimeResponder,
+  ExpressRuntimeResponse,
+  type Params,
+  type ServerConfig,
+  SkipResponse,
+  type StatusCode,
+  startServer,
+} from "@nahkies/typescript-express-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-express-runtime/zod-v4"
+import {type NextFunction, type Request, type Response, Router} from "express"
+import {z} from "zod/v4"
+import type {
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,
   t_EmployeeListResult,
@@ -39,25 +58,6 @@ import {
   s_MoveResponse,
   s_OperationListResult,
 } from "./schemas"
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
-import {
-  ExpressRuntimeResponder,
-  ExpressRuntimeResponse,
-  Params,
-  ServerConfig,
-  SkipResponse,
-  StatusCode,
-  startServer,
-} from "@nahkies/typescript-express-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod-v4"
-import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod/v4"
 
 export type OperationsListResponder = {
   with200(): ExpressRuntimeResponse<t_OperationListResult>

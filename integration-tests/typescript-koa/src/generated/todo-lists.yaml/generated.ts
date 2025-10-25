@@ -2,7 +2,30 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import KoaRouter, {type RouterContext} from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
+  type KoaRuntimeResponder,
+  KoaRuntimeResponse,
+  type Params,
+  type Response,
+  type ServerConfig,
+  SkipResponse,
+  type StatusCode,
+  type StatusCode4xx,
+  type StatusCode5xx,
+  startServer,
+} from "@nahkies/typescript-koa-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-koa-runtime/zod-v4"
+import type {Next} from "koa"
+import {z} from "zod/v4"
+import type {
   t_CreateTodoListItemBodySchema,
   t_CreateTodoListItemParamSchema,
   t_DeleteTodoListByIdParamSchema,
@@ -23,29 +46,6 @@ import {
   s_TodoList,
   s_UnknownObject,
 } from "./schemas"
-import KoaRouter, {RouterContext} from "@koa/router"
-import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
-  KoaRuntimeResponder,
-  KoaRuntimeResponse,
-  Params,
-  Response,
-  ServerConfig,
-  SkipResponse,
-  StatusCode,
-  StatusCode4xx,
-  StatusCode5xx,
-  startServer,
-} from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod-v4"
-import {Next} from "koa"
-import {z} from "zod/v4"
 
 export type GetTodoListsResponder = {
   with200(): KoaRuntimeResponse<t_TodoList[]>

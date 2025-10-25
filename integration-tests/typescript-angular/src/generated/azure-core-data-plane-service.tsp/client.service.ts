@@ -2,7 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import type {Observable} from "rxjs"
+import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_OperationState,
@@ -20,9 +23,6 @@ import {
   t_WidgetRepairRequest,
   t_WidgetRepairState,
 } from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
-import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
 
 export class ContosoWidgetManagerServiceServers {
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {

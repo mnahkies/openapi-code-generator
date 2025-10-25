@@ -2,7 +2,28 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import KoaRouter, {type RouterContext} from "@koa/router"
 import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
+  type KoaRuntimeResponder,
+  KoaRuntimeResponse,
+  type Params,
+  type Response,
+  type ServerConfig,
+  SkipResponse,
+  type StatusCode,
+  startServer,
+} from "@nahkies/typescript-koa-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-koa-runtime/zod-v4"
+import type {Next} from "koa"
+import {z} from "zod/v4"
+import type {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
   t_AuthorizeCustomAsWithPostBodySchema,
@@ -109,27 +130,6 @@ import {
   s_TokenResponse,
   s_UserInfo,
 } from "./schemas"
-import KoaRouter, {RouterContext} from "@koa/router"
-import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
-  KoaRuntimeResponder,
-  KoaRuntimeResponse,
-  Params,
-  Response,
-  ServerConfig,
-  SkipResponse,
-  StatusCode,
-  startServer,
-} from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod-v4"
-import {Next} from "koa"
-import {z} from "zod/v4"
 
 export type GetWellKnownOpenIdConfigurationResponder = {
   with200(): KoaRuntimeResponse<t_OidcMetadata>

@@ -2,14 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {t_Error, t_NewPet, t_Pet} from "./models"
 import {
   AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-  StatusCode,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
 } from "@nahkies/typescript-fetch-runtime/main"
+import type {t_Error, t_NewPet, t_Pet} from "./models"
 
 export class SwaggerPetstoreServers {
   static default(): Server<"SwaggerPetstore"> {

@@ -3,6 +3,23 @@
 /* eslint-disable */
 
 import {
+  ExpressRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-express-runtime/errors"
+import {
+  type ExpressRuntimeResponder,
+  ExpressRuntimeResponse,
+  type Params,
+  SkipResponse,
+  type StatusCode,
+} from "@nahkies/typescript-express-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-express-runtime/zod-v4"
+import {type NextFunction, type Request, type Response, Router} from "express"
+import {z} from "zod/v4"
+import type {
   t_GetHeadersRequestRequestHeaderSchema,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
@@ -12,23 +29,6 @@ import {
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
 } from "../schemas"
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
-import {
-  ExpressRuntimeResponder,
-  ExpressRuntimeResponse,
-  Params,
-  SkipResponse,
-  StatusCode,
-} from "@nahkies/typescript-express-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod-v4"
-import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod/v4"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): ExpressRuntimeResponse<t_getHeadersUndeclaredJson200Response>

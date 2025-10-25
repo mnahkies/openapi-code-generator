@@ -2,39 +2,39 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
-  t_Enumerations,
-  t_GetValidationNumbersRandomNumberQuerySchema,
-  t_PostValidationEnumsBodySchema,
-  t_PostValidationOptionalBodyBodySchema,
-  t_RandomNumber,
-  t_postValidationOptionalBodyJson200Response,
-} from "../models"
-import {
-  s_Enumerations,
-  s_RandomNumber,
-  s_postValidationOptionalBodyJson200Response,
-  s_postValidationOptionalBodyJsonRequestBody,
-} from "../schemas"
-import KoaRouter, {RouterContext} from "@koa/router"
+import KoaRouter, {type RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
+  type KoaRuntimeResponder,
   KoaRuntimeResponse,
-  Params,
-  Response,
+  type Params,
+  type Response,
   SkipResponse,
-  StatusCode,
+  type StatusCode,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod-v4"
-import {Next} from "koa"
+import type {Next} from "koa"
 import {z} from "zod/v4"
+import type {
+  t_Enumerations,
+  t_GetValidationNumbersRandomNumberQuerySchema,
+  t_PostValidationEnumsBodySchema,
+  t_PostValidationOptionalBodyBodySchema,
+  t_postValidationOptionalBodyJson200Response,
+  t_RandomNumber,
+} from "../models"
+import {
+  s_Enumerations,
+  s_postValidationOptionalBodyJson200Response,
+  s_postValidationOptionalBodyJsonRequestBody,
+  s_RandomNumber,
+} from "../schemas"
 
 export type GetValidationNumbersRandomNumberResponder = {
   with200(): KoaRuntimeResponse<t_RandomNumber>

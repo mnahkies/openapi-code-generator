@@ -2,16 +2,16 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import type {Observable} from "rxjs"
+import type {
   t_CreateUpdateTodoList,
   t_Error,
   t_Statuses,
   t_TodoList,
   t_UnknownObject,
 } from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
-import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
 
 export class TodoListsExampleApiServiceServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {

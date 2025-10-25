@@ -3,28 +3,28 @@
 /* eslint-disable */
 
 import {
-  t_PostMediaTypesTextRequestBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
-  t_ProductOrder,
-} from "../models"
-import {s_ProductOrder} from "../schemas"
-import {
   ExpressRuntimeError,
   RequestInputType,
 } from "@nahkies/typescript-express-runtime/errors"
 import {
-  ExpressRuntimeResponder,
+  type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
-  Params,
+  type Params,
   SkipResponse,
-  StatusCode,
+  type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-express-runtime/zod-v4"
-import {NextFunction, Request, Response, Router} from "express"
+import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
+import type {
+  t_PostMediaTypesTextRequestBodySchema,
+  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
+  t_ProductOrder,
+} from "../models"
+import {s_ProductOrder} from "../schemas"
 
 export type PostMediaTypesTextResponder = {
   with200(): ExpressRuntimeResponse<string>

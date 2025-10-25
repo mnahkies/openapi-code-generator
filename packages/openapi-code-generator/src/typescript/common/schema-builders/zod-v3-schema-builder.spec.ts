@@ -168,8 +168,8 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import { t_Recursive } from "./unit-test.types"
-        import { z } from "zod/v3"
+        "import { z } from "zod/v3"
+        import type { t_Recursive } from "./unit-test.types"
 
         export const s_Recursive: z.ZodType<t_Recursive, z.ZodTypeDef, unknown> =
           z.object({ child: z.lazy(() => s_Recursive.optional()) })"

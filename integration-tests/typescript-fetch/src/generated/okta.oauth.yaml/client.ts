@@ -3,6 +3,12 @@
 /* eslint-disable */
 
 import {
+  AbstractFetchClient,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+} from "@nahkies/typescript-fetch-runtime/main"
+import type {
   t_AcrValue,
   t_AmrValue,
   t_AuthorizeWithPost,
@@ -35,12 +41,6 @@ import {
   t_TokenResponse,
   t_UserInfo,
 } from "./models"
-import {
-  AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-} from "@nahkies/typescript-fetch-runtime/main"
 
 export class OktaOpenIdConnectOAuth20Servers {
   static default(): Server<"OktaOpenIdConnectOAuth20"> {

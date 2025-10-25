@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {GitHubV3RestApiService} from "./client.service"
 import {NgModule} from "@angular/core"
+import {GitHubV3RestApiService} from "./client.service"
 
 @NgModule({
   imports: [],

@@ -3,6 +3,27 @@
 /* eslint-disable */
 
 import {
+  ExpressRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-express-runtime/errors"
+import {
+  type ExpressRuntimeResponder,
+  ExpressRuntimeResponse,
+  type Params,
+  type ServerConfig,
+  SkipResponse,
+  type StatusCode,
+  type StatusCode4xx,
+  type StatusCode5xx,
+  startServer,
+} from "@nahkies/typescript-express-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-express-runtime/zod-v4"
+import {type NextFunction, type Request, type Response, Router} from "express"
+import {z} from "zod/v4"
+import type {
   t_CreateTodoListItemParamSchema,
   t_CreateTodoListItemRequestBodySchema,
   t_DeleteTodoListByIdParamSchema,
@@ -23,27 +44,6 @@ import {
   s_TodoList,
   s_UnknownObject,
 } from "./schemas"
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
-import {
-  ExpressRuntimeResponder,
-  ExpressRuntimeResponse,
-  Params,
-  ServerConfig,
-  SkipResponse,
-  StatusCode,
-  StatusCode4xx,
-  StatusCode5xx,
-  startServer,
-} from "@nahkies/typescript-express-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod-v4"
-import {NextFunction, Request, Response, Router} from "express"
-import {z} from "zod/v4"
 
 export type GetTodoListsResponder = {
   with200(): ExpressRuntimeResponse<t_TodoList[]>

@@ -34,28 +34,24 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
-      .add(
+      .add("KoaRuntimeResponse", "SkipResponse", "startServer")
+      .addType(
         "KoaRuntimeResponder",
-        "KoaRuntimeResponse",
         "Params",
         "Response",
-        "ServerConfig",
-        "SkipResponse",
         "StatusCode",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
         "StatusCode5xx",
-        "startServer",
       )
 
     this.imports
       .from("@nahkies/typescript-koa-runtime/errors")
       .add("KoaRuntimeError", "RequestInputType")
 
-    this.imports.from("koa").add("Next")
-    this.imports.addModule("KoaRouter", "@koa/router")
-    this.imports.from("@koa/router").add("RouterContext")
+    this.imports.from("koa").addType("Next")
+    this.imports.from("@koa/router").addType("RouterContext").all("KoaRouter")
 
     const schemaBuilderType = this.schemaBuilder.type
 

@@ -5,15 +5,22 @@
     "clientKind": "git",
     "useIgnoreFile": true
   },
-  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
   "files": {
+    "maxSize": 10485760,
+    // 10MB
     "includes": [
       "**",
       "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
       "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
-      "!**/integration-tests/**/generated/**/*",
+      "!**/integration-tests/typescript-angular/src/generated/**/*",
       "!**/integration-tests-definitions/**/*",
-      "!**/e2e/src/generated/**/*",
       "!**/schemas/**/*.json",
       "!**/package.json",
       "!**/package.json"
@@ -56,12 +63,35 @@
       "**",
       "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
       "!**/packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
-      "!**/integration-tests/**/generated/**/*",
+      "!**/integration-tests/typescript-angular/src/generated/**/*",
       "!**/integration-tests-definitions/**/*",
-      "!**/e2e/src/generated/**/*",
       "!**/schemas/**/*.json",
       "!**/package.json",
       "!**/package.json"
     ]
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["integration-tests/**/generated/**", "e2e/**/generated/**"],
+      "linter": {
+        "rules": {
+          "complexity": {
+            "useLiteralKeys": "off",
+            "noStaticOnlyClass": "off",
+            "noUselessConstructor": "off",
+            "useRegexLiterals": "off"
+          },
+          "style": {
+            "useTemplate": "off"
+          },
+          "suspicious": {
+            "noExplicitAny": "off"
+          },
+          "correctness": {
+            "noUnusedFunctionParameters": "off"
+          }
+        }
+      }
+    }
+  ]
 }

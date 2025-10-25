@@ -4,14 +4,14 @@
 
 import {ExpressRuntimeError} from "@nahkies/typescript-express-runtime/errors"
 import {
-  ExpressRuntimeResponder,
+  type ExpressRuntimeResponder,
   ExpressRuntimeResponse,
-  Params,
+  type Params,
   SkipResponse,
-  StatusCode,
+  type StatusCode,
 } from "@nahkies/typescript-express-runtime/server"
 import {responseValidationFactory} from "@nahkies/typescript-express-runtime/zod-v4"
-import {NextFunction, Request, Response, Router} from "express"
+import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
 
 export type GetEscapeHatchesPlainTextResponder = {

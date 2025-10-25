@@ -3,8 +3,13 @@
 /* eslint-disable */
 
 import {
+  AbstractFetchClient,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+} from "@nahkies/typescript-fetch-runtime/main"
+import type {
   EmptyObject,
-  UnknownEnumStringValue,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -340,13 +345,8 @@ import {
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
+  UnknownEnumStringValue,
 } from "./models"
-import {
-  AbstractFetchClient,
-  AbstractFetchClientConfig,
-  Res,
-  Server,
-} from "@nahkies/typescript-fetch-runtime/main"
 
 export class GitHubV3RestApiServersOperations {
   static reposUploadReleaseAsset(

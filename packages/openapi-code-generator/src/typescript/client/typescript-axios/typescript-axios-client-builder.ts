@@ -26,11 +26,13 @@ export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-axios-runtime/main")
-      .add("AbstractAxiosConfig", "AbstractAxiosClient", "Server")
+      .add("AbstractAxiosClient")
+      .addType("AbstractAxiosConfig", "Server")
 
-    imports.from("axios").all("axios")
-
-    imports.from("axios").add("AxiosRequestConfig", "AxiosResponse")
+    imports
+      .from("axios")
+      .addType("AxiosRequestConfig", "AxiosResponse")
+      .all("axios")
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
