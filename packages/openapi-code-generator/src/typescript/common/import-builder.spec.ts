@@ -23,7 +23,7 @@ describe("typescript/common/import-builder", () => {
     builder.addSingle("Cat", "./models.ts", false)
     builder.addSingle("Dog", "./models.ts", false)
 
-    expect(builder.toString()).toBe("import {Cat, Dog} from './models'")
+    expect(builder.toString()).toBe("import {Cat, Dog} from './models.ts'")
   })
 
   it("can import a whole module, and individual exports", () => {
@@ -42,7 +42,7 @@ describe("typescript/common/import-builder", () => {
 
       builder.addSingle("Cat", "./foo/models.ts", false)
 
-      expect(builder.toString()).toBe("import {Cat} from './models'")
+      expect(builder.toString()).toBe("import {Cat} from './models.ts'")
     })
 
     it("parent directory", () => {
@@ -50,7 +50,7 @@ describe("typescript/common/import-builder", () => {
 
       builder.addSingle("Cat", "./models.ts", false)
 
-      expect(builder.toString()).toBe("import {Cat} from '../models'")
+      expect(builder.toString()).toBe("import {Cat} from '../models.ts'")
     })
 
     it("child directory", () => {
@@ -58,7 +58,7 @@ describe("typescript/common/import-builder", () => {
 
       builder.addSingle("Cat", "./foo/models.ts", false)
 
-      expect(builder.toString()).toBe("import {Cat} from './foo/models'")
+      expect(builder.toString()).toBe("import {Cat} from './foo/models.ts'")
     })
 
     it("sibling directory", () => {
@@ -66,7 +66,7 @@ describe("typescript/common/import-builder", () => {
 
       builder.addSingle("Cat", "./bar/models.ts", false)
 
-      expect(builder.toString()).toBe("import {Cat} from '../bar/models'")
+      expect(builder.toString()).toBe("import {Cat} from '../bar/models.ts'")
     })
   })
 
@@ -77,7 +77,9 @@ describe("typescript/common/import-builder", () => {
       builder.addSingle("Cat", "./models.ts", false)
       builder.addSingle("Dog", "./models.ts", true)
 
-      expect(builder.toString()).toBe("import {Cat, type Dog} from './models'")
+      expect(builder.toString()).toBe(
+        "import {Cat, type Dog} from './models.ts'",
+      )
     })
 
     it("formats all-type named imports as 'import type {A, B}'", () => {
@@ -146,7 +148,7 @@ describe("typescript/common/import-builder", () => {
       expect(builder.toString(code)).toBe(
         [
           "import Lodash from 'lodash'",
-          "import {Cat, type Dog} from './models'",
+          "import {Cat, type Dog} from './models.ts'",
         ].join("\n"),
       )
     })
