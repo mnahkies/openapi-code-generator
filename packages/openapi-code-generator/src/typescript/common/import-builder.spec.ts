@@ -71,5 +71,119 @@ describe("typescript/common/import-builder", () => {
 
       expect(builder.toString()).toBe("import {Cat, type Dog} from './models'")
     })
+
+    it("formats all-type named imports as 'import type {A, B}'", () => {
+      const builder = new ImportBuilder()
+
+      builder.addSingle("A", "lib", true)
+      builder.addSingle("B", "lib", true)
+
+      expect(builder.toString()).toBe("import type {A, B} from 'lib'")
+    })
+
+    it("mixes default import with only-type named imports", () => {
+      const builder = new ImportBuilder()
+
+      builder.addModule("Default", "lib")
+      builder.addSingle("A", "lib", true)
+      builder.addSingle("B", "lib", true)
+
+      expect(builder.toString()).toBe(
+        "import Default, {type A, type B} from 'lib'",
+      )
+    })
+
+    it("deduplicates names when added as both value and type (prefers value)", () => {
+      const builder = new ImportBuilder()
+
+      builder.addSingle("Overlap", "pkg", false)
+      builder.addSingle("Overlap", "pkg", true)
+      builder.addSingle("OnlyType", "pkg", true)
+
+      expect(builder.toString()).toBe(
+        "import {type OnlyType, Overlap} from 'pkg'",
+      )
+    })
+  })
+
+  describe("from() chaining API", () => {
+    it("supports add, addType, and all in a single chain", () => {
+      const builder = new ImportBuilder()
+
+      builder.from("koa").add("Context", "Next").addType("State").all("koa")
+
+      expect(builder.toString()).toBe(
+        "import koa, {Context, Next, type State} from 'koa'",
+      )
+    })
+  })
+
+  describe("usage-based pruning", () => {
+    it("omits unused named and default imports based on provided code", () => {
+      const builder = new ImportBuilder()
+
+      builder.addModule("_, defaultExport", "ignore-me") // ensure not used
+      builder.addModule("Lodash", "lodash")
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", true)
+      builder.addSingle("Unused", "./models.ts", false)
+
+      const code = [
+        "function demo() {",
+        "  const x: Dog = {} as any;",
+        "  console.log(Lodash, Cat)",
+        "}",
+      ].join("\n")
+
+      expect(builder.toString(code)).toBe(
+        [
+          "import {Cat, type Dog} from './models'",
+          "import Lodash from 'lodash'",
+        ].join("\n"),
+      )
+    })
+  })
+
+  describe("sorting", () => {
+    it("sorts named imports alphabetically and groups types correctly", () => {
+      const builder = new ImportBuilder()
+
+      builder.addSingle("Bravo", "pkg", false)
+      builder.addSingle("Alpha", "pkg", false)
+      builder.addSingle("Zulu", "pkg", true)
+      builder.addSingle("Mike", "pkg", true)
+
+      expect(builder.toString()).toBe(
+        "import {Alpha, Bravo, type Mike, type Zulu} from 'pkg'",
+      )
+    })
+  })
+
+  describe("merge()", () => {
+    it("merges multiple builders and preserves types/values", () => {
+      const a = new ImportBuilder()
+      a.addSingle("A", "x", false)
+      a.addSingle("TA", "x", true)
+
+      const b = new ImportBuilder()
+      b.addModule("Def", "x")
+      b.addSingle("B", "x", false)
+
+      const merged = ImportBuilder.merge(undefined, a, b)
+
+      expect(merged.toString()).toBe("import Def, {A, B, type TA} from 'x'")
+    })
+
+    it("throws when merging builders with conflicting default imports for same module", () => {
+      const a = new ImportBuilder()
+      a.addModule("DefA", "x")
+
+      const b = new ImportBuilder()
+      b.addModule("DefB", "x")
+
+      expect(() => ImportBuilder.merge(undefined, a, b)).toThrow(
+        "cannot merge imports with colliding importAlls",
+      )
+    })
   })
 })
