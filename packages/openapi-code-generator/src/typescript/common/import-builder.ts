@@ -10,26 +10,76 @@ export function naturalCompare(a: string, b: string): number {
     // If they differ, check earliest position of difference. If that position only
     // differs by case (same letter ignoring case), prefer the uppercase at that position.
     const len = Math.min(a.length, b.length)
+
     for (let i = 0; i < len; i++) {
       // biome-ignore lint/style/noNonNullAssertion: magic
       const ca = a[i]!
       // biome-ignore lint/style/noNonNullAssertion: magic
       const cb = b[i]!
-      if (ca === cb) continue
+
+      if (ca === cb) {
+        continue
+      }
+
       if (ca.toLowerCase() === cb.toLowerCase()) {
         const aUpper = ca >= "A" && ca <= "Z"
         const bUpper = cb >= "A" && cb <= "Z"
+
         if (aUpper !== bUpper) {
           return aUpper ? -1 : 1
         }
       }
+
       // first differing char is different ignoring case — honor base comparison
       break
     }
+
     return base
   }
+
   // Tie-breaker: case-sensitive compare to ensure A < a < B < b
   return a < b ? -1 : a > b ? 1 : 0
+}
+
+enum ImportCategory {
+  URL = 0,
+  PROTOCOL = 1,
+  PACKAGE = 2,
+  ALIAS = 3,
+  PATH = 4,
+}
+
+export function categorizeImportSource(source: string): ImportCategory {
+  const isUrl = source.startsWith("http://") || source.startsWith("https://")
+
+  if (isUrl) {
+    return ImportCategory.URL
+  }
+
+  if (/^[a-z]+:/.test(source)) {
+    return ImportCategory.PROTOCOL
+  }
+
+  const isAlias =
+    source.startsWith("#") ||
+    source.startsWith("@/") ||
+    source.startsWith("~") ||
+    source.startsWith("$") ||
+    source.startsWith("%")
+
+  const isPath =
+    source.startsWith("./") ||
+    source.startsWith("../") ||
+    source.startsWith("/")
+
+  if (!isAlias && !isPath) {
+    return ImportCategory.PACKAGE
+  }
+  if (isAlias) {
+    return ImportCategory.ALIAS
+  }
+
+  return ImportCategory.PATH
 }
 
 export class ImportBuilder {
@@ -204,41 +254,6 @@ export class ImportBuilder {
     )
     const hasImport = (it: string) => !code || tokens.has(it)
 
-    const categorize = (source: string): number => {
-      const isUrl =
-        source.startsWith("http://") || source.startsWith("https://")
-
-      if (isUrl) {
-        return 0
-      }
-      // Has a protocol like node:, bun:, jsr:, npm:, etc. (excluding http/https handled above)
-      if (/^[a-z]+:/.test(source)) {
-        return 1
-      }
-
-      // Packages (scoped or bare) e.g. @scope/pkg or lodash
-      const isAlias =
-        source.startsWith("#") ||
-        source.startsWith("@/") ||
-        source.startsWith("~") ||
-        source.startsWith("$") ||
-        source.startsWith("%")
-
-      const isPath =
-        source.startsWith("./") ||
-        source.startsWith("../") ||
-        source.startsWith("/")
-
-      if (!isAlias && !isPath) {
-        return 2 // package
-      }
-      if (isAlias) {
-        return 3
-      }
-
-      return 4 // path
-    }
-
     return Array.from(
       new Set([
         ...Object.keys(this.imports),
@@ -246,19 +261,13 @@ export class ImportBuilder {
       ]).values(),
     )
       .sort((a, b) => {
-        const ca = categorize(a)
-        const cb = categorize(b)
-        if (ca !== cb) {
-          return ca - cb
+        const categoryA = categorizeImportSource(a)
+        const categoryB = categorizeImportSource(b)
+
+        if (categoryA !== categoryB) {
+          return categoryA - categoryB
         }
-        // For paths, prefer parent (../) before sibling (./), and absolute (/) last within PATH category
-        if (ca === 4) {
-          const rank = (s: string) =>
-            s.startsWith("../") ? 0 : s.startsWith("./") ? 1 : 2
-          const ra = rank(a)
-          const rb = rank(b)
-          if (ra !== rb) return ra - rb
-        }
+
         return naturalCompare(a, b)
       })
       .map((from) => {
