@@ -1832,7 +1832,7 @@ import type {
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
-} from "./models"
+} from "./models.ts"
 import {
   PermissiveBoolean,
   s_actions_billing_usage,
@@ -2170,7 +2170,7 @@ import {
   s_workflow_run,
   s_workflow_run_usage,
   s_workflow_usage,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type MetaRootResponder = {
   with200(): ExpressRuntimeResponse<t_root>

@@ -96,7 +96,7 @@ import type {
   t_WidgetsUpdateAnalyticsQuerySchema,
   t_WidgetsUpdateAnalyticsRequestBodySchema,
   t_WidgetsUpdateAnalyticsRequestHeaderSchema,
-} from "./models"
+} from "./models.ts"
 import {
   s_Azure_Core_Foundations_Error,
   s_Azure_Core_Foundations_ErrorResponse,
@@ -114,7 +114,7 @@ import {
   s_WidgetPartReorderRequest,
   s_WidgetRepairRequest,
   s_WidgetRepairState,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type GetServiceStatusResponder = {
   with200(): ExpressRuntimeResponse<{

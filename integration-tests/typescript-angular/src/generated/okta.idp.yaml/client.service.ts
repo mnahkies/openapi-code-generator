@@ -24,7 +24,7 @@ import type {
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
   UnknownEnumStringValue,
-} from "./models"
+} from "./models.ts"
 
 export class MyAccountManagementServiceServers {
   static default(): Server<"MyAccountManagementService"> {

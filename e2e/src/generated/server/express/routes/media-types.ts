@@ -23,8 +23,8 @@ import type {
   t_PostMediaTypesTextRequestBodySchema,
   t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
   t_ProductOrder,
-} from "../models"
-import {s_ProductOrder} from "../schemas"
+} from "../models.ts"
+import {s_ProductOrder} from "../schemas.ts"
 
 export type PostMediaTypesTextResponder = {
   with200(): ExpressRuntimeResponse<string>

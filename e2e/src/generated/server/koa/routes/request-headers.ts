@@ -25,12 +25,12 @@ import type {
   t_GetHeadersRequestHeaderSchema,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
-} from "../models"
+} from "../models.ts"
 import {
   PermissiveBoolean,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
-} from "../schemas"
+} from "../schemas.ts"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): KoaRuntimeResponse<t_getHeadersUndeclaredJson200Response>

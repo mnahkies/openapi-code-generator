@@ -214,8 +214,8 @@ export class ImportBuilder {
 
   private normalizeFrom(from: string) {
     if (from.endsWith(".ts")) {
-      // biome-ignore lint/style/noParameterAssign: normalization
-      from = from.substring(0, from.length - ".ts".length)
+      // TODO: toggle based on project settings
+      // from = from.substring(0, from.length - ".ts".length)
     }
 
     if (this.unit && from.startsWith("./")) {

@@ -36,14 +36,14 @@ import type {
   t_UpdateTodoListByIdParamSchema,
   t_UpdateTodoListByIdRequestBodySchema,
   t_UploadAttachmentRequestBodySchema,
-} from "./models"
+} from "./models.ts"
 import {
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
   s_TodoList,
   s_UnknownObject,
-} from "./schemas"
+} from "./schemas.ts"
 
 export type GetTodoListsResponder = {
   with200(): ExpressRuntimeResponse<t_TodoList[]>

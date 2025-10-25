@@ -346,7 +346,7 @@ import type {
   t_workflow_run_usage,
   t_workflow_usage,
   UnknownEnumStringValue,
-} from "./models"
+} from "./models.ts"
 
 export class GitHubV3RestApiServersOperations {
   static reposUploadReleaseAsset(

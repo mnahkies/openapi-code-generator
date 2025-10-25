@@ -11,7 +11,7 @@ import type {
   t_Statuses,
   t_TodoList,
   t_UnknownObject,
-} from "./models"
+} from "./models.ts"
 
 export class TodoListsExampleApiServiceServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {

@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {MyAccountManagementService} from "./client.service"
+import {MyAccountManagementService} from "./client.service.ts"
 
 @NgModule({
   imports: [],
