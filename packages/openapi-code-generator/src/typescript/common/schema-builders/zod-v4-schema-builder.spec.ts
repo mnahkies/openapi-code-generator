@@ -35,7 +35,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/SimpleObject")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_SimpleObject } from "./unit-test.schemas"
+        "import { s_SimpleObject } from "./unit-test.schemas.ts"
 
         const x = s_SimpleObject"
       `)
@@ -61,7 +61,7 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
+        "import { s_ObjectWithComplexProperties } from "./unit-test.schemas.ts"
 
         const x = s_ObjectWithComplexProperties"
       `)
@@ -101,7 +101,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/OneOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_OneOf } from "./unit-test.schemas"
+        "import { s_OneOf } from "./unit-test.schemas.ts"
 
         const x = s_OneOf"
       `)
@@ -121,7 +121,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/AnyOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_AnyOf } from "./unit-test.schemas"
+        "import { s_AnyOf } from "./unit-test.schemas.ts"
 
         const x = s_AnyOf"
       `)
@@ -137,7 +137,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/AllOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_AllOf } from "./unit-test.schemas"
+        "import { s_AllOf } from "./unit-test.schemas.ts"
 
         const x = s_AllOf"
       `)
@@ -158,14 +158,14 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Recursive")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_Recursive } from "./unit-test.schemas"
+        "import { s_Recursive } from "./unit-test.schemas.ts"
 
         const x = z.lazy(() => s_Recursive)"
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
         "import { z } from "zod/v4"
-        import type { t_Recursive } from "./unit-test.types"
+        import type { t_Recursive } from "./unit-test.types.ts"
 
         export const s_Recursive: z.ZodType<t_Recursive> = z.object({
           child: z.lazy(() => s_Recursive.optional()),
@@ -177,7 +177,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Ordering")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_Ordering } from "./unit-test.schemas"
+        "import { s_Ordering } from "./unit-test.schemas.ts"
 
         const x = s_Ordering"
       `)
@@ -203,7 +203,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Enums")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_Enums } from "./unit-test.schemas"
+        "import { s_Enums } from "./unit-test.schemas.ts"
 
         const x = s_Enums"
       `)
@@ -228,7 +228,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesBool } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesBool"
         `)
@@ -246,7 +246,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesUnknownEmptySchema"
         `)
@@ -267,7 +267,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesUnknownEmptyObjectSchema"
         `)
@@ -288,7 +288,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesSchema"
         `)
@@ -313,7 +313,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesMixed"
         `)
@@ -835,7 +835,8 @@ describe.each(testVersions)(
       }
 
       function inlineStaticSchemas(code: string) {
-        const importRegex = /import { ([^}]+) } from "\.\/unit-test\.schemas"\n/
+        const importRegex =
+          /import {([^}]+)} from "\.\/unit-test\.schemas.ts"\n/
 
         const match = code.match(importRegex)?.[1]
 
@@ -845,7 +846,6 @@ describe.each(testVersions)(
             .map((s) => s.trim())
             .map((it) => {
               const definition = Reflect.get(staticSchemas, it)
-
               if (definition) {
                 return `const ${it} = ${definition}`
               }
@@ -864,7 +864,7 @@ describe.each(testVersions)(
         const {code} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(`
-          "import { PermissiveBoolean } from "./unit-test.schemas"
+          "import { PermissiveBoolean } from "./unit-test.schemas.ts"
 
           const x = PermissiveBoolean"
         `)
@@ -878,15 +878,8 @@ describe.each(testVersions)(
 
         const codeWithoutImport = inlineStaticSchemas(code)
 
-        expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
+        expect(code).toMatchInlineSnapshot(`
+          "import { PermissiveBoolean } from "./unit-test.schemas.ts"
 
           const x = PermissiveBoolean.default(false)"
         `)
@@ -904,15 +897,8 @@ describe.each(testVersions)(
 
         const codeWithoutImport = inlineStaticSchemas(code)
 
-        expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
+        expect(code).toMatchInlineSnapshot(`
+          "import { PermissiveBoolean } from "./unit-test.schemas.ts"
 
           const x = PermissiveBoolean.default(true)"
         `)
@@ -931,15 +917,8 @@ describe.each(testVersions)(
 
         const codeWithoutImport = inlineStaticSchemas(code)
 
-        expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
+        expect(code).toMatchInlineSnapshot(`
+          "import { PermissiveBoolean } from "./unit-test.schemas.ts"
 
           const x = PermissiveBoolean.nullable().default(null)"
         `)
@@ -957,18 +936,11 @@ describe.each(testVersions)(
 
         const codeWithoutImport = inlineStaticSchemas(code)
 
-        expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
-          const PermissiveLiteralTrue = z.preprocess((value) => {
-                    return PermissiveBoolean.parse(value)
-                  }, z.literal(true))
+        expect(code).toMatchInlineSnapshot(`
+          "import {
+            PermissiveBoolean,
+            PermissiveLiteralTrue,
+          } from "./unit-test.schemas.ts"
 
           const x = PermissiveLiteralTrue"
         `)
@@ -989,18 +961,11 @@ describe.each(testVersions)(
 
         const codeWithoutImport = inlineStaticSchemas(code)
 
-        expect(codeWithoutImport).toMatchInlineSnapshot(`
-          "const PermissiveBoolean = z.preprocess((value) => {
-                    if(typeof value === "string" && (value === "true" || value === "false")) {
-                      return value === "true"
-                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
-                      return value === 1
-                    }
-                    return value
-                  }, z.boolean())
-          const PermissiveLiteralFalse = z.preprocess((value) => {
-                    return PermissiveBoolean.parse(value)
-                  }, z.literal(false))
+        expect(code).toMatchInlineSnapshot(`
+          "import {
+            PermissiveBoolean,
+            PermissiveLiteralFalse,
+          } from "./unit-test.schemas.ts"
 
           const x = PermissiveLiteralFalse"
         `)

@@ -42,7 +42,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/SimpleObject")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_SimpleObject } from "./unit-test.schemas"
+        "import { s_SimpleObject } from "./unit-test.schemas.ts"
 
         const x = s_SimpleObject.required()"
       `)
@@ -73,7 +73,7 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_ObjectWithComplexProperties } from "./unit-test.schemas"
+        "import { s_ObjectWithComplexProperties } from "./unit-test.schemas.ts"
 
         const x = s_ObjectWithComplexProperties.required()"
       `)
@@ -126,7 +126,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/OneOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_OneOf } from "./unit-test.schemas"
+        "import { s_OneOf } from "./unit-test.schemas.ts"
 
         const x = s_OneOf.required()"
       `)
@@ -154,7 +154,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/AnyOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_AnyOf } from "./unit-test.schemas"
+        "import { s_AnyOf } from "./unit-test.schemas.ts"
 
         const x = s_AnyOf.required()"
       `)
@@ -174,7 +174,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/AllOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_AllOf } from "./unit-test.schemas"
+        "import { s_AllOf } from "./unit-test.schemas.ts"
 
         const x = s_AllOf.required()"
       `)
@@ -207,7 +207,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Recursive")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_Recursive } from "./unit-test.schemas"
+        "import { s_Recursive } from "./unit-test.schemas.ts"
 
         const x = joi.link("#s_Recursive.required()")"
       `)
@@ -228,7 +228,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Ordering")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_Ordering } from "./unit-test.schemas"
+        "import { s_Ordering } from "./unit-test.schemas.ts"
 
         const x = s_Ordering.required()"
       `)
@@ -266,7 +266,7 @@ describe.each(testVersions)(
       const {code, schemas} = await getActual("components/schemas/Enums")
 
       expect(code).toMatchInlineSnapshot(`
-        "import { s_Enums } from "./unit-test.schemas"
+        "import { s_Enums } from "./unit-test.schemas.ts"
 
         const x = s_Enums.required()"
       `)
@@ -293,7 +293,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesBool } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesBool } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesBool.required()"
         `)
@@ -315,7 +315,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesUnknownEmptySchema.required()"
         `)
@@ -337,7 +337,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesUnknownEmptyObjectSchema.required()"
         `)
@@ -359,7 +359,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesSchema } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesSchema.required()"
         `)
@@ -388,7 +388,7 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas"
+          "import { s_AdditionalPropertiesMixed } from "./unit-test.schemas.ts"
 
           const x = s_AdditionalPropertiesMixed.required()"
         `)
