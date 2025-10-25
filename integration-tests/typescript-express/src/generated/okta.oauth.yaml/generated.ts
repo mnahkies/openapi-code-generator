@@ -2,6 +2,25 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  ExpressRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-express-runtime/errors"
+import {
+  type ExpressRuntimeResponder,
+  ExpressRuntimeResponse,
+  type Params,
+  type ServerConfig,
+  SkipResponse,
+  type StatusCode,
+  startServer,
+} from "@nahkies/typescript-express-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-express-runtime/zod-v4"
+import {type NextFunction, type Request, type Response, Router} from "express"
+import {z} from "zod/v4"
 import type {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
@@ -35,8 +54,8 @@ import type {
   t_GlobalTokenRevocationRequestBodySchema,
   t_IntrospectCustomAsParamSchema,
   t_IntrospectCustomAsRequestBodySchema,
-  t_IntrospectRequestBodySchema,
   t_IntrospectionResponse,
+  t_IntrospectRequestBodySchema,
   t_ListClientsQuerySchema,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
@@ -109,25 +128,6 @@ import {
   s_TokenResponse,
   s_UserInfo,
 } from "./schemas"
-import {
-  ExpressRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-express-runtime/errors"
-import {
-  type ExpressRuntimeResponder,
-  ExpressRuntimeResponse,
-  type Params,
-  type ServerConfig,
-  SkipResponse,
-  type StatusCode,
-  startServer,
-} from "@nahkies/typescript-express-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-express-runtime/zod-v4"
-import {type NextFunction, type Request, type Response, Router} from "express"
-import {z} from "zod/v4"
 
 export type GetWellKnownOpenIdConfigurationResponder = {
   with200(): ExpressRuntimeResponse<t_OidcMetadata>

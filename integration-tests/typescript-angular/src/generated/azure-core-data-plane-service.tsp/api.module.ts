@@ -2,8 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {ContosoWidgetManagerService} from "./client.service"
 import {NgModule} from "@angular/core"
+import {ContosoWidgetManagerService} from "./client.service"
 
 @NgModule({
   imports: [],

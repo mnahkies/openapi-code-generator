@@ -2,13 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_CreateUpdateTodoList,
-  t_Error,
-  t_Statuses,
-  t_TodoList,
-  t_UnknownObject,
-} from "./models"
 import {
   AbstractFetchClient,
   type AbstractFetchClientConfig,
@@ -18,6 +11,13 @@ import {
   type StatusCode4xx,
   type StatusCode5xx,
 } from "@nahkies/typescript-fetch-runtime/main"
+import type {
+  t_CreateUpdateTodoList,
+  t_Error,
+  t_Statuses,
+  t_TodoList,
+  t_UnknownObject,
+} from "./models"
 
 export class TodoListsExampleApiServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {

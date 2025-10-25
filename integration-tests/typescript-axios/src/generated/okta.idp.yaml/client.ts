@@ -2,9 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  AbstractAxiosClient,
+  type AbstractAxiosConfig,
+  type Server,
+} from "@nahkies/typescript-axios-runtime/main"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
   EmptyObject,
-  UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
@@ -20,13 +25,8 @@ import type {
   t_Schema,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  UnknownEnumStringValue,
 } from "./models"
-import {
-  AbstractAxiosClient,
-  type AbstractAxiosConfig,
-  type Server,
-} from "@nahkies/typescript-axios-runtime/main"
-import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class MyAccountManagementServers {
   static default(): Server<"MyAccountManagement"> {

@@ -2,16 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_GetHeadersRequestHeaderSchema,
-  t_getHeadersRequestJson200Response,
-  t_getHeadersUndeclaredJson200Response,
-} from "../models"
-import {
-  PermissiveBoolean,
-  s_getHeadersRequestJson200Response,
-  s_getHeadersUndeclaredJson200Response,
-} from "../schemas"
 import KoaRouter, {type RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
@@ -31,6 +21,16 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod-v4"
 import type {Next} from "koa"
 import {z} from "zod/v4"
+import type {
+  t_GetHeadersRequestHeaderSchema,
+  t_getHeadersRequestJson200Response,
+  t_getHeadersUndeclaredJson200Response,
+} from "../models"
+import {
+  PermissiveBoolean,
+  s_getHeadersRequestJson200Response,
+  s_getHeadersUndeclaredJson200Response,
+} from "../schemas"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): KoaRuntimeResponse<t_getHeadersUndeclaredJson200Response>

@@ -2,12 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_PostMediaTypesTextRequestBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
-  t_ProductOrder,
-} from "../models"
-import {s_ProductOrder} from "../schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -25,6 +19,12 @@ import {
 } from "@nahkies/typescript-express-runtime/zod-v4"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
+import type {
+  t_PostMediaTypesTextRequestBodySchema,
+  t_PostMediaTypesXWwwFormUrlencodedRequestBodySchema,
+  t_ProductOrder,
+} from "../models"
+import {s_ProductOrder} from "../schemas"
 
 export type PostMediaTypesTextResponder = {
   with200(): ExpressRuntimeResponse<string>

@@ -2,12 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_PostMediaTypesTextBodySchema,
-  t_PostMediaTypesXWwwFormUrlencodedBodySchema,
-  t_ProductOrder,
-} from "../models"
-import {s_ProductOrder} from "../schemas"
 import KoaRouter, {type RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
@@ -27,6 +21,12 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod-v4"
 import type {Next} from "koa"
 import {z} from "zod/v4"
+import type {
+  t_PostMediaTypesTextBodySchema,
+  t_PostMediaTypesXWwwFormUrlencodedBodySchema,
+  t_ProductOrder,
+} from "../models"
+import {s_ProductOrder} from "../schemas"
 
 export type PostMediaTypesTextResponder = {
   with200(): KoaRuntimeResponse<string>

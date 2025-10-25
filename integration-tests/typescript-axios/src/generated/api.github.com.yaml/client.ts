@@ -2,9 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  AbstractAxiosClient,
+  type AbstractAxiosConfig,
+  type Server,
+} from "@nahkies/typescript-axios-runtime/main"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
   EmptyObject,
-  UnknownEnumStringValue,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -335,13 +340,8 @@ import type {
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
+  UnknownEnumStringValue,
 } from "./models"
-import {
-  AbstractAxiosClient,
-  type AbstractAxiosConfig,
-  type Server,
-} from "@nahkies/typescript-axios-runtime/main"
-import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class GitHubV3RestApiServersOperations {
   static reposUploadReleaseAsset(

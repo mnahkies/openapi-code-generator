@@ -2,6 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  AbstractFetchClient,
+  type AbstractFetchClientConfig,
+  type Res,
+  type Server,
+  type StatusCode,
+} from "@nahkies/typescript-fetch-runtime/main"
 import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
@@ -20,13 +27,6 @@ import type {
   t_WidgetRepairRequest,
   t_WidgetRepairState,
 } from "./models"
-import {
-  AbstractFetchClient,
-  type AbstractFetchClientConfig,
-  type Res,
-  type Server,
-  type StatusCode,
-} from "@nahkies/typescript-fetch-runtime/main"
 
 export class ContosoWidgetManagerServers {
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {

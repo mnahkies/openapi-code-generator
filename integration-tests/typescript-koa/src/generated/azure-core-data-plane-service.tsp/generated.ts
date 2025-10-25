@@ -2,6 +2,27 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import KoaRouter, {type RouterContext} from "@koa/router"
+import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
+import {
+  type KoaRuntimeResponder,
+  KoaRuntimeResponse,
+  type Params,
+  type Response,
+  type ServerConfig,
+  SkipResponse,
+  type StatusCode,
+  startServer,
+} from "@nahkies/typescript-koa-runtime/server"
+import {
+  parseRequestInput,
+  responseValidationFactory,
+} from "@nahkies/typescript-koa-runtime/zod-v4"
+import type {Next} from "koa"
+import {z} from "zod/v4"
 import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
@@ -96,27 +117,6 @@ import {
   s_WidgetRepairRequest,
   s_WidgetRepairState,
 } from "./schemas"
-import KoaRouter, {type RouterContext} from "@koa/router"
-import {
-  KoaRuntimeError,
-  RequestInputType,
-} from "@nahkies/typescript-koa-runtime/errors"
-import {
-  type KoaRuntimeResponder,
-  KoaRuntimeResponse,
-  type Params,
-  type Response,
-  type ServerConfig,
-  SkipResponse,
-  type StatusCode,
-  startServer,
-} from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod-v4"
-import type {Next} from "koa"
-import {z} from "zod/v4"
 
 export type GetServiceStatusResponder = {
   with200(): KoaRuntimeResponse<{

@@ -2,9 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  AbstractAxiosClient,
+  type AbstractAxiosConfig,
+  type Server,
+} from "@nahkies/typescript-axios-runtime/main"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
   EmptyObject,
-  UnknownEnumStringValue,
   t_account,
   t_account_link,
   t_account_session,
@@ -161,13 +166,8 @@ import type {
   t_treasury_transaction,
   t_treasury_transaction_entry,
   t_webhook_endpoint,
+  UnknownEnumStringValue,
 } from "./models"
-import {
-  AbstractAxiosClient,
-  type AbstractAxiosConfig,
-  type Server,
-} from "@nahkies/typescript-axios-runtime/main"
-import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class StripeApiServersOperations {
   static postFiles(

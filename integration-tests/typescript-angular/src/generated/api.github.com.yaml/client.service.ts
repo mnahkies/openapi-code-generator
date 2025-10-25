@@ -2,9 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import type {Observable} from "rxjs"
 import type {
   EmptyObject,
-  UnknownEnumStringValue,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -340,10 +342,8 @@ import type {
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
+  UnknownEnumStringValue,
 } from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
-import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
 
 export class GitHubV3RestApiServiceServersOperations {
   static reposUploadReleaseAsset(

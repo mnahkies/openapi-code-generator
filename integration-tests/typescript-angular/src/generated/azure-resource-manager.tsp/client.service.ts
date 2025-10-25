@@ -2,6 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import type {Observable} from "rxjs"
 import type {
   t_Azure_Core_uuid,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
@@ -12,9 +15,6 @@ import type {
   t_MoveResponse,
   t_OperationListResult,
 } from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
-import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
 
 export class ContosoProviderHubClientServiceServers {
   static default(): Server<"ContosoProviderHubClientService"> {

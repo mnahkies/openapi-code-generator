@@ -2,18 +2,18 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_CreateUpdateTodoList,
-  t_Statuses,
-  t_TodoList,
-  t_UnknownObject,
-} from "./models"
 import {
   AbstractAxiosClient,
   type AbstractAxiosConfig,
   type Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
+import type {
+  t_CreateUpdateTodoList,
+  t_Statuses,
+  t_TodoList,
+  t_UnknownObject,
+} from "./models"
 
 export class TodoListsExampleApiServersOperations {
   static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {

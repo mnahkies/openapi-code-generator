@@ -2,10 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {t_Error, t_NewPet, t_Pet} from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
 import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
+import type {Observable} from "rxjs"
+import type {t_Error, t_NewPet, t_Pet} from "./models"
 
 export class SwaggerPetstoreServiceServers {
   static default(): Server<"SwaggerPetstoreService"> {

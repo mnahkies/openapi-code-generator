@@ -2,23 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_Enumerations,
-  t_ProductOrder,
-  t_RandomNumber,
-  t_getHeadersRequestJson200Response,
-  t_getHeadersUndeclaredJson200Response,
-  t_postValidationOptionalBodyJson200Response,
-  t_postValidationOptionalBodyJsonRequestBody,
-} from "./models"
-import {
-  s_Enumerations,
-  s_ProductOrder,
-  s_RandomNumber,
-  s_getHeadersRequestJson200Response,
-  s_getHeadersUndeclaredJson200Response,
-  s_postValidationOptionalBodyJson200Response,
-} from "./schemas"
 import {
   AbstractFetchClient,
   type AbstractFetchClientConfig,
@@ -27,6 +10,23 @@ import {
 } from "@nahkies/typescript-fetch-runtime/main"
 import {responseValidationFactory} from "@nahkies/typescript-fetch-runtime/zod-v4"
 import {z} from "zod/v4"
+import type {
+  t_Enumerations,
+  t_getHeadersRequestJson200Response,
+  t_getHeadersUndeclaredJson200Response,
+  t_ProductOrder,
+  t_postValidationOptionalBodyJson200Response,
+  t_postValidationOptionalBodyJsonRequestBody,
+  t_RandomNumber,
+} from "./models"
+import {
+  s_Enumerations,
+  s_getHeadersRequestJson200Response,
+  s_getHeadersUndeclaredJson200Response,
+  s_ProductOrder,
+  s_postValidationOptionalBodyJson200Response,
+  s_RandomNumber,
+} from "./schemas"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {

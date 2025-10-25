@@ -2,16 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_GetHeadersRequestRequestHeaderSchema,
-  t_getHeadersRequestJson200Response,
-  t_getHeadersUndeclaredJson200Response,
-} from "../models"
-import {
-  PermissiveBoolean,
-  s_getHeadersRequestJson200Response,
-  s_getHeadersUndeclaredJson200Response,
-} from "../schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -29,6 +19,16 @@ import {
 } from "@nahkies/typescript-express-runtime/zod-v4"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
+import type {
+  t_GetHeadersRequestRequestHeaderSchema,
+  t_getHeadersRequestJson200Response,
+  t_getHeadersUndeclaredJson200Response,
+} from "../models"
+import {
+  PermissiveBoolean,
+  s_getHeadersRequestJson200Response,
+  s_getHeadersUndeclaredJson200Response,
+} from "../schemas"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): ExpressRuntimeResponse<t_getHeadersUndeclaredJson200Response>

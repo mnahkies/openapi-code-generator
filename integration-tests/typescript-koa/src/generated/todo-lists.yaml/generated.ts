@@ -2,27 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_CreateTodoListItemBodySchema,
-  t_CreateTodoListItemParamSchema,
-  t_DeleteTodoListByIdParamSchema,
-  t_Error,
-  t_GetTodoListByIdParamSchema,
-  t_GetTodoListItemsParamSchema,
-  t_GetTodoListsQuerySchema,
-  t_TodoList,
-  t_UnknownObject,
-  t_UpdateTodoListByIdBodySchema,
-  t_UpdateTodoListByIdParamSchema,
-  t_UploadAttachmentBodySchema,
-} from "./models"
-import {
-  s_CreateUpdateTodoList,
-  s_Error,
-  s_Statuses,
-  s_TodoList,
-  s_UnknownObject,
-} from "./schemas"
 import KoaRouter, {type RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
@@ -46,6 +25,27 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod-v4"
 import type {Next} from "koa"
 import {z} from "zod/v4"
+import type {
+  t_CreateTodoListItemBodySchema,
+  t_CreateTodoListItemParamSchema,
+  t_DeleteTodoListByIdParamSchema,
+  t_Error,
+  t_GetTodoListByIdParamSchema,
+  t_GetTodoListItemsParamSchema,
+  t_GetTodoListsQuerySchema,
+  t_TodoList,
+  t_UnknownObject,
+  t_UpdateTodoListByIdBodySchema,
+  t_UpdateTodoListByIdParamSchema,
+  t_UploadAttachmentBodySchema,
+} from "./models"
+import {
+  s_CreateUpdateTodoList,
+  s_Error,
+  s_Statuses,
+  s_TodoList,
+  s_UnknownObject,
+} from "./schemas"
 
 export type GetTodoListsResponder = {
   with200(): KoaRuntimeResponse<t_TodoList[]>

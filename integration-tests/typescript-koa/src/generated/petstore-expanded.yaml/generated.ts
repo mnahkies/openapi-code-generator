@@ -2,15 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_AddPetBodySchema,
-  t_DeletePetParamSchema,
-  t_Error,
-  t_FindPetByIdParamSchema,
-  t_FindPetsQuerySchema,
-  t_Pet,
-} from "./models"
-import {s_Error, s_NewPet, s_Pet} from "./schemas"
 import KoaRouter, {type RouterContext} from "@koa/router"
 import {
   KoaRuntimeError,
@@ -32,6 +23,15 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod-v4"
 import type {Next} from "koa"
 import {z} from "zod/v4"
+import type {
+  t_AddPetBodySchema,
+  t_DeletePetParamSchema,
+  t_Error,
+  t_FindPetByIdParamSchema,
+  t_FindPetsQuerySchema,
+  t_Pet,
+} from "./models"
+import {s_Error, s_NewPet, s_Pet} from "./schemas"
 
 export type FindPetsResponder = {
   with200(): KoaRuntimeResponse<t_Pet[]>

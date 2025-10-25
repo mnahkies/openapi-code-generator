@@ -2,27 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type {
-  t_CreateTodoListItemParamSchema,
-  t_CreateTodoListItemRequestBodySchema,
-  t_DeleteTodoListByIdParamSchema,
-  t_Error,
-  t_GetTodoListByIdParamSchema,
-  t_GetTodoListItemsParamSchema,
-  t_GetTodoListsQuerySchema,
-  t_TodoList,
-  t_UnknownObject,
-  t_UpdateTodoListByIdParamSchema,
-  t_UpdateTodoListByIdRequestBodySchema,
-  t_UploadAttachmentRequestBodySchema,
-} from "./models"
-import {
-  s_CreateUpdateTodoList,
-  s_Error,
-  s_Statuses,
-  s_TodoList,
-  s_UnknownObject,
-} from "./schemas"
 import {
   ExpressRuntimeError,
   RequestInputType,
@@ -44,6 +23,27 @@ import {
 } from "@nahkies/typescript-express-runtime/zod-v4"
 import {type NextFunction, type Request, type Response, Router} from "express"
 import {z} from "zod/v4"
+import type {
+  t_CreateTodoListItemParamSchema,
+  t_CreateTodoListItemRequestBodySchema,
+  t_DeleteTodoListByIdParamSchema,
+  t_Error,
+  t_GetTodoListByIdParamSchema,
+  t_GetTodoListItemsParamSchema,
+  t_GetTodoListsQuerySchema,
+  t_TodoList,
+  t_UnknownObject,
+  t_UpdateTodoListByIdParamSchema,
+  t_UpdateTodoListByIdRequestBodySchema,
+  t_UploadAttachmentRequestBodySchema,
+} from "./models"
+import {
+  s_CreateUpdateTodoList,
+  s_Error,
+  s_Statuses,
+  s_TodoList,
+  s_UnknownObject,
+} from "./schemas"
 
 export type GetTodoListsResponder = {
   with200(): ExpressRuntimeResponse<t_TodoList[]>

@@ -2,6 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {
+  AbstractAxiosClient,
+  type AbstractAxiosConfig,
+  type Server,
+} from "@nahkies/typescript-axios-runtime/main"
+import type {AxiosRequestConfig, AxiosResponse} from "axios"
 import type {
   t_AcrValue,
   t_AmrValue,
@@ -33,12 +39,6 @@ import type {
   t_TokenResponse,
   t_UserInfo,
 } from "./models"
-import {
-  AbstractAxiosClient,
-  type AbstractAxiosConfig,
-  type Server,
-} from "@nahkies/typescript-axios-runtime/main"
-import type {AxiosRequestConfig, AxiosResponse} from "axios"
 
 export class OktaOpenIdConnectOAuth20Servers {
   static default(): Server<"OktaOpenIdConnectOAuth20"> {

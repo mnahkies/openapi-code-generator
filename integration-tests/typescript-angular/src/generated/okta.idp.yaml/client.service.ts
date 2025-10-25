@@ -2,9 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import {HttpClient, HttpParams, type HttpResponse} from "@angular/common/http"
+import {Injectable} from "@angular/core"
+import type {Observable} from "rxjs"
 import type {
   EmptyObject,
-  UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
@@ -21,10 +23,8 @@ import type {
   t_Schema,
   t_UpdateAppAuthenticatorEnrollmentRequest,
   t_UpdateAuthenticatorEnrollmentRequest,
+  UnknownEnumStringValue,
 } from "./models"
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
-import {Injectable} from "@angular/core"
-import {Observable} from "rxjs"
 
 export class MyAccountManagementServiceServers {
   static default(): Server<"MyAccountManagementService"> {
