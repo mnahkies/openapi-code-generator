@@ -8,6 +8,7 @@ const Ajv2020 = require("ajv/dist/2020")
 const standaloneCode = require("ajv/dist/standalone").default
 const addFormats = require("ajv-formats")
 const {Biome, Distribution} = require("@biomejs/js-api")
+const stripJsonComments = require("strip-json-comments").default
 
 const openapi30Path = path.join(
   __dirname,
@@ -46,7 +47,12 @@ const writeOutput = async (filepath, moduleCode) => {
     path.resolve(path.join(__dirname, "..")),
   )
 
-  biome.applyConfiguration(projectKey, require("../biome.json"))
+  const biomeConfig = JSON.parse(
+    stripJsonComments(
+      await fs.readFile(path.join(__dirname, "../biome.jsonc"), "utf-8"),
+    ),
+  )
+  biome.applyConfiguration(projectKey, biomeConfig)
 
   const formatted = biome.formatContent(projectKey, raw, {
     filePath: filepath,
