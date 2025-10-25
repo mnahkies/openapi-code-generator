@@ -1,7 +1,15 @@
 import {describe, expect, it} from "@jest/globals"
-import {ImportBuilder} from "./import-builder"
+import {ImportBuilder, naturalCompare} from "./import-builder"
 
 describe("typescript/common/import-builder", () => {
+  describe("naturalCompare", () => {
+    it("puts uppercase before lowercase", () => {
+      expect(
+        ["a", "A", "startServer", "StatusCode"].sort(naturalCompare),
+      ).toEqual(["A", "a", "StatusCode", "startServer"])
+    })
+  })
+
   it("can import whole modules", () => {
     const builder = new ImportBuilder()
     builder.addModule("_", "lodash")
@@ -137,8 +145,8 @@ describe("typescript/common/import-builder", () => {
 
       expect(builder.toString(code)).toBe(
         [
-          "import {Cat, type Dog} from './models'",
           "import Lodash from 'lodash'",
+          "import {Cat, type Dog} from './models'",
         ].join("\n"),
       )
     })
@@ -155,6 +163,38 @@ describe("typescript/common/import-builder", () => {
 
       expect(builder.toString()).toBe(
         "import {Alpha, Bravo, type Mike, type Zulu} from 'pkg'",
+      )
+    })
+
+    it("orders sources by Biome distance (URL > protocol pkg > pkg > alias > paths)", () => {
+      const builder = new ImportBuilder({filename: "./foo/example.ts"})
+
+      builder.addModule("S1", "./file.js") // sibling
+      builder.addModule("A1", "#alias") // alias
+      builder.addModule("F1", "fs") // bare package
+      builder.addModule("NT", "node:test") // protocol package
+      builder.addModule("NP", "node:path") // protocol package
+      builder.addModule("P1", "../parent.js") // parent path
+      builder.addModule("J1", "jsr:@scoped/lib") // protocol package
+      builder.addModule("U1", "https://example.org") // URL
+      builder.addModule("L1", "lib") // bare package
+      builder.addModule("S2", "@scoped/lib") // scoped package
+      builder.from("@some/lib").add("startServer").addType("StatusCode")
+
+      expect(builder.toString()).toBe(
+        [
+          "import U1 from 'https://example.org'",
+          "import J1 from 'jsr:@scoped/lib'",
+          "import NP from 'node:path'",
+          "import NT from 'node:test'",
+          "import S2 from '@scoped/lib'",
+          "import {type StatusCode, startServer} from '@some/lib'",
+          "import F1 from 'fs'",
+          "import L1 from 'lib'",
+          "import A1 from '#alias'",
+          "import S1 from '../file.js'",
+          "import P1 from '../parent.js'",
+        ].join("\n"),
       )
     })
   })
