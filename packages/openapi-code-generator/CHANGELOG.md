@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.22.0-alpha.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.21.1...v0.22.0-alpha.0) (2025-10-26)
+
+### Bug Fixes
+
+- consistently use json5 ([#376](https://github.com/mnahkies/openapi-code-generator/issues/376)) ([84759e1](https://github.com/mnahkies/openapi-code-generator/commit/84759e1ea2c42f031318a79758346253edc47cde))
+- integration tests pass with joi schema builder ([#368](https://github.com/mnahkies/openapi-code-generator/issues/368)) ([d474e1f](https://github.com/mnahkies/openapi-code-generator/commit/d474e1f464aa45dfc24b81272aa9ce53ebde39e5)), closes [#349](https://github.com/mnahkies/openapi-code-generator/issues/349)
+- replace markdown-toc with remark-toc ([#377](https://github.com/mnahkies/openapi-code-generator/issues/377)) ([e10ae1d](https://github.com/mnahkies/openapi-code-generator/commit/e10ae1dcebfea5615fc309c755e579c227a6044d))
+- use import type when possible ([#374](https://github.com/mnahkies/openapi-code-generator/issues/374)) ([f50f3d9](https://github.com/mnahkies/openapi-code-generator/commit/f50f3d92220df3cf8667be15eb9776c4c6daad2e))
+- use nodejs built-in sourcemap support ([#370](https://github.com/mnahkies/openapi-code-generator/issues/370)) ([a2b3b5e](https://github.com/mnahkies/openapi-code-generator/commit/a2b3b5ee6792f1c4a8ce4493b36e4416ae7465ca))
+
+- feat!: support both zod v3 and zod v4 (#366) ([f7e374f](https://github.com/mnahkies/openapi-code-generator/commit/f7e374fd3c5193e57e71caf5aa6b51b6558ed1f0)), closes [#366](https://github.com/mnahkies/openapi-code-generator/issues/366)
+
+### Features
+
+- adopt trusted publishers ([#378](https://github.com/mnahkies/openapi-code-generator/issues/378)) ([8c93ded](https://github.com/mnahkies/openapi-code-generator/commit/8c93ded8bdecd10ecdb5b620d640d88396cadd02))
+- support esm projects ([#375](https://github.com/mnahkies/openapi-code-generator/issues/375)) ([2524aa0](https://github.com/mnahkies/openapi-code-generator/commit/2524aa09b262ed871f8b7b6838b273f5dd2eae8b))
+
+### BREAKING CHANGES
+
+- default schema builder now `zod-v4`, pass `zod-v3` to
+  continue using `zod@^3`
+
 ## [0.21.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.21.0...v0.21.1) (2025-08-13)
 
 ### Bug Fixes
