@@ -118,16 +118,16 @@ workplace's Github organisation.
 
 ## Publishing
 
-For now, publishing the package is a manual process. There are two scripts to
-assist:
+The package is published using Github Actions as a [trusted publisher](https://docs.npmjs.com/trusted-publishers).
 
-```shell
-# Publish a pre-release, eg: 0.0.2-alpha.107
-pnpm publish:alpha
-# Publish a release, eg: 0.0.1
-pnpm publish:release
-```
+The release process is as follows:
 
-These will build and test before asking for publish confirmation.
+1. Repository admin runs `pnpm publish:alpha` / `pnpm publish:release` against `main`
+   * bumps the package versions
+   * generates changelogs
+   * commits and tags
+2. When happy with the release commit / tags, push to `main`
+3. The [publish-npm](./.github/workflows/publish-npm.yml) action will be triggered by the version tag, build and publish the packages to npm.
+   * A repository admin will need to manually approve the workflow run.
 
 After publishing a release, manually create a release in Github.

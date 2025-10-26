@@ -17,7 +17,8 @@ pnpm ci-pipeline
 
 ./scripts/assert-clean-working-directory.sh
 
-pnpm lerna publish \
+pnpm exec lerna version \
   --no-private \
   --force-publish \
+  --no-push \
   --conventional-commits

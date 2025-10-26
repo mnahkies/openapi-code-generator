@@ -5,9 +5,6 @@ packages:
 
 minimumReleaseAge: 10080 # 7 days in minutes
 
-configDependencies:
-  '@pnpm/plugin-types-fixer': 0.1.0+sha512-bLww63gRHi7siYTqFJb5qNdcXadU0jv20Et6z5AryMZ7FlLolbEJOrXLpg8+amQZNHHNW1dfFUBGVw/9ezQbFg==
-
 dedupeInjectedDeps: true
 
 linkWorkspacePackages: deep

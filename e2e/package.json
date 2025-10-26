@@ -21,7 +21,7 @@
     "@nahkies/typescript-koa-runtime": "workspace:*",
     "axios": "^1.12.2",
     "express": "^5.1.0",
-    "koa": "^3.0.1",
+    "koa": "^3.0.3",
     "zod": "^3.25.74"
   },
   "devDependencies": {

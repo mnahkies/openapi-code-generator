@@ -1,15 +1,17 @@
-name: Publish Docs
+name: Publish NPM
 on:
   push:
     tags:
       - v*
+
 permissions:
-  contents: write
+  contents: read
+  id-token: write
 
 jobs:
-  publish_docs:
+  publish_npm:
     runs-on: ubuntu-latest
-
+    environment: prod
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
@@ -31,13 +33,24 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}-
 
+      - name: Validate tag matches package.json versions
+        run: |
+          TAG_VERSION="${{ github.ref_name }}"
+
+          node scripts/validate-package-version.mjs "${TAG_VERSION}"
+
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm ci-build
 
-      - name: Publish documentation
+      - name: Publish packages
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-          pnpm --filter @nahkies/openapi-code-generator-documentation run publish:gh-pages
+          TAG_VERSION="${{ github.ref_name }}"
+
+          if [[ $TAG_VERSION == *"alpha"* ]]; then
+            NPM_DIST_TAG=alpha
+          else
+            NPM_DIST_TAG=latest
+          fi
+
+          pnpm publish -r --dry-run --tag $NPM_DIST_TAG
