@@ -16,7 +16,9 @@ export async function generateTypescriptKoa(
   const routesDirectory =
     config.groupingStrategy === "none" ? "./" : "./routes/"
 
-  const schemaBuilderImports = new ImportBuilder()
+  const importBuilderConfig = {includeFileExtensions: config.isEsmProject}
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
@@ -38,7 +40,7 @@ export async function generateTypescriptKoa(
     "index.ts",
     input.name(),
     input,
-    new ImportBuilder(),
+    new ImportBuilder(importBuilderConfig),
   )
 
   const routers = await Promise.all(
@@ -47,7 +49,12 @@ export async function generateTypescriptKoa(
         `${path.join(routesDirectory, group.name)}.ts`,
         config.filenameConvention,
       )
-      const imports = new ImportBuilder({filename})
+      const imports = new ImportBuilder({
+        ...importBuilderConfig,
+        unit: {
+          filename,
+        },
+      })
 
       const routerBuilder = new KoaRouterBuilder(
         filename,

@@ -52,8 +52,10 @@ describe("typescript/server/typescript-koa/koa-router-builder", () => {
 
       const formatter = await TypescriptFormatterBiome.createNodeFormatter()
 
-      const imports = new ImportBuilder()
-      const schemaBuilderImports = new ImportBuilder()
+      const imports = new ImportBuilder({includeFileExtensions: false})
+      const schemaBuilderImports = new ImportBuilder({
+        includeFileExtensions: false,
+      })
 
       const typeBuilder = await TypeBuilder.fromInput(
         "./unit-test.types.ts",

@@ -85,6 +85,7 @@ export async function generate(
     compilerOptions: config.tsCompilerOptions,
     groupingStrategy: config.groupingStrategy,
     filenameConvention: config.filenameConvention,
+    isEsmProject: config.tsIsEsmProject,
     allowAny: config.tsAllowAny,
     serverImplementationMethod: config.tsServerImplementationMethod,
   })

@@ -441,7 +441,7 @@ describe.each(testVersions)(
       const {input, file} = await unitTestInput(version)
       const schema = {$ref: `${file}#/${path}`}
 
-      const imports = new ImportBuilder()
+      const imports = new ImportBuilder({includeFileExtensions: false})
 
       const builder = await TypeBuilder.fromInput(
         "./unit-test.types.ts",

@@ -19,7 +19,7 @@ async function runTest(
     "unit-test.ts",
     "UnitTest",
     servers,
-    new ImportBuilder(),
+    new ImportBuilder({includeFileExtensions: false}),
   )
 
   for (const it of operations) {

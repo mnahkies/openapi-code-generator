@@ -10,8 +10,10 @@ export async function generateTypescriptAxios(
 ): Promise<void> {
   const {input, emitter, allowAny} = config
 
-  const schemaBuilderImports = new ImportBuilder()
-  const clientImports = new ImportBuilder()
+  const importBuilderConfig = {includeFileExtensions: config.isEsmProject}
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
+  const clientImports = new ImportBuilder(importBuilderConfig)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",

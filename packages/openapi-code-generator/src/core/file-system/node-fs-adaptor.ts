@@ -13,8 +13,15 @@ export class NodeFsAdaptor implements IFsAdaptor {
   }
 
   async exists(path: string) {
-    const stat = await fs.stat(path)
-    return stat.isFile()
+    try {
+      const stat = await fs.stat(path)
+      return stat.isFile()
+    } catch (err) {
+      if (err instanceof Error && Reflect.get(err, "code") === "ENOENT") {
+        return false
+      }
+      throw err
+    }
   }
 
   existsSync(path: string) {

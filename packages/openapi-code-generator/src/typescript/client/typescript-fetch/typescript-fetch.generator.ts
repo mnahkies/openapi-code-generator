@@ -10,7 +10,9 @@ export async function generateTypescriptFetch(
 ): Promise<void> {
   const {input, emitter, allowAny} = config
 
-  const schemaBuilderImports = new ImportBuilder()
+  const importBuilderConfig = {includeFileExtensions: config.isEsmProject}
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
@@ -27,7 +29,7 @@ export async function generateTypescriptFetch(
     rootTypeBuilder,
   )
 
-  const imports = new ImportBuilder()
+  const imports = new ImportBuilder(importBuilderConfig)
 
   const filename = "client.ts"
   const exportName = titleCase(input.name())

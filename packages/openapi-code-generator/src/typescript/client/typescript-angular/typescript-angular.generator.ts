@@ -11,9 +11,11 @@ export async function generateTypescriptAngular(
 ): Promise<void> {
   const {input, emitter, allowAny} = config
 
-  const schemaBuilderImports = new ImportBuilder()
-  const moduleImports = new ImportBuilder()
-  const serviceImports = new ImportBuilder()
+  const importBuilderConfig = {includeFileExtensions: config.isEsmProject}
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
+  const moduleImports = new ImportBuilder(importBuilderConfig)
+  const serviceImports = new ImportBuilder(importBuilderConfig)
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",

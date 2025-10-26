@@ -17,6 +17,7 @@ import {z} from "zod/v4"
 import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import type {OperationGroupStrategy} from "./core/input"
+import {loadPackageJson} from "./core/loaders/package.json.loader"
 import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {
   loadTypescriptFormatterConfig,
@@ -30,7 +31,7 @@ import {configSchema, generate} from "./index"
 import {templateNames} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
 
-export const boolParser = (arg: string): boolean => {
+const optionalBoolParser = (arg: string): boolean | undefined => {
   const TRUTHY_VALUES = ["true", "1", "on"]
   const FALSY_VALUES = ["false", "0", "off", ""]
 
@@ -41,6 +42,10 @@ export const boolParser = (arg: string): boolean => {
     return false
   }
 
+  if (!arg) {
+    return undefined
+  }
+
   throw new InvalidArgumentError(
     `'${arg}' is not a valid boolean parameter. Valid truthy values are: ${TRUTHY_VALUES.map(
       (it) => JSON.stringify(it),
@@ -48,6 +53,16 @@ export const boolParser = (arg: string): boolean => {
       JSON.stringify(it),
     ).join(", ")}`,
   )
+}
+
+export const boolParser = (arg: string): boolean => {
+  const result = optionalBoolParser(arg)
+
+  if (result === undefined) {
+    throw new InvalidArgumentError(`'${arg}' is not a valid boolean parameter.`)
+  }
+
+  return result
 }
 
 export const remoteSpecRequestHeadersParser = (arg: string) => {
@@ -122,6 +137,14 @@ const program = new Command()
       .env("OPENAPI_TS_ALLOW_ANY")
       .argParser(boolParser)
       .default(false),
+  )
+  .addOption(
+    new Option(
+      "--ts-is-esm-project [bool]",
+      `(typescript) whether the target project uss esm or commonjs. auto-detected from package.json when omitted.`,
+    )
+      .env("OPENAPI_TS_IS_ESM_PROJECT")
+      .argParser(optionalBoolParser),
   )
   .addOption(
     new Option(
@@ -285,11 +308,15 @@ async function main() {
   )
 
   const outputPath = path.join(process.cwd(), config.output)
+
   const formatterOptions = await loadTypescriptFormatterConfig(
     outputPath,
     fsAdaptor,
   )
+
   const formatter = await formatterFactory(formatterOptions)
+
+  const projectPackageJson = await loadPackageJson(outputPath, fsAdaptor)
 
   const compilerOptions = await loadTsConfigCompilerOptions(
     outputPath,
@@ -298,6 +325,8 @@ async function main() {
 
   await generate(
     configSchema.parse({
+      // can be overridden by config spread
+      tsIsEsmProject: projectPackageJson.type === "module",
       ...config,
       tsCompilerOptions: compilerOptions,
     }),

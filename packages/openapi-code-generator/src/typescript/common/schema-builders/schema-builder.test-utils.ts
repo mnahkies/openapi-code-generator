@@ -46,7 +46,7 @@ export function schemaBuilderTestHarness(
   ) {
     const formatter = await TypescriptFormatterBiome.createNodeFormatter()
 
-    const imports = new ImportBuilder()
+    const imports = new ImportBuilder({includeFileExtensions: false})
 
     const typeBuilder = await TypeBuilder.fromInput(
       "./unit-test.types.ts",
@@ -60,7 +60,7 @@ export function schemaBuilderTestHarness(
       input,
       schemaBuilderType,
       config,
-      new ImportBuilder(),
+      new ImportBuilder({includeFileExtensions: false}),
       typeBuilder,
     )
 

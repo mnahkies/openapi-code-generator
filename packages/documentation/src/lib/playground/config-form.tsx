@@ -17,6 +17,7 @@ const schema = configSchema.pick({
   groupingStrategy: true,
   tsAllowAny: true,
   tsServerImplementationMethod: true,
+  tsIsEsmProject: true,
   enumExtensibility: true,
 })
 
@@ -37,6 +38,7 @@ export const ConfigForm: React.FC<{
       groupingStrategy: config.groupingStrategy,
       tsAllowAny: config.tsAllowAny,
       tsServerImplementationMethod: config.tsServerImplementationMethod,
+      tsIsEsmProject: config.tsIsEsmProject,
       enumExtensibility: config.enumExtensibility,
     } as const,
   })
@@ -81,6 +83,11 @@ export const ConfigForm: React.FC<{
       <ControlledCheckbox
         label={"--ts-allow-any"}
         name={"tsAllowAny"}
+        control={control}
+      />
+      <ControlledCheckbox
+        label={"--ts-is-esm-project"}
+        name={"tsIsEsmProject"}
         control={control}
       />
       <ControlledSelect

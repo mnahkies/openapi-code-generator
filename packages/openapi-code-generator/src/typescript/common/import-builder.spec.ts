@@ -11,14 +11,14 @@ describe("typescript/common/import-builder", () => {
   })
 
   it("can import whole modules", () => {
-    const builder = new ImportBuilder()
+    const builder = new ImportBuilder({includeFileExtensions: false})
     builder.addModule("_", "lodash")
 
     expect(builder.toString()).toBe("import _ from 'lodash'")
   })
 
   it("can import individual exports", () => {
-    const builder = new ImportBuilder()
+    const builder = new ImportBuilder({includeFileExtensions: false})
 
     builder.addSingle("Cat", "./models", false)
     builder.addSingle("Dog", "./models", false)
@@ -27,7 +27,7 @@ describe("typescript/common/import-builder", () => {
   })
 
   it("can import a whole module, and individual exports", () => {
-    const builder = new ImportBuilder()
+    const builder = new ImportBuilder({includeFileExtensions: false})
 
     builder.addSingle("Next", "koa", false)
     builder.addSingle("Context", "koa", false)
@@ -38,7 +38,12 @@ describe("typescript/common/import-builder", () => {
 
   describe("relative path handling", () => {
     it("same directory", () => {
-      const builder = new ImportBuilder({filename: "./foo/example"})
+      const builder = new ImportBuilder({
+        unit: {
+          filename: "./foo/example",
+        },
+        includeFileExtensions: false,
+      })
 
       builder.addSingle("Cat", "./foo/models", false)
 
@@ -46,7 +51,12 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("parent directory", () => {
-      const builder = new ImportBuilder({filename: "./foo/example"})
+      const builder = new ImportBuilder({
+        unit: {
+          filename: "./foo/example",
+        },
+        includeFileExtensions: false,
+      })
 
       builder.addSingle("Cat", "./models", false)
 
@@ -54,7 +64,12 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("child directory", () => {
-      const builder = new ImportBuilder({filename: "./example"})
+      const builder = new ImportBuilder({
+        unit: {
+          filename: "./example",
+        },
+        includeFileExtensions: false,
+      })
 
       builder.addSingle("Cat", "./foo/models", false)
 
@@ -62,7 +77,12 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("sibling directory", () => {
-      const builder = new ImportBuilder({filename: "./foo/example"})
+      const builder = new ImportBuilder({
+        unit: {
+          filename: "./foo/example",
+        },
+        includeFileExtensions: false,
+      })
 
       builder.addSingle("Cat", "./bar/models", false)
 
@@ -72,7 +92,7 @@ describe("typescript/common/import-builder", () => {
 
   describe("type imports", () => {
     it("can import types", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.addSingle("Cat", "./models", false)
       builder.addSingle("Dog", "./models", true)
@@ -81,7 +101,7 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("formats all-type named imports as 'import type {A, B}'", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.addSingle("A", "lib", true)
       builder.addSingle("B", "lib", true)
@@ -90,7 +110,7 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("mixes default import with only-type named imports", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.addModule("Default", "lib")
       builder.addSingle("A", "lib", true)
@@ -102,7 +122,7 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("deduplicates names when added as both value and type (prefers value)", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.addSingle("Overlap", "pkg", false)
       builder.addSingle("Overlap", "pkg", true)
@@ -116,7 +136,7 @@ describe("typescript/common/import-builder", () => {
 
   describe("from() chaining API", () => {
     it("supports add, addType, and all in a single chain", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.from("koa").add("Context", "Next").addType("State").all("koa")
 
@@ -128,7 +148,7 @@ describe("typescript/common/import-builder", () => {
 
   describe("usage-based pruning", () => {
     it("omits unused named and default imports based on provided code", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.addModule("_, defaultExport", "ignore-me") // ensure not used
       builder.addModule("Lodash", "lodash")
@@ -154,7 +174,7 @@ describe("typescript/common/import-builder", () => {
 
   describe("sorting", () => {
     it("sorts named imports alphabetically and groups types correctly", () => {
-      const builder = new ImportBuilder()
+      const builder = new ImportBuilder({includeFileExtensions: false})
 
       builder.addSingle("Bravo", "pkg", false)
       builder.addSingle("Alpha", "pkg", false)
@@ -167,7 +187,12 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("orders sources by Biome distance (URL > protocol pkg > pkg > alias > paths)", () => {
-      const builder = new ImportBuilder({filename: "./foo/example"})
+      const builder = new ImportBuilder({
+        unit: {
+          filename: "./foo/example",
+        },
+        includeFileExtensions: false,
+      })
 
       builder.addModule("S1", "./file.js") // sibling
       builder.addModule("A1", "#alias") // alias
@@ -201,11 +226,11 @@ describe("typescript/common/import-builder", () => {
 
   describe("merge()", () => {
     it("merges multiple builders and preserves types/values", () => {
-      const a = new ImportBuilder()
+      const a = new ImportBuilder({includeFileExtensions: false})
       a.addSingle("A", "x", false)
       a.addSingle("TA", "x", true)
 
-      const b = new ImportBuilder()
+      const b = new ImportBuilder({includeFileExtensions: false})
       b.addModule("Def", "x")
       b.addSingle("B", "x", false)
 
@@ -215,10 +240,10 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("throws when merging builders with conflicting default imports for same module", () => {
-      const a = new ImportBuilder()
+      const a = new ImportBuilder({includeFileExtensions: false})
       a.addModule("DefA", "x")
 
-      const b = new ImportBuilder()
+      const b = new ImportBuilder({includeFileExtensions: false})
       b.addModule("DefB", "x")
 
       expect(() => ImportBuilder.merge(undefined, a, b)).toThrow(
