@@ -16,6 +16,8 @@ export async function generateTypescriptExpress(
   const routesDirectory =
     config.groupingStrategy === "none" ? "./" : "./routes/"
 
+  const schemaBuilderImports = new ImportBuilder()
+
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
@@ -28,6 +30,7 @@ export async function generateTypescriptExpress(
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
     rootTypeBuilder,
   )
 

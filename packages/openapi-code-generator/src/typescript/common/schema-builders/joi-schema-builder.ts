@@ -34,12 +34,14 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
+    schemaBuilderImports: ImportBuilder,
     typeBuilder: TypeBuilder,
   ): Promise<JoiBuilder> {
     return new JoiBuilder(
       filename,
       input,
       schemaBuilderConfig,
+      schemaBuilderImports,
       typeBuilder,
       staticSchemas,
     )
@@ -50,6 +52,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       this.filename,
       this.input,
       this.config,
+      this.schemaBuilderImports,
       this.typeBuilder,
       staticSchemas,
       {},

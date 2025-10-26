@@ -60,6 +60,7 @@ export function schemaBuilderTestHarness(
       input,
       schemaBuilderType,
       config,
+      new ImportBuilder(),
       typeBuilder,
     )
 

@@ -1,4 +1,5 @@
 import type {Input} from "../../../core/input"
+import type {ImportBuilder} from "../import-builder"
 import type {TypeBuilder} from "../type-builder"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {JoiBuilder} from "./joi-schema-builder"
@@ -13,6 +14,7 @@ export function schemaBuilderFactory(
   input: Input,
   schemaBuilderType: SchemaBuilderType,
   schemaBuilderConfig: SchemaBuilderConfig,
+  schemaBuilderImports: ImportBuilder,
   typeBuilder: TypeBuilder,
 ): Promise<SchemaBuilder> {
   switch (schemaBuilderType) {
@@ -21,6 +23,7 @@ export function schemaBuilderFactory(
         filename,
         input,
         schemaBuilderConfig,
+        schemaBuilderImports,
         typeBuilder,
       )
     }
@@ -30,6 +33,7 @@ export function schemaBuilderFactory(
         filename,
         input,
         schemaBuilderConfig,
+        schemaBuilderImports,
         typeBuilder,
       )
     }
@@ -39,6 +43,7 @@ export function schemaBuilderFactory(
         filename,
         input,
         schemaBuilderConfig,
+        schemaBuilderImports,
         typeBuilder,
       )
     }

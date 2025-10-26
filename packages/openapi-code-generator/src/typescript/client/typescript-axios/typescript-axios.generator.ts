@@ -10,6 +10,9 @@ export async function generateTypescriptAxios(
 ): Promise<void> {
   const {input, emitter, allowAny} = config
 
+  const schemaBuilderImports = new ImportBuilder()
+  const clientImports = new ImportBuilder()
+
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
@@ -22,10 +25,9 @@ export async function generateTypescriptAxios(
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
     rootTypeBuilder,
   )
-
-  const imports = new ImportBuilder()
 
   const filename = "client.ts"
   const exportName = titleCase(input.name())
@@ -34,9 +36,9 @@ export async function generateTypescriptAxios(
     filename,
     exportName,
     input,
-    imports,
-    rootTypeBuilder.withImports(imports),
-    rootSchemaBuilder.withImports(imports),
+    clientImports,
+    rootTypeBuilder.withImports(clientImports),
+    rootSchemaBuilder.withImports(clientImports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
       enableTypedBasePaths: config.enableTypedBasePaths,

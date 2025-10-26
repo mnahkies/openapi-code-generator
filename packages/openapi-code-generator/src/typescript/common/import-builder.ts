@@ -82,6 +82,10 @@ export function categorizeImportSource(source: string): ImportCategory {
   return ImportCategory.PATH
 }
 
+export type ImportBuilderConfig = {
+  includeFileExtensions: boolean
+}
+
 export class ImportBuilder {
   private readonly imports: Record<
     string,
@@ -89,7 +93,12 @@ export class ImportBuilder {
   > = {}
   private readonly importAll: Record<string, string> = {}
 
-  constructor(private readonly unit?: {filename: string}) {}
+  constructor(
+    private readonly unit?: {filename: string},
+    private readonly config: ImportBuilderConfig = {
+      includeFileExtensions: false,
+    },
+  ) {}
 
   from(from: string) {
     const chain = {
@@ -142,7 +151,8 @@ export class ImportBuilder {
     unit: {filename: string} | undefined,
     ...builders: ImportBuilder[]
   ): ImportBuilder {
-    const result = new ImportBuilder(unit)
+    const config = builders[0]?.config
+    const result = new ImportBuilder(unit, config)
 
     for (const builder of builders) {
       for (const [key, {values, types}] of Object.entries(builder.imports)) {
@@ -213,9 +223,9 @@ export class ImportBuilder {
   }
 
   private normalizeFrom(from: string) {
-    if (from.endsWith(".ts")) {
-      // TODO: toggle based on project settings
-      // from = from.substring(0, from.length - ".ts".length)
+    if (!this.config.includeFileExtensions && from.endsWith(".ts")) {
+      // biome-ignore lint/style/noParameterAssign: normalization
+      from = from.substring(0, from.length - ".ts".length)
     }
 
     if (this.unit && from.startsWith("./")) {

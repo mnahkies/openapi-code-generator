@@ -11,14 +11,17 @@ import {
 
 export type CompilerOptions = Pick<
   TsCompilerOptions,
-  "exactOptionalPropertyTypes"
+  "exactOptionalPropertyTypes" | "rewriteRelativeImportExtensions"
 >
 
 export async function loadTsConfigCompilerOptions(
   searchPath: string,
   fsAdaptor: IFsAdaptor,
 ): Promise<CompilerOptions> {
-  const defaults = {exactOptionalPropertyTypes: false}
+  const defaults = {
+    exactOptionalPropertyTypes: false,
+    rewriteRelativeImportExtensions: false,
+  }
 
   try {
     const path = ts.findConfigFile(searchPath, (it) => fsAdaptor.existsSync(it))

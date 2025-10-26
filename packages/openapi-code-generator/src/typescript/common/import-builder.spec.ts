@@ -20,10 +20,10 @@ describe("typescript/common/import-builder", () => {
   it("can import individual exports", () => {
     const builder = new ImportBuilder()
 
-    builder.addSingle("Cat", "./models.ts", false)
-    builder.addSingle("Dog", "./models.ts", false)
+    builder.addSingle("Cat", "./models", false)
+    builder.addSingle("Dog", "./models", false)
 
-    expect(builder.toString()).toBe("import {Cat, Dog} from './models.ts'")
+    expect(builder.toString()).toBe("import {Cat, Dog} from './models'")
   })
 
   it("can import a whole module, and individual exports", () => {
@@ -38,35 +38,35 @@ describe("typescript/common/import-builder", () => {
 
   describe("relative path handling", () => {
     it("same directory", () => {
-      const builder = new ImportBuilder({filename: "./foo/example.ts"})
+      const builder = new ImportBuilder({filename: "./foo/example"})
 
-      builder.addSingle("Cat", "./foo/models.ts", false)
+      builder.addSingle("Cat", "./foo/models", false)
 
-      expect(builder.toString()).toBe("import {Cat} from './models.ts'")
+      expect(builder.toString()).toBe("import {Cat} from './models'")
     })
 
     it("parent directory", () => {
-      const builder = new ImportBuilder({filename: "./foo/example.ts"})
+      const builder = new ImportBuilder({filename: "./foo/example"})
 
-      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Cat", "./models", false)
 
-      expect(builder.toString()).toBe("import {Cat} from '../models.ts'")
+      expect(builder.toString()).toBe("import {Cat} from '../models'")
     })
 
     it("child directory", () => {
-      const builder = new ImportBuilder({filename: "./example.ts"})
+      const builder = new ImportBuilder({filename: "./example"})
 
-      builder.addSingle("Cat", "./foo/models.ts", false)
+      builder.addSingle("Cat", "./foo/models", false)
 
-      expect(builder.toString()).toBe("import {Cat} from './foo/models.ts'")
+      expect(builder.toString()).toBe("import {Cat} from './foo/models'")
     })
 
     it("sibling directory", () => {
-      const builder = new ImportBuilder({filename: "./foo/example.ts"})
+      const builder = new ImportBuilder({filename: "./foo/example"})
 
-      builder.addSingle("Cat", "./bar/models.ts", false)
+      builder.addSingle("Cat", "./bar/models", false)
 
-      expect(builder.toString()).toBe("import {Cat} from '../bar/models.ts'")
+      expect(builder.toString()).toBe("import {Cat} from '../bar/models'")
     })
   })
 
@@ -74,12 +74,10 @@ describe("typescript/common/import-builder", () => {
     it("can import types", () => {
       const builder = new ImportBuilder()
 
-      builder.addSingle("Cat", "./models.ts", false)
-      builder.addSingle("Dog", "./models.ts", true)
+      builder.addSingle("Cat", "./models", false)
+      builder.addSingle("Dog", "./models", true)
 
-      expect(builder.toString()).toBe(
-        "import {Cat, type Dog} from './models.ts'",
-      )
+      expect(builder.toString()).toBe("import {Cat, type Dog} from './models'")
     })
 
     it("formats all-type named imports as 'import type {A, B}'", () => {
@@ -134,9 +132,9 @@ describe("typescript/common/import-builder", () => {
 
       builder.addModule("_, defaultExport", "ignore-me") // ensure not used
       builder.addModule("Lodash", "lodash")
-      builder.addSingle("Cat", "./models.ts", false)
-      builder.addSingle("Dog", "./models.ts", true)
-      builder.addSingle("Unused", "./models.ts", false)
+      builder.addSingle("Cat", "./models", false)
+      builder.addSingle("Dog", "./models", true)
+      builder.addSingle("Unused", "./models", false)
 
       const code = [
         "function demo() {",
@@ -148,7 +146,7 @@ describe("typescript/common/import-builder", () => {
       expect(builder.toString(code)).toBe(
         [
           "import Lodash from 'lodash'",
-          "import {Cat, type Dog} from './models.ts'",
+          "import {Cat, type Dog} from './models'",
         ].join("\n"),
       )
     })
@@ -169,7 +167,7 @@ describe("typescript/common/import-builder", () => {
     })
 
     it("orders sources by Biome distance (URL > protocol pkg > pkg > alias > paths)", () => {
-      const builder = new ImportBuilder({filename: "./foo/example.ts"})
+      const builder = new ImportBuilder({filename: "./foo/example"})
 
       builder.addModule("S1", "./file.js") // sibling
       builder.addModule("A1", "#alias") // alias

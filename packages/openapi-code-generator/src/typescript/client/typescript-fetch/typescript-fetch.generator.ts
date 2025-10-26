@@ -10,6 +10,8 @@ export async function generateTypescriptFetch(
 ): Promise<void> {
   const {input, emitter, allowAny} = config
 
+  const schemaBuilderImports = new ImportBuilder()
+
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
@@ -21,6 +23,7 @@ export async function generateTypescriptFetch(
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
     rootTypeBuilder,
   )
 

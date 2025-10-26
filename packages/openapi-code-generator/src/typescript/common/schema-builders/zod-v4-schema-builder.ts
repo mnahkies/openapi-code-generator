@@ -50,12 +50,14 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
+    schemaBuilderImports: ImportBuilder,
     typeBuilder: TypeBuilder,
   ): Promise<ZodV4Builder> {
     return new ZodV4Builder(
       filename,
       input,
       schemaBuilderConfig,
+      schemaBuilderImports,
       typeBuilder,
       staticSchemas,
     )
@@ -66,6 +68,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       this.filename,
       this.input,
       this.config,
+      this.schemaBuilderImports,
       this.typeBuilder,
       staticSchemas,
       {},
