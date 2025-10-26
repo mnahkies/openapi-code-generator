@@ -1,12 +1,12 @@
-const base = require("../jest.base")
-const {name: displayName} = require("./package.json")
+import base from "../jest.base.js"
+import pkg from "./package.json" with {type: "json"}
 
 /**
  * @type { import('@jest/types').Config.ProjectConfig }
  */
 const config = {
   ...base,
-  displayName,
+  displayName: pkg.name,
 }
 
-module.exports = config
+export default config

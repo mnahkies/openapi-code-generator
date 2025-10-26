@@ -1,10 +1,10 @@
 import {type NextFunction, type Request, type Response, Router} from "express"
-import {bootstrap} from "./generated/server/express"
-import {createEscapeHatchesRouter} from "./routes/express/escape-hatches"
-import {createMediaTypesRouter} from "./routes/express/media-types"
-import {createRequestHeadersRouter} from "./routes/express/request-headers"
-import {createValidationRouter} from "./routes/express/validation"
-import {createErrorResponse} from "./shared"
+import {bootstrap} from "./generated/server/express/index.ts"
+import {createEscapeHatchesRouter} from "./routes/express/escape-hatches.ts"
+import {createMediaTypesRouter} from "./routes/express/media-types.ts"
+import {createRequestHeadersRouter} from "./routes/express/request-headers.ts"
+import {createValidationRouter} from "./routes/express/validation.ts"
+import {createErrorResponse} from "./shared.ts"
 
 function createRouter() {
   const router = Router()

@@ -5,7 +5,7 @@ import {
   type GetValidationNumbersRandomNumber,
   type PostValidationEnums,
   type PostValidationOptionalBody,
-} from "../../generated/server/koa/routes/validation"
+} from "../../generated/server/koa/routes/validation.ts"
 
 const postValidationEnums: PostValidationEnums = async ({body}, respond) => {
   return respond.with200().body(body)

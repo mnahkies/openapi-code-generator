@@ -1,9 +1,12 @@
 import type {Server} from "node:http"
 import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
-import {ApiClient, E2ETestClientServers} from "./generated/client/fetch/client"
-import type {t_ProductOrder} from "./generated/client/fetch/models"
-import {startServerFunctions} from "./index"
-import {numberBetween} from "./test-utils"
+import {
+  ApiClient,
+  E2ETestClientServers,
+} from "./generated/client/fetch/client.ts"
+import type {t_ProductOrder} from "./generated/client/fetch/models.ts"
+import {startServerFunctions} from "./index.ts"
+import {numberBetween} from "./test-utils.ts"
 
 describe.each(startServerFunctions)(
   "e2e - typescript-fetch client against $name server",

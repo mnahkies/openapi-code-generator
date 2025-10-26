@@ -1,5 +1,5 @@
-import {startExpressServer} from "./express.entrypoint"
-import {startKoaServer} from "./koa.entrypoint"
+import {startExpressServer} from "./express.entrypoint.ts"
+import {startKoaServer} from "./koa.entrypoint.ts"
 
 type StartServerFunction = {
   name: string

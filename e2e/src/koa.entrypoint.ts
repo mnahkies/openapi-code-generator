@@ -1,10 +1,10 @@
 import Router from "@koa/router"
-import {bootstrap} from "./generated/server/koa"
-import {createEscapeHatchesRouter} from "./routes/koa/escape-hatches"
-import {createMediaTypesRouter} from "./routes/koa/media-types"
-import {createRequestHeadersRouter} from "./routes/koa/request-headers"
-import {createValidationRouter} from "./routes/koa/validation"
-import {createErrorResponse} from "./shared"
+import {bootstrap} from "./generated/server/koa/index.ts"
+import {createEscapeHatchesRouter} from "./routes/koa/escape-hatches.ts"
+import {createMediaTypesRouter} from "./routes/koa/media-types.ts"
+import {createRequestHeadersRouter} from "./routes/koa/request-headers.ts"
+import {createValidationRouter} from "./routes/koa/validation.ts"
+import {createErrorResponse} from "./shared.ts"
 
 function createRouter() {
   const router = new Router()
