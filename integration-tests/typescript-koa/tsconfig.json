@@ -7,8 +7,6 @@
     "types": [],
     /* exercise the code path where exactOptionalPropertyTypes is disabled */
     "exactOptionalPropertyTypes": false,
-    "noUnusedLocals": true,
-    "verbatimModuleSyntax": true,
-    "rewriteRelativeImportExtensions": true
+    "noUnusedLocals": true
   }
 }
