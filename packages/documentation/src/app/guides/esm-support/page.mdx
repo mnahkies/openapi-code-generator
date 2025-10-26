@@ -11,7 +11,9 @@ It will try to detect this from the `package.json` file, based on whether the `t
 You can override this by passing the `--ts-is-esm-project <bool>` flag to the code generator,
 or using the `OPENAPI_TS_IS_ESM_PROJECT` environment variable.
 
-## package.json
+## Project Configuration
+
+### package.json
 Ensure that you have `"type": "module"` in your `package.json` file.
 
 ```json5
@@ -20,7 +22,7 @@ Ensure that you have `"type": "module"` in your `package.json` file.
 }
 ```
 
-## tsconfig.json
+### tsconfig.json
 Ensure that you have `"module": "nodenext"` in your `tsconfig.json` file,
 and have rewriteRelativeImportExtensions set to true.
 
@@ -36,3 +38,28 @@ and have rewriteRelativeImportExtensions set to true.
   }
 }
 ```
+
+## How does it work?
+
+The code generator CLI itself, and the runtime packages still ship as CommonJS modules.
+However, NodeJS supports loading CommonJS from either ESM or CommonJS contexts (ref: [interoperability-with-commonjs](https://nodejs.org/api/esm.html#interoperability-with-commonjs))
+
+This means you can run the generator, and import the runtime code from both ESM and CommonJS projects.
+
+We do have to change one thing in the generated code, for it to work with ESM, and that's including file extensions in imports.
+
+Eg:
+```typescript
+import {
+  // schema names
+} from "./schemas"
+```
+
+Becomes
+```typescript
+import {
+  // schema names
+} from "./schemas.ts"
+```
+
+This is controlled by the `--ts-is-esm-project true` flag mentioned above, though in most cases it should be detected automatically.
