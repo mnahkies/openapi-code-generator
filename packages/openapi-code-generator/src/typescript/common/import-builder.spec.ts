@@ -20,8 +20,8 @@ describe("typescript/common/import-builder", () => {
   it("can import individual exports", () => {
     const builder = new ImportBuilder({includeFileExtensions: false})
 
-    builder.addSingle("Cat", "./models", false)
-    builder.addSingle("Dog", "./models", false)
+    builder.addSingle("Cat", "./models.ts", false)
+    builder.addSingle("Dog", "./models.ts", false)
 
     expect(builder.toString()).toBe("import {Cat, Dog} from './models'")
   })
@@ -45,7 +45,7 @@ describe("typescript/common/import-builder", () => {
         includeFileExtensions: false,
       })
 
-      builder.addSingle("Cat", "./foo/models", false)
+      builder.addSingle("Cat", "./foo/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from './models'")
     })
@@ -58,7 +58,7 @@ describe("typescript/common/import-builder", () => {
         includeFileExtensions: false,
       })
 
-      builder.addSingle("Cat", "./models", false)
+      builder.addSingle("Cat", "./models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from '../models'")
     })
@@ -71,7 +71,7 @@ describe("typescript/common/import-builder", () => {
         includeFileExtensions: false,
       })
 
-      builder.addSingle("Cat", "./foo/models", false)
+      builder.addSingle("Cat", "./foo/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from './foo/models'")
     })
@@ -84,7 +84,7 @@ describe("typescript/common/import-builder", () => {
         includeFileExtensions: false,
       })
 
-      builder.addSingle("Cat", "./bar/models", false)
+      builder.addSingle("Cat", "./bar/models.ts", false)
 
       expect(builder.toString()).toBe("import {Cat} from '../bar/models'")
     })
@@ -94,8 +94,8 @@ describe("typescript/common/import-builder", () => {
     it("can import types", () => {
       const builder = new ImportBuilder({includeFileExtensions: false})
 
-      builder.addSingle("Cat", "./models", false)
-      builder.addSingle("Dog", "./models", true)
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", true)
 
       expect(builder.toString()).toBe("import {Cat, type Dog} from './models'")
     })
@@ -152,9 +152,9 @@ describe("typescript/common/import-builder", () => {
 
       builder.addModule("_, defaultExport", "ignore-me") // ensure not used
       builder.addModule("Lodash", "lodash")
-      builder.addSingle("Cat", "./models", false)
-      builder.addSingle("Dog", "./models", true)
-      builder.addSingle("Unused", "./models", false)
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", true)
+      builder.addSingle("Unused", "./models.ts", false)
 
       const code = [
         "function demo() {",
@@ -248,6 +248,106 @@ describe("typescript/common/import-builder", () => {
 
       expect(() => ImportBuilder.merge(undefined, a, b)).toThrow(
         "cannot merge imports with colliding importAlls",
+      )
+    })
+  })
+
+  describe("includeFileExtensions = true", () => {
+    it("keeps .ts extensions in named imports", () => {
+      const builder = new ImportBuilder({includeFileExtensions: true})
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", false)
+      expect(builder.toString()).toBe("import {Cat, Dog} from './models.ts'")
+    })
+
+    it("keeps .ts extension for default (module) imports from relative files", () => {
+      const builder = new ImportBuilder({includeFileExtensions: true})
+      builder.addModule("Util", "./util.ts")
+      expect(builder.toString()).toBe("import Util from './util.ts'")
+    })
+
+    describe("relative path handling", () => {
+      it("same directory keeps extension", () => {
+        const builder = new ImportBuilder({
+          unit: {
+            filename: "./foo/example",
+          },
+          includeFileExtensions: true,
+        })
+
+        builder.addSingle("Cat", "./foo/models.ts", false)
+
+        expect(builder.toString()).toBe("import {Cat} from './models.ts'")
+      })
+
+      it("parent directory keeps extension", () => {
+        const builder = new ImportBuilder({
+          unit: {
+            filename: "./foo/example",
+          },
+          includeFileExtensions: true,
+        })
+
+        builder.addSingle("Cat", "./models.ts", false)
+
+        expect(builder.toString()).toBe("import {Cat} from '../models.ts'")
+      })
+
+      it("child directory keeps extension", () => {
+        const builder = new ImportBuilder({
+          unit: {
+            filename: "./example",
+          },
+          includeFileExtensions: true,
+        })
+
+        builder.addSingle("Cat", "./foo/models.ts", false)
+
+        expect(builder.toString()).toBe("import {Cat} from './foo/models.ts'")
+      })
+
+      it("sibling directory keeps extension", () => {
+        const builder = new ImportBuilder({
+          unit: {
+            filename: "./foo/example",
+          },
+          includeFileExtensions: true,
+        })
+
+        builder.addSingle("Cat", "./bar/models.ts", false)
+
+        expect(builder.toString()).toBe("import {Cat} from '../bar/models.ts'")
+      })
+    })
+
+    it("supports types with extensions", () => {
+      const builder = new ImportBuilder({includeFileExtensions: true})
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", true)
+      expect(builder.toString()).toBe(
+        "import {Cat, type Dog} from './models.ts'",
+      )
+    })
+
+    it("usage-based pruning still works with extensions", () => {
+      const builder = new ImportBuilder({includeFileExtensions: true})
+      builder.addModule("Lodash", "lodash")
+      builder.addSingle("Cat", "./models.ts", false)
+      builder.addSingle("Dog", "./models.ts", true)
+      builder.addSingle("Unused", "./models.ts", false)
+
+      const code = [
+        "function demo() {",
+        "  const x: Dog = {} as any;",
+        "  console.log(Lodash, Cat)",
+        "}",
+      ].join("\n")
+
+      expect(builder.toString(code)).toBe(
+        [
+          "import Lodash from 'lodash'",
+          "import {Cat, type Dog} from './models.ts'",
+        ].join("\n"),
       )
     })
   })
