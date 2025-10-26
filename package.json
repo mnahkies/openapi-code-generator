@@ -18,7 +18,7 @@
   },
   "scripts": {
     "clean": "pnpm -r clean",
-    "docs:generate": "./scripts/generate-docs.sh",
+    "docs:generate": "node ./scripts/generate-toc.mjs",
     "refresh": "./scripts/refresh-data.sh",
     "lint": "biome lint --fix .",
     "format": "biome check --write .",
@@ -58,8 +58,9 @@
     "json5": "^2.2.3",
     "lerna": "^8.2.3",
     "lint-staged": "^16.2.4",
-    "markdown-toc": "^1.2.0",
     "prettier": "^3.6.2",
+    "remark": "^15.0.1",
+    "remark-toc": "^9.0.0",
     "typescript": "^5.9.3"
   },
   "workspaces": [
