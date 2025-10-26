@@ -9,7 +9,7 @@ import {
   type Server,
   type StatusCode,
 } from "@nahkies/typescript-fetch-runtime/main"
-import type {t_Error, t_NewPet, t_Pet} from "./models"
+import type {t_Error, t_NewPet, t_Pet} from "./models.ts"
 
 export class SwaggerPetstoreServers {
   static default(): Server<"SwaggerPetstore"> {

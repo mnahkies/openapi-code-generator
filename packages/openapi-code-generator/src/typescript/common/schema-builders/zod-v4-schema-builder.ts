@@ -50,12 +50,14 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
     filename: string,
     input: Input,
     schemaBuilderConfig: SchemaBuilderConfig,
+    schemaBuilderImports: ImportBuilder,
     typeBuilder: TypeBuilder,
   ): Promise<ZodV4Builder> {
     return new ZodV4Builder(
       filename,
       input,
       schemaBuilderConfig,
+      schemaBuilderImports,
       typeBuilder,
       staticSchemas,
     )
@@ -66,6 +68,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       this.filename,
       this.input,
       this.config,
+      this.schemaBuilderImports,
       this.typeBuilder,
       staticSchemas,
       {},
@@ -226,7 +229,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumNumberValue",
-          "./models",
+          this.typeBuilder.filename,
           true,
         )
         return [
@@ -278,7 +281,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumStringValue",
-          "./models",
+          this.typeBuilder.filename,
           true,
         )
         return this.union([

@@ -35,6 +35,8 @@ export const tsconfigSchema = z.object({
       noPropertyAccessFromIndexSignature: z.boolean(),
       allowUnusedLabels: z.boolean(),
       allowUnreachableCode: z.boolean(),
+      rewriteRelativeImportExtensions: z.boolean(),
+      verbatimModuleSyntax: z.boolean(),
     })
     .partial(),
 })

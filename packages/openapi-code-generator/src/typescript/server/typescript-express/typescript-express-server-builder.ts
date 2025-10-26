@@ -1,6 +1,6 @@
 import type {Input} from "../../../core/input"
 import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
-import {ImportBuilder} from "../../common/import-builder"
+import type {ImportBuilder} from "../../common/import-builder"
 
 export class ExpressServerBuilder implements ICompilable {
   constructor(
@@ -8,7 +8,7 @@ export class ExpressServerBuilder implements ICompilable {
     private readonly name: string,
     // biome-ignore lint/correctness/noUnusedPrivateClassMembers: future
     private readonly input: Input,
-    private readonly imports: ImportBuilder = new ImportBuilder(),
+    private readonly imports: ImportBuilder,
   ) {
     this.imports
       .from("@nahkies/typescript-express-runtime/server")

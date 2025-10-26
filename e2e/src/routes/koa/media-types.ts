@@ -3,7 +3,7 @@ import {
   createRouter,
   type PostMediaTypesText,
   type PostMediaTypesXWwwFormUrlencoded,
-} from "../../generated/server/koa/routes/media-types"
+} from "../../generated/server/koa/routes/media-types.ts"
 
 const postMediaTypesText: PostMediaTypesText = async (
   {body},

@@ -27,6 +27,7 @@ export type Config = {
   enumExtensibility: "" | "open" | "closed"
   tsAllowAny: boolean
   tsServerImplementationMethod: ServerImplementationMethod
+  tsIsEsmProject: boolean
   tsCompilerOptions: CompilerOptions
   remoteSpecRequestHeaders?: GenericLoaderRequestHeaders | undefined
 }
@@ -64,6 +65,7 @@ export const configSchema = z.object({
   enumExtensibility: z.enum(["", "open", "closed"]),
   tsAllowAny: z.boolean(),
   tsServerImplementationMethod: tsServerImplementationSchema,
+  tsIsEsmProject: z.boolean(),
   tsCompilerOptions: tsconfigSchema.shape.compilerOptions,
   remoteSpecRequestHeaders: z
     .record(

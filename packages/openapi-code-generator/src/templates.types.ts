@@ -28,6 +28,10 @@ export interface OpenapiTypescriptGeneratorConfig
    */
   schemaBuilder: SchemaBuilderType
   /**
+   * Whether the project is using ESM, or CommonJS
+   */
+  isEsmProject: boolean
+  /**
    * Sub-set of typescript compiler options relevant to codegen
    */
   compilerOptions: CompilerOptions

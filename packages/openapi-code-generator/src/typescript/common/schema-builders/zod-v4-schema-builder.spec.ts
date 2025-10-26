@@ -835,7 +835,8 @@ describe.each(testVersions)(
       }
 
       function inlineStaticSchemas(code: string) {
-        const importRegex = /import { ([^}]+) } from "\.\/unit-test\.schemas"\n/
+        const importRegex =
+          /import {([^}]+)} from "\.\/unit-test\.schemas(?:\.ts)?"\n/
 
         const match = code.match(importRegex)?.[1]
 

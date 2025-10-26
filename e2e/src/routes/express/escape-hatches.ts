@@ -2,7 +2,7 @@ import {SkipResponse} from "@nahkies/typescript-express-runtime/server"
 import {
   createRouter,
   type GetEscapeHatchesPlainText,
-} from "../../generated/server/express/routes/escape-hatches"
+} from "../../generated/server/express/routes/escape-hatches.ts"
 
 const getEscapeHatchesPlainText: GetEscapeHatchesPlainText = async (
   _,

@@ -3,7 +3,11 @@
   "compilerOptions": {
     "composite": false,
     "outDir": "./dist",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "module": "NodeNext",
+    "target": "ESNext",
+    "verbatimModuleSyntax": true,
+    "rewriteRelativeImportExtensions": true
   },
   "include": ["src/**/*"]
 }

@@ -11,21 +11,27 @@ export async function generateTypescriptAngular(
 ): Promise<void> {
   const {input, emitter, allowAny} = config
 
+  const importBuilderConfig = {includeFileExtensions: config.isEsmProject}
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
+  const moduleImports = new ImportBuilder(importBuilderConfig)
+  const serviceImports = new ImportBuilder(importBuilderConfig)
+
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
     {allowAny},
   )
+
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
     rootTypeBuilder,
   )
-
-  const imports = new ImportBuilder()
 
   const exportName = titleCase(input.name())
   const serviceExportName = `${exportName}Service`
@@ -35,9 +41,9 @@ export async function generateTypescriptAngular(
     "client.service.ts",
     serviceExportName,
     input,
-    imports,
-    rootTypeBuilder.withImports(imports),
-    rootSchemaBuilder.withImports(imports),
+    serviceImports,
+    rootTypeBuilder.withImports(serviceImports),
+    rootSchemaBuilder.withImports(serviceImports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
       enableTypedBasePaths: config.enableTypedBasePaths,
@@ -46,7 +52,11 @@ export async function generateTypescriptAngular(
 
   input.allOperations().map((it) => client.add(it))
 
-  const module = new AngularModuleBuilder("api.module.ts", moduleExportName)
+  const module = new AngularModuleBuilder(
+    "api.module.ts",
+    moduleExportName,
+    moduleImports,
+  )
 
   module.provides(`./${client.filename}`).add(client.exportName)
 

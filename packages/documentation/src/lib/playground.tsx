@@ -57,6 +57,7 @@ const defaultConfig = {
   tsCompilerOptions: {exactOptionalPropertyTypes: false},
   enableTypedBasePaths: true,
   filenameConvention: "kebab-case",
+  tsIsEsmProject: false,
   tsServerImplementationMethod: "type",
   enumExtensibility: "",
 } satisfies Config

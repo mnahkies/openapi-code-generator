@@ -1,10 +1,13 @@
 import type {Server} from "node:http"
 import {afterAll, beforeAll, describe, expect, it} from "@jest/globals"
 import type {AxiosError} from "axios"
-import {ApiClient, E2ETestClientServers} from "./generated/client/axios/client"
-import type {t_ProductOrder} from "./generated/client/axios/models"
-import {startServerFunctions} from "./index"
-import {numberBetween} from "./test-utils"
+import {
+  ApiClient,
+  E2ETestClientServers,
+} from "./generated/client/axios/client.ts"
+import type {t_ProductOrder} from "./generated/client/axios/models.ts"
+import {startServerFunctions} from "./index.ts"
+import {numberBetween} from "./test-utils.ts"
 
 describe.each(startServerFunctions)(
   "e2e - typescript-axios client against $name server",

@@ -2,7 +2,7 @@ import {SkipResponse} from "@nahkies/typescript-koa-runtime/server"
 import {
   createRouter,
   type GetEscapeHatchesPlainText,
-} from "../../generated/server/koa/routes/escape-hatches"
+} from "../../generated/server/koa/routes/escape-hatches.ts"
 
 const getEscapeHatchesPlainText: GetEscapeHatchesPlainText = async (
   _,

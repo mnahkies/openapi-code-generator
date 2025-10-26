@@ -16,6 +16,10 @@ export async function generateTypescriptExpress(
   const routesDirectory =
     config.groupingStrategy === "none" ? "./" : "./routes/"
 
+  const importBuilderConfig = {includeFileExtensions: config.isEsmProject}
+
+  const schemaBuilderImports = new ImportBuilder(importBuilderConfig)
+
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
@@ -28,6 +32,7 @@ export async function generateTypescriptExpress(
     input,
     config.schemaBuilder,
     {allowAny},
+    schemaBuilderImports,
     rootTypeBuilder,
   )
 
@@ -35,7 +40,7 @@ export async function generateTypescriptExpress(
     "index.ts",
     input.name(),
     input,
-    new ImportBuilder(),
+    new ImportBuilder(importBuilderConfig),
   )
 
   const routers = await Promise.all(
@@ -44,7 +49,12 @@ export async function generateTypescriptExpress(
         `${path.join(routesDirectory, group.name)}.ts`,
         config.filenameConvention,
       )
-      const imports = new ImportBuilder({filename})
+      const imports = new ImportBuilder({
+        ...importBuilderConfig,
+        unit: {
+          filename,
+        },
+      })
 
       // Create router with imports and types
       const routerBuilder = new ExpressRouterBuilder(

@@ -82,6 +82,11 @@ export function categorizeImportSource(source: string): ImportCategory {
   return ImportCategory.PATH
 }
 
+export type ImportBuilderConfig = {
+  unit?: {filename: string} | undefined
+  includeFileExtensions: boolean
+}
+
 export class ImportBuilder {
   private readonly imports: Record<
     string,
@@ -89,7 +94,7 @@ export class ImportBuilder {
   > = {}
   private readonly importAll: Record<string, string> = {}
 
-  constructor(private readonly unit?: {filename: string}) {}
+  constructor(private readonly config: ImportBuilderConfig) {}
 
   from(from: string) {
     const chain = {
@@ -142,7 +147,14 @@ export class ImportBuilder {
     unit: {filename: string} | undefined,
     ...builders: ImportBuilder[]
   ): ImportBuilder {
-    const result = new ImportBuilder(unit)
+    const config = builders[0]?.config
+
+    if (!config) {
+      // todo: validate all config options are the same?
+      throw new Error("cannot merge imports without config")
+    }
+
+    const result = new ImportBuilder({...config, unit})
 
     for (const builder of builders) {
       for (const [key, {values, types}] of Object.entries(builder.imports)) {
@@ -213,13 +225,13 @@ export class ImportBuilder {
   }
 
   private normalizeFrom(from: string) {
-    if (from.endsWith(".ts")) {
+    if (!this.config.includeFileExtensions && from.endsWith(".ts")) {
       // biome-ignore lint/style/noParameterAssign: normalization
       from = from.substring(0, from.length - ".ts".length)
     }
 
-    if (this.unit && from.startsWith("./")) {
-      const unitDirname = path.dirname(this.unit.filename)
+    if (this.config.unit && from.startsWith("./")) {
+      const unitDirname = path.dirname(this.config.unit.filename)
       const fromDirname = path.dirname(from)
 
       const relative = path.relative(unitDirname, fromDirname)

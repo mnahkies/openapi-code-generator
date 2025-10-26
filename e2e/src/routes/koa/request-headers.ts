@@ -2,7 +2,7 @@ import {
   createRouter,
   type GetHeadersRequest,
   type GetHeadersUndeclared,
-} from "../../generated/server/koa/routes/request-headers"
+} from "../../generated/server/koa/routes/request-headers.ts"
 
 const getHeadersUndeclared: GetHeadersUndeclared = async (
   {headers},

@@ -1,9 +1,7 @@
 import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
-import {ImportBuilder} from "../../common/import-builder"
+import type {ImportBuilder} from "../../common/import-builder"
 
 export class AngularModuleBuilder implements ICompilable {
-  private readonly tsImports: ImportBuilder
-
   private readonly ngImports = new Set<string>()
   private readonly ngDeclarations = new Set<string>()
   private readonly ngExports = new Set<string>()
@@ -12,9 +10,8 @@ export class AngularModuleBuilder implements ICompilable {
   constructor(
     readonly filename: string,
     public readonly exportName: string,
+    private readonly tsImports: ImportBuilder,
   ) {
-    this.tsImports = new ImportBuilder()
-
     this.tsImports.from("@angular/core").add("NgModule")
   }
 

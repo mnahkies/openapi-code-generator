@@ -18,7 +18,7 @@ import type {
   t_postValidationOptionalBodyJson200Response,
   t_postValidationOptionalBodyJsonRequestBody,
   t_RandomNumber,
-} from "./models"
+} from "./models.ts"
 import {
   s_Enumerations,
   s_getHeadersRequestJson200Response,
@@ -26,7 +26,7 @@ import {
   s_ProductOrder,
   s_postValidationOptionalBodyJson200Response,
   s_RandomNumber,
-} from "./schemas"
+} from "./schemas.ts"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {

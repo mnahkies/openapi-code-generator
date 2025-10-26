@@ -76,6 +76,15 @@ export async function generate(
     allowUnusedImports: config.allowUnusedImports,
   })
 
+  if (
+    config.tsIsEsmProject &&
+    !config.tsCompilerOptions.rewriteRelativeImportExtensions
+  ) {
+    logger.warn(
+      `Generating in ESM mode, but typescript compiler option "rewriteRelativeImportExtensions" is not set to true. This may result in broken imports.`,
+    )
+  }
+
   await generator.run({
     input,
     emitter,
@@ -85,6 +94,7 @@ export async function generate(
     compilerOptions: config.tsCompilerOptions,
     groupingStrategy: config.groupingStrategy,
     filenameConvention: config.filenameConvention,
+    isEsmProject: config.tsIsEsmProject,
     allowAny: config.tsAllowAny,
     serverImplementationMethod: config.tsServerImplementationMethod,
   })
