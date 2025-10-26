@@ -1,0 +1,38 @@
+---
+title: ESM Support
+description: Explanation of how to use the code generator in projects using ESM
+---
+
+# ESM Support
+
+The generated code should work with projects using ESM and modern versions of nodejs.
+
+It will try to detect this from the `package.json` file, based on whether the `type` field is set to `module`.
+You can override this by passing the `--ts-is-esm-project <bool>` flag to the code generator,
+or using the `OPENAPI_TS_IS_ESM_PROJECT` environment variable.
+
+## package.json
+Ensure that you have `"type": "module"` in your `package.json` file.
+
+```json5
+{
+  "type": "module"
+}
+```
+
+## tsconfig.json
+Ensure that you have `"module": "nodenext"` in your `tsconfig.json` file,
+and have rewriteRelativeImportExtensions set to true.
+
+```json5
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "esnext",
+    // make typescript replace .ts file extensions in imports with .js in transpiled code
+    "rewriteRelativeImportExtensions": true,
+    // optional
+    "verbatimModuleSyntax": true,
+  }
+}
+```
