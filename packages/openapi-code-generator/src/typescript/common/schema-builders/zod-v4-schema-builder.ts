@@ -229,7 +229,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumNumberValue",
-          "./models",
+          this.typeBuilder.filename,
           true,
         )
         return [
@@ -281,7 +281,7 @@ export class ZodV4Builder extends AbstractSchemaBuilder<
       if (model["x-enum-extensibility"] === "open") {
         this.schemaBuilderImports.addSingle(
           "UnknownEnumStringValue",
-          "./models",
+          this.typeBuilder.filename,
           true,
         )
         return this.union([
