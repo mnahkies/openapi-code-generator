@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {ContosoWidgetManagerService} from "./client.service.ts"
+import {ContosoWidgetManagerService} from "./client.service"
 
 @NgModule({
   imports: [],

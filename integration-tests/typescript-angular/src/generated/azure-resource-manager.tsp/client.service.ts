@@ -14,7 +14,7 @@ import type {
   t_MoveRequest,
   t_MoveResponse,
   t_OperationListResult,
-} from "./models.ts"
+} from "./models"
 
 export class ContosoProviderHubClientServiceServers {
   static default(): Server<"ContosoProviderHubClientService"> {

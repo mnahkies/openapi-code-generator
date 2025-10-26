@@ -26,13 +26,13 @@ import type {
   t_PostValidationOptionalBodyRequestBodySchema,
   t_postValidationOptionalBodyJson200Response,
   t_RandomNumber,
-} from "../models.ts"
+} from "../models"
 import {
   s_Enumerations,
   s_postValidationOptionalBodyJson200Response,
   s_postValidationOptionalBodyJsonRequestBody,
   s_RandomNumber,
-} from "../schemas.ts"
+} from "../schemas"
 
 export type GetValidationNumbersRandomNumberResponder = {
   with200(): ExpressRuntimeResponse<t_RandomNumber>

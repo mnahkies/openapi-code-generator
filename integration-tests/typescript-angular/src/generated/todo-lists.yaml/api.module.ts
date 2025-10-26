@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {TodoListsExampleApiService} from "./client.service.ts"
+import {TodoListsExampleApiService} from "./client.service"
 
 @NgModule({
   imports: [],

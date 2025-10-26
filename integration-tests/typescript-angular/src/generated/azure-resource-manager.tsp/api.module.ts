@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {ContosoProviderHubClientService} from "./client.service.ts"
+import {ContosoProviderHubClientService} from "./client.service"
 
 @NgModule({
   imports: [],

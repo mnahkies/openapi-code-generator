@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {NgModule} from "@angular/core"
-import {StripeApiService} from "./client.service.ts"
+import {StripeApiService} from "./client.service"
 
 @NgModule({
   imports: [],

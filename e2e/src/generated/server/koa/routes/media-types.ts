@@ -25,8 +25,8 @@ import type {
   t_PostMediaTypesTextBodySchema,
   t_PostMediaTypesXWwwFormUrlencodedBodySchema,
   t_ProductOrder,
-} from "../models.ts"
-import {s_ProductOrder} from "../schemas.ts"
+} from "../models"
+import {s_ProductOrder} from "../schemas"
 
 export type PostMediaTypesTextResponder = {
   with200(): KoaRuntimeResponse<string>
