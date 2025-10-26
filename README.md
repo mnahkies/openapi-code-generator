@@ -13,15 +13,15 @@ With typescript templates for [koa](https://openapi-code-generator.nahkies.co.nz
 
 The [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch) and [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios) templates work great in conjunction with [react-query](https://tanstack.com/query/latest)
 
-> [!TIP]
+> \[!TIP]
 > Try out our [interactive playground here](https://openapi-code-generator.nahkies.co.nz/playground)
 
 <!-- toc -->
 
-- [Documentation](#documentation)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
+* [Documentation](#documentation)
+* [Project Structure](#project-structure)
+* [Contributing](#contributing)
+* [License](#license)
 
 <!-- tocstop -->
 
@@ -37,11 +37,11 @@ You can contribute to it in [./packages/documentation](./packages/documentation)
 
 The repository is structured as a mono repo of several npm packages that work together under [./packages](./packages):
 
-- [openapi-code-generator](./packages/openapi-code-generator)
-- [typescript-axios-runtime](./packages/typescript-axios-runtime)
-- [typescript-express-runtime](./packages/typescript-express-runtime)
-- [typescript-fetch-runtime](./packages/typescript-fetch-runtime)
-- [typescript-koa-runtime](./packages/typescript-koa-runtime)
+* [openapi-code-generator](./packages/openapi-code-generator)
+* [typescript-axios-runtime](./packages/typescript-axios-runtime)
+* [typescript-express-runtime](./packages/typescript-express-runtime)
+* [typescript-fetch-runtime](./packages/typescript-fetch-runtime)
+* [typescript-koa-runtime](./packages/typescript-koa-runtime)
 
 The `openapi-code-generator` package is the main package, whilst the others are supporting packages used at runtime by
 the code output by some of the templates.

@@ -3,7 +3,6 @@
 [![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/mnahkies/openapi-code-generator/actions?query=branch%3Amain+event%3Apush)
 [![npm](https://img.shields.io/npm/dm/%40nahkies%2Fopenapi-code-generator.svg)](https://www.npmjs.com/package/@nahkies/openapi-code-generator)
 
-
 `@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
 and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
 
@@ -12,10 +11,10 @@ and [TypeSpec](https://typespec.io/) are supported as input specifications.
 
 <!-- toc -->
 
-- [Documentation](#documentation)
-- [Changelog](#changelog)
-- [Stability](#stability)
-- [More information / contributing](#more-information--contributing)
+* [Documentation](#documentation)
+* [Changelog](#changelog)
+* [Stability](#stability)
+* [More information / contributing](#more-information--contributing)
 
 <!-- tocstop -->
 

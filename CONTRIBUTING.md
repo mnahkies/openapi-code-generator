@@ -13,12 +13,12 @@ PR with a detailed description is fine too.
 
 <!-- toc -->
 
-- [Setup](#setup)
-- [Workflow](#workflow)
-- [Typescript Conventions](#typescript-conventions)
-- [Linting / Formatting](#linting--formatting)
-- [Testing](#testing)
-- [Publishing](#publishing)
+* [Setup](#setup)
+* [Workflow](#workflow)
+* [Typescript Conventions](#typescript-conventions)
+* [Linting / Formatting](#linting--formatting)
+* [Testing](#testing)
+* [Publishing](#publishing)
 
 <!-- tocstop -->
 
@@ -27,7 +27,7 @@ PR with a detailed description is fine too.
 1. Install a node version manager that respects `.nvmrc` files, such as
    [fnm](https://github.com/Schniz/fnm)
 2. Enable [corepack](https://nodejs.org/api/corepack.html) using `corepack
-enable`
+   enable`
 3. Install `devDependencies` using `pnpm`
 
 ## Workflow
@@ -93,8 +93,8 @@ pnpm integration:generate && pnpm integration:validate
 
 We have two types of testing in play:
 
-- Unit tests using `jest`
-- Integration tests
+* Unit tests using `jest`
+* Integration tests
 
 The unit testing is currently a bit on the "light" side - the project started
 as a fun experiment on a weekend and there is still some back filling to do.
@@ -104,11 +104,11 @@ There is also a heavy reliance on integration tests, where we use the openapi
 specifications for large API surfaces to run the code generation and check that
 the result builds, currently this includes:
 
-- Github API
-- Stripe API
-- Okta API (partial)
-- Petstore API (from Swagger)
-- A Todo List API (written for this repo, showcases definitions split across
+* Github API
+* Stripe API
+* Okta API (partial)
+* Petstore API (from Swagger)
+* A Todo List API (written for this repo, showcases definitions split across
   multiple files)
 
 At this stage we don't actually execute the code generated for these API's, but
