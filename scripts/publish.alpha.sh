@@ -2,6 +2,13 @@
 
 set -ex
 
+if [[ $(git branch --show-current) != "main" ]]; then
+  echo 'releases must be published from main'
+  exit 1
+fi
+
+git pull origin main
+
 pnpm clean
 
 pnpm install --frozen-lockfile
@@ -10,11 +17,10 @@ pnpm ci-pipeline
 
 ./scripts/assert-clean-working-directory.sh
 
-BRANCH="$(git branch --show-current | sed -e 's|/|-|g')"
-
-pnpm lerna publish \
+pnpm exec lerna version preminor \
   --no-private \
   --force-publish \
-  --canary \
-  --preid "${BRANCH}" \
-  --pre-dist-tag "${BRANCH}"
+  --no-push \
+  --conventional-commits \
+  --conventional-prerelease \
+  --preid alpha
