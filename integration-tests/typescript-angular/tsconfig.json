@@ -16,7 +16,6 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "rewriteRelativeImportExtensions": true,
     "moduleResolution": "bundler",
     "target": "ES2022",
     "module": "ES2022"
