@@ -2,12 +2,9 @@ import {
   bootstrap,
   createRouter,
   type GetTodoLists,
-} from "./generated/todo-lists.yaml/generated.ts"
-import type {t_TodoList} from "./generated/todo-lists.yaml/models.ts"
-import {
-  genericErrorMiddleware,
-  notImplemented,
-} from "./petstore-expanded.yaml.ts"
+} from "./generated/todo-lists.yaml/generated"
+import type {t_TodoList} from "./generated/todo-lists.yaml/models"
+import {genericErrorMiddleware, notImplemented} from "./petstore-expanded.yaml"
 
 const getTodoLists: GetTodoLists = async ({query}, respond) => {
   console.info("query", {query})

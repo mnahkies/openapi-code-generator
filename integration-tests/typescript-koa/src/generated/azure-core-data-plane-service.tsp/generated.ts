@@ -98,7 +98,7 @@ import type {
   t_WidgetsUpdateAnalyticsHeaderSchema,
   t_WidgetsUpdateAnalyticsParamSchema,
   t_WidgetsUpdateAnalyticsQuerySchema,
-} from "./models.ts"
+} from "./models"
 import {
   s_Azure_Core_Foundations_Error,
   s_Azure_Core_Foundations_ErrorResponse,
@@ -116,7 +116,7 @@ import {
   s_WidgetPartReorderRequest,
   s_WidgetRepairRequest,
   s_WidgetRepairState,
-} from "./schemas.ts"
+} from "./schemas"
 
 export type GetServiceStatusResponder = {
   with200(): KoaRuntimeResponse<{

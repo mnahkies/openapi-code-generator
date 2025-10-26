@@ -7,7 +7,7 @@ import type {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_InnerError,
-} from "./models.ts"
+} from "./models"
 
 export const s_Azure_Core_Foundations_OperationState = z.union([
   z.enum(["NotStarted", "Running", "Succeeded", "Failed", "Canceled"]),

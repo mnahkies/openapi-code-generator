@@ -6,8 +6,8 @@ import {
   bootstrap,
   createRouter,
   type FindPetById,
-} from "./generated/petstore-expanded.yaml/generated.ts"
-import type {t_Error} from "./generated/petstore-expanded.yaml/models.ts"
+} from "./generated/petstore-expanded.yaml/generated"
+import type {t_Error} from "./generated/petstore-expanded.yaml/models"
 
 export const notImplemented = async (
   _: unknown,

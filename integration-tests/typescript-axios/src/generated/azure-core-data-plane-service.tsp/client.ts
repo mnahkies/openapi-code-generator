@@ -24,7 +24,7 @@ import type {
   t_WidgetPartReorderRequest,
   t_WidgetRepairRequest,
   t_WidgetRepairState,
-} from "./models.ts"
+} from "./models"
 
 export class ContosoWidgetManagerServers {
   static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {

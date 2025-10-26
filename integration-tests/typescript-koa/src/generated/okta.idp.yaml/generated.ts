@@ -68,7 +68,7 @@ import type {
   t_VerifyEmailOtpParamSchema,
   t_VerifyPhoneChallengeBodySchema,
   t_VerifyPhoneChallengeParamSchema,
-} from "./models.ts"
+} from "./models"
 import {
   PermissiveBoolean,
   s_AppAuthenticatorEnrollment,
@@ -87,7 +87,7 @@ import {
   s_Schema,
   s_UpdateAppAuthenticatorEnrollmentRequest,
   s_UpdateAuthenticatorEnrollmentRequest,
-} from "./schemas.ts"
+} from "./schemas"
 
 export type CreateAppAuthenticatorEnrollmentResponder = {
   with200(): KoaRuntimeResponse<t_AppAuthenticatorEnrollment>

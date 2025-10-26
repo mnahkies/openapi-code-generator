@@ -1106,7 +1106,7 @@ import type {
   t_treasury_transaction,
   t_treasury_transaction_entry,
   t_webhook_endpoint,
-} from "./models.ts"
+} from "./models"
 import {
   PermissiveBoolean,
   s_account,
@@ -1266,7 +1266,7 @@ import {
   s_treasury_transaction,
   s_treasury_transaction_entry,
   s_webhook_endpoint,
-} from "./schemas.ts"
+} from "./schemas"
 
 export type GetAccountResponder = {
   with200(): KoaRuntimeResponse<t_account>

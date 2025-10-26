@@ -1834,7 +1834,7 @@ import type {
   t_workflow_run,
   t_workflow_run_usage,
   t_workflow_usage,
-} from "./models.ts"
+} from "./models"
 import {
   PermissiveBoolean,
   s_actions_billing_usage,
@@ -2172,7 +2172,7 @@ import {
   s_workflow_run,
   s_workflow_run_usage,
   s_workflow_usage,
-} from "./schemas.ts"
+} from "./schemas"
 
 export type MetaRootResponder = {
   with200(): KoaRuntimeResponse<t_root>

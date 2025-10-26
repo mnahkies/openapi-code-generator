@@ -38,7 +38,7 @@ import type {
   t_TokenRequest,
   t_TokenResponse,
   t_UserInfo,
-} from "./models.ts"
+} from "./models"
 
 export class OktaOpenIdConnectOAuth20Servers {
   static default(): Server<"OktaOpenIdConnectOAuth20"> {

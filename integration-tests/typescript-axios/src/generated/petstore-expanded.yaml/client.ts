@@ -8,7 +8,7 @@ import {
   type Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import type {AxiosRequestConfig, AxiosResponse} from "axios"
-import type {t_NewPet, t_Pet} from "./models.ts"
+import type {t_NewPet, t_Pet} from "./models"
 
 export class SwaggerPetstoreServers {
   static default(): Server<"SwaggerPetstore"> {

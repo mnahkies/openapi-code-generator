@@ -38,14 +38,14 @@ import type {
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
   t_UploadAttachmentBodySchema,
-} from "./models.ts"
+} from "./models"
 import {
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
   s_TodoList,
   s_UnknownObject,
-} from "./schemas.ts"
+} from "./schemas"
 
 export type GetTodoListsResponder = {
   with200(): KoaRuntimeResponse<t_TodoList[]>

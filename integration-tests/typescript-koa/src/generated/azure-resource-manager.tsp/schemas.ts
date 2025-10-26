@@ -6,7 +6,7 @@ import {z} from "zod/v4"
 import type {
   t_Azure_ResourceManager_CommonTypes_ErrorDetail,
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
-} from "./models.ts"
+} from "./models"
 
 export const PermissiveBoolean = z.preprocess((value) => {
   if (typeof value === "string" && (value === "true" || value === "false")) {

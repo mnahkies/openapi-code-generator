@@ -3,8 +3,8 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import axios from "axios"
-import {ApiClient} from "./generated/api.github.com.yaml/client.ts"
-import type {t_repository} from "./generated/api.github.com.yaml/models.ts"
+import {ApiClient} from "./generated/api.github.com.yaml/client"
+import type {t_repository} from "./generated/api.github.com.yaml/models"
 
 const client = new ApiClient({
   axios: axios.create({
