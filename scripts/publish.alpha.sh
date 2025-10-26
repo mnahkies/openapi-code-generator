@@ -24,3 +24,12 @@ pnpm exec lerna version preminor \
   --conventional-commits \
   --conventional-prerelease \
   --preid alpha
+
+# workaround https://github.com/lerna/lerna/issues/3981
+TAG=$(git tag --points-at HEAD)
+
+pnpm i --lockfile-only
+git add pnpm-lock.yaml
+git commit --amend --no-edit
+
+git tag -f "${TAG}"
