@@ -17,7 +17,11 @@ export class NodeFsAdaptor implements IFsAdaptor {
       const stat = await fs.stat(path)
       return stat.isFile()
     } catch (err) {
-      if (err instanceof Error && Reflect.get(err, "code") === "ENOENT") {
+      if (
+        typeof err === "object" &&
+        err !== null &&
+        Reflect.get(err, "code") === "ENOENT"
+      ) {
         return false
       }
       throw err
